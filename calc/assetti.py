@@ -13,7 +13,7 @@ import sys
 
 from statica_tripode import CONFIG, valuta, verifica_volo
 
-FONDO = 38.4          # punto piu' basso vicino al corpo sotto l'asse dei femori: braccio inferiore della coxa (D-047; da aggiornare con il CAD)
+FONDO = 41.4          # punto piu' basso vicino al corpo sotto l'asse dei femori: nervatura del braccio della coxa (zampa v0 dopo la revisione)
 
 
 def migliore(cfg, h):

@@ -1,6 +1,6 @@
 # Progetto meccanico — versione MG996R
 
-Stato al 9 ottobre 2026: **zampa v0 modellata e verificata in Fusion** con i giunti veri (D-047, D-048). Il corpo viene dopo.
+Stato al 9 ottobre 2026: **zampa v0.1 modellata, rivista da quattro revisori e corretta** (D-047, D-048, D-049), verificata in Fusion con i giunti veri. Il corpo viene dopo.
 
 ![Zampa v0, femore a +12°, ginocchio a 75°](immagini/zampa-v0.png)
 
@@ -38,9 +38,9 @@ Quote principali (dal modello di verifica `calc/zampa_escursioni.py`, da conferm
 | Piano delle alette dei servo di femore e ginocchio (orlo delle culle) | Y = +9,45 |
 | Fondo della culla, faccia esterna / flangia del cuscinetto | Y = −24,15 / −24,95 |
 | Disco della squadretta | Y da +24,85 a +27,35 |
-| Culla nella terna del servo | x da −12,45 a +32,95, semilarghezza 12,45; bugne degli inserti fino a −17,85 e +38,35 |
-| Anima della coxa | X da 40,15 a 44,55 (gioco 0,8 dalla gondola, raggio 39,32) |
-| Braccio inferiore della coxa | Z da −38,35 a −33,15, più la nervatura sotto |
+| Culla nella terna del servo | x da −12,45 a +32,95, semilarghezza 12,45; bugne fino a −18,05 e +38,35; zoccolo pieno sotto la coda; fessura del passacavo larga 6,7 dall'orlo alla finestra |
+| Anima della coxa | X da 40,55 a 44,55 (gioco 1,2 dalla gondola, raggio 39,32); testa da X 34 a 44,55, Z da +8,05 a +19,6 |
+| Braccio inferiore della coxa | Z da −38,35 a −33,15, nervatura fino a −41,35 |
 | Ponte della coxa | mozzo Z da +17,05 a +23,5; braccio da +19,6 a +23,5 (appoggio sulla testa dell'anima) |
 | Blocco del femore (terna del femore) | X da 21,5 a 44, Z da −2 a +20, smussi in basso verso il ginocchio e in alto verso l'anca |
 
@@ -50,18 +50,32 @@ Script `cad/script/zampa.py`, passi `parametri`, `coxa`, `ponte`, `femore_b`, `f
 
 | Parte | Volume pieno | Massa stimata | Note |
 |---|---|---|---|
-| Coxa | 20,7 cm³ | 24,7 g | culla, anima con tasca a rombo, testa per il ponte, braccio con nervatura |
+| Coxa | 24,7 cm³ | 25,9 g | culla con zoccolo, anima con tasca a rombo, testa per il ponte, braccio con nervatura |
 | Coxa_Ponte | 4,1 cm³ | 5,1 g | |
 | Femore_B | 33,0 cm³ | 23,3 g | piastra dei perni e blocco pieno (lo slicer lo stampa a pareti e riempimento) |
 | Femore_A | 7,1 cm³ | 9,2 g | |
-| Tibia | 22,2 cm³ | 27,1 g | culla con finestre, stinco 12 × 18,9 con tre finestre |
-| **Totale** | **87,1 cm³** | **89,4 g** | stima: PETG-CF 1,3 g/cm³, pareti e fondi 1,2 mm, riempimento 25 % |
+| Tibia | 25,1 cm³ | 28,3 g | culla con zoccolo e finestre, stinco 12 × 18,9 con tre finestre |
+| **Totale** | **94,0 cm³** | **91,8 g** | stima: PETG-CF 1,3 g/cm³, pareti e fondi 1,2 mm, riempimento 25 % |
 
 La massa supera i 70 g del bilancio: sei zampe pesano circa 115 g in più, cioè circa 2 punti di coppia al femore (da 49 a circa 51 % al punto di progetto). Il dato vero viene dallo slicer.
 
-Dentro `Zampa`: 2 servo, 3 squadrette (anche quella della coxa, che gira con la zampa), 2 cuscinetti (quello della coxa sta nella gondola del corpo), 3 perni; 12 giunti rigidi e 2 di rivoluzione (`G_femore`, `G_ginocchio`). Verso misurato: α = −(valore di G_femore), γ = 90° − (valore di G_ginocchio). Limiti impostati: α da −45° a +85°, γ da 30° a 175°.
+Fissaggio dei servo di femore e ginocchio: lato coda 2 viti M3 in inserti; lato albero 2 viti M3 in fori pilota Ø2,5 (la testata ha la fessura del passacavo, D-049). Le viti delle alette si stringono per ultime, a femore montato. Squadretta della coxa: 2 viti M3 × 5 dall'alto, senza rondella; le teste entrano nei fori del ponte (D-048, D-049).
 
-Verifiche fatte sul modello (9 ottobre 2026):
+Dentro `Zampa`: 2 servo, 3 squadrette (anche quella della coxa, che gira con la zampa), 2 cuscinetti (quello della coxa sta nella gondola del corpo), 3 perni; 12 giunti rigidi e 2 di rivoluzione (`G_femore`, `G_ginocchio`). Verso misurato: α = −(valore di G_femore), γ = 90° − (valore di G_ginocchio). Limiti impostati: α da −49° a +85°, γ da 29° a 180°.
+
+Verifiche dopo le correzioni della revisione (9 ottobre 2026):
+
+- posa di riferimento libera; tutte le 212 pose di marcia raggiunte con i limiti impostati e libere;
+- campo libero a passi di 1°: femore da −49° a +85° (a −50° la piastra tocca la culla, a +86° il ponte tocca il blocco), ginocchio fino a 180°;
+- minimo del ginocchio in funzione del femore, a gioco zero (tabella per il firmware, che aggiunge almeno 3°):
+
+| Femore α | −45 | −40 | −35 | −30…−20 | −15 | −10 | −5 | 0 | +5 | +10…+15 | +20 | +25 | +30 | +35 | ≥ +40 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Ginocchio γ minimo | 54 | 55 | 45 | 46 | 45 | 44 | 43 | 43 | 41 | 39 | 37 | 35 | 33 | 31 | 29 |
+
+- calettamento delle squadrette proposto: servo a metà corsa con α = +20° e γ = 100°; con ±80° di corsa utile si coprono α da −60° a +100° e γ da 20° a 180°, cioè tutto il campo libero.
+
+Verifiche della zampa v0, prima della revisione (9 ottobre 2026):
 
 - posa di riferimento: nessuna interferenza (escluso il mozzo pieno della squadretta sul millerighe, voluto);
 - tutte le copie di servo, squadrette, cuscinetti e perni nella posizione prevista (scarto 0,000);
@@ -80,3 +94,4 @@ Verifiche fatte sul modello (9 ottobre 2026):
 - Nervature di schiacciamento nelle culle (da tarare sul provino), ganci e passaggi dei cavi, piedino in TPU, raccordi.
 - Viti delle squadrette della coxa (M3 × 6 con rondella sotto la testa, D-048) da controllare quando si sceglie la squadretta: altezze e posizione dei fori sono stimate (`sq_`).
 - Verifica con il corpo: gondola, rotazione della coxa, zampe vicine.
+- Vincoli che la zampa pone al corpo: fondo della gondola a −31,95 (flangia del cuscinetto fino a −32,75); braccio della coxa fino a −38,35 e nervatura fino a −41,35 sotto l'asse dei femori; testa dell'anima della coxa a raggio 34–40,55 dall'asse della coxa e da Z +8,05 in su (la gondola, a quel raggio, non deve salire oltre le teste delle viti delle alette, Z +7,05); mozzo del ponte (R12) da Z +17,05 a +23,5 attorno all'asse della coxa; anima a raggio ≥ 40,55 dall'asse della coxa a qualunque angolo.

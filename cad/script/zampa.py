@@ -62,7 +62,7 @@ PARAMETRI = [
     ('bug_semi', 'ins_y + ins_m3_d / 2 + cul_ins_parete', 'mm', 'Bugne: semilarghezza'),
     ('cul_mozzo_d', '16 mm', 'mm', 'Culla: mozzo attorno al cuscinetto nel fondo alleggerito'),
     ('cul_fondo_min', '1.6 mm', 'mm', 'Culla: fondo nelle tasche di alleggerimento'),
-    ('cul_fin_lato', '13 mm', 'mm', 'Culla: lato delle finestre a rombo nelle pareti (45 gradi, senza supporti)'),
+    ('cul_fin_lato', '12 mm', 'mm', 'Culla: lato delle finestre a rombo nelle pareti (45 gradi, senza supporti)'),
     ('cul_fin_y', '-5 mm', 'mm', 'Culla: Y del centro delle finestre nelle pareti'),
     ('cul_fin_z1', '1 mm', 'mm', 'Culla: centro della finestra vicina all albero, sotto l asse (valore assoluto)'),
     ('cul_fin_z2', '20.5 mm', 'mm', 'Culla: centro della finestra verso la coda, sotto l asse (valore assoluto)'),
@@ -71,13 +71,16 @@ PARAMETRI = [
     ('cav_fin_alto', '9 mm', 'mm', 'Finestra del cavo: bordo verso l orlo, sotto le alette'),
     ('cav_fin_basso', '26.1 mm', 'mm', 'Finestra del cavo: bordo verso il fondo, sotto le alette'),
     ('cav_gola_w', '7.6 mm', 'mm', 'Gola del fermacavo: larghezza (fermacavo 7)'),
-    ('cav_gola_p', '0.8 mm', 'mm', 'Gola del fermacavo: profondita (sporgenza 1,0 meno il gioco 0,2)'),
+    ('cav_gola_p', '1.0 mm', 'mm', 'Gola del fermacavo: profondita (sporgenza 1,0; con il gioco 0,2 della sede resta 0,2)'),
+    ('cav_fes_semi', '3.35 mm', 'mm', 'Fessura del passacavo dall orlo alla finestra: semilarghezza (passacavo 6,3 dallo STEP + 0,2)'),
+    ('vite_m3_pilota', '2.5 mm', 'mm', 'Foro pilota per vite M3 autofilettante nella plastica (alette lato albero, D-049)'),
+    ('ale_vite_sposta', '0.6 mm', 'mm', 'Viti delle alette lato albero spostate verso l esterno nel foro 4,2 (massimo 0,6)'),
     # --- giunto lato cuscinetto
     ('cus_rialzo_h', '0.4 mm', 'mm', 'Rialzo che tocca solo l anello interno del cuscinetto'),
     ('cus_rialzo_d', '6.2 mm', 'mm', 'Rialzo: diametro (diametro interno di riferimento LF-1050ZZ 6,40)'),
     ('cus_sede_d', 'cus_D', 'mm', 'Sede del cuscinetto: diametro nominale (forzamento da provino)'),
     ('cus_sede_prof', 'cus_B - cus_flangia_sp', 'mm', 'Sede del cuscinetto: profondita'),
-    ('cus_passo_d', '6 mm', 'mm', 'Foro dietro il cuscinetto: passaggio del perno ed estrazione'),
+    ('cus_passo_d', '7.2 mm', 'mm', 'Foro dietro il cuscinetto: piu grande dell anello interno (6,4), la spalla tocca solo l anello esterno'),
     ('perno_foro', 'perno_d', 'mm', 'Foro del perno nella parte che lo porta: nominale (forzamento da provino)'),
     ('perno_sporge', '1.4 mm', 'mm', 'Perno: sporgenza esterna per estrarlo'),
     # --- femore
@@ -105,10 +108,10 @@ PARAMETRI = [
     ('zy_disco', 'zy_orlo + srv_albero_h - srv_spline_l + sq_h - sq_sp', 'mm', 'Y del lato inferiore del disco delle squadrette'),
     ('zy_A_est', 'zy_disco + sq_sp + fem_A_dietro', 'mm', 'Y della faccia esterna di Femore_A'),
     # --- coxa (D-048)
-    ('cox_anima_sp', '4.4 mm', 'mm', 'Coxa: spessore dell anima'),
+    ('cox_anima_sp', '4 mm', 'mm', 'Coxa: spessore dell anima (gioco dalla gondola 1,2)'),
     ('cx_anima', 'zam_Lc - cul_sede_semi - cox_anima_sp', 'mm', 'Coxa: X della faccia interna dell anima (gondola raggio 39,32 + 0,8)'),
     ('cox_braccio_sp', '5.2 mm', 'mm', 'Coxa: spessore del braccio inferiore (perno forzato)'),
-    ('cox_nerv_h', '5 mm', 'mm', 'Coxa: nervatura sotto il braccio, altezza alla radice'),
+    ('cox_nerv_h', '3 mm', 'mm', 'Coxa: nervatura sotto il braccio, altezza alla radice'),
     ('cox_nerv_semi', '3 mm', 'mm', 'Coxa: nervatura, semilarghezza'),
     ('cox_nerv_x0', '10 mm', 'mm', 'Coxa: X dove la nervatura si annulla'),
     ('cz_braccio_su', 'bug_coda - cox_braccio_sp', 'mm', 'Coxa: faccia superiore del braccio inferiore, sotto l asse (valore assoluto)'),
@@ -117,19 +120,21 @@ PARAMETRI = [
     ('cox_tasca_z', '14 mm', 'mm', 'Coxa: centro della tasca nell anima, sotto l asse (valore assoluto)'),
     ('cz_alette_coxa', 'srv_sotto + cul_gio_fondo + cul_fondo + cus_flangia_sp + cus_rialzo_h - cz_braccio_su', 'mm',
      'Z delle alette del servo di coxa (orlo della gondola)'),
-    ('cox_gondola_luce', '1.2 mm', 'mm', 'Coxa: luce tra la testa dell anima e la cassa del servo di coxa'),
-    ('cz_mensola', 'cz_alette_coxa + srv_sopra + cox_gondola_luce', 'mm', 'Coxa: Z del lato inferiore della testa dell anima sopra la gondola'),
-    ('cx_testa', '36 mm', 'mm', 'Coxa: X dell estremo interno della testa dell anima'),
+    ('cox_gondola_luce', '1 mm', 'mm', 'Coxa: luce tra la testa dell anima e le teste delle viti delle alette del servo di coxa'),
+    ('vite_m3_testa_h', '3 mm', 'mm', 'Vite M3 ISO 4762: altezza della testa'),
+    ('cz_mensola', 'cz_alette_coxa + srv_alette_sp + vite_m3_testa_h + cox_gondola_luce', 'mm',
+     'Coxa: Z del lato inferiore della testa dell anima (a raggio 34-40 dalla coxa passa sopra le alette e le viti lato coda del servo di coxa)'),
+    ('cx_testa', '34 mm', 'mm', 'Coxa: X dell estremo interno della testa dell anima (fuori dalla cassa del servo di coxa, raggio 32,4)'),
     ('cz_ponte_giu', 'cz_alette_coxa + srv_albero_h - srv_spline_l + sq_h - sq_sp', 'mm', 'Ponte: Z del lato inferiore del disco della squadretta di coxa'),
-    ('cox_ponte_sopra', '3.95 mm', 'mm', 'Ponte: altezza sopra il disco (teste delle viti 3 + rondella 0,5)'),
+    ('cox_ponte_sopra', '3.95 mm', 'mm', 'Ponte: altezza sopra il disco (teste delle viti M3 x 5 alte 3, senza rondella, D-049)'),
     ('cz_ponte_su', 'cz_ponte_giu + sq_sp + cox_ponte_sopra', 'mm', 'Ponte: Z della faccia superiore'),
     ('cox_ponte_braccio', '3.9 mm', 'mm', 'Ponte: spessore del braccio'),
     ('cz_ponte_app', 'cz_ponte_su - cox_ponte_braccio', 'mm', 'Ponte: Z dell appoggio sulla testa dell anima'),
     ('cox_ponte_r', '12 mm', 'mm', 'Ponte: raggio del mozzo'),
     ('cox_disco_luce', '0.3 mm', 'mm', 'Ponte: luce sopra il disco (gioco verticale della coxa, D-048)'),
-    ('cox_testa_vite_d', '5.7 mm', 'mm', 'Ponte: fori che calzano le teste delle viti M3 della squadretta'),
-    ('cox_smusso_ponte', '3 mm', 'mm', 'Ponte: smusso dello spigolo esterno alto'),
-    ('cx_ins_ponte', '(cx_testa + zam_Lc - cul_sede_semi) / 2', 'mm', 'Coxa: X degli inserti del ponte'),
+    ('cox_testa_vite_d', '5.6 mm', 'mm', 'Ponte: fori che calzano le teste delle viti M3 della squadretta (gioco d imbardata: tarare sul provino)'),
+    ('cox_smusso_ponte', '2.5 mm', 'mm', 'Ponte: smusso dello spigolo esterno alto'),
+    ('cx_ins_ponte', 'cx_testa + 4.6 mm', 'mm', 'Coxa: X degli inserti del ponte (teste delle viti fuori dallo smusso)'),
     ('cox_ins_ponte_y', '5.5 mm', 'mm', 'Coxa: Y degli inserti del ponte'),
     ('cox_ling_l', '6 mm', 'mm', 'Ponte: linguetta di centraggio, lunghezza'),
     ('cox_ling_semi', '1.5 mm', 'mm', 'Ponte: linguetta, semilarghezza'),
@@ -181,6 +186,9 @@ def _culla(p, xc):
              'cul_bugna_h')
     p.blocco('y', 'zy_orlo - cul_bugna_h', 'bugna_coda', xc + ' - bug_semi', '-(bug_coda)', xc + ' + bug_semi', '-(cul_coda)',
              'cul_bugna_h')
+    # zoccolo sotto la coda: lega pareti, fondo e bugne (porta il braccio della coxa e lo stinco)
+    p.blocco('y', 'zy_fondo_est', 'zoccolo', xc + ' - cul_semi', '-(bug_coda)', xc + ' + cul_semi', '-(cul_coda)',
+             'zy_orlo - zy_fondo_est')
 
 
 def _alleggerisci_culla(p, xc, lati):
@@ -205,9 +213,13 @@ def _sede(p, xc):
              xc + ' + cav_fin_w / 2', 'cul_corto + 0.5 mm', 'cav_fin_basso - cav_fin_alto', 1, TAGLIA)
     p.cilindro('y', 'zy_fondo_est', 'sede_cuscinetto', xc, '0 mm', 'cus_sede_d', 'cus_sede_prof', 1, TAGLIA)
     p.cilindro('y', 'zy_fondo_est', 'passaggio_perno', xc, '0 mm', 'cus_passo_d', 'cul_fondo', 1, TAGLIA)
-    for nome, dx, z in (('ins_corto_a', ' - ins_y', 'ins_corto'), ('ins_corto_b', ' + ins_y', 'ins_corto'),
-                        ('ins_coda_a', ' - ins_y', '-(ins_coda)'), ('ins_coda_b', ' + ins_y', '-(ins_coda)')):
-        p.cilindro('y', 'zy_orlo', nome, xc + dx, z, 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
+    # il passacavo rigido (sporge 5 mm dalla testata) scende dall'orlo alla finestra in questa fessura (D-049)
+    p.blocco('y', 'zy_orlo - cav_fin_alto', 'fessura_cavo', xc + ' - cav_fes_semi', 'cul_sede_corto - 0.5 mm',
+             xc + ' + cav_fes_semi', 'bug_corto + 0.5 mm', 'cav_fin_alto + 0.5 mm', 1, TAGLIA)
+    for nome, dx in (('pilota_corto_a', ' - ins_y - ale_vite_sposta'), ('pilota_corto_b', ' + ins_y + ale_vite_sposta')):
+        p.cilindro('y', 'zy_orlo', nome, xc + dx, 'ale_foro_corto', 'vite_m3_pilota', 'ins_m3_l', -1, TAGLIA)
+    for nome, dx in (('ins_coda_a', ' - ins_y'), ('ins_coda_b', ' + ins_y')):
+        p.cilindro('y', 'zy_orlo', nome, xc + dx, '-(ins_coda)', 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
 
 
 # ----------------------------------------------------------------------------------- parti
@@ -226,10 +238,10 @@ def fai_coxa(zampa):
     p.blocco('z', '-(bug_coda)', 'braccio', '0 mm', '-(zy_orlo)', 'zam_Lc - cul_semi', 'zy_orlo', 'cox_braccio_sp')
     p.cilindro('z', '-(bug_coda)', 'braccio_testa', '0 mm', '0 mm', '2 * zy_orlo', 'cox_braccio_sp')
     p.blocco('y', '-(cox_nerv_semi)', 'nervatura', 'cox_nerv_x0', '-(bug_coda + cox_nerv_h)', 'cx_anima + cox_anima_sp / 2',
-             '-(bug_coda)', '2 * cox_nerv_semi')
+             '-(bug_coda)', 'cox_nerv_semi + zy_orlo')
     p.blocco_obl('y', '-(cox_nerv_semi + 1 mm)', 'nervatura_rastremata', ('cx_anima', '-(bug_coda + cox_nerv_h)'),
                  ('cox_nerv_x0', '-(bug_coda)'), '-(6 mm)', 'sqrt((cx_anima - cox_nerv_x0) ^ 2 + cox_nerv_h ^ 2)',
-                 '0 mm', '20 mm', '2 * cox_nerv_semi + 2 mm', 1, TAGLIA)
+                 '0 mm', '20 mm', 'cox_nerv_semi + zy_orlo + 2 mm', 1, TAGLIA)
     p.cilindro('z', '-(cz_braccio_su)', 'rialzo', '0 mm', '0 mm', 'cus_rialzo_d', 'cus_rialzo_h')
     # lavorazioni
     _sede(p, 'zam_Lc')
@@ -239,7 +251,7 @@ def fai_coxa(zampa):
                  'cox_anima_sp - cul_parete', 1, TAGLIA)
     p.cilindro('z', '-(bug_coda)', 'foro_perno', '0 mm', '0 mm', 'perno_foro', 'cox_braccio_sp + cus_rialzo_h', 1, TAGLIA)
     for nome, y in (('ins_ponte_a', '-(cox_ins_ponte_y)'), ('ins_ponte_b', 'cox_ins_ponte_y')):
-        p.cilindro('z', 'cz_ponte_app', nome, 'cx_ins_ponte', y, 'ins_m3_d', 'ins_m3_l - 0.7 mm', -1, TAGLIA)
+        p.cilindro('z', 'cz_ponte_app', nome, 'cx_ins_ponte', y, 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
     p.blocco('z', 'cz_ponte_app', 'sede_linguetta', 'cx_ins_ponte - cox_ling_l / 2 - gio_stampa', '-(cox_ling_semi + gio_stampa)',
              'cx_ins_ponte + cox_ling_l / 2 + gio_stampa', 'cox_ling_semi + gio_stampa', 'cox_ling_h + 0.4 mm', -1, TAGLIA)
     return occ, p
@@ -303,7 +315,7 @@ def fai_femore_b(zampa):
 def _inserti_blocco():
     """Quattro inserti M3 per la piastra A, negli angoli del blocco lontani dagli smussi."""
     x0, x1 = 'zam_Lc + fem_blocco_x0 + fem_ins_dx', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx'
-    z0, z1 = 'fem_ins_dx - fem_blocco_giu + 2 mm', 'fem_blocco_su - fem_ins_dx - 2 mm'
+    z0, z1 = 'fem_ins_dx - fem_blocco_giu + 2 mm', 'fem_blocco_su - fem_ins_dx - 2.6 mm'
     return [('ins_blocco_ab', x0, z0), ('ins_blocco_aa', x0, z1), ('ins_blocco_gb', x1, z0 + ' + 3 mm'), ('ins_blocco_ga', x1, z1)]
 
 
@@ -553,9 +565,11 @@ def _corto(percorso):
     return percorso.split('+')[-1].split(':')[0]
 
 
-# Campo libero misurato con la scansione 3D del 9 ottobre 2026 (senza corpo): femore da -45 a +85, ginocchio da 30 a 175.
-# Il minimo del ginocchio dipende dal femore (45-55 con il femore sotto -15): lo limita il firmware.
-LIMITI = {'alpha': (-45.0, 85.0), 'gamma': (30.0, 175.0)}
+# Campo libero misurato con i giunti veri il 9 ottobre 2026, dopo la revisione (senza corpo): femore da -49 a +85,
+# ginocchio fino a 180. Il minimo del ginocchio dipende dal femore (GAMMA_MIN, gioco zero): lo limita il firmware.
+LIMITI = {'alpha': (-49.0, 85.0), 'gamma': (29.0, 180.0)}
+GAMMA_MIN = {-45: 54, -40: 55, -35: 45, -30: 46, -25: 46, -20: 46, -15: 45, -10: 44, -5: 43, 0: 43, 5: 41, 10: 39,
+             15: 39, 20: 37, 25: 35, 30: 33, 35: 31, 40: 29, 85: 29}
 
 
 def fai_limiti(zampa):

@@ -1,0 +1,352 @@
+[
+ {
+  "lente": "montaggio",
+  "difetti": [
+   {
+    "titolo": "Il servo di femore e ginocchio non entra nella culla: il passacavo non può passare tra l'orlo e la finestra del cavo, e per lo stesso motivo un servo rotto non esce",
+    "severita": "bloccante",
+    "certezza": "certo",
+    "parte": "Coxa e Tibia, culla comune (_sede in cad/script/zampa.py, righe 202-210: gola_cavo, finestra_cavo, ins_corto_a/b)",
+    "prova": "Lo STEP del servo letto in Fusion (corpo 'cassa' di Rif_Servo_MG996R) ha il fermacavo 7 × 4,2 sporgente 1,0 mm (x_s da −10,25 a −11,25) e poi un passacavo rigido largo 6,3 e alto 3,5 (y ±3,15, z_s da −25,25 a −21,75) che sporge di 5 mm dalla testata (fino a x_s −15,25). Seguono i fili Ø1,5 fino a −18,25, perpendicolari alla testata. Nella terna della zampa il passacavo occupa Z 10,25…15,25 e i fili arrivano a Z 18,25; a servo calato il passacavo sta a Y −15,8…−12,3. Per calare il servo dall'orlo (Y 9,45) il passacavo deve attraversare la fascia Y 0,45…9,45, che sta sopra la finestra (finestra_cavo da Y 0,45 in giù). Ho controllato con pointContainment, in sola lettura, la Coxa e la Tibia a X = asse: a Y da 9,3 a 1,0 il pieno va da Z 11,6 a 18 (parete e bugna_corto); è libera solo la gola, fino a Z 11,25. Il gioco tra testata e fondo della gola è 0,2 + 0,8 = 1,0 mm (cav_gola_p): è esattamente la sporgenza del fermacavo, quindi non resta posto per il cavo, nemmeno piegato. Il servo non si può inclinare per aggirare l'ostacolo: la sede è 41,4 per una cassa di 41,0, e il passacavo arriva alla finestra solo quando il fondo del servo è già circa 16 mm dentro la sede. La fessura non si può semplicemente aprire fino all'orlo: i fori degli inserti lato albero (X = asse ±5, Ø4,2) cominciano a ±2,9 dall'asse (±2,7 con l'inserto Ø4,6), mentre il passacavo è largo ±3,15; il punto a dx ±3,5, Y 5, Z 13…15 cade dentro i fori degli inserti. Per lo smontaggio vale lo stesso: il cavo deve rientrare per la stessa via.",
+    "correzione": "Aprire la testata lato albero dall'orlo alla finestra e spostare il fissaggio delle due alette lato albero. (1) Nuova lavorazione 'fessura_cavo' in _sede: TAGLIA da zy_orlo a zy_orlo − cav_fin_basso, X = xc ± 3,5 (passacavo 6,3 più 0,35 per lato), Z da cul_sede_corto − 0,5 a bug_corto + 0,5, cioè attraverso parete e bugna. La gola del fermacavo resta larga 7,6 ma va portata a una profondità di 1,2 (cav_gola_p 1,0 invece di 0,8, così resta 0,2 di gioco). (2) Togliere ins_corto_a/b. Le alette lato albero si fissano con 2 viti M2,5 (BOM D8) con rondella M2,5, avvitate in fori pilota Ø2,2 profondi 7 a X = xc ± (ins_y + 0,85), Z = ale_foro_corto. La M2,5 resta dentro il foro Ø4,2 dell'aletta, perché lo scostamento 0,85 è pari a 2,1 − 1,25. Le pareti residue sono 1,25 verso la fessura e 2,2 verso la sede. In alternativa, la testata lato albero (parete più bugne con i 2 inserti M3) diventa un tappo stampato a parte, avvitato alla culla dopo aver calato il servo. Verificare l'uscita del cavo sul provino della culla: passacavo e fermacavo sono S, dallo STEP."
+   },
+   {
+    "titolo": "La rondella sotto le teste delle viti della squadretta di coxa (D-048) impedisce al ponte di scendere: si ferma 3,0 mm sopra la sua sede",
+    "severita": "bloccante",
+    "certezza": "certo",
+    "parte": "Coxa_Ponte e squadretta di coxa (D-048; zampa.py righe 124, 258-261)",
+    "prova": "D-048 prescrive viti M3 × 6 dall'alto nel disco, con una rondella sotto la testa; anche il commento di cox_ponte_sopra conta 'teste 3 + rondella 0,5'. La rondella M3 DIN 125 (BOM D7) ha diametro esterno 7,0 e spessore 0,5. Le viti stanno sul diametro dei fori sq_fori_pcd = 14, cioè a r 7: la rondella si estende quindi da r 3,5 a r 10,5 dall'asse e sta a Z 19,55…20.05 (disco 17,05…19,55). Il ponte ha la sede del disco Ø20,4 (r 10,2) con il cielo a Z 19,85, cioè disco più cox_disco_luce, e fori per le teste Ø5,7. L'anello del mozzo, tra r 10,2 e 12, scende fino al fondo del ponte (Z 17,05). Verifica in Fusion, in sola lettura: i punti (0, 10,35, 19,7) e (0, 3,6, 19,95) sono pieni nel Coxa_Ponte. L'anello del mozzo appoggia quindi sul bordo della rondella, che sporge di 0,3 oltre la sede e di 0,5 oltre il disco: il fondo del ponte si ferma a Z 20,05 invece di 17,05. La linguetta (alta 1,6) non entra e le 2 M3 nell'anima dovrebbero tirare giù il ponte di 3 mm. Nemmeno una rondella Ø6 (DIN 433) basterebbe: resterebbe 0,2 di interferenza con il cielo attorno ai fori Ø5,7.",
+    "correzione": "Togliere la rondella e usare viti ISO 4762 M3 × 5 (o M3 × 4 per avere più margine) senza rondella. Con M3 × 5 la testa sta a Z 19,55…22,55: dentro i fori Ø5,7 per 2,7 mm, sotto la faccia superiore a 23,5. La punta arriva a 14,55, cioè 0,5 sopra il risalto Ø10,7 della torretta (14,05) e 1,1 sopra il gradino Ø13 (13,45). Non usare M3 × 6 senza rondella: la punta scende a 13,55, a 0,1 dal gradino Ø13, e passa a 0,15 mm in radiale dal risalto Ø10,7, che è fermo mentre le viti girano. Regola generale: lunghezza ≤ sq_sp + (cz_ponte_giu − cz_alette_coxa − 12,4) − 0,5, da ricalcolare quando si conosce la squadretta. Aggiornare D-048 e il commento di cox_ponte_sopra (si può scendere a 3,5)."
+   },
+   {
+    "titolo": "Lo spallamento della sede del cuscinetto tocca l'anello interno: il foro di passaggio Ø6 è più piccolo dell'anello interno (Ø6,4)",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Coxa e Tibia, sede_cuscinetto e passaggio_perno (zampa.py riga 80 e 206-207)",
+    "prova": "La sede è Ø10 profonda 3,2 (da Y −24,15 a −20,95); dietro c'è il passaggio Ø6 (cus_passo_d). Lo spallamento a Y −20,95 va quindi da r 3,0 a r 5,0. L'anello interno dell'LF-1050ZZ arriva a Ø6,40 (diametro di riferimento in dimensioni-componenti.md, V): tra r 3,0 e 3,2 lo spallamento della parte fissa tocca l'anello interno, che gira con il perno. Verifica in Fusion: il punto (55 + 3,1; −20,9; 0) è pieno nella Coxa. Il cuscinetto si preme fino allo spallamento (flangia fuori, sede profonda quanto il corpo), quindi le due facce sono a contatto. Dall'altro lato Femore_B spinge sull'anello interno con il rialzo: il registro assiale del femore stringe così l'anello interno tra il rialzo, che gira, e lo spallamento fermo. Il carico assiale passa per strisciamento e salta le sfere, contro l'intento di D-047 ('sull'anello interno appoggia solo un rialzo').",
+    "correzione": "Portare cus_passo_d da 6 a 7,2 mm. Lo spallamento resta da r 3,6 a r 5,0, cioè solo sull'anello esterno, e il foro lascia ancora passare il punzone per estrarre il perno. Vale per Coxa e Tibia e per la gondola del corpo, quando si disegna."
+   },
+   {
+    "titolo": "Inserto ins_blocco_aa di Femore_B: tra il foro e lo smusso alto resta una parete di 1,4 mm, sotto il minimo di 1,6",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Femore_B, inserto M3 ins_blocco_aa (zampa.py riga 306, _inserti_blocco)",
+    "prova": "L'inserto è a (X 81, Z 13,5): x0 = Lc + 21,5 + 4,5 e z1 = 20 − 4,5 − 2. Lo smusso_alto è la retta da (76,5; 14) a (82,5; 20), cioè z = x − 62,5. La distanza del centro dalla retta è |81 − 13,5 − 62,5|/√2 = 3,54 mm: con il foro Ø4,2 restano 1,44 mm, e 1,24 una volta posato l'inserto Ø4,6. La regola di dimensioni-componenti.md vuole almeno 1,6 mm. Verifica in Fusion: lungo la normale allo smusso a Y 24 il pieno va da d 2,1 a d 3,5. Femore_B si stampa con il blocco in piedi, quindi quella parete è fatta di 3 perimetri verticali: posando l'inserto a caldo si gonfia o si crepa verso lo smusso. Anche la rondella DIN 125 (Ø7) messa lì per il registro fem_luce_A arriva allo spigolo dello smusso: resta dentro la faccia per soli 0,04 mm.",
+    "correzione": "In _inserti_blocco portare z1 a 'fem_blocco_su - fem_ins_dx - 2.6 mm' (Z 12,9). La parete verso lo smusso diventa 3,96 − 2,1 = 1,86 mm e la rondella resta 0,46 mm dentro la faccia. L'inserto ins_blocco_ga (94,5; 12,9) ha ancora 5 mm verso la faccia superiore. I fori di Femore_A seguono da soli, perché usano la stessa funzione."
+   },
+   {
+    "titolo": "Inserti del ponte nella testa della coxa: foro profondo solo 0,3 mm più dell'inserto, sopra un fondo di 0,55 mm",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Coxa, ins_ponte_a/b (zampa.py righe 241-242)",
+    "prova": "Il foro parte da cz_ponte_app (Z 19,6) ed è profondo ins_m3_l − 0,7 = 6,0 mm, quindi arriva a Z 13,6, per un inserto lungo 5,7. La regola della repo è profondità = inserto + 1. Il foro sta a X 40,275 ± 2,1 = 38,2…42,4. La parte con X < 40,15 è sopra la mensola (testa_anima_alta, con il fondo a Z 13,05), dove sotto non c'è altro materiale. Verifica in Fusion a (39; 5,5): pieno solo tra Z 13,1 e 13,55, cioè un fondo di 0,55 mm. La Coxa si stampa con l'orlo sul piano, quindi quel fondo è una parete verticale più sottile di due perimetri. Il materiale spostato dall'inserto non ha dove andare e il fondo sfonda o si gonfia sotto la mensola, verso la gondola. Inoltre una M3 × 10 (3,9 di ponte + 6,1) arriverebbe oltre il fondo del foro.",
+    "correzione": "Usare inserti M3 corti (CNC Kitchen M3 × 3) con foro profondo 4,0: il fondo diventa 2,55 mm. In alternativa abbassare il fondo della mensola solo per X ≥ 32: lì sotto non c'è la cassa del servo di coxa (che finisce a X 30,75) ma le teste delle sue viti lato coda (fino a Z 7,05), quindi da coordinare con la gondola. Per il ponte fissare viti M3 × 8."
+   },
+   {
+    "titolo": "Con perni m6 (alternativa del BOM D2) il femore va montato premendo due perni insieme negli anelli interni, attraverso le sfere, e smontarlo tira fuori i cuscinetti",
+    "severita": "media",
+    "certezza": "probabile",
+    "parte": "Femore_B con i perni forzati e i cuscinetti in Coxa e Tibia; voce D2 del BOM",
+    "prova": "I perni sono forzati in Femore_B (perno_foro nominale 5,0). Il BOM D2 accetta perni m6, che 'entrano forzate nel cuscinetto'. Per montare, Femore_B porta entrambi i perni negli anelli interni dell'anca e del ginocchio, che sono in due parti diverse. La forza di forzamento passa dall'anello interno alle sfere e all'anello esterno, retto da flangia e spallamento. Un 5 × 10 × 4 ha un carico statico radiale di 276 N e quello assiale è circa la metà. Allo smontaggio di Femore_B, con la flangia all'esterno (−Y), i cuscinetti trattenuti dal perno escono dalle sedi: li tiene solo il loro forzamento. Dipende da quale perno si compra: per questo è probabile.",
+    "correzione": "Nel BOM D2 togliere l'alternativa m6: perni h8 (ISO 2338) o g6, scorrevoli nell'anello interno, forzati solo nella parte stampata. Se si trovano solo m6, rettificarli o montarli prima nei cuscinetti, ma quest'ultima strada non è compatibile con perni già forzati in Femore_B."
+   },
+   {
+    "titolo": "Le teste delle due viti del ponte sporgono per 1,5 mm sullo smusso: appoggiano su circa il 70 % della corona e solo da un lato",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Coxa_Ponte, foro_vite_a/b e smusso (zampa.py righe 255-263)",
+    "prova": "Le viti sono a X 40,275 (cx_ins_ponte). Lo smusso di 3 mm comincia a X 41,55 sulla faccia superiore (Z 23,5). Verifica in Fusion: a Z 23,4 e Y 5,5 il ponte è pieno solo per X ≤ 38,5; il foro arriva a 41,975, oltre l'inizio dello smusso. La testa ISO 4762 (Ø5,5) arriva a X 43,03, cioè 1,48 mm oltre lo spigolo. Si perdono 4,5 dei 14,7 mm² della corona d'appoggio, tutti dal lato +X: stringendo, la testa si inclina e la vite si flette.",
+    "correzione": "Spianare una corona Ø6,5 attorno a ciascuna vite, cioè non estendere lo smusso nel tratto Y = ±cox_ins_ponte_y ± 3,25, e verificare con la scansione che il femore arrivi ancora a +85°. Se non passa, portare cx_ins_ponte a 39,9: la parete verso X 36 resta di 1,8 e la sporgenza scende a 1,1."
+   },
+   {
+    "titolo": "Fori del ponte Ø5,7 per teste Ø5,5: 0,1 mm per lato su fori stampati verticali",
+    "severita": "bassa",
+    "certezza": "probabile",
+    "parte": "Coxa_Ponte, foro_testa_a/b (cox_testa_vite_d, zampa.py riga 130)",
+    "prova": "La testa ISO 4762 M3 ha diametro 5,5 e il foro è 5,7, cioè 0,1 per lato. La regola della repo per le sedi è gio_stampa = 0,2 per lato. Il ponte si stampa con la faccia superiore sul piano, quindi i fori sono verticali e di solito escono 0,1–0,2 mm più piccoli. Le due teste vanno calzate insieme, con la tolleranza di posizione dei fori della squadretta, ancora da scegliere (C). Il ponte rischia di non scendere sulle teste senza alesarlo.",
+    "correzione": "Stampare i fori a 5,9 (5,5 + 2 × gio_stampa) e, se si vuole il gioco zero voluto da D-048, alesarli a misura al montaggio con una punta da 5,6–5,7. In alternativa tarare cox_testa_vite_d sul provino insieme a gio_stampa."
+   }
+  ],
+  "verificato_senza_difetti": [
+   "Viti delle alette di femore e ginocchio, con Femore_A tolto: con la brugola da +Y le teste si raggiungono. Lato albero la testa è a 1,35 mm dalla testata della cassa, lato coda a 1,15; sopra l'orlo (Y > 9,45) Coxa e Tibia non hanno niente. Prima va tolta la squadretta, perché le teste lato albero sono a r 15,2 e il disco arriva a r 10.",
+   "Lunghezze delle viti. Alette: foro dell'inserto 6,7, aletta 2,4: M3 × 8 va bene (5,6 in presa); M3 × 10 tocca il fondo. Femore_A sulle squadrette (3,2 di plastica + 2,5 di disco): M3 × 6 e M3 × 8 vanno bene (la punta della × 8 resta 1,3 sopra il gradino Ø13 a Y 21,25); M3 × 10 urta la torretta. Femore_A sul blocco (2,4 + 1,0 di rondelle): M3 × 8 (4,6 in presa) e M3 × 10 (6,6 su un foro di 6,7) vanno bene.",
+   "Inserti a caldo: il saldatore entra libero in tutti, cioè nelle bugne delle culle dall'orlo, nel blocco di Femore_B dalla faccia Y 27,15 (in alto in stampa) e nella testa della Coxa da Z 19,6.",
+   "Femore_B: i perni entrano nei cuscinetti 5 mm prima della battuta. Durante la corsa lungo Y il blocco (X 76,5–99) resta a 9 mm dalla culla della Coxa e a 8,5 dalla Tibia, senza urti.",
+   "Femore_A si appoggia su entrambi i dischi senza urti: la corona sotto il disco (Y 24,85) è 5,2 sopra la cima della cassa e 10 sopra le teste delle viti delle alette.",
+   "Le viti centrali delle squadrette si raggiungono dai fori Ø6 di Femore_A e del ponte senza smontare.",
+   "Cambio del servo di femore o ginocchio: Femore_B può restare montato, perché la punta del perno (Y −19,95) è 0,6 mm sotto il fondo del servo. Basta togliere Femore_A (12 viti) e la squadretta; il limite è solo quello del cavo, nel primo difetto.",
+   "Montaggio della coxa sul perno: va alzata di 5 mm. Con imbardata 0 la mensola (Z 13,05 − 5) resta 1,0 mm sopra le teste delle viti lato coda del servo di coxa (Z 7,05); con altre imbardate il margine cresce.",
+   "Cambio del servo di coxa: tolto il ponte, basta girare la zampa di oltre 30° per estrarlo oltre la mensola (±14,7°) e l'aletta di coda (±14°). Da sola la zampa arriva a 53–59°.",
+   "Teste delle viti delle alette di femore e ginocchio durante il moto: lato coda sono a r 35, lato albero a r 15,2; restano fuori dal blocco del femore (r ≥ 21,5 dall'anca, r ≥ 21 dal ginocchio) per α da −45° a +85° e γ ≥ 30°.",
+   "Zampe vicine (AS–MS, posizioni di CONFIG) contando le teste di Femore_A (+3 mm) e i perni sporgenti (+1,4): il contatto passa da circa 30,5° a circa 29,5° per lato; a ±17° restano 39,9 mm invece di 43,6 (il conto riproduce i 43,6 di D-047).",
+   "Spina JR (7,9 × 2,75) nella finestra 9 × 17,1: passa. A servo calato anche passacavo e fili stanno nella finestra (Y −15,8…−12,3 dentro −16,65…0,45; X ±3,15 dentro ±4,5)."
+  ]
+ },
+ {
+  "lente": "stampa_struttura",
+  "difetti": [
+   {
+    "titolo": "Coxa: tra braccio inferiore e culla c'è un collo spesso 2,4 mm con due spigoli vivi, e da lì passa tutto il peso",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Coxa (zampa.py righe 219-232: anima, braccio, nervatura)",
+    "prova": "Ho sezionato il corpo Coxa in Fusion (pointContainment, passo 0,05 mm). A Z = -33,05 l'unico materiale che lega il braccio alla culla è l'anima, da X 40,15 a 42,55, cioè 2,4 mm, per Y da -24,15 a 9,45. La bugna di coda, da X 46,3, a quella quota è staccata. A Z = -35 c'è il braccio, a Z = -32,8 il fondo della culla. Il motivo: il braccio finisce a X = zam_Lc - cul_semi = 42,55 con la faccia alta a -cz_braccio_su = -33,15, mentre la culla parte da Z = -cul_coda = -32,95 e da X 42,55 in su. Fra gli spigoli rientranti (40,15; -33,15) e (42,55; -32,95) restano 2,41 mm, senza raccordi. Per D-048 da qui passa tutto il carico verticale. Momento a 1,1 kgf: M = 10,8 N x 41,35 - 22 N x 2,3 = 396 N mm. Tensione σ = 6M/(w t²): 12 MPa se lavora tutta l'anima (w = 33,6), 22 MPa con la sola larghezza del braccio (w = 18,9). Allo stallo del femore con il piede a 45 mm dall'asse il piede spinge V = 1078/45 = 24 N: 27-48 MPa nominali, prima dell'effetto d'intaglio degli spigoli vivi. La stessa sezione è anche torta dalla forza radiale lungo Y al cuscinetto (22-29 N, D-048): τ = 3 x 22 x 41,35/(33,6 x 2,41²) = 14 MPa. Il PETG-CF stampato regge 40-50 MPa nel piano. Per confronto, la radice del braccio con la nervatura (sezione a T, W = 138 mm³) lavora a 3,2 MPa: la nervatura irrigidisce la parte che ne aveva meno bisogno. La freccia sotto 0,1 mm di D-048 conta solo il braccio. La rotazione del collo (I circa 29 mm⁴) aggiunge circa 0,4-0,5 mm al perno.",
+    "correzione": "Riempire il vuoto sotto la culla con un blocco 'raccordo_braccio' su piano y = zy_fondo_est, operazione unisci: X da 'zam_Lc - cul_semi' a 'zam_Lc' (al minimo fino a 'zam_Lc - bug_semi'), Z da '-(bug_coda)' a '-(cul_coda)', spessore 'zy_orlo - zy_fondo_est'. Prolungare la nervatura fino a X = zam_Lc. Il legamento minimo diventa la diagonale (40,15; -33,15)-(44,55; -30,95) = 4,9 mm: 3-5 MPa a 1,1 kgf e 6,5-11,5 MPa allo stallo. Raccordo r 0,8-1 nello spigolo interno, compatibile con la luce dalla gondola (1,2 sotto, 0,8 di lato). Il blocco sta fuori dalla gondola (r > 39,32) e non abbassa l'ingombro (fondo sempre a -38,35). Rifare la scansione delle escursioni e correggere la stima della freccia in D-048."
+   },
+   {
+    "titolo": "Ponte della coxa: la rondella sotto la testa delle viti (D-048) non entra nella sede del disco",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Coxa_Ponte (righe 124, 129-130, 258-261; D-048)",
+    "prova": "Nel modello la sede del disco è un cilindro r 10,2 da Z 17,05 a 19,85: profondità sq_sp + cox_disco_luce = 2,8. Il disco della squadretta finisce a 19,55. La rondella prevista da D-048 (BOM D7: DIN 125 M3, Ø7 x 0,5) occupa Z da 19,55 a 20,05. I fori per le teste sono Ø5,7 (cox_testa_vite_d), quindi la corona della rondella fra Ø5,7 e Ø7 finisce sotto materiale del ponte fra 19,85 e 20,05: interferenza di 0,2 mm, qualunque squadretta si scelga, perché la rondella (0,5) è più spessa della luce (0,3). In più, con la DIN 125 centrata a r = sq_fori_pcd/2 = 7 la rondella arriva a r = 10,5, oltre la parete della sede (r 10,2) e oltre il disco (r 10). Il bordo della sede si appoggia quindi sulle rondelle e il ponte resta circa 3 mm più alto. Se lo si avvita lo stesso all'anima, la C della coxa resta tesa fra squadretta e cuscinetto: la luce di D-048 sparisce e l'albero viene caricato assialmente. È più grave del controllo 'da fare' sulle viti della squadretta: l'interferenza in altezza non dipende dalle quote stimate sq_.",
+    "correzione": "Togliere la rondella: testa M3 direttamente sul disco, con frenafiletti medio al suo posto. cox_ponte_sopra = 3,95 lascia comunque 0,95 mm sopra la testa e 2,7 mm di presa della testa nel foro Ø5,7. Se la rondella serve davvero: una DIN 433 (Ø6) e una lamatura Ø6,4 profonda '0.5 mm + cox_disco_luce' attorno a ciascun foro delle teste, partendo dal soffitto della sede. Aggiornare D-048 e la nota sulle viti in progetto-meccanico.md."
+   },
+   {
+    "titolo": "Coxa: la nervatura sotto il braccio sta sospesa a 6,45 mm dal piatto e richiede supporti",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Coxa (riga 228-232, nervatura)",
+    "prova": "Ho cercato nel corpo Coxa le facce rivolte al piatto nell'orientamento dichiarato (orlo Y = +9,45 sul piano, 'senza supporti'), cioè con normale +Y. Fuori dal piano c'è una faccia a Y = +3,0, X 10-42,35, Z da -43,35 a -38,35, area 86,4 mm², a 6,45 mm dal piatto. È legata al pezzo solo lungo lo spigolo Z = -38,35: uno sbalzo orizzontale fino a 5 mm, senza niente sotto. Il motivo: la nervatura va da -cox_nerv_semi a +cox_nerv_semi (Y ±3), mentre braccio e anima arrivano a +zy_orlo. Le altre facce rivolte al piatto sono solo ponti: tetto della sede 20,9 mm, finestra del cavo 9 mm, fondi dei fori degli inserti.",
+    "correzione": "Far partire la nervatura dal piatto: blocco su y = '-(cox_nerv_semi)' con spessore 'zy_orlo + cox_nerv_semi'. Meglio ancora larga quanto il braccio: da '-(zy_orlo)' con spessore '2 * zy_orlo', circa 1 g in più e più rigida. Allargare di conseguenza il taglio di rastremazione: piano y = '-(zy_orlo + 1 mm)', spessore '2 * zy_orlo + 2 mm'."
+   },
+   {
+    "titolo": "Coxa: i fori degli inserti del ponte sono profondi 6,0 mm, hanno 0,55 mm di fondo sopra la luce della gondola e in stampa sono orizzontali",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Coxa (riga 241-242, ins_ponte_a/b)",
+    "prova": "La profondità è 'ins_m3_l - 0.7 mm' = 6,0 mm, contro la regola del progetto di 5,7 + 1 = 6,7. Misura in Fusion: dal fondo del foro (Z 13,6) alla faccia sotto la mensola (Z 13,05, X 36-40,15) ci sono 0,55 mm, e lo stesso valore verso lo spigolo dell'anima (X 40,15). Il foro (X 38,175-42,375) sta per metà sopra la mensola, che è 1,2 mm sopra la cassa del servo di coxa. L'inserto (Ø4,6 in un foro da 4,2) sposta circa 16 mm³ di plastica. Con 0,3 mm di margine sotto, quella plastica sfonda un fondo di 0,55 mm oppure impedisce all'inserto di arrivare a filo. Una vite M3 x 10 (il BOM D6 va da 6 a 25) che attraversa il braccio del ponte (3,9 mm) arriva a Z 13,5 e buca il fondo. L'asse dei fori è Z: con la coxa stampata con +Y sul piatto sono fori orizzontali (il modello li elenca fra i cilindri orizzontali), quindi meno tondi per l'inserto.",
+    "correzione": "Al posto degli inserti, dado prigioniero DIN 934 (BOM D7, 'dove un inserto non entra') in una cava aperta sulla faccia Y della testa (cava orizzontale in parete verticale, stampabile), con vite M3 x 8 indicata nel BOM. In alternativa portare la testa dell'anima ad almeno 7,7 mm (cz_ponte_app - cz_mensola >= ins_m3_l + 1 mm), cioè cox_ponte_braccio da 3,9 a 2,75. Il braccio del ponte reggerebbe ancora: circa 9 MPa allo stallo della coxa."
+   },
+   {
+    "titolo": "Perni forzati senza ritegno assiale; quello della coxa sta in un foro orizzontale in stampa e pende verso il basso",
+    "severita": "media",
+    "certezza": "probabile",
+    "parte": "Coxa (riga 240, foro_perno; riga 359, Perno_Coxa), Femore_B (righe 295-296)",
+    "prova": "Il foro del perno della coxa (Ø5 nominale da forzare, lungo 5,2 + 0,4) ha asse Z. Con la coxa stampata con +Y sul piatto è orizzontale (cilindro r 2,5, asse Z, fra i cilindri orizzontali del modello): esce scalinato e cedente in alto, il forzamento non si controlla e la coassialità con il servo di coxa dipende da un foro stampato di fianco. Il perno (Z da -39,75 a -27,75) sporge di 1,4 mm sotto il braccio e niente lo trattiene verso il basso. Tiene solo l'attrito su PETG-CF, che con il creep e le vibrazioni dei servo perde serraggio. Se il perno scende di circa 5 mm esce dal cuscinetto e il carico passa all'albero del servo di coxa. I perni di Femore_B hanno fori verticali, quindi buoni, ma anche loro tengono solo per attrito verso l'esterno.",
+    "correzione": "Il perno della coxa entra dal basso a coxa montata, quindi serve un ritegno sotto il braccio: perno a filo del braccio (perno_sporge = 0), ritegno con una rondella DIN 125 sotto una vite M3 in un inserto nella nervatura a circa 5 mm dall'asse, che copre l'estremità del perno. Foro stampato Ø4,8 e alesato a Ø5, oppure forzamento più adesivo per accoppiamenti (anaerobico o epossidico). Per Femore_B: adesivo, oppure lo stesso ritegno sulla faccia esterna."
+   },
+   {
+    "titolo": "Il passaggio Ø6 dietro i cuscinetti è più piccolo dell'anello interno (6,4): l'anello interno, che gira, striscia sulla spalla stampata della culla",
+    "severita": "media",
+    "certezza": "probabile",
+    "parte": "Coxa e Tibia (riga 80 cus_passo_d; riga 207 passaggio_perno)",
+    "prova": "Nel fondo di Coxa e Tibia c'è un cilindro r 3,00 dietro la sede r 5,00 (letto nel modello). La sede è profonda cus_B - cus_flangia_sp = 3,2, quindi la faccia interna del cuscinetto (anelli esterno e interno sullo stesso piano) arriva sulla spalla a Y = -20,95. La spalla va da r 3,0 a r 5,0 e copre l'anello interno da r 3,0 a 3,2 (D-047: diametro di riferimento interno 6,40). Il rialzo di Femore_B spinge l'anello interno verso +Y, con il registro dato dalle rondelle di Femore_A. Così l'anello interno, che gira con il femore o con la tibia, striscia sulla plastica ferma: attrito, polvere di PETG-CF contro gli schermi, gioco assiale che cresce con l'usura. È la regola 'sull'anello interno appoggia solo un rialzo' non applicata al lato fisso. Il contatto c'è sicuramente se l'anello tocca la spalla prima che la flangia tocchi la faccia esterna.",
+    "correzione": "cus_passo_d = 7,2 mm (anello interno 6,4 più 0,4 per lato), sempre sotto il diametro interno dell'anello esterno (circa 8,5): la spalla tocca solo l'anello esterno. Stesso criterio per la sede del cuscinetto di coxa nella gondola del corpo."
+   },
+   {
+    "titolo": "Tibia: lo stinco si attacca alla culla solo attraverso la parete di coda di 2 mm, dove fondo e pareti laterali si interrompono",
+    "severita": "media",
+    "certezza": "probabile",
+    "parte": "Tibia (righe 332-337: culla, stinco)",
+    "prova": "Sezioni del corpo Tibia lette in Fusion. A Z = -29 (culla): A = 160 mm², baricentro a Y = -10,0, I fuori piano 17071 mm⁴, I nel piano 18260 mm⁴. A Z = -31,9 c'è la parete di coda piena, 24,9 x 33,6, spessa 2 mm (Z da -32,95 a -30,95). A Z = -33,5 (stinco più bugna): A = 225 mm², baricentro a Y = -0,2, X ±8,6, Y ±9,45. L'asse neutro salta di 10 mm e le pareti laterali (X da ±10,45 a ±12,45) e il fondo (Y da -24,15 a -19,75) non proseguono nello stinco (X ±6): le loro forze arrivano allo stinco solo flettendo la parete di 2 mm. Stima con una forza laterale al piede di 11 N (coppia di stallo della coxa su circa 100 mm): M = 11 x 77 = 850 N mm. Nel fondo e nelle parti basse delle pareti circa 0,6 MPa x 62 mm² = 37 N, da portare da Y circa -21 a Y = -9,45: momento sulla parete circa 390 N mm su una striscia 24,9 x 2, cioè circa 23 MPa. Questo vale nel verso in cui la parete si allontana dal servo; nell'altro la regge la coda del servo dopo 0,2 mm. Lo stinco con le finestre invece lavora a 2 MPa.",
+    "correzione": "Raccordo a 45° sotto il fondo, dentro l'impronta dello stinco: prisma triangolare con vertici (Y -24,15; Z -32,95), (Y -9,45; Z -32,95), (Y -9,45; Z -47,65), esteso su X = xk ± tib_stinco_semi. In stampa la faccia inclinata guarda in alto, quindi niente supporti, e la sagoma nel piano XZ non cambia, quindi nemmeno le escursioni. Se la scansione del ginocchio lo permette, aggiungere anche raccordi dalle pareti laterali allo stinco lungo X."
+   },
+   {
+    "titolo": "Femore_B: l'inserto ins_blocco_aa ha 1,44 mm di parete verso lo smusso alto (1,24 a inserto montato)",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Femore_B (righe 303-307, _inserti_blocco)",
+    "prova": "Misura in Fusion fra il cilindro r 2,1 in (81; 13,5) e la faccia dello smusso alto (normale 0,71; 0; -0,71): 1,44 mm. Conto: distanza asse-smusso ((81 - 76,5) - (13,5 - 14))/√2 = 3,54, meno 2,1 = 1,44; con l'inserto Ø4,6 restano 1,24, sotto gli 1,6 della regola (dimensioni-componenti.md). Su una parete inclinata a 45° l'inserto a caldo gonfia o crepa la faccia. Gli altri tre inserti del blocco hanno almeno 1,8 mm.",
+    "correzione": "Spostare in X solo la coppia vicina all'anca: x0 = 'zam_Lc + fem_blocco_x0 + fem_ins_dx + 0.6 mm' (X 81,6). La parete diventa 1,86 (1,66 con l'inserto), 3,0 verso X = 76,5. Non conviene abbassare z1 comune: fra ga e gb resterebbe 1,0 mm. Il foro corrispondente di Femore_A segue la stessa funzione."
+   },
+   {
+    "titolo": "Finestre a rombo delle culle: fra le due finestre resta un legamento di 1,12 mm",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Coxa (parete +X) e Tibia (entrambe le pareti), righe 65-68 e 190-195",
+    "prova": "cul_fin_lato = 13 dà una semidiagonale di 9,19. Con i centri a Z -1 e -20,5 le punte stanno a -10,19 e -11,31: restano 1,12 mm, misurati fra le punte nel modello (Coxa a X 65,45, Tibia a X 108,55 e 131,45). In stampa è un'isola di 1,12 x 2 mm, sotto la soglia di 1,2. Le finestre vanno da Z 8,19 a -29,69 e da Y -14,19 a 4,19: le pareti laterali si riducono a due fasce di 5,3 e 5,6 mm per quasi tutta la sede, poco posto per le future nervature di schiacciamento.",
+    "correzione": "cul_fin_lato = 12: legamento 2,5 mm, fasce 6,0 e 6,3, punte a 1,5 mm dalla parete di coda. Rigenerare Coxa e Tibia e rifare giunti e limiti come da progetto-meccanico.md."
+   },
+   {
+    "titolo": "Ponte della coxa: 1,15 mm di parete fra il foro centrale Ø6 e i fori delle teste Ø5,7",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Coxa_Ponte (riga 97 sq_accesso_d; righe 259-261)",
+    "prova": "Misura in Fusion fra il cilindro r 2,85 e il cilindro r 3,00: 1,15 mm (7 - 3 - 2,85), per Z da 19,85 a 23,5. È la parete fra la sede in cui la testa porta la coppia e il foro centrale, sotto 1,2 mm.",
+    "correzione": "Nel ponte il foro centrale può essere sq_accesso_d = 5 mm (1,65 mm di parete): la vite centrale della squadretta si monta prima del ponte e per ritoccarla il ponte si smonta comunque. Serve un parametro proprio del ponte, perché Femore_A usa lo stesso sq_accesso_d e lì ha 2,3 mm di parete."
+   }
+  ],
+  "verificato_senza_difetti": [
+   "Orientamenti dichiarati: in Femore_A (faccia esterna Y = +30,55 sul piano), Femore_B (Y = -30,55 sul piano, blocco in piedi) e Coxa_Ponte (faccia Z = +23,5 sul piano) nessuna faccia è rivolta al piatto sopra il primo strato: si stampano senza supporti.",
+   "Tibia con l'orlo sul piano: soltanto ponti (tetto della sede 20,9 mm, finestra del cavo 9 mm, fondi dei fori degli inserti Ø4,2); finestre dello stinco passanti in verticale; piede con asse verticale.",
+   "Coxa: il fondo del cilindro Ø18,9 della testa del braccio, che in stampa giace di fianco, sporge per circa 2,8 mm di altezza con pendenza che scende da circa 75° a 45°: accettabile senza supporti.",
+   "Fori degli inserti nelle culle e nel blocco del femore profondi 6,7 mm (5,7 + 1); fondo di 1,3 mm nelle bugne; pareti misurate 1,6 verso la sede, 1,3 verso le facce esterne, 1,8-2,4 nel blocco (salvo ins_blocco_aa).",
+   "Inserti delle alette lato albero: 1,22 mm misurati verso la gola del fermacavo (circa 1,0 a inserto montato), come deciso in D-047.",
+   "Piastre del femore 2,4 mm: in flessione nel piano allo stallo (1078 N mm su 2,4 x 26, W = 270 mm³) circa 4 MPa; fuori piano con 11 N lungo l'asse al ginocchio circa 6-7 MPa; fibre parallele agli strati.",
+   "Blocco di Femore_B stampato in piedi: le azioni che caricano gli strati di traverso (torsione e flessione fra le piastre) danno meno di 1 MPa.",
+   "Stinco: sezione alle finestre A = 114 mm², I nel piano 2393 mm⁴, I fuori piano 3429 mm⁴ (lette nel modello); circa 1,7 MPa con la coppia di stallo del ginocchio e circa 2,2 MPa con 11 N laterali; traversini da 6 mm.",
+   "Braccio inferiore della coxa in sé: radice a T con la nervatura, W = 138 mm³, 3,2 MPa a 1,1 kgf (il punto debole è il collo verso la culla).",
+   "Coxa_Ponte: braccio 18,9 x 3,9 a circa 3,3-4,6 MPa allo stallo della coxa; pressione delle teste M3 sui fori Ø5,7 circa 5 MPa (77 N per testa a r = 7); linguetta 2,8 MPa a pressione e 1,5 MPa a taglio.",
+   "Testa dell'anima della coxa: attacco 6,15 x 18,9 sopra la culla, circa 1,3 MPa per le forze del ponte.",
+   "Mozzi di Femore_B: fori dei perni verticali in stampa, 10,5 mm di parete attorno; spalla dietro i cuscinetti spessa 1,2 mm; fondo nelle tasche 1,6 mm; pareti delle culle 2,0 mm."
+  ]
+ },
+ {
+  "lente": "quote",
+  "difetti": [
+   {
+    "titolo": "Il servo non entra nella culla: la parete corta sopra la finestra del cavo blocca l'uscita del cavo",
+    "severita": "bloccante",
+    "certezza": "probabile",
+    "parte": "Coxa e Tibia (_sede in zampa.py, gola_cavo e finestra_cavo); stesso schema previsto per la gondola del corpo",
+    "prova": "Nello STEP (Rif_Servo_MG996R:2 nella Zampa) dall'estremità corta escono il fermacavo 7 × 4,2 fino a Z 11,25, poi una guaina piena 5,6 × 2,8 fino a Z 15,25 (faccia piana a Z 15,25, X 52,2–57,8; punti (55,−14,13) e (55,−14,15) dentro il corpo 'cassa'), poi i fili Ø1,5 fino a 18,25. dimensioni-componenti.md riporta solo 'fermacavo sporgente 1 mm'. La culla ha una finestra solo da Y −16,65 a +0,45 (cav_fin_alto 9 sotto le alette). Nei 9 mm sopra la finestra c'è soltanto la gola, che finisce a cul_sede_corto + cav_gola_p = 11,25, cioè esattamente alla punta del fermacavo (gioco 0). Ho fatto un pointContainment lungo il percorso di discesa della guaina (Y 1–8, Z 11,5–14,5, dx 0 e 2,5): 28 punti su 32 cadono nel materiale, sia nella Coxa sia nella Tibia. Nella posa finale invece il cavo passa nella finestra, ed è per questo che il controllo delle interferenze non lo vede. Anche con un cavo del tutto flessibile, piegarlo di 90° alla punta del fermacavo richiede almeno 1,5 mm (filo) più il raggio di curvatura oltre Z 11,25, e lì lo spazio è 0. Il canale non si può allargare così com'è: i fori degli inserti lato albero stanno a X ±2,9…7,1 e Z 12,25…16,45, quindi un canale largo ±3,0 li aprirebbe.",
+    "correzione": "1) Prima di tutto un provino della culla con il servo vero: si cala il servo con la spina già infilata nella finestra. 2) Se la guaina è come nello STEP: aprire la parete corta dall'orlo fino alla finestra in una fascia centrale X ±3,1 (cav_fin_alto = 0 in quella fascia, taglio fino a cul_corto + 0,5). Così il fissaggio lato albero non può più usare i due inserti M3 a X ±5. Sostituirlo con una barretta stampata che preme l'aletta lato albero, avvitata a due inserti M3 in bugne fuori dai fianchi della culla (X ±(cul_semi + 2,1 + 1,6)). In alternativa rendere riportabile il tratto di parete sopra la finestra. 3) Aggiungere la guaina (5,6 × 2,8 × 4) in dimensioni-componenti.md e nei parametri srv_cavo_*."
+   },
+   {
+    "titolo": "La rondella sotto la testa delle viti della squadretta di coxa non sta nella sede del ponte",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Coxa_Ponte (sede_disco, foro_testa_a/b); D-048",
+    "prova": "D-048 prescrive una M3 × 6 'con una rondella sotto la testa'. Il BOM D7 prevede rondelle DIN 125 M3, cioè Ø7 × 0,5. La rondella poggia sul disco a Z 19,55–20,05 ed è centrata a r = 7, quindi arriva fino a r 10,5. La sede del disco ha raggio 10,2 (sq_d + 2·gio_stampa) e il soffitto a Z 17,05 + 2,8 = 19,85 (cox_disco_luce 0,3), mentre il foro della testa è Ø5,7, più piccolo della rondella. Sul modello i punti (0; 3,8; 19,95) e (0; 10,4; 19,7) sono dentro il materiale del ponte: la rondella interferisce di 0,2 in altezza e di 0,3 in raggio. Anche una DIN 433 (Ø6) interferisce in altezza. Conseguenza: il ponte non scende sulla testa dell'anima (Z 19,6). Stringendo le 2 M3 dell'anima il ponte preme sul disco e la C della coxa stringe la gondola tra braccio e albero: è proprio il carico assiale che D-048 voleva eliminare.",
+    "correzione": "Togliere la rondella: la M3 × 6 sul disco da 2,5 sporge fino a Z 13,55, con 1,4 mm d'aria sopra la torretta del servo di coxa (Z 12,15), e la testa arriva a Z 22,55, sotto il piano del ponte (23,5). Le teste restano impegnate nel foro per 2,7 mm. Se la rondella serve, aggiungere a ogni foro_testa uno svaso Ø7,6 profondo 0,5 + cox_disco_luce sopra la sede del disco e portare localmente la sede oltre r 10,9. Correggere D-048 e progetto-meccanico.md."
+   },
+   {
+    "titolo": "La sede del servo centra la cassa, non l'albero: giunto iperstatico con l'asse dell'albero fuori dall'asse del cuscinetto",
+    "severita": "alta",
+    "certezza": "probabile",
+    "parte": "Coxa e Tibia (cul_sede_*, sede_cuscinetto); giunti di anca e ginocchio",
+    "prova": "Sede 41,4 × 20,9 (cul_sede_coda + cul_sede_corto, 2·cul_sede_semi), disegnata sulle quote massime 41,0 × 20,5 con 0,2 di gioco per lato. Le viti M3 nei fori Ø4,2 delle alette non posizionano il servo (±0,6). Con le quote AZDelivery (40,3 × 20) il gioco sale a 0,55 per lato in lunghezza e 0,45 in larghezza: l'albero può stare fino a circa 0,7 mm dall'asse del cuscinetto. Anche con nervature di schiacciamento simmetriche la cassa da 40,3 si centra nella sede e l'albero si sposta di (41,0 − 40,3)/2 = 0,35 mm, se srv_asse_x = 10,25 (dato S, solo STEP) resta vero. Il giunto è iperstatico: Femore_A è avvitato rigido alla squadretta sull'albero e il perno di Femore_B è forzato nel cuscinetto della culla. Con uno scarto e, ruotando di θ il perno dovrebbe spostarsi di 2e·sin(θ/2) (0,5 mm a 90° con e = 0,35). La rigidezza di taglio stimata del blocco, circa 2000 N/mm, darebbe carichi radiali di centinaia di N sull'albero, assorbiti in parte dal gioco del servo e dalla cedevolezza della plastica.",
+    "correzione": "1) Riferire la cassa al lato dell'albero: gioco di 0,1 sul lato corto e su un fianco, nervature di schiacciamento solo sul lato coda e sul fianco opposto. Così la posizione dell'albero dipende solo da srv_asse_x e non dalla lunghezza della cassa. 2) Aggiungere due parametri di scostamento della sede del cuscinetto rispetto alla sede del servo (per esempio cul_cus_dx, cul_cus_dz, oggi 0) e tararli sul provino, misurando dove cade davvero l'albero del servo montato (piastrina di prova con foro Ø6,1 coassiale al cuscinetto, calzata sul millerighe). 3) Nel provino del giunto controllare che il femore di prova giri senza punti duri su tutta la corsa."
+   },
+   {
+    "titolo": "Il gradino sotto il cuscinetto (foro Ø6) tocca l'anello interno, che striscia sulla culla",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Coxa e Tibia (_sede: passaggio_perno Ø cus_passo_d, sede_cuscinetto profonda cus_sede_prof); gondola del corpo se riusa _sede",
+    "prova": "cus_passo_d = 6 mm. Dalla scheda NMB dell'LF-1050ZZ: Li = 6,40 (diametro di riferimento dell'anello interno) e Lo = 8,94 (dell'anello esterno). cus_sede_prof = cus_B − cus_flangia_sp = 3,2, quindi la faccia interna del cuscinetto (Y −20,95) appoggia sul gradino del fondo, e il gradino copre la corona tra Ø6 e Ø6,4 dell'anello interno. Sul modello il punto (55; −20,5; r 3,1) è nel materiale e il punto a r 2,9 è nel foro. Quando il rialzo di Femore_B spinge l'anello interno (registro con una rondella in meno, carico laterale, gioco assiale interno del cuscinetto) l'anello che gira struscia su PETG-CF fermo, su una corona larga 0,2 mm. Nella gondola, se si riusa lo stesso schema, il peso del corpo spinge l'anello interno contro il gradino in modo continuo. In più la battuta è doppia, flangia e fondo, entrambe con gioco nominale 0.",
+    "correzione": "Portare cus_passo_d a 7,6 mm: 0,6 sopra Li e 0,67 sotto Lo, così il gradino tocca solo l'anello esterno e lo schermo. Facoltativo: cus_sede_prof = cus_B − cus_flangia_sp + 0,2, così la posizione la dà solo la flangia. Il perno Ø5, che entra 1,0 nel fondo, passa comunque."
+   },
+   {
+    "titolo": "Gioco angolare della coxa: la coppia passa da teste M3 in fori Ø5,7 senza serraggio",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Coxa_Ponte (foro_testa_a/b, cox_testa_vite_d)",
+    "prova": "Dopo D-048 il ponte è libero in senso assiale, quindi nessun serraggio per attrito: la coppia passa solo dai fianchi di due teste a r = 7 (sq_fori_pcd/2). Testa ISO 4762 M3: dk da 5,5 max a 5,32 min, in un foro di 5,7, cioè gioco diametrale da 0,2 a 0,38. Il gioco libero vale 0,2/7 rad = 1,64°, fino a 0,38/7 = 3,1°: da 4,3 a 8,1 mm al piede a 150 mm dall'asse. Si somma al gioco del servo e si percorre a ogni inversione della coppia di imbardata, cioè a ogni passo. Il gioco radiale (0,1 sulle teste, 0,2 sul disco in Ø20,4) serve a tollerare il disassamento tra albero e cuscinetto della gondola, quindi stringere il foro tondo toglierebbe anche quella tolleranza.",
+    "correzione": "Sostituire i fori tondi con asole radiali: larghezza tangenziale uguale alla testa, tarata sul provino (nuovo parametro cox_testa_vite_w, partenza 5,5 più la compensazione del foro stampato), lunghezza radiale 5,5 + 0,8. Il ponte resta libero in senso radiale e assiale ma senza gioco in rotazione. Le stesse asole vanno messe sulle quattro teste se il provino mostra che due non bastano."
+   },
+   {
+    "titolo": "Inserto del blocco del femore a 1,44 mm dallo smusso alto (minimo 1,6)",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Femore_B (ins_blocco_aa, smusso_alto)",
+    "prova": "Inserto in (X 81, Z 13,5): x0 = Lc + fem_blocco_x0 + fem_ins_dx, z1 = fem_blocco_su − fem_ins_dx − 2. Lo smusso passa per (76,5; 14) e (82,5; 20). Distanza dalla retta: |81 − 13,5 − 62,5|/√2 = 3,54, meno il raggio del foro 2,1 = 1,44 mm, sotto la parete minima di 1,6 per gli inserti M3 (dimensioni-componenti.md). Sul modello lungo la normale c'è materiale a 3,5 mm dal centro e vuoto a 3,6.",
+    "correzione": "Abbassare z1 di 0,25 mm (z1 = fem_blocco_su − fem_ins_dx − 2,25 mm): la parete diventa 1,6 e la rondella del registro (r 3,5) resta sulla faccia del blocco. In alternativa fem_smusso_alto da 6 a 5,6 mm, ma poi va ricontrollato il femore a +85°."
+   },
+   {
+    "titolo": "Foro degli inserti del ponte corto (6,0 = inserto + 0,3) e quota della mensola giustificata da un vincolo che non agisce",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Coxa (testa_anima_alta, ins_ponte_a/b; cz_mensola, cox_gondola_luce)",
+    "prova": "I fori sono ins_m3_l − 0,7 = 6,0, da Z 19,6 a 13,6. La regola del progetto è inserto + 1 = 6,7. Sotto il foro, per X < 40,15, restano 0,55 mm (sul modello il materiale va da Z 13,05 a 13,6). Con una vite del ponte M3 × 10 la punta arriva a 19,6 + 3,9 − 10 = 13,5, oltre il fondo del foro. La mensola sta a cz_mensola = alette + srv_sopra + 1,2 per 'stare sopra la cassa', ma la testa sta a r ≥ 36 dall'asse della coxa mentre lo spigolo della cassa del servo di coxa è a r = √(30,75² + 10,25²) = 32,4. A r ≥ 36 sotto la testa ci sono solo alette (Z ≤ 4,05) e teste delle viti delle alette (Z ≤ circa 7,05).",
+    "correzione": "Abbassare la mensola: cz_mensola ≤ 11,7, cioè sostituire 'srv_sopra + cox_gondola_luce' con un vincolo sulle teste delle viti delle alette più 1,2. Così il foro può avere la profondità piena ins_m3_l (6,7) con 1,2 di fondo. Prima va ricontrollato lo spazio con lo scafo sopra la gondola, appena c'è. Indicare nel BOM per il ponte viti M3 × 8 (con una rondella di registro sotto il ponte l'impegno resta 3,6 su 5,7)."
+   },
+   {
+    "titolo": "progetto-meccanico.md riporta la bugna lato albero a 17,85, il modello è a 18,05",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "docs/progetto-meccanico.md (tabella quote principali); vincoli per il corpo",
+    "prova": "bug_corto = ins_corto + ins_m3_d/2 + cul_ins_parete = 14,35 + 2,1 + 1,6 = 18,05 dopo lo spostamento di 0,6 (commit fd34025). L'ingombro della Tibia sul modello arriva a Z +18,05. La tabella dice ancora 'bugne degli inserti fino a −17,85'. La quota serve per gli ingombri del corpo e per la gondola.",
+    "correzione": "Aggiornare la tabella a −18,05 (lato albero) e +38,35 (lato coda), e rileggere da lì i vincoli per il corpo."
+   }
+  ],
+  "verificato_senza_difetti": [
+   "Pila lungo Y letta da parametri e modello: alette 9,45; fondo della culla da −19,75 a −24,15; flangia fino a −24,95; Femore_B da −30,55 a −25,35; disco da 24,85 a 27,35; Femore_A fino a 30,55. È simmetrica e gli ingombri dei corpi coincidono (Femore_B Y fino a 27,15, Femore_A da 24,85).",
+   "Profondità della sede del servo: fondo interno a −19,75, fondo del servo da 28,8 a −19,35 (0,4 di luce); con il servo AZDelivery (26,6) la luce è 2,6. La finestra del cavo, da 9 a 26,1 sotto le alette, contiene il fermacavo nella posizione finale per entrambe le altezze.",
+   "Fori delle alette nello STEP: Ø4,2 a +13,75 e −34,25 dall'asse, ±5 di traverso, come i parametri ale_foro_*. Inserti spostati di 0,6 e 0,4 verso l'asola: con un'asola da 2,5 il limite geometrico vero è 0,86, quindi restano 0,26 e 0,46 di margine. Pareti di 1,8 (lato albero) e 1,6 (lato coda) verso la sede e 1,22 verso la gola; fondo sotto i fori degli inserti delle alette 1,3.",
+   "Sede del cuscinetto: profondità 3,2 + flangia 0,8 = larghezza 4; cuscinetto da Y −24,95 a −20,95 nel modello; 1,2 di fondo sopra.",
+   "Rialzo Ø6,2 sotto Li 6,40 (scheda NMB, Lo 8,94), verificato sul modello: Femore_B pieno a r 3,05 e vuoto a r 3,15; Coxa pieno a r 3,0 e vuoto a r 3,2. Luce di 0,4 tra Femore_B e la flangia.",
+   "Perni Ø5 × 12: 1,4 di sporgenza + 5,2 + 0,4 + 4 + 1,0 nel fondo. Punta a −19,95, cioè 0,6 sotto il fondo del servo da 28,8. Perno della coxa da −39,75 a −27,75 contro il fondo interno della gondola a −27,55.",
+   "Piano delle alette del servo di coxa (cz_alette_coxa 1,65) coerente con la pila della gondola: fondo esterno −31,95, flangia fino a −32,75 = cima del rialzo, faccia superiore del braccio −33,15 (1,2 di luce).",
+   "Sedi delle squadrette in Femore_A: Ø20,4 (vuoto a r 10,1, pieno a r 10,3), profondità 2,5 = sq_sp, 3,2 di plastica dietro, fori Ø3,4 a interasse 14. Una M3 × 6 sporge 0,3 sotto il disco, con 4,9 di aria sopra la torretta del servo.",
+   "Registro tra Femore_A e blocco: blocco fino a 27,15, piastra A da 28,15, cioè 1,0 = 2 rondelle DIN 125 da 0,5; le rondelle Ø7 stanno sulle facce del blocco (quella dell'inserto aa arriva a 0,04 dallo spigolo dello smusso). Inserti del blocco profondi 6,7.",
+   "Luce sopra il disco nel ponte: 2,8 di sede contro 2,5 di disco = 0,3 come da parametro (il difetto riguarda solo la rondella). Linguetta da 1,6 in una sede da 2,0 con 0,2 di gioco per lato; inserti del ponte con 1,85 di parete sui fianchi e 2,2 verso i bordi in X.",
+   "Anima della coxa: faccia interna a X 40,15, 0,83 mm oltre il raggio 39,32 delle bugne di coda della gondola. La testa dell'anima (r ≥ 36) non passa mai sopra la cassa del servo di coxa (r ≤ 32,4).",
+   "Squadretta di coxa: mozzo da Z 14,05 a 19,55. Le viti dell'asse del ponte stanno a Y ±7, centrate nei fori Ø5,7 (verificato sul modello).",
+   "Posizioni delle copie di servo, squadrette, cuscinetti e perni nella Zampa coerenti con le espressioni di ISTANZE (traslazioni lette dal modello)."
+  ]
+ },
+ {
+  "lente": "sistema",
+  "difetti": [
+   {
+    "titolo": "La rondella sotto la testa delle viti della squadretta di coxa (D-048) non ha posto nel ponte: interferenza di 0,2 mm, il ponte non si appoggia sull'anima e precarica l'albero",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Coxa_Ponte (fai_ponte, zampa.py righe 258-261) e D-048",
+    "prova": "Letto in Fusion, in sola lettura, sul corpo di Coxa_Ponte: la sede del disco è un cilindro Ø20,4 da Z 17,05 a 19,85 e i fori per le teste sono Ø5,7 da Z 19,85 a 23,5. Non c'è nessuna sede per la rondella. Il disco della squadretta va da 17,05 a 19,55 (cz_ponte_giu + sq_sp), quindi sopra il disco restano 0,3 mm (cox_disco_luce). D-048 e il commento di cox_ponte_sopra ('teste delle viti 3 + rondella 0,5') mettono sotto ogni testa una rondella, e l'unica a BOM è la DIN 125 (voce D7) da Ø7 × 0,5. Una rondella Ø7 non entra nel foro Ø5,7, quindi resta sul disco da Z 19,55 a 20,05 e supera di 0,2 mm il soffitto della sede (19,85). Le rondelle non sono modellate, perciò il controllo delle interferenze non poteva vederlo. Conseguenza: il ponte appoggia sulle rondelle e non sulla testa dell'anima (Z 19,6), cioè resta 0,2 mm sopra. Serrando le 2 M3 negli inserti, il ponte spinge il disco e l'albero verso il servo e tira il braccio contro l'anello interno. Si torna così alla ripartizione del carico tra albero e cuscinetto che D-048 voleva eliminare, e il gioco verticale diventa negativo invece di 0,3.",
+    "correzione": "In fai_ponte aggiungere, per ogni testa in (0, ±sq_fori_pcd/2), una sede per la rondella. È un cilindro TAGLIA che parte da 'cz_ponte_giu + sq_sp', con diametro 'rond_m3_d + 2 * gio_stampa' (nuovi parametri rond_m3_d = 7 mm e rond_m3_sp = 0,5 mm) e altezza 'rond_m3_sp + cox_disco_luce'. Così la luce di 0,3 resta sopra la rondella. La sede arriva a r 10,7 e lascia 1,3 mm di mozzo (r 12). In alternativa si toglie la rondella da D-048 (testa direttamente sul disco) e si corregge il commento di cox_ponte_sopra. Con una delle due correzioni la testa sta 0,45 mm sotto la faccia superiore del ponte."
+   },
+   {
+    "titolo": "Massa sottostimata: la viteria delle sole zampe supera il bilancio di tutto il robot, quindi la massa realistica è circa 2,75 kg e il femore lavora al 52 %, non al 51 %",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Bilancio di massa (docs/dimensionamento.md), calc/statica_tripode.py CONFIG massa_g, progetto-meccanico.md",
+    "prova": "Fori contati sul modello in Fusion (sola lettura): inserti Ø4,2 = 6 nella Coxa, 4 in Femore_B e 4 nella Tibia; fori passanti Ø3,4 = 12 in Femore_A e 2 nel ponte. Per ogni zampa servono quindi 28 viti M3 (8 alette, 8 squadrette di femore e ginocchio, 4 blocco, 2 ponte, 2 M3 × 6 sulla squadretta di coxa, 4 alette del servo di coxa nella gondola), 18 inserti e 10 rondelle (8 per il registro di 1,0 mm tra blocco e Femore_A, 2 di D-048). Con 0,75–0,95 g per vite ISO 4762 M3 × 6–10, 0,3–0,4 g per inserto e 0,12 g per rondella fanno 27–35 g a zampa, cioè 160–210 g per sei zampe, contro i 90 g di 'Viteria e inserti' previsti per tutto il robot. Le parti stampate ricalcolate in Fusion con la formula di zampa.py valgono 89,3 g (+116 g in sei zampe sui 70 g del bilancio). I piedini in TPU (circa 3 g l'uno) non sono a bilancio. Totale: 2506 + 116 + 70…120 + 18 ≈ 2,71–2,76 kg prima della viteria del corpo, e il margine di 94 g che portava a 2600 è già consumato. Rilanciato statica_tripode.py a 2750 g: femore 5,75 kgf·cm = 52 %, ginocchio 3,99 = 36 %. andature.py a tripode, a 2750 g: 130/25 48 %, 110/40 47 %, 100/45 52 %, 90/55 62 %, 80/60 68 %, 70/70 78 % (a 2600 g erano 45/45/49/59/64/73).",
+    "correzione": "In calc/statica_tripode.py mettere massa_g = 2750 (2800 con un margine). Nel bilancio di dimensionamento.md portare 'Viteria e inserti' a circa 200 g più quella del corpo e le zampe a 6 × 89 g, aggiungere i piedini e rilanciare andature.py. In progetto-meccanico.md sostituire 'circa 51 %' con 52–53 %. Se si vuole tornare al 50 %, i 150 g da recuperare vanno cercati nelle parti stampate: Femore_B (blocco pieno da 33 cm³) e Coxa hanno quasi tutto il volume in pareti."
+   },
+   {
+    "titolo": "Limiti per il firmware incompleti e incoerenti: γ_min(α) a gioco zero, con buchi e in due versioni diverse, e riferimento di calettamento delle squadrette incompatibile con α +85 e γ 175",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "progetto-meccanico.md (verifiche e limiti), zampa.py LIMITI (righe 556-558), dimensionamento.md (squadretta a metà corsa)",
+    "prova": "(1) Il documento dà γ_min = 30 sopra +35, 40 tra 0 e +15, 45 tra −30 e −5, 50 sotto −30: mancano gli intervalli (+15, +35) e (−5, 0). Il commento in zampa.py dice invece '45-55 con il femore sotto -15'. (2) Sono soglie della scansione 3D a passi di 5° con interferenza zero. Il modello 2D con gioco 1 mm (zampa_escursioni.py, Lf 65, Lt 110, smussi 6 e 3, inserti 0,4) dà γ_min 49,5 a α −45, 49 a −40 e −35, 48,5 a −30, 48 a −25, 47 a −20, 46 a −15, 44,5 a −10, 43 a −5, 41,5 a 0, 40 a +5, 38,5 a +10, 37 a +15, 35,5 a +20, 34 a +25, 32,5 a +30, 30,5 a +35 e 30 da +40 in su. Quindi a α −30 con γ 45 e a α 0 con γ 40 il gioco è sotto 1 mm. (3) In Fusion G_ginocchio ha limiti −85…+60, cioè γ 30–175 per ogni α: il giunto ammette pose in collisione. γ 175 non è nella scansione 3D, che arrivava a 170; il 2D lo dà libero fino a 180. (4) α +85: nel 2D il gioco tra blocco e ponte è 0,89 mm. (5) dimensionamento.md cala la squadretta a metà corsa con α 0 e γ 90. Allora α +85 e γ 175 stanno a 85° dal centro, oltre i ±80 dei 160° utili (corsa_servo in statica_tripode.py). (6) Imbardata delle zampe vicine, calcolata in pianta con le posizioni di CONFIG: contatto a ±30,5° con la larghezza 61,1, ma a ±29,8° contando le teste delle viti su Femore_A (fino a Y +33,55) e i perni (fino a −31,95).",
+    "correzione": "Scrivere in progetto-meccanico.md una sola tabella per il firmware, presa dal 2D con 1 mm e arrotondata in eccesso: α −45 → γ_min 50; −40…−30 → 49; −25 → 48; −20 → 47; −15 → 46; −10 → 45; −5 → 44; 0 → 42; +5 → 41; +10 → 39; +15 → 37; +20 → 36; +25 → 34; +30 → 33; +35 → 31; ≥ +40 → 30. Tra due righe vale il valore maggiore. Inoltre: γ_max 175; α da −45 a +80 nel firmware (le andature arrivano a +78); imbardata verso la vicina θ_i + θ_j ≤ 52° (a ±26° restano 15,6 mm). Allineare il commento di zampa.py. Fissare il calettamento delle squadrette a centro corsa con α = +20° e γ = +102,5° (servono ±65° e ±72,5°). Con 25 denti e 4 fori a 90° la risoluzione di calettamento è 3,6°. Nella cinematica inversa usare Lt = 110 più lo spessore del cappuccio in TPU."
+   },
+   {
+    "titolo": "Luce sotto il corpo sovrastimata di 5 mm: il punto più basso della coxa è la nervatura a −43,35, non il braccio a −38,4",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Coxa (nervatura), calc/andature.py riga 19 e calc/assetti.py riga 16 (FONDO = 38.4), dimensionamento.md riga 42, D-047 'Vincoli per il corpo'",
+    "prova": "Ingombro di Coxa letto in Fusion: Z da −43,35 a 19,6. La nervatura (blocco da X 10 a 42,35, Z −43,35…−38,35, rastremata dal taglio obliquo) è piena alta 5 mm tra X 40,15 e 42,35: −(bug_coda + cox_nerv_h) = −43,35. Gli script e il documento usano ancora FONDO 38,4 ('da aggiornare con il CAD'): luce h − 38,4, quindi 31,6 mm a 70/70. Il valore vero è h − 43,35, cioè 26,6 mm a 70/70 e 56,6 mm a 100/45. D-047 scrive solo '38,35 (più la nervatura)' senza il numero.",
+    "correzione": "Mettere FONDO = 43.4 in calc/andature.py e calc/assetti.py (meglio bug_coda + cox_nerv_h), correggere 'h − 38,4' in dimensionamento.md e scrivere −43,35 (X 40–42 dall'asse della coxa) nei vincoli di D-047. La nervatura è giusta dov'è (il momento massimo è alla radice sull'anima): va corretto solo il dato."
+   },
+   {
+    "titolo": "Gioco radiale tra anima della coxa e gondola di 0,83 mm, sotto la regola di 1 mm usata per tutte le altre parti in moto relativo",
+    "severita": "media",
+    "certezza": "probabile",
+    "parte": "Coxa (cx_anima) e gondola del corpo (bugne lato coda del servo di coxa)",
+    "prova": "cx_anima = zam_Lc − cul_sede_semi − cox_anima_sp = 55 − 10,45 − 4,4 = 40,15. La gondola ha le bugne lato coda fino a bug_coda 38,35 e bug_semi 8,7, quindi raggio hypot(38,35; 8,7) = 39,32: il gioco è 0,83 mm, nella fascia Z da −6,35 a 1,65 dove stanno le bugne e l'anima. zampa_escursioni.py assume r_anima = r_gondola + gioco (1,0) = 40,32, che con un'anima da 4,4 chiederebbe Lc 55,17. La catena di tolleranze consuma quasi tutto il gioco. L'asse della coxa va dal cuscinetto (Z −32,75) alle teste delle viti nel ponte (Z ≈ 21). L'albero può stare fuori asse fino a 0,2 mm per il gioco della culla e fino a 0,6 per le viti M3 nei fori Ø4,2 delle alette: a Z 0 sono circa 0,25 mm. A questo si aggiungono 0,1–0,2 mm di tolleranza di stampa per ciascuna delle due parti e la flessione dell'anima con circa 29 N orizzontali (D-048). Restano 0,1–0,3 mm: probabile strisciamento dell'anima sugli spigoli delle bugne della gondola durante l'imbardata.",
+    "correzione": "Nel corpo, quando si disegna la gondola, rifilare gli spigoli esterni delle bugne lato coda con un cilindro coassiale alla coxa di raggio 38,6 (gioco 1,55; tra inserto Ø4,6 e superficie restano circa 1,3 mm), oppure smussarli di 2 mm. In alternativa portare zam_Lc a 56 (gioco 1,83), al costo di 1 mm di zampa in più. Aggiungere il raggio massimo della gondola (38,6) ai vincoli per il corpo."
+   },
+   {
+    "titolo": "Cavo del ginocchio delle zampe d'angolo probabilmente corto (32 cm, dato S), e passaggio all'anca tra le piastre largo solo 3,9 mm: niente guaina spiralata dentro la forcella",
+    "severita": "media",
+    "certezza": "probabile",
+    "parte": "Percorso dei cavi (da fare), BOM C5/C6/D11, posizione della SSC-32 nel corpo",
+    "prova": "Lunghezze stimate dalle quote del modello per il cavo del ginocchio dentro la zampa. Uscita dalla finestra fino a r 15: circa 5 mm. Ansa al ginocchio: per γ 30 la distanza tra l'uscita e un ancoraggio sul dorso del blocco (femore x 44, z 21) è 36,6 mm, quindi circa 40 mm. Dorso del femore: circa 22 mm. Ansa all'anca: per α −45 il cavo deve girare attorno allo spigolo della culla della coxa (67,45; 12,45), circa 40 mm. Lungo la coxa fino a passare al corpo vicino all'asse: circa 60 mm. Ansa di imbardata: circa 15 mm. Totale circa 190 mm. Con 320 mm ne restano circa 130 (110 se il cavo AZDelivery è da 30 cm). Dall'asse di una coxa d'angolo (95, 60) alla fila di header più vicina di una SSC-32 centrata (25,4; 23,5) ci sono 79 mm in linea d'aria, più dislivello e giri attorno a batteria e distanziali. Per le zampe medie (0, 78) sono 55 mm: nessun problema. All'anca, tra le piastre, il blocco spazza la corona r ≥ 21,5 dall'asse del femore, mentre la culla della coxa arriva a r 17,6 (spigoli) e la bugna lato albero a r 20,0. A Y −14 restano 3,9 mm, sulla bugna 1,5 mm (gioco minimo blocco/bugna nelle andature, 2D). Un nastro singolo da circa 1,3 mm passa; una guaina spiralata da 6–8 mm (BOM D11, 'ancoraggi ai giunti') no.",
+    "correzione": "Fissare due regole per i passaggi dei cavi. (1) Dentro la forcella del femore il cavo passa come nastro singolo, sul lato Y −10…−24 (fuori dalla testa dell'anima, |Y| ≤ 9,45) e entro r 20 dall'asse dell'anca. Le anse di ginocchio e anca stanno fuori dalla forcella, sopra il blocco, e la guaina D11 si usa solo nel corpo. (2) Vincolo per il corpo: estremità delle file di header della SSC-32 entro circa 100 mm di percorso dagli assi delle quattro coxe d'angolo. Se non si riesce, approvare subito 4 prolunghe C5 e 4 clip C6 per i ginocchi d'angolo invece di lasciarle '? (dopo il CAD)'."
+   },
+   {
+    "titolo": "Vincoli della zampa sul corpo incompleti in D-047: mozzo del ponte a 0,45 mm dal lato corto della gondola, testa dell'anima sopra la gondola, femore a +85°, braccio sotto il fondo",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "docs/decisioni.md D-047 'Vincoli per il corpo'",
+    "prova": "Dal modello (ingombro di Coxa_Ponte X −12…44,55, Z 17,05…23,5; parametri). (a) Il mozzo del ponte ha r 12 attorno all'asse della coxa, tra Z 17,05 e 23,5. Il lato corto della gondola sta a cul_corto = 12,45 dall'asse: se lo scafo sale lì oltre Z 17, il gioco è 0,45 mm. (b) La testa dell'anima (testa_anima_alta) parte da X 36 e da Z 13,05: niente della gondola (coperchi, fermacavi) sopra Z 12 tra r 35 e 39,3. Oggi ci arrivano solo le teste delle viti delle alette, a Z 7,05. (c) A α +85 blocco e piastra alta del femore arrivano a X 37 dall'asse della coxa, con Z da 21 a 46 e |Y| fino a 30,55 (calcolo dalla sagoma del blocco ruotata di 85°): lo scafo deve restare sotto Z 21 in quel settore, per tutta l'imbardata. (d) Il braccio inferiore passa 1,2 mm sotto il fondo della gondola (−33,15 contro −31,95) e 0,4 mm sotto la flangia del cuscinetto: il fondo della gondola deve essere liscio, senza teste di viti, nel settore spazzato fino a r 43,6. D-047 riporta solo 'ponte a 17–23 mm sopra l'asse' e il fondo a 31,95.",
+    "correzione": "Aggiungere a D-047 e a progetto-meccanico.md: scafo a r ≥ 13 dall'asse della coxa sopra Z 16; niente della gondola sopra Z 12 tra r 35 e 39,3; nessuna parte del corpo sopra Z 21 entro r 49 nel settore d'imbardata (zona del femore a +85°); fondo della gondola piano e senza viti fino a r 44 nel settore spazzato dal braccio. Ogni voce con il nome del parametro da cui deriva (cox_ponte_r, cx_testa, cz_mensola, cz_braccio_su)."
+   },
+   {
+    "titolo": "Accoppiamento delle teste M3 nei fori Ø5,7 del ponte: o gioco d'imbardata fino a ±1,6° (±2,7 mm al piede) o testa forzata che blocca la libertà assiale di D-048",
+    "severita": "bassa",
+    "certezza": "probabile",
+    "parte": "Coxa_Ponte (cox_testa_vite_d = 5,7)",
+    "prova": "La coppia della coxa passa solo da 2 teste a r 7 (sq_fori_pcd/2) in fori Ø5,7 (letti in Fusion). ISO 4762 M3: testa liscia da Ø5,32 a 5,50, testa zigrinata fino a Ø5,68. Con la testa liscia il gioco radiale va da 0,10 a 0,19 mm, cioè ±0,8…1,6° di imbardata libera: al piede (r = Lc + x_f0 = 100 mm) sono ±1,4…2,7 mm, in aggiunta al gioco degli ingranaggi del servo. Il gioco cresce con l'usura del PETG a ogni inversione di coppia. Con la testa zigrinata, o con il foro stampato più stretto (succede di solito), la testa entra forzata e il ponte non scorre più in verticale, contro D-048. Il diametro è un numero fisso, non legato a gio_stampa né a una quota della vite.",
+    "correzione": "Parametrizzare il foro come 'vite_m3_testa_d + 2 * gio_testa', con la testa misurata sulle viti comprate (liscia, non zigrinata) e gio_testa tarato sul provino, con obiettivo 0,05 mm per lato. Aggiungere in fai_ponte i due fori a (±7, 0), uno sotto il braccio e uno sotto il mozzo, per usare 4 teste invece di 2: si dimezzano pressione e usura."
+   }
+  ],
+  "verificato_senza_difetti": [
+   "Design in Fusion letto solo in sola lettura: 'Zampa' all'origine (trasformata identità), giunti a 0 nella posa di riferimento, nessuna posa in sospeso; G_femore −85…+45 → α −45…+85 e G_ginocchio −85…+60 → γ 30…175, coerenti con LIMITI in zampa.py",
+   "Pila lungo Y dai parametri: zy_orlo 9,45, zy_disco 24,85, zy_A_est +30,55, zy_B_est −30,55, larghezza 61,1; perni Ø5 × 12 coerenti in tutti e tre i giunti (coxa: 5,6 + 4 + 1 + 1,4); ingombri dei perni in Fusion Y −31,95…−19,95 e Z −39,75…−27,75",
+   "Pila della coxa di D-048: alette del servo di coxa a Z 1,65, disco da 17,05 a 19,55, ponte da 17,05 a 23,5 con appoggio a 19,6, fondo della gondola a −31,95, flangia da −32,75 a −31,95, rialzo sull'anello interno, braccio 0,4 mm sotto la flangia",
+   "Massa delle parti stampate ricalcolata in Fusion con la formula di zampa.py: Coxa 24,7, Ponte 5,1, Femore_B 23,3, Femore_A 9,2, Tibia 27,0, totale 89,3 g (il documento dice 89,4)",
+   "statica_tripode.py a 2600 g riproduce il documento: femore 49 %, ginocchio 34 %, imbardata in appoggio ±17°, appoggio più volo α +3…+38 e γ 41…83",
+   "Zampe vicine (AS–MS, posizioni di CONFIG, in pianta): 40 mm di luce a ±17° (marcia); contatto a ±30,5° con la larghezza 61,1 e a ±29,8° con le teste delle viti di Femore_A e i perni; stesso risultato sul lato destro. La frase di D-047 'contatto a 30°' va bene come ordine di grandezza",
+   "Modello 2D aggiornato (Lf 65, Lt 110, smussi 6/3): tutte le pose delle sei andature libere con almeno 1,5 mm; γ fino a 180 libero per ogni α; α da −46 a +84,5 senza il corpo. Il limite '+80 dalla gondola' del 2D è un artefatto: il riquadro della gondola nel modello occupa tutta la Y, mentre le piastre del femore (|Y| ≥ 25,35) restano a r ≥ 49 dall'asse della coxa per ogni imbardata",
+   "Uscita del cavo del servo del femore: finestra in cima alla culla della coxa (X 50,5…59,5, Y −16,65…0,45), fuori dalla testa dell'anima (X ≤ 46,3). Esiste un canale verso il corpo a |Y| 9,45…24 e Z 12,45…19: a α +85 il blocco resta a Z ≥ 21,2. Gli spezzoni dei fili dello STEP (fino a Z 18,25) erano nella scansione 3D",
+   "Uscita del cavo del ginocchio: a γ 175 restano 8,5 mm tra la faccia corta della culla e la testa del blocco; lo spigolo della culla passa a 3,4 mm dal blocco verso γ 135. Basta per un nastro singolo che sale sopra il dorso del femore",
+   "Cavo del servo di coxa: esce dal lato corto della gondola verso l'interno dello scafo, a Z −21,85",
+   "Finestra e gola del fermacavo: la spina JR (7,9 × 2,75) passa nella finestra 9 × 17,1; il fermacavo (centro a 23,5 sotto le alette nello STEP, 21,3 nell'AZDelivery) cade nella finestra per entrambe le fonti; gola profonda 0,8 = sporgenza 1,0 − gioco 0,2",
+   "BOM: perni Ø5 × 12 (D2) e cuscinetti 18 + 6 (D1) bastano per 3 giunti a zampa; squadrette 18 + 2 (D3); inserti M3 necessari 14 a zampa più 4 a gondola, cioè 108 su 200 (D4); rondelle DIN 125 per i registri in D7 (servono circa 60, a BOM 100). Le rondelle del registro tra blocco e Femore_A (Ø7) stanno sulla faccia del blocco: la più vicina allo smusso alto, nell'inserto (x 26, z 13,5), resta dentro di 0,04 mm",
+   "Viti delle squadrette di Femore_A: M3 × 6 attraverso 3,2 mm di plastica sporgono 0,3 mm sotto il disco; restano 4,9 mm prima della torretta del servo. Con la rondella, le M3 × 6 della coxa sporgono 3,0 mm sotto il disco e restano 1,9 mm prima della torretta, con le quote C della squadretta"
+  ]
+ }
+]

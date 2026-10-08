@@ -16,7 +16,7 @@ import math
 
 from statica_tripode import CONFIG, ik_piano, piede_neutro, stallo_kgfcm
 
-FONDO = 38.4          # punto piu' basso vicino al corpo sotto l'asse dei femori: braccio inferiore della coxa (D-047; da aggiornare con il CAD)
+FONDO = 41.4          # punto piu' basso vicino al corpo sotto l'asse dei femori: nervatura del braccio della coxa (zampa v0 dopo la revisione)
 COM_SOTTO = 0.0       # baricentro rispetto all'asse dei femori (stima: da aggiornare con il CAD)
 GAMMA_MIN = 45.0      # angolo interno minimo al ginocchio: obiettivo per la zampa nuova
 ALPHA_MAX = 60.0      # femore sopra l'orizzontale: obiettivo per la zampa nuova

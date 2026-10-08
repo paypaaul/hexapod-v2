@@ -95,3 +95,18 @@ Soluzione: **il ponte non è avvitato alla squadretta**. Due viti M3 × 6 avvita
 - Il braccio inferiore porta tutto il peso: ha una nervatura sotto (freccia stimata sotto 0,1 mm con 11 N).
 - Le forze orizzontali del momento ribaltante (circa 29 N) restano divise tra cuscinetto e albero: carico radiale sull'albero da provare sul provino.
 - Il ponte si avvita all'anima con 2 M3 in inserti in una testa dell'anima che sta sopra la gondola (1,2 mm sopra la cassa del servo di coxa) ed è centrato da una linguetta.
+
+## D-049 — Correzioni della zampa dopo la revisione (2026-10-09)
+
+Quattro revisori indipendenti (montaggio, stampa e struttura, quote, sistema) hanno controllato la zampa v0 sul modello; i rilievi completi sono in `ricerca/zampa-v0-revisione.json`. Corretti nel modello:
+
+- **Il servo non entrava nella culla** (bloccante, trovato da due revisori): il passacavo rigido dell'MG996R sporge 5 mm dalla testata e non passava tra l'orlo e la finestra del cavo; per lo stesso motivo un servo rotto non sarebbe uscito. Ora una **fessura larga 6,7 mm** scende dall'orlo alla finestra attraverso la testata lato albero. Gli inserti M3 di quel lato non ci stavano più: le due viti delle alette lato albero sono **M3 avvitate in fori pilota Ø2,5** (autofilettanti nella plastica), spostate di 0,6 mm verso l'esterno dentro il foro Ø4,2 dell'aletta; lato coda restano gli inserti. Nessuna voce nuova.
+- **La rondella sotto le teste delle viti della squadretta di coxa** (D-048) impediva al ponte di scendere nella sua sede (bloccante): **niente rondella, viti M3 × 5**. Con M3 × 6 la punta arriverebbe a 0,1 mm dalla torretta del servo. Il BOM elencava viti M3 da 6 a 25 mm: servono 12 viti M3 × 5 (da confermare con l'utente).
+- **Collo di 2,4 mm tra braccio e culla della coxa** (alta): sotto la coda di ogni culla c'è ora uno **zoccolo pieno** che lega pareti, fondo, bugne e braccio; nella tibia lega anche lo stinco, che prima si attaccava alla sola parete di coda.
+- **La spalla della sede del cuscinetto toccava l'anello interno** (il foro dietro era Ø6, l'anello interno arriva a 6,4): foro portato a Ø7,2.
+- **Nervatura della coxa sospesa in stampa**: ora va dal piano medio fino al piano di stampa, alta 3 mm (non serve più per la ripartizione del carico, D-048).
+- **Inserti del ponte con fondo di 0,55 mm**: la testa dell'anima scende fino a 1 mm sopra le teste delle viti lato coda del servo di coxa (dove la cassa del servo non c'è, a raggio 34–40 dalla coxa) e gli inserti hanno la profondità piena; spostati in modo che le teste delle viti non cadano sullo smusso del ponte.
+- **Inserto del blocco del femore a 1,4 mm dallo smusso**: abbassato di 0,6 mm (parete 1,9).
+- Anima della coxa da 4,0 mm (gioco dalla gondola 1,2 invece di 0,8); finestre a rombo più piccole (ponte di 2,5 mm tra le due).
+- **Assi fuori asse** (alta, probabile): la sede centra la cassa, non l'albero, e il giunto è sostenuto su due lati. Rimedio di montaggio: le viti delle alette si stringono **per ultime**, a femore montato, così il servo si allinea al cuscinetto dentro i giochi della sede (0,2 mm per lato) e dei fori delle alette.
+- Restano aperti, da chiudere con il provino o con il corpo: gioco d'imbardata della coxa tra teste delle viti e fori Ø5,6 (da tarare), perni forzati senza ritegno assiale (perni h8 scorrevoli nei cuscinetti; m6 solo se provati), parete di 1,15 mm nel ponte tra foro centrale e fori delle teste, lunghezza del cavo del ginocchio delle zampe d'angolo, massa reale (circa 2,75 kg con la viteria: femore al 52 %).

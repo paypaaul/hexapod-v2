@@ -84,7 +84,7 @@ Ogni giunto: il servo è stretto in una culla e appoggia sulle alette; l'albero 
 | D3 | Squadretta lato albero | 18 + 2 | disco in alluminio per servo a **25 denti** con fori M3, dichiarato compatibile MG996R | sostituisce la squadretta di plastica: niente gioco e niente deformazione con 2,6 kg. I 25 denti dell'MG996R sono il dato comune dei servo di questa taglia: prima di ordinarne 20, provarne una su un tuo servo | Amazon.it, confezioni da 5–10, circa 10–15 € | S, C | A |
 | D4 | Inserti a caldo M3 | 200 | CNC Kitchen M3 × 5,7 (Ø4,6; foro 4,0) | alette dei servo (72), zampe, corpo, coperchi | cnckitchen.store circa 9 € ogni 100 | S, V | A |
 | D5 | Inserti a caldo M2 | 50 | CNC Kitchen M2 × 3 (Ø3,6; foro 3,2) | regolatori, interruttore, piccole cover | cnckitchen.store circa 10 € | S, V | A |
-| D6 | Viti M3 | assortimento + 100 | testa cilindrica con esagono incassato (ISO 4762), inox A2, 6–25 mm | alette dei servo, squadrette metalliche, zampe, corpo | Amazon.it, ferramenta | — | A |
+| D6 | Viti M3 | assortimento + 100 | testa cilindrica con esagono incassato (ISO 4762), inox A2, 6–25 mm; **in più 12 × M3 × 5** per le squadrette della coxa (D-049: proposta, da approvare) | alette dei servo, squadrette metalliche, zampe, corpo | Amazon.it, ferramenta | — | A |
 | D7 | Dadi e rondelle M3 | 50 + 100 | dadi esagonali DIN 934, rondelle DIN 125 | dove un inserto non entra | idem | — | A |
 | D8 | Viti M2 e M2,5 | assortimento | ISO 4762 inox | regolatori (M2), SSC-32 (M2,5: i suoi fori sono circa 3,0 mm) | idem | — | A |
 | D9 | Piedini antiscivolo | 6 + 2 | stampati in TPU 95A oppure cappucci in silicone | scelta dopo una prova sui tuoi pavimenti | — | — | — |
