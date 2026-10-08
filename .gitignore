@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.DS_Store
+# modelli 3D di terzi: riscaricabili, vedi cad/modelli/README.md
+cad/modelli/**/*.step
