@@ -1,6 +1,8 @@
 # Progetto meccanico — versione MG996R
 
-Stato al 9 ottobre 2026: architettura della zampa decisa (D-047), modellazione in Fusion in corso. Il corpo viene dopo la zampa.
+Stato al 9 ottobre 2026: **zampa v0 modellata e verificata in Fusion** con i giunti veri (D-047, D-048). Il corpo viene dopo.
+
+![Zampa v0, femore a +12°, ginocchio a 75°](immagini/zampa-v0.png)
 
 ## Zampa
 
@@ -42,13 +44,39 @@ Quote principali (dal modello di verifica `calc/zampa_escursioni.py`, da conferm
 | Ponte della coxa | Z da +17,05 a +22,75 |
 | Blocco del femore (terna del femore) | X da 21,5 a 44, Z da −2 a +20, smussi in basso verso il ginocchio e in alto verso l'anca |
 
+### Modello in Fusion (zampa v0)
+
+Script `cad/script/zampa.py`, passi `parametri`, `coxa`, `ponte`, `femore_b`, `femore_a`, `tibia`, `istanze`, `controllo`, `giunti`, `limiti`, `misura`, `scansione`, `interferenze`, `stato`. Tutte le parti hanno la terna della zampa e le quote come espressioni dei parametri (`zam_`, `cul_`, `cox_`, `fem_`, `tib_`, `zy_`, `cz_`, …): cambiando un parametro si rigenera la parte. Dopo aver rigenerato una parte vanno rifatti `giunti` e `limiti` (cancellare una parte cancella i giunti che la usano).
+
+| Parte | Volume pieno | Massa stimata | Note |
+|---|---|---|---|
+| Coxa | 20,7 cm³ | 24,7 g | culla, anima con tasca a rombo, testa per il ponte, braccio con nervatura |
+| Coxa_Ponte | 4,1 cm³ | 5,1 g | |
+| Femore_B | 33,0 cm³ | 23,3 g | piastra dei perni e blocco pieno (lo slicer lo stampa a pareti e riempimento) |
+| Femore_A | 7,1 cm³ | 9,2 g | |
+| Tibia | 22,2 cm³ | 27,1 g | culla con finestre, stinco 12 × 18,9 con tre finestre |
+| **Totale** | **87,1 cm³** | **89,4 g** | stima: PETG-CF 1,3 g/cm³, pareti e fondi 1,2 mm, riempimento 25 % |
+
+La massa supera i 70 g del bilancio: sei zampe pesano circa 115 g in più, cioè circa 2 punti di coppia al femore (da 49 a circa 51 % al punto di progetto). Il dato vero viene dallo slicer.
+
+Dentro `Zampa`: 2 servo, 3 squadrette (anche quella della coxa, che gira con la zampa), 2 cuscinetti (quello della coxa sta nella gondola del corpo), 3 perni; 12 giunti rigidi e 2 di rivoluzione (`G_femore`, `G_ginocchio`). Verso misurato: α = −(valore di G_femore), γ = 90° − (valore di G_ginocchio). Limiti impostati: α da −45° a +85°, γ da 30° a 175°.
+
+Verifiche fatte sul modello (9 ottobre 2026):
+
+- posa di riferimento: nessuna interferenza (escluso il mozzo pieno della squadretta sul millerighe, voluto);
+- tutte le copie di servo, squadrette, cuscinetti e perni nella posizione prevista (scarto 0,000);
+- scansione con i giunti veri ogni 5°, femore da −50° a +90°, ginocchio da 20° a 170°: femore libero da −45° a +85° (a −50° la piastra tocca la culla, a +90° il ponte tocca il blocco); ginocchio libero fino ad almeno 170°, minimo 30° con il femore sopra +35°, 40° con il femore tra 0 e +15°, 45° tra −30° e −5°, 50° sotto −30°;
+- tutte le 212 pose di appoggio e volo delle sei andature (`calc/andature.py`, alzata 30) libere;
+- manca ancora il corpo: la gondola del servo di coxa limiterà il femore sopra circa +80° (modello 2D) e la rotazione della coxa va verificata con il corpo.
+
 ### Escursioni (modello 2D, gioco minimo 1 mm)
 
 - Femore da −46° a +80°. Ginocchio fino a 180°; il minimo dipende dal femore: 49° con α = −30°, 42° con α = 0°, 36° con α = 17,5°, 30° con α ≥ 40°.
 - Tutte le pose di appoggio e volo delle sei andature di `calc/andature.py` (da 130/25 a 70/70, alzata 30) sono libere, con gioco minimo 1,6 mm.
 - Il firmware deve limitare γ in funzione di α e l'imbardata relativa delle zampe vicine (contatto se ruotano entrambe di 30° una verso l'altra).
 
-### Da fare nel CAD della zampa
+### Da fare nella zampa
 
-- Parti nell'ordine: coxa, femore B, femore A, tibia, ponte; poi istanze di servo, squadrette, cuscinetti e perni; giunti veri; interferenze sulla posa di riferimento e scansione delle escursioni con i giunti.
-- Rifiniture dopo la prima verifica: nervature di schiacciamento nelle culle, alleggerimenti, ganci dei cavi, piedino.
+- Nervature di schiacciamento nelle culle (da tarare sul provino), ganci e passaggi dei cavi, piedino in TPU, raccordi.
+- Viti delle squadrette della coxa (M3 × 6 con rondella sotto la testa, D-048) da controllare quando si sceglie la squadretta: altezze e posizione dei fori sono stimate (`sq_`).
+- Verifica con il corpo: gondola, rotazione della coxa, zampe vicine.

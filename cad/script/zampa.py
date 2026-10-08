@@ -60,6 +60,12 @@ PARAMETRI = [
     ('bug_corto', 'ins_corto + ins_m3_d / 2 + cul_ins_parete', 'mm', 'Bugna lato albero: estremo'),
     ('bug_coda', 'ins_coda + ins_m3_d / 2 + cul_ins_parete', 'mm', 'Bugna lato coda: estremo'),
     ('bug_semi', 'ins_y + ins_m3_d / 2 + cul_ins_parete', 'mm', 'Bugne: semilarghezza'),
+    ('cul_mozzo_d', '16 mm', 'mm', 'Culla: mozzo attorno al cuscinetto nel fondo alleggerito'),
+    ('cul_fondo_min', '1.6 mm', 'mm', 'Culla: fondo nelle tasche di alleggerimento'),
+    ('cul_fin_lato', '13 mm', 'mm', 'Culla: lato delle finestre a rombo nelle pareti (45 gradi, senza supporti)'),
+    ('cul_fin_y', '-5 mm', 'mm', 'Culla: Y del centro delle finestre nelle pareti'),
+    ('cul_fin_z1', '1 mm', 'mm', 'Culla: centro della finestra vicina all albero, sotto l asse (valore assoluto)'),
+    ('cul_fin_z2', '20.5 mm', 'mm', 'Culla: centro della finestra verso la coda, sotto l asse (valore assoluto)'),
     # --- uscita del cavo (lato corto, vicino all'albero)
     ('cav_fin_w', '9 mm', 'mm', 'Finestra del cavo: larghezza (passa la spina JR 7,9 x 2,75)'),
     ('cav_fin_alto', '9 mm', 'mm', 'Finestra del cavo: bordo verso l orlo, sotto le alette'),
@@ -106,6 +112,9 @@ PARAMETRI = [
     ('cox_nerv_semi', '3 mm', 'mm', 'Coxa: nervatura, semilarghezza'),
     ('cox_nerv_x0', '10 mm', 'mm', 'Coxa: X dove la nervatura si annulla'),
     ('cz_braccio_su', 'bug_coda - cox_braccio_sp', 'mm', 'Coxa: faccia superiore del braccio inferiore, sotto l asse (valore assoluto)'),
+    ('cox_tasca_lato', '18 mm', 'mm', 'Coxa: lato della tasca a rombo nell anima'),
+    ('cox_tasca_y', '-7.35 mm', 'mm', 'Coxa: Y del centro della tasca nell anima'),
+    ('cox_tasca_z', '14 mm', 'mm', 'Coxa: centro della tasca nell anima, sotto l asse (valore assoluto)'),
     ('cz_alette_coxa', 'srv_sotto + cul_gio_fondo + cul_fondo + cus_flangia_sp + cus_rialzo_h - cz_braccio_su', 'mm',
      'Z delle alette del servo di coxa (orlo della gondola)'),
     ('cox_gondola_luce', '1.2 mm', 'mm', 'Coxa: luce tra la testa dell anima e la cassa del servo di coxa'),
@@ -126,7 +135,11 @@ PARAMETRI = [
     ('cox_ling_semi', '1.5 mm', 'mm', 'Ponte: linguetta, semilarghezza'),
     ('cox_ling_h', '1.6 mm', 'mm', 'Ponte: linguetta, altezza'),
     # --- tibia
-    ('tib_stinco_semi', '8 mm', 'mm', 'Tibia: semilarghezza dello stinco nel piano della zampa'),
+    ('tib_stinco_semi', '6 mm', 'mm', 'Tibia: semilarghezza dello stinco nel piano della zampa'),
+    ('tib_fin_semi', '3 mm', 'mm', 'Tibia: semilarghezza delle finestre dello stinco'),
+    ('tib_fin_l', '15 mm', 'mm', 'Tibia: lunghezza delle finestre dello stinco'),
+    ('tib_fin_passo', '21 mm', 'mm', 'Tibia: passo delle finestre dello stinco'),
+    ('tib_fin_z0', '38 mm', 'mm', 'Tibia: inizio della prima finestra sotto l asse del ginocchio'),
     ('tib_piede_r', '6 mm', 'mm', 'Tibia: raggio del piede'),
 ]
 
@@ -170,6 +183,18 @@ def _culla(p, xc):
              'cul_bugna_h')
 
 
+def _alleggerisci_culla(p, xc, lati):
+    """Tasca nel fondo (attorno al mozzo del cuscinetto) e finestre a rombo nelle pareti laterali indicate (+1, -1)."""
+    p.blocco('y', 'zy_fondo_est', 'tasca_fondo', xc + ' - cul_sede_semi', '-(cul_sede_coda)', xc + ' + cul_sede_semi',
+             '-(cul_mozzo_d / 2)', 'cul_fondo - cul_fondo_min', 1, TAGLIA)
+    for lato in lati:
+        q = (xc + ' + cul_sede_semi - 0.5 mm') if lato > 0 else (xc + ' - cul_sede_semi + 0.5 mm')
+        for i, zc in ((1, '-(cul_fin_z1)'), (2, '-(cul_fin_z2)')):
+            p.blocco_obl('x', q, 'finestra_%s%d' % ('p' if lato > 0 else 'm', i), ('cul_fin_y', zc),
+                         ('cul_fin_y + 1 mm', zc + ' + 1 mm'), '-(cul_fin_lato / 2)', 'cul_fin_lato / 2',
+                         '-(cul_fin_lato / 2)', 'cul_fin_lato / 2', 'cul_parete + 1 mm', lato, TAGLIA)
+
+
 def _sede(p, xc):
     """Lavorazioni della culla: sede del servo, cavo, cuscinetto, inserti delle alette."""
     p.blocco('y', 'zy_fondo_int', 'sede_servo', xc + ' - cul_sede_semi', '-(cul_sede_coda)', xc + ' + cul_sede_semi',
@@ -208,6 +233,10 @@ def fai_coxa(zampa):
     p.cilindro('z', '-(cz_braccio_su)', 'rialzo', '0 mm', '0 mm', 'cus_rialzo_d', 'cus_rialzo_h')
     # lavorazioni
     _sede(p, 'zam_Lc')
+    _alleggerisci_culla(p, 'zam_Lc', (1,))
+    p.blocco_obl('x', 'cx_anima', 'tasca_anima', ('cox_tasca_y', '-(cox_tasca_z)'), ('cox_tasca_y + 1 mm', '1 mm - cox_tasca_z'),
+                 '-(cox_tasca_lato / 2)', 'cox_tasca_lato / 2', '-(cox_tasca_lato / 2)', 'cox_tasca_lato / 2',
+                 'cox_anima_sp - cul_parete', 1, TAGLIA)
     p.cilindro('z', '-(bug_coda)', 'foro_perno', '0 mm', '0 mm', 'perno_foro', 'cox_braccio_sp + cus_rialzo_h', 1, TAGLIA)
     for nome, y in (('ins_ponte_a', '-(cox_ins_ponte_y)'), ('ins_ponte_b', 'cox_ins_ponte_y')):
         p.cilindro('z', 'cz_ponte_app', nome, 'cx_ins_ponte', y, 'ins_m3_d', 'ins_m3_l - 0.7 mm', -1, TAGLIA)
@@ -305,6 +334,11 @@ def fai_tibia(zampa):
              '-(cul_coda)', '2 * zy_orlo')
     p.cilindro('y', '-(zy_orlo)', 'piede', xk, '-(zam_Lt - tib_piede_r)', '2 * tib_piede_r', '2 * zy_orlo')
     _sede(p, xk)
+    _alleggerisci_culla(p, xk, (1, -1))
+    for i in range(3):
+        z0 = 'tib_fin_z0 + %d * tib_fin_passo' % i
+        p.blocco('y', '-(zy_orlo)', 'finestra_stinco_%d' % (i + 1), xk + ' - tib_fin_semi', '-(%s + tib_fin_l)' % z0,
+                 xk + ' + tib_fin_semi', '-(%s)' % z0, '2 * zy_orlo', 1, TAGLIA)
     return occ, p
 
 
@@ -408,6 +442,10 @@ def fai_giunti(des, zampa):
 
 
 # ----------------------------------------------------------------------------------- controlli
+# Stima della massa delle parti stampate: PETG-CF 1,3 g/cm3, pareti e fondi 1,2 mm, riempimento 25 % (stima S)
+RHO, GUSCIO_CM, RIEMPIMENTO = 1.3, 0.12, 0.25
+
+
 def stato(des, root):
     out = {}
     z = L['trova_occ'](root, 'Zampa')
@@ -417,8 +455,15 @@ def stato(des, root):
         c = o.component
         bb = None
         for b in c.bRepBodies:
-            bb = b.boundingBox.copy() if bb is None else (bb.combine(b.boundingBox) or bb)
-        riga = {'corpi': c.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in c.bRepBodies), 3)}
+            if bb is None:
+                bb = b.boundingBox.copy()
+            else:
+                bb.combine(b.boundingBox)
+        v = sum(b.volume for b in c.bRepBodies)
+        area = sum(b.area for b in c.bRepBodies)
+        pareti = min(v, area * GUSCIO_CM)
+        riga = {'corpi': c.bRepBodies.count, 'volume_cm3': round(v, 3),
+                'massa_g': round(RHO * (pareti + (v - pareti) * RIEMPIMENTO), 1)}
         if bb is not None:
             riga['ingombro'] = [round(v * 10, 2) for v in (bb.minPoint.x, bb.minPoint.y, bb.minPoint.z,
                                                            bb.maxPoint.x, bb.maxPoint.y, bb.maxPoint.z)]
@@ -496,7 +541,7 @@ def scansione(des, zampa, pose):
     for a, g in pose:
         mis = imposta(zampa, a, g)
         urti = interferenze(des, zampa)
-        chiave = '%+d/%d' % (a, g)
+        chiave = '%g/%g' % (a, g)
         out[chiave] = [(_corto(x), _corto(y), v) for x, y, v in urti] if urti else 'libera'
         if abs(mis[0] - a) > 0.01 or abs(mis[1] - g) > 0.01:
             out[chiave] = {'posa_misurata': mis, 'urti': out[chiave]}
