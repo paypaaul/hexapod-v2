@@ -13,7 +13,7 @@ Questa repo è la memoria del progetto: una sessione nuova deve poter ripartire 
 | 1. Studio dei componenti | **fatta** (2026-10-08) — report in `reports/`, note e verifiche in `research_notes/` |
 | 2. BOM e revisione | **fatta e approvata** (2026-10-08): BOM v1.2. L'utente ha risposto alle domande, confermato i Pololu e delegato la batteria (D-027) |
 | 3. Dimensioni e modelli 3D | **fatta** (2026-10-08): tabella in `docs/dimensioni-componenti.md`; design Fusion "Hexapod v2 - Assieme" con 68 parametri, servo per riferimento, STEP Pololu e ingombri |
-| 4. Progettazione CAD | da fare — **l'utente ha chiesto di aspettare il suo via prima di iniziare** (8 ottobre 2026) |
+| 4. Progettazione CAD | **in corso**. Fatto: zampa v0 modellata, assemblata e verificata con i giunti veri (`docs/progetto-meccanico.md`). Da fare: rifinitura della zampa, corpo (progettato sulla carta), sei zampe sull'assieme, cover |
 | 5. BOM finale (viteria dal modello) | da fare |
 | 6. Verifica del movimento | da fare |
 
@@ -27,7 +27,7 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 - **Servo controller**: clone "SSC32-V2.5" con micro-USB e XBee (AliExpress 1005001888185034), PCB 72 × 55 mm, fori 65,5 × 48,5 mm.
 - **Regolatori servo**: due Pololu D42V110F6 (confermati l'8 ottobre 2026).
 - **Batteria**: OVONIC 2S 2200 mAh 50C T-plug (D-027), confermata dall'utente. La 5200 mAh hardcase che ha in casa resta per il banco.
-- **Produzione**: FlashForge **Creator 5 Pro**, ugelli temprati da 0,4 mm anche per i caricati; materiali PLA / PLA-CF / PETG / PETG-CF.
+- **Produzione**: FlashForge **Creator 5 Pro**, ugelli temprati da 0,4 mm anche per i caricati; materiali PLA / PLA-CF / PETG / PETG-CF. È un toolchanger a 4 testine: i supporti con interfaccia in un altro materiale sono ammessi quando migliorano funzione, estetica o semplicità; restano da ridurre al minimo per non sprecare materiale.
 - Le fonti d'acquisto di cuscinetti e perni le cura l'utente.
 - Blender si valuta solo dopo che la fase 6 è completa e verificata.
 
@@ -50,6 +50,8 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 | `docs/dimensioni-componenti.md` | tabella delle dimensioni reali dei componenti, con fonte |
 | `docs/decisioni.md` | registro delle decisioni con il perché |
 | `docs/dimensionamento.md` | massa, geometria delle zampe, coppie ai giunti |
+| `docs/progetto-meccanico.md` | architettura della zampa (modellata e verificata) e piano del corpo (da modellare) |
+| `cad/script/` | script Fusion: `lib_cad.py` (schizzi vincolati), `zampa.py`, `verifica_zampa.py`, `rif_componenti.py` |
 | `docs/revisioni/` | revisioni indipendenti dei documenti (BOM v1: elettrico, meccanico, acquisti) |
 | `calc/` | script di calcolo riproducibili (statica, cinematica) |
 | `research_notes/<titolo>/` | note grezze dei ricercatori e file `verifica_*.md` (controllo su fonte primaria) |
@@ -104,6 +106,15 @@ Verificato il 2026-10-08 su un documento di prova:
 - **`transform2` impostato subito dopo un import STEP non resta**: impostarlo in uno script successivo e poi `des.snapshots.add()` per catturare la posizione. Per i componenti nuovi conviene passare la matrice già a `addNewComponent`.
 - Corpi senza schizzi: `TemporaryBRepManager` (createBox, createCylinderOrCone, booleanOperation) dentro una `BaseFeature` (`startEdit` / `bRepBodies.add(corpo, baseFeature)` / `finishEdit`). Adatto agli ingombri delle parti comprate.
 - Salvataggio: `doc.save('descrizione')`.
+- **Riferimenti esterni dentro un sotto-assieme** (il servo): `addExistingComponent(comp, m)` antepone a `m` la trasformata dell'occorrenza di libreria (il servo finiva 200 mm fuori posto): compensare con l'inversa. Inoltre le istanze nascono con `isGroundToParent = True`: due servo così fissati, più i loro giunti rigidi, **bloccano tutti i giunti di rivoluzione** (il valore impostato torna a zero senza errori). Metterlo a `False`.
+- `transform2` di un'occorrenza annidata non si imposta sull'oggetto nativo ("transform overrides can only be set on Occurrence proxy from root component"): la posizione giusta va data alla creazione.
+- Nel sotto-assieme nessuna parte è fissata (`isGrounded` non esiste per le occorrenze annidate): le misure di posa vanno fatte rispetto a una parte di riferimento (la coxa).
+- Per trovare cosa blocca un giunto: sospendere i giunti rigidi uno alla volta (`isSuppressed`) e riprovare.
+- Le interferenze trovano anche i dettagli del modello STEP: i tre fili del cavo del servo (4,71 mm³) hanno rivelato che mancava l'uscita del cavo nella culla.
+- Libreria per gli schizzi vincolati: `cad/script/lib_cad.py` (un contorno per schizzo, quote dall'origine come espressioni; provata su volume e ingombro).
+- Limiti dei giunti "come costruito": `rotationLimits` funziona; un valore oltre il limite viene **rifiutato** (il giunto resta dov'è), non troncato come per i giunti normali.
+- Cambiare `isGroundToParent` sposta l'occorrenza in fondo a `component.occurrences`: non fidarsi dell'ordine, abbinare le istanze per componente e posizione (`_mappa` in `zampa.py`).
+- **`Parte.sk_poligono` non funziona ancora**: quotando ogni vertice dall'origine (orizzontale e verticale), Fusion segnala "schizzo ipervincolato" su alcune quote anche se `geometricConstraints` è vuoto. Prova su un esagono con vertici (20,−10), (20,10), (7.66,25), (−20,10), (−20,−10), (0,−25): fallisce la quota x del secondo vertice (stessa x del primo) e la quota y del quinto (stessa y del primo, non collegati da un lato). Ipotesi: Fusion deduce allineamenti tra punti con la stessa coordinata. Da provare: spostare leggermente i punti alla creazione e lasciare che le quote li portino al valore, oppure quote allineate rispetto a linee di costruzione.
 - Guida Autodesk (connettore Knowledge): `search_help_content` con `product_code: F360`, `locale: it_IT`.
 
 ## Dati già accertati
@@ -113,8 +124,16 @@ Verificato il 2026-10-08 su un documento di prova:
 
 ## Prossimi passi
 
-1. **Aspettare il via dell'utente.** Poi fase 4, CAD. Geometria in `docs/dimensionamento.md` (coxa 36, femore 34, tibia 50 mm, asse femore a 72 mm), decisioni D-013…D-031. Ordine: (a) schizzo 2D del piano della zampa nelle pose estreme, per confermare femore da 34 mm con anima da 6 mm; (b) giunto tipo (D-024) come parte di prova stampabile; (c) zampa completa; (d) disposizione del corpo attorno a batteria da 2200 mAh, SSC-32, ESP32 e regolatori; (e) corpo; (f) cover.
-2. Ancora da avere dall'utente (sono parametri del modello, non bloccano il CAD; servono prima di stampare): altezza reale della testa della camera (`cam_alt`, `cam_lente_d`); misure del servo (denti, vite centrale, fori alette, squadretta); regolatore, piste e morsetti della SSC-32; prova del pin 5V; pesi.
+Stato all'8 ottobre 2026 (sessione chiusa su richiesta dell'utente, tutto salvato e committato). Design Fusion "Hexapod v2 - Assieme" salvato con: componenti di riferimento in libreria (y ≥ 200 mm), componente `Zampa` all'origine. Leggere **`docs/progetto-meccanico.md`** prima di proseguire: contiene l'architettura della zampa e il piano del corpo.
+
+1. **Chiedere all'utente** se approva la prolunga USB-C da pannello (D-034, voce C9 del BOM): decide dove sta la scheda ESP32 nel corpo.
+2. **Corpo**: modellarlo secondo `docs/progetto-meccanico.md`. Prima scegliere come fare le gondole ruotate: sistemare `Parte.sk_poligono` (vedi nota sotto) oppure gondola come componente a sé istanziato sei volte.
+3. **Assieme**: corpo fissato alla radice, sei istanze di `Zampa`, giunto di rivoluzione al livello radice tra corpo e `Coxa` di ogni istanza; poi posa di marcia e controllo di interferenze, massa e baricentro.
+4. **Rifinitura della zampa**: elenco in `docs/progetto-meccanico.md` ("Da rifinire").
+5. Cover non strutturali, poi fasi 5 e 6.
+6. Ancora da avere dall'utente: misure del servo (denti, vite centrale, fori alette, squadretta); altezza reale della testa della camera; regolatore, piste e morsetti della SSC-32; prova del pin 5V; pesi.
+
+Come si rigenera la zampa: dentro uno script del connettore, `ns = runpy.run_path('/Users/paul/hexapod-v2/cad/script/zampa.py'); ns['main']([...])` con i passi `parametri`, `coxa`, `femore_b`, `femore_a`, `tibia`, `istanze`, `giunti`, `stato`, `interferenze`. Dopo aver rigenerato una parte vanno rifatti `istanze` e poi `giunti`, in due chiamate separate, e reimpostati i limiti dei giunti (femore da −25° a +70°, ginocchio da −70° a +25° come valori di giunto). Verifica: `cad/script/verifica_zampa.py`.
 
 ## Risultati chiave della fase 1 (dettagli nei documenti)
 

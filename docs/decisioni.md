@@ -126,3 +126,19 @@ SSC-32: è il clone "SSC32-V2.5" con micro-USB e XBee (AliExpress 10050018881850
 ## D-031 — Componenti comprati nel design: STEP dove esiste, altrimenti ingombro generato da script (2026-10-08, presa)
 
 Servo inserito come riferimento esterno al file dell'utente, così l'originale non si tocca e le 18 copie saranno istanze dello stesso componente. Regolatori Pololu importati dallo STEP del produttore. Per SSC-32, ESP32, camera, batteria, cuscinetto, perno e parti minori non esiste un modello: l'ingombro è un corpo in una BaseFeature creato da `cad/script/rif_componenti.py`, che legge le quote dai parametri utente. Niente schizzi per le parti comprate: gli schizzi vincolati restano per le parti progettate. Le quote delle sedi nelle parti progettate dipendono dai parametri, non dalla geometria degli ingombri.
+
+## D-032 — Supporti ammessi dove servono (2026-10-08, indicazione dell'utente)
+
+La Creator 5 Pro è un toolchanger a 4 testine e stampa i supporti con l'interfaccia in un altro materiale, quindi si staccano puliti. Regola: ogni parte ha una faccia d'appoggio naturale e si evita ogni supporto inutile, ma un sottosquadro è accettato quando migliora rigidezza, estetica o semplicità (per esempio raccordi sulle facce inferiori, sedi su due lati opposti, forme chiuse).
+
+## D-033 — Architettura della zampa (2026-10-08, presa; dettagli in `progetto-meccanico.md`)
+
+Servo della coxa nel corpo con la coda verso l'esterno (cavo verso l'interno); coxa a C in un pezzo, infilata di lato; servo del femore con lato lungo verticale e coda in alto; femore in due pezzi avvitati, perché una forcella in un pezzo non si infila sull'albero; tibia con la culla del servo e la coda verso il piede. Finestra del cavo sotto la bugna dell'aletta, larga 9 mm per far passare la spina. Verificata pilotando i giunti veri: libera per femore da −75° a +25° e ginocchio da 62° a 165°.
+
+## D-034 — Porta USB portata al pannello posteriore con una prolunga USB-C (2026-10-08, **proposta: da approvare, aggiunge una voce al BOM**)
+
+Con la camera frontale e il flat da 75 mm la scheda ESP32 deve stare vicino al frontale con l'antenna in avanti, quindi le sue USB-C restano a metà corpo. Le alternative senza prolunga alzano il frontale o piegano il flat. Una prolunga USB-C da pannello (maschio–femmina, 15–20 cm, dati) porta la porta "TTL" sul retro, accanto a pulsante e batteria. Circa 8 € e 10 g.
+
+## D-035 — Disposizione del corpo (2026-10-08, proposta tecnica, non ancora modellata)
+
+Scafo a ottagono allungato con sei gondole per i servo di coxa; batteria sotto il ponte, estraibile dal retro; SSC-32 sopra, con i due bus rivolti ai due lati; ESP32 sopra la SSC-32; regolatori in piedi nei rigonfiamenti laterali; tre pezzi di stampa (base, ponte, coperchio). Dettagli in `progetto-meccanico.md`.

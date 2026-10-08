@@ -71,6 +71,7 @@ Nota su B1: un solo D42V110F6 copre i picchi realistici ma non i 18 A dei 18 ser
 | C6 | Clip di blocco delle prolunghe | 1 conf. da 40 | clip per connettori servo | una per giunzione | Amazon.it B0C61PDHDF, 10,99 € | S | A |
 | C7 | Prolunga di bilanciamento | 1 | JST-XH 3 poli (2S), 10–20 cm | porta la presa di bilanciamento a un punto raggiungibile senza togliere il pacco | negozi RC | S | A (se serve dal CAD) |
 | C8 | Antenna esterna | 1 | 2,4 GHz con cavetto IPEX | solo se la prova di portata a guscio montato lo richiede; dipende dalla resistenza di selezione sulla scheda | Amazon.it | C | — |
+| C9 | Prolunga USB-C da pannello (**proposta, da approvare: D-034**) | 1 | USB-C maschio–femmina da pannello, 15–20 cm, con i fili dati | porta la USB "TTL" dell'ESP32 sul pannello posteriore: con la camera davanti la scheda resta a metà corpo | Amazon.it | S | — |
 
 Assegnazione dei pin dell'ESP32. Che siano liberi su questa scheda viene dall'inserzione e dal disegno Freenove (S, C); le proprietà elettriche dal datasheet Espressif (V).
 
