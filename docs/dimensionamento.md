@@ -70,6 +70,8 @@ Rivisto dopo la revisione indipendente (`docs/revisioni/bom-v1-meccanico.md`, ri
 | **Totale** | **1007** | |
 
 Servo e batteria fanno 361 g. Le voci stimate valgono 646 g.
+
+Dal modello Fusion (8 ottobre 2026, sera; corpo v0 e zampe v0, prima delle rifiniture): parti strutturali 278 g (base 133, sei zampe 143, vassoio 2) contro 300 di bilancio; guscio 48 g contro 45 per tutte le cover, da alleggerire. Baricentro di ciò che è modellato (793 g): 1,4 mm davanti all'origine, sull'asse. Dettaglio in `progetto-meccanico.md`.
 Massa di progetto: 1,05 kg. Obiettivo per il CAD: parti stampate ≤ 345 g in tutto. Ogni 50 g in più valgono circa 2 punti percentuali di coppia.
 
 ## Metodo
@@ -138,6 +140,27 @@ Disposizione del corpo: con la batteria da 2200 mAh il vano scende a 112 × 37 �
 - La larghezza d'appoggio la dà la coxa (36 mm), che non costa coppia al servo.
 - Segmenti corti significano anche meno gioco in punta: il gioco angolare del servo si moltiplica per la distanza dal giunto al piede.
 - Gli esapodi di riferimento con zampe larghe (Freenove: piede a 43 mm dall'asse femore; SmallpTsai: 60 mm) richiedono, con questa massa, 1,9–2,6 kgf·cm: per questo usano batterie da circa 100 g o servo da 3,5 kgf·cm.
+
+## Altri assetti (verifica dell'8 ottobre 2026)
+
+`python3 calc/assetti.py` scorre le altezze possibili e per ognuna cerca la distanza del piede che minimizza la coppia. Con femore da 34 e tibia da 50 mm il limite del 50 % è rispettato da 58 mm in su (luce sotto il corpo da 41 mm), sempre con il femore verso il basso; sotto i 54 mm il femore sale verso l'orizzontale e la coppia passa il 50 %. Lo script segnala anche dove l'alzata piena di 20 mm a fine corsa non è raggiungibile (criterio prudente; con l'alzata a parabola e la zampa a puntone si raggiunge: vedi sotto). Accetta altre lunghezze di tibia come argomenti (`python3 calc/assetti.py 60 95`). Discussione in `progetto-meccanico.md`, "Due modi di marcia", e in D-037 e D-039.
+
+## Assetti e andature a confronto (8 ottobre 2026)
+
+`python3 calc/andature.py`. Tripode: carichi esatti. Con 5 piedi a terra il carico è indeterminato e si usa la ripartizione piana: valori indicativi. "Alzata possibile" è quanto la zampa riesce ad alzare il piede prima che il ginocchio arrivi a 50° o il femore a +55° (limiti della zampa con il puntone, D-039; con l'anima piena erano 62° e +25°).
+
+| Asse / piede | Luce | Ginocchio in appoggio | Femore in appoggio | Tripode | A onda | Ribaltamento | Alzata possibile |
+|---|---|---|---|---|---|---|---|
+| **72 / 12 mm (modo alto)** | 55 mm | 117–134° | da −52° a −40° | 44 % | 40 % | 29° | 36 mm |
+| 58 / 20 mm | 41 mm | 86–108° | da −25° a −14° | 49 % | 44 % | 37° | 25 mm |
+| 50 / 25 mm | 33 mm | 72–99° | da −9° a 0° | 59 % | 49 % | 43° | 21 mm |
+| 45 / 30 mm | 28 mm | 66–99° | da +3° a +8° | 69 % | 55 % | 48° | 21 mm |
+| 40 / 35 mm | 23 mm | 62–100° | da +11° a +17° | 79 % | 63 % | 53° | 20 mm |
+| **40 / 40 mm (modo basso)** | 23 mm | 66–109° | da +8° a +17° | 89 % | 71 % | 54° | 22 mm |
+
+Lettura: scendendo e allargando la stabilità cresce (da 29° a 54°) e la coppia raddoppia. L'assetto è un parametro del firmware; la meccanica ora li permette tutti con almeno 20 mm di alzata. Quale usare si decide sul robot costruito (D-039).
+
+Escursioni richieste ai servo, appoggio più volo con alzata di 20 mm e passo di 40 mm: modo alto femore da −52° a −11° e ginocchio da 76° a 134°; modo basso femore da +8° a +51° e ginocchio da 55° a 109°. Insieme: 103° al femore e 79° al ginocchio, dentro i 160° utili di un MG90S con il servo a metà corsa nella posa di riferimento (femore orizzontale, ginocchio a 90°).
 
 ## Limiti e rischi
 

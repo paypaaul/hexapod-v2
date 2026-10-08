@@ -200,4 +200,8 @@ Creati l'8 ottobre 2026 (fase 3). Tutti stanno in una "zona libreria" a y ≥ 20
 | `Rif_Interruttore_2813`, `Rif_Condensatore_2200uF`, `Rif_Cicalino_BX100`, `Rif_Basetta_50x70` | script | ingombri |
 
 Gli ingombri generati dallo script leggono le quote dai parametri utente: per aggiornarli si cambia il parametro e si rilancia lo script con `rigenera=True`.
+
+Dall'8 ottobre (sera) all'origine c'è anche il robot: sotto-assieme `Corpo` (parti `Corpo_Base`, `Corpo_Guscio`, `Vassoio_ESP32` più le istanze di servo, cuscinetti, batteria, SSC-32, ESP32 e regolatori) e sei istanze di `Zampa`. Dettagli in `progetto-meccanico.md`.
+
+Quote lette sullo STEP del regolatore D42V110F6 e usate per le bugne: fori di fissaggio a 2,16 mm dal bordo lungo opposto alle piazzole e a 4,19 mm da quello delle piazzole; piazzole di potenza Ø2,18 a 2,54 mm dal bordo, alle ascisse 7,62 / 12,62 / 30,56 / 35,56 mm; spessore totale 11,4 mm (reofori 1,8 sotto il PCB, componenti fino a 9,6 sopra).
 Non modellati (quote non ancora raccolte, poco influenti): portafusibili, derivazioni a leva, traslatore di livello, T-plug.

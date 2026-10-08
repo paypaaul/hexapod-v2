@@ -135,10 +135,57 @@ La Creator 5 Pro è un toolchanger a 4 testine e stampa i supporti con l'interfa
 
 Servo della coxa nel corpo con la coda verso l'esterno (cavo verso l'interno); coxa a C in un pezzo, infilata di lato; servo del femore con lato lungo verticale e coda in alto; femore in due pezzi avvitati, perché una forcella in un pezzo non si infila sull'albero; tibia con la culla del servo e la coda verso il piede. Finestra del cavo sotto la bugna dell'aletta, larga 9 mm per far passare la spina. Verificata pilotando i giunti veri: libera per femore da −75° a +25° e ginocchio da 62° a 165°.
 
-## D-034 — Porta USB portata al pannello posteriore con una prolunga USB-C (2026-10-08, **proposta: da approvare, aggiunge una voce al BOM**)
+## D-034 — Porta USB: nessuna prolunga, sportello di servizio sul dorso (2026-10-08, presa su delega dell'utente; sostituisce la proposta della prolunga)
 
-Con la camera frontale e il flat da 75 mm la scheda ESP32 deve stare vicino al frontale con l'antenna in avanti, quindi le sue USB-C restano a metà corpo. Le alternative senza prolunga alzano il frontale o piegano il flat. Una prolunga USB-C da pannello (maschio–femmina, 15–20 cm, dati) porta la porta "TTL" sul retro, accanto a pulsante e batteria. Circa 8 € e 10 g.
+L'utente ha delegato la scelta chiedendo di evitare un acquisto in più, a meno di problemi funzionali o estetici. Con la camera frontale e il flat da 75 mm la scheda ESP32 sta con l'antenna in avanti e le due USB-C a metà corpo, rivolte indietro: questo non si può cambiare. Alternative valutate:
 
-## D-035 — Disposizione del corpo (2026-10-08, proposta tecnica, non ancora modellata)
+- **Prolunga USB-C da pannello** (circa 8 €, 10 g): porta pulita sul retro, ma è un acquisto, e in coda lo spinotto, la presa da pannello e 15–20 cm di cavo da ripiegare contendono lo spazio a connettore della batteria, cicalino e interruttore.
+- **USB sul frontale sotto la camera** (scheda girata): nessun acquisto, ma l'antenna finisce a metà corpo sopra la SSC-32; l'alimentazione di riserva dalla USB-C (D-028) resterebbe con lo spinotto sporgente dal muso; il cavo di prova uscirebbe davanti alle zampe.
+- **Sportello di servizio sul dorso** (scelta): un'apertura nel guscio sopra le USB, chiusa da uno sportellino a incastro. Nessun acquisto. Dà accesso anche ai pulsanti BOOT e RST, che una porta da pannello lascerebbe sepolti, e alla seriale della SSC-32. Il cavo USB esce dall'alto, al centro: è la posizione che intralcia meno le zampe in una prova col cavo attaccato.
 
-Scafo a ottagono allungato con sei gondole per i servo di coxa; batteria sotto il ponte, estraibile dal retro; SSC-32 sopra, con i due bus rivolti ai due lati; ESP32 sopra la SSC-32; regolatori in piedi nei rigonfiamenti laterali; tre pezzi di stampa (base, ponte, coperchio). Dettagli in `progetto-meccanico.md`.
+Costo accettato: per collegare il cavo si toglie lo sportellino, e dietro le porte servono circa 40 mm liberi per lo spinotto (sopra la striscia centrale della SSC-32). La voce C9 del BOM è stata tolta.
+
+## D-035 — Disposizione del corpo: prima proposta a ottagono (2026-10-08, **superata da D-036**)
+
+Scafo a ottagono allungato (±68 × ±48 mm) con batteria sotto un ponte, SSC-32 sopra, ESP32 sopra la SSC-32, regolatori in piedi nei rigonfiamenti laterali. Rifacendo i conti degli ingombri non regge: i regolatori ai lati chiudono le finestre dei cavi delle gondole medie e lasciano 3–4 mm ai cavi che salgono agli header; le alette dei servo delle coxe medie arrivano a 0,7 mm dentro la parete.
+
+## D-036 — Disposizione del corpo: base a vasca con muso e coda, guscio non strutturale (2026-10-08, presa; modellata)
+
+- **Pianta**: tratto centrale ±30 × ±46 mm, fianchi obliqui fino a (±68, ±25), muso e coda larghi 50 mm fino a x = ±82. Gli assi delle coxe non cambiano: (±72, ±40) a 40° e (0, ±58). Muso e coda stanno tra le zampe d'angolo, che non li raggiungono (verificato ruotando le coxe di ±45°).
+- **Base** (PETG-CF, strutturale): vasca da z = −17 all'orlo a z = +14, con le sei gondole, il tunnel chiuso della batteria al centro (sezione chiusa lungo tutto il corpo), una paratia anteriore a tutta altezza e il telaio posteriore.
+- **Guscio** (non caricato, non strutturale) da z = 14 a 37,5: tutta l'elettronica sopra l'orlo sta dentro plastica trasparente alle onde radio, quindi non serve una finestra apposita per l'antenna.
+- **Batteria** nel tunnel, sfilabile dal retro, con i cavi verso la coda; il connettore T si accoppia nel vano di servizio in coda, dove stanno anche cicalino e pulsante. Staccare il T-plug è l'unico sezionamento vero dei servo (D-019): deve essere a portata di mano.
+- **Regolatori** in piedi nel muso, di traverso, affacciati con 5 mm d'aria tra loro, piazzole di potenza in alto: uno sulla paratia, uno sulla parete del muso. Lontani dalla batteria, non intralciano i cavi dei servo. Il muso più lungo porta anche la camera più avanti: le ginocchia anteriori escono dall'inquadratura (da confermare in fase 6).
+- **SSC-32** sul tetto del tunnel, morsettiera verso la coda, i due bus ai due lati. Gli spazi ai lati del tunnel restano liberi per i cavi dei servo e la loro scorta.
+- **ESP32** su un vassoio a sbalzo sopra la striscia centrale della SSC-32, antenna in avanti; **camera** su una torretta della base, così togliendo il guscio non si tira il flat.
+- Perché non più corto: con ±68 mm il volume interno (circa 500 cm³) era pari alla somma degli ingombri; 14 mm in più per parte danno il posto ai regolatori e al vano di servizio per circa 15 g di plastica.
+
+## D-037 — Assetto di marcia confermato: femore verso il basso, tibia da 50 mm (2026-10-08, presa dopo la verifica chiesta dall'utente)
+
+L'utente ha chiesto se il corpo non sia troppo basso, pensando al femore inclinato verso l'alto come negli esapodi comuni, e ha notato che il corpo è spesso rispetto alle zampe. Verifica (`calc/assetti.py` e posa nel modello): in marcia l'asse dei femori sta a 72 mm e la luce sotto il corpo è 55 mm; il femore punta verso il basso di 40–52° perché solo così piede e ginocchio restano entro circa 20 mm in orizzontale dai loro assi, cioè entro il 50 % dello stallo. Con il femore orizzontale o verso l'alto questa zampa darebbe 13–33 mm di luce, 50–53 % di coppia e nessuna alzata utile. La posa classica chiederebbe tibie da circa 95 mm e un ginocchio che si chiude molto di più: il doppio del gioco in punta. Resta quindi l'assetto di progetto. La tibia non si allunga per ora (`zam_Lt`: +10 mm alzerebbe il corpo di 10 mm a pari coppia, con il 20 % di gioco in più); si rivaluta dopo la prova di una zampa stampata. Lo spessore del corpo è dato da batteria, SSC-32 con le spine verticali ed ESP32: si alleggerisce il profilo con gli smussi (D-038), non la sostanza.
+
+## D-038 — Guscio sfaccettato da 1,6 mm, fissato con otto viti M2; sportelli a incastro (2026-10-08, presa)
+
+Guscio costruito pieno, smussato e poi svuotato a spessore costante: i fianchi scendono di 14 mm dal dorso piano (largo 60 mm), la coda di 10,5 mm. Da 48 a 35 g. Fissaggio: sei linguette della base che salgono dentro il bordo del guscio, lo centrano e portano gli inserti M2 (viti dai fianchi, visibili ma accessibili senza smontare nulla), più due viti dall'alto nella testa della torretta della camera. Scartati: viti dall'alto in colonnine alte 21 mm (fragili e in mezzo ai cavi) e viti interne raggiungibili solo da fori nel dorso. Sportelli del dorso e della coda senza viti, con dente e scatto: la batteria deve uscire senza attrezzi. Gli incastri vanno tarati in stampa. Anche la base ha uno smusso di 6 mm sul fondo lungo i fianchi; per averlo a spessore costante la vasca è ora uno svuotamento del pieno, e i colli delle gondole d'angolo si rifilano lungo la parete interna.
+
+**Aggiunta a D-037 (stessa sera, in discussione con l'utente).** L'utente si aspettava un'andatura più bassa, con il ginocchio sotto i 90°. Confronto in `calc/andature.py` e in `dimensionamento.md`: l'assetto alto è il migliore per i servo (44 %) ma il peggiore per la stabilità (ribaltamento a 29° contro 37° dell'assetto medio e 49–54° di quelli bassi). L'assetto basso e largo "classico" chiede l'89 % dello stallo a tripode e il 71 % anche con cinque zampe a terra: con MG90S e 1,05 kg non rientra nella regola del 50 %. Punto emerso: la zampa v0 limita gli assetti bassi più della coppia, perché il ginocchio non si chiude sotto i 62° e il piede non si alza. Proposta: tenere le lunghezze dei segmenti, aumentare la chiusura del ginocchio nella rifinitura della zampa e lasciare l'altezza di marcia al firmware (da 58 a 75 mm), da scegliere dopo aver misurato coppia reale e massa. Da decidere con l'utente se la regola del 50 % resta rigida. **Chiusa da D-039.**
+
+## D-039 — Il robot è progettato per due modi di marcia: alto e raccolto, basso e largo (2026-10-08, decisione dell'utente)
+
+L'utente accetta di superare il 50 % dello stallo per camminare più basso; quale assetto usare si decide a robot costruito, misurando coppia reale, massa e temperatura dei servo. La meccanica deve permettere entrambi.
+
+- **Modo alto** (asse dei femori a 72 mm, piede a 12 mm dall'asse): 44 % dello stallo, luce 55 mm, ribaltamento a 29°. La regola del 50 % resta il riferimento per questo modo.
+- **Modo basso** (asse a 40 mm, piede a 40 mm): ginocchio tra 66° e 109°, luce 23 mm, ribaltamento a 54°, ma 89 % dello stallo a tripode. In mezzo c'è una gamma continua (per esempio asse a 50 mm e piede a 25 mm: 59 %, ginocchio 72–99°, ribaltamento a 43°): tabella in `dimensionamento.md`.
+- **Cosa è cambiato nella meccanica**: il femore. L'anima piena tra le due piastre fermava il ginocchio a 62° e il femore a +25°. Ora tra le due culle passa un puntone inclinato di 35°, sezione 6,2 × 4 mm, dentro la sola fascia che resta libera a ogni angolo utile; l'anima torna spessa, con i due inserti M2, solo negli 8 mm accanto alla piastra delle squadrette, sopra la cassa dei servo. Campo libero verificato: femore da −60° a +55°, ginocchio da 50° a 145°. Il femore pesa 1,6 g in meno.
+- **Verifica**: ciclo a tripode completo (dieci fasi, sei zampe) in tutti e due i modi, con passo 40 mm e alzata 20 mm: nessuna interferenza, angoli dentro i limiti con almeno 4° di margine nel modo basso.
+- **Rischi accettati**: nel modo basso i servo di femore lavorano vicino allo stallo (scaldano, cedono, durano meno); il puntone è sottile e in PETG-CF può rompersi in montaggio (se succede: sezione piena in PETG non caricato, oppure un tirante metallico M2).
+- Nessun cambio per l'elettronica: anche con i giunti carichi all'89 % i due regolatori (11 A dichiarati ciascuno) e il fusibile da 20 A restano sopra il fabbisogno.
+
+## D-040 — Servo sbagliati in partenza: MG996R, non MG90S (2026-10-08, **aperta**: da decidere con l'utente)
+
+L'utente ha detto di aver indicato per errore il file dell'MG90S: i servo che voleva usare sono gli MG996R della sua v1. Li ha entrambi. Conseguenze:
+
+- La versione MG90S progettata fin qui è coerente e verificata, ma è un altro robot: circa 1 kg, corpo da 164 mm. Con gli MG996R (55 g l'uno, 40,7 × 19,7 × 42,9 mm, 11 kgf·cm dichiarati a 6 V: dati tipici **non ancora ricontrollati su fonte primaria**) i soli servo pesano 990 g e il robot supera i 2 kg.
+- Stima preliminare con la stessa statica (coxa 50, femore 75, tibia 120 mm, 2,1–2,4 kg, asse a 90 mm e piede a 50 mm dall'asse): 4,7–5,4 kgf·cm, cioè 43–49 % dello stallo dichiarato (52–60 % se lo stallo reale è 9). Con gli MG996R l'assetto classico, basso e con il ginocchio sotto i 90°, sta attorno alla regola del 50 %: quello che con gli MG90S costa l'89 %.
+- Non si riusano: quote, disposizione del corpo, bilancio di massa, cuscinetti e perni (troppo piccoli), sezione alimentazione del BOM (stallo dichiarato 2,5 A per servo: 45 A in tutto; i due Pololu da 11 A e i morsetti della SSC-32 non bastano; la batteria da 5200 mAh torna sensata).
+- Si riusano: metodo e script (schizzi vincolati, primitive, assieme, interferenze, pose e ciclo a tripode), statica e confronto degli assetti, architettura (giunti su due lati con cuscinetto e perno, femore in due pezzi con puntone, gondole, vasca con tunnel della batteria e guscio non strutturale, vassoio dell'ESP32, torretta della camera, sportelli), ricerca su ESP32, SSC-32 e camera, regole di lavoro.

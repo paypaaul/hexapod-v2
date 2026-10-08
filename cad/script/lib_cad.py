@@ -10,6 +10,8 @@ Le espressioni di posizione hanno il segno (es. '-(cul_parete)'): la libreria le
 per piazzare la geometria e usa il valore assoluto nella quota. Se un parametro cambia
 al punto da invertire il segno di una posizione, lo schizzo va rigenerato.
 """
+import math
+
 import adsk.core
 import adsk.fusion
 
@@ -30,6 +32,7 @@ class Parte:
         self.des = comp.parentDesign
         self.non_vincolati = []
         self.n = 0
+        self.piani = {}
 
     # ------------------------------------------------------------------ utilita'
     def val(self, expr):
@@ -48,11 +51,14 @@ class Parte:
         """Piano perpendicolare a un asse del componente, alla quota `expr` (con segno)."""
         if abs(self.val(expr)) < EPS:
             return self._base(asse)
+        if (asse, expr) in self.piani:          # stesso piano gia' creato da questa Parte: si riusa
+            return self.piani[(asse, expr)]
         e = expr if self._segno(asse) > 0 else '-(%s)' % expr
         inp = self.c.constructionPlanes.createInput()
         inp.setByOffset(self._base(asse), VI.createByString(e))
         pl = self.c.constructionPlanes.add(inp)
         pl.name = 'pn_' + nome
+        self.piani[(asse, expr)] = pl
         return pl
 
     def _schizzo(self, piano, nome):
@@ -201,6 +207,88 @@ class Parte:
         self._controlla(sk)
         return sk
 
+    def sk_rett_obl(self, asse, q_expr, nome, p0, p1, a0, a1, b0, b1):
+        """Schizzo con un rettangolo inclinato, definito in una terna locale.
+
+        p0 = (u, v) origine locale, p1 = (u, v) punto che da' la direzione +a (espressioni con segno);
+        b e' a ruotato di +90 gradi nel piano (u, v). I lati stanno ad a = a0, a1 e b = b0, b1
+        (espressioni con segno). Vincoli: un asse di costruzione p0-p1 quotato dall'origine, lati
+        paralleli o perpendicolari all'asse, distanze dall'asse e da p0. Nessun vertice e' quotato
+        dall'origine: cosi' si evita lo "schizzo ipervincolato" del poligono.
+        L'asse non deve essere parallelo agli assi dello schizzo (in quel caso si usa sk_rett).
+        """
+        piano = self.piano(asse, q_expr, nome)
+        sk = self._schizzo(piano, nome)
+        q = self.val(q_expr)
+        u0, v0, u1, v1 = self.val(p0[0]), self.val(p0[1]), self.val(p1[0]), self.val(p1[1])
+        lung = math.hypot(u1 - u0, v1 - v0)
+        ea = ((u1 - u0) / lung, (v1 - v0) / lung)
+        eb = (-ea[1], ea[0])
+
+        def sp(u, v):
+            m = sk.modelToSketchSpace(self._modello(asse, u, v, q))
+            return P3(m.x, m.y, 0)
+
+        def loc(a, b):
+            return sp(u0 + a * ea[0] + b * eb[0], v0 + a * ea[1] + b * eb[1])
+
+        linee = sk.sketchCurves.sketchLines
+        gc, dims = sk.geometricConstraints, sk.sketchDimensions
+        ax = linee.addByTwoPoints(sp(u0, v0), sp(u1, v1))
+        ax.isConstruction = True
+        ex = sk.sketchToModelSpace(P3(1, 0, 0))
+        o = sk.sketchToModelSpace(P3(0, 0, 0))
+        du, dv = self._uv(asse, P3(ex.x - o.x, ex.y - o.y, ex.z - o.z))
+        u_lungo_x = abs(du) > abs(dv)
+        for punto, (ue, ve) in ((ax.startSketchPoint, p0), (ax.endSketchPoint, p1)):
+            self._quota_da_origine(sk, punto, True, ue if u_lungo_x else ve)
+            self._quota_da_origine(sk, punto, False, ve if u_lungo_x else ue)
+        va0, va1, vb0, vb1 = self.val(a0), self.val(a1), self.val(b0), self.val(b1)
+        l1 = linee.addByTwoPoints(loc(va0, vb0), loc(va1, vb0))          # b = b0
+        l2 = linee.addByTwoPoints(l1.endSketchPoint, loc(va1, vb1))      # a = a1
+        l3 = linee.addByTwoPoints(l2.endSketchPoint, loc(va0, vb1))      # b = b1
+        l4 = linee.addByTwoPoints(l3.endSketchPoint, l1.startSketchPoint)  # a = a0
+        gc.addParallel(l1, ax)
+        gc.addParallel(l3, ax)
+        gc.addPerpendicular(l2, ax)
+        gc.addPerpendicular(l4, ax)
+
+        def medio(ln):
+            s, e = ln.startSketchPoint.geometry, ln.endSketchPoint.geometry
+            return P3((s.x + e.x) / 2, (s.y + e.y) / 2, 0)
+
+        for ln, expr, val in ((l1, b0, vb0), (l3, b1, vb1)):
+            if abs(val) < EPS:
+                gc.addCollinear(ln, ax)
+            else:
+                d = dims.addOffsetDimension(ax, ln, medio(ln))
+                d.parameter.expression = expr if val > 0 else '-(%s)' % expr
+        for ln, expr, val in ((l2, a1, va1), (l4, a0, va0)):
+            if abs(val) < EPS:
+                gc.addCoincident(ax.startSketchPoint, ln)
+            else:
+                d = dims.addOffsetDimension(ln, ax.startSketchPoint, medio(ln))
+                d.parameter.expression = expr if val > 0 else '-(%s)' % expr
+        self._controlla(sk)
+        return sk
+
+    def blocco_obl(self, asse, q_expr, nome, p0, p1, a0, a1, b0, b1, dist_expr, verso=1, op=UNISCI):
+        """Parallelepipedo inclinato: rettangolo in terna locale sul piano `asse = q`, estruso di `dist`."""
+        sk = self.sk_rett_obl(asse, q_expr, nome, p0, p1, a0, a1, b0, b1)
+        return self.estrudi(sk, asse, dist_expr, verso, op, nome)
+
+    def specchia(self, lavorazioni, asse, nome):
+        """Specchia un gruppo di lavorazioni rispetto al piano base perpendicolare a `asse`."""
+        col = adsk.core.ObjectCollection.create()
+        for f in lavorazioni:
+            col.add(f)
+        inp = self.c.features.mirrorFeatures.createInput(col, self._base(asse))
+        inp.patternComputeOption = adsk.fusion.PatternComputeOptions.AdjustPatternCompute
+        f = self.c.features.mirrorFeatures.add(inp)
+        f.name = nome
+        self.n += 1
+        return f
+
     def prisma(self, asse, q_expr, nome, vertici, dist_expr, verso=1, op=UNISCI):
         """Prisma: poligono sul piano `asse = q` estruso di `dist` nel verso dato."""
         sk = self.sk_poligono(asse, q_expr, nome, vertici)
@@ -230,6 +318,10 @@ class Parte:
         d = adsk.fusion.DistanceExtentDefinition.create(VI.createByString(dist_expr))
         inp.setOneSideExtent(d, adsk.fusion.ExtentDirections.PositiveExtentDirection if positivo
                              else adsk.fusion.ExtentDirections.NegativeExtentDirection)
+        if op == TAGLIA:
+            # Senza questo un taglio asporta TUTTI i corpi che incontra, anche quelli degli altri
+            # componenti dell'assieme (zampe, cuscinetti...): si limita ai corpi di questa parte.
+            inp.participantBodies = [b for b in self.c.bRepBodies]
         f = ext.add(inp)
         f.name = nome
         self.n += 1
@@ -255,7 +347,7 @@ def aggiungi_parametri(des, lista):
         if p is None:
             up.add(nome, VI.createByString(expr), unita, commento)
             fatti.append(nome)
-        elif p.expression != expr:
+        elif p.expression.replace(' ', '') != expr.replace(' ', ''):      # Fusion riscrive gli spazi
             p.expression = expr
             p.comment = commento
             fatti.append(nome + '*')

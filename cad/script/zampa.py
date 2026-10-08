@@ -86,6 +86,14 @@ PARAMETRI = [
     ('fem_web_sp', '6 mm', 'mm', 'Femore: spessore dell anima'),
     ('fem_web_semi', '7.5 mm', 'mm', 'Femore: semialtezza dell anima'),
     ('fem_vite_dz', '4.5 mm', 'mm', 'Femore: viti dell anima, distanza dalla mezzeria'),
+    # L'anima piena fermava il ginocchio a 62 gradi e il femore a +25. Ora tra le due culle passa solo un
+    # puntone inclinato, dentro la fascia che resta libera con il femore fino a +55 e il ginocchio fino a 50;
+    # torna spessa (testa con gli inserti) solo accanto alla piastra delle squadrette, sopra la cassa dei servo.
+    ('fem_testa_y0', 'zy_srv + srv_alt_cassa + 0.6 mm', 'mm', 'Femore: Y da cui parte la testa dell anima (sopra la cassa dei servo)'),
+    ('fem_pun_ang', '35 deg', 'deg', 'Femore: inclinazione del puntone sull asse del femore'),
+    ('fem_pun_cz', '1.46 mm', 'mm', 'Femore: centro del puntone sotto la mezzeria'),
+    ('fem_pun_semi_l', '3.1 mm', 'mm', 'Femore: semilunghezza della sezione del puntone'),
+    ('fem_pun_semi_sp', '2 mm', 'mm', 'Femore: semispessore della sezione del puntone'),
     # --- tibia
     ('tib_piede_semi', '5 mm', 'mm', 'Tibia: semilarghezza dello stinco'),
     ('tib_piede_d', '10 mm', 'mm', 'Tibia: diametro del piede'),
@@ -168,8 +176,12 @@ def fai_femore_b(zampa, m):
     p.cilindro('y', 'zy_pn_est', 'testa_ginocchio', 'zam_Lf', '0 mm', '2 * fem_semi', 'arm_sp_perno')
     p.cilindro('y', 'zy_pn_int', 'rialzo_anca', '0 mm', '0 mm', 'arm_rialzo_d', 'arm_rialzo_h')
     p.cilindro('y', 'zy_pn_int', 'rialzo_ginocchio', 'zam_Lf', '0 mm', 'arm_rialzo_d', 'arm_rialzo_h')
-    p.blocco('y', 'zy_pn_int', 'anima', 'fem_web_x0', '-(fem_web_semi)', 'fem_web_x0 + fem_web_sp', 'fem_web_semi',
-             'zy_sq_int - zy_pn_int')
+    centro = ('zam_Lf / 2', '-(fem_pun_cz)')
+    verso = ('zam_Lf / 2 + 10 mm * cos(fem_pun_ang)', '10 mm * sin(fem_pun_ang) - fem_pun_cz')
+    p.blocco_obl('y', 'zy_pn_int', 'puntone', centro, verso, '-(fem_pun_semi_l)', 'fem_pun_semi_l', '-(fem_pun_semi_sp)',
+                 'fem_pun_semi_sp', 'fem_testa_y0 - zy_pn_int')
+    p.blocco('y', 'fem_testa_y0', 'testa_anima', 'fem_web_x0', '-(fem_web_semi)', 'fem_web_x0 + fem_web_sp', 'fem_web_semi',
+             'zy_sq_int - fem_testa_y0')
     p.cilindro('y', 'zy_pn_est', 'foro_perno_anca', '0 mm', '0 mm', 'perno_foro', 'arm_sp_perno + arm_rialzo_h', 1, TAGLIA)
     p.cilindro('y', 'zy_pn_est', 'foro_perno_ginocchio', 'zam_Lf', '0 mm', 'perno_foro', 'arm_sp_perno + arm_rialzo_h', 1, TAGLIA)
     p.cilindro('y', 'zy_sq_int', 'inserto_su', 'fem_web_x0 + fem_web_sp / 2', 'fem_vite_dz', 'ins_m2_d', 'ins_m2_l', -1, TAGLIA)
@@ -288,7 +300,13 @@ def _mappa(des, z):
 
 
 def fai_istanze(des, root, zo):
-    """Passo 1: cancella giunti e istanze precedenti e crea le istanze."""
+    """Passo 1: cancella giunti e istanze precedenti e crea le istanze.
+
+    Le istanze si creano alla radice, nella posa voluta in terna del robot, e poi si spostano dentro la
+    zampa con moveToComponent, che conserva la posizione nello spazio. Aggiungerle direttamente dentro
+    "Zampa" funziona solo finche' la zampa sta all'origine: con la zampa ruotata addExistingComponent
+    sbaglia la traslazione (e per i riferimenti esterni anche la rotazione) senza dare errori.
+    """
     z = zo.component
     for j in [z.asBuiltJoints.item(i) for i in range(z.asBuiltJoints.count)]:
         j.deleteMe()
@@ -297,14 +315,16 @@ def fai_istanze(des, root, zo):
     lib = lambda pref: [o for o in root.occurrences if o.component.name.startswith(pref)][0]
     for chiave, pref, m in _attese(des):
         o_lib = lib(pref)
+        w = m.copy()
+        w.transformBy(zo.transform2)            # dalla terna della zampa alla terna del robot
         if o_lib.isReferencedComponent:
-            # Per un riferimento esterno addExistingComponent antepone la trasformata dell'occorrenza
-            # di libreria: la si compensa, cosi' la posizione nativa dentro la zampa e' quella voluta.
+            # Per un riferimento esterno la nuova istanza nasce in w * T_lib: si passa w * T_lib^-1.
             inv = o_lib.transform2.copy()
             inv.invert()
-            m = m.copy()
-            m.transformBy(inv)
-        occ = z.occurrences.addExistingComponent(o_lib.component, m)
+            inv.transformBy(w)
+            w = inv
+        occ = root.occurrences.addExistingComponent(o_lib.component, w)
+        occ = occ.moveToComponent(zo)
         # I riferimenti esterni nascono "fissati al genitore": cosi' bloccherebbero i giunti della zampa.
         try:
             if occ.isGroundToParent:
@@ -312,6 +332,20 @@ def fai_istanze(des, root, zo):
         except Exception:
             pass
     return {'istanze': len(_istanze(z))}
+
+
+def controlla_istanze(des, zo):
+    """Scarto (mm) tra la posizione nativa attesa e quella reale di ogni istanza: da leggere in uno script a parte."""
+    z = zo.component
+    inv = zo.transform2.copy()
+    inv.invert()
+    rep = {}
+    for chiave, o in _mappa(des, z).items():
+        px = o.createForAssemblyContext(zo)
+        c = px.bRepBodies.item(0).physicalProperties.centerOfMass
+        c.transformBy(inv)
+        rep[chiave] = [round(c.x * 10, 2), round(c.y * 10, 2), round(c.z * 10, 2)]
+    return rep
 
 
 def fai_giunti(des, root, zo):
@@ -354,6 +388,27 @@ def fai_giunti(des, root, zo):
     rivoluzione(tibia, fem_b, f_gin, 'G_ginocchio')
     L['raggruppa'](des, t0, 'Giunti Zampa')
     return {'giunti': [z.asBuiltJoints.item(i).name for i in range(z.asBuiltJoints.count)]}
+
+
+# Limiti dei giunti, in angoli fisici: alpha = femore sopra l'orizzontale, gamma = angolo interno al ginocchio.
+# Valori di giunto: G_femore = -alpha, G_ginocchio = 90 - gamma (misurato con verifica_zampa.py).
+# Campo verificato libero da interferenze l'8 ottobre 2026 (femore con il puntone): contatti a alpha = +60,
+# a gamma = 40 e, solo con il femore oltre -52, a gamma = 45.
+LIMITI = {'alpha': (-60.0, 55.0), 'gamma': (50.0, 145.0)}
+
+
+def fai_limiti(des, zo):
+    z = zo.component
+    g = {z.asBuiltJoints.item(i).name: z.asBuiltJoints.item(i) for i in range(z.asBuiltJoints.count)}
+    campi = {'G_femore': (-LIMITI['alpha'][1], -LIMITI['alpha'][0]),
+             'G_ginocchio': (90.0 - LIMITI['gamma'][1], 90.0 - LIMITI['gamma'][0])}
+    for nome, (lo, hi) in campi.items():
+        lim = adsk.fusion.RevoluteJointMotion.cast(g[nome].jointMotion).rotationLimits
+        lim.isMinimumValueEnabled = True
+        lim.minimumValue = math.radians(lo)
+        lim.isMaximumValueEnabled = True
+        lim.maximumValue = math.radians(hi)
+    return campi
 
 
 def stato_istanze(des, zo):
@@ -427,8 +482,12 @@ def main(passi):
             out['istanze'] = fai_istanze(des, root, zo)
         if 'giunti' in passi:
             out['giunti'] = fai_giunti(des, root, zo)
+        if 'limiti' in passi:
+            out['limiti'] = fai_limiti(des, zo)
         if 'stato' in passi:
             out['stato'] = stato_istanze(des, zo)
+        if 'controllo' in passi:
+            out['controllo_istanze'] = controlla_istanze(des, zo)
         if 'interferenze' in passi:
             out['interferenze'] = interferenze(des, zo)
     except Exception:

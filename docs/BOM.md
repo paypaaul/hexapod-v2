@@ -71,7 +71,6 @@ Nota su B1: un solo D42V110F6 copre i picchi realistici ma non i 18 A dei 18 ser
 | C6 | Clip di blocco delle prolunghe | 1 conf. da 40 | clip per connettori servo | una per giunzione | Amazon.it B0C61PDHDF, 10,99 € | S | A |
 | C7 | Prolunga di bilanciamento | 1 | JST-XH 3 poli (2S), 10–20 cm | porta la presa di bilanciamento a un punto raggiungibile senza togliere il pacco | negozi RC | S | A (se serve dal CAD) |
 | C8 | Antenna esterna | 1 | 2,4 GHz con cavetto IPEX | solo se la prova di portata a guscio montato lo richiede; dipende dalla resistenza di selezione sulla scheda | Amazon.it | C | — |
-| C9 | Prolunga USB-C da pannello (**proposta, da approvare: D-034**) | 1 | USB-C maschio–femmina da pannello, 15–20 cm, con i fili dati | porta la USB "TTL" dell'ESP32 sul pannello posteriore: con la camera davanti la scheda resta a metà corpo | Amazon.it | S | — |
 
 Assegnazione dei pin dell'ESP32. Che siano liberi su questa scheda viene dall'inserzione e dal disegno Freenove (S, C); le proprietà elettriche dal datasheet Espressif (V).
 
@@ -174,8 +173,8 @@ Contromisure per ciò che l'hardware non copre:
 | Servo (JR femmina) | header a 3 pin della SSC-32 | passo 2,54 mm | massa verso il bordo, +V al centro, segnale verso l'interno; la spina non ha chiave. Una barra stampata trattiene le 18 spine |
 | Servo lontani | C5 prolunghe | JR maschio-femmina | con clip C6 |
 | OV3660 | connettore FPC della scheda | 24 poli passo 0,5 mm | — |
-| PC | porta USB-C "TTL" dell'ESP32 | USB-C | accessibile dall'esterno |
-| PC | micro-USB della SSC-32 | micro-USB | solo configurazione |
+| PC | porta USB-C "TTL" dell'ESP32 | USB-C | dallo sportello di servizio sul dorso, che scopre anche BOOT e RST (D-034) |
+| PC | micro-USB della SSC-32 | micro-USB | solo configurazione, **al banco prima di montarla**: nel corpo resta sotto il vassoio dell'ESP32, dietro la paratia. A robot montato si passa dall'ESP32 (ponte seriale nel firmware) |
 
 Ripartizione dei servo: zampe di sinistra sui canali 0–8 (lato VS1), zampe di destra sui canali 16–24 (lato VS2). I due ponticelli VS1=VS2 e il ponticello VL=VS vanno **tolti**.
 
