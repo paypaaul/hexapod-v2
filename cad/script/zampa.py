@@ -44,7 +44,7 @@ PARAMETRI = [
     ('cul_fondo', '4.4 mm', 'mm', 'Culla: fondo (sede del cuscinetto 3,2 + 1,2)'),
     ('cul_bugna_h', '8 mm', 'mm', 'Culla: profondita delle bugne degli inserti sotto le alette'),
     ('cul_ins_parete', '1.6 mm', 'mm', 'Culla: parete attorno ai fori degli inserti'),
-    ('ins_sposta_corto', '1.0 mm', 'mm', 'Inserti lato albero spostati lungo l asola dell aletta: distanza dalla gola del fermacavo'),
+    ('ins_sposta_corto', '0.6 mm', 'mm', 'Inserti lato albero spostati verso l estremita: al massimo 0,6 (foro dell aletta 4,2, vite 3, asola 2,5)'),
     ('ins_sposta_coda', '0.4 mm', 'mm', 'Inserti lato coda spostati lungo l asola: 1,6 mm di parete verso la sede'),
     ('ale_foro_corto', 'srv_fori_x / 2 - (srv_cassa_l / 2 - srv_asse_x)', 'mm', 'Servo: foro dell aletta lato albero, dall asse'),
     ('ale_foro_coda', 'srv_fori_x / 2 + (srv_cassa_l / 2 - srv_asse_x)', 'mm', 'Servo: foro dell aletta lato coda, dall asse'),

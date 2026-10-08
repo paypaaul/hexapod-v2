@@ -41,7 +41,7 @@ Quote principali (dal modello di verifica `calc/zampa_escursioni.py`, da conferm
 | Culla nella terna del servo | x da −12,45 a +32,95, semilarghezza 12,45; bugne degli inserti fino a −17,85 e +38,35 |
 | Anima della coxa | X da 40,15 a 44,55 (gioco 0,8 dalla gondola, raggio 39,32) |
 | Braccio inferiore della coxa | Z da −38,35 a −33,15, più la nervatura sotto |
-| Ponte della coxa | Z da +17,05 a +22,75 |
+| Ponte della coxa | mozzo Z da +17,05 a +23,5; braccio da +19,6 a +23,5 (appoggio sulla testa dell'anima) |
 | Blocco del femore (terna del femore) | X da 21,5 a 44, Z da −2 a +20, smussi in basso verso il ginocchio e in alto verso l'anca |
 
 ### Modello in Fusion (zampa v0)

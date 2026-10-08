@@ -77,7 +77,7 @@ Scelta con un confronto tra tre architetture indipendenti ("scalata", "compatta"
 - **Correzioni dei revisori adottate**:
   - braccio inferiore della coxa irrigidito con una nervatura sotto (prima portava al cuscinetto solo il 40–66 % del peso; il resto tirava l'albero del servo) e ponte sottile in verticale ma largo, così il peso del corpo passa quasi tutto dal cuscinetto;
   - registro assiale con rondelle M3 DIN 125 già nel BOM (voce D7) tra ponte e anima e tra piastra delle squadrette e blocco: nessuna voce nuova da comprare;
-  - inserti delle alette spostati lungo l'asola delle alette per lasciare almeno 1 mm verso la gola del fermacavo e 1,6 verso la sede del servo;
+  - inserti delle alette spostati verso le estremità per lasciare almeno 1 mm verso la gola del fermacavo e 1,6 verso la sede del servo: al massimo 0,6 mm, perché la vite M3 deve restare dentro il foro Ø4,2 dell'aletta (l'asola è larga 2,5);
   - rialzo sull'anello interno Ø6,2 (diametro di riferimento interno dell'LF-1050ZZ 6,40);
   - spessori in multipli di 0,4; piastre del femore da 2,4 fuori dai mozzi;
   - perni Ø5 × 12 (la voce D2 del BOM diceva 16–20: si aggiorna la lunghezza, non è una voce nuova).
