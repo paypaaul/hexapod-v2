@@ -34,10 +34,12 @@ I soli servo valgono il 39 % della massa. Obiettivo per il CAD: parti stampate e
 | Parametro | Valore | Nota |
 |---|---|---|
 | Assi delle coxe | angoli (±95, ±60) mm a 45°; medie (0, ±78) mm | da fissare con la disposizione del corpo |
-| Coxa (asse coxa → asse femore) | 45 mm | tra 37 e 57 mm secondo il verso del servo di coxa |
-| Femore | 70 mm | minimo circa 48 mm per far passare le due culle |
-| Tibia | 115 mm | il servo del ginocchio con la culla ne occupa circa 40 |
+| Coxa (asse coxa → asse femore) | **55 mm** | D-047: anima della coxa fuori dalla gondola del servo di coxa (coda verso l'esterno) |
+| Femore | **65 mm** | D-047: con 60 urti nelle andature basse, con 65 tutte libere |
+| Tibia | **110 mm** | D-047 |
 | Passo / alzata | 60 mm / 30 mm | |
+
+Aggiornamento del 9 ottobre 2026 (zampa D-047, Lc 55, Lf 65, Lt 110), da `calc/statica_tripode.py` e `calc/andature.py`: al punto di progetto 100/45 femore 49 % e ginocchio 34 % a 2,6 kg (51 % e 36 % a 2,7 kg). Il punto più basso vicino al corpo è il braccio inferiore della coxa, 38,4 mm sotto l'asse dei femori: la luce è h − 38,4. La tabella qui sotto è quella preliminare (Lf 70, Lt 115, luce h − 30); i valori aggiornati per assetto sono nell'uscita di `calc/andature.py`.
 
 ## Assetti a 2,6 kg
 

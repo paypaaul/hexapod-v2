@@ -60,3 +60,25 @@ Risposte dell'utente: non può misurare i servo (né quote né corrente di stall
 - **Le parti comprate sono componenti `Rif_*` nella zona libreria** (y ≥ 250 mm), fuori dall'ingombro del robot; nell'assieme se ne creano copie. Gli ingombri semplificati stanno in una BaseFeature, con le quote prese dai parametri utente: si rigenerano con `rif_componenti.py` → `ingombri` e `rigenera=True`.
 - **Squadretta metallica**: il prodotto non è ancora scelto, quindi l'ingombro usa valori tipici dei rivenditori (disco Ø20, spessore 2,5, altezza con il mozzo 5,5, fori M3 a 14 mm), tutti C. Prima di stampare il provino si sostituiscono con le quote del prodotto comprato.
 - **Batteria**: l'ingombro usa le quote massime delle schede (139 × 47,3 × 25,4) senza tolleranza; la tolleranza dichiarata (±5 / ±2 / ±2) è in parametri a parte e si aggiunge nel vano.
+
+## D-047 — Architettura della zampa (2026-10-09, fase 4)
+
+Scelta con un confronto tra tre architetture indipendenti ("scalata", "compatta", "robusta"), giudicate da tre revisori (verifica geometrica, struttura e montaggio, sistema). Tutto il materiale, compresi i calcoli dei revisori, è in `docs/ricerca/zampa-architetture.json`; il riassunto è in `progetto-meccanico.md`.
+
+- **Base: "scalata"**, cioè l'architettura della prima versione portata sugli MG996R. Due revisori su tre la indicano come base; il terzo (struttura) la mette seconda dopo "robusta", che però pesa 117 g a zampa e porta femore e ginocchio oltre il 50 % per architettura. "Compatta" ha la coxa in un pezzo senza registro assiale e il femore chiuso da due sole viti.
+- **Servo di coxa** nella gondola del corpo, albero in alto, coda verso l'esterno: il cavo esce già dentro lo scafo. Costa Lc = 55 (l'anima della coxa deve girare fuori dalla gondola, raggio 39,3 mm).
+- **Servo del femore** nella coxa con la **coda in basso** (nella prima versione era in alto): con la coda in alto le culle lasciavano al femore una fascia di 8–10 mm; con la coda in basso resta libero un blocco cavo che chiude la sezione del femore.
+- **Servo del ginocchio** nella tibia con la coda verso il piede.
+- **Femore** in due piastre (squadrette da un lato, perni dall'altro) unite da un blocco cavo integrale con la piastra dei perni e avvitato all'altra con 4 viti M3.
+- **Ponte della coxa** separato (braccio superiore della C): la squadretta a disco si avvita dall'alto e la sua altezza non è nota. Centrato sull'anima con una linguetta, non solo con le viti.
+- **Lunghezze: coxa 55, femore 65, tibia 110** (prima 45 / 70 / 115). Con femore e tibia più corti le pose di tutte e sei le andature restano libere (gioco minimo 1,6 mm contro 1,1) e il ginocchio scende dal 39 al 34 % dello stallo; il femore resta al 49 % (non dipende dalle lunghezze). Femore da 60 scartato: urti nelle andature basse (`calc/zampa_escursioni.py`).
+- **Smussi** sul ponte (3 mm) e in testa al blocco verso l'anca (6 mm): il femore sale fino a +80°.
+- **Eccezione all'obiettivo delle escursioni**: con il femore tra −30° e 0° il ginocchio non chiude sotto 42–49° (lo stinco tocca le bugne della culla del femore, cioè il piede finirebbe sotto il corpo). Nessuna andatura usa quelle pose; il firmware limita γ in funzione di α. Il resto dell'obiettivo (femore da −30° a +65°, ginocchio fino a 150°) è libero.
+- **Correzioni dei revisori adottate**:
+  - braccio inferiore della coxa irrigidito con una nervatura sotto (prima portava al cuscinetto solo il 40–66 % del peso; il resto tirava l'albero del servo) e ponte sottile in verticale ma largo, così il peso del corpo passa quasi tutto dal cuscinetto;
+  - registro assiale con rondelle M3 DIN 125 già nel BOM (voce D7) tra ponte e anima e tra piastra delle squadrette e blocco: nessuna voce nuova da comprare;
+  - inserti delle alette spostati lungo l'asola delle alette per lasciare almeno 1 mm verso la gola del fermacavo e 1,6 verso la sede del servo;
+  - rialzo sull'anello interno Ø6,2 (diametro di riferimento interno dell'LF-1050ZZ 6,40);
+  - spessori in multipli di 0,4; piastre del femore da 2,4 fuori dai mozzi;
+  - perni Ø5 × 12 (la voce D2 del BOM diceva 16–20: si aggiorna la lunghezza, non è una voce nuova).
+- **Vincoli per il corpo**: fondo della gondola 31,95 mm sotto l'asse dei femori, braccio della coxa fino a 38,35 (più la nervatura); ponte a 17–23 mm sopra l'asse; zampe vicine a contatto se ruotano entrambe di 30° una verso l'altra (in marcia ±17°): limite d'imbardata nel firmware o coxe più distanziate.

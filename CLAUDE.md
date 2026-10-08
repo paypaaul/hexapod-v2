@@ -14,7 +14,7 @@ Questa repo è la memoria del progetto: una sessione nuova deve poter ripartire 
 | 1. Studio di ciò che cambia | **fatta** (2026-10-08, studio ridotto): `docs/studio-componenti.md`, `docs/dimensionamento.md` (preliminare), `docs/dimensioni-componenti.md` |
 | 2. BOM e revisione | **fatta e approvata** (2026-10-08): `docs/BOM.md` v2.0. Restano aperte le domande in fondo al BOM |
 | 3. Dimensioni e modelli 3D | **fatta** (2026-10-08): design Fusion **"Hexapod v2 - MG996R"** con 79 parametri, servo e regolatori da STEP, 14 ingombri in libreria (`cad/script/rif_componenti.py`, D-046); elenco in `docs/dimensioni-componenti.md` |
-| 4. Progettazione CAD | da fare |
+| 4. Progettazione CAD | **in corso**: architettura della zampa decisa (D-047, `docs/progetto-meccanico.md`), modellazione della zampa in Fusion |
 | 5. BOM finale (viteria dal modello) | da fare |
 | 6. Verifica del movimento | da fare |
 
@@ -65,7 +65,11 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 | `cad/script/lib_assieme.py` | istanze, giunti, interferenze, sentinella dei volumi, massa, pose, viste: estratta dagli script provati, da ricontrollare al primo uso |
 | `cad/script/rif_componenti.py` | fase 3: crea il design, i parametri dei componenti, importa e orienta gli STEP, crea gli ingombri, controlla lo stato |
 
-Da creare nelle prossime fasi: `docs/progetto-meccanico.md`, gli script delle parti in `cad/script/`.
+| `docs/progetto-meccanico.md` | architettura e quote della zampa (e poi del corpo), escursioni, cosa resta da fare |
+| `docs/ricerca/zampa-architetture.json` | le tre proposte di zampa e i giudizi dei tre revisori, con i calcoli |
+| `calc/zampa_escursioni.py` | verifica 2D delle escursioni della zampa (parametrica: `python3 calc/zampa_escursioni.py Lf=65 Lt=110`) |
+
+Da creare: gli script delle parti in `cad/script/` (`zampa.py`, poi corpo e assieme).
 
 Versione MG90S: `git show mg90s:<percorso>` (per esempio `mg90s:cad/script/zampa.py`, `mg90s:cad/script/corpo.py`, `mg90s:cad/script/assieme.py`, `mg90s:docs/progetto-meccanico.md`). Sono la traccia più utile per scrivere gli script nuovi.
 

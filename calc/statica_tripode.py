@@ -58,9 +58,9 @@ CONFIG = {
         "MD": (0.0, -78.0, -90.0),
         "PD": (-95.0, -60.0, -135.0),
     },
-    "Lc": 45.0,     # asse coxa -> asse femore
-    "Lf": 70.0,     # asse femore -> asse ginocchio
-    "Lt": 115.0,    # asse ginocchio -> punta del piede
+    "Lc": 55.0,     # asse coxa -> asse femore (zampa D-047: anima della coxa fuori dalla gondola)
+    "Lf": 65.0,     # asse femore -> asse ginocchio (D-047, verificato con calc/zampa_escursioni.py)
+    "Lt": 110.0,    # asse ginocchio -> punta del piede (D-047)
     "x_f0": 45.0,   # piede neutro: distanza orizzontale dall'asse femore
     "h": 100.0,     # altezza asse femore dal suolo (assetto di marcia classico)
     "passo": 60.0,  # corsa del piede in appoggio (mm), simmetrica attorno al neutro

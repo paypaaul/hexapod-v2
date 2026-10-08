@@ -1,0 +1,1105 @@
+{
+ "proposte": [
+  {
+   "chiave": "scalata",
+   "nome": "Architettura della prima versione portata in scala (MG996R)",
+   "sintesi": "Si tiene l'architettura della versione MG90S: servo di coxa nella gondola del corpo con la coda verso l'esterno, coxa a C, servo del femore nella coxa, femore in due piastre (squadrette da un lato, perni dall'altro), servo del ginocchio nella tibia con la coda verso il piede.\nLa scala la rompe in quattro punti, corretti uno per uno:\n(1) Con la coda del servo del femore in alto, le due culle lasciano al femore solo una fascia diagonale di 8–10 mm (mappa calcolata). Si gira la coda in basso: nella metà alta del femore, tra r 21 dall'anca e r 21 dal ginocchio, resta libero un blocco cavo di 27,5 × 22 mm che chiude la sezione al posto del puntone. Il femore è libero da −46° a +79°.\n(2) L'anima della coxa deve girare fuori dalle alette e dalle bugne del servo di coxa (raggio 39,3), quindi Lc = 55.\n(3) La squadretta metallica a disco si avvita e la sua altezza è C. Il braccio superiore della C diventa quindi un pezzo a parte (Coxa_Ponte) e le giunzioni lungo l'asse si compensano con spessori.\n(4) Coxa e tibia si stampano con l'orlo sul piatto, così non servono supporti.\nRisultato: zampa larga 61,1 mm, circa 84 g di PETG-CF (obiettivo 70). Tutte le pose di appoggio e volo dei sei assetti della tabella sono libere, con gioco minimo 1,1 mm. Con la massa aggiornata il punto di progetto arriva al 51 % dello stallo al femore.",
+   "servo": [
+    {
+     "giunto": "coxa",
+     "dove": "Nel corpo, gondola di Corpo_Base (come nella prima versione). La gondola ha il raggio massimo di 39,32 mm dall'asse (bugne degli inserti 38,35 × ±8,7; alette fino a 37,55).",
+     "albero": "Verticale verso l'alto (+Z) in X = −55, Y = 0; alette (orlo della gondola) a Z = +1,65. Squadretta in alto, disco a Z 17,05–19,55, sotto il Coxa_Ponte. Cuscinetto LF-1050ZZ nel fondo della gondola: flangia Z −32,75…−31,95, corpo −31,95…−28,75. Perno Ø5 × 12 forzato nel braccio inferiore della Coxa, Z −39,75…−27,75.",
+     "coda": "Verso l'esterno (+X, lungo la direzione neutra della zampa); il lato corto con il cavo guarda il centro del corpo.",
+     "perche": "Il cavo esce già dentro lo scafo e la coxa non porta né il servo né il suo cavo. Il prezzo è Lc = 55 (con la coda verso l'interno sarebbe circa 37, ma il cavo uscirebbe verso l'anima e dovrebbe tornare indietro sotto la gondola). L'anima ha la faccia interna a r = 40,32: gira libera a qualunque angolo.",
+     "squadretta_a_meta_corsa": "Zampa nella direzione neutra (coxa 0°: 45° per le zampe d'angolo, 90° per le medie). Limiti di progetto ±45°."
+    },
+    {
+     "giunto": "femore",
+     "dove": "Nella Coxa: culla con la parete verso il corpo che fa da anima.",
+     "albero": "Lungo +Y in X = 0, Z = 0. Squadretta sul lato +Y (Femore_A), disco a Y 24,85–27,35. Cuscinetto nel fondo della culla sul lato −Y: flangia Y −24,95…−24,15, corpo nel fondo fino a −20,95. Perno Ø5 × 12 forzato in Femore_B, Y −31,95…−19,95 (sporge 1,4 mm all'esterno). Alette a Y = +9,45.",
+     "coda": "IN BASSO (−Z): cassa da Z +10,25 a −30,75, culla da +12,45 a −32,95, bugne da +17,85 a −38,35. È il cambiamento rispetto alla versione MG90S, che aveva la coda in alto.",
+     "perche": "Con la coda in alto, per α da −30 a +65 la coda della culla spazza la metà alta del femore fino a r 35–39 dall'anca. Il lato corto della culla del ginocchio spazza fino a r 19,9: per il puntone resta una fascia diagonale di 8–10 mm. Con la coda in basso la culla occupa la metà bassa (dove il femore ha solo le piastre); verso l'alto resta il solo lato corto (r ≤ 19,9). Il blocco del femore (X 21,5–49, Z −2…+20) è libero da α −46 a +79. In più il cavo esce in alto, accanto al Ponte. Costo: la coxa scende a 38,35 mm sotto l'asse dei femori.",
+     "squadretta_a_meta_corsa": "α = +17,5° (centro di −30…+65). Il millerighe da 25 denti dà passi di 14,4°: il dente si sceglie entro ±7,2°, il resto si corregge in firmware. Corsa 17,5 ± 80 → −62,5…+97,5, oltre il campo meccanico −46…+79: limiti da firmware."
+    },
+    {
+     "giunto": "ginocchio",
+     "dove": "Nella Tibia (culla uguale a quella della coxa, con una finestra di alleggerimento per fianco).",
+     "albero": "Lungo +Y nel ginocchio (X 70, Z 0 in posa di riferimento). Squadretta sul lato +Y (Femore_A, disco a Y 24,85–27,35), cuscinetto nel fondo della culla della Tibia sul lato −Y, perno Ø5 × 12 forzato in Femore_B. Stessa pila lungo Y del femore.",
+     "coda": "Verso il piede, lungo la tibia: cassa da 10,25 sopra l'asse a 30,75 verso il piede, culla fino a 32,95, poi parte lo stinco. Il lato corto con il cavo guarda il femore: in direzione γ dal ginocchio, quindi sempre verso l'alto per γ 40–150.",
+     "perche": "La massa del servo sta in basso, lungo lo stinco, e verso il femore sporge solo il lato corto (r ≤ 19,9): il blocco del femore resta a r ≥ 21. Il fianco della culla rivolto al femore passa sotto lo spigolo basso del blocco solo con γ < 45: lo smusso del blocco, da (39,5; −2) a (49; 3,5), lo libera fino a γ = 30.",
+     "squadretta_a_meta_corsa": "γ = 95° (centro di 40…150). Corsa 95 ± 80 → 15…175. Il campo meccanico è 30…180 con α ≥ 35 e si restringe fino a 44…180 con α ≤ −30: il limite basso va imposto in firmware in funzione di α."
+    }
+   ],
+   "parti": [
+    {
+     "nome": "Coxa",
+     "funzione": "Culla del servo del femore: sede 41,4 × 20,9, pareti 2,0, fondo 2,4 con mozzo Ø16 × 4,4 per il cuscinetto, quattro bugne profonde 8 con inserti M3 (spostati di 0,4 mm verso le estremità), finestra del cavo 9 × 17 nella parete corta in alto con la gola per il fermacavo, finestra di alleggerimento 20 × 16 sul fianco +X. Anima da 4,2 mm (X −14,68…−10,45) che fa da parete della culla verso il corpo e sale da Z −38,35 a +17,05, con due finestre triangolari; in testa una bugna con 2 inserti M3 e un'asola per i cavi a Y −14. Braccio inferiore da 5,2 mm (Z −38,35…−33,15, Y ±9,45) che passa sotto la gondola fino all'asse della coxa, con il perno Ø5 × 12 forzato e il rialzo Ø6,2 × 0,4 che tocca solo l'anello interno: da lì passa il peso del corpo.",
+     "stampa": "PETG-CF, faccia +Y (piano dell'orlo, Y 9,45) sul piatto. Tutto prismatico lungo Y, nessun supporto. Il fondo della culla si stampa a ponte di 21 mm in cima: la faccia interna non è funzionale, la sede del cuscinetto è aperta verso l'alto. Il foro del perno è orizzontale in stampa: goccia Ø4,8, poi alesato a 5. Pareti piene; braccio con 4 perimetri e 40 % di riempimento.",
+     "volume_cm3": 20.5
+    },
+    {
+     "nome": "Coxa_Ponte",
+     "funzione": "Braccio superiore della forcella. Un tondo R12 sull'asse della coxa con incavo Ø20,4 × 2,5 per il disco della squadretta, 4 fori M3 a 14 mm e un foro Ø6 per la vite centrale; uno spessore di 4,0 fino all'anima, su cui si avvita con 2 viti M3 × 10. Z 17,05–22,75. Chiude la C e porta la coppia del servo di coxa alla zampa. È un pezzo a parte perché la squadretta a disco si avvita dall'alto e la sua altezza (C) si recupera con spessori tra Ponte e anima.",
+     "stampa": "PETG-CF, faccia superiore sul piatto, incavo verso l'alto, nessun supporto.",
+     "volume_cm3": 5
+    },
+    {
+     "nome": "Femore_B",
+     "funzione": "Piastra lato perni: 3,2 mm, mozzi Ø16 da 5,2 con i due perni Ø5 × 12 forzati e i rialzi Ø6,2 × 0,4, due finestre di alleggerimento. Sagoma: teste R13 su anca e ginocchio, bordo alto a Z 20 tra X 21,5 e 49. Porta il blocco cavo che unisce le due piastre: X 21,5–49, Z −2…+20, smusso da (39,5; −2) a (49; 3,5), pareti 1,6, lungo Y da −27,35 a +27,35, finestre nelle due pareti di testa, 4 bugne con inserti M3 sulla faccia +Y, due ganci per il cavo del ginocchio sul dorso. Il blocco e le due piastre formano una sezione chiusa al centro del femore.",
+     "stampa": "PETG-CF, faccia esterna (Y −30,55) sul piatto; il blocco sale in verticale, aperto in alto; nessun supporto.",
+     "volume_cm3": 16.8
+    },
+    {
+     "nome": "Femore_A",
+     "funzione": "Piastra lato squadrette: 3,2 mm, mozzi da 5,7 con incavo Ø20,4 × 2,5 per i due dischi, stessa sagoma di Femore_B. Porta tutta la coppia tra anca e ginocchio. Si fissa con 8 viti M3 × 6 nelle due squadrette e 4 viti M3 × 8 negli inserti del blocco; due fori Ø6 in asse per le viti centrali delle squadrette.",
+     "stampa": "PETG-CF, faccia esterna (Y +30,55) sul piatto, incavi verso l'alto, nessun supporto.",
+     "volume_cm3": 8.7
+    },
+    {
+     "nome": "Tibia",
+     "funzione": "Culla del servo del ginocchio (come quella della coxa, con le pareti su tutti e quattro i lati e due finestre di alleggerimento). La finestra del cavo è sul lato corto verso il femore. Lo stinco cavo parte da X_t 32,95 con sezione 18,9 (Y ±9,45) × 18 e si restringe a 12 vicino al piede; pareti 1,6; piede R6 a X_t 109.",
+     "stampa": "PETG-CF, faccia +Y (orlo della culla e fianco dello stinco a Y 9,45) sul piatto; fondo della culla a ponte, sede del cuscinetto aperta verso l'alto; nessun supporto. Il piede resta in Y = 0, nel piano dell'asse di coxa.",
+     "volume_cm3": 19.9
+    },
+    {
+     "nome": "Piedino",
+     "funzione": "Cappuccio antiscivolo Ø14 × 10 calzato a pressione sul piede; la punta sta a Lt = 115 dall'asse del ginocchio.",
+     "stampa": "TPU 95A, punta verso l'alto, senza supporti.",
+     "volume_cm3": 0.9
+    }
+   ],
+   "montaggio": "Per zampa: 2 MG996R nella zampa più 1 nella gondola del corpo, 3 squadrette a disco, 3 cuscinetti LF-1050ZZ, 3 perni Ø5 × 12 (h8; non 16–20 come stimato nella voce D2 del BOM), 14 inserti M3 nella zampa più 4 nella gondola. Viti M3: 8 × 8 sulle alette di femore e ginocchio (più 4 nella gondola), 4 × 6 tra Ponte e squadretta, 2 × 10 tra Ponte e anima, 8 × 6 tra Femore_A e squadrette, 4 × 8 tra Femore_A e blocco. Più le 3 viti centrali fornite con le squadrette.\n\nMontaggio:\n1. Al banco: inserti a caldo; cuscinetti premuti nei fondi di Coxa, Tibia e gondola, con la flangia all'esterno; perni forzati in Femore_B (2) e nel braccio della Coxa (1), con 1,4 mm sporgenti all'esterno per poterli estrarre.\n2. Servo del femore nella Coxa e servo del ginocchio nella Tibia, senza gommini: prima si infila la spina JR dall'interno nella finestra, poi si cala il servo dal lato dell'orlo (+Y); il fermacavo scorre nella gola. 4 viti M3 × 8 sulle alette.\n3. Servo di coxa nella gondola, dall'alto, con 4 viti. Servo a 1500 µs, poi squadretta sull'albero con la vite centrale, sul dente che allinea i fori con la zampa nella direzione neutra.\n4. Coxa da sotto: il perno del braccio entra nel cuscinetto della gondola e l'anima passa fuori dalla gondola. Poi il Coxa_Ponte sopra: 4 M3 × 6 nel disco e 2 M3 × 10 nell'anima, con spessori da 0,2 a 0,6 se resta luce.\n5. Servo di femore e ginocchio a 1500 µs; squadrette sugli alberi con la Coxa e la Tibia tenute a α ≈ +17,5° e γ ≈ 95°.\n6. Femore_B dal lato −Y: i due perni entrano nei cuscinetti di Coxa e Tibia e il blocco scivola tra le due culle (in quella posa le sagome non si sovrappongono).\n7. Femore_A dal lato +Y sui due dischi: 8 M3 × 6 nelle squadrette e 4 M3 × 8 nel blocco, con spessori se serve. Tutte le viti delle squadrette si stringono dall'esterno (+Y per il femore, dall'alto per il Ponte).\n8. Cavi nei ganci e nelle asole, poi il piedino in TPU.\n\nSmontaggio: in ordine inverso.\n- Servo del femore o del ginocchio: si toglie Femore_A (12 viti). La vite centrale della squadretta si raggiunge anche dal foro Ø6 in asse senza togliere la piastra. La Tibia si sfila dal perno di Femore_B, poi si tolgono le 4 viti delle alette; una vite del servo del femore resta sotto Femore_A, quindi la piastra va comunque tolta.\n- Servo di coxa: si toglie il Ponte (6 viti), poi la squadretta e le 4 viti della gondola; due di queste stanno sotto il Ponte.\n- Perni: si tirano dalla parte sporgente, oppure si spingono dall'interno della culla con un'asta da 4 mm attraverso il foro Ø6 del fondo, a servo tolto.",
+   "quote": [
+    {
+     "nome": "Lc",
+     "valore_mm": 55,
+     "significato": "Asse coxa → asse femore: l'asse della coxa è in X = −55, Y = 0. Vale r anima 40,32 + anima 4,0 + semilarghezza del servo 10,25 + gioco 0,2, arrotondato."
+    },
+    {
+     "nome": "Lf",
+     "valore_mm": 70,
+     "significato": "Asse femore → asse ginocchio (invariata)."
+    },
+    {
+     "nome": "Lt",
+     "valore_mm": 115,
+     "significato": "Asse ginocchio → punta del piedino (invariata). Piede in posa di riferimento a (70; 0; −115)."
+    },
+    {
+     "nome": "larghezza_Y",
+     "valore_mm": 61.1,
+     "significato": "Larghezza della zampa lungo Y, da −30,55 (Femore_B) a +30,55 (Femore_A)."
+    },
+    {
+     "nome": "Y_piastra_B",
+     "valore_mm": -30.55,
+     "significato": "Faccia esterna di Femore_B. La faccia interna è a −25,35 sui mozzi Ø16 (5,2) e a −27,35 altrove (3,2)."
+    },
+    {
+     "nome": "Y_flangia_cuscinetto",
+     "valore_mm": -24.95,
+     "significato": "Flangia del cuscinetto da −24,95 a −24,15; tra la flangia e la piastra B c'è il rialzo da 0,4 sull'anello interno."
+    },
+    {
+     "nome": "Y_fondo_culla_esterno",
+     "valore_mm": -24.15,
+     "significato": "Faccia esterna del fondo della culla; la sede del cuscinetto è profonda 3,2 e dietro restano 1,2 mm con foro Ø6."
+    },
+    {
+     "nome": "Y_fondo_culla_interno",
+     "valore_mm": -19.75,
+     "significato": "Faccia interna del fondo: 0,4 sotto il servo da 28,8 e 2,6 sotto quello da 26,6. Il servo appoggia solo sulle alette."
+    },
+    {
+     "nome": "Y_uscita_cavo",
+     "valore_mm": -14.05,
+     "significato": "Centro dell'uscita del cavo (z_s −23,5): i cavi corrono nel piano Y ≈ −14."
+    },
+    {
+     "nome": "Y_orlo_culla",
+     "valore_mm": 9.45,
+     "significato": "Orlo delle culle = lato inferiore delle alette (z_s = 0). È il piano di riferimento e la faccia sul piatto per Coxa e Tibia."
+    },
+    {
+     "nome": "Y_sommita_cassa",
+     "valore_mm": 19.65,
+     "significato": "Sommità della cassa (10,2 sopra le alette); torretta Ø20,5 fino a 19,95."
+    },
+    {
+     "nome": "Y_disco_squadretta",
+     "valore_mm": 24.85,
+     "significato": "Lato inferiore del disco (C), che va fino a 27,35. Femore_A: mozzi da 24,85 con incavo da 2,5, piastra 27,35–30,55 altrove."
+    },
+    {
+     "nome": "culla_sede",
+     "valore_mm": 41.4,
+     "significato": "Sede del servo 41,4 × 20,9 (gioco 0,2 per lato). Esterno 45,4 × 24,9 (x_s −12,45…+32,95), pareti 2,0, profondità dall'orlo al fondo interno 29,2."
+    },
+    {
+     "nome": "bugne_inserti",
+     "valore_mm": 8,
+     "significato": "Bugne sotto le alette profonde 8, a x_s −17,85…−12,45 e +32,95…+38,35, larghe ±8,7. Inserti M3 a x_s −14,15 e +34,65 (fori delle alette a −13,75 e +34,25), y ±5."
+    },
+    {
+     "nome": "culla_femore_Z",
+     "valore_mm": -32.95,
+     "significato": "Culla del femore nella Coxa, coda in basso: Z da −32,95 a +12,45 (bugne da −38,35 a +17,85), X da −14,68 a +12,45 con l'anima."
+    },
+    {
+     "nome": "anima_coxa",
+     "valore_mm": 4.23,
+     "significato": "Spessore dell'anima, X −14,68…−10,45: faccia interna a r 40,32 dall'asse della coxa contro un raggio della gondola di 39,32 (gioco 1,0 a qualunque angolo)."
+    },
+    {
+     "nome": "Z_alette_servo_coxa",
+     "valore_mm": 1.65,
+     "significato": "Orlo della gondola. Il fondo esterno della gondola, e quindi del corpo vicino alla coxa, è a Z −31,95."
+    },
+    {
+     "nome": "Z_braccio_inferiore",
+     "valore_mm": -38.35,
+     "significato": "Braccio inferiore della Coxa da Z −38,35 a −33,15, Y ±9,45, X da −65 a −10,45: è il punto più basso della zampa sopra il ginocchio."
+    },
+    {
+     "nome": "Z_ponte",
+     "valore_mm": 17.05,
+     "significato": "Coxa_Ponte da Z 17,05 a 22,75, Y ±12, X da −67 a −10,45. Nel raggio di 67 mm dall'asse il dorso del corpo deve restare sotto Z 16."
+    },
+    {
+     "nome": "altezza_coxa",
+     "valore_mm": 61.1,
+     "significato": "Coxa più Ponte da Z −38,35 a +22,75."
+    },
+    {
+     "nome": "blocco_femore",
+     "valore_mm": 27.5,
+     "significato": "Blocco cavo nella terna del femore: X 21,5–49, Z −2…+20, smusso da (39,5; −2) a (49; 3,5), Y −27,35…+27,35, pareti 1,6. Sta a r ≥ 21,1 da entrambi gli assi."
+    },
+    {
+     "nome": "testa_piastre",
+     "valore_mm": 13,
+     "significato": "Raggio delle teste di Femore_A e Femore_B attorno ad anca e ginocchio (disco della squadretta Ø20 + 3); sagoma alta 33 mm al centro (Z −13…+20)."
+    },
+    {
+     "nome": "perno_femore_Y",
+     "valore_mm": -31.95,
+     "significato": "Perno Ø5 × 12 di anca e ginocchio da Y −31,95 a −19,95: 5,2 nella piastra, 0,4 nel rialzo, 4,0 nel cuscinetto, 1,0 nel foro del fondo, 1,4 sporgente."
+    },
+    {
+     "nome": "perno_coxa_Z",
+     "valore_mm": -39.75,
+     "significato": "Perno Ø5 × 12 della coxa da Z −39,75 a −27,75, in X = −55."
+    },
+    {
+     "nome": "stinco",
+     "valore_mm": 18.9,
+     "significato": "Spessore dello stinco lungo Y (±9,45, centrato sul piano della coxa). Larghezza nel piano da 18 a 12, pareti 1,6, da X_t 32,95 al piede R6 a X_t 109."
+    },
+    {
+     "nome": "incavo_squadretta",
+     "valore_mm": 20.4,
+     "significato": "Incavo Ø20,4 × 2,5 per il disco in Femore_A (due) e nel Ponte; 4 fori M3 su Ø14; foro Ø6 in asse per la vite centrale. Tutte quote C, parametriche (sq_*)."
+    },
+    {
+     "nome": "spessori_assiali",
+     "valore_mm": 0.6,
+     "significato": "Luce di progetto tra Femore_A e blocco e tra Ponte e anima, da chiudere con spessori da 0,2/0,4/0,6: assorbe l'altezza della squadretta (C) e la differenza di ±0,5 tra le fonti sulla quota alette–albero."
+    }
+   ],
+   "lunghezze": {
+    "Lc": 55,
+    "Lf": 70,
+    "Lt": 115,
+    "larghezza_Y": 61.1,
+    "altezza_coxa": 61.1
+   },
+   "escursioni": {
+    "alpha_min": -46,
+    "alpha_max": 79,
+    "gamma_min": 30,
+    "gamma_max": 180,
+    "coxa_min": -45,
+    "coxa_max": 45,
+    "contatti_limite": [
+     "α max +79 (con qualunque γ): spigolo esterno del Coxa_Ponte contro la parete del blocco di Femore_B verso l'anca. L'assetto 70/70 con alzata 30 usa proprio +79, senza margine: serve un'alzata ≤ 25 oppure uno smusso in testa al blocco (circa +4°).",
+     "α min −46 (γ 90–150): blocco di Femore_B contro il fianco della culla del femore (coda in basso).",
+     "γ min 30 con α ≥ +35: fianco della culla del ginocchio contro lo smusso del blocco. Senza smusso il limite sarebbe γ 46 a qualunque α.",
+     "γ min 34 / 39 / 44 con α +17,5 / 0 / ≤ −30: stinco contro le bugne e la culla del femore, l'anima e il braccio della Coxa, cioè il piede finisce sotto il corpo.",
+     "Rettangolo richiesto α −30…+65 × γ 40…150: 454 pose libere su 460. Le 6 con contatto (α da −30 a −5 con γ 40) hanno lo stinco contro le bugne della culla del femore; sono pose con il piede dietro l'asse del femore, che nessuna andatura usa.",
+     "Coxa: lato zampa senza limite, perché l'anima gira a r 40,32 fuori dalla gondola (39,32). Zampe vicine (AS–MS, MS–PS con le posizioni di CONFIG): contatto con ±30° ciascuna una verso l'altra; a ±17° (tripode) restano 43,6 mm; una zampa da sola arriva a 53–59°.",
+     "Corsa dei servo: femore 17,5 ± 80 e ginocchio 95 ± 80 vanno oltre i contatti, quindi i limiti di α e γ (γ in funzione di α) vanno imposti in firmware."
+    ],
+    "metodo": "Modello 2D a strati scritto in Python (script in script_verifica), lanciato dalla radice della repo.\n- Ogni parte è un insieme di poligoni convessi nel piano XZ della propria terna, ciascuno con il suo intervallo lungo Y. Per ogni servo: culla, bugne, cassa (dal fondo interno a 10,2), alette, teste delle viti, torretta. Poi piastre e blocco del femore, anima, bugna, braccio e Ponte della Coxa, stinco.\n- Il corpo è rappresentato dalla gondola (raggio massimo dall'asse della coxa, a ogni Y, quindi a qualunque angolo di coxa) e da un fianco a 15 mm dietro l'asse.\n- Contatto se gli intervalli Y si sovrappongono e la distanza nel piano è sotto 1,0 mm (separazione per assi e distanza punto-segmento).\n- Scansione α da −40 a +75 e γ da 30 a 160 ogni 5°; limiti a passo di 1° con la coppia che li determina.\n- Infine tutte le pose di appoggio e volo (alzata 30, passo 60) delle sei zampe per i sei assetti di calc/statica_tripode.py con Lc 55: tutte libere, gioco minimo 2,7 mm per 130/25–100/45, 2,1 per 90/55, 1,1 per 80/60 e 70/70.\n- Le zampe vicine sono state controllate a parte, in pianta, con le piastre come rettangoli ±30,55."
+   },
+   "statica": "Calcolo: import di calc/statica_tripode.py con una CONFIG modificata (Lc 55; Lf 70, Lt 115, h 100, x_f0 45, passo 60, posizioni delle coxe invariate). Stallo 11 kgf·cm a 6 V.\n\nMassa 2600 g:\n- femore 5,44 kgf·cm = 49 % dello stallo, tibia 4,24 = 39 %. Con Lc 45 erano 50 % e 39 %: Lc non cambia la coppia, che dipende da x_f.\n- Appoggio più volo con alzata 30: femore da +5 a +40°, ginocchio da 39 a 77°. È fattibile con gamma_min 30; con gamma_min 40 lo script dice \"non fattibile\" anche con Lc 45, perché il ginocchio scende a 39°.\n- Margine di stabilità 58 mm (54 con Lc 45); momento sul perno della coxa 13,5 kgf·cm.\n\nMassa 2680 g (2600 più 14 g in più per zampa stimati):\n- femore 5,61 kgf·cm = 51 %, oltre il limite del 50 % di 1 punto; tibia 4,37 = 40 %; momento sul perno della coxa 14,0 kgf·cm.\n\nAssetti a 2680 g, coppia in % dello stallo (femore / tibia), escursioni con il volo:\n\n| Assetto (h / x_f0) | Femore | Tibia | α (°) | γ (°) |\n|---|---|---|---|---|\n| 130/25 | 31 % | 53 % | −25…+11 | 60…94 |\n| 110/40 | 46 % | 45 % | −5…+30 | 46…83 |\n| 100/45 | 51 % | 40 % | +5…+40 | 39…77 |\n| 90/55 | 61 % | 28 % | +17…+52 | 35…76 |\n| 80/60 | 66 % | 19 % | +28…+67 | 30…72 |\n| 70/70 | 76 % | 19 % | +34…+79 | 30…73 |\n\nTutte queste escursioni stanno nel campo libero della zampa.",
+   "massa_g": 84,
+   "cavi": "Tutti i cavi escono dal lato corto dei servo a Y −14 (z_s −23,5) e corrono nel piano Y ≈ −14.\n\n- Coxa: coda verso l'esterno, il cavo esce verso il centro del corpo, già dentro lo scafo: 60–110 mm fino alla SSC-32.\n- Femore: coda in basso, il cavo esce in alto dalla finestra 9 × 17 nella parete corta della culla (X ±4,5, Y −16,65…+0,45). Passa nell'asola della bugna in testa all'anima e corre lungo il fianco −Y del Coxa_Ponte, che sta a Y ±12, fino all'asse della coxa. Entra nel corpo a meno di 15 mm dall'asse, con un'ansa di circa 30 mm per ±45°. Lunghezza circa 150–200 mm: basta il cavo da 320 (S).\n- Ginocchio: il lato corto della culla guarda sempre in alto per γ 40–150.\n  - Ansa di circa 35 mm fino a un gancio sullo spigolo alto del blocco verso il ginocchio (X 49, Z 20): anche a γ 150 resta a 9 mm dal lato corto.\n  - Due ganci sul dorso del blocco.\n  - Ansa di circa 35 mm attorno all'anca, nella corona tra la sommità della culla del femore (r 13) e il blocco (r ≥ 21,5), fermata da un gancio sulla parete alta della culla (X ≈ 5, Z ≈ 13). A Y −14 il Ponte non c'è, quindi il blocco non schiaccia l'ansa nemmeno a α 79.\n  - Da lì segue il cavo del femore.\n  - Lunghezza circa 240–290 mm contro 320 dichiarati (S): per i ginocchi delle zampe d'angolo è probabile una prolunga da 15 cm (voce C5), da decidere con il percorso nel corpo.\n- Le spine JR (7,9 × 2,75) passano dalle finestre delle culle prima di calare il servo. La gola del fermacavo (7,6 × 1,0) scende dall'orlo alla finestra.",
+   "rischi": [
+    "Massa: circa 84 g di parti stampate per zampa contro 70, quindi circa 85 g in più sul robot e un punto percentuale di coppia (punto di progetto al 51 %). Pesano soprattutto le due culle (circa 13 g l'una) e il blocco lungo 55 mm. Leve possibili: piastre a 2,4 fuori dai mozzi, finestre più grandi nel blocco e nell'anima (circa −8 g).",
+    "Larghezza 61 mm, dovuta all'altezza dell'MG996R più squadretta, cuscinetto e due piastre. Con le posizioni delle coxe di CONFIG, AS–MS e MS–PS si toccano se ruotano di ±30° una verso l'altra. Il tripode usa ±17° (43,6 mm di gioco), ma il firmware deve impedirlo, oppure le coxe vanno distanziate nel corpo.",
+    "Albero del servo di coxa: il momento ribaltante della zampa (14 kgf·cm a 2,68 kg) si scarica come coppia di forze orizzontali tra il cuscinetto in basso e la squadretta in alto, a 46 mm. Sono circa 30 N radiali sull'albero dell'MG996R, sempre nello stesso verso durante l'appoggio; il carico ammesso non è pubblicato.",
+    "Pila assiale: la luce tra Femore_A e blocco e tra Ponte e anima dipende dall'altezza della squadretta (C) e dai ±0,5 tra le fonti sulla quota alette–albero. Senza spessori giusti c'è precarico sull'albero del servo oppure gioco assiale.",
+    "La flangia del cuscinetto regge la spinta solo verso +Y. Le forze laterali del piede verso −Y finiscono sull'albero del servo di femore e ginocchio (sono forze di attrito, piccole).",
+    "Culla: tra la gola del fermacavo e i fori degli inserti delle bugne sul lato del cavo resta 1,0 mm di plastica, anche con gli inserti spostati di 0,4 mm. Da provare con il provino; in alternativa inserti corti.",
+    "Coxa più bassa: con la coda del servo del femore in basso la coxa scende a 38,35 mm sotto l'asse dei femori (il fondo del corpo è a 31,95). La luce reale è h − 38 invece di h − 30 come stimato, e i bracci delle coxe sono i punti più bassi del robot.",
+    "α max +79 (Ponte contro blocco): l'assetto 70/70 con alzata 30 lo usa tutto. Il γ minimo dipende da α (30 con α ≥ 35, 44 con α ≤ −30) e la corsa dei servo va oltre i contatti: i limiti del firmware devono dipendere dalla posa.",
+    "Cavi: il punto più fragile è l'ansa del ginocchio attorno all'anca, nella corona di 8 mm tra culla e blocco. Il cavo del ginocchio è al limite della lunghezza (240–290 mm contro 320 dichiarati, S).",
+    "Stampa: il fondo delle culle è un ponte di 21 mm (la squadra della sede del cuscinetto va controllata sul provino). Il foro del perno della coxa è orizzontale in stampa e va alesato. Le pareti del blocco hanno gli strati normali a Y e reggono poco la trazione tra le due piastre.",
+    "Le culle tengono il servo in pianta solo con pareti da 2,0 e gioco 0,2 più le 4 viti: servono nervature di schiacciamento, da tarare con il provino.",
+    "La verifica è 2D a strati: raccordi, teste delle viti reali, cavi e rotazione della coxa (gondola trattata come cerchio di raggio massimo) vanno riverificati nel CAD con le interferenze."
+   ],
+   "script_verifica": "#!/usr/bin/env python3\n\"\"\"Verifica geometrica delle escursioni della zampa \"MG90S portata in scala\" (MG996R).\n\nSi lancia dalla radice della repo (usa calc/statica_tripode.py per le pose di marcia).\nTerna della zampa: origine sull'asse del femore nel piano medio (a meta' tra le facce esterne\ndelle due piastre del femore), X orizzontale verso l'esterno, Y lungo l'asse del femore\n(verso la piastra delle squadrette), Z in alto. Posa di riferimento alpha = 0, gamma = 90.\nOgni parte e' un insieme di poligoni convessi nel piano XZ della propria terna, ciascuno con\nil suo intervallo lungo Y: due poligoni possono toccarsi solo se gli intervalli Y si\nsovrappongono (con il gioco). Gioco minimo richiesto tra parti in moto relativo: GIOCO.\nServo nella terna di progetto: origine sull'asse dell'albero al lato inferiore delle alette,\nx_s verso la coda, z_s verso la cima dell'albero (qui z_s = +Y per femore e ginocchio).\nIl corpo e' rappresentato dalla gondola del servo di coxa (raggio massimo dall'asse della\ncoxa, quindi vale per qualunque angolo di coxa e per qualunque Y) e da un fianco a 15 mm\ndietro l'asse. Le piastre del femore sono modellate con lo spessore dei mozzi su tutta la sagoma.\n\"\"\"\nimport math\nimport os\nimport sys\n\nGIOCO = 1.0\n\n# ---------------------------------------------------------------- servo MG996R (docs/dimensioni-componenti.md)\nCASSA_X0, CASSA_X1, CASSA_SEMI = -10.25, 30.75, 10.25      # STEP: 41,0 x 20,5 (V)\nSOTTO, SOPRA = 28.8, 10.2                                  # sotto le alette (caso peggiore), sopra (V)\nALETTE_X0, ALETTE_X1, ALETTE_SEMI, ALETTE_SP = -17.05, 37.55, 9.25, 2.4\nFORI_X, FORI_Y = (-13.75, 34.25), 5.0\nTORRE_R, TORRE_H = 10.25, 10.5\nSQ_DISCO_BASSO, SQ_DISCO_ALTO = 15.4, 17.9                 # squadretta a disco (C): mozzo 12,4..15,4, disco 2,5\n# ---------------------------------------------------------------- culla e giunto\nGIO, PARETE = 0.2, 2.0\nGIO_FONDO, FONDO = 0.4, 4.4          # fondo: sede cuscinetto 3,2 + 1,2\nINS_R, INS_PAR, INS_SPOSTA = 2.1, 1.6, 0.4   # foro inserto M3 4,2; parete 1,6; inserti spostati verso l'estremita'\nBUGNA_H = 8.0                        # bugne degli inserti sotto le alette\nCUS_FL, RIALZO = 0.8, 0.4\nPB, PA_SOPRA = 5.2, 3.2              # piastra perni (mozzo); piastra squadrette sopra il disco\n# ---------------------------------------------------------------- lunghezze\nLF, LT = 70.0, 115.0\n\nzs_fondo_int = -(SOTTO + GIO_FONDO)\nzs_fondo_est = zs_fondo_int - FONDO\nzs_pB_int = zs_fondo_est - CUS_FL - RIALZO\nzs_pB_est = zs_pB_int - PB\nzs_pA_int, zs_pA_est = SQ_DISCO_BASSO, SQ_DISCO_ALTO + PA_SOPRA\nY0 = -(zs_pA_est + zs_pB_est) / 2          # Y del lato inferiore delle alette\ndef Y(zs):\n    return zs + Y0\nLARGHEZZA = zs_pA_est - zs_pB_est\n\nCUL_X0, CUL_X1 = CASSA_X0 - GIO - PARETE, CASSA_X1 + GIO + PARETE\nCUL_SEMI = CASSA_SEMI + GIO + PARETE\nINS_X = (FORI_X[0] - INS_SPOSTA, FORI_X[1] + INS_SPOSTA)\nBUG_X0, BUG_X1 = INS_X[0] - INS_R - INS_PAR, INS_X[1] + INS_R + INS_PAR\nBUG_SEMI = FORI_Y + INS_R + INS_PAR\n\n# coxa: servo di coxa nel corpo, albero in alto, coda verso l'esterno; anima oltre la gondola\nR_GONDOLA = max(math.hypot(BUG_X1, BUG_SEMI), math.hypot(ALETTE_X1, ALETTE_SEMI))\nR_ANIMA = R_GONDOLA + GIOCO\nSP_ANIMA = 4.0\nLC = math.ceil(R_ANIMA + SP_ANIMA + CASSA_SEMI + GIO)\nX_ANIMA_INT = -LC + R_ANIMA\nX_SEDE = -(CASSA_SEMI + GIO)\nPILA_SOTTO = SOTTO + GIO_FONDO + FONDO + CUS_FL + RIALZO     # alette -> faccia superiore del braccio inferiore\nH = -BUG_X1 + PILA_SOTTO + PB      # Z delle alette del servo di coxa: braccio inferiore a filo della bugna piu' bassa\nZ_BRACCIO = (H - PILA_SOTTO - PB, H - PILA_SOTTO)\nZ_PONTE = (H + SQ_DISCO_BASSO, H + SQ_DISCO_ALTO + PA_SOPRA)\nZ_GONDOLA = (H - SOTTO - GIO_FONDO - FONDO, H + SOPRA)\n\n# femore: blocco cavo tra le piastre, fuori dalle zone spazzate dalle due culle;\n# smusso in basso verso il ginocchio: il fianco della culla del ginocchio passa li' con gamma < 45\nBLOCCO = [(21.5, -2.0), (39.5, -2.0), (49.0, 3.5), (49.0, 20.0), (21.5, 20.0)]\nR_TESTA = 13.0\n\n\ndef rett(x0, x1, z0, z1):\n    return [(x0, z0), (x1, z0), (x1, z1), (x0, z1)]\n\n\ndef cerchio(cx, cz, r, n=24):\n    return [(cx + r * math.cos(2 * math.pi * k / n), cz + r * math.sin(2 * math.pi * k / n)) for k in range(n)]\n\n\ndef inviluppo(pts):\n    pts = sorted(set(pts))\n    def cr(o, a, b):\n        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])\n    lo, hi = [], []\n    for p in pts:\n        while len(lo) >= 2 and cr(lo[-2], lo[-1], p) <= 0:\n            lo.pop()\n        lo.append(p)\n    for p in reversed(pts):\n        while len(hi) >= 2 and cr(hi[-2], hi[-1], p) <= 0:\n            hi.pop()\n        hi.append(p)\n    return lo[:-1] + hi[:-1]\n\n\ndef servo_e_culla(nome, ang):\n    \"\"\"Culla + servo (ruotano insieme), coda nella direzione ang del piano XZ della parte.\"\"\"\n    c, s = math.cos(math.radians(ang)), math.sin(math.radians(ang))\n    def m(poly):\n        return [(c * x - s * y, s * x + c * y) for x, y in poly]\n    out = [(nome + ' culla', m(rett(CUL_X0, CUL_X1, -CUL_SEMI, CUL_SEMI)), (Y(zs_fondo_est), Y(0.0)))]\n    out += [(nome + ' bugna', m(rett(BUG_X0, CUL_X0, -BUG_SEMI, BUG_SEMI)), (Y(-BUGNA_H), Y(0.0))),\n            (nome + ' bugna', m(rett(CUL_X1, BUG_X1, -BUG_SEMI, BUG_SEMI)), (Y(-BUGNA_H), Y(0.0)))]\n    out += [(nome + ' cassa', m(rett(CASSA_X0, CASSA_X1, -CASSA_SEMI, CASSA_SEMI)), (Y(zs_fondo_int + 0.4), Y(SOPRA)))]\n    out += [(nome + ' alette', m(rett(ALETTE_X0, ALETTE_X1, -ALETTE_SEMI, ALETTE_SEMI)), (Y(0.0), Y(ALETTE_SP)))]\n    out += [(nome + ' teste viti', m(rett(INS_X[0] - 2.75, INS_X[1] + 2.75, -(FORI_Y + 2.75), FORI_Y + 2.75)),\n             (Y(ALETTE_SP), Y(ALETTE_SP + 3.0)))]\n    out += [(nome + ' torretta', cerchio(0, 0, TORRE_R), (Y(SOPRA), Y(TORRE_H + 1.9)))]\n    return out\n\n\nTUTTO_Y = (-1e3, 1e3)\nYC = (Y(zs_fondo_est), Y(0.0))\n\nCOXA = servo_e_culla('coxa: culla femore', -90.0) + [\n    ('coxa: anima', rett(X_ANIMA_INT, X_SEDE, Z_BRACCIO[0], Z_PONTE[0]), YC),\n    ('coxa: bugna inserti anima', rett(X_ANIMA_INT, X_SEDE + 3.2, CUL_SEMI, Z_PONTE[0]), (YC[0], Y(-BUGNA_H))),\n    ('coxa: braccio inferiore', rett(-LC - 10.0, X_SEDE, Z_BRACCIO[0], Z_BRACCIO[1]), YC),\n    ('coxa_ponte', rett(-LC - 12.0, X_SEDE, Z_PONTE[0], Z_PONTE[1]), (-12.0, 12.0)),\n    ('corpo: gondola e servo coxa', rett(-LC - 25.0, -LC + R_GONDOLA, Z_GONDOLA[0], Z_GONDOLA[1]), TUTTO_Y),\n    ('corpo: fondo e fianco', rett(-LC - 120.0, -LC - 15.0, Z_GONDOLA[0], Z_PONTE[1]), TUTTO_Y),\n]\nSAGOMA_FEMORE = inviluppo(cerchio(0, 0, R_TESTA) + cerchio(LF, 0, R_TESTA) + [(21.5, 20.0), (49.0, 20.0)])\nFEMORE = [\n    ('femore_B: piastra', SAGOMA_FEMORE, (Y(zs_pB_est), Y(zs_pB_int))),\n    ('femore_A: piastra', SAGOMA_FEMORE, (Y(zs_pA_int), Y(zs_pA_est))),\n    ('femore_B: blocco', BLOCCO, (Y(zs_pB_int), Y(zs_pA_int))),\n]\nSTINCO = inviluppo([(CUL_X1, -9.0), (CUL_X1, 9.0)] + cerchio(LT - 6.0, 0.0, 6.0))\nTIBIA = servo_e_culla('tibia: culla ginocchio', 0.0) + [('tibia: stinco', STINCO, (-9.45, 9.45))]\n\n\ndef trasforma(poly, ang_deg, ox, oz):\n    c, s = math.cos(math.radians(ang_deg)), math.sin(math.radians(ang_deg))\n    return [(ox + c * x - s * z, oz + s * x + c * z) for x, z in poly]\n\n\ndef _sep(a, b):\n    for poly in (a, b):\n        n = len(poly)\n        for i in range(n):\n            p, q = poly[i], poly[(i + 1) % n]\n            nx, nz = q[1] - p[1], p[0] - q[0]\n            pa = [nx * x + nz * z for x, z in a]\n            pb = [nx * x + nz * z for x, z in b]\n            if max(pa) < min(pb) or max(pb) < min(pa):\n                return True\n    return False\n\n\ndef _d_ps(p, a, b):\n    ex, ez = b[0] - a[0], b[1] - a[1]\n    t = max(0.0, min(1.0, ((p[0] - a[0]) * ex + (p[1] - a[1]) * ez) / (ex * ex + ez * ez)))\n    return math.hypot(p[0] - a[0] - t * ex, p[1] - a[1] - t * ez)\n\n\ndef distanza(a, b):\n    if not _sep(a, b):\n        return 0.0\n    return min(_d_ps(p, Q[i], Q[(i + 1) % len(Q)]) for P, Q in ((a, b), (b, a)) for p in P for i in range(len(Q)))\n\n\ndef sovrapposti(y1, y2):\n    return min(y1[1], y2[1]) - max(y1[0], y2[0]) > -GIOCO\n\n\ndef posa(alpha, gamma):\n    kx, kz = LF * math.cos(math.radians(alpha)), LF * math.sin(math.radians(alpha))\n    fem = [(n, trasforma(p, alpha, 0, 0), y) for n, p, y in FEMORE]\n    tib = [(n, trasforma(p, alpha + 180.0 + gamma, kx, kz), y) for n, p, y in TIBIA]\n    return COXA, fem, tib\n\n\ndef coppie(alpha, gamma):\n    cox, fem, tib = posa(alpha, gamma)\n    for g1, g2 in ((fem, cox), (tib, fem), (tib, cox)):\n        for n1, p1, y1 in g1:\n            for n2, p2, y2 in g2:\n                if sovrapposti(y1, y2):\n                    yield distanza(p1, p2), n1 + ' / ' + n2\n\n\ndef contatti(alpha, gamma):\n    return [(n, round(d, 2)) for d, n in coppie(alpha, gamma) if d < GIOCO]\n\n\ndef gioco_minimo(alpha, gamma):\n    return min(coppie(alpha, gamma))\n\n\ndef pose_di_marcia(h, xf0, alzata=30.0, passi=9):\n    \"\"\"Pose (alpha, gamma) di tutte le zampe su appoggio + volo, come calc/statica_tripode.py.\"\"\"\n    sys.path.insert(0, os.path.join(os.getcwd(), 'calc'))\n    import statica_tripode as st\n    cfg = dict(st.CONFIG, Lc=float(LC), Lf=LF, Lt=LT, h=float(h), x_f0=float(xf0))\n    out = []\n    for n in cfg['coxa']:\n        cx, cy, _ = cfg['coxa'][n]\n        fx, fy = st.piede_neutro(cfg, n)\n        for i in range(passi):\n            d = -cfg['passo'] / 2 + cfg['passo'] * i / (passi - 1)\n            x_f = math.hypot(fx - d - cx, fy - cy) - cfg['Lc']\n            for dz in (0.0, alzata / 2, alzata):\n                s = st.ik_piano(x_f, h - dz, LF, LT)\n                if s is not None:\n                    out.append((s[0], s[3]))\n    return out\n\n\nif __name__ == '__main__':\n    print('Larghezza della zampa lungo Y: %.1f mm. Pila lungo Y (terna della zampa):' % LARGHEZZA)\n    for nome, zs in (('piastra perni, faccia esterna', zs_pB_est), ('piastra perni, faccia interna (mozzo)', zs_pB_int),\n                     ('flangia cuscinetto (lato esterno)', zs_fondo_est - CUS_FL), ('fondo culla, esterno', zs_fondo_est),\n                     ('fondo culla, interno', zs_fondo_int), ('fondo servo (28,8)', -SOTTO), ('uscita cavo', -23.5),\n                     ('orlo culla = sotto alette', 0.0), ('sopra alette', ALETTE_SP), ('sommita cassa', SOPRA),\n                     ('disco squadretta, sotto', SQ_DISCO_BASSO), ('disco squadretta, sopra', SQ_DISCO_ALTO),\n                     ('piastra squadrette, faccia esterna', zs_pA_est)):\n        print('  %-40s z_s %+7.2f   Y %+7.2f' % (nome, zs, Y(zs)))\n    print('Culla (terna servo): x %.2f..%.2f, semilarghezza %.2f; bugne x %.2f..%.2f, semilarghezza %.2f'\n          % (CUL_X0, CUL_X1, CUL_SEMI, BUG_X0, BUG_X1, BUG_SEMI))\n    print('Gondola del servo di coxa: raggio %.2f -> anima della coxa da r = %.2f; Lc = %.0f' % (R_GONDOLA, R_ANIMA, LC))\n    print('Coxa: alette servo coxa Z %.2f; braccio inferiore Z %.2f..%.2f; ponte Z %.2f..%.2f; gondola Z %.2f..%.2f'\n          % (H, Z_BRACCIO[0], Z_BRACCIO[1], Z_PONTE[0], Z_PONTE[1], Z_GONDOLA[0], Z_GONDOLA[1]))\n    print('Culla del femore (coda in basso): Z %.2f..%.2f (bugne %.2f..%.2f); X %.2f..%.2f'\n          % (-CUL_X1, -CUL_X0, -BUG_X1, -BUG_X0, X_ANIMA_INT, CUL_SEMI))\n    print('Posa di riferimento: gioco minimo %.2f mm (%s)' % gioco_minimo(0, 90))\n\n    A = list(range(-40, 76, 5))\n    G = list(range(30, 161, 5))\n    libero, limiti = {}, {}\n    for a in A:\n        for g in G:\n            c = contatti(a, g)\n            libero[(a, g)] = not c\n            for n, d in c:\n                limiti.setdefault(n, []).append((a, g))\n    print('\\nMappa: righe alpha (femore) da -40 a +75, colonne gamma (ginocchio) da 30 a 160 ogni 5; . libero, # contatto')\n    print('        ' + ''.join('%-6d' % g if g % 30 == 0 else '' for g in G))\n    for a in A:\n        print('%+5d   ' % a + ''.join('.' if libero[(a, g)] else '#' for g in G))\n    print('\\nContatti nella scansione (coppia: pose; esempio)')\n    for k, v in sorted(limiti.items(), key=lambda t: -len(t[1])):\n        print('  %-66s %3d  es. alpha %+d gamma %d' % (k, len(v), v[0][0], v[0][1]))\n    rich = [(a, g) for a in A if -30 <= a <= 65 for g in G if 40 <= g <= 150]\n    occ = [p for p in rich if not libero[p]]\n    print('\\nRettangolo richiesto alpha -30..+65 x gamma 40..150: %d pose, %d con contatto %s' % (len(rich), len(occ), occ))\n\n    print('\\nCampi liberi a passo di 1 grado e cosa li limita')\n    for g0 in (40, 90, 150):\n        al = [a for a in range(-90, 121) if not contatti(a, g0)]\n        lo, hi = contatti(al[0] - 1, g0), contatti(al[-1] + 1, g0)\n        print('  gamma %3d: alpha %+d..%+d   sotto: %s   sopra: %s' % (g0, al[0], al[-1], lo[0][0], hi[0][0]))\n    for a0 in (-40, -30, 0, 17.5, 40, 65, 75):\n        gl = [g for g in range(0, 181) if not contatti(a0, g)]\n        lo = contatti(a0, gl[0] - 1)\n        print('  alpha %+5.1f: gamma %d..%d   chiuso da: %s' % (a0, gl[0], gl[-1], lo[0][0]))\n\n    print('\\nPose di marcia di calc/statica_tripode.py (6 zampe, passo 60, appoggio + volo con alzata 30)')\n    for h, xf0 in ((130, 25), (110, 40), (100, 45), (90, 55), (80, 60), (70, 70)):\n        pose = pose_di_marcia(h, xf0)\n        urti = sorted({(round(a), round(g)) for a, g in pose if contatti(a, g)})\n        d, n = min(gioco_minimo(a, g) for a, g in pose)\n        print('  h %3d / x_f0 %2d: alpha %+4.0f..%+4.0f, gamma %3.0f..%3.0f; gioco minimo %4.1f mm (%s) -> %s'\n              % (h, xf0, min(p[0] for p in pose), max(p[0] for p in pose), min(p[1] for p in pose),\n                 max(p[1] for p in pose), d, n, 'libero' if not urti else 'CONTATTO %s' % urti))\n"
+  },
+  {
+   "chiave": "compatta",
+   "nome": "Zampa compatta e leggera",
+   "sintesi": "La proposta fa tre scelte, tutte per accorciare e alleggerire la zampa.\n(1) Il servo coxa sta nel corpo con la coda verso il centro. La forcella gira solo attorno al lato corto, dove gli spigoli delle alette sono a r 19,4, quindi Lc = 34 mm. Con la coda verso l'esterno servirebbe 53,3. Il peso del robot passa dal rialzo all'anello interno e allo spallamento della gondola, non dall'albero.\n(2) Il servo del femore sta in piedi nella Coxa con la coda in basso. La sua parete verso l'asse coxa fa da anima della forcella, e la culla è alta quanto la forcella (58,3 mm). La coda spazza solo il semipiano sotto il femore, quindi la scatola del femore può stare sopra la mezzeria.\n(3) Il servo del ginocchio sta nella tibia con la coda verso il piede. Il femore diventa un solo telaio diviso in due (Femore_A con la scatola, Femore_B piatta e di registro): 4 parti stampate più il piedino.\nFemore 60 e tibia 110 coprono gli stessi assetti di 70/115: tutte le pose da 130/25 a 70/70 sono libere con almeno 3,1 mm, e a 100/45 serve il 51 % dello stallo.\nLarghezza 58,3 mm (il minimo della pila MG996R con la squadretta incassata 2 mm); 63,8 g di PETG-CF a zampa. Rispetto alla stessa zampa con 53/70/115, l'inerzia attorno alla coxa scende di circa il 46 % e quella attorno al femore di circa il 26 %.\nC'è un limite accoppiato: con il femore sotto +15° il ginocchio non chiude sotto 45–55°.",
+   "servo": [
+    {
+     "giunto": "coxa",
+     "dove": "Nel corpo, in una gondola della base: culla con fondo e cuscinetto LF-1050ZZ. La parte Coxa è una forcella a C che scavalca la gondola (braccio sopra la squadretta, braccio sotto il fondo).",
+     "albero": "Verticale verso l'alto (+Z) sull'asse coxa: X −34,05, Y +3,25. La squadretta è in alto, avvitata dall'alto al braccio superiore della Coxa (Z 15,9…19,9, sede incassata 2,0). Il cuscinetto è nel fondo della gondola, inserito da sotto con spallamento sopra; il perno Ø5 e il rialzo stanno nel braccio inferiore (Z −34,4…−38,4).",
+     "coda": "Orizzontale, verso il centro del corpo (−X). Il lato inferiore delle alette è a Z 0, la stessa quota dell'asse del femore; la cassa va da X −64,8 a −23,8.",
+     "perche": "Con la coda verso l'interno la forcella gira solo attorno al lato corto: gli spigoli delle alette sono a r 19,4, quindi l'anima sta a r 20,4 e Lc = 34,05. Con la coda verso l'esterno servirebbero l'anima a r 39,7 e Lc 53,3. Con il servo nella zampa Lc sarebbe circa 43, la coxa porterebbe 55 g in più e tutti e tre i cavi attraverserebbero il giunto coxa. L'albero sta in alto perché la spinta del suolo porta la forcella verso l'alto: va rialzo → anello interno → anello esterno → spallamento della gondola, non sull'albero. Il prezzo: il cavo esce verso l'esterno e va riportato nel corpo (vedi cavi).",
+     "squadretta_a_meta_corsa": "Imbardata 0 (zampa radiale). Corsa del servo ±80; l'appoggio usa ±21. Il limite meccanico lo dà lo scafo; contro la gondola la zampa è verificata fino a ±60."
+    },
+    {
+     "giunto": "femore",
+     "dove": "Nella Coxa: culla in un pezzo con la forcella. La parete della culla verso l'asse coxa (3,2) è l'anima della forcella.",
+     "albero": "Orizzontale lungo +Y sull'origine. La squadretta è sul lato +Y, nella sede incassata di Femore_A (fondo a Y +27,15). Il cuscinetto è nel fondo della culla (flangia a Y −23,95…−24,75); il perno è in Femore_B.",
+     "coda": "In basso (−Z), servo in piedi: la cassa va da Z +10,25 (lato corto, uscita del cavo) a Z −30,75.",
+     "perche": "Rispetto al femore, per alpha −40…+75 la coda spazza solo il semipiano sotto il femore (direzioni da −50° a −165°), e il lato corto con le bugne resta entro r 18,5 sopra. Così la scatola del femore sta sopra la mezzeria da r 23 in fuori. La culla è alta quanto la forcella della coxa (58,3), quindi la Coxa è un blocco unico e servo coxa e asse femore sono alla stessa quota. Alternative scartate: (a) coda in alto: la scatola deve passare sotto la mezzeria, dove spazza la coda del servo del ginocchio, e servono Lf ≈ 70 e il puntone inclinato della prima versione; (b) servo coricato con la coda verso la coxa, sopra o sotto il servo coxa: Lc 15–20, ma la coxa diventa alta 81 mm e l'asse del femore si sposta di 30 mm sopra o 49 mm sotto le alette del servo coxa (luce 31 mm a h 100, oppure corpo 49 mm più alto).",
+     "squadretta_a_meta_corsa": "Alpha +20°, al centro di −30…+73 usati dagli assetti. Con ±80 la corsa va da −60 a +100, quasi uguale al campo libero misurato (−62…+99)."
+    },
+    {
+     "giunto": "ginocchio",
+     "dove": "Nella Tibia: culla con la coda lungo lo stinco.",
+     "albero": "Orizzontale lungo +Y sull'asse del ginocchio (X 60, Z 0). La squadretta è sul lato +Y, nella seconda sede di Femore_A. Il cuscinetto è nel fondo della culla della tibia; il perno è in Femore_B. Pila in Y identica a quella del femore.",
+     "coda": "Verso il piede, lungo la tibia (verso il basso nella posa di riferimento).",
+     "perche": "Il lato corto, da cui esce il cavo, guarda il femore, così il cavo entra subito nella scatola. La coda spazza solo il semipiano sotto il femore, quindi le due culle (anca e ginocchio) stanno tra le stesse due piastre e il femore è un telaio solo. Alternativa scartata, servo nel femore con la coda verso l'anca: servirebbero Lf ≥ 59 (alpha −30) o 63 (alpha −40), e anche la tibia diventerebbe una forcella da dividere in due (5 parti invece di 4); a parità di Lf la massa del servo si avvicinerebbe all'anca di soli 5–10 mm.",
+     "squadretta_a_meta_corsa": "Gamma 95°, al centro di 40…150. Con ±80 la corsa va da 15 a 175; il firmware deve imporre gamma ≥ gamma_min(alpha) (vedi escursioni)."
+    }
+   ],
+   "parti": [
+    {
+     "nome": "Coxa",
+     "funzione": "Forcella della coxa più culla del servo del femore. Braccio superiore 4,0 con sede della squadretta coxa Ø20,4 × 2,0 aperta verso l'estremità libera (si infila di lato), foro Ø6 per la vite centrale e 4 fori Ø3,2. Braccio inferiore 4,0 con perno Ø5 forzato e rialzo Ø7 × 0,4 sull'anello interno. Anima 3,2, che è anche la parete interna della culla. Culla del femore (coda in basso): pareti 1,6 / 2,0, fondo piano 4,0 con tasche interne di 2,0, sede del cuscinetto Ø10 × 3,2 dalla faccia esterna con spallamento 0,8 (foro Ø8,6), 4 bugne con inserti M3 sotto le alette. Finestra del cavo 9 × 5,2 nella testata alta e asola 9 × 4,5 nell'anima.",
+     "stampa": "PETG-CF, fondo della culla sul piano (Y in alto): sede del cuscinetto e fori degli inserti verticali e precisi. Due soli supporti sotto i bracci, alti 14 mm, con interfaccia in altro materiale. Pareti a perimetri pieni. 25,1 g.",
+     "volume_cm3": 20.33
+    },
+    {
+     "nome": "Femore_A",
+     "funzione": "Piastra lato squadrette: 2,4 tra i giunti e 4,0 sui dischi R14, con le due sedi Ø20,4 × 2,0 delle squadrette di anca e ginocchio, fori Ø6 e 4 × Ø3,2 a r 7. Porta tutta la coppia dei due servo. Contiene la scatola del femore (X 23…39, Z 2…14, pareti 1,6, da piastra a piastra, aperta alle estremità), con due bugne e inserti M3. Dentro la scatola passa il cavo del ginocchio.",
+     "stampa": "Faccia esterna piatta (Y +29,15) sul piano; dischi, scatola e sedi verso l'alto. Senza supporti. 11,4 g.",
+     "volume_cm3": 9.2
+    },
+    {
+     "nome": "Femore_B",
+     "funzione": "Piastra lato perni: 2,4 tra i giunti, 4,0 sulle bugne Ø14 dove sono forzati i due perni Ø5 × 10, rialzi Ø7 × 0,4 che toccano solo l'anello interno, labbro di 1,2 che centra la scatola, 2 viti M3 negli inserti di Femore_A. È il pezzo di registro della larghezza della forcella: si ristampa con un rialzo diverso.",
+     "stampa": "Faccia esterna piatta sul piano, rialzi in alto, senza supporti. 5,3 g.",
+     "volume_cm3": 4.08
+    },
+    {
+     "nome": "Tibia",
+     "funzione": "Culla del servo del ginocchio (coda verso il piede), come quella della Coxa: fondo 4,0 alleggerito, sede del cuscinetto con spallamento, 4 inserti M3, finestra del cavo nella testata verso il femore. Stinco a tubo chiuso con pareti 1,6, da p 33 a 98, largo da 20 a 12 nel piano, spesso 12 in Y (Y −2,75…+9,25, a filo dell'orlo, piede sul piano cinematico Y +3,25). Piede Ø14.",
+     "stampa": "Faccia dell'orlo (+Y) sul piano: stinco disteso, pareti e testate in piedi, fondo della culla a ponte di 21 mm, sede del cuscinetto verticale e aperta in alto, fori degli inserti aperti verso il piano. Senza supporti. 22,1 g (culla 13,7, stinco 6,7, piede 1,7).",
+     "volume_cm3": 18.08
+    },
+    {
+     "nome": "Piedino",
+     "funzione": "Cappuccio antiscivolo Ø16 × 14 calzato sul piede (voce D9 del BOM).",
+     "stampa": "TPU 95A, in piedi, senza supporti. 1,2 g.",
+     "volume_cm3": 0.97
+    }
+   ],
+   "montaggio": "Prima di montare: inserti a caldo (4 nella culla della Coxa, 4 nella Tibia, 2 nelle bugne di Femore_A, 4 nella gondola del corpo), con un servo finto in sede perché gli inserti sono a 1,2 mm dalla tasca. Cuscinetti premuti dall'esterno nelle sedi di Coxa, Tibia e gondola fino allo spallamento (flangia fuori). Servo a 1500 µs con la SSC-32.\n\n1. Servo del femore nella Coxa: la spina JR passa da dentro la culla attraverso la finestra della testata alta e poi l'asola dell'anima. Si cala il servo dall'orlo (+Y) e si stringono 4 viti M3 × 8 nelle alette. Squadretta sul millerighe con la sua vite centrale, fori orientati per alpha +20.\n2. Servo del ginocchio nella Tibia allo stesso modo; squadretta a gamma 95.\n3. Femore_A si appoggia sulle due squadrette (sedi incassate). 8 viti M3 × 6 dall'esterno nei fori filettati delle squadrette (se non sono filettati, dadi M3 sotto il disco: c'è 1,2 mm sopra la torretta). Il cavo del ginocchio si posa nella scatola, con una fascetta per lato.\n4. Femore_B sul bordo della scatola (labbro di centraggio), 2 viti M3. Poi i due perni Ø5 × 10 si spingono dall'esterno attraverso Femore_B negli anelli interni, fino a lasciarne 1 mm fuori.\n5. Nel corpo: cavo del servo coxa posato (spina dalla finestra di coda della gondola, scanalatura nel fondo, ansa nel naso), servo calato, 4 viti, squadretta a imbardata 0.\n6. La zampa si infila di lato verso il corpo: il braccio superiore riceve la squadretta coxa nella sede aperta, il braccio inferiore scorre a filo sotto la flangia del cuscinetto. 4 viti M3 × 6 dall'alto nella squadretta coxa; perno coxa spinto da sotto attraverso il braccio inferiore.\n\nSmontaggio al contrario. Togliere una zampa: 4 viti dall'alto e il perno coxa da sotto. Cambiare il servo del ginocchio: perno del ginocchio, 2 viti di Femore_B, 4 viti della squadretta del ginocchio, poi le 4 viti delle alette sono libere. Le viti centrali delle squadrette si raggiungono dai fori Ø6 senza smontare. Le viti delle alette del servo del femore stanno sotto Femore_A, quelle del lato corto del servo coxa sotto il braccio superiore: si raggiungono solo togliendo quei pezzi.",
+   "quote": [
+    {
+     "nome": "Lc, asse coxa → asse femore",
+     "valore_mm": 34.05,
+     "significato": "Asse coxa a X −34,05. Somma: 19,4 (spigolo aletta del servo coxa) + 1,0 di gioco + 3,2 di anima + 0,2 + 10,25."
+    },
+    {
+     "nome": "Lf, asse femore → asse ginocchio",
+     "valore_mm": 60,
+     "significato": "Ginocchio a (60, 0) nella posa di riferimento."
+    },
+    {
+     "nome": "Lt, asse ginocchio → punta del piede",
+     "valore_mm": 110,
+     "significato": "Punta del piede a (60, −110) nella posa di riferimento."
+    },
+    {
+     "nome": "Piano cinematico (asse coxa e piede)",
+     "valore_mm": 3.25,
+     "significato": "Y +3,25 rispetto al piano medio della pila. Il carico si divide 53/47 tra squadretta (Y +25,9) e cuscinetto (Y −22,75)."
+    },
+    {
+     "nome": "Larghezza della zampa lungo Y",
+     "valore_mm": 58.3,
+     "significato": "Facce esterne delle piastre a Y ±29,15. Con le teste M3 delle squadrette (+3,0 sul lato +Y) e i perni sporgenti (1,0 sul lato −Y) l'ingombro è 62,3."
+    },
+    {
+     "nome": "Piastra A, faccia interna sui giunti",
+     "valore_mm": 25.15,
+     "significato": "Y +25,15…+29,15 (4,0) sui dischi R14; tra i giunti 2,4 (Y +26,75…+29,15)."
+    },
+    {
+     "nome": "Sede della squadretta",
+     "valore_mm": 20.4,
+     "significato": "Ø20,4 × 2,0; il fondo, a Y +27,15, coincide con la cima della squadretta (z_s 17,9 = 12,4 + 5,5, C). Restano 2,0 di piastra; foro centrale Ø6, 4 fori Ø3,2 a r 7."
+    },
+    {
+     "nome": "Orlo delle culle (lato inferiore delle alette)",
+     "valore_mm": 9.25,
+     "significato": "Y +9,25 per femore e ginocchio; cassa fino a +19,45, torretta fino a +21,65, mozzo della squadretta da +21,65."
+    },
+    {
+     "nome": "Fondo del servo, caso peggiore",
+     "valore_mm": -19.55,
+     "significato": "Y −19,55 con 28,8 (−17,35 con 26,6); faccia interna del fondo della culla a −19,95 (gioco 0,4)."
+    },
+    {
+     "nome": "Fondo della culla",
+     "valore_mm": 4,
+     "significato": "Y −19,95…−23,95, piano, con tasche interne di 2,0. Sede del cuscinetto Ø10 × 3,2 dalla faccia esterna, spallamento 0,8 con foro Ø8,6 che tocca solo l'anello esterno."
+    },
+    {
+     "nome": "Flangia del cuscinetto",
+     "valore_mm": -24.75,
+     "significato": "Ø11,6 da Y −23,95 a −24,75; anello interno da −24,75 a −20,75."
+    },
+    {
+     "nome": "Piastra B, faccia interna",
+     "valore_mm": -25.15,
+     "significato": "Y −25,15…−29,15 sulle bugne Ø14 dei perni (2,4 tra i giunti); rialzo Ø7 × 0,4 fino a −24,75."
+    },
+    {
+     "nome": "Perni",
+     "valore_mm": 5,
+     "significato": "Ø5 × 10, da Y −30,15 (1,0 fuori per estrarli) a −20,15."
+    },
+    {
+     "nome": "Culla del femore nella Coxa",
+     "valore_mm": 45.4,
+     "significato": "Coda in basso. Tasca X ±10,45, Z −30,95…+10,45. Pareti da X −13,65 (anima 3,2) a +12,05 (1,6) e da Z −32,95 a +12,45 (testate 2,0). Inserti M3 a X ±5, Z +13,75 e −34,25; bugne fino a Z +17,65 e −38,15, Y +2,55…+9,25."
+    },
+    {
+     "nome": "Anima della Coxa",
+     "valore_mm": 3.2,
+     "significato": "X −13,65…−10,45, Z −38,4…+19,9, Y −23,95…+16,25. Resta a 1,0 dagli spigoli delle alette del servo coxa (r 19,4) per tutta l'imbardata."
+    },
+    {
+     "nome": "Braccio superiore della Coxa",
+     "valore_mm": 15.9,
+     "significato": "Z +15,9…+19,9, largo 26 (Y −9,75…+16,25); estremità R13 attorno all'asse coxa, fino a X −47,05; sede della squadretta coxa aperta verso −X."
+    },
+    {
+     "nome": "Braccio inferiore della Coxa",
+     "valore_mm": -34.4,
+     "significato": "Z −34,4…−38,4, stessa pianta; perno Ø5 sull'asse coxa e rialzo sotto l'anello interno."
+    },
+    {
+     "nome": "Servo coxa nel corpo",
+     "valore_mm": 0,
+     "significato": "Lato inferiore delle alette a Z 0, fondo a −28,8, cima della squadretta a +17,9. Fondo della gondola Z −29,2…−33,2, flangia del cuscinetto fino a −34,0; naso della gondola per l'ansa del cavo entro r 18,4."
+    },
+    {
+     "nome": "Altezza della Coxa",
+     "valore_mm": 58.3,
+     "significato": "Z −38,4…+19,9, uguale alla pila del giunto. È la parte più bassa: luce sotto i bracci = h − 38,4 (61,6 a h 100)."
+    },
+    {
+     "nome": "Scatola del femore",
+     "valore_mm": 16,
+     "significato": "X 23…39, Z 2…14, da piastra a piastra (Y ±25,15), pareti 1,6, aperta alle estremità. Comincia a r 23 dall'anca e finisce a r 21 dal ginocchio."
+    },
+    {
+     "nome": "Culla del ginocchio nella Tibia",
+     "valore_mm": 45.4,
+     "significato": "Coda verso il piede: p −12,45…+32,95, q ±12,05; bugne fino a p −17,65 e +38,15; stessa pila in Y."
+    },
+    {
+     "nome": "Stinco",
+     "valore_mm": 12,
+     "significato": "Tubo chiuso, pareti 1,6, da p 32,95 a 98, largo da 20 a 12, spesso 12 (Y −2,75…+9,25). Piede Ø14 centrato a p 103, cappuccio TPU Ø16."
+    },
+    {
+     "nome": "Finestra del cavo nelle culle",
+     "valore_mm": 9,
+     "significato": "9 × 5,2 nella testata lato corto, centrata a Y −14,25 (uscita del cavo a z_s −23,5). Asola 9 × 4,5 nell'anima della Coxa a Z ≈ +14, Y ≈ −14."
+    },
+    {
+     "nome": "Inserti M3 sotto le alette",
+     "valore_mm": 3.5,
+     "significato": "Asse del foro a 3,5 dalla cassa (fori a u −13,75 e +34,25, v ±5): tra il foro Ø4,2 e la sede restano 1,2 mm."
+    },
+    {
+     "nome": "Zona libera nel corpo per i bracci della Coxa",
+     "valore_mm": 13.5,
+     "significato": "Nessuna parte del corpo entro r 13,5 dall'asse coxa sopra Z +15,4 e sotto Z −34,0; entro r 24 nel settore esterno (±60°)."
+    },
+    {
+     "nome": "Inizio della zampa dall'asse coxa",
+     "valore_mm": 20.4,
+     "significato": "Verso l'esterno la zampa comincia a r 20,4 (faccia dell'anima); è larga |y| ≤ 29,2 (32,2 con le teste). Serve per la distanza tra zampe vicine."
+    }
+   ],
+   "lunghezze": {
+    "Lc": 34.05,
+    "Lf": 60,
+    "Lt": 110,
+    "larghezza_Y": 58.3,
+    "altezza_coxa": 58.3
+   },
+   "escursioni": {
+    "alpha_min": -62,
+    "alpha_max": 99,
+    "gamma_min": 35,
+    "gamma_max": 180,
+    "coxa_min": -60,
+    "coxa_max": 60,
+    "contatti_limite": [
+     "alpha +99 (primo contatto a +100, gamma 90): scatola del femore contro il braccio superiore della Coxa.",
+     "alpha −62 (primo contatto a −63, gamma 90): scatola del femore contro la parete esterna della culla del femore.",
+     "Gamma minimo accoppiato ad alpha (griglia di 5°): 35 per alpha ≥ +30 (32 a +65: culla del ginocchio contro la scatola del femore); 40 per +15…+25 (37 a +20: stinco contro la parete della culla del femore); 45 per 0…+10; 50 per −15…−5; 55 per −35…−20; 60 a −40. Negli ultimi casi stinco e piede toccano le bugne in coda della culla del femore (che scende fino a Z −38,15), poi anima, braccio inferiore e gondola.",
+     "Il rettangolo richiesto (alpha −30…+65 × gamma 40…150) non è tutto libero: manca l'angolo alpha < +15 con gamma sotto 40–55, cioè il piede sotto o dietro l'asse del femore. Gamma 40…150 è libero per alpha da +15 a +75; alpha −30…+65 è libero per gamma ≥ 55.",
+     "Gamma massimo: nessun contatto fino a 180.",
+     "Andature (passo 60, alzata 30, sei zampe, volo a parabola): 130/25, 110/40, 100/45, 90/55, 80/60 e 70/70 tutte libere, distanza minima 3,1 mm (80/60, culla del ginocchio contro scatola). Con il piede alzato per tutta la corsa (caso prudente): 100/45 a 3,1 mm, 90/55 a 1,8 mm; 80/60 e 70/70 toccano solo a gamma 30–34, fuori dal campo richiesto.",
+     "Imbardata ±60: nessun contatto con gondola e servo coxa, minimo 1,0 mm (anima contro lo spigolo delle alette, a ±30). Oltre decide lo scafo, non verificato."
+    ],
+    "metodo": "Script python (script_verifica, circa 35 s, da lanciare dalla radice della repo). Servo (cassa sopra l'orlo, alette, teste delle viti, torretta a tre diametri), culle, bugne, anima, bracci, scatola, piastre, squadrette, stinco e piede sono poligoni convessi nel piano XZ della propria parte, ciascuno con il suo intervallo in Y. Due pezzi in moto relativo si toccano se si sovrappongono in Y e la distanza nel piano è < 0,5 mm (SAT più distanza punto-segmento). Sono esclusi solo gli accoppiamenti coassiali (squadretta e torretta dello stesso servo, perno e cuscinetto). Passi: scansione alpha −40…+75 e gamma 30…160 a 5°; limiti fini a 1°; tutte le pose delle sei zampe nei sei assetti con la cinematica di calc/statica_tripode.py (volo a parabola e piede alzato per tutta la corsa); imbardata ±60 in pianta. Casi di controllo trovati dallo script: la scatola spostata dentro la culla e un disco finto alla quota del mozzo della squadretta. Ipotesi: scafo oltre 16 mm dall'asse coxa verso il centro, tra Z −34 e +22; quote della squadretta C; servo sul caso peggiore (fondo a 28,8)."
+   },
+   "statica": "Calcolo con calc/statica_tripode.py e la CONFIG cambiata in Lc 34,05, Lf 60, Lt 110. Resto invariato: 2600 g, rail 6,0 V, stallo 11 kgf·cm, h 100, x_f0 45, passo 60, alzata 30, assi coxa della CONFIG.\n- Carico massimo su un piede: 1104 gf (42 % del peso).\n- Coppia massima al femore: 5,58 kgf·cm = 547 mN·m = 51 % dello stallo. Il riferimento 45/70/115 dà 5,50 kgf·cm, cioè 50 %.\n- Coppia massima al ginocchio: 3,24 kgf·cm = 29 %. Il riferimento dà 4,25 kgf·cm, cioè 39 %.\n- Escursioni: coxa ±21° in appoggio. Con il volo prudente femore da +5 a +42° e ginocchio da 40 a 86°; con il volo a parabola ginocchio da 47 a 86°.\n- Momento sul giunto coxa: fino a 11,3 kgf·cm, cioè circa 23 N radiali sia sulla squadretta sia sul cuscinetto (braccio 48,6 mm).\n- Margine di stabilità: 50 mm (riferimento 54).\nAltri assetti, stesso modello con volo a parabola: 130/25 41 %, 110/40 46 %, 100/45 51 %, 90/55 60 %, 80/60 65 %, 70/70 74 %. Se lo stallo reale è 9 kgf·cm, a 100/45 si sale al 62 %. Tenere sollevata la zampa in volo costa circa 0,6 kgf·cm (circa 108 g a valle del femore).\nLa coxa più corta costa 1 punto al femore e 4 mm di margine, perché il poligono d'appoggio si stringe di 11 mm; la tibia lavora meno perché il femore è più corto.",
+   "massa_g": 63.8,
+   "cavi": "- Servo coxa (resta nel corpo): con la coda verso il centro il cavo esce verso l'esterno a Z −23,5. Fa un'ansa in una tasca del naso della gondola, sotto le bugne ed entro r 18,4 dall'asse coxa (zona che la forcella non spazza mai). Torna verso l'interno in una scanalatura 4,4 × 1,6 nella faccia interna del fondo, a lato del cuscinetto (parete di 1,4), ed esce nel corpo dalla parete di coda. La spina passa da una finestra 9 × 4 prima di calare il servo.\n- Servo del femore: esce dal lato corto in alto (Z +10,25, Y −14,25) dalla finestra della culla. Attraversa l'asola dell'anima, corre sopra la testata della culla sotto il braccio superiore (3,4 mm di luce) e scende nel corpo accanto al servo coxa, a circa 17 mm dall'asse coxa. Serve un'ansa di circa 40 mm per ±60° di imbardata.\n- Servo del ginocchio: esce dal lato corto verso il femore. Ansa di circa 40 mm attorno al ginocchio, entra nella scatola del femore dal lato ginocchio ed esce dal lato anca, con una fascetta per lato. Ansa di circa 50 mm attorno all'anca (alpha −30…+73) fino all'asola dell'anima, poi stesso percorso del cavo del femore.\n- Solo due cavi attraversano il giunto coxa, entrambi vicino all'asse.\n- Cavo consumato dentro la zampa: circa 190 mm per il ginocchio, 55 per il femore, 65 per il servo coxa nella gondola, su 320 mm dichiarati (S). Al ginocchio restano circa 130 mm per arrivare alla SSC-32: bastano se la scheda è entro circa 110 mm dagli assi coxa, altrimenti servono prolunghe.",
+   "rischi": [
+    "Limite accoppiato ginocchio–femore: con il femore sotto +15° la tibia ripiegata tocca la culla del femore, che pende sotto l'asse, e il ginocchio non chiude sotto 45–55°. Nessun assetto lo usa, ma il firmware deve imporre gamma ≥ gamma_min(alpha); un comando sbagliato manda in stallo il servo del ginocchio contro la culla.",
+    "Cavo del servo coxa: con la coda verso il corpo esce verso l'esterno e va riportato dentro con un'ansa nel naso della gondola e una scanalatura nel fondo, a 1,4 mm dalla sede del cuscinetto; la spina va infilata prima di calare il servo. È il punto più delicato della proposta: va provato sul provino della culla.",
+    "Gioco di 1,0 mm tra anima e spigoli delle alette del servo coxa, calcolato sul contorno dello STEP (r 19,4). Le alette reali possono essere diverse (AZDelivery dichiara 53,6 di lunghezza totale, lo STEP 54,6). Se il provino lo chiede, Lc passa a 35.",
+    "La pila del giunto (58,3) dipende dall'altezza della squadretta, che è tutta C (5,5 con il mozzo appoggiato alla torretta Ø10,7). La larghezza della forcella è fissata sia dalle squadrette sia dalla scatola del femore: si registra con il rialzo di Femore_B (0,4 nominale), che si ristampa da solo.",
+    "Scatola del femore corta (16 × 12 mm in pianta, 2 viti M3). Le tensioni stimate sono basse (taglio da torsione circa 0,2 MPa), ma le piastre da 2,4 tra i giunti flettono più di un telaio lungo: va controllato sul pezzo stampato.",
+    "Inserti M3 sotto le alette a 1,2 mm dalla sede del servo: la plastica spostata può sporgere nella sede. Vanno montati con un servo finto in sede, oppure la sede va ripassata.",
+    "Stampa: la Coxa richiede due supporti sotto i bracci. Il fondo della culla della Tibia, stampata sull'orlo, è un ponte di 21 mm che può cedere verso il fondo del servo, dove il gioco è 0,4 nel caso peggiore. Il foro del perno nel braccio inferiore della Coxa è orizzontale, quindi il forzamento si tara.",
+    "Luce: il braccio inferiore della Coxa sta 38,4 mm sotto l'asse del femore, 8 mm più in basso della stima del dimensionamento. Restano 61,6 mm a h 100 e 31,6 a h 70. Vicino alle zampe il corpo non può scendere sotto Z −34.",
+    "Il corpo perde spazio: i sei servo coxa entrano per 33 mm verso il centro da ogni asse coxa (con gli assi della CONFIG restano circa 90 mm tra le gondole medie), e i bracci richiedono la zona libera r 13,5 sopra e sotto le gondole.",
+    "Carico assiale: il peso del robot va sull'anello interno e sullo spallamento della gondola (corona Ø8,6–10, circa 0,5 MPa statici). Per femore e ginocchio, invece, la spinta laterale verso il lato squadretta va sull'albero del servo a compressione, come nella prima versione.",
+    "Coxa più corta: poligono d'appoggio 11 mm più stretto, femore al 51 % dello stallo invece del 50 %, margine di stabilità 50 mm invece di 54.",
+    "Accesso: le viti delle alette del servo del femore sono sotto Femore_A, quelle del lato corto del servo coxa sotto il braccio superiore. Per cambiare quei servo si smonta il pezzo sopra; non si fa a zampa montata."
+   ],
+   "script_verifica": "#!/usr/bin/env python3\n\"\"\"Verifica geometrica delle escursioni della proposta \"Zampa compatta e leggera\" (esapode MG996R).\n\nTerna della zampa: origine sull'asse del femore, Y lungo l'asse del femore (Y = 0 a meta' della pila\ndel giunto), X orizzontale verso l'esterno, Z in alto. Posa di riferimento: alpha = 0, gamma = 90.\nOgni pezzo e' un poligono convesso nel piano XZ della propria parte, con un intervallo di Y:\ndue pezzi si toccano solo se si sovrappongono sia in Y sia nel piano XZ.\n\nParti:  CORPO (gondola + servo coxa, fermo a imbardata 0), COXA (forcella + culla del femore +\nservo del femore, ferma), FEMORE (piastre A e B + scatola + squadrette, ruota di alpha attorno\nall'origine), TIBIA (culla del ginocchio + servo + stinco + piede, ruota attorno al ginocchio).\nCoppie coassiali (squadretta/torretta dello stesso servo, perno/cuscinetto) non si controllano.\n\nUso:  python3 verifica_zampa_compatta.py   (dalla radice della repo: usa calc/statica_tripode.py per le andature; circa 35 s)\n\"\"\"\nimport math\nimport os\nimport sys\n\n# ------------------------------------------------------------------ dati (mm)\n# Servo MG996R nella terna di progetto (docs/dimensioni-componenti.md): u = asse lungo (coda +), v = larghezza,\n# z_s = asse dell'albero (0 = lato inferiore delle alette).\nS_C0, S_C1, S_HW = -10.25, 30.75, 10.25          # cassa lungo u; semilarghezza\nS_ZB, S_ZT = -28.8, 10.2                          # fondo (caso peggiore) e sommita' della cassa\nS_F0, S_F1, S_FW, S_FT = -17.05, 37.55, 9.25, 2.4  # alette\nS_HOLE = (-13.75, 34.25)                          # fori delle alette lungo u (v = +-5)\nS_TUR = ((10.25, 10.2, 10.5), (6.5, 10.5, 11.8), (5.35, 11.8, 12.4))  # torretta: raggio, z da, z a\nSQ_R, SQ_TOP, SQ_DISCO, SQ_MOZZO_R = 10.0, 17.9, 2.5, 5.0   # squadretta a disco (C): cima a 12.4 + 5.5\nTESTA_R, TESTA_H = 2.75, 3.0                      # vite M3 ISO 4762 sulle alette\n# Pila del giunto lungo l'asse (z_s), verificata nel testo della proposta\nGIO = 0.2            # gioco della sede del servo per lato\nINCASSO = 2.0        # sede della squadretta nella piastra A\nSP_A = 4.0           # piastra A sui dischi dei giunti (2,0 dietro la squadretta)\nGIO_FONDO = 0.4      # dal fondo del servo (28,8, caso peggiore) al fondo della culla\nSPALLA = 0.8         # spallamento sopra l'anello esterno del cuscinetto\nSEDE = 3.2           # cuscinetto 5x10x4: 4,0 - flangia 0,8\nFLANGIA = 0.8\nRIALZO = 0.4         # rialzo della piastra B sull'anello interno\nSP_B = 4.0           # piastra B sui perni\nZS_A_IN = SQ_TOP - INCASSO                 # 15.9\nZS_A_OUT = ZS_A_IN + SP_A                  # 19.9\nZS_FONDO_IN = S_ZB - GIO_FONDO             # -29.2\nZS_MOZZO = ZS_FONDO_IN - SPALLA - SEDE     # -33.2  faccia esterna del mozzo del cuscinetto\nZS_FLANGIA = ZS_MOZZO - FLANGIA            # -34.0\nZS_B_IN = ZS_FLANGIA - RIALZO              # -34.4\nZS_B_OUT = ZS_B_IN - SP_B                  # -38.4\nOFF = -(ZS_A_OUT + ZS_B_OUT) / 2           # Y = z_s + OFF  -> 9.25\nLARGHEZZA = ZS_A_OUT - ZS_B_OUT            # 58.3\ndef Y(zs):\n    return zs + OFF\nFONDO = 4.0                                 # fondo piano spesso quanto il mozzo, alleggerito da tasche interne\nY_RIM = Y(0.0)                              # 9.25\nY_FONDO_EST = Y(ZS_FONDO_IN) - FONDO        # -23.95\nY_MOZZO = Y(ZS_MOZZO)                       # -23.95\nY_BOSS0 = Y_RIM - 6.7 - 5.0                 # bugne degli inserti (5,7 + 1) con raccordo a 45 gradi sotto\nBOSS_R = 4.6 / 2 + 1.6                      # inserto M3 CNC Kitchen + parete minima\nPARETE = 1.6\nPARETE_TESTA = 2.0\nWEB = 3.2\n\n# Lunghezze proposte\nLC, LF, LT = 34.05, 60.0, 110.0\nYK = 3.25            # piano cinematico: piede e asse coxa (stinco a filo dell'orlo, spesso 12)\nGIOCO = 0.5          # distanza minima accettata tra parti in moto relativo\nR_FLANGIA_COXA = math.hypot(S_F0, S_FW)     # 19.40: spigolo dell'aletta del servo coxa (coda verso il corpo)\nWEB_X_IN = -LC + R_FLANGIA_COXA + 1.0       # -13.65\n\n# ------------------------------------------------------------------ geometria 2D\ndef rett(x0, x1, z0, z1):\n    return [(x0, z0), (x1, z0), (x1, z1), (x0, z1)]\n\n\ndef cerchio(cx, cz, r, n=36):\n    return [(cx + r * math.cos(2 * math.pi * k / n), cz + r * math.sin(2 * math.pi * k / n)) for k in range(n)]\n\n\ndef inviluppo(pts):\n    pts = sorted(set(pts))\n    def cr(o, a, b):\n        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])\n    lo, up = [], []\n    for p in pts:\n        while len(lo) >= 2 and cr(lo[-2], lo[-1], p) <= 0:\n            lo.pop()\n        lo.append(p)\n    for p in reversed(pts):\n        while len(up) >= 2 and cr(up[-2], up[-1], p) <= 0:\n            up.pop()\n        up.append(p)\n    return lo[:-1] + up[:-1]\n\n\ndef trasforma(poly, ang_deg, tx=0.0, tz=0.0):\n    c, s = math.cos(math.radians(ang_deg)), math.sin(math.radians(ang_deg))\n    return [(tx + x * c - z * s, tz + x * s + z * c) for x, z in poly]\n\n\ndef _proiezione(poly, ax):\n    d = [p[0] * ax[0] + p[1] * ax[1] for p in poly]\n    return min(d), max(d)\n\n\ndef _si_toccano(a, b):\n    for poly in (a, b):\n        for i in range(len(poly)):\n            p, q = poly[i], poly[(i + 1) % len(poly)]\n            ax = (q[1] - p[1], p[0] - q[0])\n            a0, a1 = _proiezione(a, ax)\n            b0, b1 = _proiezione(b, ax)\n            if a1 < b0 or b1 < a0:\n                return False\n    return True\n\n\ndef _dist_ps(p, a, b):\n    dx, dz = b[0] - a[0], b[1] - a[1]\n    l2 = dx * dx + dz * dz\n    t = 0.0 if l2 == 0 else max(0.0, min(1.0, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dz) / l2))\n    return math.hypot(p[0] - a[0] - t * dx, p[1] - a[1] - t * dz)\n\n\ndef distanza(a, b):\n    \"\"\"Distanza tra due poligoni convessi (0 se si compenetrano).\"\"\"\n    if _si_toccano(a, b):\n        return 0.0\n    m = 1e9\n    for P, Q in ((a, b), (b, a)):\n        for p in P:\n            for i in range(len(Q)):\n                m = min(m, _dist_ps(p, Q[i], Q[(i + 1) % len(Q)]))\n    return m\n\n\n# ------------------------------------------------------------------ pezzi (nome, poligono locale, (y0, y1), coassiale_con)\ndef servo_pezzi(prefisso, u_dir):\n    \"\"\"Servo con l'albero sull'origine; u_dir = angolo (gradi, nel piano) verso cui punta la coda.\"\"\"\n    out = []\n    def r(u0, u1, v0, v1):\n        return trasforma(rett(u0, u1, v0, v1), u_dir)\n    out.append((prefisso + ' cassa sopra l orlo', r(S_C0, S_C1, -S_HW, S_HW), (Y(0.0), Y(S_ZT)), None))\n    out.append((prefisso + ' alette', r(S_F0, S_F1, -S_FW, S_FW), (Y(0.0), Y(S_FT)), None))\n    for uh in S_HOLE:\n        out.append((prefisso + ' teste viti alette', r(uh - TESTA_R, uh + TESTA_R, -5 - TESTA_R, 5 + TESTA_R),\n                    (Y(S_FT), Y(S_FT + TESTA_H)), None))\n    for rr, z0, z1 in S_TUR:\n        out.append((prefisso + ' torretta', cerchio(0, 0, rr), (Y(z0), Y(z1)), prefisso))\n    return out\n\n\ndef culla_pezzi(prefisso, u_dir, web_lato=None):\n    \"\"\"Culla attorno al servo, coda verso u_dir. web_lato: 'v-' se la parete interna e' l'anima (3,2).\"\"\"\n    out = []\n    def r(u0, u1, v0, v1):\n        return trasforma(rett(u0, u1, v0, v1), u_dir)\n    pin = S_HW + GIO\n    vmin = -(pin + (WEB if web_lato == 'v-' else PARETE))\n    out.append((prefisso + ' pareti', r(S_C0 - GIO - PARETE_TESTA, S_C1 + GIO + PARETE_TESTA, vmin, pin + PARETE),\n                (Y_FONDO_EST, Y_RIM), None))\n    out.append((prefisso + ' bugne lato corto', r(S_HOLE[0] - BOSS_R, S_C0 - GIO, -5 - BOSS_R, 5 + BOSS_R), (Y_BOSS0, Y_RIM), None))\n    out.append((prefisso + ' bugne lato coda', r(S_C1 + GIO, S_HOLE[1] + BOSS_R, -5 - BOSS_R, 5 + BOSS_R), (Y_BOSS0, Y_RIM), None))\n    out.append((prefisso + ' mozzo cuscinetto', cerchio(0, 0, 8.0), (Y_MOZZO, Y_FONDO_EST), prefisso))\n    out.append((prefisso + ' flangia cuscinetto', cerchio(0, 0, 5.8), (Y(ZS_FLANGIA), Y_MOZZO), prefisso))\n    return out\n\n\ndef squadretta_pezzi(prefisso, asse, dx=0.0):\n    return [(prefisso + ' squadretta', cerchio(dx, 0, SQ_R), (Y(SQ_TOP - SQ_DISCO), Y(SQ_TOP)), asse),\n            (prefisso + ' mozzo squadretta', cerchio(dx, 0, SQ_MOZZO_R), (Y(S_TUR[-1][2]), Y(SQ_TOP - SQ_DISCO)), asse)]\n\n\nXC = -LC     # asse coxa\n# CORPO (fermo): servo coxa con la coda verso il corpo (-X), alette con il lato inferiore a Z = 0; gondola\nCORPO = [\n    ('corpo: cassa servo coxa', rett(XC - S_C1, XC - S_C0, S_ZB, S_ZT), (YK - S_HW, YK + S_HW), None),\n    ('corpo: alette servo coxa', rett(XC - S_F1, XC - S_F0, 0.0, S_FT), (YK - S_FW, YK + S_FW), None),\n    ('corpo: teste viti alette coxa', rett(XC - S_HOLE[0] - TESTA_R, XC - S_HOLE[0] + TESTA_R, S_FT, S_FT + TESTA_H),\n     (YK - 5 - TESTA_R, YK + 5 + TESTA_R), None),\n    ('corpo: torretta servo coxa', rett(XC - 10.25, XC + 10.25, S_ZT, 12.4), (YK - 10.25, YK + 10.25), 'coxa'),\n    ('corpo: gondola', rett(XC - S_C1 - GIO - PARETE_TESTA, XC - S_C0 + GIO + PARETE_TESTA, ZS_MOZZO, 0.0),\n     (YK - S_HW - GIO - PARETE, YK + S_HW + GIO + PARETE), None),\n    ('corpo: naso della gondola (ansa del cavo)', rett(XC - S_C0 + GIO + PARETE_TESTA, XC + R_FLANGIA_COXA - 1.0, ZS_MOZZO, -7.0),\n     (YK - 8.0, YK + 8.0), None),\n    ('corpo: bugne alette coxa', rett(XC - S_C0 + GIO, XC - S_HOLE[0] + BOSS_R, -6.7, 0.0), (YK - 5 - BOSS_R, YK + 5 + BOSS_R), None),\n    ('corpo: flangia cuscinetto coxa', rett(XC - 5.8, XC + 5.8, ZS_FLANGIA, ZS_MOZZO), (YK - 5.8, YK + 5.8), 'coxa'),\n    ('corpo: scafo (ipotesi: oltre 16 mm dall asse coxa verso il centro)', rett(XC - 160.0, XC - 16.0, -34.0, 22.0), (-80.0, 80.0), None),\n]\n# COXA (ferma): culla del femore con la coda in basso (-Z), anima = parete verso l'asse coxa, bracci della forcella\n# coda verso -Z: l'asse v della culla va verso +X, quindi il lato v- (anima 3,2) sta verso l'asse coxa\nCOXA = culla_pezzi('coxa: culla femore', -90.0, web_lato='v-')\nCOXA += [\n    ('coxa: anima', rett(WEB_X_IN, WEB_X_IN + WEB, ZS_B_OUT, ZS_A_OUT), (Y_FONDO_EST, YK + 13.0), None),\n    ('coxa: braccio superiore', rett(XC - 13.0, WEB_X_IN + WEB, ZS_A_IN, ZS_A_OUT), (YK - 13.0, YK + 13.0), None),\n    ('coxa: braccio inferiore', rett(XC - 13.0, WEB_X_IN + WEB, ZS_B_OUT, ZS_B_IN), (YK - 13.0, YK + 13.0), None),\n    ('coxa: squadretta coxa', rett(XC - SQ_R, XC + SQ_R, S_TUR[-1][2], SQ_TOP), (YK - SQ_R, YK + SQ_R), 'coxa'),\n]\nCOXA += [(n.replace('srv', 'coxa: servo femore'), p, y, c) for n, p, y, c in servo_pezzi('srv', -90.0)]\nCOXA = [(n, p, y, ('femore' if c and c.startswith(('coxa: culla femore', 'srv', 'coxa: servo femore')) else c))\n        for n, p, y, c in COXA]\n\n# FEMORE (locale: x lungo il femore). Piastra A (squadrette) e B (perni), scatola sopra la mezzeria.\nBOX_X0, BOX_X1, BOX_Z0, BOX_Z1 = 23.0, LF - 21.0, 2.0, 14.0   # scatola: oltre r 23 dall'anca e r 21 dal ginocchio\nR_A, R_B = 14.0, 10.0\nFEMORE = [\n    ('femore: piastra A', inviluppo(cerchio(0, 0, R_A) + cerchio(LF, 0, R_A)), (Y(ZS_A_IN), Y(ZS_A_OUT)), None),\n    ('femore: piastra B', inviluppo(cerchio(0, 0, R_B) + cerchio(LF, 0, R_B) + rett(BOX_X0, BOX_X1, BOX_Z0, BOX_Z1)),\n     (Y(ZS_B_OUT), Y(ZS_B_IN)), None),\n    ('femore: scatola', rett(BOX_X0, BOX_X1, BOX_Z0, BOX_Z1), (Y(ZS_B_IN), Y(ZS_A_IN)), None),\n]\nFEMORE += squadretta_pezzi('femore: anca,', 'femore') + squadretta_pezzi('femore: ginocchio,', 'ginocchio', LF)\n\n# TIBIA (locale: p lungo la tibia verso il piede = asse x locale, q = asse z locale), coda del servo verso il piede\nTIBIA = [(n.replace('srv', 'tibia: culla ginocchio'), p, y, ('ginocchio' if c else None))\n         for n, p, y, c in culla_pezzi('srv', 0.0)]\nTIBIA += [(n.replace('srv', 'tibia: servo ginocchio'), p, y, ('ginocchio' if c else None)) for n, p, y, c in servo_pezzi('srv', 0.0)]\nSH_P0, SH_P1, SH_Q0, SH_Q1 = S_C1 + GIO + PARETE_TESTA, LT - 12.0, 10.0, 6.0\nPIEDE_R = 7.0\nTIBIA += [\n    ('tibia: stinco', [(SH_P0, -SH_Q0), (SH_P1, -SH_Q1), (SH_P1, SH_Q1), (SH_P0, SH_Q0)], (YK - 6.0, YK + 6.0), None),\n    ('tibia: piede', cerchio(LT - PIEDE_R, 0, PIEDE_R), (YK - 6.0, YK + 6.0), None),\n]\n\n# ------------------------------------------------------------------ pose\ndef posa(alpha, gamma):\n    xk, zk = LF * math.cos(math.radians(alpha)), LF * math.sin(math.radians(alpha))\n    th = alpha + gamma - 180.0\n    fem = [(n, trasforma(p, alpha), y, c) for n, p, y, c in FEMORE]\n    tib = [(n, trasforma(p, th, xk, zk), y, c) for n, p, y, c in TIBIA]\n    return fem, tib\n\n\ndef contatti(gruppo_a, gruppo_b):\n    out = []\n    for na, pa, ya, ca in gruppo_a:\n        for nb, pb, yb, cb in gruppo_b:\n            if ca and ca == cb:\n                continue                       # stesso asse: squadretta / torretta, perno / cuscinetto\n            if min(ya[1], yb[1]) - max(ya[0], yb[0]) <= 1e-6:\n                continue                       # separati lungo Y\n            d = distanza(pa, pb)\n            if d < GIOCO:\n                out.append((d, na, nb))\n    return out\n\n\ndef controlla(alpha, gamma):\n    fem, tib = posa(alpha, gamma)\n    fermo = CORPO + COXA\n    return contatti(fem, fermo) + contatti(tib, fermo) + contatti(tib, fem)\n\n\n# ------------------------------------------------------------------ andature (stesso modello di calc/statica_tripode.py)\ndef distanza_minima(alpha, gamma):\n    fem, tib = posa(alpha, gamma)\n    fermo = CORPO + COXA\n    m = (1e9, '', '')\n    for ga, gb in ((fem, fermo), (tib, fermo), (tib, fem)):\n        for na, pa, ya, ca in ga:\n            for nb, pb, yb, cb in gb:\n                if (ca and ca == cb) or min(ya[1], yb[1]) - max(ya[0], yb[0]) <= 1e-6:\n                    continue\n                d = distanza(pa, pb)\n                if d < m[0]:\n                    m = (d, na, nb)\n    return m\n\n\ndef escursioni_andatura(h, xf0, passo=60.0, alzata=30.0, parabola=True):\n    for d in (os.path.join(os.getcwd(), 'calc'), os.path.dirname(os.path.abspath(__file__)),\n              os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'calc')):\n        if os.path.exists(os.path.join(d, 'statica_tripode.py')):\n            sys.path.insert(0, d)\n            break\n    from statica_tripode import CONFIG, ik_piano, piede_neutro\n    cfg = dict(CONFIG, Lc=LC, Lf=LF, Lt=LT, h=h, x_f0=xf0)\n    pose = []\n    for leg in cfg['coxa']:\n        cx, cy, _ = cfg['coxa'][leg]\n        fx, fy = piede_neutro(cfg, leg)\n        for i in range(13):\n            s = i / 12\n            d = -passo / 2 + passo * s\n            x_f = math.hypot(fx - d - cx, fy - cy) - LC\n            for dz in (0.0, alzata * 4 * s * (1 - s) if parabola else alzata):\n                sol = ik_piano(x_f, h - dz, LF, LT)\n                if sol is None:\n                    return None\n                pose.append((sol[0], sol[3]))\n    return pose\n\n\n# ------------------------------------------------------------------ imbardata della coxa (vista dall'alto)\ndef verifica_imbardata(lim=60):\n    \"\"\"Anima, bracci e culla della coxa contro gondola e servo coxa, alle quote Z dove coesistono.\"\"\"\n    def r(x0, x1, y0, y1):\n        return rett(x0, x1, y0, y1)\n    # corpo in pianta (terna con origine sull'asse coxa, x verso l'esterno), con intervallo Z\n    corpo = [('aletta servo coxa (spigolo a 19,4)', r(-S_F1, -S_F0, -S_FW, S_FW), (0.0, S_FT)),\n             ('gondola', r(-S_C1 - 2.2, -S_C0 + 2.2, -S_HW - 1.8, S_HW + 1.8), (ZS_MOZZO, 0.0)),\n             ('bugna aletta y+', cerchio(-S_HOLE[0], 5.0, BOSS_R), (-6.7, 0.0)),\n             ('bugna aletta y-', cerchio(-S_HOLE[0], -5.0, BOSS_R), (-6.7, 0.0)),\n             ('naso', inviluppo(cerchio(0, 0, R_FLANGIA_COXA - 1.0) + [(0, -10.0), (0, 10.0)]), (ZS_MOZZO, -7.0)),\n             ('teste viti', r(-S_HOLE[0] - TESTA_R, -S_HOLE[0] + TESTA_R, -7.75, 7.75), (S_FT, S_FT + TESTA_H))]\n    mobile = [('anima', r(WEB_X_IN + LC, WEB_X_IN + LC + WEB, Y_FONDO_EST - YK, 13.0), (ZS_B_OUT, ZS_A_OUT)),\n              ('culla femore', r(WEB_X_IN + LC + WEB, LC + 12.05, Y_FONDO_EST - YK, Y_RIM - YK), (-32.95, 12.45))]\n    peggio = None\n    for th in range(-lim, lim + 1, 5):\n        for nm, pm, zm in mobile:\n            pr = trasforma(pm, th)\n            for nc, pc, zc in corpo:\n                if min(zm[1], zc[1]) - max(zm[0], zc[0]) <= 0:\n                    continue\n                d = distanza(pr, pc)\n                if peggio is None or d < peggio[0]:\n                    peggio = (d, th, nm, nc)\n    return peggio\n\n\n# ------------------------------------------------------------------ massa delle parti stampate\nRHO_PETG_CF, RHO_TPU = 1.30, 1.20     # g/cm3 (PETG-CF dalla richiesta; TPU 95A tipico)\n\n\ndef volumi():\n    \"\"\"Volumi pieni (mm3) e riempimento dichiarato di ogni parte, dalle stesse quote della verifica.\"\"\"\n    pi = math.pi\n    l_culla = S_C1 - S_C0 + 2 * GIO + 2 * PARETE_TESTA            # 45.4\n    tasca = (2 * (S_HW + GIO)) * (S_C1 - S_C0 + 2 * GIO) * (Y_RIM - Y(ZS_FONDO_IN))\n    def culla(larg_esterna):\n        v = larg_esterna * l_culla * (Y_RIM - Y_MOZZO) - tasca\n        v -= 0.55 * (2 * (S_HW + GIO)) * (S_C1 - S_C0 + 2 * GIO) * 2.0      # tasche interne del fondo, 2 mm\n        v -= pi * 5.0 ** 2 * SEDE + pi * 4.3 ** 2 * SPALLA                    # sede del cuscinetto e spallamento\n        v -= 9.0 * 5.2 * PARETE_TESTA                                          # finestra del cavo\n        bugne = 2 * (17.8 * 5.2 * 6.7 + 0.5 * 5.2 * 5.2 * 17.8 - 2 * pi * 2.1 ** 2 * 6.7)\n        return v + bugne\n    braccio = (LC - (-WEB_X_IN)) * 26.0 + pi * 13.0 ** 2 / 2\n    coxa = culla(WEB + 2 * (S_HW + GIO) + PARETE)\n    coxa += (ZS_A_OUT - 12.45) * 26 * WEB + (-32.95 - ZS_B_OUT) * 26 * WEB + 2 * (YK + 13 - Y_RIM) * 10 * WEB\n    coxa += braccio * SP_A - (13.0 * 20.4 + pi * 10.2 ** 2 / 2) * INCASSO - 4 * pi * 1.6 ** 2 * 2 - pi * 3 ** 2 * 2\n    coxa += braccio * SP_B - pi * 2.5 ** 2 * SP_B + pi * 3.5 ** 2 * RIALZO\n    area_a = LF * 2 * R_A + pi * R_A ** 2\n    fem_a = area_a * 2.4 + 2 * pi * R_A ** 2 * (SP_A - 2.4) - 2 * pi * 10.2 ** 2 * INCASSO - 2 * pi * 3 ** 2 * 2 - 8 * pi * 1.6 ** 2 * 2\n    fem_a += 2 * (BOX_X1 - BOX_X0) * PARETE * (Y(ZS_A_IN) - Y(ZS_B_IN))                # pareti della scatola\n    fem_a += 2 * (pi * 4.0 ** 2 * 8.7 - pi * 2.1 ** 2 * 6.7)                           # due bugne con inserto M3\n    area_b = LF * 2 * R_B + pi * R_B ** 2 + (BOX_X1 - BOX_X0) * (BOX_Z1 - R_B)\n    fem_b = area_b * 2.4 + 2 * pi * 7.0 ** 2 * (SP_B - 2.4) - 2 * pi * 2.5 ** 2 * SP_B + 2 * pi * 3.5 ** 2 * RIALZO - 4 * pi * 1.6 ** 2 * 2.4\n    tib = culla(2 * (S_HW + GIO + PARETE))\n    l_st = SH_P1 - SH_P0\n    stinco = l_st * (2 * ((2 * SH_Q0 + 2 * SH_Q1) / 2 + 12.0) * 1.6 - 4 * 1.6 ** 2)    # tubo chiuso, pareti 1,6\n    piede = pi * PIEDE_R ** 2 * 12.0\n    piedino = pi * (8.0 ** 2 * 14.0 - 7.0 ** 2 * 12.0)\n    return [('Coxa', coxa, 0.95, RHO_PETG_CF), ('Femore_A', fem_a, 0.95, RHO_PETG_CF), ('Femore_B', fem_b, 1.0, RHO_PETG_CF),\n            ('Tibia (culla)', tib, 0.95, RHO_PETG_CF), ('Tibia (stinco a tubo)', stinco, 1.0, RHO_PETG_CF),\n            ('Tibia (piede)', piede, 0.7, RHO_PETG_CF), ('Piedino TPU', piedino, 1.0, RHO_TPU)]\n\n\ndef stampa_massa():\n    print(\"\\nMassa delle parti stampate (volume pieno x densita' x riempimento)\")\n    tot_s, tot = 0.0, 0.0\n    for n, v, f, rho in volumi():\n        m = v / 1000 * rho * f\n        tot += m\n        if 'TPU' not in n:\n            tot_s += m\n        print(f\"  {n:24s} {v/1000:6.2f} cm3  x {rho:.2f} x {f:.2f} = {m:5.1f} g\")\n    print(f\"  PETG-CF per zampa: {tot_s:.1f} g; con il piedino: {tot:.1f} g; sei zampe: {6*tot:.0f} g\")\n\n\n# ------------------------------------------------------------------ main\ndef main():\n    print(f\"Pila del giunto: piastra A {Y(ZS_A_IN):+.2f}..{Y(ZS_A_OUT):+.2f}, orlo {Y_RIM:+.2f}, fondo servo {Y(S_ZB):+.2f}, \"\n          f\"mozzo {Y_MOZZO:+.2f}, piastra B {Y(ZS_B_OUT):+.2f}..{Y(ZS_B_IN):+.2f}  -> larghezza {LARGHEZZA:.2f} mm\")\n    print(f\"Lc {LC}  Lf {LF}  Lt {LT}  piano cinematico Y = {YK}\")\n    A = list(range(-40, 76, 5))\n    G = list(range(30, 161, 5))\n    libero = {}\n    cause = {}\n    for a in A:\n        for g in G:\n            c = controlla(a, g)\n            libero[(a, g)] = not c\n            if c:\n                cause[(a, g)] = sorted(c)[0]\n    print(\"\\nMappa (riga = gamma, colonna = alpha da -40 a +75; '.' libero, '#' contatto)\")\n    print(\"gamma  \" + \"\".join(f\"{a:>4d}\" for a in A))\n    for g in reversed(G):\n        print(f\"{g:5d}  \" + \"\".join(\"   .\" if libero[(a, g)] else \"   #\" for a in A))\n    # il rettangolo richiesto e' tutto libero?\n    def rett_libero(a0, a1, g0, g1):\n        return all(libero[(a, g)] for a in A if a0 <= a <= a1 for g in G if g0 <= g <= g1)\n    print(\"\\nRichiesto: alpha -30..+65, gamma 40..150 ->\", \"LIBERO\" if rett_libero(-30, 65, 40, 150) else \"NON libero\")\n    print(\"Campo libero (gamma minimo raggiungibile per ogni alpha; gamma massimo libero fino a 160 ovunque):\")\n    riga = []\n    for a in A:\n        gl = [g for g in G if all(libero[(a, x)] for x in G if x >= g)]\n        riga.append(f\"{a:+d}:{min(gl) if gl else '-'}\")\n    print(\"  \" + \"  \".join(riga))\n    a_ok = [a for a in A if all(libero[(a, g)] for g in G if 40 <= g <= 150)]\n    g_ok = [g for g in G if all(libero[(a, g)] for a in A if -30 <= a <= 65)]\n    print(f\"  gamma 40..150 libero per alpha da {min(a_ok):+d} a {max(a_ok):+d}; alpha -30..+65 libero per gamma da {min(g_ok)} a {max(g_ok)}\")\n    print(\"\\nContatti che limitano (primo contatto ai bordi):\")\n    visti = set()\n    for (a, g), (d, na, nb) in sorted(cause.items()):\n        chiave = (na, nb)\n        if chiave in visti:\n            continue\n        visti.add(chiave)\n        print(f\"  alpha {a:+4d}, gamma {g:3d}: {na}  <->  {nb}  (distanza {d:.1f})\")\n    # escursioni singole\n    for g in (90,):\n        lib = [a for a in A if libero[(a, g)]]\n        print(f\"\\nCon gamma = {g}: alpha libero da {min(lib):+d} a {max(lib):+d}\")\n    for a in (-30, 0, 17, 65):\n        aa = min(A, key=lambda x: abs(x - a))\n        lib = [g for g in G if libero[(aa, g)]]\n        print(f\"Con alpha = {aa:+d}: gamma libero da {min(lib)} a {max(lib)}\")\n    # margini fini attorno ai limiti\n    print(\"\\nLimiti fini (passo 1 grado; '-' = nessun contatto nel campo cercato):\")\n    def primo(valori, f):\n        for t in valori:\n            c = f(t)\n            if c:\n                return t, sorted(c)[0]\n        return None, None\n    for nome, valori, f in ((\"gamma 90, alpha in salita\", range(60, 121), lambda t: controlla(t, 90)),\n                            (\"gamma 90, alpha in discesa\", range(-20, -101, -1), lambda t: controlla(t, 90)),\n                            (\"alpha +20, gamma in chiusura\", range(60, 0, -1), lambda t: controlla(20, t)),\n                            (\"alpha 0, gamma in chiusura\", range(60, 0, -1), lambda t: controlla(0, t)),\n                            (\"alpha -30, gamma in chiusura\", range(80, 0, -1), lambda t: controlla(-30, t)),\n                            (\"alpha +65, gamma in chiusura\", range(60, 0, -1), lambda t: controlla(65, t)),\n                            (\"alpha +17, gamma in apertura\", range(120, 181), lambda t: controlla(17, t))):\n        t, c = primo(valori, f)\n        print(f\"  {nome:30s}: \" + (\"-\" if t is None else f\"{t:+d} gradi: {c[1]} <-> {c[2]} ({c[0]:.1f})\"))\n    # andature\n    print(\"\\nAndature (passo 60, alzata 30; tutte le pose delle sei zampe)\")\n    for parabola in (True, False):\n        print(\"  volo a parabola\" if parabola else \"  volo con il piede alzato per tutta la corsa (prudente)\")\n        for h, xf in ((130, 25), (110, 40), (100, 45), (90, 55), (80, 60), (70, 70)):\n            pose = escursioni_andatura(h, xf, parabola=parabola)\n            if pose is None:\n                print(f\"    {h}/{xf}: fuori portata\")\n                continue\n            amin, amax = min(p[0] for p in pose), max(p[0] for p in pose)\n            gmin, gmax = min(p[1] for p in pose), max(p[1] for p in pose)\n            peggio = min((distanza_minima(a, g) + (a, g) for a, g in pose), key=lambda t: t[0])\n            print(f\"    {h:3d}/{xf:2d}: alpha {amin:+5.1f}..{amax:+5.1f}, gamma {gmin:5.1f}..{gmax:5.1f}; distanza minima \"\n                  f\"{peggio[0]:4.1f} mm a ({peggio[3]:+.0f}, {peggio[4]:.0f}): {peggio[1]} <-> {peggio[2]}\")\n    stampa_massa()\n    pg = verifica_imbardata()\n    print(f\"\\nImbardata coxa +-60 gradi: distanza minima {pg[0]:.2f} mm a {pg[1]:+d} gradi ({pg[2]} <-> {pg[3]})\")\n\n\nif __name__ == \"__main__\":\n    main()\n"
+  },
+  {
+   "chiave": "robusta",
+   "nome": "Femore portaservi a cassone chiuso, coxa e tibia a forcella",
+   "sintesi": "I servo di anca e ginocchio stanno dentro il femore, tutti e due con l'albero verso +Y e le code una verso l'altra. Il femore diventa così un cassone chiuso con pareti da 1,6 mm: a torsione è circa 400 volte più rigido della stessa sezione aperta, e la freccia al ginocchio con 30 N è di 0,03 mm.\nCoxa e tibia sono forcelle senza servo che abbracciano le teste tonde del femore (raggio 19,4 mm). L'anca è libera da −103° a +96° e il ginocchio da 30° a 210°: i limiti li danno i servo, non la plastica. Le squadrette vanno centrate su α = +17,5° e γ = 95°.\nIl servo della coxa resta nel corpo, con l'albero in alto e la coda verso il centro, così Lc vale 46,5 mm.\nIl cavo del ginocchio resta sempre dentro il femore e non attraversa mai il ginocchio. I due cavi passano l'anca in una camera chiusa ricavata nella guancia.\nOgni giunto ha un braccio integrale con la sede della squadretta e una guancia smontabile che porta il perno: tutto si monta e si smonta con le viti, senza forzare niente.\nIl prezzo è la massa: circa 117 g di parti stampate a zampa, 47 g sopra l'obiettivo. Il robot arriva a 2,88 kg e al punto di progetto il femore lavora al 55 % dello stallo dichiarato.",
+   "servo": [
+    {
+     "giunto": "coxa",
+     "dove": "Nel corpo, nella gondola di Corpo_Base: il corpo non fa parte di questa proposta, i requisiti per la gondola sono nelle quote.",
+     "albero": "Verticale, +Z in alto, sull'asse x = −46,5, y = 0. Lato inferiore delle alette a z = +8,45. Squadretta in alto (faccia a z = +26,35) avvitata al braccio superiore della Coxa. Cuscinetto nel fondo della gondola con la faccia dell'anello interno a z = −26,35; il perno sta nella Coxa_Piastra.",
+     "coda": "Verso il centro del corpo (−X): cassa da x = −77,25 a −36,25. Il cavo esce dall'estremità esterna a z = −15,05 e rientra nel corpo in un canale lungo un fianco della gondola.",
+     "perche": "Con la coda verso l'interno, l'anima della forcella deve superare solo la testa tonda della gondola (raggio 20,5), e Lc resta 46,5 mm; con la coda verso l'esterno dovrebbe superare 37,6 mm di aletta e Lc salirebbe a circa 65. Con l'albero in alto il peso del robot passa dalla piastra inferiore all'anello interno del cuscinetto, in compressione, e la squadretta prende solo coppia e carichi radiali. Tenendo il servo nel corpo la coxa non ha culla, la zampa non porta 55 g in più e il cavo della coxa non attraversa nessun giunto.",
+     "squadretta_a_meta_corsa": "Zampa nella sua direzione neutra (coxa a 0°): il servo dà ±80°."
+    },
+    {
+     "giunto": "femore",
+     "dove": "Dentro il femore, nella tasca dell'anca di Femore_Vasca.",
+     "albero": "Lungo +Y sull'asse dell'anca (x 0, z 0). Lato inferiore delle alette a y = +8,45. Squadretta sul lato +Y (faccia a y = +26,35) avvitata al fianco +Y della Coxa. Cuscinetto nel fondo del femore (lato −Y, anello interno a y = −26,35); il perno sta nella Coxa_Guancia.",
+     "coda": "Verso il ginocchio (+X): cassa da x = −10,25 a +30,75, z ±10,25, y da −20,35 a +18,65. Il cavo esce verso la coxa a x = −10,25, y = −15,05.",
+     "perche": "Il servo ruota con il femore, quindi la testa del femore all'anca è un tondo di raggio 19,4 che gira dentro la forcella della coxa (anima a 20,5): il femore è libero da −103° a +96° senza puntoni né tagli nell'anima. La cassa del servo diventa il nucleo del cassone, chiuso su tutti i lati. Il cavo esce già accanto all'asse dell'anca, la via più corta verso la coxa.",
+     "squadretta_a_meta_corsa": "Femore a α = +17,5° (corsa del servo da −62,5° a +97,5°). Con 25 denti la squadretta va sul dente più vicino (±7,2°); il resto si corregge con un offset nel firmware."
+    },
+    {
+     "giunto": "ginocchio",
+     "dove": "Dentro il femore, nella tasca del ginocchio di Femore_Vasca.",
+     "albero": "Lungo +Y sull'asse del ginocchio (x 78, z 0), nello stesso verso del servo del femore. Squadretta a +Y (faccia a y = +26,35) avvitata al braccio della Tibia. Cuscinetto nel fondo del femore (anello interno a y = −26,35); il perno sta nella Tibia_Guancia.",
+     "coda": "Verso l'anca (−X): cassa da x = 47,25 a 88,25. Il cavo esce in punta al femore (x = 88,25, y = −15,05) e torna indietro dentro il cassone.",
+     "perche": "La tibia diventa una forcella senza servo e il ginocchio è limitato solo dall'anima della tibia (a 44 mm dall'asse) contro il ventre del femore: si chiude fino a 30°, mentre il volo negli assetti bassi chiede 32,7°. Il cavo resta sempre sul femore e non flette al ginocchio. Con lo stesso verso del servo dell'anca, i due cuscinetti stanno nel fondo e la vasca si stampa senza supporti. Per tenere separate le alette lato coda dei due servo serve Lf ≥ 75,6: scelto 78.",
+     "squadretta_a_meta_corsa": "Ginocchio a γ = 95° (corsa del servo da 15° a 175°)."
+    }
+   ],
+   "parti": [
+    {
+     "nome": "Femore_Vasca",
+     "funzione": "Cassone del femore, aperto verso +Y. Fondo da 1,6 con due borchie per i cuscinetti (sede Ø10 profonda 3,2 più spalla da 1,2 con foro Ø7). Ventre, dorso e teste da 1,6. Due tasche dei servo profonde 29,6 sotto le alette, quindi valide anche per il caso da 28,8. Paratia trasversale tra le code (x 30,95–47,05). 8 inserti M3 per le alette e 4 per il coperchio, nervature di schiacciamento. Canale da 4,4 tra cassa e dorso per il cavo del ginocchio, baie dei cavi nelle due teste, feritoia 9 × 4 nel fondo a x = −14 verso la camera dei cavi. Le teste hanno due tacche alte 2,6 mm dove sporgono gli spigoli delle alette.",
+     "stampa": "PETG-CF, fondo sul piano con le tasche aperte verso l'alto: nessun supporto, sedi dei cuscinetti e fori degli inserti verticali (quindi tondi), 4 perimetri da 0,4.",
+     "volume_cm3": 29.1
+    },
+    {
+     "nome": "Femore_Coperchio",
+     "funzione": "Chiude il cassone sul lato +Y e rende chiusa la sezione. Piastra da 1,6 con due fori Ø21,2 per le torrette dei servo e due anelli di battuta (r 10,6–14,6, cima a y = +24,35, 0,4 sotto i bracci) che prendono la spinta lungo +Y prima che arrivi all'albero del servo. Labbro di centraggio, 4 viti M3.",
+     "stampa": "PETG-CF, in piano con gli anelli verso l'alto, senza supporti.",
+     "volume_cm3": 6.9
+    },
+    {
+     "nome": "Coxa",
+     "funzione": "Pezzo principale della coxa. Anima verticale (x da −24,5 a −20,5, z da −31,55 a +29,55) tra le due forcelle. Fianco +Y: è il braccio della squadretta del femore, con sede Ø20,4 × 1,6, 4 fori M3 a 14 mm e foro Ø6 per la vite centrale; rientra fino a x = −34,5 e si salda al braccio superiore, che appoggia sulla squadretta della coxa. 5 inserti M3 (2 per la guancia, 3 per la piastra) e feritoia 9 × 4 nell'anima per i cavi.",
+     "stampa": "PETG-CF, fianco +Y sul piano: anima e braccio superiore crescono in piedi. La sede della squadretta del braccio superiore è uno sbalzo di 1,6 su una parete verticale. Nessun supporto.",
+     "volume_cm3": 21.1
+    },
+    {
+     "nome": "Coxa_Piastra",
+     "funzione": "Forcella inferiore smontabile della coxa. Porta il perno Ø5 nel cuscinetto della gondola e un rialzo Ø7 × 0,4 che tocca solo l'anello interno: è lei che porta il peso del robot. 3 viti M3 nell'anima; spessori sotto la piastra per azzerare il gioco assiale.",
+     "stampa": "PETG-CF, in piano.",
+     "volume_cm3": 3.8
+    },
+    {
+     "nome": "Coxa_Guancia",
+     "funzione": "Guancia smontabile dell'anca, lato perno: perno Ø5 e rialzo sull'anello interno. Contiene la camera dei cavi: un anello r 8,5–21 profondo 4,4, con un labbro esterno che sale fino a y = −23,15, chiuso dal fondo del femore che ci gira sopra. Uscita dei cavi verso l'anima, 2 viti M3.",
+     "stampa": "PETG-CF, in piano con la camera verso l'alto.",
+     "volume_cm3": 8
+    },
+    {
+     "nome": "Tibia",
+     "funzione": "Forcella del ginocchio. Braccio +Y con la sede della squadretta (disco r 14 e fascia ±12). Anima da 44 a 54 mm dal ginocchio, ±10 nel piano della zampa. Stinco a canale nervato aperto verso il corpo: 5 nervature, sezione che passa da 20 × 51,5 a 14 × 16. Puntale per il piedino, 2 inserti M3 per la guancia.",
+     "stampa": "PETG-CF, di fianco con la faccia esterna sul piano: gli strati sono paralleli all'asse della tibia e il canale è aperto verso l'alto, quindi nessun supporto.",
+     "volume_cm3": 22.1
+    },
+    {
+     "nome": "Tibia_Guancia",
+     "funzione": "Guancia smontabile del ginocchio, lato perno: perno Ø5, rialzo, disco r 12 e fascia ±10 fino all'anima della tibia; 2 viti M3.",
+     "stampa": "PETG-CF, in piano.",
+     "volume_cm3": 6.8
+    },
+    {
+     "nome": "Piedino",
+     "funzione": "Calotta di raggio 8 sul puntale. Non strutturale, si cambia.",
+     "stampa": "TPU 95A, con la punta in alto.",
+     "volume_cm3": 1.2
+    }
+   ],
+   "montaggio": "Preparazione: inserti a caldo (12 nella vasca del femore, 5 nella coxa, 2 nella tibia, 4 nella gondola del corpo). Cuscinetti premuti dall'esterno, con la flangia fuori, nelle due borchie del femore e nel fondo della gondola. Perni Ø5 × 12 premuti nelle due guance e nella piastra. Tutti i servo portati al centro (1500 µs) con la SSC-32.\n1) Femore. Servo del ginocchio nella tasca in punta. Il cavo gira nella baia di punta, si posa nel canale del dorso fino alla baia dell'anca ed esce dalla feritoia 9 × 4 del fondo: la spina JR passa. 4 viti M3 × 8 nelle alette. Poi il servo del femore nella tasca dell'anca, con il cavo che va alla stessa feritoia, e altre 4 M3 × 8. Infine il coperchio con 4 M3.\n2) Coxa sul corpo. Squadretta montata sul servo della coxa al centro. La Coxa, senza piastra, scende dall'alto finché la squadretta entra nella sede del braccio superiore; 4 M3 × 8 a testa bombata dall'alto. Poi la Coxa_Piastra da sotto, con il perno nel cuscinetto della gondola, fissata con 3 M3; si aggiungono spessori se resta gioco.\n3) Femore nella coxa. Squadretta sul servo del femore con il femore a +17,5°. Con la guancia tolta, il femore entra lungo +Y nella forcella e la squadretta entra nella sede del fianco +Y; 4 M3 × 8 dall'esterno del fianco. I due cavi si avvolgono per circa mezzo giro nella camera della Coxa_Guancia, escono dalla feritoia dell'anima, salgono sul braccio superiore ed entrano nel corpo vicino all'asse della coxa. Poi la Coxa_Guancia, con il perno nel cuscinetto dell'anca, fissata con 2 M3.\n4) Tibia. Squadretta sul servo del ginocchio con γ = 95°. La tibia entra lungo +Y sulla testa del femore; 4 M3 × 8 dall'esterno del braccio. Poi la Tibia_Guancia con il perno nel cuscinetto, fissata con 2 M3. Infine il piedino, a pressione o con una goccia di colla.\nSmontaggio: ordine inverso, e ogni pezzo esce solo svitando. Le guance portano via i perni; i cuscinetti restano nelle sedi e si spingono fuori dal foro Ø7 della spalla con un punzone da 6 mm. Per cambiare un servo del femore non si tocca il corpo: guancia, 4 viti della squadretta, coperchio, 4 viti delle alette. Il cavo si stacca dalla SSC-32 e si sfila con la spina attraverso le feritoie.\nAccesso alle viti delle squadrette: sono tutte dall'esterno e si raggiungono con la zampa montata e una brugola da 2 mm (fianco +Y della coxa, braccio della tibia, braccio superiore della coxa dall'alto). La vite centrale di ogni squadretta si raggiunge dal foro Ø6 al centro del braccio.\nViteria e inserti per zampa: 19 inserti M3 (più 4 nella gondola), 8 M3 × 8 per le alette (più 4 nella gondola), 12 M3 × 8 a testa bombata per le squadrette, 4 M3 per il coperchio, 7 M3 × 10 per guance e piastra, 3 perni Ø5 × 12.",
+   "quote": [
+    {
+     "nome": "Lc",
+     "valore_mm": 46.5,
+     "significato": "Asse della coxa → asse del femore; l'asse della coxa è a x = −46,5. È la somma di 22 (faccia interna dell'anima dall'asse della coxa) + 4 (anima) + 20,5 (anima dall'asse del femore)."
+    },
+    {
+     "nome": "Lf",
+     "valore_mm": 78,
+     "significato": "Asse del femore → asse del ginocchio. Il minimo è 75,6, perché le alette lato coda dei due servo non si tocchino."
+    },
+    {
+     "nome": "Lt",
+     "valore_mm": 115,
+     "significato": "Asse del ginocchio → punta del piede; nella posa di riferimento il piede è a (78, 0, −115)."
+    },
+    {
+     "nome": "y_braccio_est",
+     "valore_mm": 29.55,
+     "significato": "Faccia esterna dei bracci lato squadretta (fianco +Y della coxa e braccio della tibia); le teste delle viti arrivano a +31,2."
+    },
+    {
+     "nome": "y_squadretta",
+     "valore_mm": 26.35,
+     "significato": "Faccia della squadretta, cioè fondo della sede Ø20,4 × 1,6 nei bracci: appoggio +Y dei giunti di anca e ginocchio. Per la coxa la stessa quota vale lungo z."
+    },
+    {
+     "nome": "y_braccio_int",
+     "valore_mm": 24.75,
+     "significato": "Faccia interna dei bracci, fuori dalla sede della squadretta."
+    },
+    {
+     "nome": "y_anelli",
+     "valore_mm": 24.35,
+     "significato": "Cima degli anelli di battuta del coperchio (r 10,6–14,6), 0,4 sotto i bracci."
+    },
+    {
+     "nome": "y_coperchio",
+     "valore_mm": 20.65,
+     "significato": "Faccia esterna del coperchio del femore, spesso 1,6 (faccia interna a +19,05)."
+    },
+    {
+     "nome": "y_cassa_cima",
+     "valore_mm": 18.65,
+     "significato": "Cima della cassa dei servo nel caso peggiore (10,2 sopra le alette)."
+    },
+    {
+     "nome": "y_alette",
+     "valore_mm": 8.45,
+     "significato": "Lato inferiore delle alette dei servo di femore e ginocchio, riferimento di tutte le quote del servo; le alette arrivano a +10,85. Per il servo della coxa la stessa quota è z = +8,45."
+    },
+    {
+     "nome": "y_fondo_servo",
+     "valore_mm": -20.35,
+     "significato": "Fondo della cassa del servo nel caso peggiore (28,8 sotto le alette; −18,15 con la quota da 26,6)."
+    },
+    {
+     "nome": "y_fondo_int",
+     "valore_mm": -21.15,
+     "significato": "Faccia interna del fondo del femore: la tasca è profonda 29,6 sotto le alette."
+    },
+    {
+     "nome": "y_fondo_est",
+     "valore_mm": -22.75,
+     "significato": "Faccia esterna del fondo del femore (fondo da 1,6)."
+    },
+    {
+     "nome": "y_borchia",
+     "valore_mm": -25.55,
+     "significato": "Faccia esterna delle borchie dei cuscinetti (r 8,6): sede Ø10 profonda 3,2 e spalla da 1,2 con foro Ø7."
+    },
+    {
+     "nome": "y_anello_interno",
+     "valore_mm": -26.35,
+     "significato": "Faccia lato flangia del cuscinetto (flangia da −26,35 a −25,55, corpo fino a −22,35): appoggio −Y del giunto, simmetrico a +26,35. Per la coxa vale z = −26,35."
+    },
+    {
+     "nome": "y_guancia_int",
+     "valore_mm": -26.75,
+     "significato": "Faccia interna delle guance. Il rialzo Ø7 alto 0,4 tocca solo l'anello interno."
+    },
+    {
+     "nome": "y_guancia_ginocchio",
+     "valore_mm": -31.55,
+     "significato": "Faccia esterna della Tibia_Guancia (spessore 4,8)."
+    },
+    {
+     "nome": "y_guancia_anca",
+     "valore_mm": -33.55,
+     "significato": "Faccia esterna della Coxa_Guancia: camera da 4,4 più fondo da 2,4."
+    },
+    {
+     "nome": "larghezza_zampa",
+     "valore_mm": 63.1,
+     "significato": "Larghezza totale della zampa lungo Y (64,8 con le teste delle viti)."
+    },
+    {
+     "nome": "fem_R",
+     "valore_mm": 19.4,
+     "significato": "Raggio delle teste del femore attorno agli assi di anca e ginocchio: gli spigoli delle alette (17,05; 9,25) stanno proprio a 19,4."
+    },
+    {
+     "nome": "fem_ventre",
+     "valore_mm": -12.05,
+     "significato": "Ventre del femore: cassa 10,25 + gioco 0,2 + parete 1,6."
+    },
+    {
+     "nome": "fem_dorso",
+     "valore_mm": 16.45,
+     "significato": "Dorso del femore, con il canale da 4,4 per il cavo del ginocchio."
+    },
+    {
+     "nome": "fem_lunghezza",
+     "valore_mm": 116.8,
+     "significato": "Lunghezza del femore (x da −19,4 a 97,4); è alto 28,5 e largo 43,4 lungo Y (49,9 con borchie e anelli)."
+    },
+    {
+     "nome": "paratia_x",
+     "valore_mm": 30.95,
+     "significato": "Inizio della paratia tra le code dei servo (x 30,95–47,05). Porta i 4 inserti lato coda a x 34,25 e 43,75, z ±5. Gli inserti lato testa sono a x −13,75 e 91,75."
+    },
+    {
+     "nome": "servo_femore_testa",
+     "valore_mm": -10.25,
+     "significato": "Estremità della cassa del servo del femore verso la coxa, da cui esce il cavo; la coda è a +30,75."
+    },
+    {
+     "nome": "servo_ginocchio_testa",
+     "valore_mm": 88.25,
+     "significato": "Estremità della cassa del servo del ginocchio in punta al femore, da cui esce il cavo; la coda è a 47,25."
+    },
+    {
+     "nome": "anima_coxa_x",
+     "valore_mm": -20.5,
+     "significato": "Faccia esterna dell'anima della coxa, con 1,1 di gioco sulle teste del femore. La faccia interna è a −24,5, cioè a 22 dall'asse della coxa."
+    },
+    {
+     "nome": "coxa_z_min",
+     "valore_mm": -31.55,
+     "significato": "Fondo della Coxa_Piastra (faccia superiore a −26,75). La coxa è alta 61,1, fino a +29,55."
+    },
+    {
+     "nome": "coxa_z_max",
+     "valore_mm": 29.55,
+     "significato": "Cima del braccio superiore della coxa; la faccia della squadretta della coxa è a z = +26,35."
+    },
+    {
+     "nome": "gondola_R",
+     "valore_mm": 20.5,
+     "significato": "Requisito per il corpo: raggio massimo della gondola dall'asse della coxa, nel semipiano verso l'esterno."
+    },
+    {
+     "nome": "servo_coxa_coda",
+     "valore_mm": -77.25,
+     "significato": "Coda del servo della coxa: la cassa va da x = −77,25 a −36,25, verso il centro del corpo."
+    },
+    {
+     "nome": "corpo_arretrato",
+     "valore_mm": 14,
+     "significato": "Requisito per il corpo: con la coxa a ±45° deve stare almeno 14 mm dietro l'asse della coxa per |y| ≤ 32 e 9 mm fino a |y| = 45, alle quote da −31,6 a +29,6. Con ±30° bastano 10 mm. Entro 14 mm dall'asse, sopra +24,4 e sotto −26,4, il corpo deve lasciare spazio ai bracci."
+    },
+    {
+     "nome": "tibia_anima",
+     "valore_mm": 44,
+     "significato": "Distanza dell'anima della tibia dall'asse del ginocchio (anima lunga 10, ±10 nel piano della zampa); scelta con la scansione."
+    },
+    {
+     "nome": "bracci_R",
+     "valore_mm": 14,
+     "significato": "Raggio dei dischi dei bracci lato squadretta attorno agli assi; la fascia verso l'anima è ±12 nella tibia, ±14 nella coxa."
+    },
+    {
+     "nome": "guancia_anca_R",
+     "valore_mm": 23,
+     "significato": "Raggio della Coxa_Guancia; la camera dei cavi va da r 8,5 a 21."
+    },
+    {
+     "nome": "feritoia_cavi_x",
+     "valore_mm": -14,
+     "significato": "x del centro della feritoia dei cavi 9 × 4 nel fondo del femore (z = 0, r 14 dall'asse dell'anca)."
+    },
+    {
+     "nome": "perno_l",
+     "valore_mm": 12,
+     "significato": "Lunghezza dei perni Ø5: a filo nella guancia dell'anca, sporgenti 2,4 su ginocchio e coxa per poterli estrarre."
+    },
+    {
+     "nome": "sede_squadretta_d",
+     "valore_mm": 20.4,
+     "significato": "Diametro della sede della squadretta nei bracci (sq_d + 0,4), profonda 1,6, con foro centrale Ø6 e 4 fori M3 a 14 mm. Si ricalcola sul prodotto scelto."
+    }
+   ],
+   "lunghezze": {
+    "Lc": 46.5,
+    "Lf": 78,
+    "Lt": 115,
+    "larghezza_Y": 63.1,
+    "altezza_coxa": 61.1
+   },
+   "escursioni": {
+    "alpha_min": -62.5,
+    "alpha_max": 96,
+    "gamma_min": 30,
+    "gamma_max": 175,
+    "coxa_min": -45,
+    "coxa_max": 45,
+    "contatti_limite": [
+     "Ginocchio chiuso: l'anima della tibia tocca il ventre del femore a γ = 29,5°; il ginocchio è libero fino a 30,0° per ogni α ≥ −20°.",
+     "Ginocchio chiuso con il femore basso: piede e braccio della tibia toccano coxa e corpo. Libero fino a 31,5° con α = −30°, a 35° con α = −40°, a 45,5° con α = −60°: sono pose che la marcia non usa.",
+     "Femore in alto: con γ = 90° il dorso del femore tocca la cima dell'anima della coxa a α = +96°, dentro la corsa del servo (+97,5): va limitato nel firmware, per esempio a +90°.",
+     "Femore in basso: il ventre tocca l'anima della coxa solo a α = −103°; prima si ferma il servo, a −62,5°.",
+     "Ginocchio aperto: nessun contatto fino a 210°; il limite è il servo, a 175°.",
+     "Coxa: l'anima sta a 22 mm dall'asse e la gondola entro 20,5, quindi nessun contatto a nessun angolo. Per ±45° il corpo deve stare 14 mm dietro l'asse per |y| ≤ 32 e 9 mm fino a |y| = 45; il servo dà ±80°."
+    ],
+    "metodo": "Script Python senza librerie esterne (campo script_verifica), salvato solo in /tmp/zampa_esc/verifica.py: la repo non è stata modificata. È un modello 2D nel piano XZ della zampa, diviso in tre strati lungo Y: cassone del femore, bracci +Y, guance −Y. Parti in strati diversi non possono toccarsi.\nCome sono rappresentate le parti:\n- il femore è uno stadio di raggio 19,4 tagliato a z −12,05 e +16,45, con i servo chiusi dentro;\n- la coxa è un blocco pieno dietro l'anima (x ≤ −20,5, z da −31,55 a +29,55), che comprende in modo conservativo gondola, braccio superiore, piastra e corpo, più il fianco +Y e la guancia −Y;\n- la tibia è fatta di anima, stinco trapezio e piede tondo, più braccio e guancia; la tibia intera è contata anche negli strati dei bracci, sempre per stare dalla parte della sicurezza.\nC'è contatto quando la distanza tra due contorni convessi è sotto 1 mm (test di separazione sugli assi più distanza vertice-lato).\nRisultati:\n- griglia α da −40 a +75 e γ da 30 a 160 a passi di 5°: tutta libera tranne γ = 30° con α tra −40 e −30 (piede contro la coxa). Il rettangolo minimo richiesto (α −30…65 × γ 40…150) e quello α −40…75 × γ 35…160 sono liberi;\n- limiti di un giunto alla volta a passi di 0,5° e chiusura del ginocchio per α da −60 a +90: valori nella lista dei contatti;\n- pose di appoggio e volo (passo 60, alzata 30) delle sei zampe, con la disposizione di calc/statica_tripode.py, nei sei assetti di dimensionamento.md: tutte libere e dentro la corsa dei servo. Il caso più chiuso è γ = 32,7° negli assetti 80/60 e 70/70;\n- ingombro in pianta della coxa che ruota di ±30°, ±45° e ±60°.\nLa statica usa calc/statica_tripode.py e calc/andature.py importati con una CONFIG modificata. Le masse sono calcolate a parte, come area del contorno per spessore."
+   },
+   "statica": "calc/statica_tripode.py con Lc 46,5, Lf 78, Lt 115, h 100, x_f0 45, passo 60, rail a 6 V (stallo dichiarato 11 kgf·cm):\n- a 2,60 kg (zampe da 70 g): femore 5,49 kgf·cm (50 %), ginocchio 5,07 kgf·cm (46 %). Con Lf 70 il ginocchio era al 39 %: con il femore più lungo il ginocchio sta 33 mm più in fuori del piede.\n- a 2,88 kg (zampe da 117 g, questa proposta): femore 6,08 kgf·cm (55 %), ginocchio 5,61 kgf·cm (51 %). Carico massimo su un piede 1,22 kgf, momento sul perno della coxa 14,0 kgf·cm. Se lo stallo vero fosse 9 kgf·cm le percentuali diventano 68 % e 62 %.\n- Fase di volo con alzata 30: fattibile in tutti gli assetti perché il ginocchio scende a 30°, con ginocchio tra 40° e 75° al punto di progetto. Con il limite di 40° del dimensionamento la fase di volo non è fattibile nemmeno con la geometria attuale della repo, a 100/45.\n- Assetti di calc/andature.py a 2,88 kg (tra parentesi a 2,60 kg):\n\n| Assetto (h / x_f0) | Tripode | A onda |\n|---|---|---|\n| 130/25 | 64 % (58) | 58 % |\n| 110/40 | 56 % (50) | 51 % |\n| 100/45 | 55 % (50) | 47 % |\n| 90/55 | 66 % (59) | 51 % |\n| 80/60 | 71 % (64) | 55 % |\n| 70/70 | 82 % (74) | 63 % |",
+   "massa_g": 117,
+   "cavi": "Coxa: il servo resta nel corpo. Il cavo esce dall'estremità esterna della cassa (z −15) e torna nel corpo in un canale lungo un fianco della gondola, da prevedere nel disegno del corpo.\n\nGinocchio: il cavo esce in punta al femore, gira nella baia di punta e risale nel canale da 4,4 tra cassa e dorso. Percorre tutto il femore dentro il cassone e scende nella baia dell'anca. Non attraversa mai il ginocchio ed è sempre chiuso nel femore.\n\nFemore: il cavo esce dalla cassa verso la coxa, direttamente nella baia dell'anca.\n\nPassaggio dell'anca: i due cavi lasciano il femore dalla feritoia 9 × 4 nel fondo (r 14 dall'asse dell'anca, verso la coxa). Entrano nella camera anulare della Coxa_Guancia (r 8,5–21), chiusa dal fondo del femore che le gira sopra. Ogni cavo, lungo circa 60 mm nella camera, si avvolge attorno al mozzo del perno da circa 170° a 330° sui 160° di corsa, stringendosi o allargandosi come la molla di un orologio.\n\nDalla coxa al corpo: i cavi escono dalla guancia nell'anima (feritoia 9 × 4) e salgono lungo l'anima sotto una clip. Passano sul braccio superiore ed entrano nel corpo sopra la gondola, attraversando l'asse della coxa entro 15 mm: per ±45° serve un'ansa di circa 40 mm sotto il guscio.\n\nSpine JR: tutte le feritoie sono 9 × 4, quindi la spina (7,9 × 2,75) passa. Il cavo del ginocchio si posa nel canale prima di chiudere il coperchio, senza doverlo infilare.\n\nLunghezze stimate fino a una SSC-32 al centro del corpo:\n- ginocchio 345–375 mm: il cavo del servo è 32 cm, quindi servono sei prolunghe da 10–15 cm;\n- femore 235–265 mm;\n- coxa 120–150 mm.",
+   "rischi": [
+    "Massa: circa 117 g di parti stampate a zampa contro i 70 dell'obiettivo, cioè 280 g in più sul robot (2,88 kg). La coppia al punto di progetto passa dal 50 al 55 % dello stallo dichiarato, 68 % se lo stallo vero è 9 kgf·cm. Quasi tutto viene dalla superficie del cassone, largo 43 mm per contenere due servo: si alleggerisce poco senza aprire la sezione.",
+    "Ginocchio più caricato: con Lf 78 la sua coppia sale dal 39 al 46 % a 2,6 kg (51 % a 2,88 kg). Resta comunque sotto quella del femore.",
+    "Zampa larga 63,1 mm (64,8 con le teste delle viti). Con la coxa a ±45° il corpo deve stare 14 mm dietro l'asse della coxa per |y| ≤ 32 mm, e le zampe vicine si avvicinano: va controllato nell'assieme.",
+    "Inserti delle alette: il foro dell'aletta è a 3,5 mm dalla cassa, quindi tra inserto e sede del servo restano 1,2 mm, sotto il minimo di 1,6. La parete è sostenuta dalla cassa del servo, ma va provata sul provino. In alternativa: dadi quadri M3 prigionieri sotto le alette.",
+    "Camera dei cavi all'anca: idea non provata. I cavi JR non sono piatti come i flat dei contatti rotanti e possono incastrarsi o consumarsi contro il fondo del femore che gira. Va provata sul provino del giunto. Ripiego: un'ansa esterna in guaina, dalla feritoia del femore alla guancia.",
+    "Carico verticale della coxa: passa sul cuscinetto in basso solo se la Coxa_Piastra tocca l'anello interno senza gioco; altrimenti una parte va sull'albero del servo della coxa, in trazione. Servono spessori sotto la piastra, regolati al montaggio.",
+    "Squadretta metallica non ancora scelta: le quote ±26,35 degli appoggi partono dall'altezza totale della squadretta, 5,5 mm (da confermare). Se cambia, cambia la larghezza della zampa e coxa e tibia vanno ristampate, anche se i parametri sq_* aggiornano il modello.",
+    "Quote del servo sopra le alette incerte (cassa tra 8,2 e 10,2): il coperchio sta 0,4 sopra il caso peggiore e il foro Ø21,2 lascia solo 0,35 per lato sulla torretta Ø20,5. Da confermare sul provino.",
+    "Anelli di battuta con 0,4 di gioco dai bracci: se le tolleranze di stampa li fanno strisciare aggiungono attrito; se il gioco è maggiore, la spinta lungo +Y va comunque sull'albero del servo.",
+    "La coxa è aperta verso il corpo e non può chiudersi, perché gira attorno alla gondola. La sua rigidezza dipende dal nodo tra fianco +Y, braccio superiore e anima, e dalle due piastre avvitate: da verificare con un provino caricato o con un calcolo FEM.",
+    "Stinco a canale nervato e non chiuso, per stamparlo senza supporti: a torsione è meno rigido. Accettabile, perché il piede sta sul piano medio.",
+    "Margine del ginocchio negli assetti più bassi: il volo a 80/60 e 70/70 chiede γ = 32,7°, a 2,7° dal contatto. Il margine cresce riducendo l'alzata.",
+    "Teste del femore: il raggio 19,4 coincide con gli spigoli delle alette, quindi in testa al cassone, all'altezza delle alette, servono due tacche alte 2,6 mm e lì la parete è interrotta. Va curato nello schizzo.",
+    "Il femore servo nell'anca può arrivare al contatto con l'anima della coxa a +96° prima della fine corsa (+97,5°): limite obbligatorio nel firmware."
+   ],
+   "script_verifica": "#!/usr/bin/env python3\n\"\"\"Verifica geometrica delle escursioni: zampa \"massima escursione e rigidezza\".\n\nArchitettura: i servo di anca e ginocchio stanno DENTRO il femore (cassone chiuso), con l'albero verso +Y;\ncoxa e tibia sono forcelle senza servo (braccio lato squadretta a +Y, guancia lato perno a -Y).\n\nTerna della zampa: origine sull'asse del femore, nel piano medio; X orizzontale verso l'esterno,\nY lungo l'asse del femore, Z in alto. Posa di riferimento: alpha = 0 (femore orizzontale), gamma = 90.\nalpha = femore sopra l'orizzontale; gamma = angolo interno al ginocchio (180 = distesa).\n\nModello 2D nel piano XZ, a strati lungo Y: due parti collidono solo se stanno nello stesso strato.\n  F  : y da -25.55 a +24.35  cassone del femore, anima della coxa e tutto cio' che sta dietro\n                             (gondola, braccio superiore, piastra inferiore, corpo: blocco unico,\n                             conservativo), tibia (anima, stinco, piede)\n  A+ : y da +24.75 a +29.55  bracci lato squadretta di coxa e tibia (piu' la tibia intera, conservativo)\n  A- : y da -33.55 a -26.75  guance lato perno di coxa e tibia (piu' la tibia intera, conservativo)\nI servo sono chiusi nel cassone del femore e ruotano con lui: non generano contatti propri.\nContatto = distanza tra i contorni minore del gioco P['gioco'].\n\nUso: python3 verifica.py\n\"\"\"\nimport math\n\nP = dict(\n    Lc=46.5, Lf=78.0, Lt=115.0,\n    # femore: cassone; teste a raggio fem_R attorno agli assi, tagliate dal fondo e dal dorso\n    fem_R=19.4,      # spigoli delle alette del servo a 19.4 mm dall'asse (17.05 ; 9.25)\n    fem_zb=-12.05,   # ventre: cassa 10.25 + gioco 0.2 + parete 1.6\n    fem_zt=16.45,    # dorso: cassa 10.25 + gioco 0.2 + canale del cavo 4.4 + parete 1.6\n    # coxa (fissa nella terna della zampa)\n    cox_web_x=-20.5,  # faccia esterna dell'anima: fem_R + 1.1 di gioco\n    cox_zb=-31.55, cox_zt=29.55,  # piastra inferiore e braccio superiore della forcella verticale\n    cox_arm_R=14.0, cox_arm_semi=14.0,  # braccio +Y: disco attorno all'asse del femore e fascia verso l'anima\n    cox_gua_R=23.0, cox_gua_semi=16.0,  # guancia -Y con la camera dei cavi (r 8.5..21)\n    # tibia (terna propria: u dal ginocchio verso il piede, v nel piano della zampa)\n    tib_rt=44.0,      # anima della forcella: distanza dall'asse del ginocchio (scelta con la scansione)\n    tib_web_l=10.0,   # spessore dell'anima lungo u\n    tib_semi=10.0,    # semispessore nel piano della zampa all'anima\n    tib_semi_p=7.0,   # semispessore sopra il piede\n    piede_r=8.0,      # puntale in TPU, calotta di raggio 8 con la punta a Lt\n    tib_arm_R=14.0, tib_arm_semi=12.0,\n    tib_gua_R=12.0, tib_gua_semi=10.0,\n    gioco=1.0,\n    # squadrette: posa a meta' corsa del servo e corsa utile\n    alpha_c=17.5, gamma_c=95.0, corsa=160.0,\n)\n\n\n# ------------------------------------------------------------------ geometria piana\ndef cerchio(cx, cz, r, n=36):\n    return [(cx + r * math.cos(2 * math.pi * i / n), cz + r * math.sin(2 * math.pi * i / n)) for i in range(n)]\n\n\ndef rett(x0, z0, x1, z1):\n    return [(x0, z0), (x1, z0), (x1, z1), (x0, z1)]\n\n\ndef inviluppo(pts):\n    pts = sorted(set(pts))\n    if len(pts) < 3:\n        return pts\n    def cr(o, a, b):\n        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])\n    lo, hi = [], []\n    for p in pts:\n        while len(lo) >= 2 and cr(lo[-2], lo[-1], p) <= 0:\n            lo.pop()\n        lo.append(p)\n    for p in reversed(pts):\n        while len(hi) >= 2 and cr(hi[-2], hi[-1], p) <= 0:\n            hi.pop()\n        hi.append(p)\n    return lo[:-1] + hi[:-1]\n\n\ndef taglia(poly, a, b, c):\n    \"\"\"Sutherland-Hodgman: tiene la parte con a*x + b*z <= c.\"\"\"\n    out = []\n    n = len(poly)\n    for i in range(n):\n        p, q = poly[i], poly[(i + 1) % n]\n        fp, fq = a * p[0] + b * p[1] - c, a * q[0] + b * q[1] - c\n        if fp <= 0:\n            out.append(p)\n        if (fp < 0 < fq) or (fq < 0 < fp):\n            t = fp / (fp - fq)\n            out.append((p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])))\n    return out\n\n\ndef trasforma(poly, ox, oz, ex, ez):\n    \"\"\"Punti (u, v) della terna locale -> (x, z): origine (ox, oz), asse u = (ex, ez), asse v = u ruotato di -90.\"\"\"\n    vx, vz = ez, -ex\n    return [(ox + u * ex + v * vx, oz + u * ez + v * vz) for u, v in poly]\n\n\ndef ruota(poly, ang):\n    c, s = math.cos(ang), math.sin(ang)\n    return [(c * x - s * z, s * x + c * z) for x, z in poly]\n\n\ndef _bbox(p):\n    xs = [a for a, _ in p]\n    zs = [b for _, b in p]\n    return min(xs), min(zs), max(xs), max(zs)\n\n\ndef _sovrapposti(p, q):\n    for poly in (p, q):\n        n = len(poly)\n        for i in range(n):\n            (x1, z1), (x2, z2) = poly[i], poly[(i + 1) % n]\n            nx, nz = z2 - z1, x1 - x2\n            a = [nx * x + nz * z for x, z in p]\n            b = [nx * x + nz * z for x, z in q]\n            if max(a) < min(b) or max(b) < min(a):\n                return False\n    return True\n\n\ndef _d_ps(px, pz, x1, z1, x2, z2):\n    dx, dz = x2 - x1, z2 - z1\n    L = dx * dx + dz * dz\n    t = 0.0 if L == 0 else max(0.0, min(1.0, ((px - x1) * dx + (pz - z1) * dz) / L))\n    return math.hypot(px - x1 - t * dx, pz - z1 - t * dz)\n\n\ndef distanza(p, q, soglia):\n    \"\"\"Distanza tra due poligoni convessi (0 se si sovrappongono); oltre la soglia basta sapere che e' grande.\"\"\"\n    a, b = _bbox(p), _bbox(q)\n    if a[0] - b[2] > soglia or b[0] - a[2] > soglia or a[1] - b[3] > soglia or b[1] - a[3] > soglia:\n        return soglia + 1\n    if _sovrapposti(p, q):\n        return 0.0\n    d = 1e9\n    for s, t in ((p, q), (q, p)):\n        n = len(t)\n        for px, pz in s:\n            for i in range(n):\n                (x1, z1), (x2, z2) = t[i], t[(i + 1) % n]\n                d = min(d, _d_ps(px, pz, x1, z1, x2, z2))\n    return d\n\n\ndef dist_corpi(A, B, soglia):\n    return min(distanza(p, q, soglia) for p in A for q in B)\n\n\n# ------------------------------------------------------------------ parti\ndef femore(P):\n    \"\"\"Cassone del femore nella sua terna (asse dell'anca nell'origine, ginocchio in (Lf, 0)).\"\"\"\n    pts = cerchio(0, 0, P['fem_R'], 72) + cerchio(P['Lf'], 0, P['fem_R'], 72)\n    poly = inviluppo(pts)\n    poly = taglia(poly, 0, 1, P['fem_zt'])\n    poly = taglia(poly, 0, -1, -P['fem_zb'])\n    return [poly]\n\n\ndef coxa(P, strato):\n    \"\"\"Coxa fissa nella terna della zampa: anima + tutto cio' che sta dietro (blocco), piu' braccio o guancia.\"\"\"\n    out = [rett(-200, P['cox_zb'], P['cox_web_x'], P['cox_zt'])]\n    if strato == 'A+':\n        # fianco +Y: inviluppo del disco attorno all'asse dell'anca e dell'attacco all'anima (alto quanto la coxa)\n        out += [inviluppo(cerchio(0, 0, P['cox_arm_R']) + rett(P['cox_web_x'] - 1, P['cox_zb'], P['cox_web_x'], P['cox_zt']))]\n    if strato == 'A-':\n        out += [cerchio(0, 0, P['cox_gua_R']), rett(P['cox_web_x'], -P['cox_gua_semi'], 0, P['cox_gua_semi'])]\n    return out\n\n\ndef tibia_locale(P, strato):\n    \"\"\"Tibia nella sua terna (u dal ginocchio verso il piede, v nel piano della zampa).\"\"\"\n    rt, wl, s, sp, r, Lt = P['tib_rt'], P['tib_web_l'], P['tib_semi'], P['tib_semi_p'], P['piede_r'], P['Lt']\n    out = [rett(rt, -s, rt + wl, s),\n           [(rt + wl, -s), (Lt - r, -sp), (Lt - r, sp), (rt + wl, s)],\n           cerchio(Lt - r, 0, r)]\n    if strato == 'A+':\n        out += [cerchio(0, 0, P['tib_arm_R']), rett(0, -P['tib_arm_semi'], rt, P['tib_arm_semi'])]\n    if strato == 'A-':\n        out += [cerchio(0, 0, P['tib_gua_R']), rett(0, -P['tib_gua_semi'], rt + wl, P['tib_gua_semi'])]\n    return out\n\n\ndef posa(P, alpha, gamma):\n    \"\"\"Parti mobili nella terna della zampa per (alpha, gamma) in gradi.\"\"\"\n    a, g = math.radians(alpha), math.radians(gamma)\n    fem = [ruota(p, a) for p in femore(P)]\n    # direzione della tibia nella terna del femore: a gamma dalla direzione ginocchio -> anca, verso il basso\n    ux, uz = -math.cos(g), -math.sin(g)\n    tib = {}\n    for s in ('F', 'A+', 'A-'):\n        loc = [trasforma(p, P['Lf'], 0.0, ux, uz) for p in tibia_locale(P, s)]\n        tib[s] = [ruota(p, a) for p in loc]\n    return fem, tib\n\n\ndef contatti(P, alpha, gamma):\n    fem, tib = posa(P, alpha, gamma)\n    g = P['gioco']\n    trovati = []\n    if dist_corpi(fem, coxa(P, 'F'), g) < g:\n        trovati.append('femore-anima coxa')\n    if dist_corpi(tib['F'], fem, g) < g:\n        trovati.append('tibia-femore')\n    if dist_corpi(tib['F'], coxa(P, 'F'), g) < g:\n        trovati.append('tibia-coxa/corpo')\n    for s, nome in (('A+', 'braccio tibia-braccio coxa'), ('A-', 'guancia tibia-guancia coxa')):\n        if dist_corpi(tib[s], coxa(P, s)[1:], g) < g:\n            trovati.append(nome)\n    return trovati\n\n\n# ------------------------------------------------------------------ cinematica per gli assetti di marcia\ndef ik(x_f, h, lf, lt):\n    d = math.hypot(x_f, h)\n    if d > lf + lt or d < abs(lf - lt):\n        return None\n    c = (lf * lf + d * d - lt * lt) / (2 * lf * d)\n    alpha = math.atan2(-h, x_f) + math.acos(max(-1, min(1, c)))\n    cg = (lf * lf + lt * lt - d * d) / (2 * lf * lt)\n    return math.degrees(alpha), math.degrees(math.acos(max(-1, min(1, cg))))\n\n\ndef scansione(P, amin=-40, amax=75, gmin=30, gmax=160, passo=5):\n    alfa = list(range(amin, amax + 1, passo))\n    gam = list(range(gmin, gmax + 1, passo))\n    griglia = {}\n    for a in alfa:\n        for gg in gam:\n            griglia[(a, gg)] = contatti(P, a, gg)\n    return alfa, gam, griglia\n\n\ndef stampa(P, alfa, gam, griglia):\n    print('Griglia: \".\" libero, F femore-anima coxa, T tibia-femore, C tibia-coxa/corpo, '\n          'B braccio tibia-braccio coxa, G guancia tibia-guancia coxa')\n    sig = {'femore-anima coxa': 'F', 'tibia-femore': 'T', 'tibia-coxa/corpo': 'C',\n           'braccio tibia-braccio coxa': 'B', 'guancia tibia-guancia coxa': 'G'}\n    print('gamma\\\\alpha ' + ''.join(f'{a:>4d}' for a in alfa))\n    for gg in reversed(gam):\n        riga = ''\n        for a in alfa:\n            c = griglia[(a, gg)]\n            riga += '   ' + (sig[c[0]] if c else '.')\n        print(f'{gg:>10d} ' + riga)\n    tutti = {}\n    for k, v in griglia.items():\n        for c in v:\n            tutti.setdefault(c, []).append(k)\n    print('\\nContatti trovati (numero di pose, esempi):')\n    for c, ks in tutti.items():\n        print(f'  {c}: {len(ks)} pose, per esempio {sorted(ks)[:4]}')\n    # campo di gamma libero per ogni alpha\n    print('\\nCampo libero di gamma a ogni alpha (contiguo attorno a 90):')\n    for a in alfa:\n        lib = [gg for gg in gam if not griglia[(a, gg)]]\n        lo = hi = 90 if 90 in lib else None\n        if lo is None:\n            print(f'  alpha {a:+4d}: nessuno')\n            continue\n        while lo - 5 in lib:\n            lo -= 5\n        while hi + 5 in lib:\n            hi += 5\n        print(f'  alpha {a:+4d}: gamma {lo}..{hi}')\n\n\ndef rettangolo_libero(griglia, a0, a1, g0, g1):\n    return all(not griglia[(a, g)] for (a, g) in griglia if a0 <= a <= a1 and g0 <= g <= g1)\n\n\ndef limiti_singoli(P):\n    \"\"\"Limiti meccanici di un giunto alla volta, a passi di 0.5 gradi, con l'altro in posa di riferimento.\"\"\"\n    def primo(f, x0, dx, lim):\n        x = x0\n        while abs(x - x0) < lim and not f(x):\n            x += dx\n        return x\n    out = {}\n    out['alpha_su'] = primo(lambda a: bool(contatti(P, a, 90)), 0, 0.5, 200)\n    out['alpha_giu'] = primo(lambda a: bool(contatti(P, a, 90)), 0, -0.5, 200)\n    out['gamma_chiuso'] = primo(lambda g: bool(contatti(P, 0, g)), 90, -0.5, 90)\n    out['gamma_aperto'] = primo(lambda g: bool(contatti(P, 0, g)), 90, 0.5, 120)\n    return out\n\n\n# assi delle coxe come in calc/statica_tripode.py: (x, y, direzione neutra della zampa in gradi)\nCOXE = {\"AS\": (95.0, 60.0, 45.0), \"MS\": (0.0, 78.0, 90.0), \"PS\": (-95.0, 60.0, 135.0),\n        \"AD\": (95.0, -60.0, -45.0), \"MD\": (0.0, -78.0, -90.0), \"PD\": (-95.0, -60.0, -135.0)}\n\n\ndef assetti(P, passo=60.0, alzata=30.0, n=9):\n    \"\"\"Pose di femore e ginocchio richieste dagli assetti di dimensionamento.md, per le sei zampe:\n    piede che scorre di +-passo/2 lungo l'asse del robot, a terra e alzato di `alzata`.\"\"\"\n    righe = []\n    for h, xf0 in ((130, 25), (110, 40), (100, 45), (90, 55), (80, 60), (70, 70)):\n        pose = []\n        for cx, cy, phi in COXE.values():\n            r = P['Lc'] + xf0\n            fx, fy = cx + r * math.cos(math.radians(phi)), cy + r * math.sin(math.radians(phi))\n            for i in range(n):\n                d = -passo / 2 + passo * i / (n - 1)\n                xf = math.hypot(fx - d - cx, fy - cy) - P['Lc']\n                for dz in (0.0, alzata):\n                    s = ik(xf, h - dz, P['Lf'], P['Lt'])\n                    if s is None:\n                        return None\n                    pose.append(s)\n        a = [p[0] for p in pose]\n        g = [p[1] for p in pose]\n        righe.append((h, xf0, min(a), max(a), min(g), max(g), pose))\n    return righe\n\n\ndef ingombro_coxa(P, theta_max, passo=1.0):\n    \"\"\"Pianta (vista dall'alto) della coxa che ruota di +-theta_max attorno al suo asse.\n    Terna centrata sull'asse della coxa: x_c verso l'esterno lungo la direzione neutra, y lungo l'asse del femore.\n    Ritorna, per fasce di y, la x_c piu' interna raggiunta: il corpo deve stare dietro (gioco escluso).\"\"\"\n    lc = P['Lc']\n    web0, web1 = lc + P['cox_web_x'] - 4.0, lc + P['cox_web_x']\n    poligoni = [rett(web0, -33.55, web1, 29.55),                  # anima, larga quanto la zampa\n                rett(12.0, 24.75, lc + 14, 29.55),                # fianco +Y, rientra fino a x_c = 12\n                inviluppo(cerchio(0, 0, 13) + rett(12.0, -13.0, web0, 29.55)),   # braccio superiore\n                rett(web1, -33.55, lc + 23, -26.75)]              # guancia -Y\n    punti = []\n    for p in poligoni:\n        for i in range(len(p)):\n            (x1, y1), (x2, y2) = p[i], p[(i + 1) % len(p)]\n            k = max(2, int(math.dist((x1, y1), (x2, y2)) / 0.5))\n            punti += [(x1 + (x2 - x1) * j / k, y1 + (y2 - y1) * j / k) for j in range(k)]\n    fasce = {}\n    t = -theta_max\n    while t <= theta_max + 1e-9:\n        c, s_ = math.cos(math.radians(t)), math.sin(math.radians(t))\n        for x, y in punti:\n            xr, yr = c * x - s_ * y, s_ * x + c * y\n            f = int(math.floor(yr / 5.0)) * 5\n            fasce[f] = min(fasce.get(f, 1e9), xr)\n        t += passo\n    return dict(sorted(fasce.items()))\n\n\nif __name__ == '__main__':\n    print('Parametri:', {k: P[k] for k in ('Lc', 'Lf', 'Lt', 'fem_R', 'fem_zb', 'fem_zt', 'cox_web_x', 'tib_rt',\n                                          'tib_semi', 'gioco')})\n    alfa, gam, gr = scansione(P)\n    stampa(P, alfa, gam, gr)\n    print('\\nRettangoli:')\n    for r in ((-30, 65, 40, 150), (-40, 75, 35, 160), (-40, 75, 30, 160)):\n        print(f'  alpha {r[0]}..{r[1]} x gamma {r[2]}..{r[3]}: {\"LIBERO\" if rettangolo_libero(gr, *r) else \"con contatti\"}')\n    print('\\nLimiti di un giunto alla volta (passo 0.5 gradi):', limiti_singoli(P))\n    print(f\"\\nCorsa dei servo con le squadrette a meta' corsa: femore alpha {P['alpha_c'] - P['corsa'] / 2:+.1f}..\"\n          f\"{P['alpha_c'] + P['corsa'] / 2:+.1f}; ginocchio gamma {P['gamma_c'] - P['corsa'] / 2:.1f}..\"\n          f\"{P['gamma_c'] + P['corsa'] / 2:.1f}\")\n    print('\\nChiusura del ginocchio in funzione di alpha (passo 0.5 gradi):')\n    for a in range(-60, 96, 10):\n        g = 90.0\n        while g > 10 and not contatti(P, a, g):\n            g -= 0.5\n        print(f'  alpha {a:+4d}: gamma libero fino a {g + 0.5:.1f}  ({\", \".join(contatti(P, a, g)) or \"-\"})')\n    a_lo, a_hi = P['alpha_c'] - P['corsa'] / 2, P['alpha_c'] + P['corsa'] / 2\n    g_lo, g_hi = P['gamma_c'] - P['corsa'] / 2, P['gamma_c'] + P['corsa'] / 2\n    print('\\nAssetti (sei zampe, passo 60, appoggio e volo con alzata 30): pose libere e dentro la corsa dei servo?')\n    for h, xf0, a0, a1, g0, g1, pose in assetti(P):\n        libere = all(not contatti(P, a, g) for a, g in pose)\n        corsa = a_lo <= a0 and a1 <= a_hi and g_lo <= g0 and g1 <= g_hi\n        print(f'  h {h:3d} x_f0 {xf0:3d}: alpha {a0:+5.1f}..{a1:+5.1f}  gamma {g0:5.1f}..{g1:5.1f}  '\n              f'{\"tutte libere\" if libere else \"CONTATTI\"}, {\"dentro la corsa\" if corsa else \"FUORI CORSA\"}')\n    print('\\nPianta della coxa che ruota: x_c piu\\' interna raggiunta per fasce di y (il corpo deve stare dietro)')\n    for th in (30, 45, 60):\n        f = ingombro_coxa(P, th)\n        crit = {k: round(v, 1) for k, v in f.items() if v < 15}\n        print(f'  +-{th} gradi: {crit}')\n"
+  }
+ ],
+ "giudizi": [
+  {
+   "giudice": "geometria",
+   "valutazioni": [
+    {
+     "proposta": "scalata",
+     "punteggio": 7.5,
+     "difetti_bloccanti": [],
+     "difetti_minori": [
+      "Massa probabilmente sottostimata. Con le quote dichiarate ricostruisco circa 82 cm³ di pieno contro 70,9: Coxa circa 25 contro 20,5, Tibia circa 24 contro 19,9, Ponte circa 6,9 contro 5,0. Sono circa 90–98 g a zampa, non 84, quindi il punto di progetto sale verso il 52 % al femore.",
+      "Il rimedio proposto per α max non funziona. A +79,7° (gioco 1 mm) è la parete lato anca del blocco, a metà altezza (z_f circa 14), a toccare lo spigolo esterno alto del Ponte (X −10,45; Z 22,75), non lo spigolo del blocco. Lo smusso 'in testa al blocco' da solo dà 0°. Nel volo dell'assetto 70/70 si usa α 79,0, cioè margine nullo.",
+      "Il rettangolo richiesto non è tutto libero: 5 pose a contatto pieno (γ 40 con α da −30 a −10) e una a 0,99 mm (α −5), stinco contro le alette e le bugne in coda della culla del femore. Assottigliare lo stinco lungo +Y non basta, perché il contatto passa alle bugne. Resta un limite γ_min(α) da imporre in firmware.",
+      "Pila assiale incoerente: il blocco è quotato da −27,35 a +27,35 (a contatto con Femore_A), ma il testo prevede una luce di progetto di 0,6 da chiudere con spessori.",
+      "Coassialità del giunto coxa affidata a 2 viti M3: la squadretta sta nel Ponte, il perno nel braccio inferiore, e nessun centraggio tra Ponte e anima. Un disassamento carica di lato l'albero del servo.",
+      "Anima della Coxa da 4,23: non è un multiplo di 0,4.",
+      "Parete tra la gola del fermacavo e l'inserto M3 sul lato del cavo: 0,65 mm con l'inserto Ø4,6 (0,85 con il foro Ø4,2), non 1,0 come dichiarato.",
+      "Cavo del femore lungo il fianco −Y del Ponte: se sale fino al bordo alto del Ponte, a α 79 il blocco passa a 1,2 mm. Va tenuto sotto Z 19,5 (lì restano 4,3 mm).",
+      "Zampe vicine AS–MS / MS–PS: contatto in pianta con ±30° ciascuna, una verso l'altra (lo dichiara).",
+      "Coxa più bassa: punto più basso a −38,35, luce h − 38 (lo dichiara)."
+     ],
+     "punti_forti": [
+      "Tutti i numeri geometrici dichiarati si riproducono con un modello indipendente: α da −46,5 a +79,7, γ 29,5 per α ≥ 35, 454 pose su 460 del rettangolo, minimo 1,11 mm sulle andature.",
+      "Nessun montaggio impossibile. Femore_B entra lungo +Y con il blocco libero nella posa α 17,5 / γ 95. Perni premuti al banco. Gola del fermacavo prevista. Spessori dove serve, cioè tra Ponte e anima e tra Femore_A e blocco.",
+      "Il cavo del servo di coxa esce già dentro lo scafo: nessun ritorno sotto il servo.",
+      "Architettura già provata sulla versione MG90S, nessun pezzo stampato con supporti, viti delle squadrette accessibili dall'esterno.",
+      "Statica corretta e onesta: 49,4 % a 2,6 kg, 51 % a 2,68 kg. Ha notato che con gamma_min 40 il volo a 100/45 non è fattibile."
+     ],
+     "verifiche_fatte": "Modello 2D mio, ricostruito dalle quote del testo e non dallo script fornito: poligoni convessi più intervallo Y per culle, bugne, cassa, alette, teste delle viti, anima, braccio, Ponte, gondola, piastre, blocco e stinco; contatto se gli intervalli Y si sovrappongono (tolleranza 0,1) e la distanza nel piano è sotto il gioco. Prima di fidarmi ho trovato e corretto due errori miei. Pila Y ricalcolata: larghezza 61,1, perno 12 coerente (5,2 + 0,4 + 4 + 1 + 1,4), fondo interno a 0,4 sotto il servo da 28,8. Risultati: α max +79,7 (blocco contro Ponte), α min −46,5 (blocco contro culla); γ_min 43,5 a α −30, 38,5 a α 0, 33,5 a α 17,5, 29,5 per α ≥ 35; rettangolo 454 su 460 come dichiarato; pose dei 6 assetti con Lc 55 tutte libere, minimo 1,11 mm a 80/60 e 70/70. Smussi provati: 4×4 sul blocco +0°; 3×3 sul Ponte +1,8°; Ponte 3×3 più blocco 6×6 fino a +84,8°. Statica rilanciata (statica_tripode.py, Lc 55): 49,4 % / 38,6 % a 2600 g, 51,0 % / 39,8 % a 2680 g; volo con gamma_min 40 non fattibile (γ 39,0), con 0 da +5,4 a +40 e da 39 a 77,5. Pianta AS–MS: 43,6 mm a ±17°, contatto a ±30,0°. Volumi stimati a mano: circa 82 cm³ contro 70,9. Parete tra inserto e gola: 0,65 mm."
+    },
+    {
+     "proposta": "compatta",
+     "punteggio": 5.5,
+     "difetti_bloccanti": [
+      "Il servo non si cala nella culla come descritto. Il fermacavo sporge 1,0 mm dal lato corto, ma la sede ha 0,2 di gioco e la parete di testata ha solo la finestra 9 × 5,2 in fondo: manca la gola dall'orlo alla finestra, sia nella Coxa sia nella Tibia. Aggiungendo la gola, l'inserto M3 a x_s −13,75 resta a 0,29 mm (inserto Ø4,6) o 0,59 mm (foro Ø4,0) dalla gola: bisogna spostare o cambiare gli inserti.",
+      "Giunto coxa senza registro assiale. La Coxa è una forcella monolitica che 'scorre a filo sotto la flangia', con il rialzo e la flangia sullo stesso piano a Z −34,0 e luce zero. Né spessori né pezzo di registro, contro ±0,5 mm di incertezza tra le fonti sulla quota alette–albero e un'altezza della squadretta non ancora nota. Se la pila è lunga la zampa non entra; se è corta c'è gioco, e le viti della squadretta caricano l'albero."
+     ],
+     "difetti_minori": [
+      "Accoppiamento ginocchio–femore: 18 pose del rettangolo richiesto in contatto (α ≤ +10 con γ 40–50; γ_min 53,5 a α −30, 44,5 a α 0). È il limite peggiore delle tre proposte, anche se lo dichiara.",
+      "Perni forzati a montaggio finito: il perno della coxa si spinge da sotto, quelli di femore e ginocchio attraverso Femore_B già avvitata. La forza di piantaggio passa dalla forcella alle squadrette e tira gli alberi dei servo.",
+      "Cavo del servo di coxa con una U stretta nel naso e una scanalatura sotto il servo, a 1,4 mm dalla sede del cuscinetto. Lo dichiara come il punto più delicato.",
+      "La Coxa chiede due supporti alti 14 mm sotto i bracci.",
+      "Zona libera dichiarata 'r 24 nel settore esterno', ma i bracci (fino a X −10,45, Y ±13) in imbardata spazzano fino a circa r 27.",
+      "Punta del piede incoerente: nucleo Ø14 centrato a 103 con la punta a 110, ma il cappuccio Ø16 porta il contatto a 111.",
+      "Viti M3 × 6 con 2,0 mm di piastra sopra il disco: sporgono 1,5 sotto il disco e possono toccare il mozzo della squadretta (quota C).",
+      "Margine di stabilità 50 mm contro 54. Il corpo perde 33 mm verso il centro per ogni servo di coxa."
+     ],
+     "punti_forti": [
+      "La più leggera e compatta: 63,8 g (volumi di Femore_A e Tibia ricostruiti e coerenti), larga 58,3, Lc 34.",
+      "Numeri geometrici riprodotti: α da −62,5 a +99,5; volo a parabola libero in tutti gli assetti con minimo 3,13 mm.",
+      "Statica corretta: 50,7 % al femore e 29,5 % al ginocchio a 2,6 kg; volo fattibile con gamma_min 40 (γ 40,5).",
+      "In pianta è la migliore tra zampe vicine: contatto solo a ±32°.",
+      "Femore_B usato come pezzo di registro, ristampabile: buona idea per femore e ginocchio."
+     ],
+     "verifiche_fatte": "Modello indipendente con il corpo a simmetria radiale attorno all'asse di coxa (X −34,05, Y +3,25). Ogni elemento ha il raggio massimo da asse (alette 19,4, bugne e naso 18,5, teste 17,4, cassa 14,5) e la sua estensione in Y (|Y − 3,25| < r). Un primo inviluppo esteso a tutte le Y dava contatti falsi delle piastre, poi corretti. Risultati: α max +99,5 (scatola contro braccio superiore), α min −62,5 (scatola contro culla); γ_min 53,5 / 49,5 / 44,5 / 40,5 / 37 / 33,5 / 31 a α −30 / −15 / 0 / 10 / 20 / 30 / 65; 18 pose del rettangolo con contatto, come dichiarato. Andature (calc/statica_tripode.py, Lc 34,05, Lf 60, Lt 110): parabola minimo 3,13 mm a 80/60; prudente 1,81 mm a 90/55 e contatto a γ 29,8 per 80/60 e 70/70, come dichiarato. Statica rilanciata: 5,58 kgf·cm (50,7 %) e 3,24 (29,5 %) a 2600 g; 50,0 % a 2563 g. Pila Y 58,3 e perno 10 coerenti. Pianta AS–MS: 38,2 mm a ±17°, contatto a ±32°. Parete tra inserto e gola: 0,29–0,59 mm. Nel testo cercato 'fermacavo': assente."
+    },
+    {
+     "proposta": "robusta",
+     "punteggio": 6,
+     "difetti_bloccanti": [
+      "La camera dei cavi all'anca non è chiusa. L'anello r 8,5–21 della Coxa_Guancia è coperto dal fondo del femore solo per il 70 %. Restano scoperte la corona r 19,4–21 (il femore ha raggio 19,4) e le lunette sotto Z −12,05 e sopra +16,45, che girano con α. I due cavi possono uscire dalla camera ed essere pizzicati tra il ventre o il dorso del femore e il labbro o l'anima della coxa. È l'unico passaggio previsto per entrambi i cavi."
+     ],
+     "difetti_minori": [
+      "Massa 117 g a zampa (+67 % sull'obiettivo di 70): robot da 2,88 kg, punto di progetto al 55,3 % al femore e 51,0 % al ginocchio. È il difetto più pesante dopo la camera.",
+      "Lf 78 sposta carico sul ginocchio: 46 % a 2,6 kg e 58 % (64 % a 2,88 kg) nell'assetto 130/25.",
+      "Gondola R 20,5 non dimostrata: il cavo del servo di coxa esce dal lato corto verso la zampa e deve tornare in un 'canale lungo un fianco della gondola' senza quote. Una curva a U più un canale laterale finiscono verosimilmente oltre r 20,5, contro un'anima a r 22.",
+      "Servono sei prolunghe per i ginocchi (cavo da 345–375 mm): componente in più, non approvato nel BOM.",
+      "Zampe vicine: in pianta contatto AS–MS a ±29,8–30,1°. Non è riportato.",
+      "Viti M3 × 8 delle squadrette con 3,2 mm di braccio sopra il disco: sporgono 2,3 mm sotto il disco, probabile interferenza con il mozzo (quota C). Bastano M3 × 6.",
+      "Fermacavo non trattato: tra tasca e baia serve una gola, e con gli inserti a −13,75 restano 0,3–0,6 mm.",
+      "Anelli di battuta con 0,6 mm radiali sul disco Ø20, che è una quota C. Tacche passanti nella parete delle teste dove sporgono gli spigoli delle alette.",
+      "Sette pezzi stampati più il piedino. Coxa a C aperta, stinco a canale aperto (rigidezza da provare)."
+     ],
+     "punti_forti": [
+      "Le escursioni migliori, verificate: rettangolo richiesto tutto libero anche con gioco 1 mm; α da −103 a +96 (limitano i servo); γ 29,5 per α ≥ −20.",
+      "Femore a cassone chiuso; il cavo del ginocchio non attraversa mai il ginocchio.",
+      "Montaggio e smontaggio solo a viti, perni premuti al banco nei pezzi smontabili, servo del femore sostituibile senza toccare il corpo.",
+      "Luce migliore vicino al corpo: punto più basso a −31,55 contro circa −38,4 delle altre.",
+      "Statica riportata correttamente: 49,9 % / 46,1 % a 2,6 kg, 55,3 % / 51,0 % a 2,88 kg."
+     ],
+     "verifiche_fatte": "Modello a strati mio: cassone come inviluppo R 19,4 sugli assi a 0 e 78, tagliato a −12,05 e +16,45, Y −22,75…+20,65. Coxa con l'anima a X −24,5…−20,5 e tutto ciò che sta dietro come blocco pieno, fianco +Y e guancia con il labbro. Tibia con anima a u 44–54, stinco, piede R8, braccio e guancia. Risultati: α +96,0 e −103; γ_min 29,5 (α da 0 a 65), 31 a α −30, 34,5 a α −40; rettangolo libero con gioco 1 mm; pose dei 6 assetti con volo prudente tutte libere (il minimo 1,1 mm è il gioco testa–anima). Statica rilanciata (Lc 46,5, Lf 78): 5,49 / 5,07 kgf·cm a 2600 g, 6,08 / 5,61 a 2880 g; volo con gamma_min 40 fattibile (γ 40,3 a 100/45). Volume di Femore_Vasca ricostruito: circa 30 cm³ (dichiarati 29,1). Copertura della camera dei cavi calcolata per campionamento dell'anello: 70 %. Pianta AS–MS: 38,0 mm a ±17°, contatto a ±29,8–30,1°. Pila Y 63,1 coerente; perni 12 coerenti."
+    }
+   ],
+   "raccomandazione": "Base: la proposta 'scalata' (P1). È l'unica senza difetti bloccanti. Tutti i suoi numeri geometrici e statici si riproducono con un modello indipendente, e i limiti che ha li dichiara (angolo γ 40 con α ≤ −5, α max 79, zampe vicine a ±30). L'architettura è già provata sulla versione MG90S, non servono supporti e tutti i montaggi tornano.\nDa innestare da 'compatta' (P2):\n- piastre del femore da 2,4 tra i giunti e 4,0 solo sui dischi, e fondo delle culle piano con tasche interne da 2,0: servono a riportare la massa vera (circa 90–98 g) verso 80 g;\n- l'idea del pezzo di registro ristampabile, in alternativa agli spessori, per la pila di femore e ginocchio;\n- il servo di coxa con la coda verso il centro (Lc circa 34, coxa più leggera) solo come opzione da valutare con la pianta del corpo, perché porta con sé l'ansa del cavo sotto il servo, che resta da provare.\nDa innestare da 'robusta' (P3):\n- la regola di avere ogni perno premuto al banco in un pezzo smontabile e ogni vite raggiungibile dall'esterno, da mantenere anche negli alleggerimenti;\n- le viti M3 × 6 sui dischi (non × 8), da controllare contro il mozzo della squadretta quando sarà scelta.\n'robusta' resta l'alternativa se l'utente vuole escursioni senza accoppiamenti. Prima però va riprogettato il passaggio dei cavi all'anca, perché la camera è aperta per il 30 %, e va accettato un robot di 2,88 kg con il punto di progetto al 55 %. Da 'compatta' non prendere la Coxa monolitica senza registro né i perni forzati a montaggio finito.",
+   "correzioni_necessarie": [
+    "Rifare il calcolo della massa dal CAD (la stima da 84 g è bassa: dalle quote risultano circa 82 cm³ pieni, cioè 90–98 g) e alleggerire: piastre 2,4 fuori dai mozzi, finestre nell'anima e nelle pareti del blocco, fondo delle culle con tasche interne. Poi rilanciare calc/statica_tripode.py con la massa vera; oggi a 2680 g il femore è al 51,0 %.",
+    "α max: il contatto a +79,7 (gioco 1 mm) è la parete lato anca del blocco contro lo spigolo esterno alto del Coxa_Ponte (X −10,45; Z 22,75). Smussare quello spigolo del Ponte di 3 × 3 e lo spigolo alto lato anca del blocco di 6 × 6: si arriva a +84,8 e si ha margine per il volo 70/70 (α 79,0). Lo smusso solo sul blocco non dà nulla.",
+    "Rettangolo richiesto: a γ 40 con α da −30 a −5 lo stinco tocca le alette e le bugne in coda della culla del femore, e assottigliare lo stinco non risolve. Imporre in firmware γ_min(α) = 43,5 a α −30, 38,5 a α 0, 33,5 a α 17,5, 29,5 per α ≥ 35, e dirlo all'utente come eccezione al requisito.",
+    "Pila assiale: quotare il blocco di Femore_B fino a +26,75 (luce di 0,6 verso Femore_A) e lasciare la stessa luce tra Ponte e anima. Tenere il registro con spessori da 0,2 / 0,4 / 0,6, oppure con un pezzo di registro ristampabile come in P2.",
+    "Centrare il Coxa_Ponte sull'anima con una spina o una linguetta a incastro, oltre alle 2 viti M3: la coassialità tra squadretta (Ponte) e perno (braccio inferiore) non può dipendere dal gioco delle viti.",
+    "Anima della Coxa da 4,23 a 4,4 (multiplo di 0,4): Lc 55,2, oppure gioco anima–gondola da 1,0 a 0,83.",
+    "Inserti M3 sul lato del cavo: con l'inserto Ø4,6 restano 0,65 mm verso la gola del fermacavo. Gola profonda 0,8 (sporgenza 1,0 meno gioco 0,2) e inserti spostati di 0,6 verso l'estremità (il massimo che il foro Ø4,2 permette con una vite M3): circa 1,0 mm. In alternativa dadi quadri prigionieri. Da confermare sul provino.",
+    "Cavo del femore lungo il fianco −Y del Ponte: tenerlo sotto Z 19,5 con una clip (a α 79 il blocco passa a 4,3 mm; a filo del bordo alto del Ponte solo a 1,2).",
+    "Zampe vicine AS–MS e MS–PS: contatto in pianta con ±30° ciascuna una verso l'altra. Limite firmware sull'imbardata relativa, oppure distanziare le coxe nella pianta del corpo.",
+    "Ricalcolare la luce da terra con il punto più basso della Coxa a −38,35 (non −30): 61,6 mm a h 100, 31,6 a h 70.",
+    "Firmware: corsa dei servo oltre i contatti (femore −62,5…+97,5, ginocchio 15…175). I limiti di α e γ vanno imposti in funzione della posa, con i valori qui sopra."
+   ]
+  },
+  {
+   "giudice": "struttura",
+   "valutazioni": [
+    {
+     "proposta": "scalata",
+     "punteggio": 6,
+     "difetti_bloccanti": [
+      "Il peso del corpo arriva al cuscinetto della coxa solo in parte. Il braccio inferiore (5,2 × 18,9 mm, sbalzo di 40,3 mm dall'anima al perno, I = 221 mm⁴) flette di 0,30 mm sotto 10,8 N e ha 5,1 MPa alla radice. Squadretta e rialzo vincolano entrambi lo spostamento verticale e il Ponte è più rigido del braccio (16,8 µm/N contro 28,2 µm/N con il Ponte da 5,7 mm). Ne segue che il cuscinetto prende solo il 40–66 % del peso, secondo lo spessore reale del Ponte (5,7 o 4,0 mm). Il resto tira l'albero del servo di coxa. Gli spessori non risolvono il problema: un precarico non cambia come si ripartisce il carico. Il braccio va irrigidito (nervatura verso il basso, sezione a T) oppure accorciato girando la coda del servo di coxa verso l'interno."
+     ],
+     "difetti_minori": [
+      "La chiusura della C (Coxa_Ponte) è avvitata con 2 M3 su spessori e sta sul percorso della coppia d'imbardata. Allo stallo del servo di coxa (1079 N·mm) e con le viti a circa 14 mm, ogni inserto prende circa 77 N di taglio. A questo si aggiungono 26 N di forza radiale dovuti ai 13 kgf·cm di ribaltamento. Spessori stampati sotto un giunto caricato si schiacciano col tempo (creep): vanno in acciaio o ottone.",
+      "La bugna in testa all'anima è alta 4,6 mm (Z 12,45–17,05) sopra la parete corta della culla. Sopra la tasca del servo restano 6,6 mm contro i 6,7 della regola (inserto 5,7 + 1). Sull'anima piena (4,23 mm) un foro Ø4,2 non ci sta. Servono inserti corti (M3 × 4) o un dado prigioniero.",
+      "Il perno della coxa è forzato in un foro orizzontale in stampa (goccia e alesatura): la tenuta del forzamento su 5,2 mm va provata. Femore e ginocchio hanno invece i fori verticali, quindi vanno bene.",
+      "Per cambiare il servo del femore o del ginocchio bisogna togliere Femore_A (12 viti: 8 nelle squadrette e 4 negli inserti del blocco). Al montaggio Femore_B deve infilare due perni in due cuscinetti insieme, mentre la Tibia è ancora libera (appesa solo al proprio servo).",
+      "La luce tra Femore_A e blocco si regola con un solo pacco di spessori, comune ad anca e ginocchio. Se i due servo differiscono nella quota alette–albero (±0,5 tra le fonti), uno dei due giunti resta con gioco o con precarico. Servono rondelle di spessore sul perno, giunto per giunto.",
+      "La flangia regge la spinta solo verso +Y. Verso −Y la spinta va sull'albero del servo di femore e ginocchio, in compressione (lo ammette la proposta stessa).",
+      "Le pareti del blocco, alte 54,7 mm, sono stampate in piedi: la trazione tra le due piastre lavora tra gli strati. Le sollecitazioni sono basse, ma il blocco non va usato come tirante.",
+      "Massa di 84 g contro 70. Coxa lunga (Lc 55) e bassa (38,35 mm sotto l'asse dei femori): in questa proposta sono i due sbalzi più lunghi."
+     ],
+     "punti_forti": [
+      "Tutte le parti si stampano senza supporti. Sono prismatiche lungo Y; le culle hanno l'orlo sul piatto e il fondo a ponte di 21 mm.",
+      "Il femore è chiuso da un blocco 27,5 × 22 con pareti da 1,6, integrale con Femore_B e fissato con 4 M3. Il momento da passare tra le piastre (circa 1030 N·mm, tra torsione da 5,4 N laterali e quota verticale) dà circa 18 N per vite. La rotazione relativa delle piastre è di 0,08°.",
+      "Piastre sollecitate poco: Femore_A ha 3,0 MPa con la coppia di stallo. Dietro ogni squadretta restano 3,2 mm di plastica (4 MPa di pressione sul foro allo stallo).",
+      "Il rialzo Ø6,2 tocca solo l'anello interno: per l'LF-1050ZZ il diametro di riferimento interno Li è 6,40 (scheda NMB).",
+      "Inserti della culla spostati di 0,4 mm verso le estremità: 1,6 mm di parete verso la sede (verificato).",
+      "Ponte separato e spessori permettono di regolare la pila assiale della coxa. Tutte le viti delle squadrette si raggiungono dall'esterno.",
+      "Il cavo del servo di coxa esce già dentro lo scafo."
+     ],
+     "verifiche_fatte": "Statica, ricalcolata con calc/statica_tripode.py: Lc 55 dà femore 5,44 kgf·cm (49 %) e tibia 39 % a 2600 g; femore 5,61 (51 %) a 2684 g; momento sulla coxa 13,5/14,0 kgf·cm; margine 58 mm. Tutto confermato.\nGeometria confermata: pila lungo Y da −30,55 a +30,55, cioè 61,1 mm; raggio della gondola hypot(38,35; 8,7) = 39,32; parete degli inserti 1,6.\nTrovata la profondità insufficiente per l'inserto del Ponte (6,6 mm disponibili).\nCalcoli a trave con E 3,5 GPa: braccio inferiore con freccia 0,30 mm e 5,1 MPa. Ripartizione rigidezza braccio/Ponte: 40–66 % del peso sul cuscinetto. Ribaltamento di 13 kgf·cm su 49,0 mm di interasse squadretta–cuscinetto: 26 N radiali.\nTorsione del blocco del femore: J 19 300 mm⁴, 0,08°, 18 N per vite. Ponte allo stallo della coxa: 77 N per vite."
+    },
+    {
+     "proposta": "compatta",
+     "punteggio": 4.5,
+     "difetti_bloccanti": [
+      "La Coxa è una forcella in un pezzo solo e la pila assiale del giunto di coxa non si può regolare. La distanza tra la sede della squadretta e il rialzo è fissata dalla stampa, mentre la quota alette–albero (±0,5) e l'altezza della squadretta sono incerte (C). In più il montaggio prevede che il braccio inferiore entri di lato con il rialzo (0,4 mm) che scorre 'a filo' sotto la flangia. Quindi o il pezzo si pianta, o resta luce: in quel caso, finché la luce non si chiude, il peso del corpo è appeso all'albero del servo di coxa. Il requisito 'carico assiale sull'anello interno' non è garantito. Serve un braccio inferiore separato e regolabile (come la Coxa_Piastra della proposta robusta) oppure una sede per rondelle di spessore.",
+      "Il femore si chiude in un solo punto. La 'scatola' (X 23–39, Z 2–14) è fatta di due anime da 1,6 aperte alle estremità ed è unita a Femore_B con sole 2 M3 più un labbro. Il momento da passare tra le piastre (circa 920 N·mm, tra torsione da 5,4 N laterali e quota verticale portata dalla piastra dei perni) dà circa 77 N di taglio per vite: 4 volte la proposta scalata. La rotazione relativa delle piastre è di circa 0,46°. Con il creep del PETG le viti perdono precarico e il femore prende gioco. Con Lf 60 la zona libera tra le culle è lunga solo 16 mm, quindi non si può allargare."
+     ],
+     "difetti_minori": [
+      "I rialzi Ø7 × 0,4 su perni e coxa sporgono oltre l'anello interno: per l'LF-1050ZZ il diametro di riferimento interno Li è 6,40 (scheda NMB), quindi strisciano sullo schermo ZZ. Vanno portati a Ø6,2 o meno.",
+      "Dietro le squadrette, in Femore_A e nel braccio superiore, restano solo 2,0 mm di plastica. La coppia di stallo passa per 4 M3 serrate su 2 mm: 6,4 MPa di pressione sul foro e precarico che si perde col creep. Il ripiego del dado M3 sotto il disco non entra: il dado è alto 2,4 mm e lo spazio è di 1,2.",
+      "La Coxa richiede due supporti alti 14 mm sotto i bracci. Il foro del perno della coxa è orizzontale in stampa. Il perno va spinto da sotto a robot montato, e per estrarlo resta 1 mm.",
+      "Le due anime della scatola sono alette libere alte 50 mm e spesse 1,6, stampate in piedi su Femore_A: c'è rischio di flessione durante la stampa, proprio in cima, dove stanno gli inserti.",
+      "Il cavo del servo di coxa passa sotto il fondo del servo. Ci sono 0,4 mm di luce con il servo da 28,8 mm, più una gola da 1,6 a 1,4 mm dalla sede del cuscinetto: il cavo può restare schiacciato al montaggio.",
+      "Inserti a 1,2 mm dalla sede del servo, senza usare l'asola aperta delle alette per spostarli in fuori. Mancano le nervature di schiacciamento nelle culle.",
+      "Per cambiare il servo di coxa bisogna togliere la zampa: due viti delle alette stanno sotto il braccio superiore.",
+      "Il braccio superiore ha la sede della squadretta aperta verso −X. Sotto carico normale la forza radiale (26 N) spinge sul lato chiuso, ma con carichi invertiti resta la tenuta delle sole viti."
+     ],
+     "punti_forti": [
+      "La coxa è la più corta e la più rigida: braccio inferiore con freccia 0,063 mm e 3,2 MPa sotto 10,8 N. Il cuscinetto prende il 57–65 % del peso (se la pila è giusta). È anche il momento di ribaltamento più basso (11,3 kgf·cm).",
+      "Anima, culla e bracci della coxa sono in un pezzo: la coppia d'imbardata non passa da giunti avvitati.",
+      "È la proposta più leggera (63,8 g) e con meno parti (4 più il piedino).",
+      "Il rialzo di Femore_B si ristampa per registrare ciascun giunto del femore separatamente.",
+      "Femore_A ha solo 3,4 MPa con la coppia di stallo."
+     ],
+     "verifiche_fatte": "Statica, ricalcolata: Lc 34,05, Lf 60, Lt 110 dà femore 5,58 kgf·cm (51 %), tibia 29 %, momento sulla coxa 11,3 kgf·cm, margine 50 mm. Confermato.\nGeometria confermata: pila di 58,3 mm (±29,15); Lc = 19,40 + 1 + 3,2 + 0,2 + 10,25.\nIl diametro del rialzo è stato confrontato con Li = 6,40 della scheda NMB.\nCalcoli a trave: braccio inferiore con freccia 0,063 mm e 3,2 MPa; 57–65 % del peso sul cuscinetto; momento tra le piastre e taglio sulle 2 viti di circa 77 N; 0,46°; 2,0 mm dietro le squadrette con 6,4 MPa.\nDalla formula dei volumi del suo script la scatola risulta formata da due sole anime."
+    },
+    {
+     "proposta": "robusta",
+     "punteggio": 7,
+     "difetti_bloccanti": [
+      "Femore_Vasca non si stampa come descritto. Le borchie dei cuscinetti sporgono di 2,8 mm sotto il fondo (faccia esterna del fondo a Y −22,75, borchie a −25,55). Messo 'fondo sul piano', il pezzo appoggia solo sulle due borchie Ø17,2 e tutto il fondo (circa 116 × 43 mm) resta sospeso. Quindi 'nessun supporto' non è vero. Rimedio: stampare con l'orlo aperto (+Y) sul piatto, come le culle della proposta scalata. Il fondo diventa un ponte di 21 mm sulle tasche e le borchie vengono in cima.",
+      "Massa di 117 g a zampa (+47 g, +280 g sul robot). Al punto di progetto il femore lavora al 55 % e il ginocchio al 51 % (68 % e 62 % se lo stallo vero è 9 kgf·cm). Dal punto di vista strutturale quel materiale non serve: in tutte le parti le tensioni calcolate sono di pochi MPa. Va alleggerita prima di modellare: canale dello stinco largo 51,5 mm, coxa da 21 cm³, guance da 4,8 mm."
+     ],
+     "difetti_minori": [
+      "La rigidezza 'circa 400 volte' vale solo se il coperchio trasmette il taglio lungo tutto il bordo. Ricalcolata viene 451 volte; la freccia è 0,046 mm con E 3,5 GPa. Il coperchio però è fissato con 4 M3 e ha due fori Ø21,2 sulle teste. Come U aperta il femore torcerebbe di 14° con 540 N·mm; in pratica lo tengono le casse dei servo e la paratia, che fanno da diaframmi. Servono 6–8 viti e un labbro su tutto il perimetro.",
+      "I rialzi Ø7 × 0,4 di guance e piastra sporgono oltre l'anello interno (Li 6,40, scheda NMB) e strisciano sullo schermo ZZ: vanno portati a Ø6,2 o meno.",
+      "I 5 inserti M3 vanno nell'anima della coxa, spessa 4 mm (2 per la guancia, 3 per la piastra), ma un inserto Ø4,6 richiede almeno 7,8 mm. Le bugne non sono descritte.",
+      "Gli inserti delle alette e quelli della paratia sono a 1,0–1,2 mm dalle tasche. L'asola aperta delle alette permette di spostarli in fuori.",
+      "Le viti delle squadrette M3 × 8 su 3,2 + 2,5 mm sporgono di 2,3 mm oltre il disco. Le punte girano a 1,3 mm dal gradino Ø13 della torretta, che ruota con il femore: bastano M3 × 6. Il raggio interno degli anelli di battuta (10,6) dipende dal diametro della squadretta (C): va reso parametrico.",
+      "Il fianco +Y della Tibia può arrivare solo muovendo la tibia lungo −Y, non '+Y' come scritto: va controllato nel CAD. Nel braccio superiore della Coxa i fori della squadretta di coxa sono orizzontali in stampa.",
+      "La camera dei cavi all'anca non è provata. Il labbro sta a 0,4 mm dal fondo del femore che ruota e la borchia rotante fa da parete interna nella parte alta: i cavi JR (circa 1,2 mm) possono pizzicarsi. Il cavo del ginocchio richiede sei prolunghe.",
+      "Sono 8 parti e 19 inserti per zampa. Gli spessori sotto la Coxa_Piastra vanno in metallo. Il canale del cavo del servo di coxa lungo la gondola è tutto da progettare nel corpo."
+     ],
+     "punti_forti": [
+      "Il femore è un cassone con i due servo avvitati dentro come nuclei: 0,03–0,05 mm di freccia al ginocchio con 30 N. La spinta verso +Y è presa dagli anelli del coperchio e quella verso −Y dal cuscinetto: l'albero è scaricato in entrambi i versi (oltre 0,4 mm).",
+      "È il miglior percorso del peso verso il cuscinetto della coxa. La Coxa_Piastra (4,8 mm, sbalzo 22 mm) ha 0,042 mm di freccia e 2,2 MPa, ed è più rigida del braccio superiore (3,2 mm): circa l'80 % del peso va sull'anello interno.",
+      "Ogni giunto ha la propria guancia o piastra smontabile, quindi la pila si regola giunto per giunto.",
+      "I fori dei perni sono tutti verticali in stampa (guance e piastra in piano). Anima, fianco e braccio superiore della coxa sono in un pezzo: la coppia d'imbardata non passa da viti.",
+      "Manutenzione: tutte le viti delle squadrette si raggiungono dall'esterno a zampa montata. Un servo si cambia senza toccare il corpo, ogni pezzo esce solo svitando e niente va forzato al montaggio.",
+      "Il cavo del ginocchio non attraversa il ginocchio. La coxa è la meno bassa (31,55 mm sotto l'asse dei femori)."
+     ],
+     "verifiche_fatte": "Statica, ricalcolata: Lc 46,5, Lf 78, Lt 115 dà 50 % / 46 % a 2600 g e 55 % / 51 % a 2882 g; carico su un piede 1,22 kgf; momento sulla coxa 14,0 kgf·cm. Confermato.\nLf minimo = 2 × 37,55 + 0,5 = 75,6. Confermato.\nJ chiuso 58 900 mm⁴ contro 131 mm⁴ aperto (451 volte); I 29 500 mm⁴, freccia 0,046 mm.\nRipartizione tra piastra e braccio superiore: 80–82 % sul cuscinetto, con la larghezza della piastra stimata in 28 mm dal volume di 3,8 cm³. Ribaltamento: 25,8 N radiali su 49,5 mm.\nDalle quote dichiarate: le borchie sporgono di 2,8 mm sotto il fondo; le viti M3 × 8 lasciano 1,3 mm dalla torretta. Rialzo confrontato con Li = 6,40."
+    }
+   ],
+   "raccomandazione": "Con la lente struttura, stampa e montaggio consiglio come base la proposta robusta: i servo di anca e ginocchio dentro un femore a cassone, coxa e tibia come forcelle senza servo, e una guancia o piastra smontabile per ogni giunto.\n\nÈ l'unica che rispetta i requisiti dei giunti in modo robusto:\n- circa l'80 % del peso arriva sull'anello interno del cuscinetto della coxa;\n- la spinta assiale non passa dall'albero in nessuno dei due versi;\n- la pila si regola giunto per giunto;\n- i fori dei perni sono verticali in stampa;\n- tutte le viti delle squadrette si raggiungono dall'esterno e un servo si cambia senza toccare il corpo.\n\nPrima di modellarla vanno corretti due difetti:\n- l'orientamento di stampa del femore (con l'orlo sul piatto non servono supporti);\n- la massa: va portata verso 90–95 g. Le tensioni calcolate sono di pochi MPa, quindi il materiale in eccesso non serve, e con meno massa la coppia del femore scende verso il 52–53 %.\n\nIdee da innestare:\n- dalla proposta scalata: rialzo Ø6,2 (sotto Li 6,40 dell'LF-1050ZZ), inserti spostati verso l'esterno lungo l'asola delle alette fino ad avere almeno 1,6 mm di parete, culle stampate con l'orlo sul piatto e fondo a ponte;\n- dalla proposta compatta: registro assiale con spessori o rialzi rifatti per ogni giunto, servo finto in sede durante la posa degli inserti.\n\nSe il giudice della coppia e della massa scarta comunque la proposta robusta, la seconda scelta è la proposta scalata. Ha bisogno però di tre correzioni:\n- braccio inferiore della coxa irrigidito (oggi porta al cuscinetto solo il 40–66 % del peso), oppure coda del servo di coxa verso l'interno per accorciare Lc;\n- spessori metallici e inserti corti sotto il Coxa_Ponte;\n- rondelle di registro per ciascun perno.\n\nLa proposta compatta, nella forma attuale, non è adatta come base: la coxa in un pezzo non si può regolare in senso assiale, il femore è chiuso da 2 sole viti e i rialzi strisciano sullo schermo.",
+   "correzioni_necessarie": [
+    "Femore_Vasca: stamparla con l'orlo aperto (+Y) sul piatto. Il fondo da 1,6 diventa un ponte di 21 mm sulle tasche e le borchie dei cuscinetti (che sporgono 2,8 mm, Y −22,75…−25,55) vengono in cima. Così non servono supporti; i fori degli inserti si aprono verso il piatto.",
+    "Rialzi sull'anello interno (Coxa_Guancia, Tibia_Guancia, Coxa_Piastra): Ø6,2 al massimo, con foro Ø5,2. Il diametro di riferimento interno dell'LF-1050ZZ è Li = 6,40 (scheda NMB): a Ø7 il rialzo striscia sullo schermo ZZ.",
+    "Anima della coxa, spessa 4 mm: aggiungere bugne di almeno 7,8 mm (inserto Ø4,6 più 2 × 1,6) per i 5 inserti M3 di guancia e piastra, oppure usare dadi prigionieri.",
+    "Inserti delle alette nella vasca e nella paratia: spostarli verso l'esterno lungo l'asola aperta delle alette (fino a 2,5 mm), in modo da lasciare almeno 1,6 mm di parete verso la tasca (oggi 1,0–1,2). Aggiungere nervature di schiacciamento da tarare sul provino.",
+    "Coperchio del femore: fissarlo con 6–8 M3 e un labbro su tutto il perimetro, perché trasmetta davvero il taglio del cassone. In alternativa non contare sulla sezione chiusa nel calcolo: come U aperta il femore torcerebbe di 14° con 540 N·mm, e reggono solo i diaframmi (paratia e casse dei servo).",
+    "Massa: portarla da 117 g a circa 90–95 g a zampa. Tutte le tensioni calcolate sono sotto i 5 MPa. Interventi: stinco più stretto in Y (oggi 51,5 mm all'anima) e, se si stampa senza supporti, a sezione chiusa invece che a canale aperto; guance da 3,2 mm con nervature invece di 4,8; finestre nell'anima della coxa lontano dai bracci. Poi rilanciare calc/statica_tripode.py con la nuova massa.",
+    "Viti delle squadrette: M3 × 6 (presa 3,2 + 2,5 mm). Con le M3 × 8 le punte sporgono di 2,3 mm e girano a 1,3 mm dalla torretta del servo, che ruota con il femore.",
+    "Anelli di battuta del coperchio: raggio interno parametrico, pari a sq_d/2 + 0,6, perché il diametro della squadretta è ancora da confermare.",
+    "Spessori sotto la Coxa_Piastra e sotto le guance: in acciaio o ottone calibrati, non stampati, con una sede che li tenga centrati. Prevedere uno spessore per ogni giunto.",
+    "Montaggio della tibia: verificare nel CAD la direzione d'ingresso. Il braccio +Y può arrivare solo muovendo la tibia lungo −Y, a guancia tolta.",
+    "Camera dei cavi all'anca: luce tra il labbro e il fondo rotante del femore di almeno 1,5 mm (oggi 0,4). Prima del CAD definitivo va provata sul provino del giunto, con il ripiego dell'ansa esterna in guaina già disegnato.",
+    "Corpo: progettare insieme alla gondola il canale laterale per il cavo del servo di coxa, che ha la coda verso l'interno e il cavo che esce verso l'esterno a z −15. Lasciare il gioco di 1,5 mm tra anima e testa della gondola (raggio 20,5) anche con le bugne degli inserti modellate come blocchi."
+   ]
+  },
+  {
+   "giudice": "sistema",
+   "valutazioni": [
+    {
+     "proposta": "scalata",
+     "punteggio": 7.5,
+     "difetti_bloccanti": [],
+     "difetti_minori": [
+      "Massa: 84 g a zampa, cioè 14 g sopra l'obiettivo (robot da 2684 g). Al punto di progetto il femore lavora al 51 % dello stallo (5,61 kgf·cm). L'assetto 130/25 arriva al 53 % ed è il ginocchio a limitarlo.",
+      "Lc 55: con le posizioni delle coxe di CONFIG l'asse del femore delle zampe medie sta a y 133 (compatta 112, robusta 124,5), quindi il robot è 21 mm per lato più largo di compatta. Inerzia attorno alla coxa stimata circa 2,1 volte quella di compatta. Si recupera spostando gli assi delle coxe verso l'interno, perché l'interno del corpo resta libero.",
+      "α max +79 coincide con la richiesta di 70/70 con il piede alzato per tutta la corsa: margine 0. Con il volo a parabola la richiesta scende a +70 (9° di margine). In 80/60 e 70/70 con volo pieno γ 30 sta a +0,1° dal γ_min(α) dichiarato.",
+      "Zampe vicine AS–MS ruotate una verso l'altra: 0,6 mm a ±30° (contatto), 36,3 mm a ±21°, 43,6 a ±17°. Serve un limite di imbardata nel firmware per le coppie adiacenti.",
+      "Frase errata: \"nel raggio di 67 mm dall'asse il dorso del corpo deve restare sotto Z 16\". 67 è la X nella terna della zampa: il Ponte arriva solo 12 mm dietro l'asse coxa (r ≈ 17 con il tondo R12) e 44,6 davanti, sopra la gondola. Il vincolo sul corpo è molto più leggero.",
+      "Spessori sciolti da 0,2 a 0,6 in due punti per zampa (12 pacchetti da tarare sul robot).",
+      "La spinta assiale verso −Y non va sul cuscinetto (la flangia lavora da un lato solo) e finisce sull'albero del servo.",
+      "Luce h − 38,35: 8 mm meno della stima del dimensionamento (31,6 mm a 70/70).",
+      "6 pose del rettangolo richiesto hanno contatto (α da −30 a −5 con γ 40): nessuna andatura le usa.",
+      "Cavo del ginocchio delle zampe d'angolo: la mia stima è 300–330 mm fino al centro del corpo, contro 320 mm dichiarati (S). Probabili 2 prolunghe (voce C5)."
+     ],
+     "punti_forti": [
+      "Servo di coxa fuori dallo scafo con il cavo che esce già verso il centro: nessuna ansa di ritorno. La gondola entra solo 17,85 mm dietro l'asse: tra le gondole medie restano 120 mm, contro 79 nelle altre due proposte.",
+      "La coxa non entra nello scafo quando gira: anima e piastre restano davanti all'asse fino a circa ±50°, quindi lo scafo non ha bisogno di tacche.",
+      "Coppie uguali al riferimento a parità di massa (la coppia dipende da x_f, non da Lc). Con le posizioni di CONFIG ha il margine di stabilità più alto (58 mm).",
+      "Architettura già provata nella prima versione (ansa del cavo, perni, culle), corretta con numeri nei quattro punti dove la scala la rompe. Il blocco cavo al posto del puntone chiude la sezione.",
+      "Unica delle tre con la parete tra inserto e sede a 1,6 mm (inserti spostati di 0,4 nell'asola dell'aletta).",
+      "Nessun supporto in stampa, 6 parti, tutto avvitato. Tutte le pose dei sei assetti sono libere."
+     ],
+     "verifiche_fatte": "Rilanciato calc/statica_tripode.py con Lc 55, Lf 70, Lt 115:\n- a 2600 g: femore 5,44 kgf·cm (49 %), tibia 4,24 (39 %), margine 58 mm, momento sulla coxa 13,5 kgf·cm;\n- a 2684 g: femore 5,61 (51 %), tibia 4,38 (40 %), momento 14,0. Coincide con la proposta.\n- Volo: non fattibile con gamma_min 40 (il ginocchio scende a 39°); con 30, α da +5 a +40 e γ da 39 a 77. Coincide.\n\ncalc/andature.py a 2684 g:\n- tripode 53 / 46 / 51 / 61 / 66 / 76 %, a onda 48 / 41 / 39 / 47 / 51 / 58 %: coincide.\n- Volo pieno a 70/70: α da +34 a +79; a parabola fino a +70.\n\nGeometria:\n- Ricalcolata Lc: 39,32 + 1 + 4 + 10,25 + 0,2, arrotondato a 55. Pila lungo Y 61,1.\n- Pianta AS–MS (modello mio a rettangoli): 66,3 / 43,6 / 36,3 / 0,6 mm a 0 / 17 / 21 / 30°. Coincide con i 43,6 dichiarati.\n- Inerzia attorno alla coxa (masse puntiformi): 1584, contro 762 di compatta e 1743 di robusta (unità relative). Sollevamento in volo 0,66 kgf·cm.\n- Pose di marcia contro il γ_min(α) dichiarato: margine minimo +0,1° con volo pieno a 80/60 e 70/70.\n\nInnesto provato: Lc 55, Lf 65, Lt 110 a 2640 g dà femore 50 % e ginocchio 35 %, tripode a 130/25 46 % (contro 53 %), α richiesto fino a +78 e γ minimo 32."
+    },
+    {
+     "proposta": "compatta",
+     "punteggio": 6.5,
+     "difetti_bloccanti": [
+      "Il rettangolo delle escursioni minime, dichiarato vincolante (α da −30 a +65 × γ da 40 a 150), non è libero. Con α < +15 il ginocchio non chiude sotto 45–55° (a α −30 serve γ ≥ 55). Nessuna andatura usa quelle pose, ma il requisito è violato su una zona ampia, ed è una conseguenza di Lf 60 e della culla che pende sotto l'anca, non di un dettaglio. Si risolve solo chiedendo all'utente di riformulare il requisito nello spazio del piede, oppure cambiando la geometria."
+     ],
+     "difetti_minori": [
+      "Cavo del servo di coxa: con la coda verso il centro esce verso l'esterno e torna indietro con un'ansa nel naso della gondola e una scanalatura nel fondo, a 1,4 mm dalla sede del cuscinetto. Il dettaglio più fragile finisce in Corpo_Base, il pezzo più grande da ristampare.",
+      "Servo di coxa dentro lo scafo. La gondola entra 38,35 mm dietro l'asse, e dietro ogni asse serve una zona libera di 16 mm a tutta altezza per la forcella. Con le posizioni di CONFIG la bugna della gondola d'angolo passa a 1,3 mm dall'angolo di un vano batteria 146 × 52 centrato, prima ancora delle pareti del vano. Tra le gondole medie restano 79 mm.",
+      "La Coxa si stampa con due supporti alti 14 mm.",
+      "Parete tra inserto e sede di 1,2 mm, sotto l'1,6 richiesto. Si corregge spostando gli inserti di 0,4 come in scalata.",
+      "Femore: le due piastre sono unite solo da una scatola 16 × 12 con 2 viti, e la piastra B ha teste R10. Coassialità perni–squadrette e rigidezza torsionale della forcella vanno provate.",
+      "Margine di stabilità 50 mm con le posizioni di CONFIG (54 nel riferimento).",
+      "Con il volo a piede alzato per tutta la corsa, 80/60 e 70/70 vanno in contatto (γ 30 contro 35, −5,2°). Sono libere solo con il volo a parabola.",
+      "Massa probabilmente ottimistica: dalle quote della proposta la Coxa mi risulta tra 20 e 24 cm³ (dichiarati 20,3), e il cavo del ginocchio in zampa tra 210 e 230 mm (dichiarati 190). Prolunghe probabili per le zampe d'angolo."
+     ],
+     "punti_forti": [
+      "Ginocchio al 29 % (Lf 60). È l'unica che porta l'assetto alto 130/25 al 40 %; il femore resta tra 50 e 51 %.",
+      "64 g a zampa, sotto l'obiettivo. Inerzia attorno alla coxa circa metà di scalata; sollevamento in volo 0,51 kgf·cm.",
+      "Volo fattibile anche con gamma_min 40.",
+      "4 parti più il piedino. La larghezza si registra ristampando il rialzo di Femore_B invece di usare spessori sciolti: idea da riusare.",
+      "Femore libero da −62 a +99. Con le zampe vicine contrapposte a ±30° restano 7,3 mm (le altre due vanno in contatto)."
+     ],
+     "verifiche_fatte": "calc/statica_tripode.py con Lc 34,05, Lf 60, Lt 110:\n- a 2600 g: femore 5,58 kgf·cm (51 %), tibia 3,24 (29 %), margine 50 mm, momento sulla coxa 11,3 kgf·cm;\n- a 2563 g (massa dichiarata): 50 % e 29 %.\n- Volo con gamma_min 40: α da +5 a +42, γ da 40 a 86.\nCoincide con la proposta.\n\ncalc/andature.py a 2563 g: tripode 40 / 45 / 50 / 59 / 64 / 73 %, a onda 36 / 35 / 39 / 46 / 49 / 56 %. Coincide con la tabella della proposta.\n\nGeometria:\n- Raggio degli spigoli delle alette 19,40 e pila 58,3: ricalcolati, giusti.\n- Inerzia attorno alla coxa: 762 contro 1584 di scalata (circa −52 %). La proposta dichiara −46 % rispetto a 53/70/115: coerente.\n- Pose di marcia contro il γ_min(α) dichiarato: libere con volo a parabola; con volo pieno −5,2° a 80/60 e 70/70, come la proposta stessa ammette.\n- Pianta AS–MS: 55,4 / 38,2 / 33,9 / 7,3 mm a 0 / 17 / 21 / 30°.\n- Gondola d'angolo contro un vano batteria 146 × 52 centrato: 1,3 mm.\n- Osservazione di sistema: a parità di spazio libero nel corpo la distanza dal centro all'asse del femore è quasi uguale a scalata (servo di coxa dentro contro fuori). Lc corta riduce l'inerzia, non l'ingombro del robot."
+    },
+    {
+     "proposta": "robusta",
+     "punteggio": 4.5,
+     "difetti_bloccanti": [
+      "Massa e coppia, per architettura. Con 117 g a zampa il robot arriva a 2882 g: al punto di progetto femore al 55 % e ginocchio al 51 %, cioè entrambi i giunti oltre il 50 %. L'assetto 130/25 va al 64 %, il 70/70 all'82 %. I due servo nello stesso cassone impongono Lf ≥ 75,6, quindi il ginocchio non si scarica accorciando il femore. La massa viene dalla superficie del cassone, e la proposta stessa dice che non si alleggerisce senza aprire la sezione. Le zampe da sole fanno 702 g di parti stampate, contro un budget di 790 g per zampe e corpo insieme. Non si corregge con ritocchi."
+     ],
+     "difetti_minori": [
+      "I cavi di femore e ginocchio attraversano l'anca in una camera a molla d'orologio mai provata, con il fondo del femore che ci gira sopra. Il ripiego è un'ansa esterna in guaina.",
+      "Cavo del ginocchio di 345–375 mm contro 320: 6 prolunghe certe, cioè connettori dentro la zampa e componenti in più (l'utente preferisce evitarli). I cavi del femore delle zampe d'angolo sono al limite.",
+      "Servo di coxa dentro lo scafo, con il cavo che esce verso l'esterno e torna in un canale lungo la gondola. Dietro ogni asse serve una tacca di 14 mm per |y| ≤ 32 a tutta altezza (da −31,6 a +29,6). È lo scafo che perde più spazio.",
+      "Zampa larga 63,1 mm (64,8 con le teste delle viti). Con le zampe vicine contrapposte a ±30° c'è contatto; a ±21° restano 31,1 mm, la distanza minore delle tre.",
+      "Parete tra inserto e sede di 1,2 mm, sotto l'1,6 richiesto. Il foro Ø21,2 del coperchio lascia 0,35 mm per lato sulla torretta.",
+      "Inerzia attorno alla coxa la più alta, sollevamento in volo 0,87 kgf·cm.",
+      "8 parti, 19 inserti e circa 31 viti a zampa: il montaggio, moltiplicato per sei, è il più lungo.",
+      "La coxa è aperta verso il corpo: la rigidezza del nodo tra fianco, braccio e anima va verificata."
+     ],
+     "punti_forti": [
+      "Campo libero molto ampio (α da −103 a +96, γ da 30 a 210): il rettangolo richiesto è tutto libero e i limiti li danno i servo.",
+      "Femore a cassone chiuso: rigido, protegge servo e cavi; il cavo del ginocchio non flette al ginocchio.",
+      "Luce migliore: il punto più basso è a −31,55, 7 mm più in alto delle altre due.",
+      "Tutte le viti delle squadrette si raggiungono a zampa montata; il servo del femore si cambia senza toccare il corpo; nessun supporto in stampa.",
+      "Estetica: il femore chiuso e liscio è il più vicino a \"futuristico ma minimale\".",
+      "Con Lf 78 il volo resta fattibile anche con gamma_min 40."
+     ],
+     "verifiche_fatte": "calc/statica_tripode.py con Lc 46,5, Lf 78, Lt 115:\n- a 2600 g: femore 5,49 kgf·cm (50 %), ginocchio 5,07 (46 %);\n- a 2882 g: femore 6,08 (55 %), ginocchio 5,62 (51 %), momento sulla coxa 14,0 kgf·cm, margine 54 mm.\nCoincide con la proposta.\n\ncalc/andature.py a 2882 g: tripode 64 / 56 / 55 / 66 / 71 / 82 %, a onda 58 / 51 / 47 / 51 / 55 / 63 %. Coincide.\n\nControprova: con la stessa massa, Lf 70 darebbe il ginocchio al 43 % e Lf 60 al 33 %, ma questa architettura non scende sotto 75,6.\n\nAltre verifiche:\n- Pianta AS–MS: 48,8 / 34,2 / 31,1 / 0,0 mm a 0 / 17 / 21 / 30°, la più vicina a ogni angolo.\n- Pose di marcia contro il γ_min(α) dichiarato: margine di almeno 2,7°.\n- Cavo del ginocchio: circa 300 mm già dentro la zampa fino all'asse della coxa, quindi prolunghe certe, come dichiarato."
+    }
+   ],
+   "raccomandazione": "Consiglio di adottare come base \"scalata\".\n\n**Perché scalata.** A livello di sistema è quella che si integra meglio nel corpo:\n- il servo di coxa resta fuori dallo scafo e il suo cavo esce già verso il centro;\n- l'interno del corpo resta libero: tra le gondole medie ci sono 120 mm contro 79;\n- non servono tacche nello scafo per la rotazione della coxa.\n\nHa le stesse coppie del riferimento a parità di massa (51 % e 40 % a 2684 g, verificato), un'architettura già provata, nessun supporto e l'unica parete degli inserti a 1,6 mm. Il suo prezzo (Lc 55, 84 g) si corregge senza cambiare architettura.\n\n**Perché non le altre due.**\n- **Compatta:** la sua Lc corta non riduce l'ingombro del robot, perché a parità di spazio nel corpo il servo di coxa rientra di 38 mm nello scafo. In cambio porta:\n  - il cavo di coxa che torna indietro dentro Corpo_Base;\n  - due supporti in stampa;\n  - inserti a 1,2 mm dalla sede;\n  - un rettangolo delle escursioni non rispettato.\n- **Robusta:** è fuori dall'obiettivo del 50 % per architettura. Entrambi i giunti sono oltre il 50 % al punto di progetto, servono 6 prolunghe e la camera dei cavi non è provata.\n\n**Cosa innestare da compatta:**\n- **Femore più corto:** Lf 65 e Lt 110 (oppure 60/110, se la verifica delle escursioni lo regge). Il ginocchio passa dal 40 al 35 % (30 % con Lf 60) e l'assetto 130/25 dal 53 al 46 %. Si allenta anche la richiesta di escursione: α fino a +78 invece di +79, γ minimo 32 invece di 30.\n- **Piastre più leggere:** 2,4 mm tra i giunti e 4,0 sui mozzi, squadretta incassata di 2,0 mm. La pila si stringe di circa 2,8 mm.\n- **Registro di larghezza:** un rialzo ristampabile di Femore_B al posto degli spessori sciolti.\n\n**Cosa innestare da robusta:**\n- le superfici di battuta per la spinta verso −Y, così il carico non arriva all'albero del servo;\n- la tabella dei limiti di firmware in funzione della posa;\n- le feritoie 9 × 4 per far passare le spine JR.\n\nNon innestare il cassone: costa massa e impone un femore lungo.",
+   "correzioni_necessarie": [
+    "Rifare la verifica delle escursioni di scalata con Lf 65 e Lt 110: blocco del femore da X 21,5 a 44, con lo smusso, e tutte le pose dei sei assetti con volo pieno e a parabola. Se resta libero, provare anche 60/110 e scegliere la coppia minore che lascia libere tutte le andature.",
+    "Alleggerire la zampa a 75 g o meno: piastre da 2,4 fuori dai mozzi, mozzi da 4,0 con la squadretta incassata di 2,0, finestre più grandi in anima, blocco e braccio inferiore. Poi rilanciare la statica con la massa calcolata dal CAD: obiettivo femore al 50 % o meno a 100/45.",
+    "Smussare la testa del blocco verso l'anca (circa +4°), per avere margine su α max anche nel volo a piede alzato a 70/70.",
+    "Correggere il vincolo sul dorso del corpo. Non vale \"sotto Z 16 nel raggio di 67 mm\", ma sotto Z 16 entro circa 17 mm dietro l'asse della coxa (Ponte 12 mm più il tondo R12) e entro circa 46 mm nel settore esterno, sopra la gondola.",
+    "Nel progetto del corpo, riposizionare gli assi delle coxe: con le gondole fuori dallo scafo si possono portare verso l'interno, recuperando l'ingombro dovuto a Lc 55. Ricontrollare le zampe vicine e mettere nel firmware un limite di imbardata per le coppie adiacenti: contatto a ±30° contrapposti, 36 mm a ±21°.",
+    "Scrivere la tabella dei limiti di firmware γ_min(α) e α_max, perché la corsa dei servo (17,5 ± 80 al femore, 95 ± 80 al ginocchio) va oltre i contatti.",
+    "Togliere gli spessori sciolti dove si può (rialzo ristampabile di Femore_B, battuta tarata del Ponte) e aggiungere una superficie di battuta per la spinta verso −Y, così il carico non tira l'albero del servo.",
+    "Fissare il percorso dei cavi nel corpo prima di posizionare la SSC-32. La mia stima per i ginocchi delle zampe d'angolo è 300–330 mm contro 320 dichiarati: decidere le prolunghe (voce C5) dal CAD.",
+    "Aggiornare la voce D2 del BOM: perni Ø5 × 12 invece di 16–20 mm.",
+    "Aggiornare dimensionamento.md e la costante FONDO di calc/andature.py: la luce reale è h − 38,35, non h − 30. Il γ minimo utile al ginocchio è circa 30–32, non 40.",
+    "Nel provino della culla e del giunto: inserti spostati di 0,4 mm con parete da 1,6, gola del fermacavo a 1,0 mm dagli inserti, e una prova del carico radiale di circa 30 N sull'albero del servo di coxa (coppia di forze tra cuscinetto e squadretta a 46 mm)."
+   ]
+  }
+ ]
+}
