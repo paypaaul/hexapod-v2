@@ -14,7 +14,7 @@ Questa repo è la memoria del progetto: una sessione nuova deve poter ripartire 
 | 1. Studio di ciò che cambia | **fatta** (2026-10-08, studio ridotto): `docs/studio-componenti.md`, `docs/dimensionamento.md` (preliminare), `docs/dimensioni-componenti.md` |
 | 2. BOM e revisione | **fatta e approvata** (2026-10-08): `docs/BOM.md` v2.0. Restano aperte le domande in fondo al BOM |
 | 3. Dimensioni e modelli 3D | **fatta** (2026-10-08): design Fusion **"Hexapod v2 - MG996R"** con 79 parametri, servo e regolatori da STEP, 14 ingombri in libreria (`cad/script/rif_componenti.py`, D-046); elenco in `docs/dimensioni-componenti.md` |
-| 4. Progettazione CAD | **in corso**: zampa v0 modellata e verificata con i giunti veri (D-047, D-048, `docs/progetto-meccanico.md`, `cad/script/zampa.py`); poi revisione, corpo e assieme |
+| 4. Progettazione CAD | **in corso**: zampa v0.1 modellata, rivista da 4 revisori, corretta e verificata con i giunti veri (D-047…D-049, `docs/progetto-meccanico.md`, `cad/script/zampa.py`); prossimo il corpo |
 | 5. BOM finale (viteria dal modello) | da fare |
 | 6. Verifica del movimento | da fare |
 
@@ -176,8 +176,8 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 
 ## Prossimi passi
 
-1. **Risposte ancora aperte** in fondo al BOM (ESP32 e camera già in possesso? quanti MG996R? cosa resta dalla v1? una squadretta metallica di prova?): non bloccano il CAD.
-2. **Fase 4, zampa**: in "Hexapod v2 - MG996R", componente `Zampa` con coxa, femore, tibia, due servo copiati da `Rif_Servo_MG996R`, squadrette, cuscinetti e perni. Prima lo schizzo delle escursioni (femore da −30° a +65°, ginocchio da 40° a 150°) e la scelta del verso dei servo; poi le parti, una alla volta, con le verifiche delle lezioni qui sotto. Il dimensionamento (`calc/`) si rilancia con le lunghezze dei segmenti e le masse delle parti modellate.
-3. **Provino** della culla e del giunto (servo appoggiato sulle alette, cuscinetto 5 × 10 × 4, squadretta metallica) da stampare prima delle parti vere: conferma le quote del servo che l'utente non può misurare. Serve la squadretta comprata per le sue quote (`sq_`).
-4. **Fase 4, corpo e assieme**: corpo (vano batteria sull'inviluppo 144 × 49,3 × 27,4 più battuta e schiuma, SSC-32 su distanziali da 8 mm, due regolatori con feritoie), poi assieme con sei zampe e giunti veri.
+1. **Da far approvare all'utente** (non bloccano): 12 viti M3 × 5 per le squadrette della coxa (D-049, BOM D6); domande aperte in fondo al BOM.
+2. **Corpo** (fase 4): disposizione in pianta e in altezza di gondole, batteria (inviluppo 144 × 49,3 × 27,4 più 25 per i cavi), SSC-32 (spine 25 sopra, barre 6 sotto, distanziali 8), ESP32 + basetta + camera, regolatori, interruttore, fusibili, derivazioni; posizioni degli assi delle coxe (oggi quelle provvisorie di `calc/statica_tripode.py`); vincoli della zampa sul corpo in `docs/progetto-meccanico.md` ("Da fare nella zampa"). Metodo: confronto di proposte indipendenti con giudici, come per la zampa, poi `cad/script/corpo.py`.
+3. **Assieme** (`cad/script/assieme.py`): corpo fissato, sei istanze di `Zampa` con giunti di coxa alla radice, interferenze, rotazione delle coxe e zampe vicine, ciclo a tripode con pose per istanza; massa e baricentro; rilancio della statica con la massa vera.
+4. **Provino** della culla e del giunto prima delle parti vere (passacavo nella fessura, viti nei fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata della coxa).
 5. Fasi 5 e 6.
