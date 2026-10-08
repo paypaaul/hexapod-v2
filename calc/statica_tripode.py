@@ -30,12 +30,10 @@ import sys
 G = 9.80665  # m/s^2
 
 # ----------------------------------------------------------------------------
-# Servo MG90S: coppia di stallo (kgf*cm) in funzione della tensione.
-#   Tower Pro (pagina ufficiale): 1.8 a 4.8 V, 2.2 a 6.6 V  -> interpolando, 2.07 a 6.0 V
-#   Datasheet di un clone (Sky Star): 1.8 a 4.8 V, 2.0 a 6.0 V
-# Si usa il valore prudente: 1.8 a 4.8 V e 2.0 a 6.0 V. Il "2.2 a 6 V" che circola viene da un
-# PDF non ufficiale. Fonti in research_notes/.../servo_mg90s.md
-STALLO = {4.8: 1.8, 6.0: 2.0}
+# Servo MG996R (AZDelivery): coppia di stallo (kgf*cm) in funzione della tensione.
+#   Datasheet AZDelivery e pagina Tower Pro: 9.4 a 4.8 V, 11 a 6.0 V (dichiarati; il reale va misurato).
+#   Fonti in docs/studio-componenti.md
+STALLO = {4.8: 9.4, 6.0: 11.0}
 
 
 def stallo_kgfcm(v):
@@ -45,28 +43,29 @@ def stallo_kgfcm(v):
 
 
 # ----------------------------------------------------------------------------
-# Configurazione di riferimento = punto di progetto (vedi docs/dimensionamento.md)
+# Configurazione di riferimento = punto di progetto PRELIMINARE (vedi docs/dimensionamento.md).
+# Lunghezze e posizioni degli assi sono stime da confermare con il CAD.
 CONFIG = {
-    "massa_g": 1050.0,          # massa di progetto: bilancio stimato 1007 g + margine (docs/dimensionamento.md)
+    "massa_g": 2600.0,          # massa di progetto: bilancio preliminare 2.57 kg (docs/dimensionamento.md)
     "com_xy": (0.0, 0.0),       # baricentro nel piano, terna corpo
     "v_servo": 6.0,             # tensione del rail servo
     # assi coxa: nome -> (x, y, direzione neutra della zampa in gradi dall'asse longitudinale +x)
     "coxa": {
-        "AS": (72.0, 40.0, 40.0),     # anteriore sinistra
-        "MS": (0.0, 58.0, 90.0),      # media sinistra
-        "PS": (-72.0, 40.0, 140.0),   # posteriore sinistra
-        "AD": (72.0, -40.0, -40.0),
-        "MD": (0.0, -58.0, -90.0),
-        "PD": (-72.0, -40.0, -140.0),
+        "AS": (95.0, 60.0, 45.0),     # anteriore sinistra
+        "MS": (0.0, 78.0, 90.0),      # media sinistra
+        "PS": (-95.0, 60.0, 135.0),   # posteriore sinistra
+        "AD": (95.0, -60.0, -45.0),
+        "MD": (0.0, -78.0, -90.0),
+        "PD": (-95.0, -60.0, -135.0),
     },
-    "Lc": 36.0,     # asse coxa -> asse femore
-    "Lf": 34.0,     # asse femore -> asse ginocchio
-    "Lt": 50.0,     # asse ginocchio -> punta del piede
-    "x_f0": 12.0,   # piede neutro: distanza orizzontale dall'asse femore
-    "h": 72.0,      # altezza asse femore dal suolo (assetto di marcia)
-    "passo": 40.0,  # corsa del piede in appoggio (mm), simmetrica attorno al neutro
-    "alzata": 20.0, # sollevamento del piede in volo (mm)
-    "gamma_min": 40.0,  # angolo interno minimo al ginocchio (ingombro tibia contro femore)
+    "Lc": 45.0,     # asse coxa -> asse femore
+    "Lf": 70.0,     # asse femore -> asse ginocchio
+    "Lt": 115.0,    # asse ginocchio -> punta del piede
+    "x_f0": 45.0,   # piede neutro: distanza orizzontale dall'asse femore
+    "h": 100.0,     # altezza asse femore dal suolo (assetto di marcia classico)
+    "passo": 60.0,  # corsa del piede in appoggio (mm), simmetrica attorno al neutro
+    "alzata": 30.0, # sollevamento del piede in volo (mm)
+    "gamma_min": 40.0,  # angolo interno minimo al ginocchio (obiettivo per la zampa nuova)
     "corsa_servo": 160.0,  # escursione utile di un servo (gradi), su 180 nominali
 }
 
@@ -269,14 +268,14 @@ def con_layout(base, xc, yc, ym, phi):
     return dict(base, coxa=c)
 
 
-def scan(base, lc_list=(28, 35, 42, 50), stampa_n=20):
+def scan(base, lc_list=(40, 50, 60), stampa_n=20):
     """Esplora Lc, Lf, Lt, x_f0, h; scarta cio' che non cammina; ordina per coppia massima."""
     out = []
     for lc in lc_list:
-        for lf in range(30, 61, 5):
-            for lt in range(45, 106, 5):
-                for xf0 in range(-10, 41, 5):
-                    for h in range(40, 91, 5):
+        for lf in range(55, 91, 5):
+            for lt in range(90, 141, 10):
+                for xf0 in range(20, 81, 10):
+                    for h in range(60, 131, 10):
                         cfg = dict(base, Lc=float(lc), Lf=float(lf), Lt=float(lt), x_f0=float(xf0), h=float(h))
                         r = valuta(cfg, passi=7, verbose=False)
                         if r is None:

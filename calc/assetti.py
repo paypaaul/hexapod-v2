@@ -13,13 +13,13 @@ import sys
 
 from statica_tripode import CONFIG, valuta, verifica_volo
 
-FONDO = 17.0        # fondo esterno del corpo sotto l'asse dei femori (parametro cor_h_sotto)
+FONDO = 30.0        # fondo esterno del corpo sotto l'asse dei femori (stima: da aggiornare con il CAD)
 
 
 def migliore(cfg, h):
     """(coppia max % stallo, x_f0, ris) con la x_f0 che minimizza la coppia massima a questa altezza."""
     best = None
-    for x10 in range(-100, 601, 5):
+    for x10 in range(0, 1201, 10):
         c = dict(cfg, h=h, x_f0=x10 / 10.0)
         r = valuta(c, verbose=False)
         if r is None:
@@ -34,7 +34,7 @@ def tabella(lt):
     cfg = dict(CONFIG, Lt=float(lt))
     print("\nFemore %g mm, tibia %g mm, massa %g g, passo %g mm" % (cfg["Lf"], cfg["Lt"], cfg["massa_g"], cfg["passo"]))
     print("   h   luce  x_f0   femore in appoggio      coppia max   esito")
-    for h in range(30, int(cfg["Lf"] + cfg["Lt"]) + 1, 4):
+    for h in range(50, int(cfg["Lf"] + cfg["Lt"]) + 1, 10):
         b = migliore(cfg, float(h))
         if b is None:
             print("%4d  %4d    -    fuori portata" % (h, h - FONDO))

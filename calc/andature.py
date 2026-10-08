@@ -16,10 +16,10 @@ import math
 
 from statica_tripode import CONFIG, ik_piano, piede_neutro, stallo_kgfcm
 
-FONDO = 17.0          # fondo del corpo sotto l'asse dei femori (cor_h_sotto)
-COM_SOTTO = 3.0       # baricentro sotto l'asse dei femori nell'assetto di marcia (dal modello)
-GAMMA_MIN = 50.0      # angolo interno minimo al ginocchio (zampa con il puntone al posto dell'anima piena; era 62)
-ALPHA_MAX = 55.0      # femore sopra l'orizzontale (era 25)
+FONDO = 30.0          # fondo del corpo sotto l'asse dei femori (stima: da aggiornare con il CAD)
+COM_SOTTO = 0.0       # baricentro rispetto all'asse dei femori (stima: da aggiornare con il CAD)
+GAMMA_MIN = 45.0      # angolo interno minimo al ginocchio: obiettivo per la zampa nuova
+ALPHA_MAX = 60.0      # femore sopra l'orizzontale: obiettivo per la zampa nuova
 ZAMPE = ("AS", "MS", "PS", "AD", "MD", "PD")
 ANDATURE = {
     "tripode (3 a terra)": [("AD", "MS", "PD"), ("AS", "MD", "PS")],                  # zampe sollevate
@@ -27,10 +27,10 @@ ANDATURE = {
     "a onda (5 a terra)": [(n,) for n in ZAMPE],
 }
 ASSETTI = [
-    ("alto e raccolto (progetto)", 72.0, 12.0),
-    ("medio", 58.0, 20.0),
-    ("basso e largo (classico)", 40.0, 40.0),
-    ("basso e raccolto", 40.0, 20.0),
+    ("alto e raccolto", 130.0, 25.0),
+    ("medio", 110.0, 40.0),
+    ("classico (progetto preliminare)", 90.0, 55.0),
+    ("basso e largo", 70.0, 70.0),
 ]
 
 
