@@ -72,7 +72,7 @@ PARAMETRI = [
     ('cus_flangia_d', '11.6 mm', 'mm', 'Cuscinetto LF-1050ZZ: diametro della flangia (generici da 11,2 a 11,7) V'),
     ('cus_flangia_sp', '0.8 mm', 'mm', 'Cuscinetto LF-1050ZZ: spessore della flangia V'),
     ('perno_d', '5 mm', 'mm', 'Perno: diametro'),
-    ('perno_l', '18 mm', 'mm', 'Perno: lunghezza, da fissare con il CAD della zampa S'),
+    ('perno_l', '12 mm', 'mm', 'Perno: lunghezza (D-047: 5,2 nella piastra, 0,4 rialzo, 4 cuscinetto, 1 nel fondo, 1,4 sporgente)'),
     # --- batteria OVONIC 2S 5200 mAh hardcase. Origine al centro del fondo, cavi verso +X.
     ('bat_l', '139 mm', 'mm', 'Batteria: lunghezza, la maggiore delle schede (137-139) V'),
     ('bat_w', '47.3 mm', 'mm', 'Batteria: larghezza, la maggiore delle schede (46-47,3) V'),
@@ -171,6 +171,7 @@ ATTESI = {
     'Rif_Batteria_2S5200': [-69.5, -23.65, 0.0, 94.5, 23.65, 25.4],
     'Rif_Squadretta_25T': [-10.0, -10.0, -5.5, 10.0, 10.0, 0.0],
     'Rif_Cuscinetto_LF1050ZZ': [-5.8, -5.8, 0.0, 5.8, 5.8, 4.0],
+    'Rif_Perno_5': [-2.5, -2.5, 0.0, 2.5, 2.5, 12.0],
 }
 
 
@@ -208,8 +209,16 @@ def traslazione(pos_mm):
     return t
 
 
+SOLO = []
+
+
 def componente(root, nome, corpi):
-    """Componente con i corpi dati [(nome, brep)] in una sola BaseFeature, nella posizione di libreria."""
+    """Componente con i corpi dati [(nome, brep)] in una sola BaseFeature, nella posizione di libreria.
+
+    Se SOLO non e' vuota crea soltanto i componenti elencati (i corpi temporanei degli altri si scartano).
+    """
+    if SOLO and nome not in SOLO:
+        return None
     occ = root.occurrences.addNewComponent(traslazione(LIBRERIA[nome]))
     comp = occ.component
     comp.name = nome
@@ -330,17 +339,21 @@ def fai_posiziona(des, root):
     return fatti
 
 
-def fai_ingombri(des, root, rigenera):
+def fai_ingombri(des, root, rigenera, solo=None):
+    """Crea gli ingombri; con solo = [nomi] cancella e ricrea soltanto quelli."""
     def p(nome):
         return des.userParameters.itemByName(nome).value * 10.0
 
     presenti = occorrenze_per_nome(root)
+    nomi = list(solo) if solo else GENERATI
+    if solo:
+        rigenera = True
     if rigenera:
-        for n in GENERATI:
+        for n in nomi:
             if n in presenti:
                 presenti[n].deleteMe()
     else:
-        gia = [n for n in GENERATI if n in presenti]
+        gia = [n for n in nomi if n in presenti]
         if gia:
             return 'componenti gia presenti: %s (usare rigenera=True)' % gia
 
@@ -413,7 +426,7 @@ def fai_ingombri(des, root, rigenera):
     fatti.append(componente(root, 'Rif_Wago_221_415', [('morsetto', box(0, 0, 0, p('wago_l'), p('wago_w'), p('wago_h')))]))
     fatti.append(componente(root, 'Rif_Cicalino_BX100', [('cicalino', box(0, 0, 0, 40.0, 25.0, 11.0))]))
     fatti.append(componente(root, 'Rif_Tplug', [('coppia_tplug', box(0, 0, 0, 30.0, 16.0, 8.5))]))
-    return [o.component.name for o in fatti]
+    return [o.component.name for o in fatti if o is not None]
 
 
 def stato(des, root):
@@ -449,7 +462,7 @@ def stato(des, root):
     return out
 
 
-def main(passi, rigenera=False):
+def main(passi, rigenera=False, solo=None):
     out = {'passi': passi}
     try:
         app = adsk.core.Application.get()
@@ -469,7 +482,8 @@ def main(passi, rigenera=False):
         if 'posiziona' in passi:
             out['posiziona'] = fai_posiziona(des, root)
         if 'ingombri' in passi:
-            out['ingombri'] = fai_ingombri(des, root, rigenera)
+            SOLO[:] = list(solo or [])
+            out['ingombri'] = fai_ingombri(des, root, rigenera, solo)
         if 'stato' in passi:
             out['stato'] = stato(des, root)
     except Exception:

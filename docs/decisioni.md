@@ -82,3 +82,16 @@ Scelta con un confronto tra tre architetture indipendenti ("scalata", "compatta"
   - spessori in multipli di 0,4; piastre del femore da 2,4 fuori dai mozzi;
   - perni Ø5 × 12 (la voce D2 del BOM diceva 16–20: si aggiorna la lunghezza, non è una voce nuova).
 - **Vincoli per il corpo**: fondo della gondola 31,95 mm sotto l'asse dei femori, braccio della coxa fino a 38,35 (più la nervatura); ponte a 17–23 mm sopra l'asse; zampe vicine a contatto se ruotano entrambe di 30° una verso l'altra (in marcia ±17°): limite d'imbardata nel firmware o coxe più distanziate.
+
+## D-048 — Giunto della coxa: il peso passa tutto dal cuscinetto (2026-10-09)
+
+Il revisore della struttura ha trovato che nella proposta "scalata" il peso del corpo si divide tra il cuscinetto (braccio inferiore) e l'albero del servo di coxa (ponte avvitato alla squadretta), in proporzione alle rigidezze: al cuscinetto arrivava solo il 40–66 %, il resto tirava l'albero.
+
+Soluzione: **il ponte non è avvitato alla squadretta**. Due viti M3 × 6 avvitate dall'alto nella squadretta a disco (con una rondella sotto la testa) sporgono con la testa; il ponte ha due fori Ø5,7 che calzano le teste e una sede per il disco con una luce di 0,3 mm sopra. La coppia passa dalle teste delle viti; in senso assiale il ponte è libero.
+
+- In appoggio la zampa spinge in su: tutto il carico va dal braccio inferiore all'anello interno del cuscinetto e alla gondola; la luce sopra il disco si apre e l'albero non è tirato.
+- In volo il peso della zampa (circa 2,6 N) appoggia il ponte sul disco: l'albero è spinto verso il servo, non tirato. Il gioco verticale della coxa è la luce sopra il disco (0,3 mm), regolabile con rondelle M3 sotto il ponte o ristampando il ponte (parametro `cox_disco_luce`).
+- L'altezza della squadretta (non nota) non vincola più la pila: la recupera la luce.
+- Il braccio inferiore porta tutto il peso: ha una nervatura sotto (freccia stimata sotto 0,1 mm con 11 N).
+- Le forze orizzontali del momento ribaltante (circa 29 N) restano divise tra cuscinetto e albero: carico radiale sull'albero da provare sul provino.
+- Il ponte si avvita all'anima con 2 M3 in inserti in una testa dell'anima che sta sopra la gondola (1,2 mm sopra la cassa del servo di coxa) ed è centrato da una linguetta.
