@@ -157,6 +157,35 @@ Modello 3D: non trovato. Ingombro semplificato con altezza della testa e diametr
 
 Regole per il CAD ereditate dalla prima versione: foro per inserto = diametro di datasheet + 0,2 mm, profondità = inserto + 1 mm; gioco di stampa di partenza 0,15–0,2 mm per lato sulle sedi dei servo, da tarare con un provino; sedi dei cuscinetti nominali, forzamento da provino; sull'anello interno appoggia solo un rialzo.
 
+## Componenti nel design Fusion
+
+Design "Hexapod v2 - MG996R" (progetto "Hexabot v2"), creato l'8 ottobre 2026 con `cad/script/rif_componenti.py`. 79 parametri utente: quote dei componenti (prefissi `srv_`, `sq_`, `cus_`, `perno_`, `bat_`, `ssc_`, `esp_`, `cam_`, `int_`, `cond_`, `fus_`, `wago_`) e regole di stampa (`gio_`, `ins_`, `vite_`). Ogni parametro ha nel commento la fonte e lo stato V / S / C.
+
+Tutti i componenti stanno nella zona libreria, a y ≥ 250 mm. Terna propria di ciascuno:
+
+| Componente | Da | Terna propria | Ingombro nella terna propria (mm) |
+|---|---|---|---|
+| `Rif_Servo_MG996R` | STEP (cassa + 3 fili del cavo) | origine sull'asse dell'albero al lato inferiore delle alette; +Z verso la cima dell'albero; cassa verso +X | x −18,25…37,55 (fili compresi); y ±10,25; z −28,8…16,4 |
+| `Rif_Reg_Servo_D42V110F6` | STEP Pololu | origine in un angolo; X = lato da 43,2; Y = 31,8 con le piazzole di potenza a y = 2,54; Z = spessore | 43,18 × 31,75; z −1,8…9,57 |
+| `Rif_Reg_5V_D24V22F5` | STEP Pololu | come sopra | 17,78 × 17,78; z −1,1…7,12 |
+| `Rif_SSC32_V25` | ingombro | origine al centro; lato inferiore del PCB a z = 0; lato lungo lungo X; morsettiera a +X | PCB 72 × 55; zona spine 25 mm sopra i lati lunghi; zona barre 6 mm sotto |
+| `Rif_ESP32_S3_CAM` | ingombro | origine al centro del PCB; antenna a +X; USB a −X | 68,4 × 28,3; pin fino a −8,5 |
+| `Rif_Camera_OV3660_75` | ingombro | origine sull'asse ottico al retro della testa; asse ottico +Z; flat verso −X | testa 8,5 × 8,5 × 6; flat fino a x = −70,75 |
+| `Rif_Batteria_2S5200` | ingombro | origine al centro del fondo; cavi verso +X | 139 × 47,3 × 25,4 più 25 mm per i cavi |
+| `Rif_Squadretta_25T` | ingombro (valori tipici, C) | origine sull'asse alla faccia superiore del disco; mozzo verso −Z | Ø20; z −5,5…0 |
+| `Rif_Cuscinetto_LF1050ZZ` | ingombro | origine al centro della faccia lato flangia; corpo verso +Z | Ø11,6 flangia; z 0…4 |
+| `Rif_Perno_5` | ingombro | asse Z da z = 0 | Ø5 × 18 |
+| `Rif_Interruttore_2813`, `Rif_Condensatore_2200uF`, `Rif_Basetta_50x70`, `Rif_Portafusibile_ATO`, `Rif_Wago_221_415`, `Rif_Cicalino_BX100`, `Rif_Tplug` | ingombri | origine al centro della base | quote dai parametri; cicalino 40 × 25 × 11 e coppia di T-plug 30 × 16 × 8,5 stimati (S) |
+
+Nuove quote di questa fase, con la fonte:
+
+| Componente | Quote | Fonte | Stato |
+|---|---|---|---|
+| Squadretta metallica a disco 25T | Ø20; fori M3 a 14 mm; spessore 2,5 o 5,5 secondo il rivenditore | [robu.in](https://st.robu.in/product/aluminum-servo-hornarm-25t-round-type-disc-mg995-mg996), [makerselectronics](https://makerselectronics.com/product/metal-servo-horn-round/), [RJX small disc](https://rcdrone.top/products/src-rjx3366-rjx-small-disc-25t-standard-steering-gear-general-metal-rudder-disk-robot-mg995-mg996-standard) | C: si quota sul prodotto comprato |
+| Interruttore Pololu #2813 | 20,3 × 25,4 × 4,1; 2,7 g; posizione dei fori non pubblicata | [pololu.com/product/2813](https://www.pololu.com/product/2813) | V (fori: C) |
+| Morsetto Wago 221-415 | 29,9 × 18,6 × 8,3 | [scheda parametrica](https://www.rlocman.es/datasheet/data.html?di=537187) | S |
+| Portafusibile ATO in linea con coperchio | 40 × 22 × 15 | stima | S |
+
 ## Volume di stampa
 
 FlashForge Creator 5 Pro: 256 × 256 × 256 mm secondo più schede di rivenditori (S: da confermare sulla pagina del produttore o sulla macchina). Un pezzo lungo fino a circa 250 mm sta dritto; fino a circa 330 mm in diagonale se stretto.

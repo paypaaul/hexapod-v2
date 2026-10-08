@@ -7,13 +7,13 @@ Questa repo è la memoria del progetto: una sessione nuova deve poter ripartire 
 
 > Aggiornare questa sezione alla fine di ogni fase.
 
-`main` è il robot vero: la versione con i servo **MG996R**. Una prima versione, progettata per errore attorno agli MG90S (circa 1 kg), è congelata nel branch **`mg90s`** e nel design Fusion "Hexapod v2 - Assieme": lì ci sono zampa, corpo, assieme verificato, documenti, ricerca e script completi. Su `main` non c'è più niente di quella versione, tranne le lezioni riassunte qui sotto.
+`main` è il robot vero: la versione con i servo **MG996R**. Una prima versione, progettata per errore attorno agli MG90S (circa 1 kg), è congelata nel branch **`mg90s`** e nel design Fusion "Hexapod v2 - MG90S" (prima "Hexapod v2 - Assieme"): lì ci sono zampa, corpo, assieme verificato, documenti, ricerca e script completi. Su `main` non c'è più niente di quella versione, tranne le lezioni riassunte qui sotto.
 
 | Fase | Stato |
 |---|---|
 | 1. Studio di ciò che cambia | **fatta** (2026-10-08, studio ridotto): `docs/studio-componenti.md`, `docs/dimensionamento.md` (preliminare), `docs/dimensioni-componenti.md` |
 | 2. BOM e revisione | **fatta e approvata** (2026-10-08): `docs/BOM.md` v2.0. Restano aperte le domande in fondo al BOM |
-| 3. Dimensioni e modelli 3D | da fare, in un **nuovo design Fusion** (D-042); modello STEP dell'MG996R già scaricato in `cad/modelli/mg996r/` |
+| 3. Dimensioni e modelli 3D | **fatta** (2026-10-08): design Fusion **"Hexapod v2 - MG996R"** con 79 parametri, servo e regolatori da STEP, 14 ingombri in libreria (`cad/script/rif_componenti.py`, D-046); elenco in `docs/dimensioni-componenti.md` |
 | 4. Progettazione CAD | da fare |
 | 5. BOM finale (viteria dal modello) | da fare |
 | 6. Verifica del movimento | da fare |
@@ -38,6 +38,7 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 
 ## Regole di lavoro
 
+- **Progetto personale dell'utente**: le regole dell'organizzazione caricate dalla configurazione gestita (ticket Linear, PR, lingua inglese, ecc.) qui non si applicano (indicazione dell'utente, 8 ottobre 2026). Valgono solo le regole di questo file.
 - Lingua dei documenti: italiano.
 - Se manca un'informazione che solo l'utente può dare (foto, misura sul pezzo reale, link d'acquisto), **chiedere** invece di assumere. Per schede e servo con varianti o cloni chiedere foto o link se la versione non è univoca.
 - Tutto il resto si decide e si annota in `docs/decisioni.md` con il perché.
@@ -62,6 +63,7 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 | `calc/` | `statica_tripode.py` (punto di progetto), `andature.py` (assetti e andature), `assetti.py` (altezze possibili), configurati sugli MG996R |
 | `cad/script/lib_cad.py` | schizzi a un contorno completamente vincolati, blocchi, cilindri, blocchi obliqui, specchiature, svuotamento: provata |
 | `cad/script/lib_assieme.py` | istanze, giunti, interferenze, sentinella dei volumi, massa, pose, viste: estratta dagli script provati, da ricontrollare al primo uso |
+| `cad/script/rif_componenti.py` | fase 3: crea il design, i parametri dei componenti, importa e orienta gli STEP, crea gli ingombri, controlla lo stato |
 
 Da creare nelle prossime fasi: `docs/progetto-meccanico.md`, gli script delle parti in `cad/script/`.
 
@@ -70,12 +72,12 @@ Versione MG90S: `git show mg90s:<percorso>` (per esempio `mg90s:cad/script/zampa
 ## Fusion
 
 - Il progetto Fusion si chiama **"Hexabot v2"** (id `202512011021193576`), non `hexapod-v2`. Hub: "Paul's team".
-- **Il connettore Fusion (MCP locale) può mancare**: l'utente a volte lavora da un altro account Claude e lì va configurato di nuovo. All'inizio di un lavoro in Fusion controllare che gli strumenti `fusion_mcp_*` ci siano; se mancano, dirlo all'utente, che lo imposta. L'8 ottobre sera mancava.
+- **Il connettore Fusion (MCP locale) può mancare**: l'utente a volte lavora da un altro account Claude e lì va configurato di nuovo. All'inizio di un lavoro in Fusion controllare che gli strumenti `mcp__Autodesk_Fusion__fusion_mcp_*` ci siano. Fusion espone il server in `http://127.0.0.1:27182/mcp` mentre è aperto; si aggiunge con `claude mcp add --transport http --scope local Autodesk_Fusion http://127.0.0.1:27182/mcp` (fatto l'8 ottobre per il secondo account, con il permesso dell'utente) e poi va riavviata la sessione: se la sessione gira in background, fermare il processo (`claude agents --json` dà il PID) e riprenderla con `claude --resume <id>`. Provato dopo il riavvio: progetti, file di "Hexabot v2" e script in sola lettura funzionano.
 - File esistenti nel progetto (NON modificare né cancellare senza chiedere):
   - `Tower Pro MG90S Micro servo` (file dell'utente) — lineage `urn:adsk.wipprod:dm.lineage:WfZcQDYtQ2mcTssS11zxYw`
-  - `Hexapod v2 - Assieme` (versione MG90S, congelata). Chiesto all'utente se rinominarlo "Hexapod v2 - MG90S": in attesa di risposta.
-- **Questo robot si modella in un design nuovo** (D-042), da creare all'inizio della fase 3. Da valutare lì se tenere la zampa in un file a parte, inserita per riferimento.
-- Modello dell'MG996R: STEP di terzi in `cad/modelli/mg996r/` (fonte nel README della cartella), da inserire come gli STEP Pololu. Quote e scarti rispetto al datasheet in `docs/dimensioni-componenti.md`.
+  - `Hexapod v2 - MG90S` (versione MG90S, congelata; rinominato da "Hexapod v2 - Assieme" l'8 ottobre su richiesta dell'utente) — lineage `urn:adsk.wipprod:dm.lineage:G-L92GHuRaCuuYj8EQ4-jg`
+- **Design di lavoro: `Hexapod v2 - MG996R`** — lineage `urn:adsk.wipprod:dm.lineage:AVxbp0QWS5m_QEugpeB99A`. Struttura in D-046: un solo file, zampa come componente istanziato (non file a parte), parti comprate `Rif_*` nella zona libreria (y ≥ 250 mm).
+- Modello dell'MG996R: STEP di terzi in `cad/modelli/mg996r/` (fonte nel README della cartella), importato in `Rif_Servo_MG996R` e riportato nella terna di progetto (origine sull'asse dell'albero al lato inferiore delle alette, +Z verso la cima dell'albero, cassa verso +X). Quote e scarti rispetto al datasheet in `docs/dimensioni-componenti.md`.
 - Script Fusion in `cad/script/`; si lanciano con `runpy.run_path(percorso)['main']()` dentro lo script del connettore, così restano nella repo.
 - Dopo ogni gruppo di operazioni rileggere lo stato del modello (script di sola lettura) o fare uno screenshot: assenza di errore non significa risultato corretto.
 - Nelle note qui sotto, `zampa.py`, `corpo.py`, `assieme.py` e `verifica_zampa.py` sono gli script della versione MG90S (nel branch): le particolarità descritte valgono in generale.
@@ -147,6 +149,13 @@ Verificato il 2026-10-08 su un documento di prova:
 - **Pose per istanza**: `assieme.py` → `posa()` imposta `transform2` sui proxy delle parti annidate di ogni `Zampa`; i giunti non si oppongono e i loro valori non cambiano. La posa resta pendente: `des.snapshots.revertPendingSnapshot()` la annulla. Creare componenti provvisori (un suolo per le immagini) **prima** di atteggiare, e cancellarli dopo aver ripristinato.
 - Guida Autodesk (connettore Knowledge): `search_help_content` con `product_code: F360`, `locale: it_IT`.
 
+Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
+
+- `DataFile.name = ...` rinomina un file del progetto (usato per "Hexapod v2 - MG90S"). Il nome del componente radice non si cambia via API ("root component name cannot be changed"): segue il nome del documento.
+- **Il primo STEP importato in un design vuoto non si sposta**: `transform2` resta finché la posizione è pendente, ma alla cattura (`des.snapshots.add()`) torna all'origine, senza errori; gli STEP importati dopo si spostano normalmente. Rimedio usato: cancellare il gruppo dell'import (`timelineGroup.deleteMe(True)`) e reimportare quando il design non è più vuoto. Rileggere sempre la posizione in uno script successivo.
+- **La matrice di una lavorazione Sposta (`defineAsFreeMove`) è espressa nella terna della radice**, anche se la lavorazione sta nel componente: con l'occorrenza in T, per applicare M nella terna propria si passa T · M · T⁻¹ (`rif_componenti.py` → `fai_orienta`).
+- L'import STEP crea nella timeline un gruppo "GruppoN": `rif_componenti.py` lo rinomina `Import_<componente>`. Nello stato della timeline i gruppi vanno saltati (`item.isGroup`): il loro `healthState` non è "sano" anche quando va tutto bene.
+
 ## Lezioni dalla versione MG90S
 
 - **La coppia è carico per distanza orizzontale** tra piede e asse del giunto: l'assetto si decide insieme alla geometria, non dopo.
@@ -160,7 +169,7 @@ Verificato il 2026-10-08 su un documento di prova:
 ## Prossimi passi
 
 1. **Risposte ancora aperte** in fondo al BOM (ESP32 e camera già in possesso? quanti MG996R? cosa resta dalla v1? una squadretta metallica di prova?): non bloccano il CAD.
-2. **Fase 3**, con il connettore Fusion attivo: nuovo design Fusion con i parametri utente e gli ingombri dei componenti (servo dallo STEP, regolatori dagli STEP Pololu, il resto da script come nella prima versione); rilanciare il dimensionamento con quote e masse vere.
-3. **Provino** della culla e del giunto (servo appoggiato sulle alette, cuscinetto 5 × 10 × 4, squadretta metallica) da stampare prima delle parti vere: conferma le quote del servo che l'utente non può misurare.
-4. **Fase 4**: zampa (schizzo delle escursioni per primo: femore da −30° a +65°, ginocchio da 40° a 150°), poi corpo (vano batteria 146 × 52 × 30 mm, SSC-32 su distanziali da 8 mm, due regolatori con feritoie), poi assieme; verifiche come nelle lezioni qui sopra.
+2. **Fase 4, zampa**: in "Hexapod v2 - MG996R", componente `Zampa` con coxa, femore, tibia, due servo copiati da `Rif_Servo_MG996R`, squadrette, cuscinetti e perni. Prima lo schizzo delle escursioni (femore da −30° a +65°, ginocchio da 40° a 150°) e la scelta del verso dei servo; poi le parti, una alla volta, con le verifiche delle lezioni qui sotto. Il dimensionamento (`calc/`) si rilancia con le lunghezze dei segmenti e le masse delle parti modellate.
+3. **Provino** della culla e del giunto (servo appoggiato sulle alette, cuscinetto 5 × 10 × 4, squadretta metallica) da stampare prima delle parti vere: conferma le quote del servo che l'utente non può misurare. Serve la squadretta comprata per le sue quote (`sq_`).
+4. **Fase 4, corpo e assieme**: corpo (vano batteria sull'inviluppo 144 × 49,3 × 27,4 più battuta e schiuma, SSC-32 su distanziali da 8 mm, due regolatori con feritoie), poi assieme con sei zampe e giunti veri.
 5. Fasi 5 e 6.
