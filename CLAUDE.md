@@ -12,8 +12,8 @@ Questa repo è la memoria del progetto: una sessione nuova deve poter ripartire 
 | Fase | Stato |
 |---|---|
 | 1. Studio di ciò che cambia | **fatta** (2026-10-08, studio ridotto): `docs/studio-componenti.md`, `docs/dimensionamento.md` (preliminare), `docs/dimensioni-componenti.md` |
-| 2. BOM e revisione | **da fare**: scrivere `docs/BOM.md` dalle proposte dello studio e **fermarsi per l'approvazione dell'utente** |
-| 3. Dimensioni e modelli 3D | da fare, in un **nuovo design Fusion** (D-042); servono le misure su un servo reale |
+| 2. BOM e revisione | **fatta e approvata** (2026-10-08): `docs/BOM.md` v2.0. Restano aperte le domande in fondo al BOM |
+| 3. Dimensioni e modelli 3D | da fare, in un **nuovo design Fusion** (D-042); modello STEP dell'MG996R già scaricato in `cad/modelli/mg996r/` |
 | 4. Progettazione CAD | da fare |
 | 5. BOM finale (viteria dal modello) | da fare |
 | 6. Verifica del movimento | da fare |
@@ -26,8 +26,9 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 - **Libertà di progetto**: questo robot va fatto come se si partisse da zero. Non va limitato per riusare la versione MG90S; si può cambiare qualunque scelta, anche a costo di più lavoro.
 - **Controllo**: scheda UICPAL "ESP32-S3-CAM N16R8 RE1.3" (AliExpress 1005008519401021); camera UICPAL "OV3660-75MM" con flat da 75 mm e lente da 120° "GOOD"; servo controller clone "SSC32-V2.5" (AliExpress 1005001888185034), **già comprato**.
 - **Acquisti fatti finora**: solo i servo e il servo controller. Tutto il resto è da comprare dopo l'approvazione del BOM.
-- **Batteria**: ha una OVONIC 2S 5200 mAh hardcase dalla v1; è la candidata.
-- **Com'era la v1**: servo alimentati da un buck DC-DC a valle di un fusibile sulla batteria, attraverso schede PCA9685.
+- **Batteria**: dimensionamento delegato a me; scelta la OVONIC 2S 5200 mAh hardcase che ha dalla v1 (D-045).
+- **Com'era la v1**: servo alimentati da un buck DC-DC a valle di un fusibile sulla batteria, attraverso schede PCA9685. Quel buck non si riusa.
+- **Misure**: l'utente non può misurare i servo (né quote né corrente di stallo). Si progetta sul caso peggiore dei dati dichiarati e si verifica con provini stampati; non chiedere di nuovo queste misure.
 - **Assetto**: si aspetta la marcia classica, bassa, con il ginocchio sotto i 90°. Accetta di superare il 50 % dello stallo; l'assetto definitivo si sceglie a robot costruito, quindi la meccanica deve permettere un campo ampio di assetti.
 - **Acquisti**: preferire la soluzione senza componenti in più, salvo problemi funzionali o estetica sgradevole. Ogni voce del BOM va approvata.
 - **Produzione**: FlashForge **Creator 5 Pro** (256 × 256 × 256 mm, da confermare), toolchanger a 4 testine, ugelli temprati da 0,4 mm; PLA / PLA-CF / PETG / PETG-CF. Supporti con interfaccia in altro materiale ammessi, ma al minimo.
@@ -52,26 +53,29 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 | Percorso | Contenuto |
 |---|---|
 | `CLAUDE.md` | questo file: stato, decisioni dell'utente, regole, note sul connettore Fusion, lezioni, prossimi passi |
-| `docs/studio-componenti.md` | studio della fase 1: servo, alimentazione, giunti, stampa, proposte per il BOM, misure da chiedere |
+| `docs/studio-componenti.md` | studio della fase 1: servo, alimentazione, batteria, giunti, stampa, cosa resta aperto |
 | `docs/dimensionamento.md` | massa, geometria di partenza, coppie e assetti (preliminare) |
 | `docs/dimensioni-componenti.md` | quote dei componenti con la fonte: MG996R, batteria, ESP32, SSC-32, camera, minuteria |
 | `docs/decisioni.md` | registro delle decisioni da D-041, con le decisioni ereditate in testa |
+| `docs/BOM.md` | distinta base v2.0, approvata |
+| `cad/modelli/` | modelli STEP di terzi (fuori da git) e `README.md` con le fonti per riscaricarli |
 | `calc/` | `statica_tripode.py` (punto di progetto), `andature.py` (assetti e andature), `assetti.py` (altezze possibili), configurati sugli MG996R |
 | `cad/script/lib_cad.py` | schizzi a un contorno completamente vincolati, blocchi, cilindri, blocchi obliqui, specchiature, svuotamento: provata |
 | `cad/script/lib_assieme.py` | istanze, giunti, interferenze, sentinella dei volumi, massa, pose, viste: estratta dagli script provati, da ricontrollare al primo uso |
 
-Da creare nelle prossime fasi: `docs/BOM.md`, `docs/progetto-meccanico.md`, gli script delle parti in `cad/script/`.
+Da creare nelle prossime fasi: `docs/progetto-meccanico.md`, gli script delle parti in `cad/script/`.
 
 Versione MG90S: `git show mg90s:<percorso>` (per esempio `mg90s:cad/script/zampa.py`, `mg90s:cad/script/corpo.py`, `mg90s:cad/script/assieme.py`, `mg90s:docs/progetto-meccanico.md`). Sono la traccia più utile per scrivere gli script nuovi.
 
 ## Fusion
 
 - Il progetto Fusion si chiama **"Hexabot v2"** (id `202512011021193576`), non `hexapod-v2`. Hub: "Paul's team".
+- **Il connettore Fusion (MCP locale) può mancare**: l'utente a volte lavora da un altro account Claude e lì va configurato di nuovo. All'inizio di un lavoro in Fusion controllare che gli strumenti `fusion_mcp_*` ci siano; se mancano, dirlo all'utente, che lo imposta. L'8 ottobre sera mancava.
 - File esistenti nel progetto (NON modificare né cancellare senza chiedere):
   - `Tower Pro MG90S Micro servo` (file dell'utente) — lineage `urn:adsk.wipprod:dm.lineage:WfZcQDYtQ2mcTssS11zxYw`
   - `Hexapod v2 - Assieme` (versione MG90S, congelata). Chiesto all'utente se rinominarlo "Hexapod v2 - MG90S": in attesa di risposta.
 - **Questo robot si modella in un design nuovo** (D-042), da creare all'inizio della fase 3. Da valutare lì se tenere la zampa in un file a parte, inserita per riferimento.
-- Serve un modello dell'MG996R: chiesto all'utente se ne ha uno; altrimenti ingombro dalle quote del datasheet e dalle sue misure.
+- Modello dell'MG996R: STEP di terzi in `cad/modelli/mg996r/` (fonte nel README della cartella), da inserire come gli STEP Pololu. Quote e scarti rispetto al datasheet in `docs/dimensioni-componenti.md`.
 - Script Fusion in `cad/script/`; si lanciano con `runpy.run_path(percorso)['main']()` dentro lo script del connettore, così restano nella repo.
 - Dopo ogni gruppo di operazioni rileggere lo stato del modello (script di sola lettura) o fare uno screenshot: assenza di errore non significa risultato corretto.
 - Nelle note qui sotto, `zampa.py`, `corpo.py`, `assieme.py` e `verifica_zampa.py` sono gli script della versione MG90S (nel branch): le particolarità descritte valgono in generale.
@@ -155,8 +159,8 @@ Verificato il 2026-10-08 su un documento di prova:
 
 ## Prossimi passi
 
-1. **Avere dall'utente** (elenco completo in fondo a `docs/studio-componenti.md`): misure e peso di un servo, corrente di stallo, modello del buck della v1, foto del lato saldature della SSC-32, misure della batteria, eventuale modello 3D dell'MG996R; se rinominare il vecchio design Fusion.
-2. **Fase 2**: scrivere `docs/BOM.md` dalle proposte dello studio (regolatori, distribuzione, fusibile, cavi, cuscinetti, perni, squadrette metalliche, viteria, materiali) e fermarsi per l'approvazione.
-3. **Fase 3**: nuovo design Fusion con i parametri e gli ingombri dei componenti; rilanciare il dimensionamento con le masse e le quote vere.
-4. **Fase 4**: zampa (schizzo delle escursioni per primo), poi corpo, poi assieme; verifiche come nelle lezioni qui sopra.
+1. **Risposte ancora aperte** in fondo al BOM (ESP32 e camera già in possesso? quanti MG996R? cosa resta dalla v1? una squadretta metallica di prova?): non bloccano il CAD.
+2. **Fase 3**, con il connettore Fusion attivo: nuovo design Fusion con i parametri utente e gli ingombri dei componenti (servo dallo STEP, regolatori dagli STEP Pololu, il resto da script come nella prima versione); rilanciare il dimensionamento con quote e masse vere.
+3. **Provino** della culla e del giunto (servo appoggiato sulle alette, cuscinetto 5 × 10 × 4, squadretta metallica) da stampare prima delle parti vere: conferma le quote del servo che l'utente non può misurare.
+4. **Fase 4**: zampa (schizzo delle escursioni per primo: femore da −30° a +65°, ginocchio da 40° a 150°), poi corpo (vano batteria 146 × 52 × 30 mm, SSC-32 su distanziali da 8 mm, due regolatori con feritoie), poi assieme; verifiche come nelle lezioni qui sopra.
 5. Fasi 5 e 6.

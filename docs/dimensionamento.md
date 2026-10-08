@@ -4,7 +4,7 @@
 
 ## Risultato in breve
 
-- Massa di progetto **2,6 kg** (bilancio 2,57 kg).
+- Massa di progetto **2,6 kg** (bilancio 2,51 kg più margine).
 - Punto di progetto proposto: **asse dei femori a 100 mm da terra, piede a 45 mm dall'asse**. Coppia massima a tripode 5,5 kgf·cm, il **50 %** degli 11 kgf·cm dichiarati a 6 V. Femore appena sopra l'orizzontale, ginocchio tra 63° e 78°.
 - La coppia non dipende dalle lunghezze dei segmenti ma da massa, distanza orizzontale del piede e passo: femore e tibia si scelgono per portata, alzata e ingombro dei servo.
 - Ogni 100 g valgono circa 2 punti percentuali. Se lo stallo reale fosse 9 kgf·cm invece di 11, tutte le percentuali salgono di un quinto.
@@ -17,15 +17,15 @@
 | Batteria OVONIC 2S 5200 mAh | 252 | 245–259 g ± 20 dichiarati |
 | SSC-32 | 45 | stima |
 | ESP32-S3-CAM + camera | 14 | stima |
-| 3 regolatori servo | 102 | UBEC da 34 g l'uno (S) |
+| 2 regolatori servo Pololu D42V110F6 | 30 | 15 g l'uno (V) |
 | Logica: regolatore 5 V, interruttore, traslatore, basetta | 25 | stima |
-| Fusibili, connettori, distribuzione | 50 | stima |
+| Fusibili, connettori, distribuzione, condensatori | 60 | stima |
 | Cablaggio di potenza e prolunghe | 100 | stima |
 | 18 cuscinetti, perni, squadrette metalliche | 110 | stima |
 | Viteria e inserti | 90 | stima: si chiude dal modello |
 | Parti stampate strutturali (6 zampe da circa 70 g, corpo 280 g) | 700 | stima: si chiude dal CAD |
 | Cover | 90 | stima |
-| **Totale** | **2568** | |
+| **Totale** | **2506** | |
 
 I soli servo valgono il 39 % della massa. Obiettivo per il CAD: parti stampate entro 790 g in tutto.
 
@@ -63,10 +63,10 @@ Sensibilità alla massa nell'assetto 90/55: 5,5 kgf·cm a 2,2 kg, 6,3 a 2,5 kg, 
 
 ## Corrente e autonomia
 
-Vedi `studio-componenti.md`: 12–14 A medi in marcia, 20–25 minuti con la batteria da 5200 mAh.
+Vedi `studio-componenti.md`: 10–12 A medi a 6 V nella marcia classica (22–27 minuti con la batteria da 5200 mAh), 16–18 A nella marcia bassa (15–17 minuti).
 
 ## Limiti
 
 - Coppia reale dei servo non misurata: i cloni possono rendere meno del dichiarato.
-- 1326 g su 2568 sono stime (tutto tranne servo e batteria).
+- 1264 g su 2506 sono stime (tutto tranne servo, batteria e regolatori).
 - Modello statico: suolo piano, corpo orizzontale, baricentro al centro, nessuna accelerazione; il peso proprio delle zampe in appoggio non è sottratto (prudente).
