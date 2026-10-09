@@ -287,8 +287,12 @@ def posa_zampa(des, zo, imbardata, alpha, gamma):
         o.createForAssemblyContext(zo).transform2 = m
 
 
-def pose_tripode(des, h, xf0, passo, alzata, fase):
-    """{zampa: (imbardata, alpha, gamma)} alla fase 0..1 del ciclo; tripode A (AS, PS, MD) in appoggio nella prima meta'."""
+def pose_tripode(des, h, xf0, passo, alzata, fase, giro=0.0):
+    """{zampa: (imbardata, alpha, gamma)} alla fase 0..1 del ciclo; tripode A (AS, PS, MD) in appoggio nella prima meta'.
+
+    Con giro (gradi di rotazione del corpo a ogni passo, positivo antiorario) i piedi si spostano su archi attorno al
+    centro del corpo invece che lungo X: rotazione sul posto.
+    """
     st = runpy.run_path(os.path.join(os.path.dirname(QUI), '..', 'calc', 'statica_tripode.py'))
     lc, lf, lt = _mm(des, 'zam_Lc'), _mm(des, 'zam_Lf'), _mm(des, 'zam_Lt')
     out = {}
@@ -298,10 +302,16 @@ def pose_tripode(des, h, xf0, passo, alzata, fase):
         a_tripode = n in ('AS', 'PS', 'MD')
         u = fase if a_tripode else (fase + 0.5) % 1.0
         if u < 0.5:                                   # appoggio: il piede va da +passo/2 a -passo/2
-            dx, dz = passo / 2 - passo * (u / 0.5), 0.0
+            k, dz = 0.5 - u / 0.5, 0.0
         else:                                         # volo: torna avanti alzandosi
             v = (u - 0.5) / 0.5
-            dx, dz = -passo / 2 + passo * v, alzata * math.sin(math.pi * v)
+            k, dz = -0.5 + v, alzata * math.sin(math.pi * v)
+        if giro:                                      # nella terna del corpo il piede in appoggio gira in senso opposto al corpo
+            r = math.radians(giro * k)
+            fx, fy = fx * math.cos(r) - fy * math.sin(r), fx * math.sin(r) + fy * math.cos(r)
+            dx = 0.0
+        else:
+            dx = passo * k
         px, py = fx + dx - x, fy - y
         yaw = math.degrees(math.atan2(py, px)) - d
         yaw = (yaw + 180) % 360 - 180
@@ -311,11 +321,11 @@ def pose_tripode(des, h, xf0, passo, alzata, fase):
     return out
 
 
-def verifica_ciclo(des, root, h, xf0, passo, alzata, fasi):
+def verifica_ciclo(des, root, h, xf0, passo, alzata, fasi, giro=0.0):
     out = {}
     zampe = mappa_zampe(des, root)
     for f in fasi:
-        pose = pose_tripode(des, h, xf0, passo, alzata, f)
+        pose = pose_tripode(des, h, xf0, passo, alzata, f, giro)
         if any(v is None for v in pose.values()):
             out['%g' % f] = {'pose': pose, 'esito': 'piede non raggiungibile'}
             continue
@@ -358,7 +368,7 @@ def main(passi, **kw):
             out['coxe'] = scansione_coxe(des, root, kw.get('zampe', ZAMPE), kw.get('angoli', (-35, -20, 20, 35)))
         if 'ciclo' in passi:
             out['ciclo'] = verifica_ciclo(des, root, kw.get('h', 100.0), kw.get('xf0', 45.0), kw.get('passo', 60.0),
-                                          kw.get('alzata', 30.0), kw.get('fasi', (0.0, 0.25)))
+                                          kw.get('alzata', 30.0), kw.get('fasi', (0.0, 0.25)), kw.get('giro', 0.0))
         if 'ripristina' in passi:
             out['ripristina'] = A['ripristina'](des)
         if 'stato' in passi:

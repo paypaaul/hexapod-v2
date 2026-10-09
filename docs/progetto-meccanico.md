@@ -136,6 +136,8 @@ Verifiche (9 ottobre 2026), con i giunti veri:
 - Controllo del metodo: una zampa con il femore a −60° e due zampe vicine a 40° una verso l'altra danno gli urti attesi.
 - Assetti 100/45 e 130/25: quattro fasi (0, 1/8, 1/4, 3/8 del ciclo; la seconda metà è simmetrica): **nessun urto**.
 - Assetti bassi 80/60 e 70/70: sedici fasi: **nessun urto**; il ginocchio scende al minimo a 41°. La correzione del piede delle zampe d'angolo prevista dal modello 2D non serve con questa traiettoria.
+- **Rotazione sul posto** (`ciclo` con `giro`, 9 ottobre 2026): i piedi in appoggio girano attorno al centro del corpo. Con 30° a ogni passo le imbardate arrivano a ±28° sulle zampe d'angolo e ±22° sulle medie (limite del firmware ±30°) e la somma tra vicine a 50° (limite 60°). Otto fasi a 100/45 e otto a 70/70 (ginocchio al minimo a 46,6°): **nessun urto**. Controllo: con 75° a ogni passo (imbardate fino a 63°) il controllo trova gli urti tra zampe vicine. Il giro in senso orario è lo specchio di questo.
+- **Campo della camera**: con la lente da 120° (diagonale; circa 54° per lato in orizzontale su un sensore 4:3) i ginocchi delle zampe anteriori stanno a circa 54° dall'asse, cioè sul bordo dell'immagine, e ci entrano e escono con l'imbardata. Stima geometrica, da guardare sulle prime immagini: se disturbano si scontornano in firmware.
 
 ### Cavi dei servo (9 ottobre 2026)
 
