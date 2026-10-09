@@ -17,7 +17,8 @@ static void test_diretta_uguale_al_cad(void) {
     for (const auto& p : vettori::pose_cad) {
         m(prova::distanza(piede_robot(p.zampa, prova::angoli(p.angoli)), p.punta));
     }
-    std::printf("diretta contro CAD: %d pose, scarto massimo %.5f mm\n", prova::numero(vettori::pose_cad), m.valore);
+    std::printf("diretta contro CAD: %d pose, scarto massimo %.5f mm\n", prova::numero(vettori::pose_cad),
+                static_cast<double>(m.valore));
     TEST_ASSERT_TRUE(m.valore <= TOLLERANZA_CAD_MM);
 }
 
@@ -26,7 +27,8 @@ static void test_diretta_uguale_al_python(void) {
     for (const auto& p : vettori::griglia) {
         m(prova::distanza(piede_robot(p.zampa, prova::angoli(p.angoli)), p.punta));
     }
-    std::printf("diretta contro Python: %d punti, scarto massimo %.6f mm\n", prova::numero(vettori::griglia), m.valore);
+    std::printf("diretta contro Python: %d punti, scarto massimo %.6f mm\n", prova::numero(vettori::griglia),
+                static_cast<double>(m.valore));
     TEST_ASSERT_TRUE(m.valore <= TOLLERANZA_PYTHON_MM);
 }
 
@@ -39,8 +41,9 @@ static void test_inversa_andata_e_ritorno(void) {
         angoli(prova::scarto_angoli(a, p.angoli));
         punte(prova::distanza(piede_robot(p.zampa, a), p.punta));
     }
-    std::printf("inversa contro Python: scarto massimo %.5f gradi; diretta(inversa(p)) - p: %.6f mm\n", angoli.valore,
-                punte.valore);
+    std::printf("inversa contro Python: scarto massimo %.5f gradi; diretta(inversa(p)) - p: %.6f mm\n",
+                static_cast<double>(angoli.valore),
+                static_cast<double>(punte.valore));
     TEST_ASSERT_TRUE(angoli.valore <= TOLLERANZA_ANGOLI);
     TEST_ASSERT_TRUE(punte.valore <= TOLLERANZA_PYTHON_MM);
 }
@@ -60,7 +63,8 @@ static void test_inversa_delle_pose_del_cad(void) {
         m(prova::scarto_angoli(a, p.angoli));
         ++n;
     }
-    std::printf("inversa delle punte lette dal CAD: %d pose, scarto massimo %.5f gradi\n", n, m.valore);
+    std::printf("inversa delle punte lette dal CAD: %d pose, scarto massimo %.5f gradi\n", n,
+                static_cast<double>(m.valore));
     // la punta del CAD e' data a 1e-4 mm: l'angolo che ne risulta ha qualche millesimo di grado d'incertezza
     TEST_ASSERT_TRUE(m.valore <= TOLLERANZA_ANGOLI);
 }
@@ -99,7 +103,7 @@ static void test_corpo_andata_e_ritorno(void) {
         const Vec3 q = appoggio_a_robot(c, robot_a_appoggio(c, piedi[static_cast<size_t>(z)]));
         m(prova::distanza(q, piedi[static_cast<size_t>(z)]));
     }
-    std::printf("corpo inclinato e spostato, andata e ritorno: %.6f mm\n", m.valore);
+    std::printf("corpo inclinato e spostato, andata e ritorno: %.6f mm\n", static_cast<double>(m.valore));
     TEST_ASSERT_TRUE(m.valore <= TOLLERANZA_PYTHON_MM);
 }
 
