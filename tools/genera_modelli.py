@@ -39,16 +39,17 @@ G = 9.80665                      # m/s2, per kgf -> N
 
 # Saturazione del servo: errore di posizione al quale l'amplificatore da' la coppia di stallo. Il datasheet non da' il
 # guadagno: 5 gradi e' un valore di partenza (S), da sostituire con l'identificazione (software.md 4.6). Con il femore
-# al 51 % dello stallo (punto di progetto 100/45) il servo cede circa 2,5 gradi.
+# al 51 % dello stallo (punto di progetto 100/45) il servo cede circa 2,8 gradi: 2,55 piu' mezza banda morta.
 SATURAZIONE_GRADI = 5.0
 
 # Attrito del piedino in TPU sul pavimento: centro del campo di randomizzazione 0,4-1,2 (software.md 4.4), S.
 ATTRITO = 0.8
 
-# Rigidezza dei contatti (solref: costante di tempo, smorzamento critico). Con il valore di MuJoCo (0,02 s) il robot da
-# 2,9 kg affonda di qualche millimetro nel pavimento e i piedi in appoggio strisciano (prova del 9 ottobre 2026: 12 mm a
-# passo invece di 5). 5 ms e' 2,5 volte il passo di 2 ms, sopra il minimo di 2 passi indicato da MuJoCo: il contatto
-# piu' rigido che resta stabile, adatto a un piedino in TPU di 1,6 mm su un pavimento duro (S).
+# Rigidezza dei contatti (solref: costante di tempo, smorzamento critico). Con il valore di MuJoCo (0,02 s) il contatto
+# e' cedevole: nella prova SIL a 100/45 (9 ottobre 2026) il corpo cede fino a 4,7 mm, i piedi caricati strisciano fino a
+# 3,0 mm a passo e il femore tocca l'83 % dello stallo agli atterraggi; con 0,005 s 2,2 mm, 0,5 mm e 51 %. 5 ms e' 2,5
+# volte il passo di 2 ms, sopra il minimo di 2 passi indicato da MuJoCo: il contatto piu' rigido che resta stabile,
+# adatto a un piedino in TPU di 1,6 mm su un pavimento duro (S).
 CONTATTO_SOLREF = '0.005 1'
 
 # IMU (predisposizioni.md, X4): sul tetto del tunnel, nel vano sotto il vassoio (x 34...71, sull'asse), su due bugne
@@ -391,7 +392,7 @@ def mjcf(d):
                         % (d.yaml['versione'], d.cad['documento'])))
     ET.SubElement(m, 'compiler', angle='radian', meshdir='../../robot/mesh', autolimits='true')
     # passo di 2 ms (software.md 4.5); implicitfast integra in modo implicito lo smorzamento dei giunti
-    ET.SubElement(m, 'option', timestep='0.002', integrator='implicitfast', cone='elliptic', impratio='100')
+    ET.SubElement(m, 'option', timestep='0.002', integrator='implicitfast')
     vis = ET.SubElement(m, 'visual')
     ET.SubElement(vis, 'global', offwidth='1280', offheight='720')
 

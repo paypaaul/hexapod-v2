@@ -1,7 +1,7 @@
 <mujoco model="esapode">
   <!-- Generato da tools/genera_modelli.py (versione 2.1.0, Hexapod v2.1.0 v1): non modificare a mano. -->
   <compiler angle="radian" meshdir="../../robot/mesh" autolimits="true" />
-  <option timestep="0.002" integrator="implicitfast" cone="elliptic" impratio="100" />
+  <option timestep="0.002" integrator="implicitfast" />
   <visual>
     <global offwidth="1280" offheight="720" />
   </visual>
