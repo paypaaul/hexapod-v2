@@ -241,7 +241,7 @@ def scansione_coxe(des, root, zampe, angoli):
 
 # ----------------------------------------------------------------------------------- ciclo a tripode
 SEGUONO_FEMORE = ('Femore_B', 'Femore_A', 'Ingombro_Teste_A', 'Cover_Femore_A', 'Cover_Femore_B')   # piu' le copie con origine sul femore (squadrette, perni)
-SEGUONO_TIBIA = ('Tibia', 'Cover_Tibia')
+SEGUONO_TIBIA = ('Tibia', 'Cover_Tibia', 'Piedino')
 
 
 def _gruppo(des, o):

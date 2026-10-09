@@ -13,6 +13,7 @@ Esportati da Fusion il 9 ottobre 2026 (design "Hexapod v2 - MG996R", versione 24
 | `Femore_A.stl` | PETG-CF | faccia esterna sul piatto | sedi delle squadrette verso l'alto |
 | `Cover_Femore_A.stl` | PETG bianco | faccia interna (piana) sul piatto, bombatura in alto | |
 | `Cover_Femore_B.stl` | PETG bianco | **da decidere** | le due spine Ø3 × 3 sporgono dalla faccia interna, quindi quella faccia non può stare sul piatto: o si stampa con la faccia bombata in giù e un supporto d'interfaccia sotto i bordi (al massimo 1 mm), o le spine diventano fori e si usano spine separate (da decidere con il provino) |
+| `Piedino.stl` | TPU 95A arancio | bocca sul piatto, punta in alto | calza la punta dello stinco; nel modello la stretta è zero, da tarare sul provino (0 / −0,2 / −0,4 mm) |
 | `Cover_Tibia.stl` | PETG bianco | retro aperto sul piatto, fronte in alto | il fronte fa da ponte fra i due smussi; supporti piccoli sotto i due tappi e il bossolo della vite, da confermare nello slicer |
 
 ## Corpo

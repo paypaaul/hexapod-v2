@@ -177,7 +177,9 @@ PARAMETRI = [
     ('tib_x_meno_alto', '6 mm', 'mm', 'Stinco: semilarghezza verso -X sotto lo zoccolo (come oggi)'),
     ('tib_x_meno_basso', '4 mm', 'mm', 'Stinco: semilarghezza verso -X alla punta'),
     ('tib_x_piu_basso', '4 mm', 'mm', 'Stinco: semilarghezza verso +X alla punta (in alto e cul_semi, a filo dello zoccolo)'),
-    ('tib_z_arco', 'zam_Lt - 4 mm', 'mm', 'Stinco: fine dell arco e dei fianchi dritti, sotto l asse del ginocchio'),
+    ('tib_piede_sp', '1.6 mm', 'mm', 'Piedino in TPU (D9): parete e suola (4 perimetri); lo stinco finisce a zam_Lt - tib_piede_sp, la suola a zam_Lt'),
+    ('tib_piede_z0', 'cov_tib_z1 + 0.5 mm', 'mm', 'Piedino: bordo alto, 0,5 sotto il guscio della tibia'),
+    ('tib_z_arco', 'zam_Lt - tib_piede_sp - 4 mm', 'mm', 'Stinco: fine dell arco e dei fianchi dritti, sotto l asse del ginocchio'),
     ('tib_arco_R', '((cul_semi - tib_x_piu_basso) ^ 2 + (tib_z_arco - bug_coda) ^ 2) / (2 * (cul_semi - tib_x_piu_basso))',
      'mm', 'Stinco: raggio dell arco del fianco +X (tangente allo zoccolo, 275 mm)'),
     ('tib_y_c', '(zy_fondo_est + zy_orlo) / 2', 'mm', 'Stinco: piano medio dei fianchi Y (piano medio dello zoccolo, -7,35)'),
@@ -598,7 +600,7 @@ def _stinco(p, xk):
     """Stinco V2 allargato (D-061), costruito per primo e da solo: i tagli e le intersezioni toccano solo lui."""
     yq = 'zy_fondo_est - 1 mm'
     largo = 'zy_orlo - zy_fondo_est + 2 mm'
-    p.blocco('y', 'zy_fondo_est', 'stinco', xk + ' - tib_x_meno_alto', '-(zam_Lt)', xk + ' + cul_semi', '-(bug_coda)',
+    p.blocco('y', 'zy_fondo_est', 'stinco', xk + ' - tib_x_meno_alto', '-(zam_Lt - tib_piede_sp)', xk + ' + cul_semi', '-(bug_coda)',
              'zy_orlo - zy_fondo_est', 1, NUOVO)
     # fianco -X: da 6 a 4 dall'asse, dritto
     p.blocco_obl('y', yq, 'fianco_meno_x', (xk + ' - tib_x_meno_alto', '-(bug_coda)'), (xk + ' - tib_x_meno_basso', '-(tib_z_arco)'),
@@ -613,7 +615,7 @@ def _stinco(p, xk):
     p.blocco_obl('x', xk + ' - 20 mm', 'rastremazione_y_piu', ('tib_y_c + tib_y_semi_alto', '-(bug_coda)'),
                  ('tib_y_c + tib_y_semi_basso', '-(tib_z_arco)'), '-(20 mm)', '100 mm', '0 mm', '20 mm', '40 mm', 1, TAGLIA)
     corpo = p.c.bRepBodies.item(0)
-    zt = p.val('zam_Lt')
+    zt = p.val('zam_Lt') - p.val('tib_piede_sp')
     fondo = [e for e in corpo.edges if e.geometry.curveType == adsk.core.Curve3DTypes.Line3DCurveType
              and abs(e.startVertex.geometry.z * 10 + zt) < 0.05 and abs(e.endVertex.geometry.z * 10 + zt) < 0.05
              and abs(e.startVertex.geometry.x - e.endVertex.geometry.x) < 1e-5]
@@ -709,6 +711,32 @@ def fai_cover_tibia(zampa):
     return occ, p
 
 
+def fai_piedino(zampa):
+    """Piedino in TPU 95A arancio (D9): calza la punta dello stinco dal bordo del guscio in giu'. Si rifa' lo stinco con le
+    stesse lavorazioni, si toglie tutto sopra il bordo e si svuota verso l'esterno: dentro e' lo stinco esatto (stretta da
+    tarare sul provino), fuori una parete uniforme che porta la suola a zam_Lt."""
+    occ = _nuovo_comp(zampa, 'Piedino')
+    p = Parte(occ.component)
+    xk = 'zam_Lc + zam_Lf'
+    _stinco(p, xk)
+    p.blocco('z', '-(tib_piede_z0)', 'taglio_alto', xk + ' - 30 mm', '-(40 mm)', xk + ' + 30 mm', '40 mm', '60 mm', 1, TAGLIA)
+    corpo = occ.component.bRepBodies.item(0)
+    z0 = -p.val('tib_piede_z0')
+    bocca = [fa for fa in corpo.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.PlaneSurfaceType
+             and abs(fa.pointOnFace.z * 10 - z0) < 0.01]
+    sh = occ.component.features.shellFeatures
+    inp = sh.createInput(_collezione(bocca), False)
+    inp.insideThickness = adsk.core.ValueInput.createByString('0 mm')
+    inp.outsideThickness = adsk.core.ValueInput.createByString('tib_piede_sp')
+    f = sh.add(inp)
+    f.name = 'calza'
+    p.n += 1
+    corpo = occ.component.bRepBodies.item(0)
+    bb = corpo.boundingBox
+    p.info = {'bocca': len(bocca), 'volume_cm3': round(corpo.volume, 3), 'z_min': round(bb.minPoint.z * 10, 2), 'z_max': round(bb.maxPoint.z * 10, 2)}
+    return occ, p
+
+
 # ----------------------------------------------------------------------------------- istanze e giunti
 # (chiave, componente di libreria, origine come espressioni, versori degli assi del componente nella terna della zampa)
 ASSI_Y = ((1, 0, 0), (0, 0, -1), (0, 1, 0))           # asse z del componente lungo +Y
@@ -736,6 +764,7 @@ RIGIDI = [
     ('R_teste_a', 'Ingombro_Teste_A', 'Femore_A'),
     ('R_cover_femore_a', 'Cover_Femore_A', 'Femore_A'), ('R_cover_femore_b', 'Cover_Femore_B', 'Femore_B'),
     ('R_cover_tibia', 'Cover_Tibia', 'Tibia'),
+    ('R_piedino', 'Piedino', 'Tibia'),
 ]
 
 
@@ -964,7 +993,7 @@ def main(passi, **kw):
         zampa = _zampa(root)
         for nome, f in (('coxa', fai_coxa), ('ponte', fai_ponte), ('femore_b', fai_femore_b), ('femore_a', fai_femore_a),
                         ('tibia', fai_tibia), ('teste_a', fai_teste_a), ('cover_femore_a', fai_cover_femore_a),
-                        ('cover_femore_b', fai_cover_femore_b), ('cover_tibia', fai_cover_tibia)):
+                        ('cover_femore_b', fai_cover_femore_b), ('cover_tibia', fai_cover_tibia), ('piedino', fai_piedino)):
             if nome in passi:
                 occ, p = f(zampa)
                 out[nome] = _chiudi(des, occ.component.name, p)

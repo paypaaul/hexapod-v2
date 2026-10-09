@@ -167,6 +167,7 @@ Parti nuove (specifica in `ricerca/estetica-specifica.md`, scelte e varianti in 
 | `Corpo_Sportello` | PETG bianco | come D-054, più smusso 1 × 45 sul contorno esterno | 5,5 cm³ |
 | `Cover_Femore_A`, `_B` | PETG bianco | lame bombate (toro) sulle due piastre del femore, finestre esagonali sui giunti | 3,8 cm³ |
 | `Cover_Tibia` | PETG bianco | guscio lungo dal ginocchio fin quasi al piede, fronte convesso, sezione a C, finestra lunga | 10,3 cm³ |
+| `Piedino` | TPU 95A arancio | cappuccio sulla punta dello stinco da 0,5 sotto il guscio fino al piede, parete e suola da 1,6; lo stinco finisce a 108,4 e la suola a 110 (D-064) | 1,4 cm³ |
 
 Il carapace, la fascia, la visiera e le gonne si stampano in un solo pezzo a due colori (capovolto, senza supporti); cicalino e pulsante salgono con il carapace. Fissaggio: 4 viti M3 × 8 nei pozzetti, sulle colonnine di D-052.
 
@@ -178,14 +179,14 @@ Verifiche (9 ottobre 2026, Fusion versione 24): assieme senza interferenze; coxe
 |---|---|
 | 18 servo MG996R | 990 |
 | 18 squadrette, 18 cuscinetti, 18 perni | 144 |
-| Parti stampate delle sei zampe: coxa 156, ponte 31, Femore_B 141, Femore_A 55, tibia 191 | 574 (96 a zampa) |
-| Cover delle zampe: lame A 29, lame B 31, gusci delle tibie 79 | 139 (23 a zampa) |
+| Parti stampate delle sei zampe: coxa 156, ponte 31, Femore_B 141, Femore_A 55, tibia 188 | 571 (95 a zampa) |
+| Cover delle zampe: lame A 29, lame B 31, gusci delle tibie 79; piedini in TPU 10 | 149 (25 a zampa) |
 | Parti stampate del corpo: base 198, carapace 62, chiglia 33, slitte 11, vassoio 9, sportello 7, gonne 5, fascia 4, sportellino 3, visiera 2 | 333 |
 | Batteria, SSC-32, ESP32, camera, due regolatori | 340 |
 | Pulsante (B3b) e cicalino | 18 |
-| **Totale modellato** | **2537** |
-| Non modellato (stima): cavi e connettori 160, viteria e inserti 140, basetta e logica 25, piedini 15, fusibili, Wago, T-plug, interruttore 35 | circa 375 |
-| **Totale atteso** | **circa 2910** |
+| **Totale modellato** | **2545** |
+| Non modellato (stima): cavi e connettori 160, viteria e inserti 140, basetta e logica 25, fusibili, Wago, T-plug, interruttore 35 | circa 360 |
+| **Totale atteso** | **circa 2905** (il calcolo statico usa 2910) |
 
 Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %; PETG-CF 1,3 g/cm³, PETG 1,27); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,6; 0; −12,1) mm. Rispetto alla stima prima della passata estetica (2730 g) ci sono 180 g in più: 139 di cover (le lame sono piene e il guscio della tibia è lungo, mentre la specifica ne prevedeva 49), 21 di tibie più larghe, 19 di carapace. Con 2910 g il femore arriva al **51 % dello stallo** al punto di progetto 100/45 (48 % con 2750), il ginocchio al 47 %: sopra la soglia del 50 % che ci si era dati, dentro quanto accettato dall'utente (D-063).
 

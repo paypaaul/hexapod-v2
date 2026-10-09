@@ -11,7 +11,7 @@ import adsk.core
 import adsk.fusion
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'stl')
-PARTI = ('Coxa', 'Coxa_Ponte', 'Femore_A', 'Femore_B', 'Tibia', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Tibia',
+PARTI = ('Coxa', 'Coxa_Ponte', 'Femore_A', 'Femore_B', 'Tibia', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Tibia', 'Piedino',
          'Corpo_Base', 'Corpo_Chiglia', 'Corpo_Vassoio', 'Corpo_Slitta_Regolatore', 'Corpo_Sportello', 'Corpo_Carapace',
          'Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
 

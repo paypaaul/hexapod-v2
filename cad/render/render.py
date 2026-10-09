@@ -45,7 +45,7 @@ COLORI = {'base': '#5d636b', 'coperchio': '#6a7079', 'interni': '#6f7c8c', 'serv
           'zampe_struttura': '#5d636b', 'zampe_servo': '#2a2a2d',
           # D-061: carapace e cover in PETG bianco, fascia, visiera, gonne e sportellino in PETG nero
           'carapace': '#f2f2f2', 'nero': '#1e1f22', 'zampe_struttura_cover': '#f2f2f2',
-          'zampe_struttura_ingombro_teste': '#2a2a2d'}      # per prefisso del nome del gruppo (vince il piu' lungo)
+          'zampe_struttura_ingombro_teste': '#2a2a2d', 'zampe_struttura_piedino': '#ff6a13'}      # per prefisso del nome del gruppo (vince il piu' lungo)
 # assi delle coxe: (x, y, direzione in gradi), D-050
 COXE = {'AS': (80, 44, 30), 'MS': (0, 48, 90), 'PS': (-80, 44, 150), 'AD': (80, -44, -30), 'MD': (0, -48, -90), 'PD': (-80, -44, -150)}
 VISTE = {  # elevazione, azimut (gradi), zoom
