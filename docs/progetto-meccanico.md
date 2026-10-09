@@ -106,10 +106,15 @@ Disposizione "compatto" (D-050, confronto in `ricerca/corpo-disposizioni.json`).
 |---|---|---|
 | `Corpo_Base` | tunnel della batteria (parte alta e tetto), ripiano e pareti delle baie, sei gondole (culle uguali a quelle della zampa: fessura del passacavo verso il centro, cuscinetto nel fondo), parete anteriore sopra il tetto con l'apertura per vassoio e basetta, quattro bugne della SSC-32 con fori pilota M2,5 | 140 cm³ |
 | `Corpo_Chiglia` | fondo e parte bassa del tunnel, da −41,4 a −31,95 | 24 cm³ |
-| `Corpo_Coperchio` | dorso da +28,4 a +30 con i lobi sopra le coxe (provvisorio: niente gonna) | 36 cm³ |
+| `Corpo_Coperchio` | dorso da +28,4 a +30 con i lobi sopra le coxe, gonne laterali sulle pareti delle baie (a 22 mm dagli assi delle coxe) | 40 cm³ |
+| `Corpo_Sportello` | sportello della batteria sul retro: piastra e due rebbi alti che premono il pacco (con schiuma) contro la battuta anteriore; sotto i rebbi passa la coppia di T-plug | 5 cm³ |
 | `Corpo_Vassoio` | in PETG: piano per la basetta dell'ESP32 su quattro colonnine dal tetto, torretta e mensola della camera con una fessura di 0,5 mm per il flat | 9 cm³ |
 
 Quote: assi delle coxe d'angolo (±80, ±44) a ±30° e ±150°, medie (0, ±48); base 235 × 173 (da z −31,95 a +7), tunnel interno 162 × 50, chiglia fino a −41,4.
+
+Vano di coda (corpo v0.2): fessura nel tetto per i cavi della batteria; portafusibile F1 di traverso sul tetto dietro la SSC-32 (raggiungibile senza togliere il coperchio, dal retro); coppia di T-plug nella zona dei cavi dietro il pacco, raggiungibile aprendo lo sportello della batteria; Wago sul tetto sotto il vassoio, ingressi verso l'esterno.
+
+![Assieme v0 con il coperchio](immagini/assieme-v0-coperchio.png)
 
 Fissaggi (corpo v0.1): chiglia con 4 viti M3 in inserti della base, due davanti fuori dal tunnel (orecchie della chiglia) e due dietro nella zona dei cavi della batteria (colonnine della chiglia); regolatori su quattro bugne Ø5,2 ciascuno con inserti M2 nella **parete esterna della baia**, componenti verso il tunnel (6,8 mm d'aria), piazzole in alto (sul fianco del tunnel le bugne alte sarebbero rimaste sopra il tetto, nel vuoto); SSC-32 su quattro bugne del tetto con viti M2,5 in fori pilota; ESP32 con il centro a x 45 (la punta dell'antenna a x 81, davanti c'è la torretta della camera).
 
@@ -147,4 +152,4 @@ Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, rie
 
 ### Da fare nel corpo
 
-- Sportello della batteria a scatto, F1 e T-plug nel vano di coda, Wago, interruttore, cicalino, basetta con fermo; feritoie delle baie anteriori; gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe), suo fissaggio (linguette e 2 viti) e muso in PETG con la finestra della camera; percorso dei cavi (tasche e pettini nelle baie posteriori); labbro di centraggio tra chiglia e base; tetto del tunnel stampato su supporti (o a falde).
+- Denti a scatto dello sportello, fermagli di F1, T-plug e Wago, interruttore, cicalino, basetta con fermo; feritoie delle baie anteriori; gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe), suo fissaggio (linguette e 2 viti) e muso in PETG con la finestra della camera; percorso dei cavi (tasche e pettini nelle baie posteriori); labbro di centraggio tra chiglia e base; tetto del tunnel stampato su supporti (o a falde).

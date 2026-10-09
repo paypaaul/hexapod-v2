@@ -60,6 +60,14 @@ def pose_corpo(des):
     out['SSC32'] = ('Rif_SSC32_V25', _rz(_mm(des, 'cor_ssc_x'), 0, z_ssc, 0.0))          # morsettiera in avanti
     out['ESP32'] = ('Rif_ESP32_S3_CAM', _rz(45.0, 0, 16.0, 0.0))                         # antenna in avanti, punta a x 81 (torretta della camera da x 82)
     out['Camera'] = ('Rif_Camera_OV3660_75', A['matrice']((92.5, 0, 22.5), (0, 0, 1), (0, -1, 0), (1, 0, 0)))
+    # vano di coda sul tetto: fusibile F1 di traverso dietro, T-plug davanti a lui; Wago sotto il vassoio, ingressi verso l'esterno
+    zt = -_mm(des, 'cor_tetto')
+    x_coda = -_mm(des, 'cor_tun_x0')
+    out['Portafusibile_F1'] = ('Rif_Portafusibile_ATO', _rz(x_coda + 2 + _mm(des, 'fus_w') / 2, 0, zt, 90.0))
+    # la coppia di T-plug sta nella zona dei cavi dietro il pacco: si stacca aprendo lo sportello della batteria
+    out['Tplug'] = ('Rif_Tplug', _rz(x_coda + 2 + 8.0 + 2.0, 0, -_mm(des, 'cor_chiglia') + _mm(des, 'cor_chiglia_sp'), 90.0))
+    out['Wago_piu'] = ('Rif_Wago_221_415', _rz(48.0, 10.3, zt, 0.0))
+    out['Wago_meno'] = ('Rif_Wago_221_415', _rz(48.0, -10.3, zt, 180.0))
     # regolatori sulla parete esterna della baia, componenti verso il tunnel, piazzole in alto
     y_reg = _mm(des, 'cor_baia_y') - _mm(des, 'cor_parete') - _mm(des, 'cor_reg_dist')
     x0, z1, lr = _mm(des, 'cor_reg_x0'), _mm(des, 'cor_reg_ztop'), _mm(des, 'reg_l')
@@ -184,7 +192,7 @@ def _voluta(corpo_a, corpo_b, a, b):
     nomi = {a.split('+')[-1].split(':')[0], b.split('+')[-1].split(':')[0]}
     if nomi == {'Rif_Servo_MG996R', 'Rif_Squadretta_25T'}:
         return True
-    if corpo_a in ('flat', 'linguetta') or corpo_b in ('flat', 'linguetta'):
+    if corpo_a in ('flat', 'linguetta', 'uscita_cavi') or corpo_b in ('flat', 'linguetta', 'uscita_cavi'):
         return True
     return False
 

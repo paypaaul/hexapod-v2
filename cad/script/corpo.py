@@ -74,6 +74,14 @@ PARAMETRI = [
     ('cor_vas_col_d', '6 mm', 'mm', 'Vassoio: diametro delle colonnine'),
     ('cor_cam_x', '92.5 mm', 'mm', 'Camera: X del retro della testa'),
     ('cor_cam_z', '22.5 mm', 'mm', 'Camera: Z dell asse ottico'),
+    # --- vano di coda e sportello della batteria
+    ('cor_cavi_x', '13 mm', 'mm', 'Tetto: fessura per i cavi della batteria, lunghezza dalla coda'),
+    ('cor_cavi_semi', '9 mm', 'mm', 'Tetto: fessura per i cavi della batteria, semilarghezza'),
+    ('cor_sport_sp', '2 mm', 'mm', 'Sportello della batteria: spessore'),
+    ('cor_sport_rebbio', '17 mm', 'mm', 'Sportello: lunghezza dei rebbi che premono il pacco (con schiuma) contro la battuta'),
+    ('cor_gonna_sp', '1.2 mm', 'mm', 'Coperchio: spessore della gonna'),
+    ('cor_gonna_x0', '22 mm', 'mm', 'Coperchio: gonna laterale da qui (22 mm dall asse della coxa media)'),
+    ('cor_gonna_x1', '58.8 mm', 'mm', 'Coperchio: gonna laterale fino a qui (22 mm dall asse della coxa d angolo)'),
     # --- coperchio
     ('cor_cop_z', '28.4 mm', 'mm', 'Coperchio: lato inferiore del dorso'),
     ('cor_cop_sp', '1.6 mm', 'mm', 'Coperchio: spessore del dorso'),
@@ -210,6 +218,8 @@ def fai_base(corpo):
     # interno del tunnel (aperto sotto, verso la chiglia, e dietro, per la batteria)
     p.blocco('z', '-(cor_fondo)', 'interno_tunnel', '-(cor_tun_x0)', '-(cor_tun_semi - cor_parete)', 'cor_tun_x1 - cor_parete',
              'cor_tun_semi - cor_parete', 'cor_fondo - cor_tetto - cor_tetto_sp', 1, TAGLIA)
+    p.blocco('z', '-(cor_tetto) - cor_tetto_sp', 'fessura_cavi', '-(cor_tun_x0 - cor_parete)', '-(cor_cavi_semi)',
+             '-(cor_tun_x0 - cor_parete - cor_cavi_x)', 'cor_cavi_semi', 'cor_tetto_sp', 1, TAGLIA)
     for nome, y in (('chi_bugna_ps', 'cor_tun_semi - cor_parete - cor_chi_bugna_d / 2 + 0.5 mm'),
                     ('chi_bugna_pd', '-(cor_tun_semi - cor_parete - cor_chi_bugna_d / 2 + 0.5 mm)')):
         p.cilindro('z', '-(cor_fondo)', nome, '-(cor_chi_vite_xp)', y, 'cor_chi_bugna_d', 'ins_m3_l + 1 mm')
@@ -238,6 +248,18 @@ def fai_chiglia(corpo):
     return occ, p
 
 
+def fai_sportello(corpo):
+    occ = _nuovo_comp(corpo, 'Corpo_Sportello')
+    p = Parte(occ.component)
+    zb, zt = '-(cor_chiglia) + cor_chiglia_sp', '-(cor_tetto) - cor_tetto_sp'
+    p.blocco('x', '-(cor_tun_x0)', 'piastra', '-(cor_tun_semi)', zb, 'cor_tun_semi', '-(cor_tetto)', 'cor_sport_sp', -1, NUOVO)
+    # rebbi alti: sotto passa la coppia di T-plug, che sta nella zona dei cavi dietro il pacco
+    for lato, y in (('s', '12 mm'), ('d', '-(12 mm)')):
+        p.blocco('x', '-(cor_tun_x0)', 'rebbio_' + lato, y + ' - 2 mm', '-(29 mm)', y + ' + 2 mm', zt + ' - 4 mm',
+                 'cor_sport_rebbio', 1)
+    return occ, p
+
+
 def fai_vassoio(corpo):
     occ = _nuovo_comp(corpo, 'Corpo_Vassoio')
     p = Parte(occ.component)
@@ -262,6 +284,9 @@ def fai_coperchio(corpo):
     p.blocco('z', 'cor_cop_z', 'dorso_nucleo', '-(cor_tun_x0)', '-(cor_tun_semi)', 'cor_tun_x1', 'cor_tun_semi', 'cor_cop_sp', 1, NUOVO)
     p.blocco('z', 'cor_cop_z', 'dorso_baie', '-(cor_baia_x)', '-(cor_baia_y)', 'cor_baia_x', 'cor_baia_y', 'cor_cop_sp')
     p.blocco('z', 'cor_cop_z', 'muso', 'cor_tun_x1', '-(cor_muso_semi)', 'cor_muso_x', 'cor_muso_semi', 'cor_cop_sp')
+    for lato, y0, y1 in (('s', 'cor_baia_y - cor_gonna_sp', 'cor_baia_y'), ('d', '-(cor_baia_y)', '-(cor_baia_y - cor_gonna_sp)')):
+        for verso, x0, x1 in (('a', 'cor_gonna_x0', 'cor_gonna_x1'), ('p', '-(cor_gonna_x1)', '-(cor_gonna_x0)')):
+            p.blocco('z', 'cor_orlo', 'gonna_%s%s' % (verso, lato), x0, y0, x1, y1, 'cor_cop_z - cor_orlo')
     for nome, x, y in (('lobo_as', 'cor_ang_x', 'cor_ang_y'), ('lobo_ad', 'cor_ang_x', '-(cor_ang_y)'),
                        ('lobo_ps', '-(cor_ang_x)', 'cor_ang_y'), ('lobo_pd', '-(cor_ang_x)', '-(cor_ang_y)'),
                        ('lobo_ms', '0 mm', 'cor_med_y'), ('lobo_md', '0 mm', '-(cor_med_y)')):
@@ -310,7 +335,8 @@ def main(passi, **kw):
         if 'parametri' in passi:
             out['parametri'] = L['aggiungi_parametri'](des, PARAMETRI)
         corpo = _corpo(root)
-        for nome, f in (('base', fai_base), ('chiglia', fai_chiglia), ('vassoio', fai_vassoio), ('coperchio', fai_coperchio)):
+        for nome, f in (('base', fai_base), ('chiglia', fai_chiglia), ('sportello', fai_sportello), ('vassoio', fai_vassoio),
+                        ('coperchio', fai_coperchio)):
             if nome in passi:
                 occ, p = f(corpo)
                 out[nome] = _chiudi(des, occ.component.name, p)
