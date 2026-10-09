@@ -206,6 +206,17 @@ Altre viste: [da dietro](immagini/render-montato-post.png), [di fianco](immagini
 
 Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %; PETG-CF 1,3 g/cm³, PLA 1,24, TPU 1,21 pieno); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,6; 0; −13,0) mm. Con la tibia simmetrica sul piano della zampa (D-065) la massa sale di altri 40 g circa: femore sempre al **51 %** dello stallo. Rispetto alla stima prima della passata estetica (2730 g) ci sono 180 g in più: 139 di cover (le lame sono piene e il guscio della tibia è lungo, mentre la specifica ne prevedeva 49), 21 di tibie più larghe, 19 di carapace. Con 2910 g il femore arriva al **51 % dello stallo** al punto di progetto 100/45 (48 % con 2750), il ginocchio al 47 %: sopra la soglia del 50 % che ci si era dati, dentro quanto accettato dall'utente (D-063).
 
+### Predisposizioni della versione 2.1.0 nel corpo (D-066)
+
+- 2813 in piedi fra SSC-32 e portafusibile.
+- IMU e ADC sotto il vassoio, prese dei piedi accanto, spie dei rail in coda.
+- ToF frontale nella mensola della camera, con finestra e tappo nella visiera; ToF posteriore e altoparlante sulle guance di coda.
+- INA260 su supporti sopra le slitte.
+- Anello del pulsante con camera nera, sedi delle luci dei lobi, ganci dei cavi.
+- Zaino sopra l'ottagono, microfoni, amplificatore e scheda del carapace sotto il dorso.
+
+Masse con tutte le predisposizioni montate: 2625 g modellati e circa 2985 attesi, femore al 52,1 % dello stallo a 100/45 (5,73 kgf·cm). Quote e verifiche in D-066.
+
 ### Da fare nel corpo
 
 - Interruttore e cicalino (da decidere: vedi le domande in `BOM.md`); pettini per le anse dei cavi nelle baie posteriori (percorsi e lunghezze: sezione "Cavi dei servo"). Note di stampa della base in D-056.

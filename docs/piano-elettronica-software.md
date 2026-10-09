@@ -298,6 +298,18 @@ Ogni fase lascia la repo in uno stato da cui ripartire. "Si compra" vuol dire: d
 
 ## 5. Da predisporre subito nel CAD
 
+**Stato al 10 ottobre 2026** (versione 2.1.0, D-066):
+- fatte e verificate nel modello:
+  - punta dello stinco, piedino, tasca e gola dell'FSR;
+  - luci nelle tibie con diffusore, anello del pulsante con camera nera, sedi dei lobi e ganci;
+  - 2813, IMU, ADC, prese dei piedi, spie dei rail;
+  - ToF frontale con finestra e tappo, ToF posteriore, INA260 su supporti separati;
+  - microfoni, altoparlante, amplificatore e scheda del carapace;
+  - zaino;
+  - punti con nome, dime e cavalletto.
+- Restano "posto da trovare": INA3221 (X15), sede del CAP1188 (X18) e linee di luce della fascia (X22). Le fessure dell'occhio (X21) sono fuori finché l'utente non le chiede.
+- Le righe qui sotto sono la specifica di partenza: dove differiscono, vale D-066.
+
 Un solo elenco, dalle due ricerche. Parametri nuovi con i prefissi `sen_` (sensori) e `luc_` (luci). Dopo ogni gruppo le verifiche solite: interferenze, sentinella dei volumi, timeline.
 
 Stato: **sicuro** = quote e posto controllati sul modello nella revisione, resta da modellare e verificare; **da verificare** = posto indicato, con un controllo aperto; **posto da trovare** = il volume non è dimostrato; **da decidere** = dipende da una domanda della sezione 7.

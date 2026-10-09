@@ -5,7 +5,7 @@ Ogni gruppo di modifiche è una versione: un tag git e un file Fusion proprio ne
 | Versione | Stato | Tag git | File Fusion (lineage) | Contenuto |
 |---|---|---|---|---|
 | 2.0.0 | congelata (9 ottobre 2026) | `v2.0.0` | "Hexapod v2 - MG996R", versione 28 (`urn:adsk.wipprod:dm.lineage:AVxbp0QWS5m_QEugpeB99A`) | zampa, corpo, assieme a sei zampe con giunti veri, passata estetica, tibia simmetrica sul piano della zampa, piedino in TPU, colori e render (D-047…D-065) |
-| 2.1.0 | in corso (dal 9 ottobre 2026) | `v2.1.0` a fine lavoro | "Hexapod v2.1.0" (`urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`), copia della 2.0.0 versione 28 | predisposizioni per sensori, luci, audio e computer di bordo; attrezzi da banco; software senza hardware (S0). Piano in `docs/piano-v2.1.0.md` |
+| 2.1.0 | fatta (10 ottobre 2026), design di lavoro | `v2.1.0` | "Hexapod v2.1.0" (`urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`), copia della 2.0.0 versione 28 | predisposizioni per sensori, luci, audio e computer di bordo; attrezzi da banco; software senza hardware (S0). Piano in `docs/piano-v2.1.0.md` |
 
 Prima della 2.0.0: la versione progettata attorno agli MG90S, nel branch `mg90s` e nel file "Hexapod v2 - MG90S".
 
@@ -18,4 +18,4 @@ Prima della 2.0.0: la versione progettata attorno agli MG90S, nel branch `mg90s`
 | Blocco B — corpo | fatto e verificato (9 ottobre 2026, D-066): 2813, IMU, ADC, prese dei piedi, spie, ToF frontale e posteriore, INA260, anello del pulsante, luci dei lobi, zaino, audio |
 | Blocco C — attrezzi da banco | fatto e verificato (10 ottobre 2026, D-066): due dime di posa per tutte le zampe e cavalletto |
 | Blocco D — software S0 | fatto e verificato (9 ottobre 2026): stato in `docs/software.md` |
-| Documenti, STL, render, tag `v2.1.0` | da fare |
+| Documenti, STL, render, tag `v2.1.0` | fatto (10 ottobre 2026): D-066, BOM (sezione X), STL con gli attrezzi, cinque render rifatti |

@@ -59,11 +59,11 @@ SPOST_CORPO = {
 
 # inquadrature: (direzione dell'occhio, terna 'robot' o 'zampa', bersaglio in mm nella stessa terna, ampiezza in cm)
 VISTE = {
-    'montato_ant': ((1.0, 0.72, 0.62), 'robot', (0, 0, -38), 46.0),
-    'montato_post': ((-1.0, -0.72, 0.62), 'robot', (0, 0, -38), 46.0),
-    'montato_fianco': ((0.12, 1.0, 0.22), 'robot', (0, 0, -40), 30.0),
+    'montato_ant': ((1.0, 0.72, 0.62), 'robot', (0, 0, -38), 54.0),
+    'montato_post': ((-1.0, -0.72, 0.62), 'robot', (0, 0, -38), 54.0),
+    'montato_fianco': ((0.12, 1.0, 0.22), 'robot', (0, 0, -40), 46.0),
     'esploso_zampa': ((0.72, 0.58, 0.36), 'zampa', (70, 5, -75), 36.0),
-    'esploso_corpo': ((1.0, 0.85, 0.5), 'robot', (0, 0, 38), 47.0),
+    'esploso_corpo': ((1.0, 0.85, 0.5), 'robot', (0, 0, 38), 54.0),
 }
 
 
@@ -205,7 +205,7 @@ def ripristina():
     if des.snapshots.hasPendingSnapshot:
         des.snapshots.revertPendingSnapshot()
     for o in root.occurrences:
-        o.isLightBulbOn = not o.component.name.startswith('Rif_')     # la libreria dei componenti resta spenta
+        o.isLightBulbOn = not o.component.name.startswith(('Rif_', 'Dima_', 'Attrezzo_'))     # libreria e attrezzi restano spenti
     _flat(root, True)
     for c in [root] + [o.component for o in root.allOccurrences if o.component.name in ('Zampa', 'Corpo')]:
         c.isJointsFolderLightBulbOn = True

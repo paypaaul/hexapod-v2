@@ -1,6 +1,6 @@
 # Versione 2.1.0 — piano di progettazione
 
-Stato: **in corso** (via dell'utente il 9 ottobre 2026; avanzamento in `docs/versioni.md`). Questo file serve a riprendere il lavoro dopo una compattazione del contesto o una sessione nuova: da qui si sa cosa fare, in che ordine e come verificarlo.
+Stato: **fatto** (9–10 ottobre 2026, D-066, tag `v2.1.0`; avanzamento e risultati in `docs/versioni.md` e `docs/decisioni.md`). Questo file serve a riprendere il lavoro dopo una compattazione del contesto o una sessione nuova: da qui si sa cosa fare, in che ordine e come verificarlo.
 
 ## Cos'è la 2.1.0
 

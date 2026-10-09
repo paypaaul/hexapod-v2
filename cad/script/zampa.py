@@ -291,6 +291,9 @@ def _punti(comp):
         fatti.append(cp.name)
     if not sk.isFullyConstrained:
         raise RuntimeError('%s: schizzo dei punti non vincolato' % comp.name)
+    # servono agli script, non alla vista: spenti come gli altri schizzi
+    comp.isSketchFolderLightBulbOn = False
+    comp.isConstructionFolderLightBulbOn = False
     return fatti
 
 

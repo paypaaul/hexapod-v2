@@ -136,7 +136,7 @@ def fai_dima(des, root, nome):
     sp = _mm(des, 'att_sp')
     yb = y0 - sp                                                 # retro della piastra
     ye = _mm(des, 'zy_fondo_est') + _mm(des, 'att_entra')        # fine dei denti, oltre il fondo delle culle
-    (hx, hz), (kx, kz) = g['H'], g['K']
+    (hx, hz), kx = g['H'], g['K'][0]
     # piastra sui due mozzi, con i fori sui perni
     p.blocco('y', _f(yb), 'piastra', _f(hx - 14), _f(-14), _f(kx + 14), _f(14), _f(sp), 1, NUOVO)
     dl, dt = _mm(des, 'att_dente_l'), _mm(des, 'att_dente')

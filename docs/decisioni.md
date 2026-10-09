@@ -290,7 +290,7 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - **Inserti in ottone**: il progetto li usa già quasi ovunque. Sono 94 M3 e 28 M2 a caldo; nessun bullone con dado. Le uniche viti in fori pilota sono quelle delle alette dal lato dell'albero (D-049). Dove si monta e smonta (carapace, sportello della batteria, guscio della tibia, ora la lama B) c'è sempre una vite in un inserto, mentre le parti che si aprono spesso senza attrezzi (sportellino, lama A) sono a incastro. L'utente ha un kit di inserti da Temu: se le misure vanno bene sostituisce D4 e D5; i fori si adeguano con `ins_m3_d`, `ins_m3_l`, `ins_m2_d` e `ins_m2_l`. **Misure da avere dall'utente** (il link non si apre da qui).
 - Massa attesa circa 2945 g; femore al 51 % dello stallo al punto di progetto (massa del calcolo aggiornata).
 
-## D-066 — Versione 2.1.0: predisposizioni per sensori, luci, audio e computer di bordo (2026-10-09, in corso)
+## D-066 — Versione 2.1.0: predisposizioni per sensori, luci, audio e computer di bordo, attrezzi, software S0 (2026-10-09…10)
 
 Decisioni dell'utente del 9 ottobre: audio a bordo senza la microSD dell'ESP32, computer di bordo solo predisposto a zaino sul dorso, software approvato (ESP-IDF in C++, repo pubblica), luci del pulsante e dei lobi più la predisposizione nelle tibie (se montarle lo decide dopo). Si lavora sulla copia del design "Hexapod v2.1.0"; la 2.0.0 resta congelata (tag `v2.0.0`, `docs/versioni.md`). Piano in `docs/piano-v2.1.0.md`.
 

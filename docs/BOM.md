@@ -134,6 +134,24 @@ Le voci D6 (viti M3 in assortimento più 100) e D8 (M2) vanno ordinate con quest
 
 Saldatore con punta per inserti a caldo (o kit di punte dedicate), multimetro, pinza spelafili, termosoffiatore o accendino per il termorestringente, chiavi a brugola da 1,5 / 2 / 2,5 mm, calibro per controllare i pezzi stampati. Al banco, per le prime accensioni: un alimentatore regolabile con limite di corrente sarebbe utile ma non indispensabile (si parte con F1 da 15 A).
 
+## X. Predisposizioni della versione 2.1.0 (candidati, da approvare)
+
+Nel CAD della 2.1.0 (D-066) ci sono le sedi per queste voci; **niente è approvato né da comprare**. L'elenco completo, con fasi, masse, correnti e costi indicativi, è in `docs/piano-elettronica-software.md`, sezione 6. Dove il posto è nel modello:
+
+| Voce | Posto nel modello (D-066) |
+|---|---|
+| X5 FSR 400 Short (6 + 1) | punta della tibia, piedino con pistoncino, tasca e gola dei fili, prese dei piedi accanto all'ADC |
+| X4 IMU Pololu #2798 | bugne sul tetto del tunnel sotto il vassoio |
+| X6 ADS7830 | bugne accanto all'IMU |
+| X7 2 × INA260 | supporti sopra le slitte dei regolatori |
+| X8 ToF VL53L7CX | mensola della camera, finestra nella visiera, tappo |
+| X9, X11, X12, X31 luci | anello del pulsante con camera nera, sedi dei lobi, sedi nelle tibie e diffusore |
+| X13 spie dei rail | linguette in coda |
+| X2 scheda del carapace, X17 amplificatore e altoparlante, X16 microfoni, X19 ToF posteriore | bugne sotto il dorso, guide e piano sulle guance di coda, fori con anello |
+| Computer a zaino (Radxa ZERO 3W) | quattro bugne M2 sopra l'ottagono, sportellino con la tacca dell'USB-C |
+
+Viteria in più se si montano tutte, da contare a robot deciso: inserti M2 (D5) per IMU 2, ADC 2, INA260 4, scheda del carapace 4, amplificatore 2, zaino 4; viti M2 corte per le stesse; viti M3 delle slitte più lunghe di 2,4 mm con i supporti degli INA260.
+
 ## Ordine degli acquisti consigliato
 
 1. **Una squadretta metallica** (D3), qualche cuscinetto e perno (D1, D2), inserti e viti M3: servono per il provino stampato della culla e del giunto, che conferma le quote del servo prima di tutto il resto.
