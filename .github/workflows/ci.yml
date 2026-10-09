@@ -55,6 +55,15 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
+      - name: immagine di ESP-IDF (tre tentativi)
+        # i primi due giri del CI sono falliti nello scaricare l'immagine da Docker Hub (limite di richieste e timeout
+        # del 9 ottobre 2026), non nella compilazione: con l'immagine gia' presente l'azione non la riscarica
+        run: |
+          for i in 1 2 3; do
+            docker pull "espressif/idf:${ESP_IDF_VERSIONE}" && exit 0
+            echo "tentativo $i fallito, riprovo fra $((30 * i)) s"; sleep $((30 * i))
+          done
+          exit 1
       - name: idf.py build (esp32s3)
         uses: espressif/esp-idf-ci-action@e6f5c74232b1ccd4c97ed641f1e48553853f1fd5  # v1.2.0
         with:
