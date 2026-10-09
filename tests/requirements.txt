@@ -1,0 +1,4 @@
+# Strumenti Python dei test e del CI (versioni fissate: il CI usa queste)
+pytest==9.1.1
+ruff==0.17.0
+PyYAML==6.0.3
