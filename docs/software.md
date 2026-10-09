@@ -1,6 +1,34 @@
 # Stack software: firmware, controllo e AI (ricerca, backlog)
 
-9 ottobre 2026. **Proposta da approvare**: nulla di questo documento si installa, si compra o si scrive nella repo prima del via dell'utente.
+9 ottobre 2026. Approvato dall'utente lo stesso giorno (repo pubblica, ESP-IDF senza Arduino, software libero sul Mac). La fase S0 è fatta nella versione 2.1.0: stato qui sotto.
+
+## Stato di S0 (9 ottobre 2026, versione 2.1.0)
+
+Fatto e verificato sul Mac. I dettagli e le prove stanno in `firmware/README.md`, `sim/README.md` e `app/README.md`.
+
+- **Descrizione unica**:
+  - `cad/script/esporta_robot.py` legge il modello Fusion e scrive `robot/cad.json`: geometria, punti con nome, limiti meccanici, tabella del ginocchio, masse e inerzie per parte, cicli verificati. Scrive anche le mesh dei segmenti e `robot/pose_cad.json`, 75 pose lette con i giunti veri;
+  - `robot/robot.yaml` è la parte scritta a mano: canali, versi, calettamento e limiti della guardia;
+  - `tools/descrizione.py` unisce i due file e controlla l'impronta di `cad.json`.
+- **Nucleo C++17** (`firmware/components/nucleo`), con le stesse formule di `calc/` e di `pose_tripode`:
+  - contiene cinematica, guardia del fotogramma intero, statica, tripode a fase continua e modello del servo;
+  - scarti: diretta contro il CAD 0,0001 mm; inversa contro Python 0,0004°; andatura contro Python 0,00003°;
+  - regressione a 100/45: femore al 51,4 % dello stallo, margine 59 mm;
+  - i casi d'urto del CAD sono rifiutati.
+- **Firmware ESP-IDF v6.1** per esp32s3: compila (174 KB, 4 % dello slot OTA). Il compito `ctrl` gira a 50 Hz in modo OMBRA, con il rail spento; il resto è scheletro. Non è ancora provato sul chip.
+- **Simulazione MuJoCo** (`sim/`), con emulatore della SSC-32 e modello generato da `tools/genera_modelli.py`. Prova di 20 s di tripode a 100/45 comandata attraverso l'emulatore, superata anche con la rotazione di 30°:
+  - corpo fra 97,7 e 99,2 mm, inclinazione 0,2°;
+  - nessun urto;
+  - scivolamento 0,5 mm all'atterraggio;
+  - femore al 51 % dello stallo.
+- **Gemello digitale nel browser** (`app/`, three.js): riproduce tripode e rotazione con i cursori di assetto e avvisa che le pose sono comandate, non misurate.
+- **CI su GitHub** (`ci.yml`, `sim.yml`): ruff e pytest, nucleo con gcc e clang e i sanitizer, firmware, file generati, simulazione, app.
+
+Aperti:
+- **Coppia agli assetti bassi.** A 70/70 il ciclo a tripode porta il femore al 75 % dello stallo: è sopra la soglia di rifiuto proposta (70 %), quindi la guardia lo rifiuta. In MuJoCo arriva all'81 %. Nel CAD l'assetto 70/70 è libero da urti, ma per andarci servono un'andatura con più piedi a terra (a coppie o a onda) o una soglia diversa: decide l'utente quando si sceglie l'assetto, a robot costruito.
+- **Contatti in MuJoCo.** La rigidezza dei contatti (0,005 s) è una stima: con il valore standard il femore sale all'83 % e la prova non passa. Va tarata sui registri del robot (S4).
+- **Atterraggio del piede.** Con il volo di `pose_tripode` il piede tocca terra a 240 mm/s e striscia di 2–3 mm. Il generatore del firmware userà una curva che arriva a velocità zero.
+- **Nel CI** il job del firmware dipende dall'immagine Docker di Espressif: i primi giri sono falliti per i limiti di Docker Hub, non per la compilazione. Ora l'immagine si scarica con tre tentativi.
 
 Nasce da cinque ricerche indipendenti: architettura del firmware, controllo e interfacce, locomozione e reinforcement learning, visione e AI, strumenti e test. Qui sono unite. Dove i ricercatori non erano d'accordo la scelta è spiegata (tabella in fondo al capitolo 1). I sensori (IMU, contatti dei piedi, corrente, ToF frontale, LED) li sceglie la ricerca parallela, in `docs/predisposizioni.md`; il piano che unisce le due ricerche è `docs/piano-elettronica-software.md`. Qui sono trattati come probabili e il firmware è pensato per funzionare anche senza.
 
