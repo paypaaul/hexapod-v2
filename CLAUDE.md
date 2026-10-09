@@ -84,6 +84,7 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 | `cad/script/esporta_stl.py` | STL di tutte le parti stampate in `cad/stl/` (orientamento e materiali nel README della cartella) |
 | `cad/script/esporta_mesh.py`, `cad/render/render.py` | render schematici (matplotlib) del modello con parti nuove sopra: prima si esportano le mesh da Fusion (sola lettura), poi `Scena()` + parti + `render()` |
 | `docs/ricerca/estetica-dossier.md` | dossier per la passata estetica (indicazioni, quote, vincoli) |
+| `docs/piano-v2.1.0.md` | piano della versione 2.1.0 (in attesa del via): file e versioni, blocchi di lavoro, verifiche, come riprendere |
 | `docs/piano-elettronica-software.md` | piano unico (backlog, da approvare): sensori, luci, elettronica e software, roadmap P0…P10, cose da predisporre nel CAD, decisioni per l'utente |
 | `docs/predisposizioni.md`, `docs/software.md` | dettaglio delle due ricerche del 9 ottobre: sensori, luci ed espansioni; firmware, controllo, RL e visione |
 
@@ -197,6 +198,7 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 
 ## Prossimi passi
 
+0. **Versione 2.1.0 — in attesa del via dell'utente** (9 ottobre 2026): piano completo in `docs/piano-v2.1.0.md`, da leggere per primo. Predisposizioni per sensori, luci (pulsante, lobi, tibie), audio e zaino del computer di bordo, attrezzi da banco, software S0. Si lavora su una copia del design Fusion ("Hexapod v2.1.0"); la v2.0 resta congelata con il tag git `v2.0.0`.
 1. **Da far decidere all'utente**: misure degli inserti del kit Temu (BOM, domanda 8); viti M2 × 6 svasate per le lame B (D8b); massa attesa 2945 g con il femore al 51 % dello stallo (D-065); domande 1–4 del BOM.
 2. **Corpo**: restano l'interruttore 2813 (non ancora piazzato) e i pettini per le anse dei cavi nelle baie posteriori. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo` (vanno in timeout ma finiscono: rileggere); controllo con `controllo`, `interferenze`, coxe a ±35° e a 31° tra vicine, `carapace_zampe`, `sfilamento`, `campo`, `ciclo` (100/45 e 70/70). Il carapace si rifà con `carapace` e poi `carapace_dettagli` (due chiamate: la seconda va in timeout ma finisce).
 3. **Zampa**: piedino in TPU fatto (D-064); nervature di schiacciamento delle culle e stretta del piedino dopo il provino. Dopo una modifica: `zampa.py` → parte, `giunti`, `limiti`, `misura`, `interferenze`, scansione delle pose (α a passi di 5, γ minimo e γ minimo − 2).
