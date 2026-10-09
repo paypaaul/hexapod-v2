@@ -1,6 +1,6 @@
 # Descrizione unica del robot (versione 2.1.0): la parte scritta a mano. La geometria, le masse e i limiti meccanici
 # stanno in cad.json, esportato dal modello Fusion con cad/script/esporta_robot.py; tools/genera_robot.py unisce i
-# due file e produce header del firmware, modulo Python, URDF e MJCF. Il CI controlla che cad_sha256 sia quello di
+# due file (tools/descrizione.py) e produce header del firmware, URDF e MJCF. Il CI controlla che cad_sha256 sia quello di
 # cad.json: se si riesporta dal CAD, si aggiorna anche qui (e si rigenera).
 #
 # Unita': mm, g, gradi, microsecondi. Terne e angoli come in cad.json:
@@ -13,7 +13,7 @@
 
 versione: 2.1.0
 cad: cad.json
-cad_sha256: null            # lo scrive tools/genera_robot.py --aggiorna-hash dopo ogni esportazione
+cad_sha256: 25de0c41d7cbb51cfb5bb874a070ff6cb7d3deb0eb9f0dcd67e4dda1363ea040  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
 
 zampe: [AS, MS, PS, AD, MD, PD]          # A anteriore, M media, P posteriore; S sinistra, D destra
 tripodi: [[AS, PS, MD], [AD, PD, MS]]    # calc/statica_tripode.py -> TRIPODI
