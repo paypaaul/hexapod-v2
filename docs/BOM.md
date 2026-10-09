@@ -90,7 +90,7 @@ Ogni giunto: il servo è stretto in una culla e appoggia sulle alette; l'albero 
 | D8 | Viti M2 e M2,5 | assortimento | ISO 4762 inox | regolatori (M2), SSC-32 (M2,5: i suoi fori sono circa 3,0 mm) | idem | — | A |
 | D9 | Piedini antiscivolo | 6 + 2 | stampati in TPU 95A oppure cappucci in silicone | scelta dopo una prova sui tuoi pavimenti | — | — | — |
 | D10 | Fermo batteria | 1 | schiuma EVA adesiva 3–5 mm | le cinghie non servono più: lo sportello preme il pacco con due rebbi e la schiuma (D-051, approvato il 9 ottobre 2026) | Amazon.it | — | A |
-| D11 | Guaina e fascette | 2 m + 1 conf. | guaina spiralata 6–8 mm, fascette 2,5 mm (tra queste 6 da 200 mm attorno ai femori e 1 per F1, D-055 e D-058) | fasci dei 3 cavi per zampa, ancoraggi ai giunti | qualunque | — | A |
+| D11 | Guaina e fascette | 2 m + 1 conf. | guaina spiralata 6–8 mm, fascette 2,5 mm (tra queste 6 corte nel blocco dei femori, 6 nei ponti e 1 per F1, D-055 e D-061) | fasci dei 3 cavi per zampa, ancoraggi ai giunti | qualunque | — | A |
 
 ## Viteria e inserti contati dal modello (fase 5, bozza del 9 ottobre 2026)
 

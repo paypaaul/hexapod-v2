@@ -131,11 +131,20 @@ PARAMETRI = [
     ('cox_ponte_braccio', '3.9 mm', 'mm', 'Ponte: spessore del braccio'),
     ('cz_ponte_app', 'cz_ponte_su - cox_ponte_braccio', 'mm', 'Ponte: Z dell appoggio sulla testa dell anima'),
     ('cox_ponte_r', '12 mm', 'mm', 'Ponte: raggio del mozzo'),
-    ('cox_fascetta_x', '28 mm', 'mm', 'Ponte: X delle feritoie della fascetta dei cavi di femore e ginocchio'),
+    ('cox_fascetta_x', '24 mm', 'mm', 'Ponte: X delle feritoie della fascetta dei cavi (sotto il lobo del carapace; testa della fascetta di fianco al braccio, D-060)'),
     ('cox_fascetta_y', '5.5 mm', 'mm', 'Ponte: Y delle feritoie (fuori dai due cavi piatti affiancati, 7,6 mm)'),
     ('fascetta_w', '3 mm', 'mm', 'Feritoia per fascetta da 2,5 mm: larghezza'),
     ('fascetta_sp', '1.6 mm', 'mm', 'Feritoia per fascetta: spessore (fascetta 1,0)'),
     ('cox_fascetta_gola', '1.2 mm', 'mm', 'Ponte: gola sotto il braccio tra le feritoie (la fascetta non striscia sul servo di coxa)'),
+    # --- passata estetica (D-060): teste delle viti, fascetta del femore nel blocco, spine della lama B
+    ('vite_m3_testa_d', '5.5 mm', 'mm', 'Vite M3 ISO 4762: diametro della testa (dk 5,32-5,5)'),
+    ('fem_fascetta_u', '24.5 mm', 'mm', 'Femore: X dall anca della fascetta dei cavi dentro il blocco (sullo smusso alto)'),
+    ('fem_fascetta_fondo', '10 mm', 'mm', 'Femore: Z del tunnel della fascetta nel blocco'),
+    ('cov_spina_d', '3 mm', 'mm', 'Lama B del femore: diametro delle spine'),
+    ('cov_spina_l', '3 mm', 'mm', 'Lama B del femore: lunghezza delle spine'),
+    ('cov_foro_spina_d', '3.1 mm', 'mm', 'Femore B: fori ciechi delle spine (il forzamento lo da la stampa, D-056)'),
+    ('cov_foro_spina_l', '3.3 mm', 'mm', 'Femore B: profondita dei fori delle spine'),
+    ('cov_spina_z', '6 mm', 'mm', 'Lama B: Z delle spine'),
     ('cox_disco_luce', '0.3 mm', 'mm', 'Ponte: luce sopra il disco (gioco verticale della coxa, D-048)'),
     ('cox_testa_vite_d', '5.6 mm', 'mm', 'Ponte: fori che calzano le teste delle viti M3 della squadretta (gioco d imbardata: tarare sul provino)'),
     ('cox_smusso_ponte', '2.5 mm', 'mm', 'Ponte: smusso dello spigolo esterno alto'),
@@ -324,6 +333,31 @@ def fai_femore_b(zampa):
     y_rim = 'zy_A_est - fem_piastra - fem_luce_A'
     for nome, x, z in _inserti_blocco():
         p.cilindro('y', y_rim, nome, x, z, 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
+    # fori ciechi per le spine della lama B (passata estetica, D-060)
+    for nome, x in (('foro_spina_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('foro_spina_g', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx')):
+        p.cilindro('y', 'zy_B_est', nome, x, 'cov_spina_z', 'cov_foro_spina_d', 'cov_foro_spina_l', 1, TAGLIA)
+    # fascetta dei cavi dentro il blocco: due feritoie dallo smusso alto e un tunnel tra le due (la fascetta attorno al
+    # femore di D-058 entrava nella testa dell'anima della coxa da alfa 74 gradi)
+    xf0, xf1 = 'zam_Lc + fem_fascetta_u - fascetta_w / 2', 'zam_Lc + fem_fascetta_u + fascetta_w / 2'
+    for nome, y0, y1 in (('feritoia_femore_a', 'cox_fascetta_y - fascetta_sp / 2', 'cox_fascetta_y + fascetta_sp / 2'),
+                         ('feritoia_femore_b', '-(cox_fascetta_y + fascetta_sp / 2)', '-(cox_fascetta_y - fascetta_sp / 2)')):
+        p.blocco('z', 'fem_fascetta_fondo', nome, xf0, y0, xf1, y1, 'fem_blocco_su - fem_fascetta_fondo', 1, TAGLIA)
+    p.blocco('z', 'fem_fascetta_fondo', 'tunnel_fascetta', xf0, '-(cox_fascetta_y + fascetta_sp / 2)', xf1,
+             'cox_fascetta_y + fascetta_sp / 2', 'fascetta_sp', 1, TAGLIA)
+    return occ, p
+
+
+def fai_teste_a(zampa):
+    """Ingombro delle teste M3 sul lato A (non si stampa): 8 sulle squadrette, 4 sul blocco. Serve alle verifiche tra
+    zampe vicine e alle sedi della lama A (D-060)."""
+    occ = _nuovo_comp(zampa, 'Ingombro_Teste_A')
+    p = Parte(occ.component)
+    teste = []
+    for xc in ('zam_Lc', 'zam_Lc + zam_Lf'):
+        teste += [(xc + ' + sq_fori_pcd / 2', '0 mm'), (xc + ' - sq_fori_pcd / 2', '0 mm'), (xc, 'sq_fori_pcd / 2'), (xc, '-(sq_fori_pcd / 2)')]
+    teste += [(x, z) for _, x, z in _inserti_blocco()]
+    for k, (x, z) in enumerate(teste):
+        p.cilindro('y', 'zy_A_est', 'testa_%02d' % k, x, z, 'vite_m3_testa_d', 'vite_m3_testa_h', 1, NUOVO)
     return occ, p
 
 
@@ -331,7 +365,9 @@ def _inserti_blocco():
     """Quattro inserti M3 per la piastra A, negli angoli del blocco lontani dagli smussi."""
     x0, x1 = 'zam_Lc + fem_blocco_x0 + fem_ins_dx', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx'
     z0, z1 = 'fem_ins_dx - fem_blocco_giu + 2 mm', 'fem_blocco_su - fem_ins_dx - 2.6 mm'
-    return [('ins_blocco_ab', x0, z0), ('ins_blocco_aa', x0, z1), ('ins_blocco_gb', x1, z0 + ' + 3 mm'), ('ins_blocco_ga', x1, z1)]
+    # lato ginocchio a Z 6,0 e 13,4: con 5,4 di interasse le rondelle di registro (Ø7) si sovrapponevano (D-060)
+    return [('ins_blocco_ab', x0, z0), ('ins_blocco_aa', x0, z1), ('ins_blocco_gb', x1, z0 + ' + 1.5 mm'),
+            ('ins_blocco_ga', x1, z1 + ' + 0.5 mm')]
 
 
 def fai_femore_a(zampa):
@@ -393,6 +429,7 @@ RIGIDI = [
     ('R_squadretta_femore', 'Squadretta_Femore', 'Femore_A'), ('R_squadretta_ginocchio', 'Squadretta_Ginocchio', 'Femore_A'),
     ('R_perno_femore', 'Perno_Femore', 'Femore_B'), ('R_perno_ginocchio', 'Perno_Ginocchio', 'Femore_B'),
     ('R_servo_ginocchio', 'Servo_Ginocchio', 'Tibia'), ('R_cuscinetto_ginocchio', 'Cuscinetto_Ginocchio', 'Tibia'),
+    ('R_teste_a', 'Ingombro_Teste_A', 'Femore_A'),
 ]
 
 
@@ -620,7 +657,7 @@ def main(passi, **kw):
             out['parametri'] = L['aggiungi_parametri'](des, PARAMETRI)
         zampa = _zampa(root)
         for nome, f in (('coxa', fai_coxa), ('ponte', fai_ponte), ('femore_b', fai_femore_b), ('femore_a', fai_femore_a),
-                        ('tibia', fai_tibia)):
+                        ('tibia', fai_tibia), ('teste_a', fai_teste_a)):
             if nome in passi:
                 occ, p = f(zampa)
                 out[nome] = _chiudi(des, occ.component.name, p)

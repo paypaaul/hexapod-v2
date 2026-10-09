@@ -91,7 +91,7 @@ Verifiche della zampa v0, prima della revisione (9 ottobre 2026):
 
 ### Da fare nella zampa
 
-- Nervature di schiacciamento nelle culle (da tarare sul provino), piedino in TPU, raccordi. Cavi: fascette nel ponte e attorno al femore (D-058).
+- Nervature di schiacciamento nelle culle (da tarare sul provino), piedino in TPU, raccordi. Cavi: fascette nel ponte e nel blocco del femore (D-061).
 - Viti delle squadrette della coxa (M3 × 6 con rondella sotto la testa, D-048) da controllare quando si sceglie la squadretta: altezze e posizione dei fori sono stimate (`sq_`).
 - Verifica con il corpo: gondola, rotazione della coxa, zampe vicine.
 - Vincoli che la zampa pone al corpo: fondo della gondola a −31,95 (flangia del cuscinetto fino a −32,75); braccio della coxa fino a −38,35 e nervatura fino a −41,35 sotto l'asse dei femori; testa dell'anima della coxa a raggio 34–40,55 dall'asse della coxa e da Z +8,05 in su (la gondola, a quel raggio, non deve salire oltre le teste delle viti delle alette, Z +7,05); mozzo del ponte (R12) da Z +17,05 a +23,5 attorno all'asse della coxa; anima a raggio ≥ 40,55 dall'asse della coxa a qualunque angolo.
@@ -149,7 +149,7 @@ Verifiche (9 ottobre 2026), con i giunti veri:
 | femore (A, M, P) | 180, 117, 158 | 40–61 % |
 | ginocchio (A, M, P) | 295, 231, 267 | 2 %, 23 %, 11 % |
 
-Lato destro uguale entro 1 mm. Servono **4 prolunghe** per i ginocchi delle zampe d'angolo (voce C5). Gli altri cavi sono più lunghi del necessario: circa 1,1 m di cavo in più per lato, da raccogliere in anse nelle baie posteriori sopra i Wago (circa 5 cm³ per lato contro 28 cm³ liberi), lontano dal camino d'aria delle baie anteriori. Fascette lungo la zampa: una nelle feritoie del ponte, una attorno al femore vicino all'anca (D-058).
+Lato destro uguale entro 1 mm. Servono **4 prolunghe** per i ginocchi delle zampe d'angolo (voce C5). Gli altri cavi sono più lunghi del necessario: circa 1,1 m di cavo in più per lato, da raccogliere in anse nelle baie posteriori sopra i Wago (circa 5 cm³ per lato contro 28 cm³ liberi), lontano dal camino d'aria delle baie anteriori. Fascette lungo la zampa: una nelle feritoie del ponte (X 24) e una nelle feritoie del blocco del femore (D-061; quella attorno al femore di D-058 urtava la coxa da α 74°).
 
 ### Massa e baricentro dal modello (9 ottobre 2026; corpo aggiornato alla v0.4)
 
