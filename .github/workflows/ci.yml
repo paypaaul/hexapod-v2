@@ -1,0 +1,99 @@
+# Integrazione continua (software.md 6.4): Python, nucleo sul PC, firmware, file generati.
+# Il job qemu e' il passo successivo (firmware/README.md).
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Ultima versione stabile pubblicata da almeno due settimane al 9 ottobre 2026 (v6.1 del 27 agosto 2026), la stessa
+  # installata sul Mac in ~/esp/esp-idf (firmware/README.md). Si cambia insieme al README.
+  ESP_IDF_VERSIONE: v6.1
+
+jobs:
+  python:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -r tests/requirements.txt
+      - name: ruff
+        run: ruff check .
+      - name: pytest
+        run: python -m pytest tests -q
+
+  nucleo:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        compilatore:
+          - {cc: gcc, cxx: g++}
+          - {cc: clang, cxx: clang++}
+    steps:
+      - uses: actions/checkout@v7
+      - name: configurazione con AddressSanitizer e UndefinedBehaviorSanitizer
+        run: >
+          cmake -S firmware/test_host -B firmware/test_host/build -DCMAKE_BUILD_TYPE=Debug -DNUCLEO_SANITIZER=ON
+          -DCMAKE_C_COMPILER=${{ matrix.compilatore.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.compilatore.cxx }}
+      - run: cmake --build firmware/test_host/build --parallel
+      - name: ctest
+        run: ctest --test-dir firmware/test_host/build --output-on-failure -V
+
+  firmware:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: idf.py build (esp32s3)
+        uses: espressif/esp-idf-ci-action@e6f5c74232b1ccd4c97ed641f1e48553853f1fd5  # v1.2.0
+        with:
+          esp_idf_version: ${{ env.ESP_IDF_VERSIONE }}
+          target: esp32s3
+          path: firmware
+          command: idf.py build && idf.py size
+      - name: dimensione dell'immagine contro lo slot OTA
+        # la compilazione fallisce gia' se l'immagine non entra nella partizione (check_sizes.py dell'IDF); qui si
+        # riporta l'occupazione dello slot ota_0 letto da partitions.csv
+        run: |
+          slot=$(awk -F, '$1 ~ /^ota_0/ {gsub(/ /, "", $5); print $5}' firmware/partitions.csv)
+          dimensione=$(stat -c %s firmware/build/hexapod.bin)
+          echo "hexapod.bin: $dimensione byte su $((slot)) ($((100 * dimensione / slot)) %)"
+          test "$dimensione" -le "$((slot))"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: firmware-esp32s3
+          path: |
+            firmware/build/hexapod.bin
+            firmware/build/hexapod.elf
+            firmware/build/bootloader/bootloader.bin
+            firmware/build/partition_table/partition-table.bin
+            firmware/build/ota_data_initial.bin
+            firmware/build/flash_args
+
+  generati:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -r tests/requirements.txt
+      - name: impronta di cad.json in robot.yaml
+        run: python3 tools/descrizione.py
+      - name: rigenerazione
+        run: |
+          python3 tools/genera_header.py
+          python3 tools/genera_vettori.py
+      - name: i file generati coincidono con quelli nel commit
+        run: git diff --exit-code

@@ -1,0 +1,6 @@
+# prodotti della compilazione (firmware e test sul PC)
+build/
+# configurazione completa generata da sdkconfig.defaults: locale, puo' contenere impostazioni personali
+sdkconfig
+sdkconfig.old
+managed_components/

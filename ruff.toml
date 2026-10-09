@@ -1,0 +1,17 @@
+# ruff per tutto il Python della repo (versione in tests/requirements.txt).
+target-version = "py312"
+line-length = 120
+# script delle ricerche gia' chiuse, tenuti come traccia dei documenti in docs/ricerca: non sono codice che gira
+extend-exclude = ["docs/ricerca"]
+
+[lint]
+# errori veri e avvisi di pycodestyle, pyflakes; niente stile (lunghezza delle righe, formattazione)
+select = ["E4", "E7", "E9", "F", "W"]
+
+[lint.per-file-ignores]
+# codice gia' scritto al 9 ottobre 2026, lasciato com'e' (calc/ e cad/ non si toccano per lo stile):
+# da togliere quando si correggono quelle righe
+"calc/andature.py" = ["E702"]        # tre assegnazioni con il punto e virgola
+"cad/script/assieme.py" = ["F841"]   # variabile y non usata (riga 257)
+"cad/script/viste.py" = ["E731"]     # lambda assegnata a un nome
+"cad/render/render.py" = ["E702", "E731"]
