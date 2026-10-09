@@ -1,0 +1,27 @@
+# Configurazione di partenza del firmware (l'sdkconfig completo si genera alla compilazione e non va in git).
+
+# Scheda UICPAL ESP32-S3-CAM N16R8: 16 MB di flash e 8 MB di PSRAM octal (CLAUDE.md, docs/BOM.md)
+CONFIG_IDF_TARGET="esp32s3"
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+
+# Partizioni di software.md 2.8: due slot OTA da 4 MB, NVS di taratura, core dump, LittleFS
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+# una versione nuova vale solo dopo l'autotest, altrimenti si torna alla precedente (software.md 2.8)
+CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
+CONFIG_ESP_COREDUMP_ENABLE_TO_FLASH=y
+
+# CPU a 240 MHz; tick a 1 kHz, cosi' il ciclo da 20 ms e i ritmi dei compiti si contano al millisecondo
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_FREERTOS_HZ=1000
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+
+# Watchdog dei compiti a 1 s con riavvio: durante il reset GPIO42 e' flottante e il rail si spegne (software.md 2.6)
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=1
+CONFIG_ESP_TASK_WDT_PANIC=y
+
+# Console sulla UART0 (CH340, GPIO43/44)
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
