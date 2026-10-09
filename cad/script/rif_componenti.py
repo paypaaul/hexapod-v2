@@ -1,4 +1,4 @@
-"""Parametri utente e componenti di riferimento (parti comprate) del design "Hexapod v2 - MG996R" (fase 3).
+"""Parametri utente e componenti di riferimento (parti comprate) del design di lavoro (`versione.py`; fase 3).
 
 Si esegue dentro Fusion, un passo per chiamata (gli script del connettore non sono transazionali):
     import runpy
@@ -28,8 +28,8 @@ import adsk.fusion
 
 QUI = os.path.dirname(os.path.abspath(__file__)) if '__file__' in globals() else '/Users/paul/hexapod-v2/cad/script'
 MODELLI = os.path.join(os.path.dirname(QUI), 'modelli')
-NOME_DESIGN = 'Hexapod v2 - MG996R'
-PROGETTO = 'Hexabot v2'
+V = runpy.run_path(os.path.join(QUI, 'versione.py'))
+NOME_DESIGN, PROGETTO = V['NOME_DESIGN'], V['PROGETTO']
 
 P3 = adsk.core.Point3D.create
 V3 = adsk.core.Vector3D.create
@@ -475,8 +475,7 @@ def main(passi, rigenera=False, solo=None):
         if 'documento' in passi:
             out['documento'] = fai_documento(app)
         des = adsk.fusion.Design.cast(app.activeProduct)
-        if not app.activeDocument.name.startswith(NOME_DESIGN):
-            raise RuntimeError('documento attivo "%s": attivare %s' % (app.activeDocument.name, NOME_DESIGN))
+        V['controlla'](app)
         root = des.rootComponent
         L = runpy.run_path(os.path.join(QUI, 'lib_cad.py'))
         if 'parametri' in passi:

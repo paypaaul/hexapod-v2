@@ -1,0 +1,21 @@
+# Versioni del robot
+
+Ogni gruppo di modifiche è una versione: un tag git e un file Fusion proprio nel progetto "Hexabot v2". Le versioni chiuse restano congelate: i loro file Fusion non si modificano, e gli script lavorano solo sul design indicato in `cad/script/versione.py` (si rifiutano di girare sugli altri).
+
+| Versione | Stato | Tag git | File Fusion (lineage) | Contenuto |
+|---|---|---|---|---|
+| 2.0.0 | congelata (9 ottobre 2026) | `v2.0.0` | "Hexapod v2 - MG996R", versione 28 (`urn:adsk.wipprod:dm.lineage:AVxbp0QWS5m_QEugpeB99A`) | zampa, corpo, assieme a sei zampe con giunti veri, passata estetica, tibia simmetrica sul piano della zampa, piedino in TPU, colori e render (D-047…D-065) |
+| 2.1.0 | in corso (dal 9 ottobre 2026) | `v2.1.0` a fine lavoro | "Hexapod v2.1.0" (`urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`), copia della 2.0.0 versione 28 | predisposizioni per sensori, luci, audio e computer di bordo; attrezzi da banco; software senza hardware (S0). Piano in `docs/piano-v2.1.0.md` |
+
+Prima della 2.0.0: la versione progettata attorno agli MG90S, nel branch `mg90s` e nel file "Hexapod v2 - MG90S".
+
+## Avanzamento della 2.1.0
+
+| Passo | Stato |
+|---|---|
+| Tag `v2.0.0`, copia del design Fusion, script legati a `versione.py` | fatto (9 ottobre 2026) |
+| Blocco A — zampa | da fare |
+| Blocco B — corpo | da fare |
+| Blocco C — attrezzi da banco | da fare |
+| Blocco D — software S0 | da fare |
+| Documenti, STL, render, tag `v2.1.0` | da fare |

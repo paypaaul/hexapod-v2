@@ -1,6 +1,6 @@
 """Assieme dell'esapode MG996R (fase 4, D-050): corpo, sei zampe, giunti di coxa, componenti nel corpo.
 
-Si esegue dentro Fusion sul design "Hexapod v2 - MG996R", un passo per chiamata:
+Si esegue dentro Fusion sul design di lavoro (`versione.py`), un passo per chiamata:
     import runpy
     def run(_context: str):
         runpy.run_path('/Users/paul/hexapod-v2/cad/script/assieme.py')['main'](['istanze_corpo'])
@@ -22,6 +22,7 @@ import adsk.fusion
 
 QUI = os.path.dirname(os.path.abspath(__file__)) if '__file__' in globals() else '/Users/paul/hexapod-v2/cad/script'
 L = runpy.run_path(os.path.join(QUI, 'lib_cad.py'))
+V = runpy.run_path(os.path.join(QUI, 'versione.py'))
 A = runpy.run_path(os.path.join(QUI, 'lib_assieme.py'))
 
 ZAMPE = ('AS', 'MS', 'PS', 'AD', 'MD', 'PD')
@@ -431,8 +432,7 @@ def main(passi, **kw):
     try:
         app = adsk.core.Application.get()
         des = adsk.fusion.Design.cast(app.activeProduct)
-        if not app.activeDocument.name.startswith('Hexapod v2 - MG996R'):
-            raise RuntimeError('documento attivo "%s"' % app.activeDocument.name)
+        V['controlla'](app)
         root = des.rootComponent
         if 'istanze_corpo' in passi:
             out['istanze_corpo'] = fai_istanze_corpo(des, root)

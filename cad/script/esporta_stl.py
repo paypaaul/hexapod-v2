@@ -5,11 +5,13 @@ caricano insieme nello slicer come un pezzo a due colori). Si lancia in sola let
 """
 import json
 import os
+import runpy
 import time
 
 import adsk.core
 import adsk.fusion
 
+V = runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'versione.py'))
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'stl')
 PARTI = ('Coxa', 'Coxa_Ponte', 'Femore_A', 'Femore_B', 'Tibia', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Tibia', 'Piedino',
          'Corpo_Base', 'Corpo_Chiglia', 'Corpo_Vassoio', 'Corpo_Slitta_Regolatore', 'Corpo_Sportello', 'Corpo_Carapace',
@@ -17,6 +19,7 @@ PARTI = ('Coxa', 'Coxa_Ponte', 'Femore_A', 'Femore_B', 'Tibia', 'Cover_Femore_A'
 
 
 def main(out=OUT):
+    V['controlla'](adsk.core.Application.get())
     t0 = time.time()
     des = adsk.fusion.Design.cast(adsk.core.Application.get().activeProduct)
     em = des.exportManager

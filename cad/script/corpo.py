@@ -1,6 +1,6 @@
 """Corpo dell'esapode MG996R (fase 4, D-050): base strutturale, chiglia, coperchio.
 
-Si esegue dentro Fusion sul design "Hexapod v2 - MG996R", un passo per chiamata:
+Si esegue dentro Fusion sul design di lavoro (`versione.py`), un passo per chiamata:
     import runpy
     def run(_context: str):
         runpy.run_path('/Users/paul/hexapod-v2/cad/script/corpo.py')['main'](['parametri', 'base'])
@@ -22,6 +22,7 @@ import adsk.fusion
 
 QUI = os.path.dirname(os.path.abspath(__file__)) if '__file__' in globals() else '/Users/paul/hexapod-v2/cad/script'
 L = runpy.run_path(os.path.join(QUI, 'lib_cad.py'))
+V = runpy.run_path(os.path.join(QUI, 'versione.py'))
 Parte, NUOVO, UNISCI, TAGLIA = L['Parte'], L['NUOVO'], L['UNISCI'], L['TAGLIA']
 
 PARAMETRI = [
@@ -841,8 +842,7 @@ def main(passi, **kw):
     try:
         app = adsk.core.Application.get()
         des = adsk.fusion.Design.cast(app.activeProduct)
-        if not app.activeDocument.name.startswith('Hexapod v2 - MG996R'):
-            raise RuntimeError('documento attivo "%s": attivare Hexapod v2 - MG996R' % app.activeDocument.name)
+        V['controlla'](app)
         root = des.rootComponent
         if 'parametri' in passi:
             out['parametri'] = L['aggiungi_parametri'](des, PARAMETRI)

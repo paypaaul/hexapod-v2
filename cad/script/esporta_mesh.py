@@ -7,12 +7,14 @@ qualita' bassa (circa 70 000 triangoli in tutto). Si lancia in sola lettura dal 
 """
 import json
 import os
+import runpy
 import struct
 import time
 
 import adsk.core
 import adsk.fusion
 
+V = runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'versione.py'))
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'render', 'mesh')
 SALTA = ('flat', 'linguetta', 'zona_spine_servo', 'zona_barre_retro', 'uscita_cavi')   # ingombri non rigidi o sovrapposti
 
@@ -68,6 +70,7 @@ def _scrivi_stl(percorso, nome, corpi):
 
 
 def main(out=OUT):
+    V['controlla'](adsk.core.Application.get())
     t0 = time.time()
     os.makedirs(out, exist_ok=True)
     root = adsk.fusion.Design.cast(adsk.core.Application.get().activeProduct).rootComponent

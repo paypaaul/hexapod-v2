@@ -14,7 +14,7 @@ Questa repo è la memoria del progetto: una sessione nuova deve poter ripartire 
 | 1. Studio di ciò che cambia | **fatta** (2026-10-08, studio ridotto): `docs/studio-componenti.md`, `docs/dimensionamento.md` (preliminare), `docs/dimensioni-componenti.md` |
 | 2. BOM e revisione | **fatta e approvata** (2026-10-08): `docs/BOM.md` v2.0. Restano aperte le domande in fondo al BOM |
 | 3. Dimensioni e modelli 3D | **fatta** (2026-10-08): design Fusion **"Hexapod v2 - MG996R"** con 79 parametri, servo e regolatori da STEP, 14 ingombri in libreria (`cad/script/rif_componenti.py`, D-046); elenco in `docs/dimensioni-componenti.md` |
-| 4. Progettazione CAD | **in corso**: zampa v0.1 (D-047…D-049), corpo v0.4 (D-050…D-057) e **passata estetica applicata e verificata** (D-060…D-063: carapace con fascia, visiera e occhio, gonne, cover delle zampe, tibia simmetrica), assieme a sei zampe con giunti veri (`docs/progetto-meccanico.md`, `cad/script/zampa.py`, `corpo.py`, `assieme.py`); restano pettini dei cavi e interruttore |
+| 4. Progettazione CAD | **versione 2.1.0 in corso** (`docs/versioni.md`, piano in `docs/piano-v2.1.0.md`); 2.0.0 congelata: zampa v0.1 (D-047…D-049), corpo v0.4 (D-050…D-057) e **passata estetica applicata e verificata** (D-060…D-063: carapace con fascia, visiera e occhio, gonne, cover delle zampe, tibia simmetrica), assieme a sei zampe con giunti veri (`docs/progetto-meccanico.md`, `cad/script/zampa.py`, `corpo.py`, `assieme.py`); restano pettini dei cavi e interruttore |
 | 5. BOM finale (viteria dal modello) | **bozza**: viteria e inserti contati dal modello in `docs/BOM.md` (manca il fissaggio del coperchio) |
 | 6. Verifica del movimento | da fare |
 
@@ -84,7 +84,8 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 | `cad/script/esporta_stl.py` | STL di tutte le parti stampate in `cad/stl/` (orientamento e materiali nel README della cartella) |
 | `cad/script/esporta_mesh.py`, `cad/render/render.py` | render schematici (matplotlib) del modello con parti nuove sopra: prima si esportano le mesh da Fusion (sola lettura), poi `Scena()` + parti + `render()` |
 | `docs/ricerca/estetica-dossier.md` | dossier per la passata estetica (indicazioni, quote, vincoli) |
-| `docs/piano-v2.1.0.md` | piano della versione 2.1.0 (in attesa del via): file e versioni, blocchi di lavoro, verifiche, come riprendere |
+| `docs/piano-v2.1.0.md` | piano della versione 2.1.0: file e versioni, blocchi di lavoro, verifiche, come riprendere |
+| `docs/versioni.md`, `cad/script/versione.py` | storico delle versioni (tag git, file Fusion, avanzamento) e nome del design su cui lavorano gli script |
 | `docs/piano-elettronica-software.md` | piano unico (backlog, da approvare): sensori, luci, elettronica e software, roadmap P0…P10, cose da predisporre nel CAD, decisioni per l'utente |
 | `docs/predisposizioni.md`, `docs/software.md` | dettaglio delle due ricerche del 9 ottobre: sensori, luci ed espansioni; firmware, controllo, RL e visione |
 
@@ -98,7 +99,8 @@ Versione MG90S: `git show mg90s:<percorso>` (per esempio `mg90s:cad/script/zampa
   - `Tower Pro MG90S Micro servo` (file dell'utente) — lineage `urn:adsk.wipprod:dm.lineage:WfZcQDYtQ2mcTssS11zxYw`
   - `Hexapod v2 - MG90S` (versione MG90S, congelata; rinominato da "Hexapod v2 - Assieme" l'8 ottobre su richiesta dell'utente) — lineage `urn:adsk.wipprod:dm.lineage:G-L92GHuRaCuuYj8EQ4-jg`
   - `Hexapod v2 - MG996R - ripristino tibia asimmetrica (v22)` (copia di ripristino chiesta dall'utente il 9 ottobre, prima di D-062) — lineage `urn:adsk.wipprod:dm.lineage:2kd8UmqPSSqdH-nUiwVWhw`
-- **Design di lavoro: `Hexapod v2 - MG996R`** — lineage `urn:adsk.wipprod:dm.lineage:AVxbp0QWS5m_QEugpeB99A`. Struttura in D-046: un solo file, zampa come componente istanziato (non file a parte), parti comprate `Rif_*` nella zona libreria (y ≥ 250 mm).
+  - `Hexapod v2 - MG996R` (versione **2.0.0**, congelata il 9 ottobre alla versione 28, tag git `v2.0.0`) — lineage `urn:adsk.wipprod:dm.lineage:AVxbp0QWS5m_QEugpeB99A`
+- **Design di lavoro: `Hexapod v2.1.0`** (copia della 2.0.0) — lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Il nome sta in `cad/script/versione.py`: gli script si rifiutano di girare su un altro documento; storico in `docs/versioni.md`. Struttura in D-046: un solo file, zampa come componente istanziato (non file a parte), parti comprate `Rif_*` nella zona libreria (y ≥ 250 mm).
 - Modello dell'MG996R: STEP di terzi in `cad/modelli/mg996r/` (fonte nel README della cartella), importato in `Rif_Servo_MG996R` e riportato nella terna di progetto (origine sull'asse dell'albero al lato inferiore delle alette, +Z verso la cima dell'albero, cassa verso +X). Quote e scarti rispetto al datasheet in `docs/dimensioni-componenti.md`.
 - Script Fusion in `cad/script/`; si lanciano con `runpy.run_path(percorso)['main']()` dentro lo script del connettore, così restano nella repo.
 - Dopo ogni gruppo di operazioni rileggere lo stato del modello (script di sola lettura) o fare uno screenshot: assenza di errore non significa risultato corretto.
@@ -198,7 +200,7 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 
 ## Prossimi passi
 
-0. **Versione 2.1.0 — in attesa del via dell'utente** (9 ottobre 2026): piano completo in `docs/piano-v2.1.0.md`, da leggere per primo. Predisposizioni per sensori, luci (pulsante, lobi, tibie), audio e zaino del computer di bordo, attrezzi da banco, software S0. Si lavora su una copia del design Fusion ("Hexapod v2.1.0"); la v2.0 resta congelata con il tag git `v2.0.0`.
+0. **Versione 2.1.0 — in corso** (via dell'utente il 9 ottobre 2026): piano completo in `docs/piano-v2.1.0.md`, da leggere per primo; a che punto si è in `docs/versioni.md`. Predisposizioni per sensori, luci (pulsante, lobi, tibie), audio e zaino del computer di bordo, attrezzi da banco, software S0. Si lavora su una copia del design Fusion ("Hexapod v2.1.0"); la v2.0 resta congelata con il tag git `v2.0.0`.
 1. **Da far decidere all'utente**: misure degli inserti del kit Temu (BOM, domanda 8); viti M2 × 6 svasate per le lame B (D8b); massa attesa 2945 g con il femore al 51 % dello stallo (D-065); domande 1–4 del BOM.
 2. **Corpo**: restano l'interruttore 2813 (non ancora piazzato) e i pettini per le anse dei cavi nelle baie posteriori. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo` (vanno in timeout ma finiscono: rileggere); controllo con `controllo`, `interferenze`, coxe a ±35° e a 31° tra vicine, `carapace_zampe`, `sfilamento`, `campo`, `ciclo` (100/45 e 70/70). Il carapace si rifà con `carapace` e poi `carapace_dettagli` (due chiamate: la seconda va in timeout ma finisce).
 3. **Zampa**: piedino in TPU fatto (D-064); nervature di schiacciamento delle culle e stretta del piedino dopo il provino. Dopo una modifica: `zampa.py` → parte, `giunti`, `limiti`, `misura`, `interferenze`, scansione delle pose (α a passi di 5, γ minimo e γ minimo − 2).

@@ -13,10 +13,13 @@ Uso dal connettore (una chiamata per passo):
 """
 import json
 import math
+import os
+import runpy
 
 import adsk.core
 import adsk.fusion
 
+V = runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'versione.py'))
 FOCALE = 50.0         # mm, focale della camera del render
 
 # terna della zampa: X verso l'esterno, Y lungo gli assi di femore e ginocchio verso la piastra A, Z in alto (mm)
@@ -122,6 +125,7 @@ def _inquadra(nome, zo=None):
 
 
 def prepara(nome, zampa='AS'):
+    V['controlla'](adsk.core.Application.get())
     des = _des()
     root = des.rootComponent
     if des.snapshots.hasPendingSnapshot:
@@ -171,6 +175,7 @@ def scena():
 
 
 def avvia(file, qualita=75, larghezza=1800, altezza=1200):
+    V['controlla'](adsk.core.Application.get())
     scena()
     r = _des().renderManager.rendering
     r.renderQuality = qualita

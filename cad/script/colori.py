@@ -7,11 +7,14 @@ componente, quindi valgono per tutte le istanze. Per cambiare il colore delle pl
 placche']. Uso dal connettore: runpy.run_path(percorso)['main']()
 """
 import json
+import os
+import runpy
 import traceback
 
 import adsk.core
 import adsk.fusion
 
+V = runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'versione.py'))
 LIBRERIA = 'Libreria aspetti di Fusion'
 # nome nel design: (aspetto di partenza nella libreria, colore RGB o None per tenere quello della libreria)
 COLORI = {
@@ -68,6 +71,7 @@ def aspetto(des, nome):
 def main():
     out = {}
     try:
+        V['controlla'](adsk.core.Application.get())
         des = adsk.fusion.Design.cast(adsk.core.Application.get().activeProduct)
         cache = {}
         for comp_nome, a_nome in PARTI.items():
