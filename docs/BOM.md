@@ -68,8 +68,8 @@ Nota su B1: un regolatore serve 9 servo. Corrente stimata per lato: 5–6 A medi
 | C2 | Basetta di supporto | 1 + 2 + 1 | millefori 50 × 70 mm; 2 strip femmina 1 × 20; 1 strip maschio 1 × 40 | zoccolo per l'ESP32 (che non ha fori) e supporto per B2, C1, B10, B11; si taglia a 56 × 35 (D-053) | Amazon.it | C | A |
 | C3 | Ingresso del 5 V nell'ESP32: alternativa | 1 + 1 | spinotto USB-C maschio a 90° a saldare + diodo Schottky 1N5817 | solo se la scheda non si accende dal pin 5V | Amazon.it, AliExpress | C | A |
 | C4 | Cavetti verso la SSC-32 | 1 conf. | Dupont femmina 10–20 cm | TX, RX, massa, VL | qualunque | — | A |
-| C5 | Prolunghe servo | da 0 a 12 | JR maschio-femmina 15 cm, 22 AWG | dipende dalla lunghezza reale dei cavi (32 cm dichiarati) e dai percorsi nel CAD; con 2,5 A una prolunga da 15 cm in 22 AWG perde circa 40 mV | Amazon.it B087289HFS, 10,99 € (20 pezzi) | S | ? (dopo il CAD) |
-| C6 | Clip di blocco delle prolunghe | 1 conf. | clip per connettori servo | una per giunzione | Amazon.it B0C61PDHDF, 10,99 € | S | ? (con C5) |
+| C5 | Prolunghe servo | 4 (confezione da 20) | JR maschio-femmina 15 cm, 22 AWG | dal CAD (`calc/cavi_servo.py`): i ginocchi delle zampe d'angolo hanno percorsi di 260–288 mm contro circa 300 utili (32 cm dichiarati), margine 4–13 %; gli altri 14 servo bastano con margine (25–77 %). Con 2,5 A una prolunga da 15 cm in 22 AWG perde circa 40 mV | Amazon.it B087289HFS, 10,99 € (20 pezzi) | S | A (quantità dal CAD) |
+| C6 | Clip di blocco delle prolunghe | 1 conf. | clip per connettori servo | una per giunzione | Amazon.it B0C61PDHDF, 10,99 € | S | A (4, con C5) |
 | C7 | Prolunga di bilanciamento | 1 | JST-XH 3 poli, 10–20 cm | porta la presa di bilanciamento dove si raggiunge senza togliere il pacco | negozi RC | S | ? (dopo il CAD) |
 | C8 | Antenna esterna | 1 | 2,4 GHz con cavetto IPEX | solo se la portata a guscio montato non basta | Amazon.it | C | — |
 

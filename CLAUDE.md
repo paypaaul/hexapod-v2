@@ -60,7 +60,7 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 | `docs/decisioni.md` | registro delle decisioni da D-041, con le decisioni ereditate in testa |
 | `docs/BOM.md` | distinta base v2.0, approvata |
 | `cad/modelli/` | modelli STEP di terzi (fuori da git) e `README.md` con le fonti per riscaricarli |
-| `calc/` | `statica_tripode.py` (punto di progetto), `andature.py` (assetti e andature), `assetti.py` (altezze possibili), configurati sugli MG996R |
+| `calc/` | `statica_tripode.py` (punto di progetto), `andature.py` (assetti e andature), `assetti.py` (altezze possibili), configurati sugli MG996R; `cavi_servo.py` (percorsi dei cavi dei servo fino alla SSC-32) |
 | `cad/script/lib_cad.py` | schizzi a un contorno completamente vincolati, blocchi, cilindri, blocchi obliqui, specchiature, svuotamento: provata |
 | `cad/script/lib_assieme.py` | istanze, giunti, interferenze, sentinella dei volumi, massa, pose, viste: estratta dagli script provati, da ricontrollare al primo uso |
 | `cad/script/rif_componenti.py` | fase 3: crea il design, i parametri dei componenti, importa e orienta gli STEP, crea gli ingombri, controlla lo stato |

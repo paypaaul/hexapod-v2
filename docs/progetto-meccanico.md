@@ -137,6 +137,18 @@ Verifiche (9 ottobre 2026), con i giunti veri:
 - Assetti 100/45 e 130/25: quattro fasi (0, 1/8, 1/4, 3/8 del ciclo; la seconda metà è simmetrica): **nessun urto**.
 - Assetti bassi 80/60 e 70/70: sedici fasi: **nessun urto**; il ginocchio scende al minimo a 41°. La correzione del piede delle zampe d'angolo prevista dal modello 2D non serve con questa traiettoria.
 
+### Cavi dei servo (9 ottobre 2026)
+
+`calc/cavi_servo.py` stima i percorsi dal punto in cui il cavo esce dalla cassa (posizioni lette dal modello nella posa di riferimento) fino alla spina sulla SSC-32: il cavo di coxa sale dalla culla nella baia e corre sotto il coperchio; quelli di femore e ginocchio risalgono sopra la zampa, seguono femore e coxa a z 25, passano sopra l'asse della coxa ed entrano sotto il coperchio. Fattore 1,15 per curve e fascette, anse di 10 mm per l'imbardata, 10 per il femore, 20 per il ginocchio. Canali: zampe anteriori sui canali davanti, posteriori su quelli dietro (sedici per lato, file a |y| 23,5 da x 10 a −39).
+
+| Servo | Percorso (mm) | Margine su 300 utili |
+|---|---|---|
+| coxa (A, M, P) | 129, 70, 112 | 57–77 % |
+| femore (A, M, P) | 190, 127, 168 | 37–58 % |
+| ginocchio (A, M, P) | 288, 224, 260 | 4 %, 25 %, 13 % |
+
+Lato destro uguale entro 1 mm. Servono **4 prolunghe** per i ginocchi delle zampe d'angolo (voce C5). Gli altri cavi sono più lunghi del necessario: circa 1,1 m di cavo in più per lato, da raccogliere in anse nelle baie posteriori sopra i Wago (circa 5 cm³ per lato contro 28 cm³ liberi), lontano dal camino d'aria delle baie anteriori. Ganci e passaggi lungo coxa e femore restano da disegnare nella zampa.
+
 ### Massa e baricentro dal modello (9 ottobre 2026)
 
 | Voce | Massa (g) |
@@ -154,4 +166,4 @@ Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, rie
 
 ### Da fare nel corpo
 
-- Interruttore e cicalino (da decidere: vedi le domande in `BOM.md`); gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe) e muso in PETG con la finestra della camera; percorso dei cavi (tasche e pettini nelle baie posteriori); labbro di centraggio tra chiglia e base; tetto del tunnel stampato su supporti (o a falde).
+- Interruttore e cicalino (da decidere: vedi le domande in `BOM.md`); gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe) e muso in PETG con la finestra della camera; ganci dei cavi lungo coxa e femore e pettini nelle baie posteriori (percorsi e lunghezze stimati: sezione "Cavi dei servo"); labbro di centraggio tra chiglia e base; tetto del tunnel stampato su supporti (o a falde).
