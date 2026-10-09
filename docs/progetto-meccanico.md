@@ -1,6 +1,6 @@
 # Progetto meccanico — versione MG996R
 
-Stato al 9 ottobre 2026: **zampa v0.1 modellata, rivista da quattro revisori e corretta** (D-047, D-048, D-049), verificata in Fusion con i giunti veri. Il corpo viene dopo.
+Stato al 9 ottobre 2026: **zampa v0.1 modellata, rivista da quattro revisori e corretta** (D-047, D-048, D-049), verificata in Fusion con i giunti veri. Corpo v0 e assieme con sei zampe e giunti di coxa modellati e verificati (D-050).
 
 ![Zampa v0, femore a +12°, ginocchio a 75°](immagini/zampa-v0.png)
 
@@ -95,3 +95,31 @@ Verifiche della zampa v0, prima della revisione (9 ottobre 2026):
 - Viti delle squadrette della coxa (M3 × 6 con rondella sotto la testa, D-048) da controllare quando si sceglie la squadretta: altezze e posizione dei fori sono stimate (`sq_`).
 - Verifica con il corpo: gondola, rotazione della coxa, zampe vicine.
 - Vincoli che la zampa pone al corpo: fondo della gondola a −31,95 (flangia del cuscinetto fino a −32,75); braccio della coxa fino a −38,35 e nervatura fino a −41,35 sotto l'asse dei femori; testa dell'anima della coxa a raggio 34–40,55 dall'asse della coxa e da Z +8,05 in su (la gondola, a quel raggio, non deve salire oltre le teste delle viti delle alette, Z +7,05); mozzo del ponte (R12) da Z +17,05 a +23,5 attorno all'asse della coxa; anima a raggio ≥ 40,55 dall'asse della coxa a qualunque angolo.
+
+## Corpo v0 e assieme
+
+![Assieme v0 senza coperchio, posa di riferimento](immagini/assieme-v0.png)
+
+Disposizione "compatto" (D-050, confronto in `ricerca/corpo-disposizioni.json`). Script `cad/script/corpo.py` (parti) e `cad/script/assieme.py` (istanze, zampe, giunti di coxa, controlli).
+
+| Parte | Cosa fa | Volume pieno |
+|---|---|---|
+| `Corpo_Base` | tunnel della batteria (parte alta e tetto), ripiano e pareti delle baie, sei gondole (culle uguali a quelle della zampa: fessura del passacavo verso il centro, cuscinetto nel fondo), parete anteriore sopra il tetto con l'apertura per vassoio e basetta, quattro bugne della SSC-32 con fori pilota M2,5 | 140 cm³ |
+| `Corpo_Chiglia` | fondo e parte bassa del tunnel, da −41,4 a −31,95 | 24 cm³ |
+| `Corpo_Coperchio` | dorso da +28,4 a +30 con i lobi sopra le coxe (provvisorio: niente gonna) | 36 cm³ |
+
+Quote: assi delle coxe d'angolo (±80, ±44) a ±30° e ±150°, medie (0, ±48); base 235 × 173 (da z −31,95 a +7), tunnel interno 162 × 50, chiglia fino a −41,4.
+
+Dentro `Corpo`: 6 servo di coxa, 6 cuscinetti, batteria (cavi verso la coda, battuta anteriore), SSC-32 (centro a x −14, morsettiera in avanti), ESP32 (centro a x 54, antenna in avanti), camera (asse a z 22,5, lente a x 98,5), due regolatori in piedi nelle baie anteriori. Sei istanze di `Zampa` alla radice (`Zampa:1`…`Zampa:6` = AS, MS, PS, AD, MD, PD), giunti di rivoluzione `G_coxa_*` alla radice tra `Corpo_Base` e la `Coxa` di ogni istanza, limiti ±35°. `Corpo` è fissato.
+
+Verifiche (9 ottobre 2026), con i giunti veri:
+
+- posizioni di tutte le istanze nel corpo e delle sei zampe: scarto 0,000;
+- posa di riferimento: nessuna interferenza in tutto l'assieme (il controllo funziona: aveva trovato le pareti delle baie contro i servo di coxa medi, 178 mm³ ciascuno, poi corrette);
+- ogni zampa da sola a ±20° e ±35° di coxa: libera;
+- zampe vicine ruotate una verso l'altra: libere a 31° ciascuna, contatto a 34° (anteriore–media e media–posteriore); coppie anteriore e posteriore libere a 34°.
+
+### Da fare nel corpo
+
+- Fissaggio della chiglia alla base (viti fuori dagli ingombri di regolatori e fusibile, labbro di centraggio), sportello della batteria, vassoio dell'ESP32 con la torretta della camera, sedi di regolatori (bugne esterne o slitte), F1 e T-plug nel vano di coda, Wago, interruttore, cicalino; feritoie delle baie anteriori; gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe) e muso in PETG; percorso dei cavi (tasche e pettini nelle baie posteriori).
+- Verifica sul ciclo a tripode con le pose delle sei zampe una per una; massa e baricentro dal modello.
