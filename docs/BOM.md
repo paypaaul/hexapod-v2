@@ -65,7 +65,7 @@ Nota su B1: un regolatore serve 9 servo. Corrente stimata per lato: 5–6 A medi
 | # | Componente | Q.tà | Modello / codice | Specifiche chiave | Dove | Dato | Stato |
 |---|---|---|---|---|---|---|---|
 | C1 | Traslatore di livello 3,3 V ↔ 5 V | 1 | modulo a 4 canali con BSS138 (tipo Adafruit 757) | TX e RX tra ESP32 e SSC-32 | Melopero, Farnell | S | A |
-| C2 | Basetta di supporto | 1 + 2 + 1 | millefori 50 × 70 mm; 2 strip femmina 1 × 20; 1 strip maschio 1 × 40 | zoccolo per l'ESP32 (che non ha fori) e supporto per C1, B10, B11 | Amazon.it | C | A |
+| C2 | Basetta di supporto | 1 + 2 + 1 | millefori 50 × 70 mm; 2 strip femmina 1 × 20; 1 strip maschio 1 × 40 | zoccolo per l'ESP32 (che non ha fori) e supporto per B2, C1, B10, B11; si taglia a 56 × 35 (D-053) | Amazon.it | C | A |
 | C3 | Ingresso del 5 V nell'ESP32: alternativa | 1 + 1 | spinotto USB-C maschio a 90° a saldare + diodo Schottky 1N5817 | solo se la scheda non si accende dal pin 5V | Amazon.it, AliExpress | C | A |
 | C4 | Cavetti verso la SSC-32 | 1 conf. | Dupont femmina 10–20 cm | TX, RX, massa, VL | qualunque | — | A |
 | C5 | Prolunghe servo | da 0 a 12 | JR maschio-femmina 15 cm, 22 AWG | dipende dalla lunghezza reale dei cavi (32 cm dichiarati) e dai percorsi nel CAD; con 2,5 A una prolunga da 15 cm in 22 AWG perde circa 40 mV | Amazon.it B087289HFS, 10,99 € (20 pezzi) | S | ? (dopo il CAD) |
@@ -107,10 +107,11 @@ Conteggio fatto in Fusion sulle lavorazioni del modello (inserti, fori pilota, f
 | Slitte dei regolatori → parete della baia | M3 × 8 | 2 |
 | Regolatori → slitte | M2 × 5 in inserti M2 | 8 |
 | SSC-32 → bugne del tetto | M2 × 5 in inserti M2 (testa Ø3,8 sui fori da 3,0) | 4 |
+| Basetta → colonnine del vassoio | M2 × 5 in inserti M2 (D-053) | 4 |
 | Vassoio → distanziali | M3 × 6 sui 4 distanziali M3 maschio-femmina da 5 mm (B18) | 4 |
 | Coperchio → colonnine del tetto | M3 × 8 in inserti M3 (D-052) | 4 |
-| **Totale viti** | M3 × 5: 12; M3 × 6: 52; M3 × 8: 104; M3 × 10: 12; M3 × 16: 2; M2 × 5: 12 | |
-| **Inserti a caldo** | M3: 86 (28 nel corpo e nelle gondole, 24 nelle coxe, 12 nelle tibie, 24 nei femori); M2: 12 | dentro le confezioni da 200 e 50 (D4, D5) |
+| **Totale viti** | M3 × 5: 12; M3 × 6: 52; M3 × 8: 104; M3 × 10: 12; M3 × 16: 2; M2 × 5: 16 | |
+| **Inserti a caldo** | M3: 86 (28 nel corpo e nelle gondole, 24 nelle coxe, 12 nelle tibie, 24 nei femori); M2: 16 | dentro le confezioni da 200 e 50 (D4, D5) |
 | Fori pilota per viti M3 autofilettanti | 36 (alette lato albero dei 18 servo) | |
 
 Le voci D6 (viti M3 in assortimento più 100) e D8 (M2) vanno ordinate con queste quantità: in particolare servono circa 104 M3 × 8 e 52 M3 × 6, più dei pezzi di un assortimento normale.

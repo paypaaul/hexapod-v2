@@ -58,6 +58,8 @@ def pose_corpo(des):
     out['Batteria'] = ('Rif_Batteria_2S5200', _rz(x_bat, 0, fondo_int, 180.0))           # cavi verso la coda
     z_ssc = -_mm(des, 'cor_tetto') + _mm(des, 'ssc_dist')
     out['SSC32'] = ('Rif_SSC32_V25', _rz(_mm(des, 'cor_ssc_x'), 0, z_ssc, 0.0))          # morsettiera in avanti
+    z_bas = _mm(des, 'cor_vas_z') + _mm(des, 'cor_vas_sp') + _mm(des, 'cor_bas_luce')
+    out['Basetta'] = ('Rif_Basetta_50x70', _rz(_mm(des, 'cor_bas_x0') + _mm(des, 'bas_l') / 2, 0, z_bas, 0.0))
     out['ESP32'] = ('Rif_ESP32_S3_CAM', _rz(45.0, 0, 16.0, 0.0))                         # antenna in avanti, punta a x 81 (torretta della camera da x 82)
     # camera girata di 180 gradi sull'asse ottico: il flat esce dall'alto della testa e torna verso l'ESP32 sopra la torretta
     out['Camera'] = ('Rif_Camera_OV3660_75', A['matrice']((_mm(des, 'cor_cam_x'), 0, _mm(des, 'cor_cam_z')), (0, 0, -1), (0, 1, 0), (1, 0, 0)))

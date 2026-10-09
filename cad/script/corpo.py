@@ -76,6 +76,9 @@ PARAMETRI = [
     ('cor_vas_x0', '26 mm', 'mm', 'Vassoio: estremo posteriore (davanti alla SSC-32)'),
     ('cor_vas_x1', '82 mm', 'mm', 'Vassoio: estremo anteriore'),
     ('cor_vas_col_d', '6 mm', 'mm', 'Vassoio: diametro delle colonnine'),
+    ('cor_bas_x0', '22 mm', 'mm', 'Basetta: bordo posteriore (file dei pin dell ESP32 da 22,5; SSC-32 fino a 22)'),
+    ('cor_bas_luce', '3.3 mm', 'mm', 'Basetta: luce sopra il vassoio (sotto ci sono le teste M3 alte 3 e le saldature)'),
+    ('cor_bas_col_d', '5.8 mm', 'mm', 'Basetta: diametro delle colonnine del vassoio con inserto M2'),
     ('cor_cam_x', '92.5 mm', 'mm', 'Camera: X del retro della testa'),
     ('cor_cam_z', '22.5 mm', 'mm', 'Camera: Z dell asse ottico'),
     # --- vano di coda e sportello della batteria
@@ -301,6 +304,12 @@ def _vassoio_fori():
             ('vas_bugna_aa', 'cor_tun_x1 - cor_parete - 4 mm', y), ('vas_bugna_ab', 'cor_tun_x1 - cor_parete - 4 mm', '-(%s)' % y)]
 
 
+def _basetta_fori():
+    """Colonnine M2 della basetta: tra le due file di pin dell'ESP32 (|y| da 11,1), fuori dalle teste M3 del vassoio."""
+    xp, xa = 'cor_bas_x0 + 5 mm', 'cor_bas_x0 + bas_l - 2.5 mm'
+    return [('bas_col_pa', xp, '7 mm'), ('bas_col_pb', xp, '-(7 mm)'), ('bas_col_aa', xa, '6.5 mm'), ('bas_col_ab', xa, '-(6.5 mm)')]
+
+
 def fai_slitta(corpo):
     """Slitta del regolatore anteriore sinistro (per il destro serve la specchiata: stessa parte capovolta)."""
     occ = _nuovo_comp(corpo, 'Corpo_Slitta_Regolatore')
@@ -336,6 +345,10 @@ def fai_vassoio(corpo):
              'cor_vas_sp', 1, NUOVO)
     for nome, x, y in _vassoio_fori():
         p.cilindro('z', 'cor_vas_z', nome.replace('vas_bugna', 'foro'), x, y, 'vite_m3_pass', 'cor_vas_sp', 1, TAGLIA)
+    # colonnine della basetta con inserti M2 (viti M2 x 5 dall'alto)
+    for nome, x, y in _basetta_fori():
+        p.cilindro('z', 'cor_vas_z + cor_vas_sp', nome, x, y, 'cor_bas_col_d', 'cor_bas_luce')
+        p.cilindro('z', 'cor_vas_z + cor_vas_sp + cor_bas_luce', nome + '_ins', x, y, 'ins_m2_d', 'ins_m2_l', -1, TAGLIA)
     # torretta della camera: piastra dietro la testa fino all'asse ottico (il flat esce dall'alto della testa e torna
     # indietro sopra la torretta e sopra il modulo dell'antenna) e mensola sotto la testa
     p.blocco('z', 'cor_vas_z + cor_vas_sp', 'torretta', 'cor_vas_x1', '-(6 mm)', 'cor_cam_x - 0.2 mm', '6 mm',

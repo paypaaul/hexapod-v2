@@ -106,6 +106,9 @@ PARAMETRI = [
     ('cam_ling_l', '12.5 mm', 'mm', 'Camera: lunghezza della linguetta di contatto S'),
     ('cam_ling_w', '5 mm', 'mm', 'Camera: larghezza della linguetta di contatto S'),
     # --- minuteria elettrica (ingombri)
+    ('bas_l', '56 mm', 'mm', 'Basetta millefori 50 x 70 tagliata: lunghezza (sotto l ESP32, D-053)'),
+    ('bas_w', '35 mm', 'mm', 'Basetta tagliata: larghezza (colonnine del coperchio a 18,8 dall asse)'),
+    ('bas_sp', '1.6 mm', 'mm', 'Basetta: spessore S'),
     ('int_l', '25.4 mm', 'mm', 'Interruttore Pololu 2813: lunghezza V'),
     ('int_w', '20.3 mm', 'mm', 'Interruttore Pololu 2813: larghezza V'),
     ('int_h', '4.1 mm', 'mm', 'Interruttore Pololu 2813: altezza con il pulsante V'),
@@ -419,9 +422,8 @@ def fai_ingombri(des, root, rigenera, solo=None):
     # Minuteria
     fatti.append(componente(root, 'Rif_Interruttore_2813', [('scheda', box(0, 0, 0, p('int_l'), p('int_w'), p('int_h')))]))
     fatti.append(componente(root, 'Rif_Condensatore_2200uF', [('condensatore', cyl(0, 0, 0, p('cond_d'), p('cond_h')))]))
-    bas = box(0, 0, 0, 70.0, 50.0, 1.6)
-    sottrai(bas, *[cyl(sx * 33.0, sy * 23.0, -1, 2.0, 3.6) for sx in (-1, 1) for sy in (-1, 1)])
-    fatti.append(componente(root, 'Rif_Basetta_50x70', [('basetta', bas)]))
+    # basetta 50 x 70 tagliata a misura (D-053): i fori si trapanano sulle colonnine del vassoio
+    fatti.append(componente(root, 'Rif_Basetta_50x70', [('basetta', box(0, 0, 0, p('bas_l'), p('bas_w'), p('bas_sp')))]))
     fatti.append(componente(root, 'Rif_Portafusibile_ATO', [('portafusibile', box(0, 0, 0, p('fus_l'), p('fus_w'), p('fus_h')))]))
     fatti.append(componente(root, 'Rif_Wago_221_415', [('morsetto', box(0, 0, 0, p('wago_l'), p('wago_w'), p('wago_h')))]))
     fatti.append(componente(root, 'Rif_Cicalino_BX100', [('cicalino', box(0, 0, 0, 40.0, 25.0, 11.0))]))
