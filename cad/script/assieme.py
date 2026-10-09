@@ -58,10 +58,13 @@ def pose_corpo(des):
     out['Batteria'] = ('Rif_Batteria_2S5200', _rz(x_bat, 0, fondo_int, 180.0))           # cavi verso la coda
     z_ssc = -_mm(des, 'cor_tetto') + _mm(des, 'ssc_dist')
     out['SSC32'] = ('Rif_SSC32_V25', _rz(_mm(des, 'cor_ssc_x'), 0, z_ssc, 0.0))          # morsettiera in avanti
-    out['ESP32'] = ('Rif_ESP32_S3_CAM', _rz(54.0, 0, 16.0, 0.0))                         # antenna in avanti
+    out['ESP32'] = ('Rif_ESP32_S3_CAM', _rz(45.0, 0, 16.0, 0.0))                         # antenna in avanti, punta a x 81 (torretta della camera da x 82)
     out['Camera'] = ('Rif_Camera_OV3660_75', A['matrice']((92.5, 0, 22.5), (0, 0, 1), (0, -1, 0), (1, 0, 0)))
-    out['Regolatore_S'] = ('Rif_Reg_Servo_D42V110F6', A['matrice']((14.0, 32.0, 3.8), (1, 0, 0), (0, 0, -1), (0, 1, 0)))
-    out['Regolatore_D'] = ('Rif_Reg_Servo_D42V110F6', A['matrice']((57.2, -32.0, 3.8), (-1, 0, 0), (0, 0, -1), (0, -1, 0)))
+    # regolatori sulla parete esterna della baia, componenti verso il tunnel, piazzole in alto
+    y_reg = _mm(des, 'cor_baia_y') - _mm(des, 'cor_parete') - _mm(des, 'cor_reg_dist')
+    x0, z1, lr = _mm(des, 'cor_reg_x0'), _mm(des, 'cor_reg_ztop'), _mm(des, 'reg_l')
+    out['Regolatore_S'] = ('Rif_Reg_Servo_D42V110F6', A['matrice']((x0 + lr, y_reg, z1), (-1, 0, 0), (0, 0, -1), (0, -1, 0)))
+    out['Regolatore_D'] = ('Rif_Reg_Servo_D42V110F6', A['matrice']((x0, -y_reg, z1), (1, 0, 0), (0, 0, -1), (0, 1, 0)))
     return out
 
 

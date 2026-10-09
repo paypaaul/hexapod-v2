@@ -178,7 +178,7 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 ## Prossimi passi
 
 1. **Da far approvare all'utente** (non bloccano): 12 viti M3 × 5 per le squadrette della coxa (D-049, BOM D6); domande aperte in fondo al BOM.
-2. **Corpo** (fase 4): disposizione in pianta e in altezza di gondole, batteria (inviluppo 144 × 49,3 × 27,4 più 25 per i cavi), SSC-32 (spine 25 sopra, barre 6 sotto, distanziali 8), ESP32 + basetta + camera, regolatori, interruttore, fusibili, derivazioni; posizioni degli assi delle coxe (oggi quelle provvisorie di `calc/statica_tripode.py`); vincoli della zampa sul corpo in `docs/progetto-meccanico.md` ("Da fare nella zampa"). Metodo: confronto di proposte indipendenti con giudici, come per la zampa, poi `cad/script/corpo.py`.
-3. **Assieme** (`cad/script/assieme.py`): corpo fissato, sei istanze di `Zampa` con giunti di coxa alla radice, interferenze, rotazione delle coxe e zampe vicine, ciclo a tripode con pose per istanza; massa e baricentro; rilancio della statica con la massa vera.
-4. **Provino** della culla e del giunto prima delle parti vere (passacavo nella fessura, viti nei fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata della coxa).
-5. Fasi 5 e 6.
+2. **Corpo, dettagli rimasti** (elenco in `docs/progetto-meccanico.md`, "Da fare nel corpo"): sportello della batteria, vano di coda con F1 e T-plug, Wago, interruttore, cicalino, gonna e fissaggio del coperchio, muso, feritoie, cavi. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo`; controllo con `controllo`, `interferenze`, coxe a 31° tra vicine, `ciclo` (100/45 e 70/70).
+3. **Revisione indipendente del corpo** (come per la zampa) prima di considerarlo pronto per la stampa.
+4. **Provino** della culla e del giunto (passacavo nella fessura, viti nei fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata della coxa).
+5. Fase 5 (BOM finale con la viteria dal modello) e fase 6 (verifica completa del movimento; il ciclo a tripode è già verificato in quattro assetti).

@@ -107,8 +107,11 @@ Disposizione "compatto" (D-050, confronto in `ricerca/corpo-disposizioni.json`).
 | `Corpo_Base` | tunnel della batteria (parte alta e tetto), ripiano e pareti delle baie, sei gondole (culle uguali a quelle della zampa: fessura del passacavo verso il centro, cuscinetto nel fondo), parete anteriore sopra il tetto con l'apertura per vassoio e basetta, quattro bugne della SSC-32 con fori pilota M2,5 | 140 cm³ |
 | `Corpo_Chiglia` | fondo e parte bassa del tunnel, da −41,4 a −31,95 | 24 cm³ |
 | `Corpo_Coperchio` | dorso da +28,4 a +30 con i lobi sopra le coxe (provvisorio: niente gonna) | 36 cm³ |
+| `Corpo_Vassoio` | in PETG: piano per la basetta dell'ESP32 su quattro colonnine dal tetto, torretta e mensola della camera con una fessura di 0,5 mm per il flat | 9 cm³ |
 
 Quote: assi delle coxe d'angolo (±80, ±44) a ±30° e ±150°, medie (0, ±48); base 235 × 173 (da z −31,95 a +7), tunnel interno 162 × 50, chiglia fino a −41,4.
+
+Fissaggi (corpo v0.1): chiglia con 4 viti M3 in inserti della base, due davanti fuori dal tunnel (orecchie della chiglia) e due dietro nella zona dei cavi della batteria (colonnine della chiglia); regolatori su quattro bugne Ø5,2 ciascuno con inserti M2 nella **parete esterna della baia**, componenti verso il tunnel (6,8 mm d'aria), piazzole in alto (sul fianco del tunnel le bugne alte sarebbero rimaste sopra il tetto, nel vuoto); SSC-32 su quattro bugne del tetto con viti M2,5 in fori pilota; ESP32 con il centro a x 45 (la punta dell'antenna a x 81, davanti c'è la torretta della camera).
 
 Dentro `Corpo`: 6 servo di coxa, 6 cuscinetti, batteria (cavi verso la coda, battuta anteriore), SSC-32 (centro a x −14, morsettiera in avanti), ESP32 (centro a x 54, antenna in avanti), camera (asse a z 22,5, lente a x 98,5), due regolatori in piedi nelle baie anteriori. Sei istanze di `Zampa` alla radice (`Zampa:1`…`Zampa:6` = AS, MS, PS, AD, MD, PD), giunti di rivoluzione `G_coxa_*` alla radice tra `Corpo_Base` e la `Coxa` di ogni istanza, limiti ±35°. `Corpo` è fissato.
 
@@ -144,5 +147,4 @@ Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, rie
 
 ### Da fare nel corpo
 
-- Fissaggio della chiglia alla base (viti fuori dagli ingombri di regolatori e fusibile, labbro di centraggio), sportello della batteria, vassoio dell'ESP32 con la torretta della camera, sedi di regolatori (bugne esterne o slitte), F1 e T-plug nel vano di coda, Wago, interruttore, cicalino; feritoie delle baie anteriori; gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe) e muso in PETG; percorso dei cavi (tasche e pettini nelle baie posteriori).
-- Verifica sul ciclo a tripode con le pose delle sei zampe una per una; massa e baricentro dal modello.
+- Sportello della batteria a scatto, F1 e T-plug nel vano di coda, Wago, interruttore, cicalino, basetta con fermo; feritoie delle baie anteriori; gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe), suo fissaggio (linguette e 2 viti) e muso in PETG con la finestra della camera; percorso dei cavi (tasche e pettini nelle baie posteriori); labbro di centraggio tra chiglia e base; tetto del tunnel stampato su supporti (o a falde).
