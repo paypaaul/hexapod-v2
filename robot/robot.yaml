@@ -1,0 +1,85 @@
+# Descrizione unica del robot (versione 2.1.0): la parte scritta a mano. La geometria, le masse e i limiti meccanici
+# stanno in cad.json, esportato dal modello Fusion con cad/script/esporta_robot.py; tools/genera_robot.py unisce i
+# due file e produce header del firmware, modulo Python, URDF e MJCF. Il CI controlla che cad_sha256 sia quello di
+# cad.json: se si riesporta dal CAD, si aggiorna anche qui (e si rigenera).
+#
+# Unita': mm, g, gradi, microsecondi. Terne e angoli come in cad.json:
+#   robot  X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori
+#   zampa  X verso l'esterno lungo la direzione neutra, Y verso Femore_A, Z in alto (le sei zampe sono la stessa
+#          zampa ruotata, non specchiata: versi e limiti valgono uguali per tutte)
+#   imbardata attorno a +Z dalla direzione neutra; alpha del femore sopra l'orizzontale; gamma angolo interno al
+#   ginocchio (180 = distesa). Cinematica: calc/statica_tripode.py -> ik_piano (soluzione a ginocchio alto).
+# Stato dei dati: V verificato, S stimato, C da confermare (come nei documenti).
+
+versione: 2.1.0
+cad: cad.json
+cad_sha256: null            # lo scrive tools/genera_robot.py --aggiorna-hash dopo ogni esportazione
+
+zampe: [AS, MS, PS, AD, MD, PD]          # A anteriore, M media, P posteriore; S sinistra, D destra
+tripodi: [[AS, PS, MD], [AD, PD, MS]]    # calc/statica_tripode.py -> TRIPODI
+vicine: [[AS, MS], [MS, PS], [AD, MD], [MD, PD]]
+
+# Canali della SSC-32 (C, proposta): le zampe anteriori sui canali verso la morsettiera (avanti), come
+# calc/cavi_servo.py -> ASSEGNA; lato sinistro 0-15, destro 16-31. Il lato dei canali 0-15 sulla scheda montata
+# (morsettiera in avanti) va controllato sull'ingombro Rif_SSC32_V25 e al banco (passo B1).
+canali:
+  AS: {coxa: 0, femore: 1, ginocchio: 2}
+  MS: {coxa: 6, femore: 7, ginocchio: 8}
+  PS: {coxa: 13, femore: 14, ginocchio: 15}
+  AD: {coxa: 16, femore: 17, ginocchio: 18}
+  MD: {coxa: 22, femore: 23, ginocchio: 24}
+  PD: {coxa: 29, femore: 30, ginocchio: 31}
+
+servo:
+  modello: MG996R AZDelivery
+  stallo_kgfcm: {4.8: 9.4, 6.0: 11.0}    # V, datasheet AZDelivery
+  velocita_s_60: {4.8: 0.17, 6.0: 0.14}  # V, a vuoto
+  tensione_rail: 6.0
+  periodo_ms: 20                         # V
+  banda_morta_us: 5                      # V
+  centro_us: 1500                        # S, standard
+  us_per_grado: 11.1                     # S: 500-2500 us su circa 180 gradi; la taratura con le dime lo sostituisce
+  corsa_gradi: 160                       # utile, su 180 nominali (calc/statica_tripode.py -> CONFIG)
+  # verso = segno di d(angolo del giunto)/d(impulso). Ipotesi (C, da provare al passo B2): il servo gira in senso
+  # antiorario attorno al proprio albero quando l'impulso cresce. Alberi: coxa verso +Z, femore e ginocchio verso
+  # +Y della zampa (zampa.py -> ASSI_SERVO); il ginocchio ha la cassa nella tibia e la squadretta sul femore.
+  verso: {coxa: 1, femore: -1, ginocchio: 1}
+  # calettamento: angolo del giunto con il servo a centro_us (software.md 2.5): corsa del servo +-80 attorno
+  calettamento: {imbardata: 0.0, alpha: 20.0, gamma: 100.0}
+
+# Limiti del firmware (guardia, software.md 2.5). Quelli meccanici sono in cad.json -> limiti_meccanici.
+guardia:
+  imbardata: [-30.0, 30.0]               # fine corsa 35; contatto tra vicine fra 31 e 32 ciascuna (D-061, D-063)
+  # somma tra vicine (proposta): a sinistra imb_A - imb_M e imb_M - imb_P, a destra il contrario; 56 lascia 3 gradi
+  # per zampa come al ginocchio. Da approvare: cambia D-050 e D-061 (oggi 60)
+  somma_vicine: 56.0
+  alpha: [-45.0, 82.0]                   # campo libero -49...85 meno 3; la tabella del ginocchio parte da -45
+  gamma_max: 177.0
+  gamma_margine: 3.0                     # sopra cad.json -> limiti_meccanici.gamma_min(alpha)
+  # fra due righe della tabella vale il massimo dei due valori: la tabella non e' monotona (-40 -> 55, -35 -> 45)
+  gamma_min_interpolazione: massimo
+  corsa_servo: 80.0                      # +- attorno al calettamento
+  velocita_gradi_s: 250.0                # proposta; a vuoto 429 (V)
+  coppia_avviso: 0.55                    # frazione dello stallo (proposte)
+  coppia_tempo_limitato: 0.60
+  coppia_rifiuto: 0.70
+  stabilita_mm: 20.0                     # baricentro dai lati del poligono d'appoggio (proposta)
+  # se un fotogramma viola un limite non si tronca il giunto (il piede striscerebbe): si riduce il comando e si
+  # ricalcola; se non basta si tiene il fotogramma precedente e si registra l'evento
+
+andatura:
+  frequenza_hz: 50                       # un gruppo di 18 canali a ciclo (software.md 2.2)
+  assetto: {h: 100.0, xf0: 45.0}         # punto di progetto 100/45: femore al 51 % dello stallo (D-065)
+  assetti_verificati: [[130, 25], [100, 45], [80, 60], [70, 70]]   # h, xf0 (cicli in cad.json)
+  passo: 60.0
+  alzata: 30.0
+  giro_max: 30.0                         # gradi a passo nella rotazione sul posto (verificato nel CAD)
+
+massa:
+  attesa_g: 2945.0                       # D-065: modellato + non modellato; calc/statica_tripode.py -> CONFIG
+  non_modellato_sul_corpo: true          # cavi e viteria (cad.json -> masse.non_modellato_g) aggiunti al corpo
+
+regressione_statica:                     # software.md 6.3, test 6
+  femore_frazione_stallo: [0.50, 0.52]   # 51 % +- 1 a 100/45
+  femore_kgfcm: 5.65
+  margine_stabilita_mm: 59.0
