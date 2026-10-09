@@ -98,7 +98,7 @@ Verifiche della zampa v0, prima della revisione (9 ottobre 2026):
 
 ## Corpo v0 e assieme
 
-Stato: **corpo v0.4**: la v0.3 più colonnine e viti del coperchio e feritoie delle baie anteriori (D-052), basetta dell'ESP32 tagliata a 56 × 35 su quattro colonnine del vassoio (D-053). La v0.3 è stata corretta dopo la revisione di quattro revisori (D-051, rilievi in `ricerca/corpo-v0-revisione.json`): batteria sfilabile dal retro (provato: 160 mm di corsa senza urti), pareti di collegamento tra gondole, baie e tunnel, regolatori su slitte stampate tra due guide della parete della baia, camera girata con il flat che esce in alto, vassoio su quattro distanziali M3, Wago nelle baie posteriori, T-plug sopra F1 nel vano di coda, apertura di servizio nel coperchio con sportellino. Dopo le correzioni: nessuna interferenza, coxe libere a ±35° e tra vicine a 31°, ciclo a tripode libero a 70/70. Le righe qui sotto descrivono la v0.2 dove non sono state aggiornate: vale D-051.
+Stato: **corpo v0.4**: la v0.3 più colonnine e viti del coperchio e feritoie delle baie anteriori (D-052), basetta dell'ESP32 tagliata a 56 × 35 su quattro colonnine del vassoio (D-053), sportello della batteria con due viti in basso e linguetta sotto il tetto (D-054). La v0.3 è stata corretta dopo la revisione di quattro revisori (D-051, rilievi in `ricerca/corpo-v0-revisione.json`): batteria sfilabile dal retro (provato: 160 mm di corsa senza urti), pareti di collegamento tra gondole, baie e tunnel, regolatori su slitte stampate tra due guide della parete della baia, camera girata con il flat che esce in alto, vassoio su quattro distanziali M3, Wago nelle baie posteriori, T-plug sopra F1 nel vano di coda, apertura di servizio nel coperchio con sportellino. Dopo le correzioni: nessuna interferenza, coxe libere a ±35° e tra vicine a 31°, ciclo a tripode libero a 70/70. Le righe qui sotto descrivono la v0.2 dove non sono state aggiornate: vale D-051.
 
 ![Assieme v0 senza coperchio, posa di riferimento](immagini/assieme-v0.png)
 
@@ -154,4 +154,4 @@ Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, rie
 
 ### Da fare nel corpo
 
-- Denti a scatto dello sportello, fermagli di F1, T-plug e Wago, interruttore, cicalino; gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe) e muso in PETG con la finestra della camera; percorso dei cavi (tasche e pettini nelle baie posteriori); labbro di centraggio tra chiglia e base; tetto del tunnel stampato su supporti (o a falde).
+- Fermagli di F1, T-plug e Wago, interruttore, cicalino; gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe) e muso in PETG con la finestra della camera; percorso dei cavi (tasche e pettini nelle baie posteriori); labbro di centraggio tra chiglia e base; tetto del tunnel stampato su supporti (o a falde).

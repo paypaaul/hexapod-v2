@@ -86,6 +86,10 @@ PARAMETRI = [
     ('cor_cavi_y0', '20.5 mm', 'mm', 'Tetto: fessure dei cavi accanto ai capi del portafusibile F1 (|y| da 20,5 a 25)'),
     ('cor_sport_sp', '2 mm', 'mm', 'Sportello della batteria: spessore'),
     ('cor_sport_rebbio', '17 mm', 'mm', 'Sportello: lunghezza dei rebbi che premono il pacco (con schiuma) contro la battuta'),
+    ('cor_sport_vite_y', '28.5 mm', 'mm', 'Sportello: Y delle due viti in basso, nei blocchetti della chiglia (2,3 mm dal mozzo della coxa posteriore)'),
+    ('cor_sport_vite_z', '36.7 mm', 'mm', 'Sportello: Z (negativa) delle viti, a meta altezza della chiglia'),
+    ('cor_sport_blocco', '8 mm', 'mm', 'Chiglia: lunghezza lungo X dei blocchetti delle viti dello sportello'),
+    ('cor_sport_ling', '6 mm', 'mm', 'Sportello: profondita della linguetta sotto il tetto (0,4 dal tetto, 1,0 sopra il pacco)'),
     ('cor_gonna_sp', '1.2 mm', 'mm', 'Coperchio: spessore della gonna'),
     ('cor_gonna_x0', '22 mm', 'mm', 'Coperchio: gonna laterale da qui (22 mm dall asse della coxa media)'),
     ('cor_gonna_x1', '58.8 mm', 'mm', 'Coperchio: gonna laterale fino a qui (22 mm dall asse della coxa d angolo)'),
@@ -294,6 +298,12 @@ def fai_chiglia(corpo):
                  '-(cor_chi_vite_xp) + cor_chi_bugna_d / 2', yy1, 'cor_chi_orecchia')
         p.cilindro('z', '-(cor_fondo) - cor_chi_orecchia', 'foro_orecchia_p' + lato, '-(cor_chi_vite_xp)', y, 'vite_m3_pass',
                    'cor_chi_orecchia', 1, TAGLIA)
+    # blocchetti in coda, fuori dal tunnel (sotto le gondole posteriori), con gli inserti delle viti dello sportello
+    for lato, y in (('s', 'cor_sport_vite_y'), ('d', '-(cor_sport_vite_y)')):
+        yy0, yy1 = ('cor_tun_semi - 1 mm', y + ' + cor_chi_bugna_d / 2') if lato == 's' else (y + ' - cor_chi_bugna_d / 2', '-(cor_tun_semi - 1 mm)')
+        p.blocco('z', '-(cor_chiglia)', 'blocco_sport_' + lato, '-(cor_tun_x0)', yy0, '-(cor_tun_x0) + cor_sport_blocco', yy1,
+                 'cor_chiglia - cor_fondo')
+        p.cilindro('x', '-(cor_tun_x0)', 'ins_sport_' + lato, y, '-(cor_sport_vite_z)', 'ins_m3_d', 'ins_m3_l', 1, TAGLIA)
     return occ, p
 
 
@@ -306,8 +316,8 @@ def _vassoio_fori():
 
 def _basetta_fori():
     """Colonnine M2 della basetta: tra le due file di pin dell'ESP32 (|y| da 11,1), fuori dalle teste M3 del vassoio."""
-    xp, xa = 'cor_bas_x0 + 5 mm', 'cor_bas_x0 + bas_l - 2.5 mm'
-    return [('bas_col_pa', xp, '7 mm'), ('bas_col_pb', xp, '-(7 mm)'), ('bas_col_aa', xa, '6.5 mm'), ('bas_col_ab', xa, '-(6.5 mm)')]
+    xp, xa = 'cor_bas_x0 + 7 mm', 'cor_bas_x0 + bas_l - 2.5 mm'          # le posteriori restano sul vassoio (da x 26)
+    return [('bas_col_pa', xp, '6.8 mm'), ('bas_col_pb', xp, '-(6.8 mm)'), ('bas_col_aa', xa, '6.5 mm'), ('bas_col_ab', xa, '-(6.5 mm)')]
 
 
 def fai_slitta(corpo):
@@ -329,9 +339,16 @@ def fai_slitta(corpo):
 def fai_sportello(corpo):
     occ = _nuovo_comp(corpo, 'Corpo_Sportello')
     p = Parte(occ.component)
-    zb, zt = '-(cor_chiglia) + cor_chiglia_sp', '-(cor_tetto) - cor_tetto_sp'
-    p.blocco('x', '-(cor_tun_x0)', 'piastra', '-(cor_tun_semi)', zb, 'cor_tun_semi', '-(cor_tetto)', 'cor_sport_sp', -1, NUOVO)
-    # rebbi alti: sotto passa la coppia di T-plug, che sta nella zona dei cavi dietro il pacco
+    zt = '-(cor_tetto) - cor_tetto_sp'
+    # piastra fino al fondo della chiglia, con le orecchie delle due viti in basso
+    p.blocco('x', '-(cor_tun_x0)', 'piastra', '-(cor_tun_semi)', '-(cor_chiglia)', 'cor_tun_semi', '-(cor_tetto)', 'cor_sport_sp', -1, NUOVO)
+    for lato, y0, y1, y in (('s', 'cor_tun_semi - 1 mm', 'cor_sport_vite_y + 3.2 mm', 'cor_sport_vite_y'),
+                            ('d', '-(cor_sport_vite_y + 3.2 mm)', '-(cor_tun_semi - 1 mm)', '-(cor_sport_vite_y)')):
+        p.blocco('x', '-(cor_tun_x0)', 'orecchia_' + lato, y0, '-(cor_chiglia)', y1, '-(cor_fondo)', 'cor_sport_sp', -1)
+        p.cilindro('x', '-(cor_tun_x0)', 'foro_' + lato, y, '-(cor_sport_vite_z)', 'vite_m3_pass', 'cor_sport_sp', -1, TAGLIA)
+    # linguetta sotto il tetto: impedisce alla parte alta di aprirsi (lo sportello si infila e si sfila lungo X)
+    p.blocco('z', zt + ' - 1.6 mm', 'linguetta', '-(cor_tun_x0)', '-(8 mm)', '-(cor_tun_x0) + cor_sport_ling', '8 mm', '1.2 mm')
+    # rebbi che premono il pacco (con la schiuma) contro la battuta anteriore; tra i due passano i cavi della batteria
     for lato, y in (('s', '12 mm'), ('d', '-(12 mm)')):
         p.blocco('x', '-(cor_tun_x0)', 'rebbio_' + lato, y + ' - 2 mm', '-(29 mm)', y + ' + 2 mm', zt + ' - 4 mm',
                  'cor_sport_rebbio', 1)

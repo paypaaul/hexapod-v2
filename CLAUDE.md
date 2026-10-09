@@ -14,7 +14,7 @@ Questa repo è la memoria del progetto: una sessione nuova deve poter ripartire 
 | 1. Studio di ciò che cambia | **fatta** (2026-10-08, studio ridotto): `docs/studio-componenti.md`, `docs/dimensionamento.md` (preliminare), `docs/dimensioni-componenti.md` |
 | 2. BOM e revisione | **fatta e approvata** (2026-10-08): `docs/BOM.md` v2.0. Restano aperte le domande in fondo al BOM |
 | 3. Dimensioni e modelli 3D | **fatta** (2026-10-08): design Fusion **"Hexapod v2 - MG996R"** con 79 parametri, servo e regolatori da STEP, 14 ingombri in libreria (`cad/script/rif_componenti.py`, D-046); elenco in `docs/dimensioni-componenti.md` |
-| 4. Progettazione CAD | **in corso**: zampa v0.1 (D-047…D-049) e corpo v0.4 rivisto e corretto (D-050…D-053) con assieme a sei zampe e giunti di coxa, verificati con i giunti veri (`docs/progetto-meccanico.md`, `cad/script/zampa.py`, `corpo.py`, `assieme.py`); prossimi i dettagli del corpo e il ciclo a tripode |
+| 4. Progettazione CAD | **in corso**: zampa v0.1 (D-047…D-049) e corpo v0.4 rivisto e corretto (D-050…D-054) con assieme a sei zampe e giunti di coxa, verificati con i giunti veri (`docs/progetto-meccanico.md`, `cad/script/zampa.py`, `corpo.py`, `assieme.py`); prossimi i dettagli del corpo e il ciclo a tripode |
 | 5. BOM finale (viteria dal modello) | **bozza**: viteria e inserti contati dal modello in `docs/BOM.md` (manca il fissaggio del coperchio) |
 | 6. Verifica del movimento | da fare |
 
