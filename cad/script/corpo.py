@@ -86,6 +86,13 @@ PARAMETRI = [
     ('cor_gonna_sp', '1.2 mm', 'mm', 'Coperchio: spessore della gonna'),
     ('cor_gonna_x0', '22 mm', 'mm', 'Coperchio: gonna laterale da qui (22 mm dall asse della coxa media)'),
     ('cor_gonna_x1', '58.8 mm', 'mm', 'Coperchio: gonna laterale fino a qui (22 mm dall asse della coxa d angolo)'),
+    # --- colonnine del coperchio sul tetto del tunnel, feritoie delle baie anteriori
+    ('cor_col_xa', '40 mm', 'mm', 'Coperchio: X delle colonnine anteriori (accanto al vassoio, dietro le pareti di prua)'),
+    ('cor_col_xp', '56 mm', 'mm', 'Coperchio: X (negativa) delle colonnine posteriori (tra F1 a -61,4 e la SSC-32 a -50,8)'),
+    ('cor_col_y', '22.5 mm', 'mm', 'Coperchio: Y delle colonnine (vassoio fino a 16,5, fianco del tunnel a 27)'),
+    ('cor_fer_l', '6 mm', 'mm', 'Feritoie: lunghezza lungo X'),
+    ('cor_fer_w', '3 mm', 'mm', 'Feritoie: larghezza'),
+    ('cor_fer_y', '30 mm', 'mm', 'Feritoie: Y del centro (camino tra i componenti dei regolatori e il tunnel)'),
     # --- coperchio
     ('cor_cop_z', '28.4 mm', 'mm', 'Coperchio: lato inferiore del dorso'),
     ('cor_serv_x0', '-20 mm', 'mm', 'Coperchio: apertura di servizio sopra USB e pulsanti dell ESP32, inizio'),
@@ -98,6 +105,11 @@ PARAMETRI = [
 ]
 
 T0 = {}
+N_FER = 5          # feritoie per baia anteriore, distribuite sulla lunghezza del regolatore
+
+
+def _x_feritoia(i):
+    return 'cor_reg_x0 + 4 mm + %d * (reg_l - 8 mm - cor_fer_l) / %d' % (i, N_FER - 1)
 
 
 def _corpo(root):
@@ -223,6 +235,13 @@ def fai_base(corpo):
     x_v = 'cor_reg_x0 + reg_l / 2'
     sx.append(p.cilindro('y', 'cor_baia_y', 'slitta_bugna', x_v, 'cor_orlo - 1 mm', 'cor_chi_bugna_d', 'ins_m3_l - cor_parete + 1 mm'))
     sx.append(p.cilindro('y', 'cor_baia_y - cor_parete', 'slitta_ins', x_v, 'cor_orlo - 1 mm', 'ins_m3_d', 'ins_m3_l', 1, TAGLIA))
+    for nome, x in (('colonnina_a', 'cor_col_xa'), ('colonnina_p', '-(cor_col_xp)')):
+        sx.append(p.cilindro('z', '-(cor_tetto)', nome, x, 'cor_col_y', 'cor_chi_bugna_d', 'cor_tetto + cor_cop_z'))
+        sx.append(p.cilindro('z', 'cor_cop_z', nome + '_ins', x, 'cor_col_y', 'ins_m3_d', 'ins_m3_l', -1, TAGLIA))
+    for i in range(N_FER):
+        x = _x_feritoia(i)
+        sx.append(p.blocco('z', '-(cor_fondo)', 'feritoia_%d' % i, x, 'cor_fer_y - cor_fer_w / 2', x + ' + cor_fer_l',
+                           'cor_fer_y + cor_fer_w / 2', 'cor_ripiano', 1, TAGLIA))
     sx.append(p.cilindro('z', '-(cor_fondo)', 'chi_bugna_p', '-(cor_chi_vite_xp)', 'cor_chi_vite_yp', 'cor_chi_bugna_d', 'ins_m3_l + 1 mm'))
     sx.append(p.cilindro('z', '-(cor_fondo)', 'chi_ins_p', '-(cor_chi_vite_xp)', 'cor_chi_vite_yp', 'ins_m3_d', 'ins_m3_l', 1, TAGLIA))
     sx.append(p.cilindro('z', '-(cor_fondo)', 'chi_bugna_a', 'cor_tun_x1 + cor_chi_vite_xa', 'cor_chi_vite_y', 'cor_chi_bugna_d',
@@ -355,6 +374,15 @@ def fai_coperchio(corpo):
                        ('lobo_ps', '-(cor_ang_x)', 'cor_ang_y'), ('lobo_pd', '-(cor_ang_x)', '-(cor_ang_y)'),
                        ('lobo_ms', '0 mm', 'cor_med_y'), ('lobo_md', '0 mm', '-(cor_med_y)')):
         p.cilindro('z', 'cor_cop_z', nome, x, y, '2 * cor_cop_lobo', 'cor_cop_sp')
+    # fori delle viti delle colonnine e feritoie sopra i regolatori (dopo i lobi, che altrimenti li richiuderebbero)
+    for nome, x, y in (('foro_as', 'cor_col_xa', 'cor_col_y'), ('foro_ps', '-(cor_col_xp)', 'cor_col_y'),
+                       ('foro_ad', 'cor_col_xa', '-(cor_col_y)'), ('foro_pd', '-(cor_col_xp)', '-(cor_col_y)')):
+        p.cilindro('z', 'cor_cop_z', nome, x, y, 'vite_m3_pass', 'cor_cop_sp', 1, TAGLIA)
+    for lato, y0, y1 in (('s', 'cor_fer_y - cor_fer_w / 2', 'cor_fer_y + cor_fer_w / 2'),
+                         ('d', '-(cor_fer_y + cor_fer_w / 2)', '-(cor_fer_y - cor_fer_w / 2)')):
+        for i in range(N_FER):
+            x = _x_feritoia(i)
+            p.blocco('z', 'cor_cop_z', 'feritoia_%s%d' % (lato, i), x, y0, x + ' + cor_fer_l', y1, 'cor_cop_sp', 1, TAGLIA)
     return occ, p
 
 

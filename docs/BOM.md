@@ -93,7 +93,7 @@ Ogni giunto: il servo è stretto in una culla e appoggia sulle alette; l'albero 
 
 ## Viteria e inserti contati dal modello (fase 5, bozza del 9 ottobre 2026)
 
-Conteggio fatto in Fusion sulle lavorazioni del modello (inserti, fori pilota, fori passanti) moltiplicate per il numero di copie di ogni parte, comprese le specchiature del corpo. Lunghezze delle viti dalla pila di ogni giunto. Manca il fissaggio del coperchio, non ancora disegnato.
+Conteggio fatto in Fusion sulle lavorazioni del modello (inserti, fori pilota, fori passanti) moltiplicate per il numero di copie di ogni parte, comprese le specchiature del corpo. Lunghezze delle viti dalla pila di ogni giunto. Comprende il fissaggio del coperchio (D-052).
 
 | Dove | Cosa | Quantità |
 |---|---|---|
@@ -108,11 +108,12 @@ Conteggio fatto in Fusion sulle lavorazioni del modello (inserti, fori pilota, f
 | Regolatori → slitte | M2 × 5 in inserti M2 | 8 |
 | SSC-32 → bugne del tetto | M2 × 5 in inserti M2 (testa Ø3,8 sui fori da 3,0) | 4 |
 | Vassoio → distanziali | M3 × 6 sui 4 distanziali M3 maschio-femmina da 5 mm (B18) | 4 |
-| **Totale viti** | M3 × 5: 12; M3 × 6: 52; M3 × 8: 100; M3 × 10: 12; M3 × 16: 2; M2 × 5: 12 | |
-| **Inserti a caldo** | M3: 82 (24 nel corpo e nelle gondole, 24 nelle coxe, 12 nelle tibie, 24 nei femori); M2: 12 | dentro le confezioni da 200 e 50 (D4, D5) |
+| Coperchio → colonnine del tetto | M3 × 8 in inserti M3 (D-052) | 4 |
+| **Totale viti** | M3 × 5: 12; M3 × 6: 52; M3 × 8: 104; M3 × 10: 12; M3 × 16: 2; M2 × 5: 12 | |
+| **Inserti a caldo** | M3: 86 (28 nel corpo e nelle gondole, 24 nelle coxe, 12 nelle tibie, 24 nei femori); M2: 12 | dentro le confezioni da 200 e 50 (D4, D5) |
 | Fori pilota per viti M3 autofilettanti | 36 (alette lato albero dei 18 servo) | |
 
-Le voci D6 (viti M3 in assortimento più 100) e D8 (M2) vanno ordinate con queste quantità: in particolare servono circa 100 M3 × 8 e 52 M3 × 6, più dei pezzi di un assortimento normale.
+Le voci D6 (viti M3 in assortimento più 100) e D8 (M2) vanno ordinate con queste quantità: in particolare servono circa 104 M3 × 8 e 52 M3 × 6, più dei pezzi di un assortimento normale.
 
 ## E. Materiali di stampa
 
