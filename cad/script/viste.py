@@ -184,7 +184,11 @@ def avvia(file, qualita=75, larghezza=1800, altezza=1200):
 
 
 def ripristina():
-    adsk.core.Application.get().userInterface.workspaces.itemById('FusionSolidEnvironment').activate()
+    # tornare a Progettazione passando dall'area Rendering: attivando Progettazione direttamente dopo un render la
+    # vista e' rimasta con lo sfondo chiaro e i pezzi bianchi, senza aspetti (9 ottobre 2026)
+    app = adsk.core.Application.get()
+    _des().renderManager.activateRenderWorkspace()
+    app.userInterface.workspaces.itemById('FusionSolidEnvironment').activate()
     des = _des()
     root = des.rootComponent
     if des.snapshots.hasPendingSnapshot:
