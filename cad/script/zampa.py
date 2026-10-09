@@ -145,6 +145,23 @@ PARAMETRI = [
     ('cov_foro_spina_d', '3.1 mm', 'mm', 'Femore B: fori ciechi delle spine (il forzamento lo da la stampa, D-056)'),
     ('cov_foro_spina_l', '3.3 mm', 'mm', 'Femore B: profondita dei fori delle spine'),
     ('cov_spina_z', '6 mm', 'mm', 'Lama B: Z delle spine'),
+    # --- lame del femore "Piena" (D-061): bombate, estremi esagonali raccordati attorno alle teste del femore
+    ('cov_ap', '14.5 mm', 'mm', 'Lame: semialtezza e apotema degli estremi esagonali (teste del femore R13)'),
+    ('cov_tc', '2.6 mm', 'mm', 'Lame: spessore al colmo (1,6 ai bordi alti e bassi)'),
+    ('cov_Rb', '148.8 mm', 'mm', 'Lame: raggio della bombatura trasversale (1,0 mm su 17,25)'),
+    ('cov_Rb2', '1920 mm', 'mm', 'Lame: raggio della bombatura longitudinale (0,6 mm su 48)'),
+    ('cov_zc', '2.75 mm', 'mm', 'Lame: Z del colmo'),
+    ('cov_xc', '32.5 mm', 'mm', 'Lame: X del colmo dall asse dell anca'),
+    ('cov_r', '0.8 mm', 'mm', 'Lame: raccordo degli spigoli della faccia esterna'),
+    ('cov_r_estremo', '8 mm', 'mm', 'Lame: raccordo in pianta degli estremi esagonali'),
+    ('cov_r_rampa', '10 mm', 'mm', 'Lame: raccordo in pianta alla base e in cima alla rampa dell anca, alla base di quella del ginocchio'),
+    ('cov_r_plateau', '8 mm', 'mm', 'Lame: raccordo in pianta della fine del plateau'),
+    ('cov_x_plateau0', '26 mm', 'mm', 'Lame: inizio del plateau sopra il blocco, dall asse dell anca (X 81)'),
+    ('cov_x_plateau1', '41 mm', 'mm', 'Lame: fine del plateau (X 96)'),
+    ('cov_gobba_z', 'fem_blocco_su', 'mm', 'Lame: cima della gobba sopra il blocco'),
+    ('cov_fin_ap', '11 mm', 'mm', 'Lame: apotema delle finestre sui mozzi (teste delle squadrette fino a r 9,75)'),
+    ('cov_r_fin', '4 mm', 'mm', 'Lame: raccordo degli angoli delle finestre'),
+    ('cov_testa_d', '5.6 mm', 'mm', 'Lama A: fori sulle teste M3 del blocco (incastro sui fianchi, da tarare 5,4-5,7)'),
     ('cox_disco_luce', '0.3 mm', 'mm', 'Ponte: luce sopra il disco (gioco verticale della coxa, D-048)'),
     ('cox_testa_vite_d', '5.6 mm', 'mm', 'Ponte: fori che calzano le teste delle viti M3 della squadretta (gioco d imbardata: tarare sul provino)'),
     ('cox_smusso_ponte', '2.5 mm', 'mm', 'Ponte: smusso dello spigolo esterno alto'),
@@ -347,6 +364,156 @@ def fai_femore_b(zampa):
     return occ, p
 
 
+# ----------------------------------------------------------------------------------- lame del femore (D-061)
+COS30, SIN30 = math.cos(math.radians(30)), math.sin(math.radians(30))
+
+
+def _esagono(p, q, nome, xc, ap, h, verso, op):
+    """Esagono con i vertici lungo X (apotema ap) come unione o taglio di tre rettangoli a 0, 60 e 120 gradi."""
+    f = []
+    for k, ang in enumerate((0, 60, 120)):
+        c, s_ = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+        p1 = ('%s + %.6f mm' % (xc, 10 * c), '%.6f mm' % (10 * s_))
+        f.append(p.blocco_obl('y', q, '%s_%d' % (nome, k), (xc, '0 mm'), p1, '-(%s / cos(30 deg) / 2)' % ap,
+                              '%s / cos(30 deg) / 2' % ap, '-(%s)' % ap, ap, h, verso, op if k == 0 or op != NUOVO else UNISCI))
+    return f
+
+
+def _spigoli_y(corpo, punti):
+    """Spigoli rettilinei paralleli a Y che passano (in X, Z, mm) per i punti dati: [(x, z, chiave)] -> {chiave: [spigoli]}."""
+    out = {}
+    for e in corpo.edges:
+        if e.geometry.curveType != adsk.core.Curve3DTypes.Line3DCurveType:
+            continue
+        a, b = e.startVertex.geometry, e.endVertex.geometry
+        if abs(a.x - b.x) > 1e-5 or abs(a.z - b.z) > 1e-5:
+            continue
+        for x, z, k in punti:
+            if abs(a.x * 10 - x) < 0.05 and abs(a.z * 10 - z) < 0.05:
+                out.setdefault(k, []).append(e)
+    return out
+
+
+def _raccorda(comp, gruppi, nome):
+    """Un raccordo con un gruppo di spigoli per raggio: gruppi = [(espressione del raggio, [spigoli])]."""
+    fil = comp.features.filletFeatures
+    inp = fil.createInput()
+    for r, spigoli in gruppi:
+        if spigoli:
+            inp.edgeSetInputs.addConstantRadiusEdgeSet(_collezione(spigoli), adsk.core.ValueInput.createByString(r), False)
+    f = fil.add(inp)
+    f.name = nome
+    return f
+
+
+def _collezione(oggetti):
+    c = adsk.core.ObjectCollection.create()
+    for o in oggetti:
+        c.add(o)
+    return c
+
+
+def _bombatura(p, nome, y_top, verso):
+    """Intersezione con un toro: cerchio di raggio cov_Rb nel piano X = colmo, centro (y_top - verso*cov_Rb; cov_zc),
+    ruotato di 20 gradi attorno a una retta parallela a Z a y_top - verso*cov_Rb2 (bombatura doppia della lama)."""
+    comp = p.c
+    xq = 'zam_Lc + cov_xc'
+    yc = '%s - (%d) * cov_Rb' % (y_top, verso)
+    sk = p.sk_cerchio('x', xq, nome, yc, 'cov_zc', '2 * cov_Rb')
+    # asse di rivoluzione nello stesso schizzo, di costruzione, vincolato come i punti di lib_cad
+    ya = '%s - (%d) * cov_Rb2' % (y_top, verso)
+    q = p.val(xq)
+    a = sk.modelToSketchSpace(p._modello('x', p.val(ya), -60.0, q))
+    b = sk.modelToSketchSpace(p._modello('x', p.val(ya), 60.0, q))
+    ln = sk.sketchCurves.sketchLines.addByTwoPoints(adsk.core.Point3D.create(a.x, a.y, 0), adsk.core.Point3D.create(b.x, b.y, 0))
+    ln.isConstruction = True
+    ex, o = sk.sketchToModelSpace(adsk.core.Point3D.create(1, 0, 0)), sk.sketchToModelSpace(adsk.core.Point3D.create(0, 0, 0))
+    du, dv = p._uv('x', adsk.core.Point3D.create(ex.x - o.x, ex.y - o.y, ex.z - o.z))
+    y_lungo_x = abs(du) > abs(dv)
+    if y_lungo_x:
+        sk.geometricConstraints.addVertical(ln)
+    else:
+        sk.geometricConstraints.addHorizontal(ln)
+    p._quota_da_origine(sk, ln.startSketchPoint, y_lungo_x, ya)
+    p._quota_da_origine(sk, ln.startSketchPoint, not y_lungo_x, '-60 mm')
+    p._quota_da_origine(sk, ln.endSketchPoint, not y_lungo_x, '60 mm')
+    if not sk.isFullyConstrained and sk.name not in p.non_vincolati:
+        p.non_vincolati.append(sk.name)
+    rev = comp.features.revolveFeatures
+    inp = rev.createInput(sk.profiles.item(0), ln, adsk.fusion.FeatureOperations.IntersectFeatureOperation)
+    inp.setAngleExtent(True, adsk.core.ValueInput.createByString('20 deg'))
+    inp.participantBodies = [b_ for b_ in comp.bRepBodies]
+    f = rev.add(inp)
+    f.name = nome
+    p.n += 1
+    return f
+
+
+def _cover_femore(zampa, nome, lato):
+    """Lama del femore, lato 'A' (+Y, sulla piastra delle squadrette) o 'B' (-Y, sulla piastra dei perni)."""
+    occ = _nuovo_comp(zampa, nome)
+    p = Parte(occ.component)
+    comp = occ.component
+    y0, verso = ('zy_A_est', 1) if lato == 'A' else ('zy_B_est', -1)
+    y_top = '%s + (%d) * cov_tc' % (y0, verso)
+    xh, xk = 'zam_Lc', 'zam_Lc + zam_Lf'
+    # sagoma: corpo tra i mozzi, estremi esagonali, plateau sopra il blocco e due rampe (30 gradi anca, 45 ginocchio)
+    p.blocco('y', y0, 'corpo', xh, '-(cov_ap)', xk, 'cov_ap', 'cov_tc', verso, NUOVO)
+    _esagono(p, y0, 'estremo_anca', xh, 'cov_ap', 'cov_tc', verso, UNISCI)
+    _esagono(p, y0, 'estremo_ginocchio', xk, 'cov_ap', 'cov_tc', verso, UNISCI)
+    xp0, xp1 = 'zam_Lc + cov_x_plateau0', 'zam_Lc + cov_x_plateau1'
+    p.blocco('y', y0, 'plateau', xp0, 'cov_ap - 1 mm', xp1, 'cov_gobba_z', 'cov_tc', verso)
+    dz = '(cov_gobba_z - cov_ap)'
+    # i rettangoli delle rampe si allungano di 1 mm solo dalla parte della base, dentro il corpo: in cima al plateau
+    # devono finire esattamente sullo spigolo, altrimenti lasciano una punta
+    p.blocco_obl('y', y0, 'rampa_anca', (xp0 + ' - %s / tan(30 deg)' % dz, 'cov_ap'), (xp0, 'cov_gobba_z'),
+                 '-(1 mm)', '%s / sin(30 deg)' % dz, '-(6 mm)', '0 mm', 'cov_tc', verso)
+    p.blocco_obl('y', y0, 'rampa_ginocchio', (xp1, 'cov_gobba_z'), (xp1 + ' + %s' % dz, 'cov_ap'),
+                 '0 mm', '%s * sqrt(2) + 1 mm' % dz, '-(6 mm)', '0 mm', 'cov_tc', verso)
+    corpo = comp.bRepBodies.item(0)
+    v = p.val
+    ap, R = v('cov_ap'), v('cov_ap') / COS30
+    XH, XK, X0, X1, ZG = v(xh), v(xk), v(xp0), v(xp1), v('cov_gobba_z')
+    punti = [(XH - R, 0, 'e'), (XH - R / 2, ap, 'e'), (XH - R / 2, -ap, 'e'), (XK + R, 0, 'e'), (XK + R / 2, ap, 'e'),
+             (XK + R / 2, -ap, 'e'), (X0 - (ZG - ap) / math.tan(math.radians(30)), ap, 'r'), (X0, ZG, 'r'), (X1, ZG, 'p'),
+             (X1 + (ZG - ap), ap, 'r')]
+    sp = _spigoli_y(corpo, punti)
+    _raccorda(comp, [('cov_r_estremo', sp.get('e', [])), ('cov_r_rampa', sp.get('r', [])), ('cov_r_plateau', sp.get('p', []))],
+              'raccordi_sagoma')
+    n_sagoma = sum(len(x) for x in sp.values())
+    # finestre sui mozzi, angoli raccordati
+    for nome_f, xc in (('finestra_anca', xh), ('finestra_ginocchio', xk)):
+        _esagono(p, y0, nome_f, xc, 'cov_fin_ap', 'cov_tc', verso, TAGLIA)
+    corpo = comp.bRepBodies.item(0)
+    rf = v('cov_fin_ap') / COS30
+    pf = [(xc + rf * math.cos(math.radians(a)), rf * math.sin(math.radians(a)), 'f') for xc in (XH, XK) for a in range(0, 360, 60)]
+    spf = _spigoli_y(corpo, pf).get('f', [])
+    _raccorda(comp, [('cov_r_fin', spf)], 'raccordi_finestre')
+    # bombatura doppia e raccordo della faccia esterna
+    _bombatura(p, 'bombatura', y_top, verso)
+    corpo = comp.bRepBodies.item(0)
+    tori = [fa for fa in corpo.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.TorusSurfaceType]
+    _raccorda(comp, [('cov_r', [e for fa in tori for e in fa.edges])], 'raccordo_esterno')
+    # fissaggio: lama A sulle teste M3 del blocco (fori senza raccordo: l'incastro sta sui fianchi delle teste);
+    # lama B con due spine nei fori ciechi di Femore_B
+    if lato == 'A':
+        for nome_t, x, z in _inserti_blocco():
+            p.cilindro('y', y0, nome_t.replace('ins_blocco', 'sede_testa'), x, z, 'cov_testa_d', 'cov_tc', verso, TAGLIA)
+    else:
+        for nome_s, x in (('spina_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('spina_g', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx')):
+            p.cilindro('y', y0, nome_s, x, 'cov_spina_z', 'cov_spina_d', 'cov_spina_l', 1)
+    p.info = {'spigoli_sagoma': n_sagoma, 'spigoli_finestre': len(spf), 'facce_toro': len(tori)}
+    return occ, p
+
+
+def fai_cover_femore_a(zampa):
+    return _cover_femore(zampa, 'Cover_Femore_A', 'A')
+
+
+def fai_cover_femore_b(zampa):
+    return _cover_femore(zampa, 'Cover_Femore_B', 'B')
+
+
 def fai_teste_a(zampa):
     """Ingombro delle teste M3 sul lato A (non si stampa): 8 sulle squadrette, 4 sul blocco. Serve alle verifiche tra
     zampe vicine e alle sedi della lama A (D-060)."""
@@ -430,6 +597,7 @@ RIGIDI = [
     ('R_perno_femore', 'Perno_Femore', 'Femore_B'), ('R_perno_ginocchio', 'Perno_Ginocchio', 'Femore_B'),
     ('R_servo_ginocchio', 'Servo_Ginocchio', 'Tibia'), ('R_cuscinetto_ginocchio', 'Cuscinetto_Ginocchio', 'Tibia'),
     ('R_teste_a', 'Ingombro_Teste_A', 'Femore_A'),
+    ('R_cover_femore_a', 'Cover_Femore_A', 'Femore_A'), ('R_cover_femore_b', 'Cover_Femore_B', 'Femore_B'),
 ]
 
 
@@ -657,10 +825,12 @@ def main(passi, **kw):
             out['parametri'] = L['aggiungi_parametri'](des, PARAMETRI)
         zampa = _zampa(root)
         for nome, f in (('coxa', fai_coxa), ('ponte', fai_ponte), ('femore_b', fai_femore_b), ('femore_a', fai_femore_a),
-                        ('tibia', fai_tibia), ('teste_a', fai_teste_a)):
+                        ('tibia', fai_tibia), ('teste_a', fai_teste_a), ('cover_femore_a', fai_cover_femore_a),
+                        ('cover_femore_b', fai_cover_femore_b)):
             if nome in passi:
                 occ, p = f(zampa)
                 out[nome] = _chiudi(des, occ.component.name, p)
+                out[nome].update(getattr(p, 'info', {}))
         if 'istanze' in passi:
             out['istanze'] = fai_istanze(des, root, zampa)
         if 'controllo' in passi:
