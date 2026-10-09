@@ -151,20 +151,20 @@ Verifiche (9 ottobre 2026), con i giunti veri:
 
 Lato destro uguale entro 1 mm. Servono **4 prolunghe** per i ginocchi delle zampe d'angolo (voce C5). Gli altri cavi sono più lunghi del necessario: circa 1,1 m di cavo in più per lato, da raccogliere in anse nelle baie posteriori sopra i Wago (circa 5 cm³ per lato contro 28 cm³ liberi), lontano dal camino d'aria delle baie anteriori. Fascette lungo la zampa: una nelle feritoie del ponte, una attorno al femore vicino all'anca (D-058).
 
-### Massa e baricentro dal modello (9 ottobre 2026)
+### Massa e baricentro dal modello (9 ottobre 2026; corpo aggiornato alla v0.4)
 
 | Voce | Massa (g) |
 |---|---|
 | 18 servo MG996R | 990 |
 | 18 squadrette, 18 cuscinetti, 18 perni | 145 |
 | Parti stampate delle sei zampe | 552 (92 a zampa) |
-| `Corpo_Base`, chiglia, coperchio provvisorio | 227 |
+| Parti stampate del corpo v0.4: base 198, coperchio con muso 52, chiglia 33, vassoio 9, sportello 7, due slitte 11, sportellino 5 | 314 |
 | Batteria, SSC-32, ESP32, camera, due regolatori | 340 |
-| **Totale modellato** | **2254** |
-| Non modellato (stima): cavi e connettori 160, viteria e inserti 140, basetta e logica 25, vassoio, sportelli e gonna del coperchio 40, piedini 15, fusibili, Wago, T-plug, cicalino, interruttore 45 | circa 425 |
-| **Totale atteso** | **circa 2680** |
+| **Totale modellato** | **2341** |
+| Non modellato (stima): cavi e connettori 160, viteria e inserti 140, basetta e logica 25, piedini 15, fusibili, Wago, T-plug, cicalino, interruttore 45 | circa 385 |
+| **Totale atteso** | **circa 2730** |
 
-Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,7; 0; −11,7) mm, cioè quasi sul centro in pianta e 12 mm sotto il piano dei femori. La massa di progetto del calcolo statico (2750 g) resta prudente.
+Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,7; 0; −11,7) mm, cioè quasi sul centro in pianta e 12 mm sotto il piano dei femori. La massa di progetto del calcolo statico (2750 g) resta sopra l'attesa, ma ormai di soli 20 g: la base (198 g, quasi tutta pareti sottili) è la voce da guardare nello slicer.
 
 ### Da fare nel corpo
 
