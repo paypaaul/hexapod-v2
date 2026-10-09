@@ -91,7 +91,7 @@ Verifiche della zampa v0, prima della revisione (9 ottobre 2026):
 
 ### Da fare nella zampa
 
-- Nervature di schiacciamento nelle culle (da tarare sul provino), ganci e passaggi dei cavi, piedino in TPU, raccordi.
+- Nervature di schiacciamento nelle culle (da tarare sul provino), piedino in TPU, raccordi. Cavi: fascette nel ponte e attorno al femore (D-058).
 - Viti delle squadrette della coxa (M3 × 6 con rondella sotto la testa, D-048) da controllare quando si sceglie la squadretta: altezze e posizione dei fori sono stimate (`sq_`).
 - Verifica con il corpo: gondola, rotazione della coxa, zampe vicine.
 - Vincoli che la zampa pone al corpo: fondo della gondola a −31,95 (flangia del cuscinetto fino a −32,75); braccio della coxa fino a −38,35 e nervatura fino a −41,35 sotto l'asse dei femori; testa dell'anima della coxa a raggio 34–40,55 dall'asse della coxa e da Z +8,05 in su (la gondola, a quel raggio, non deve salire oltre le teste delle viti delle alette, Z +7,05); mozzo del ponte (R12) da Z +17,05 a +23,5 attorno all'asse della coxa; anima a raggio ≥ 40,55 dall'asse della coxa a qualunque angolo.
