@@ -131,6 +131,11 @@ PARAMETRI = [
     ('cox_ponte_braccio', '3.9 mm', 'mm', 'Ponte: spessore del braccio'),
     ('cz_ponte_app', 'cz_ponte_su - cox_ponte_braccio', 'mm', 'Ponte: Z dell appoggio sulla testa dell anima'),
     ('cox_ponte_r', '12 mm', 'mm', 'Ponte: raggio del mozzo'),
+    ('cox_fascetta_x', '28 mm', 'mm', 'Ponte: X delle feritoie della fascetta dei cavi di femore e ginocchio'),
+    ('cox_fascetta_y', '5.5 mm', 'mm', 'Ponte: Y delle feritoie (fuori dai due cavi piatti affiancati, 7,6 mm)'),
+    ('fascetta_w', '3 mm', 'mm', 'Feritoia per fascetta da 2,5 mm: larghezza'),
+    ('fascetta_sp', '1.6 mm', 'mm', 'Feritoia per fascetta: spessore (fascetta 1,0)'),
+    ('cox_fascetta_gola', '1.2 mm', 'mm', 'Ponte: gola sotto il braccio tra le feritoie (la fascetta non striscia sul servo di coxa)'),
     ('cox_disco_luce', '0.3 mm', 'mm', 'Ponte: luce sopra il disco (gioco verticale della coxa, D-048)'),
     ('cox_testa_vite_d', '5.6 mm', 'mm', 'Ponte: fori che calzano le teste delle viti M3 della squadretta (gioco d imbardata: tarare sul provino)'),
     ('cox_smusso_ponte', '2.5 mm', 'mm', 'Ponte: smusso dello spigolo esterno alto'),
@@ -276,6 +281,13 @@ def fai_ponte(zampa):
         p.cilindro('z', 'cz_ponte_giu', nome, '0 mm', y, 'cox_testa_vite_d', 'cz_ponte_su - cz_ponte_giu', 1, TAGLIA)
     for nome, y in (('foro_vite_a', '-(cox_ins_ponte_y)'), ('foro_vite_b', 'cox_ins_ponte_y')):
         p.cilindro('z', 'cz_ponte_app', nome, 'cx_ins_ponte', y, 'vite_m3_pass', 'cox_ponte_braccio', 1, TAGLIA)
+    # fascetta dei cavi di femore e ginocchio, che corrono sul braccio verso il mozzo: due feritoie e una gola sotto
+    x0, x1 = 'cox_fascetta_x - fascetta_w / 2', 'cox_fascetta_x + fascetta_w / 2'
+    for nome, y0, y1 in (('feritoia_fascetta_a', 'cox_fascetta_y - fascetta_sp / 2', 'cox_fascetta_y + fascetta_sp / 2'),
+                         ('feritoia_fascetta_b', '-(cox_fascetta_y + fascetta_sp / 2)', '-(cox_fascetta_y - fascetta_sp / 2)')):
+        p.blocco('z', 'cz_ponte_app', nome, x0, y0, x1, y1, 'cox_ponte_braccio', 1, TAGLIA)
+    p.blocco('z', 'cz_ponte_app', 'gola_fascetta', x0, '-(cox_fascetta_y + fascetta_sp / 2)', x1, 'cox_fascetta_y + fascetta_sp / 2',
+             'cox_fascetta_gola', 1, TAGLIA)
     return occ, p
 
 

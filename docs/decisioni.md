@@ -177,3 +177,11 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - Il coperchio scende davanti e ai lati di vassoio, torretta e camera con una fascia da 1,6 mm (x da 81 a 101, |y| fino a 20, fino a z −1, sotto il vassoio): ripara ESP32, antenna e camera dagli urti e chiude il corpo davanti. È in PETG come tutto il coperchio (antenna fuori dal carbonio).
 - **Finestra della camera** Ø17 centrata sull'asse ottico (z 22,5): il cono di 120° dal centro ottico, a 2,5 mm, ha raggio 4,3; i bordi della finestra, il dorso e i fianchi restano fuori dal campo. Davanti alla lente restano 0,9 mm: il coperchio si sfila verso l'alto senza toccarla.
 - Verificato: nessuna interferenza; coxe anteriori libere a ±35°; ciclo a tripode libero a 100/45.
+
+## D-058 — Cavi lungo la zampa (2026-10-09)
+
+- I cavi di femore e ginocchio escono dall'alto delle culle (quello del femore dalla culla della coxa, sull'asse dell'anca; quello del ginocchio dalla culla della tibia, sull'asse del ginocchio), corrono sopra la zampa e sul braccio del ponte fino al mozzo, passano sopra l'asse della coxa (dove l'imbardata cambia meno la lunghezza) ed entrano sotto il coperchio.
+- **Ponte**: due feritoie 3 × 1,6 a X 28 e |Y| 5,5 per una fascetta da 2,5 mm, con una gola profonda 1,2 sotto il braccio tra le due: il braccio passa 1,5 mm sopra il servo di coxa e la fascetta, a filo, non ci striscia quando la coxa ruota. La testa della fascetta resta fuori dal coperchio (r 28 dall'asse, il lobo arriva a 22).
+- **Femore**: una fascetta da 200 mm attorno a tutto il femore, vicino all'anca (circa 15 mm dall'asse), senza feritoie: vicino al ginocchio la tibia ripiegata a γ 29° passerebbe a pochi millimetri.
+- **Anse**: tra la culla della tibia e la fascetta del femore il cavo del ginocchio va da 22 a 40 mm al variare di γ; tra la fascetta del femore e il ponte, da 11 a 56 mm al variare di α. Le anse si lasciano sopra il servo del femore. `calc/cavi_servo.py` ne tiene conto (anse di 10, 17 e 20 mm per imbardata, anca e ginocchio).
+- Verificato: ponte rigenerato, giunti e limiti della zampa rifatti, posa di riferimento misurata (0; 90), nessuna interferenza nella zampa e nell'assieme, coxe libere a ±35°, ciclo a tripode libero a 70/70. STL del ponte riesportato.

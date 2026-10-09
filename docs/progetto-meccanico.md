@@ -141,15 +141,15 @@ Verifiche (9 ottobre 2026), con i giunti veri:
 
 ### Cavi dei servo (9 ottobre 2026)
 
-`calc/cavi_servo.py` stima i percorsi dal punto in cui il cavo esce dalla cassa (posizioni lette dal modello nella posa di riferimento) fino alla spina sulla SSC-32: il cavo di coxa sale dalla culla nella baia e corre sotto il coperchio; quelli di femore e ginocchio risalgono sopra la zampa, seguono femore e coxa a z 25, passano sopra l'asse della coxa ed entrano sotto il coperchio. Fattore 1,15 per curve e fascette, anse di 10 mm per l'imbardata, 10 per il femore, 20 per il ginocchio. Canali: zampe anteriori sui canali davanti, posteriori su quelli dietro (sedici per lato, file a |y| 23,5 da x 10 a −39).
+`calc/cavi_servo.py` stima i percorsi dal punto in cui il cavo esce dalla cassa (posizioni lette dal modello nella posa di riferimento) fino alla spina sulla SSC-32: il cavo di coxa sale dalla culla nella baia e corre sotto il coperchio; quelli di femore e ginocchio risalgono sopra la zampa, seguono femore e coxa a z 25, passano sopra l'asse della coxa ed entrano sotto il coperchio. Fattore 1,15 per curve e fascette, anse di 10 mm per l'imbardata, 17 per l'anca, 20 per il ginocchio (D-058; il cavo del femore attraversa solo l'imbardata). Canali: zampe anteriori sui canali davanti, posteriori su quelli dietro (sedici per lato, file a |y| 23,5 da x 10 a −39).
 
 | Servo | Percorso (mm) | Margine su 300 utili |
 |---|---|---|
 | coxa (A, M, P) | 129, 70, 112 | 57–77 % |
-| femore (A, M, P) | 190, 127, 168 | 37–58 % |
-| ginocchio (A, M, P) | 288, 224, 260 | 4 %, 25 %, 13 % |
+| femore (A, M, P) | 180, 117, 158 | 40–61 % |
+| ginocchio (A, M, P) | 295, 231, 267 | 2 %, 23 %, 11 % |
 
-Lato destro uguale entro 1 mm. Servono **4 prolunghe** per i ginocchi delle zampe d'angolo (voce C5). Gli altri cavi sono più lunghi del necessario: circa 1,1 m di cavo in più per lato, da raccogliere in anse nelle baie posteriori sopra i Wago (circa 5 cm³ per lato contro 28 cm³ liberi), lontano dal camino d'aria delle baie anteriori. Ganci e passaggi lungo coxa e femore restano da disegnare nella zampa.
+Lato destro uguale entro 1 mm. Servono **4 prolunghe** per i ginocchi delle zampe d'angolo (voce C5). Gli altri cavi sono più lunghi del necessario: circa 1,1 m di cavo in più per lato, da raccogliere in anse nelle baie posteriori sopra i Wago (circa 5 cm³ per lato contro 28 cm³ liberi), lontano dal camino d'aria delle baie anteriori. Fascette lungo la zampa: una nelle feritoie del ponte, una attorno al femore vicino all'anca (D-058).
 
 ### Massa e baricentro dal modello (9 ottobre 2026)
 
@@ -168,4 +168,4 @@ Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, rie
 
 ### Da fare nel corpo
 
-- Interruttore e cicalino (da decidere: vedi le domande in `BOM.md`); ganci dei cavi lungo coxa e femore e pettini nelle baie posteriori (percorsi e lunghezze stimati: sezione "Cavi dei servo"). Note di stampa della base in D-056.
+- Interruttore e cicalino (da decidere: vedi le domande in `BOM.md`); pettini per le anse dei cavi nelle baie posteriori (percorsi e lunghezze: sezione "Cavi dei servo"). Note di stampa della base in D-056.

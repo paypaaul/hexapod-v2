@@ -33,7 +33,9 @@ CANALI = [10.3 - 1.27 - 2.54 * i for i in range(16)]          # x dei 16 canali 
 ASSEGNA = {'A': (0, 1, 2), 'M': (6, 7, 8), 'P': (13, 14, 15)}  # coxa, femore, ginocchio: zampe anteriori sui canali davanti
 Z_CAVI = 25.0          # quota dei cavi sotto il coperchio (lato inferiore a 28,4)
 CURVE = 1.15           # curve, fascette e scostamenti dalla linea retta (stima)
-SCORTA = {'coxa': 0.0, 'femore': 20.0, 'ginocchio': 40.0}   # anse per imbardata (10), femore (10), ginocchio (20)
+# anse: imbardata 10; anca 17 (il cavo del ginocchio va da 11 a 56 mm tra femore e ponte, D-058); ginocchio 20.
+# Il cavo del femore parte dalla coxa e non attraversa l'anca.
+SCORTA = {'coxa': 0.0, 'femore': 10.0, 'ginocchio': 47.0}
 
 
 def _somma(a, b, k=1.0):
