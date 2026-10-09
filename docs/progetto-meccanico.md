@@ -98,6 +98,8 @@ Verifiche della zampa v0, prima della revisione (9 ottobre 2026):
 
 ## Corpo v0 e assieme
 
+Stato: **corpo v0.3**, corretto dopo la revisione di quattro revisori (D-051, rilievi in `ricerca/corpo-v0-revisione.json`): batteria sfilabile dal retro (provato: 160 mm di corsa senza urti), pareti di collegamento tra gondole, baie e tunnel, regolatori su slitte stampate tra due guide della parete della baia, camera girata con il flat che esce in alto, vassoio su quattro distanziali M3, Wago nelle baie posteriori, T-plug sopra F1 nel vano di coda, apertura di servizio nel coperchio con sportellino. Dopo le correzioni: nessuna interferenza, coxe libere a ±35° e tra vicine a 31°, ciclo a tripode libero a 70/70. Le righe qui sotto descrivono la v0.2 dove non sono state aggiornate: vale D-051.
+
 ![Assieme v0 senza coperchio, posa di riferimento](immagini/assieme-v0.png)
 
 Disposizione "compatto" (D-050, confronto in `ricerca/corpo-disposizioni.json`). Script `cad/script/corpo.py` (parti) e `cad/script/assieme.py` (istanze, zampe, giunti di coxa, controlli).

@@ -53,8 +53,11 @@ PARAMETRI = [
     # --- regolatori dei servo in piedi nelle baie anteriori, su bugne della parete esterna della baia (inserti M2),
     #     componenti verso il tunnel: la parete esterna e' alta fino all'orlo, il fianco del tunnel no
     ('cor_reg_x0', '14 mm', 'mm', 'Regolatori: X del bordo posteriore del circuito'),
-    ('cor_reg_ztop', '3.8 mm', 'mm', 'Regolatori: Z del bordo superiore del circuito'),
-    ('cor_reg_dist', '4.6 mm', 'mm', 'Regolatori: distanza del circuito dalla parete della baia (lunghezza delle bugne; reofori 1,8)'),
+    ('cor_reg_ztop', '2.5 mm', 'mm', 'Regolatori: Z del bordo superiore del circuito (la vite della slitta passa sopra; bugne basse 0,26 sopra il ripiano)'),
+    ('cor_reg_dist', '5 mm', 'mm', 'Regolatori: dal retro del circuito alla parete della baia (slitta 2,4 + distanziali 2,6; reofori 1,8)'),
+    ('cor_slitta_sp', '2.4 mm', 'mm', 'Slitta dei regolatori: spessore della piastra'),
+    ('reg_foro_x0', '2.159 mm', 'mm', 'Pololu D42V110F6: foro dal lato corto (STEP) V'),
+    ('reg_foro_y0', '4.191 mm', 'mm', 'Pololu D42V110F6: foro dal lato lungo delle piazzole (STEP; i fori non sono centrati) V'),
     ('cor_reg_bugna_d', '5.2 mm', 'mm', 'Regolatori: diametro delle bugne (un reoforo del regolatore passa a circa 2,7 dal foro)'),
     ('reg_l', '43.18 mm', 'mm', 'Pololu D42V110F6: lunghezza (STEP) V'),
     ('reg_w', '31.75 mm', 'mm', 'Pololu D42V110F6: larghezza (STEP) V'),
@@ -63,7 +66,8 @@ PARAMETRI = [
     # --- viti della chiglia (M3 in inserti della base): due davanti fuori dal tunnel, due dietro nella zona dei cavi
     ('cor_chi_vite_y', '15 mm', 'mm', 'Chiglia: Y delle viti anteriori'),
     ('cor_chi_vite_xa', '3 mm', 'mm', 'Chiglia: viti anteriori davanti alla parete del tunnel (centro dalla faccia esterna; la bugna entra 0,7 nella parete)'),
-    ('cor_chi_vite_xp', '78 mm', 'mm', 'Chiglia: X delle viti posteriori (dietro la batteria, nella zona dei cavi)'),
+    ('cor_chi_vite_xp', '52 mm', 'mm', 'Chiglia: X delle viti posteriori, sotto le baie posteriori (fuori dal percorso del pacco)'),
+    ('cor_chi_vite_yp', '31 mm', 'mm', 'Chiglia: Y delle viti posteriori'),
     ('cor_chi_bugna_d', '7.4 mm', 'mm', 'Chiglia: diametro delle bugne degli inserti M3'),
     ('cor_chi_orecchia', '3 mm', 'mm', 'Chiglia: spessore delle orecchie anteriori'),
     # --- vassoio dell'ESP32 e torretta della camera (PETG)
@@ -75,8 +79,8 @@ PARAMETRI = [
     ('cor_cam_x', '92.5 mm', 'mm', 'Camera: X del retro della testa'),
     ('cor_cam_z', '22.5 mm', 'mm', 'Camera: Z dell asse ottico'),
     # --- vano di coda e sportello della batteria
-    ('cor_cavi_x', '13 mm', 'mm', 'Tetto: fessura per i cavi della batteria, lunghezza dalla coda'),
-    ('cor_cavi_semi', '9 mm', 'mm', 'Tetto: fessura per i cavi della batteria, semilarghezza'),
+    ('cor_cavi_x', '13 mm', 'mm', 'Tetto: fessure per i cavi della batteria, lunghezza dalla coda'),
+    ('cor_cavi_y0', '20.5 mm', 'mm', 'Tetto: fessure dei cavi accanto ai capi del portafusibile F1 (|y| da 20,5 a 25)'),
     ('cor_sport_sp', '2 mm', 'mm', 'Sportello della batteria: spessore'),
     ('cor_sport_rebbio', '17 mm', 'mm', 'Sportello: lunghezza dei rebbi che premono il pacco (con schiuma) contro la battuta'),
     ('cor_gonna_sp', '1.2 mm', 'mm', 'Coperchio: spessore della gonna'),
@@ -84,6 +88,9 @@ PARAMETRI = [
     ('cor_gonna_x1', '58.8 mm', 'mm', 'Coperchio: gonna laterale fino a qui (22 mm dall asse della coxa d angolo)'),
     # --- coperchio
     ('cor_cop_z', '28.4 mm', 'mm', 'Coperchio: lato inferiore del dorso'),
+    ('cor_serv_x0', '-20 mm', 'mm', 'Coperchio: apertura di servizio sopra USB e pulsanti dell ESP32, inizio'),
+    ('cor_serv_x1', '28 mm', 'mm', 'Coperchio: apertura di servizio, fine'),
+    ('cor_serv_semi', '17 mm', 'mm', 'Coperchio: apertura di servizio, semilarghezza'),
     ('cor_cop_sp', '1.6 mm', 'mm', 'Coperchio: spessore del dorso'),
     ('cor_cop_lobo', '22 mm', 'mm', 'Coperchio: raggio dei lobi sopra gli assi delle coxe'),
     ('cor_muso_x', '101 mm', 'mm', 'Coperchio: punta del muso'),
@@ -104,8 +111,9 @@ def _corpo(root):
 
 def _nuovo_comp(corpo, nome):
     genitore = corpo.component
-    for o in L['trova_occ'](genitore, nome):
-        o.deleteMe()
+    # una alla volta: dopo la prima cancellazione i riferimenti alle altre occorrenze possono non valere piu'
+    while L['trova_occ'](genitore, nome):
+        L['trova_occ'](genitore, nome)[0].deleteMe()
     T0[nome] = genitore.parentDesign.timeline.count
     occ = genitore.occurrences.addNewComponent(adsk.core.Matrix3D.create())
     occ.component.name = nome
@@ -113,6 +121,8 @@ def _nuovo_comp(corpo, nome):
 
 
 def _chiudi(des, nome, p):
+    if nome not in T0:                     # Fusion ha aggiunto un suffisso al nome del componente
+        nome = [k for k in T0 if nome.startswith(k)][-1]
     L['raggruppa'](des, T0[nome], nome)
     return {'lavorazioni': p.n, 'schizzi_non_vincolati': p.non_vincolati}
 
@@ -192,13 +202,29 @@ def fai_base(corpo):
                    'cor_fondo + cor_orlo'),
           p.blocco('z', '-(cor_tetto)', 'fronte_s', 'cor_tun_x1 - cor_parete', 'cor_fronte_semi', 'cor_tun_x1', 'cor_tun_semi',
                    'cor_tetto + cor_orlo')]
-    for nome, dx, dz in (('reg_bugna_pa', '(reg_l - reg_fori_x) / 2', '(reg_w - reg_fori_y) / 2'),
-                         ('reg_bugna_aa', '(reg_l + reg_fori_x) / 2', '(reg_w - reg_fori_y) / 2'),
-                         ('reg_bugna_pb', '(reg_l - reg_fori_x) / 2', '(reg_w + reg_fori_y) / 2'),
-                         ('reg_bugna_ab', '(reg_l + reg_fori_x) / 2', '(reg_w + reg_fori_y) / 2')):
-        x, z = 'cor_reg_x0 + %s' % dx, 'cor_reg_ztop - %s' % dz
-        sx.append(p.cilindro('y', 'cor_baia_y - cor_parete', nome, x, z, 'cor_reg_bugna_d', 'cor_reg_dist', -1))
-        sx.append(p.cilindro('y', 'cor_baia_y - cor_parete - cor_reg_dist', nome + '_ins', x, z, 'ins_m2_d', 'ins_m2_l', 1, TAGLIA))
+    # pareti di collegamento tra gondole, baie e tunnel, fino al tetto (portano il momento delle coxe allo scafo)
+    h_par = 'cor_fondo - cor_tetto'
+    sx.append(p.blocco('z', '-(cor_fondo)', 'collo_med_a', 'cul_sede_semi', 'cor_tun_semi', 'cul_semi', 'cor_med_y - cul_corto', h_par))
+    sx.append(p.blocco('z', '-(cor_fondo)', 'collo_med_p', '-(cul_semi)', 'cor_tun_semi', '-(cul_sede_semi)', 'cor_med_y - cul_corto', h_par))
+    sx.append(p.blocco('z', '-(cor_fondo)', 'paratia_ang_a', 'cor_baia_x - 7.3 mm', 'cor_tun_semi', 'cor_baia_x - 5.3 mm',
+                       'cor_baia_y - cor_parete', h_par))
+    sx.append(p.blocco('z', '-(cor_fondo)', 'paratia_ang_p', '-(cor_baia_x - 5.3 mm)', 'cor_tun_semi', '-(cor_baia_x - 7.3 mm)',
+                       'cor_baia_y - cor_parete', h_par))
+    # guide della slitta del regolatore sulla parete della baia anteriore, e bugna esterna per la sua vite
+    # le guide trattengono i bordi della slitta nella fascia libera tra i distanziali alti e quelli bassi
+    z_g0 = 'cor_reg_ztop - (reg_foro_y0 + reg_fori_y) + cor_reg_bugna_d / 2 + 0.5 mm'
+    h_g = 'reg_fori_y - cor_reg_bugna_d - 1 mm'
+    y_g0, y_g1 = 'cor_baia_y - cor_parete - cor_slitta_sp - 1.4 mm', 'cor_baia_y - cor_parete - cor_slitta_sp - 0.2 mm'
+    for nome, xa, xb, xl0, xl1 in (('guida_p', 'cor_reg_x0 - 1.5 mm', 'cor_reg_x0 - 0.5 mm', 'cor_reg_x0 - 1.5 mm', 'cor_reg_x0 + 0.6 mm'),
+                                   ('guida_a', 'cor_reg_x0 + reg_l + 0.5 mm', 'cor_reg_x0 + reg_l + 1.5 mm',
+                                    'cor_reg_x0 + reg_l - 0.6 mm', 'cor_reg_x0 + reg_l + 1.5 mm')):
+        sx.append(p.blocco('z', z_g0, nome, xa, y_g0, xb, 'cor_baia_y - cor_parete', h_g))          # gamba fino alla parete
+        sx.append(p.blocco('z', z_g0, nome + '_labbro', xl0, y_g0, xl1, y_g1, h_g))              # labbro davanti al bordo
+    x_v = 'cor_reg_x0 + reg_l / 2'
+    sx.append(p.cilindro('y', 'cor_baia_y', 'slitta_bugna', x_v, 'cor_orlo - 1 mm', 'cor_chi_bugna_d', 'ins_m3_l - cor_parete + 1 mm'))
+    sx.append(p.cilindro('y', 'cor_baia_y - cor_parete', 'slitta_ins', x_v, 'cor_orlo - 1 mm', 'ins_m3_d', 'ins_m3_l', 1, TAGLIA))
+    sx.append(p.cilindro('z', '-(cor_fondo)', 'chi_bugna_p', '-(cor_chi_vite_xp)', 'cor_chi_vite_yp', 'cor_chi_bugna_d', 'ins_m3_l + 1 mm'))
+    sx.append(p.cilindro('z', '-(cor_fondo)', 'chi_ins_p', '-(cor_chi_vite_xp)', 'cor_chi_vite_yp', 'ins_m3_d', 'ins_m3_l', 1, TAGLIA))
     sx.append(p.cilindro('z', '-(cor_fondo)', 'chi_bugna_a', 'cor_tun_x1 + cor_chi_vite_xa', 'cor_chi_vite_y', 'cor_chi_bugna_d',
                          'ins_m3_l + 1 mm'))
     sx.append(p.cilindro('z', '-(cor_fondo)', 'chi_ins_a', 'cor_tun_x1 + cor_chi_vite_xa', 'cor_chi_vite_y', 'ins_m3_d',
@@ -212,18 +238,19 @@ def fai_base(corpo):
         x = 'cor_ssc_x %s ssc_fori_x / 2' % ('+' if sx_ > 0 else '-')
         y = ('ssc_fori_y / 2') if sy_ > 0 else '-(ssc_fori_y / 2)'
         bug.append(p.cilindro('z', '-(cor_tetto)', nome, x, y, 'cor_ssc_bugna_d', 'ssc_dist'))
-        bug.append(p.cilindro('z', '-(cor_tetto) + ssc_dist', nome + '_pilota', x, y, 'vite_m25_pilota', 'ssc_dist - 1 mm', -1, TAGLIA))
+        bug.append(p.cilindro('z', '-(cor_tetto) + ssc_dist', nome + '_ins', x, y, 'ins_m2_d', 'ins_m2_l', -1, TAGLIA))
     # specchiatura del lato sinistro sul destro
     p.specchia(sx + gond + [gond_p] + med, 'y', 'lato_destro')
     # interno del tunnel (aperto sotto, verso la chiglia, e dietro, per la batteria)
     p.blocco('z', '-(cor_fondo)', 'interno_tunnel', '-(cor_tun_x0)', '-(cor_tun_semi - cor_parete)', 'cor_tun_x1 - cor_parete',
              'cor_tun_semi - cor_parete', 'cor_fondo - cor_tetto - cor_tetto_sp', 1, TAGLIA)
-    p.blocco('z', '-(cor_tetto) - cor_tetto_sp', 'fessura_cavi', '-(cor_tun_x0 - cor_parete)', '-(cor_cavi_semi)',
-             '-(cor_tun_x0 - cor_parete - cor_cavi_x)', 'cor_cavi_semi', 'cor_tetto_sp', 1, TAGLIA)
-    for nome, y in (('chi_bugna_ps', 'cor_tun_semi - cor_parete - cor_chi_bugna_d / 2 + 0.5 mm'),
-                    ('chi_bugna_pd', '-(cor_tun_semi - cor_parete - cor_chi_bugna_d / 2 + 0.5 mm)')):
-        p.cilindro('z', '-(cor_fondo)', nome, '-(cor_chi_vite_xp)', y, 'cor_chi_bugna_d', 'ins_m3_l + 1 mm')
-        p.cilindro('z', '-(cor_fondo)', nome + '_ins', '-(cor_chi_vite_xp)', y, 'ins_m3_d', 'ins_m3_l', 1, TAGLIA)
+    for lato, y0, y1 in (('s', 'cor_cavi_y0', 'cor_tun_semi - cor_parete'), ('d', '-(cor_tun_semi - cor_parete)', '-(cor_cavi_y0)')):
+        p.blocco('z', '-(cor_tetto) - cor_tetto_sp', 'fessura_cavi_' + lato, '-(cor_tun_x0 - cor_parete)', y0,
+                 '-(cor_tun_x0 - cor_parete - cor_cavi_x)', y1, 'cor_tetto_sp', 1, TAGLIA)
+    # bugne del vassoio (distanziali M3 maschio-femmina da 10, voce B18) sul tetto, con inserti M3
+    for nome, x, y in _vassoio_fori():
+        p.cilindro('z', '-(cor_tetto)', nome, x, y, 'cor_chi_bugna_d', 'cor_tetto + cor_vas_z - 5 mm')
+        p.cilindro('z', 'cor_vas_z - 5 mm', nome + '_ins', x, y, 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
     return occ, p
 
 
@@ -235,16 +262,39 @@ def fai_chiglia(corpo):
     p.blocco('z', '-(cor_chiglia) + cor_chiglia_sp', 'interno', '-(cor_tun_x0)', '-(cor_tun_semi - cor_parete)',
              'cor_tun_x1 - cor_parete', 'cor_tun_semi - cor_parete', 'cor_chiglia - cor_fondo', 1, TAGLIA)
     for lato, y in (('s', 'cor_chi_vite_y'), ('d', '-(cor_chi_vite_y)')):
-        p.blocco('z', '-(cor_fondo) - cor_chi_orecchia', 'orecchia_' + lato, 'cor_tun_x1 - cor_parete',
-                 y + ' - cor_chi_bugna_d / 2', 'cor_tun_x1 + cor_chi_vite_xa + cor_chi_bugna_d / 2', y + ' + cor_chi_bugna_d / 2',
-                 'cor_chi_orecchia')
-        p.cilindro('z', '-(cor_fondo) - cor_chi_orecchia', 'foro_orecchia_' + lato, 'cor_tun_x1 + cor_chi_vite_xa', y,
-                   'vite_m3_pass', 'cor_chi_orecchia', 1, TAGLIA)
-    for lato, y in (('s', 'cor_tun_semi - cor_parete - cor_chi_bugna_d / 2 + 0.5 mm'),
-                    ('d', '-(cor_tun_semi - cor_parete - cor_chi_bugna_d / 2 + 0.5 mm)')):
-        p.cilindro('z', '-(cor_chiglia)', 'colonnina_' + lato, '-(cor_chi_vite_xp)', y, 'cor_chi_bugna_d', 'cor_chiglia - cor_fondo')
-        p.cilindro('z', '-(cor_chiglia)', 'foro_colonnina_' + lato, '-(cor_chi_vite_xp)', y, 'vite_m3_pass',
+        p.blocco('z', '-(cor_chiglia)', 'orecchia_a' + lato, 'cor_tun_x1 - cor_parete', y + ' - cor_chi_bugna_d / 2',
+                 'cor_tun_x1 + cor_chi_vite_xa + cor_chi_bugna_d / 2', y + ' + cor_chi_bugna_d / 2', 'cor_chiglia - cor_fondo')
+        p.cilindro('z', '-(cor_chiglia)', 'foro_orecchia_a' + lato, 'cor_tun_x1 + cor_chi_vite_xa', y, 'vite_m3_pass',
                    'cor_chiglia - cor_fondo', 1, TAGLIA)
+    for lato, y in (('s', 'cor_chi_vite_yp'), ('d', '-(cor_chi_vite_yp)')):
+        yy0, yy1 = ('cor_tun_semi - 1 mm', y + ' + cor_chi_bugna_d / 2') if lato == 's' else (y + ' - cor_chi_bugna_d / 2', '-(cor_tun_semi - 1 mm)')
+        p.blocco('z', '-(cor_fondo) - cor_chi_orecchia', 'orecchia_p' + lato, '-(cor_chi_vite_xp) - cor_chi_bugna_d / 2', yy0,
+                 '-(cor_chi_vite_xp) + cor_chi_bugna_d / 2', yy1, 'cor_chi_orecchia')
+        p.cilindro('z', '-(cor_fondo) - cor_chi_orecchia', 'foro_orecchia_p' + lato, '-(cor_chi_vite_xp)', y, 'vite_m3_pass',
+                   'cor_chi_orecchia', 1, TAGLIA)
+    return occ, p
+
+
+def _vassoio_fori():
+    """Quattro distanziali M3 tra tetto e vassoio, fuori dagli ingombri di SSC-32, Wago ed ESP32."""
+    y = 'cor_fronte_semi - 4.5 mm'
+    return [('vas_bugna_pa', 'cor_vas_x0 + 4 mm', y), ('vas_bugna_pb', 'cor_vas_x0 + 4 mm', '-(%s)' % y),
+            ('vas_bugna_aa', 'cor_tun_x1 - cor_parete - 4 mm', y), ('vas_bugna_ab', 'cor_tun_x1 - cor_parete - 4 mm', '-(%s)' % y)]
+
+
+def fai_slitta(corpo):
+    """Slitta del regolatore anteriore sinistro (per il destro serve la specchiata: stessa parte capovolta)."""
+    occ = _nuovo_comp(corpo, 'Corpo_Slitta_Regolatore')
+    p = Parte(occ.component)
+    yp = 'cor_baia_y - cor_parete'
+    p.blocco('y', yp, 'piastra', 'cor_reg_x0 - 0.2 mm', '-(cor_fondo) + cor_ripiano + 0.2 mm', 'cor_reg_x0 + reg_l + 0.2 mm',
+             'cor_orlo + 2 mm', 'cor_slitta_sp', -1, NUOVO)
+    for nome, dx, dz in (('a', 'reg_l - reg_foro_x0', 'reg_foro_y0'), ('b', 'reg_foro_x0', 'reg_foro_y0'),
+                         ('c', 'reg_l - reg_foro_x0', 'reg_foro_y0 + reg_fori_y'), ('d', 'reg_foro_x0', 'reg_foro_y0 + reg_fori_y')):
+        x, z = 'cor_reg_x0 + ' + dx, 'cor_reg_ztop - (%s)' % dz
+        p.cilindro('y', yp + ' - cor_slitta_sp', 'distanziale_' + nome, x, z, 'cor_reg_bugna_d', 'cor_reg_dist - cor_slitta_sp', -1)
+        p.cilindro('y', yp + ' - cor_reg_dist', 'ins_' + nome, x, z, 'ins_m2_d', 'ins_m2_l', 1, TAGLIA)
+    p.cilindro('y', yp, 'foro_vite', 'cor_reg_x0 + reg_l / 2', 'cor_orlo - 1 mm', 'vite_m3_pass', 'cor_slitta_sp', -1, TAGLIA)
     return occ, p
 
 
@@ -265,16 +315,28 @@ def fai_vassoio(corpo):
     p = Parte(occ.component)
     p.blocco('z', 'cor_vas_z', 'piano', 'cor_vas_x0', '-(cor_fronte_semi - 0.5 mm)', 'cor_vas_x1', 'cor_fronte_semi - 0.5 mm',
              'cor_vas_sp', 1, NUOVO)
-    for nome, x, y in (('col_pa', 'cor_vas_x0 + 4 mm', 'cor_fronte_semi - 4.5 mm'), ('col_pb', 'cor_vas_x0 + 4 mm', '-(cor_fronte_semi - 4.5 mm)'),
-                       ('col_aa', 'cor_tun_x1 - cor_parete - 4 mm', 'cor_fronte_semi - 4.5 mm'),
-                       ('col_ab', 'cor_tun_x1 - cor_parete - 4 mm', '-(cor_fronte_semi - 4.5 mm)')):
-        p.cilindro('z', '-(cor_tetto)', nome, x, y, 'cor_vas_col_d', 'cor_tetto + cor_vas_z')
-    # torretta della camera: piastra dietro la testa e mensola sotto, con una fessura di 0,5 mm per il flat
+    for nome, x, y in _vassoio_fori():
+        p.cilindro('z', 'cor_vas_z', nome.replace('vas_bugna', 'foro'), x, y, 'vite_m3_pass', 'cor_vas_sp', 1, TAGLIA)
+    # torretta della camera: piastra dietro la testa fino all'asse ottico (il flat esce dall'alto della testa e torna
+    # indietro sopra la torretta e sopra il modulo dell'antenna) e mensola sotto la testa
     p.blocco('z', 'cor_vas_z + cor_vas_sp', 'torretta', 'cor_vas_x1', '-(6 mm)', 'cor_cam_x - 0.2 mm', '6 mm',
-             'cor_cam_z + cam_testa / 2 + 1 mm - cor_vas_z - cor_vas_sp')
-    p.blocco('z', 'cor_vas_z', 'mensola', 'cor_cam_x + 0.3 mm', '-(6 mm)', 'cor_cam_x + cam_alt', '6 mm',
+             'cor_cam_z - cor_vas_z - cor_vas_sp')
+    p.blocco('z', 'cor_vas_z', 'mensola', 'cor_cam_x', '-(6 mm)', 'cor_cam_x + cam_alt', '6 mm',
              'cor_cam_z - cam_testa / 2 - cor_vas_z')
     p.blocco('z', 'cor_vas_z', 'piede_mensola', 'cor_vas_x1 - 1 mm', '-(6 mm)', 'cor_cam_x + cam_alt', '6 mm', 'cor_vas_sp')
+    return occ, p
+
+
+def fai_sportellino(corpo):
+    """Sportellino di servizio nel dorso del coperchio: piastra che sormonta l'apertura e cornice di centraggio."""
+    occ = _nuovo_comp(corpo, 'Corpo_Sportello_Servizio')
+    p = Parte(occ.component)
+    p.blocco('z', 'cor_cop_z + cor_cop_sp', 'piastra', 'cor_serv_x0 - 2 mm', '-(cor_serv_semi + 2 mm)', 'cor_serv_x1 + 2 mm',
+             'cor_serv_semi + 2 mm', 'cor_cop_sp', 1, NUOVO)
+    p.blocco('z', 'cor_cop_z', 'cornice', 'cor_serv_x0 + 0.3 mm', '-(cor_serv_semi - 0.3 mm)', 'cor_serv_x1 - 0.3 mm',
+             'cor_serv_semi - 0.3 mm', 'cor_cop_sp')
+    p.blocco('z', 'cor_cop_z', 'vuoto', 'cor_serv_x0 + 1.5 mm', '-(cor_serv_semi - 1.5 mm)', 'cor_serv_x1 - 1.5 mm',
+             'cor_serv_semi - 1.5 mm', 'cor_cop_sp', 1, TAGLIA)
     return occ, p
 
 
@@ -287,6 +349,8 @@ def fai_coperchio(corpo):
     for lato, y0, y1 in (('s', 'cor_baia_y - cor_gonna_sp', 'cor_baia_y'), ('d', '-(cor_baia_y)', '-(cor_baia_y - cor_gonna_sp)')):
         for verso, x0, x1 in (('a', 'cor_gonna_x0', 'cor_gonna_x1'), ('p', '-(cor_gonna_x1)', '-(cor_gonna_x0)')):
             p.blocco('z', 'cor_orlo', 'gonna_%s%s' % (verso, lato), x0, y0, x1, y1, 'cor_cop_z - cor_orlo')
+    p.blocco('z', 'cor_cop_z', 'apertura_servizio', 'cor_serv_x0', '-(cor_serv_semi)', 'cor_serv_x1', 'cor_serv_semi', 'cor_cop_sp',
+             1, TAGLIA)
     for nome, x, y in (('lobo_as', 'cor_ang_x', 'cor_ang_y'), ('lobo_ad', 'cor_ang_x', '-(cor_ang_y)'),
                        ('lobo_ps', '-(cor_ang_x)', 'cor_ang_y'), ('lobo_pd', '-(cor_ang_x)', '-(cor_ang_y)'),
                        ('lobo_ms', '0 mm', 'cor_med_y'), ('lobo_md', '0 mm', '-(cor_med_y)')):
@@ -336,7 +400,7 @@ def main(passi, **kw):
             out['parametri'] = L['aggiungi_parametri'](des, PARAMETRI)
         corpo = _corpo(root)
         for nome, f in (('base', fai_base), ('chiglia', fai_chiglia), ('sportello', fai_sportello), ('vassoio', fai_vassoio),
-                        ('coperchio', fai_coperchio)):
+                        ('slitta', fai_slitta), ('coperchio', fai_coperchio), ('sportellino', fai_sportellino)):
             if nome in passi:
                 occ, p = f(corpo)
                 out[nome] = _chiudi(des, occ.component.name, p)

@@ -165,8 +165,9 @@ def _zampa(root):
 def _nuovo_comp(zampa, nome):
     """Crea il componente dentro la Zampa (cancellando quello con lo stesso nome), con la terna della zampa."""
     genitore = zampa.component
-    for o in L['trova_occ'](genitore, nome):
-        o.deleteMe()
+    # una alla volta: dopo la prima cancellazione i riferimenti alle altre occorrenze possono non valere piu'
+    while L['trova_occ'](genitore, nome):
+        L['trova_occ'](genitore, nome)[0].deleteMe()
     T0[nome] = genitore.parentDesign.timeline.count
     occ = genitore.occurrences.addNewComponent(adsk.core.Matrix3D.create())
     occ.component.name = nome
@@ -174,6 +175,8 @@ def _nuovo_comp(zampa, nome):
 
 
 def _chiudi(des, nome, p):
+    if nome not in T0:                     # Fusion ha aggiunto un suffisso al nome del componente
+        nome = [k for k in T0 if nome.startswith(k)][-1]
     L['raggruppa'](des, T0[nome], nome)
     return {'lavorazioni': p.n, 'schizzi_non_vincolati': p.non_vincolati}
 

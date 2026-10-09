@@ -59,15 +59,20 @@ def pose_corpo(des):
     z_ssc = -_mm(des, 'cor_tetto') + _mm(des, 'ssc_dist')
     out['SSC32'] = ('Rif_SSC32_V25', _rz(_mm(des, 'cor_ssc_x'), 0, z_ssc, 0.0))          # morsettiera in avanti
     out['ESP32'] = ('Rif_ESP32_S3_CAM', _rz(45.0, 0, 16.0, 0.0))                         # antenna in avanti, punta a x 81 (torretta della camera da x 82)
-    out['Camera'] = ('Rif_Camera_OV3660_75', A['matrice']((92.5, 0, 22.5), (0, 0, 1), (0, -1, 0), (1, 0, 0)))
+    # camera girata di 180 gradi sull'asse ottico: il flat esce dall'alto della testa e torna verso l'ESP32 sopra la torretta
+    out['Camera'] = ('Rif_Camera_OV3660_75', A['matrice']((_mm(des, 'cor_cam_x'), 0, _mm(des, 'cor_cam_z')), (0, 0, -1), (0, 1, 0), (1, 0, 0)))
     # vano di coda sul tetto: fusibile F1 di traverso dietro, T-plug davanti a lui; Wago sotto il vassoio, ingressi verso l'esterno
     zt = -_mm(des, 'cor_tetto')
     x_coda = -_mm(des, 'cor_tun_x0')
     out['Portafusibile_F1'] = ('Rif_Portafusibile_ATO', _rz(x_coda + 2 + _mm(des, 'fus_w') / 2, 0, zt, 90.0))
     # la coppia di T-plug sta nella zona dei cavi dietro il pacco: si stacca aprendo lo sportello della batteria
-    out['Tplug'] = ('Rif_Tplug', _rz(x_coda + 2 + 8.0 + 2.0, 0, -_mm(des, 'cor_chiglia') + _mm(des, 'cor_chiglia_sp'), 90.0))
-    out['Wago_piu'] = ('Rif_Wago_221_415', _rz(48.0, 10.3, zt, 0.0))
-    out['Wago_meno'] = ('Rif_Wago_221_415', _rz(48.0, -10.3, zt, 180.0))
+    # coppia di T-plug sopra il portafusibile, nel vano di coda: si raggiunge dal retro
+    out['Tplug'] = ('Rif_Tplug', _rz(x_coda + 2 + _mm(des, 'fus_w') / 2, 0, zt + _mm(des, 'fus_h'), 90.0))
+    # Wago sul ripiano delle baie posteriori, leve in alto (raggiungibili togliendo il coperchio)
+    z_rip = -_mm(des, 'cor_fondo') + _mm(des, 'cor_ripiano')
+    y_w = _mm(des, 'cor_tun_semi') + 1.0 + _mm(des, 'wago_w') / 2
+    out['Wago_piu'] = ('Rif_Wago_221_415', _rz(-31.0, y_w, z_rip, 0.0))
+    out['Wago_meno'] = ('Rif_Wago_221_415', _rz(-31.0, -y_w, z_rip, 180.0))
     # regolatori sulla parete esterna della baia, componenti verso il tunnel, piazzole in alto
     y_reg = _mm(des, 'cor_baia_y') - _mm(des, 'cor_parete') - _mm(des, 'cor_reg_dist')
     x0, z1, lr = _mm(des, 'cor_reg_x0'), _mm(des, 'cor_reg_ztop'), _mm(des, 'reg_l')
@@ -100,6 +105,19 @@ def fai_istanze_corpo(des, root):
     for chiave, (nome_lib, m) in pose_corpo(des).items():
         o = A['aggiungi_istanza'](root, lib[nome_lib], m, dentro=corpo)
         fatte.append(chiave)
+    # aggiungi_istanza lascia alla radice copie nascoste dei componenti di libreria: si cancellano
+    for o in [o for o in root.occurrences if o.component.name.startswith('Rif_') and o.transform2.translation.y * 10 < 249]:
+        o.deleteMe()
+    # slitta del regolatore destro: copia della sinistra girata di 180 gradi attorno all'asse verticale del suo centro
+    sl = [o for o in corpo.component.occurrences if o.component.name == 'Corpo_Slitta_Regolatore']
+    for o in sl[1:]:
+        o.deleteMe()
+    if sl:
+        xc = _mm(des, 'cor_reg_x0') + _mm(des, 'reg_l') / 2
+        m = adsk.core.Matrix3D.create()
+        m.setToRotation(math.pi, adsk.core.Vector3D.create(0, 0, 1), adsk.core.Point3D.create(xc / 10, 0, 0))
+        corpo.component.occurrences.addExistingComponent(sl[0].component, m)
+        fatte.append('Slitta_Reg_D')
     for o in corpo.childOccurrences:
         o.isLightBulbOn = True
     return fatte

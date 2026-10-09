@@ -55,7 +55,7 @@ Presa di bilanciamento ── cicalino di sottotensione
 | B15 | Cavi verso i regolatori e la SSC-32 | 0,5 m + 0,5 m di 14 AWG; 0,6 m + 0,6 m di 16 AWG | siliconico | 14 AWG dalle derivazioni agli ingressi dei B1; 16 AWG dalle uscite dei B1 alle file della SSC-32 | Amazon.it, circa 20 € | S | A |
 | B16 | Barre sulle file degli header | 1 m | filo di rame stagnato rigido Ø1 mm (18 AWG) | saldato sul retro della SSC-32 lungo le file VS e di massa di ogni lato | elettronica, Amazon.it, circa 5 € | — | A |
 | B17 | Cavo logica | circa 2 m | siliconico 22 AWG, più colori | ramo logica, VL, 5 V, partitore, abilitazione | Amazon.it | S | A |
-| B18 | Distanziali | 8 + 4 | M2 da 5–6 mm per i B1; M2,5 (o M3) da almeno 8 mm per la SSC-32 | i B1 scaldano: sollevati dalla plastica, vicino alle feritoie; sotto la SSC-32 passano le barre di B16 | Amazon.it, circa 10 € | — | A |
+| B18 | Distanziali | 4 | **M3 maschio-femmina da 5 mm** per il vassoio dell'ESP32 (D-051; i regolatori stanno su slitte stampate e la SSC-32 su bugne del corpo) | | Amazon.it, circa 5 € | — | A |
 | B19 | Termorestringente, stagno, flussante | 1 assortimento | — | giunzioni saldate | qualunque | — | A |
 
 Nota su B1: un regolatore serve 9 servo. Corrente stimata per lato: 5–6 A medi nella marcia classica, 8–9 A in quella bassa, picchi di 12–15 A, contro circa 13 A disponibili; oltre, il regolatore limita la corrente e il rail cala, senza spegnersi. Lo stallo contemporaneo di 9 servo (22,5 A) lo impedisce il firmware.
@@ -88,7 +88,7 @@ Ogni giunto: il servo è stretto in una culla e appoggia sulle alette; l'albero 
 | D7 | Dadi e rondelle M3 | 50 + 100 | dadi esagonali DIN 934, rondelle DIN 125 | dove un inserto non entra | idem | — | A |
 | D8 | Viti M2 e M2,5 | assortimento | ISO 4762 inox | regolatori (M2), SSC-32 (M2,5: i suoi fori sono circa 3,0 mm) | idem | — | A |
 | D9 | Piedini antiscivolo | 6 + 2 | stampati in TPU 95A oppure cappucci in silicone | scelta dopo una prova sui tuoi pavimenti | — | — | — |
-| D10 | Fermo batteria | 2 + 1 | cinghie a strappo 20 × 300 mm; schiuma EVA adesiva 3–5 mm | il pacco ha ±5 mm di tolleranza in lunghezza: battuta fissa da un lato, schiuma dall'altro | Amazon.it | — | A |
+| D10 | Fermo batteria | 1 | schiuma EVA adesiva 3–5 mm | le cinghie non servono più: lo sportello preme il pacco con due rebbi e la schiuma (D-051) | Amazon.it | — | A |
 | D11 | Guaina e fascette | 2 m + 1 conf. | guaina spiralata 6–8 mm, fascette 2,5 mm | fasci dei 3 cavi per zampa, ancoraggi ai giunti | qualunque | — | A |
 
 ## E. Materiali di stampa

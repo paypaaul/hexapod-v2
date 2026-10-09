@@ -14,7 +14,7 @@ Questa repo è la memoria del progetto: una sessione nuova deve poter ripartire 
 | 1. Studio di ciò che cambia | **fatta** (2026-10-08, studio ridotto): `docs/studio-componenti.md`, `docs/dimensionamento.md` (preliminare), `docs/dimensioni-componenti.md` |
 | 2. BOM e revisione | **fatta e approvata** (2026-10-08): `docs/BOM.md` v2.0. Restano aperte le domande in fondo al BOM |
 | 3. Dimensioni e modelli 3D | **fatta** (2026-10-08): design Fusion **"Hexapod v2 - MG996R"** con 79 parametri, servo e regolatori da STEP, 14 ingombri in libreria (`cad/script/rif_componenti.py`, D-046); elenco in `docs/dimensioni-componenti.md` |
-| 4. Progettazione CAD | **in corso**: zampa v0.1 (D-047…D-049) e corpo v0 con assieme a sei zampe e giunti di coxa (D-050), verificati con i giunti veri (`docs/progetto-meccanico.md`, `cad/script/zampa.py`, `corpo.py`, `assieme.py`); prossimi i dettagli del corpo e il ciclo a tripode |
+| 4. Progettazione CAD | **in corso**: zampa v0.1 (D-047…D-049) e corpo v0.3 rivisto e corretto (D-050, D-051) con assieme a sei zampe e giunti di coxa, verificati con i giunti veri (`docs/progetto-meccanico.md`, `cad/script/zampa.py`, `corpo.py`, `assieme.py`); prossimi i dettagli del corpo e il ciclo a tripode |
 | 5. BOM finale (viteria dal modello) | da fare |
 | 6. Verifica del movimento | da fare |
 
@@ -130,6 +130,9 @@ Verificato il 2026-10-08 su un documento di prova:
 - **Riferimenti esterni dentro un sotto-assieme** (il servo): `addExistingComponent(comp, m)` antepone a `m` la trasformata dell'occorrenza di libreria (il servo finiva 200 mm fuori posto): compensare con l'inversa. Inoltre le istanze nascono con `isGroundToParent = True`: due servo così fissati, più i loro giunti rigidi, **bloccano tutti i giunti di rivoluzione** (il valore impostato torna a zero senza errori). Metterlo a `False`.
 - **Giunti dentro un sotto-assieme all'origine (`Zampa`)**: muovendo un giunto, la trasformata dell'occorrenza nativa (`zampa.component.occurrences`) resta quella "come costruito"; la posa vera si legge dal proxy (`o.createForAssemblyContext(zampa).transform2`). Lo stesso vale per la visibilità: `isLightBulbOn` va impostato sui proxy (`zampa.childOccurrences`), sugli oggetti nativi non ha effetto.
 - `addExistingComponent` copia anche la visibilità dell'occorrenza di libreria: copie fatte mentre la libreria era nascosta nascono nascoste. Il controllo delle interferenze le considera comunque.
+- Uno script che solleva un'eccezione fuori da `main` viene annullato per intero (il connettore annulla la transazione): le modifiche già fatte spariscono.
+- Cancellando più occorrenze dello stesso componente in un ciclo, dopo la prima i riferimenti alle altre possono non valere più: cancellare una alla volta rileggendo la lista. Se il componente sopravvive, il nuovo nasce con il suffisso " (1)" e non si riesce a togliere rinominando: usare un nome diverso.
+- `aggiungi_istanza` (crea alla radice e poi `moveToComponent`) lascia alla radice una copia nascosta quando il genitore è `Corpo`: `assieme.py` → `istanze_corpo` le cancella (quelle con y < 249 mm).
 - Il controllo delle interferenze fatto nello stesso script subito dopo aver impostato i giunti è affidabile (provato su pose note): una scansione di 28 pose dura circa 2,5 s.
 - `transform2` di un'occorrenza annidata non si imposta sull'oggetto nativo ("transform overrides can only be set on Occurrence proxy from root component"): la posizione giusta va data alla creazione.
 - Nel sotto-assieme nessuna parte è fissata (`isGrounded` non esiste per le occorrenze annidate): le misure di posa vanno fatte rispetto a una parte di riferimento (la coxa).
@@ -177,8 +180,8 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 
 ## Prossimi passi
 
-1. **Da far approvare all'utente** (non bloccano): 12 viti M3 × 5 per le squadrette della coxa (D-049, BOM D6); domande aperte in fondo al BOM.
+1. **Da far approvare all'utente** (non bloccano): 12 viti M3 × 5 per le squadrette della coxa (D-049, BOM D6); distanziali B18 cambiati in 4 M3 maschio-femmina da 5 mm e cinghie D10 tolte (D-051); domande aperte in fondo al BOM.
 2. **Corpo, dettagli rimasti** (elenco in `docs/progetto-meccanico.md`, "Da fare nel corpo"): sportello della batteria, vano di coda con F1 e T-plug, Wago, interruttore, cicalino, gonna e fissaggio del coperchio, muso, feritoie, cavi. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo`; controllo con `controllo`, `interferenze`, coxe a 31° tra vicine, `ciclo` (100/45 e 70/70).
-3. **Revisione indipendente del corpo** (come per la zampa) prima di considerarlo pronto per la stampa.
+3. Revisione del corpo fatta (D-051); restano i punti "da fare o da provare" di D-051.
 4. **Provino** della culla e del giunto (passacavo nella fessura, viti nei fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata della coxa).
 5. Fase 5 (BOM finale con la viteria dal modello) e fase 6 (verifica completa del movimento; il ciclo a tripode è già verificato in quattro assetti).

@@ -1,0 +1,376 @@
+[
+ {
+  "lente": "montaggio",
+  "difetti": [
+   {
+    "titolo": "La batteria non esce dal retro: le colonnine posteriori della chiglia e le bugne della base stanno nel percorso del pacco",
+    "severita": "bloccante",
+    "certezza": "certo",
+    "parte": "Corpo_Chiglia (colonnina_s/d) e Corpo_Base (chi_bugna_ps/pd), viti posteriori della chiglia a cor_chi_vite_xp = 78",
+    "prova": "Letto in Fusion: a x −78 la chiglia è piena per |y| da 18,1 a 25,5 tra z −41,4 e −31,95 (la colonnina Ø7,4, forata al centro). Le bugne della base occupano la stessa zona da −31,95 a −25,25. Il pacco è largo 47,3 (|y| ≤ 23,65) e alto da −39,4 a −14, quindi tra le colonnine restano 36,2 mm. Ho fatto scorrere una copia temporanea del corpo 'pacco' verso −X e misurato l'intersezione con base e chiglia: zero fino a 10 mm di corsa; 31 + 30 mm³ a 15 mm; 252 + 282 a 20 mm; 352 + 380 mm³ da 30 mm in poi. Sono soltanto le quattro bugne e colonnine: nient'altro del corpo ferma il pacco. Il controllo delle interferenze non lo vede perché guarda solo la posa montata. Così il pacco non si toglie e non si rimette dal retro. Per cambiarlo bisogna svitare la chiglia da sotto (4 M3, robot capovolto), contro il requisito del cambio senza attrezzi (D-050, proposta \"compatto\"). Le colonnine stanno anche accanto alla coppia di T-plug (x −81,4…−65,4, |y| ≤ 15): sfilare i due connettori lungo Y, dove stanno, urta le colonnine.",
+    "correzione": "Togliere le viti posteriori della chiglia dall'interno del tunnel. Una possibilità: due orecchie della chiglia sotto il ripiano delle baie posteriori, per esempio a (−40; ±31), z da −34,95 a −31,95, con le bugne degli inserti M3 sul ripiano. Le baie posteriori sono libere da quando F1 è nel vano di coda. Il braccio della coxa media resta a y ≥ 38,5, quello d'angolo a più di 40 mm. Poi rifare la scansione con il pacco che scorre fino a x −230, contro base, chiglia, sportello aperto e T-plug. Tenere il codino del T-plug lato robot lungo almeno 60 mm: così la coppia si sfila dall'apertura e si separa fuori."
+   },
+   {
+    "titolo": "F1 è appoggiato proprio sopra la fessura del tetto: i cavi della batteria non hanno un passaggio dal tunnel al vano di coda",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Corpo_Base (fessura_cavi) e posizione di Portafusibile_F1 in assieme.py → pose_corpo",
+    "prova": "Il tetto, letto per punti a z −10,4, è aperto per x da −83,4 a −70,4 e |y| ≤ 9 (cor_cavi_x 13, cor_cavi_semi 9). Il portafusibile occupa x da −83,4 a −61,4, |y| ≤ 20, z da −9,4 a +5,6: poggia sul tetto e copre tutta la fessura (pointContainment vero a (−82; 0), (−76; 8), (−71; −8)). La fessura è l'unica apertura tra tunnel e vano di coda: lo sportello chiude il retro da −39,4 a −9,4 e la parete anteriore del tunnel è piena. Il codino positivo del T-plug, il negativo verso il Wago e la presa di bilanciamento non possono salire. I fili di un portafusibile in linea escono dalle sue estremità, a |y| = 20, non da sotto. Il controllo delle interferenze non lo vede perché la fessura è vuota.",
+    "correzione": "Lasciare F1 di traverso e spostare la fessura: due asole nel tetto per x da −83,4 a −70,4 e |y| da 20,5 a 25, accanto ai due capi del portafusibile. Il positivo sale dal lato +Y direttamente nel capo d'ingresso di F1; il negativo e la presa di bilanciamento salgono dal lato −Y. In alternativa, alzare F1 su un ponticello stampato alto almeno 10 mm, controllando l'altezza sotto il coperchio. Non mettere il cicalino sotto il dorso sopra F1, come diceva la proposta, altrimenti F1 non si raggiunge più dal retro."
+   },
+   {
+    "titolo": "Le viti M2 dei regolatori si avvitano da dentro la baia, e gli inserti delle due bugne basse non si possono mettere a caldo",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Corpo_Base, reg_bugna_* e fori _ins (cor_reg_dist 4,6, ins_m2_l 4), montaggio e sostituzione dei regolatori",
+    "prova": "I fori degli inserti sono ciechi e si aprono dalla faccia della bugna verso il tunnel: da y 43,4 a 47,4, con la parete della baia piena da 47,5 a 50 (letto in Fusion). Per le due bugne basse (z −24,8, a x 16,16 e 55,02), lungo l'asse del foro c'è aria solo fino alla parete del tunnel, che è piena da y 27 a 25. Restano 16,4 mm per il saldatore con la punta per inserti, che deve stare in asse: non ci entra. Le bugne alte (z +0,6) guardano sopra il tetto, ma a 91 mm c'è la parete della baia opposta, alta fino a +7: il saldatore va inclinato di almeno 4°, quindi l'inserto entra storto. Avvitare il regolatore dà lo stesso problema. Il circuito sta da y 41,9 a 43,4 e la testa della M2 arriva a circa 39,9: per le viti basse restano 12,9 mm fino al tunnel. Una brugola da 1,5 ha il braccio corto di circa 14 mm più lo spessore, e il braccio lungo con la sfera non entra. È proprio il caso che il revisore della struttura aveva chiesto di evitare (\"niente M2 orizzontali da avvitare dentro la baia\").",
+    "correzione": "Montare ogni regolatore su una slitta stampata: una piastrina in PETG di circa 46 × 34 × 2 con 4 inserti M2 (BOM D5), messi al banco con il regolatore avvitato al banco. La slitta scende in due guide verticali stampate sulla faccia interna della parete della baia, appoggia sul ripiano e si ferma con una sola M3 dall'alto in un inserto sull'orlo (z +7). Non serve comprare nulla. Sostituire un regolatore diventa: dissaldare i cavi, togliere la vite, sfilare."
+   },
+   {
+    "titolo": "Il flat della camera non ha un percorso verso il connettore dell'ESP32: la fessura da 0,5 mm della torretta è chiusa sul fondo",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Corpo_Vassoio (torretta, mensola, piede_mensola) e camera",
+    "prova": "Sezione del vassoio a y = 0, letta in Fusion. La fessura sta tra x 92,3 e 92,8 e da z 2,6 a 18,25. Sotto, a z 1,5–2,2, il vassoio è pieno da x 78 a 98,4 (piano più piede della mensola), quindi la fessura è cieca. Il flat della Rif_Camera esce dal lato basso della testa e scende in quella fessura: nel modello prosegue fino a z −48, attraversando il vassoio, e il controllo delle interferenze lo scarta ('flat', 'linguetta'). Il connettore FPC sta sopra il circuito dell'ESP32, a x 40,75–45,25 e z 17,6–19,6. L'unica uscita della fessura è verso l'alto, tra torretta e retro della testa (0,2 mm), poi sopra la torretta (fino a +27,75), sotto il coperchio (+28,4, 0,65 mm). Quel percorso è lungo circa 96 mm, contro 54 mm di flat utile (75 − 8,5 di testa − 12,5 di linguetta).",
+    "correzione": "Aprire una fessura orizzontale attraverso la torretta, all'altezza da cui esce il flat, e portarlo dritto verso −X fino al connettore, passando di fianco o sopra il modulo con l'antenna (z ≤ 20,8). Se il flat esce dal lato basso, girare la camera di 180° sull'asse ottico (l'immagine si raddrizza nel firmware) e farlo uscire dall'alto. Con il percorso diritto servono circa 50 mm, contro 54 disponibili. Disegnare il flat come corpo nel modello invece di scartarlo, e verificare che resti ad almeno 1 mm dal coperchio. Quale lato della testa porta il flat va confermato sul pezzo."
+   },
+   {
+    "titolo": "USB-C e pulsanti dell'ESP32 non si raggiungono a coperchio montato: manca lo sportello di servizio (D-034), e non è neanche nell'elenco \"Da fare\"",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Corpo_Coperchio; corridoio della spina USB-C sopra la SSC-32",
+    "prova": "Il coperchio è fatto solo di blocchi pieni (dorso, baie, muso, gonne, lobi) senza tagli: da z 28,4 a 30 è chiuso sopra tutta la zona dell'ESP32. Le USB-C (x 12,72–20,07, z 17,6–20,86, |y| ≤ 11,07) guardano verso −X. La proposta prevedeva uno sportello di servizio a scatto (x da −20 a 28, |y| ≤ 17); l'elenco \"Da fare\" e D-050 non lo citano più. In più, la spina entra orizzontale e il suo corpo (circa da z 16 a 23, lungo 25–30 mm) arriva fino a x circa −12. Lì c'è l'header seriale della SSC-32 (x da −3,55 a 4,15, y da −5,8 a 12,2): con i Dupont C4 innestati le teste salgono a circa +17, più la curva dei fili (probabile conflitto, i Dupont non sono modellati). La posizione di BOOT e RST non è nota.",
+    "correzione": "Aggiungere all'elenco \"Da fare\" e al modello lo sportello di servizio nel dorso, sopra x da −15 a 15 e |y| ≤ 12. Usare cavi seriali saldati o Dupont a 90° sull'header della SSC-32, oppure prevedere un cavo USB-C con la spina a gomito verso l'alto. Misurare la posizione di BOOT e RST sulla scheda reale prima di fissare lo sportello."
+   },
+   {
+    "titolo": "Servo di coxa: le viti delle alette lato coda stanno sotto la testa dell'anima, e manca la procedura di serraggio e di sostituzione",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Gondole del Corpo_Base e Coxa della Zampa; procedura in progetto-meccanico.md",
+    "prova": "Ho verificato in Fusion, sulla zampa MS, un cilindro verticale Ø5,8 sopra le viti lato coda (d 34,65, e ±5) a varie rotazioni della coxa. A 0° e a 10° la Coxa lo occupa da z 8,5 per entrambe le viti. A +20° si libera una vite, l'altra resta coperta fino a +30°. Da +30° sono libere tutte e due. D-049 e la proposta chiedono di stringere le viti delle alette per ultime, a zampa montata, perché l'albero si allinei al cuscinetto. Con il ponte montato la coxa gira solo se si gira l'albero del servo: va trascinato a mano attraverso il riduttore, oppure il servo va alimentato. In nessun documento di main c'è una procedura (ho cercato \"sostitu\", \"27°\", \"33°\"). Il revisore della struttura l'aveva chiesta per tutte le disposizioni; non è in D-050 né nell'elenco \"Da fare\".",
+    "correzione": "Scrivere in progetto-meccanico.md la procedura. Montaggio: viti lato albero strette a 0°; coxa a +20° e si stringe la vite e = −5; coxa a −20° e si stringe la vite e = +5. La rotazione si dà con il servo alimentato dalla SSC-32 (una sequenza di prova nel firmware), non trascinando il riduttore. Sostituzione: si toglie il coperchio, si stacca la spina, si toglie il ponte (2 M3), si ruota la coxa a mano di circa 33° (la zampa vicina tocca solo da 51°), si tolgono le quattro viti e si sfila il servo verso l'alto con il passacavo nella fessura."
+   },
+   {
+    "titolo": "I Wago sono sotto il vassoio: le leve non si aprono, e ogni intervento sulla potenza obbliga a sollevare vassoio, ESP32 e camera",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Posizione di Wago_piu e Wago_meno (assieme.py) e Corpo_Vassoio",
+    "prova": "I Wago occupano z da −9,4 a −1,1, x da 33,05 a 62,95, |y| da 1 a 19,6. Il lato inferiore del vassoio è a +1,0 (|y| ≤ 16,5, x 26–82): sopra le leve restano 2,1 mm. Una leva del 221 per aprirsi deve alzarsi di circa 14 mm. La colonnina col_pa del vassoio sta a 0,05 mm dal Wago positivo (x 27–33 contro 33,05). Il vassoio non ha fissaggio: le colonnine sono cilindri pieni, senza foro né inserto, e non è nell'elenco \"Da fare\". Per staccare un 14 AWG, cioè per cambiare un regolatore o F1, bisogna sollevare di almeno 15 mm il vassoio con basetta, ESP32 e camera, con tutti i 22 AWG della basetta ancora collegati. Il revisore della struttura l'aveva segnalato; non è tra le correzioni di D-050.",
+    "correzione": "Spostare i Wago dove sopra le leve restano almeno 15 mm: per esempio sul ripiano delle baie posteriori, uno per lato, ora libere. Oppure, se restano dove sono, dare al vassoio due viti M3 dall'alto in inserti di due colonnine e lasciare ai cavi della basetta una scorta che permetta di sollevarlo di 20 mm senza staccare nulla. In ogni caso portare la colonnina ad almeno 1 mm dal Wago."
+   },
+   {
+    "titolo": "Lo sportello non tiene il pacco reale, e i suoi rebbi entrano nella zona di uscita dei cavi della batteria",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Corpo_Sportello (cor_sport_rebbio 17, rebbi a y ±12)",
+    "prova": "Le punte dei rebbi sono a x −68,4 (letto: lo sportello finisce a −68,39). La battuta anteriore è a x 79: un pacco da 139 ha il retro a −60, quindi restano 8,4 mm; da 137, 10,4 mm. La schiuma del BOM D10 è di 3–5 mm, quindi un pacco reale si muove di 3,4–7,4 mm. Solo il pacco all'inviluppo massimo (144) resta stretto. I rebbi (|y| 10–14, z da −29 a −15,4) si sovrappongono alla zona 'uscita_cavi' della batteria (|y| ≤ 12, z da −32,7 a −20,7) per circa 2 × 8,3 × 16,6 mm ciascuno. Il controllo delle interferenze scarta quella zona di proposito. Che i rebbi schiaccino i 12 AWG all'uscita dal pacco è probabile, perché il punto d'uscita dei cavi non è misurato (C).",
+    "correzione": "Fissare cor_sport_rebbio dalla lunghezza misurata del pacco: rebbio = 164,4 − L − schiuma compressa (con L = 139 e 3 mm di schiuma, circa 22 mm). Oppure usare una schiuma da 10 mm che copra la tolleranza di ±5. Spostare i rebbi dove i cavi non escono, misurando la loro posizione sul pacco reale: per esempio in basso, con z sotto −33, e fuori dalla zona dei T-plug."
+   },
+   {
+    "titolo": "Il micro-USB della SSC-32 non è più raggiungibile: F1 gli sta a 10,6 mm",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Posizione di Portafusibile_F1 rispetto alla SSC-32 (cor_ssc_x −14)",
+    "prova": "Il micro_usb della Rif_SSC32 sta a x −50,8…−45,2, y −16,25…−8,75, z 0,2…2,9, rivolto verso −X. La faccia anteriore di F1 è a x −61,4, con |y| ≤ 20 e z fino a +5,6: davanti alla presa restano 10,6 mm. Una spina micro-USB dritta con il suo corpo e la curva del cavo vuole 20–25 mm. La proposta \"compatto\" diceva che la SSC-32 si configura senza smontarla. Con F1 messo nel vano di coda nella v0.2 non è più vero.",
+    "correzione": "Dare a F1 un fermaglio a scatto che si apre senza attrezzi e 3–4 cm di scorta sui suoi 12 AWG, così F1 si solleva e si sposta per collegare la SSC-32. Oppure montare F1 in piedi (22 in altezza e 15 lungo X): restano 17,6 mm, sufficienti per un cavo micro-USB a gomito (da approvare se va comprato). Scrivere la scelta in progetto-meccanico.md."
+   },
+   {
+    "titolo": "SSC-32 su viti autofilettanti M2,5 nel PETG-CF: la scheda va tolta spesso e i fori pilota si rovinano",
+    "severita": "bassa",
+    "certezza": "probabile",
+    "parte": "Corpo_Base, bugne ssc_bugna_* con fori pilota Ø2,1 (vite_m25_pilota)",
+    "prova": "Le quattro bugne della SSC-32 hanno solo un foro pilota da 2,1 mm per una M2,5 autofilettante. La SSC-32 va tolta per controllare e risaldare le barre sul retro (B16) e i codini da 16 AWG, e per far passare il 12 AWG sotto la scheda. Un filetto formato nel PETG caricato carbonio regge pochi smontaggi. Gli inserti M2 sono già nel BOM (D5, 50 pezzi); il revisore di sistema aveva proposto M2 con rondella negli inserti.",
+    "correzione": "Fori per inserti M2 nelle bugne della SSC-32 (ins_m2_d 3,4 × 4, bugna Ø7 con 1,8 mm di parete) e viti M2 con rondella nei fori da 3,0 della scheda. In alternativa, inserti M2,5 se l'utente li ha. Nessun acquisto nuovo con la prima soluzione."
+   }
+  ],
+  "verificato_senza_difetti": [
+   "Batteria nella posa montata: nessuna intersezione con base e chiglia (scorrimento da 0 a 10 mm: 0 mm³). L'apertura posteriore del tunnel (|y| ≤ 25, z da −39,4 a −11,4) basta per il pacco: tolte le quattro bugne e colonnine posteriori, il pacco non tocca altro di base e chiglia.",
+   "Viti della SSC-32: i quattro fori, a (−46,75; ±24,25) e (18,75; ±24,25), hanno la verticale libera. L'ESP32 è largo solo |y| ≤ 14,16, la morsettiera arriva a |y| ≤ 10,75 e F1 sta a x ≤ −61,4.",
+   "Viti alte dei regolatori (z +0,6): verso il centro sopra il tetto restano più di 30 mm liberi; si avvitano.",
+   "Vite lato albero del servo di coxa (raggio 14,8 dall'asse): con una brugola da 2,5 resta 1,35 mm dal mozzo del ponte (R12); si raggiungono a coxa diritta, a ponte montato.",
+   "Viti lato coda del servo di coxa: si raggiungono con la coxa a ±20° (una per volta) o a 30° (tutte e due), dentro il limite di ±35° e lontano dal contatto con la zampa vicina ferma (51°).",
+   "Cavo del servo di coxa: la spina non deve passare da fori chiusi. Il cavo esce dalla finestra larga 9 (cav_fin_w) e sale nella fessura aperta della bugna, sul lato verso il centro; nelle gondole medie ci sono 8,55 mm tra la culla e il tunnel per la curva. Le spine JR dei femori e dei ginocchi entrano nel corpo sotto il coperchio, dove le gonne lasciano varchi (da x 12,45 a 22 e da 58,8 a 65,5 sopra l'orlo).",
+   "F1 si raggiunge dal retro senza togliere il coperchio: sopra lo sportello (z da −9,4 a 28,4, |y| ≤ 27) la base non ha una parete posteriore e il coperchio non ha una gonna dietro; sopra F1 restano 22,8 mm per sfilare il fusibile.",
+   "Copie Rif_* alla radice (71 occorrenze): tutte nascoste, quindi non falsano la vista dell'assieme."
+  ]
+ },
+ {
+  "lente": "stampa_struttura",
+  "difetti": [
+   {
+    "titolo": "Le gondole e le baie sono attaccate al tunnel solo dal ripiano da 2 mm: il momento ribaltante della coxa non ha un percorso verso lo scafo",
+    "severita": "bloccante",
+    "certezza": "certo",
+    "parte": "Corpo_Base: gondole, ripiano, pareti delle baie, pareti del tunnel",
+    "prova": "Sezioni lette in Fusion intersecando la base con lastre spesse 0,2 mm. Subito fuori dalla parete sinistra del tunnel (y da 27,05 a 27,25) c'è soltanto il ripiano (x da −65,5 a 65,5, z da −31,95 a −29,95, 262 mm²) più lo spigolo delle due gondole d'angolo. A y 30 e a y 33 non c'è nessuna parete tra il tunnel e la gondola media. La culla comincia a y 35,55; la bugna corta è a 2,95 mm dal tunnel e sta sopra il tetto (z da −6,35 a +1,65, contro −9,4).\n\nLo spigolo della culla d'angolo arriva a y 26,993, cioè entra di 0,007 mm nella parete: a y 27,02 c'è materiale solo tra x 75,40 e 75,50. Oltre la bugna corta (d = −18,2) la gondola d'angolo è unita al resto solo dalla testa della parete della baia e dall'angolo del ripiano (136 mm²), in un pezzo separato dal tunnel.\n\nNel modello mancano le «pareti di testa» che prolungavano i fianchi della culla fino al tunnel, cioè il punto forte indicato dal giudice di struttura. Mancano anche le nervature sopra il ripiano previste dalla proposta: in corpo.py ci sono solo il ripiano, le pareti esterne e le gondole.\n\nCarichi da statica_tripode.py a 2750 g: il momento dei piedi in appoggio di un lato attorno alla radice del ripiano arriva a 1,27 N·m (MS in appoggio, 10,5 N a y ≈ 148).\n- Radice 131 × 2 mm: σ = 6M/(L·t²) ≈ 14,5 MPa nominali, su uno spigolo vivo.\n- Lo stesso momento entra al piede della parete del tunnel come flessione fuori piano, con circa 14,5 MPa di trazione tra gli strati.\n- Rotazione dovuta al solo ripiano, con E da 3 a 4,5 GPa (striscia di 8,55 mm sotto la gondola media, 21 mm nelle baie): da 3 a 4,5°, cioè da 6 a 10 mm di abbassamento al piede MS. A questa si aggiunge la flessione delle pareti del tunnel, stimata in altri 4–6°.\n- Gondola d'angolo: la componente attorno a X del momento della coxa (0,5 × 13,8 kgf·cm ≈ 0,68 N·m) torce la testa della parete della baia (2 × 39 mm): τ ≈ 13 MPa.",
+    "correzione": "Da fare prima di stampare la base.\n1. Pareti di testa da 2,4 mm che prolungano i fianchi della culla di ogni gondola media (x da ±10,45 a ±12,45) dalla parete del tunnel (|y| 27) alla culla (|y| 35,55), dal ripiano fino alla quota del tetto (−9,4).\n2. Per ogni gondola d'angolo: una parete a x ±65,5 dal tunnel alla testata interna della culla (|y| ≈ 44,2) e un'anima dallo spigolo della culla alla parete del tunnel. Si chiude così una cella tunnel – parete di testa – parete della baia – culla, aperta in alto per il cavo del servo che esce dalla finestra.\n3. Nervature triangolari sopra il ripiano, alla radice.\n\nTutte queste pareti stanno dalla parte del corpo rispetto agli assi delle coxe: fuori dai settori spazzati dall'anima e sopra il braccio. Restano ad almeno 1,5 mm dai regolatori (x ≥ 14). Sotto −9,4 bloccano il passaggio dei cavi da una baia all'altra: i cavi passano sopra il tetto, oppure servono asole.\n\nCon le pareti fino al tetto il momento diventa una coppia: compressione nel tetto e circa 60 N di trazione al piede del tunnel per lato. Quella trazione la deve chiudere la chiglia (difetto successivo).\n\nVerifica: calcolo a elementi finiti, oppure provino di un tratto di tunnel con una gondola, caricato a 14 kgf·cm."
+   },
+   {
+    "titolo": "Chiglia avvitata solo alle due estremità: in mezzo il tunnel lavora a sezione aperta",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Corpo_Chiglia e giunto con Corpo_Base (viti, bugne chi_bugna_*)",
+    "prova": "Le viti M3 sono 4: due orecchie a x 84 (y ±15) e due colonnine a x −78 (y ±21,8). Tra loro ci sono 162 mm senza alcun collegamento lungo i due giunti: pareti da 2 mm appoggiate di testa su pareti da 2 mm a z −31,95, senza labbro né incastro.\n\nLa proposta giudicata aveva 8 orecchie, a x ±25 e ±55, e il giudice di struttura aveva scritto che la chiglia «è strutturale e non facoltativa». La correzione fatta per regolatori e F1 le ha ridotte a 4, tutte alle estremità.\n\nIn mezzo il tunnel è quindi formato da due U aperte e non collegate:\n- J ≈ 460 mm⁴ (Σ b·t³/3), contro circa 119 000 mm⁴ della sezione chiusa (4A²t/s con A = 52 × 30), cioè 260 volte meno;\n- torsione statica a metà corpo a fine passo, da statica_tripode.py a 2750 g: circa 1,0 N·m;\n- con la sola sezione aperta: fino a circa 15° su 160 mm (limite superiore, senza contare il vincolo all'ingobbamento alle estremità); con la sezione chiusa: 0,06°.\n\nLungo il giunto andrebbe trasmesso un flusso di taglio T/(2A) ≈ 0,3 N/mm. Dopo la correzione del difetto precedente, il piede del tunnel deve reggere anche circa 60 N di trazione per lato. Un giunto di testa libero non trasmette né l'uno né l'altra. Il «labbro di centraggio» dell'elenco Da fare è descritto solo come centraggio.",
+    "correzione": "Collegare chiglia e base lungo tutto il giunto, con una vite almeno ogni 40–50 mm.\n- Per esempio: inserti M3 nei piedi delle nuove pareti di testa, fuori dal tunnel (x ≈ ±11 e ±64, |y| ≈ 30, bugne fino a z −24), con orecchie della chiglia sotto il ripiano. Le teste dei bracci delle coxe medie stanno a |y| ≥ 38,55; quelle d'angolo restano ad almeno 8 mm.\n- In più, un labbro a incastro su tutto il perimetro, che porti il taglio longitudinale e tenga uniti i piedi delle pareti.\n- La chiglia non va mai smontata, perché la batteria esce dal retro: in alternativa si può incollare con epossidica sul labbro.\n\nPasso e posizione delle viti diventano parametri."
+   },
+   {
+    "titolo": "Le 12 bugne delle gondole sono sbalzi piatti a 25,6 mm dal piatto; manca lo smusso a 45° previsto",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Corpo_Base: bugna_corto e bugna_coda di tutte le gondole (corpo.py → gondola())",
+    "prova": "bugna_corto (d da −18,05 a −12,45) e bugna_coda (d da 32,95 a 38,35), larghe 17,4, sono blocchi a fondo piatto da z −6,35 a +1,65. In Fusion sotto −6,35 non c'è materiale: sulla gondola media i punti a z −6,6 e −10 sono fuori dal corpo.\n\nLa base si stampa con il fondo sul piatto (D-050), quindi le bugne sono 12 sbalzi orizzontali di 5,4–5,6 mm a 25,6 mm dal piatto: nel vuoto, oppure sopra il ripiano per le bugne corte delle gondole medie.\n\nLe bugne portano gli inserti M3 lato coda e i fori pilota lato corto delle alette dei servo di coxa. Il foro dell'inserto scende fino a −5,05: sul fondo che cola restano 1,3 mm.\n\nLa proposta «compatto» prevedeva «bugne delle gondole con smusso a 45° sotto». L'elenco Da fare cita solo il tetto.",
+    "correzione": "Smusso a 45° sotto ogni bugna, dalla faccia inferiore (−6,35) fino alla parete della culla: a −11,95 per le corte, a −11,75 per quelle di coda. Si fa con blocco_obl nel piano d–z, nella terna della gondola.\n\nIn pianta l'ingombro non cambia (d da −18,05 a 38,35, raggio massimo 39,32), quindi il gioco dall'anima della coxa resta lo stesso. Sulle bugne corte lo smusso va limitato a |e| ≥ 4,5, per non ingombrare davanti alla finestra del cavo."
+   },
+   {
+    "titolo": "Bugne dei regolatori: inserto M2 con 0,9 mm di parete, in un cilindro orizzontale a sbalzo",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Corpo_Base: reg_bugna_* sulla parete esterna delle baie anteriori",
+    "prova": "cor_reg_bugna_d è 5,2 e il foro dell'inserto M2 (ins_m2_d) è 3,4: la parete è di 0,9 mm. In Fusion, sulla bugna a x 16,16 e z 0,625, c'è materiale a r 1,8 e 2,5 e vuoto a r 1,6 e 2,7.\n\nLe bugne sono cilindri orizzontali (asse Y) che sporgono 4,6 mm da una parete di 2 mm. Quelle alte stanno a z 0,6, cioè 28 mm sopra il ripiano; quelle basse a −24,8. Con il fondo sul piatto il lato inferiore è uno sbalzo, e l'inserto va scaldato e spinto in orizzontale.\n\nCon 0,9 mm la bugna si apre o si piega, e l'inserto resta storto rispetto al circuito. Il diametro non si può aumentare: un reoforo del regolatore passa a circa 2,7 mm dal foro.",
+    "correzione": "Togliere gli inserti. Due alternative:\n- viti M2 autofilettanti per plastica in fori pilota Ø1,6–1,7 profondi 6 mm: con la stessa Ø5,2 la parete sale a circa 1,75 mm;\n- bugna a gradino: Ø5,2 solo per il primo millimetro contro il circuito, Ø7 dietro, con l'inserto arretrato di 1 mm.\n\nIn entrambi i casi dare alle bugne un profilo a goccia, con il lato inferiore a 45°, per stamparle senza supporti. Diametro del pilota e lunghezza del gradino diventano parametri."
+   },
+   {
+    "titolo": "Vassoio dell'ESP32 non fissato a nulla e non stampabile senza supporti",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Corpo_Vassoio (colonnine, torretta, mensola) e tetto di Corpo_Base",
+    "prova": "Corpo_Vassoio ha solo quattro facce cilindriche: le colonnine piene Ø6, da z −9,4 a +1, senza fori. Sulla base, sopra il tetto, nei punti delle colonnine (x 30 e 75, y ±12,5) non c'è materiale. Il vassoio con ESP32, basetta e camera appoggia quindi sul tetto senza essere fissato a niente.\n\nLa proposta contava 4 inserti M3 per le colonnine; l'elenco Da fare cita solo «basetta con fermo».\n\nStampa: le colonnine stanno sotto il piano (10,4 mm), torretta (fino a +27,75) e mensola (fino a +18,25) sopra. Non esiste un orientamento senza supporti: con le colonnine sul piatto, piano, piede e mensola restano 10,4 mm in aria.",
+    "correzione": "Portare le colonnine sulla base, come bugne del tetto simili a quelle della SSC-32: Ø6–7, alte 10,4, con foro pilota Ø2,1 per M2,5 oppure un inserto.\n\nVanno spostate a x ≤ 28,5, o fatte più strette: oggi la colonnina, da x 27 a 33, è a 0,05 mm dal Wago (che parte da x 33,05).\n\nIl vassoio diventa piano + torretta + mensola: si stampa con il piano sul piatto, senza supporti, e si avvita con 4 viti dall'alto prima di montare la basetta."
+   },
+   {
+    "titolo": "Orecchie anteriori della chiglia a sbalzo nel vuoto, con la sede della testa della vite sulla faccia che cola",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Corpo_Chiglia: orecchia_s e orecchia_d",
+    "prova": "In Fusion la chiglia a x 82 e x 86,5 (y 15) c'è solo tra z −34,95 e −31,95; sotto, fino al fondo a −41,4, è vuoto.\n\nCon il fondo sul piatto, orientamento della proposta («fondo sul piatto, senza supporti»), le due orecchie sono sbalzi di 6,7 mm (da x 81 a 87,7), larghi 7,4, a 6,45 mm dal piatto. La loro faccia inferiore, quella che cola, è proprio l'appoggio della testa della vite.",
+    "correzione": "Orecchie piene fino al fondo: blocco da z −41,4, x da 81 a 87,7, con foro passante e sede per la testa. In alternativa, un fazzoletto a 45° sotto ciascuna.\n\nLa luce da terra non cambia (il fondo resta a −41,4) e il braccio della coxa anteriore resta a più di 15 mm. La vite diventa una M3 lunga come quelle posteriori."
+   },
+   {
+    "titolo": "Sedi dei cuscinetti delle gondole a Ø10,0 nominale, con l'imbocco sulla faccia del piatto",
+    "severita": "bassa",
+    "certezza": "probabile",
+    "parte": "Corpo_Base: sede_cuscinetto delle sei gondole",
+    "prova": "cus_sede_d vale cus_D (10,0), senza gioco né compensazione; la sede è profonda 3,2 e ha l'imbocco sulla faccia appoggiata al piatto (z −31,95).\n\nIl primo strato schiacciato (piede d'elefante) stringe proprio l'imbocco. Nelle culle della zampa la sede sta sul lato alto della stampa, qui no.\n\nLe sei sedi danno l'allineamento degli assi delle coxe con l'albero del servo, e la base è il pezzo più lungo da ristampare.",
+    "correzione": "Smusso 0,5 × 45° sull'imbocco, che fa anche da invito per la pressatura, e un parametro di compensazione del diametro delle sedi stampate, tarato sul provino della culla. In alternativa, attivare la compensazione del piede d'elefante nello slicer per la base."
+   }
+  ],
+  "verificato_senza_difetti": [
+   "Ingombri contro il piatto da 256 × 256:\n- base 235,12 × 172,7 (10,4 mm per lato su X);\n- chiglia 173,1 × 54;\n- coperchio 204 × 140;\n- vassoio 72,5 × 33;\n- sportello 54 × 30 × 19.\nOgni parte è un solido unico (1 corpo, 1 blocco).",
+   "Inserti M3 delle alette lato coda nelle gondole: 1,6 mm di parete verso la sede, la testa della bugna e i fianchi, come nella zampa.",
+   "Bugne della SSC-32: Ø7 con foro pilota Ø2,1 (parete 2,45), alte 8 sul tetto. Si stampano sopra il tetto e sporgono di 0,75 mm oltre la parete del tunnel: sbalzo trascurabile.",
+   "Inserti M3 della chiglia nella base: bugne Ø7,4, fori Ø4,2 × 6,7, parete 1,6, fondo 1 mm, unite alle pareti per 0,7 mm davanti e 0,5 mm dietro. Bastano per il peso della batteria. Il problema della chiglia è il numero e la posizione delle viti, non le bugne.",
+   "Sede del cuscinetto nel fondo della gondola: la spalla tra Ø7,2 e Ø10 è spessa 1,2 mm. Con il carico verticale del piede (circa 11 N statici, 30 N con la dinamica) il taglio sul perimetro Ø10 (37,7 mm²) resta sotto 1 MPa. La spinta radiale di circa 29 N sulla sede (10 × 3,2 mm) dà circa 0,9 MPa.",
+   "Culla della gondola come trave nel piano del momento ribaltante: fianchi da 2 × 33,6 mm e fondo da 4,4 mm, con sollecitazioni locali basse. Il difetto è solo il collegamento della gondola allo scafo.",
+   "Orientamenti senza supporti: coperchio con il dorso sul piatto (gonne e lobi crescono verso l'alto), sportello con la piastra sul piatto (rebbi in piedi). Anche le pareti anteriori sopra il tetto e la parete di fronte del tunnel poggiano su pareti sottostanti.",
+   "Tetto del tunnel su supporti (ponte di 50 mm a 20,5 mm dal piatto): già nell'elenco Da fare e non peggiore di come è descritto."
+  ]
+ },
+ {
+  "lente": "quote",
+  "difetti": [
+   {
+    "titolo": "La batteria non si sfila dal retro: le bugne e le colonnine posteriori della chiglia sbarrano il tunnel",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Corpo_Base (chi_bugna_ps/pd) e Corpo_Chiglia (colonnina_s/d), a x −78",
+    "prova": "Bugne della base e colonnine della chiglia stanno a x −81,7…−74,3, y da ±18,1 a ±25,5, e insieme vanno da z −41,4 a −24,25. Il pacco è largo 47,3 (|y| ≤ 23,65) e va da z −39,4 a −14: si sovrappone per 5,55 mm per lato. Ho fatto scorrere in Fusion delle copie temporanee del pacco verso la coda. Nominale 139 × 47,3 × 25,4: libero fino a 10 mm, 534 mm³ di interferenza a 20 mm, 732 mm³ da 30 mm in poi. Inviluppo massimo 144 × 49,3 × 27,4: 62,5 mm³ già a 10 mm, 899 mm³ a 20. Il blocco viene da entrambi i pezzi: 352 mm³ dalle bugne della base (z −31,95…−24,25) e 380 mm³ dalle colonnine della chiglia. Quindi il pacco non entra e non esce dallo sportello. Si cambia solo togliendo le 4 viti della chiglia con il robot capovolto, contro D-050 (sportello a scatto, cambio senza attrezzi). Il controllo delle interferenze sulla posa di riferimento non poteva vederlo: lì il pacco è al suo posto (x −60…79).",
+    "correzione": "Portare le due viti posteriori della chiglia fuori dal corridoio del pacco (|y| ≤ 25, z −39,4…−11,4) per tutta la lunghezza del tunnel. Esempio: orecchie della chiglia come quelle anteriori (z −34,95…−31,95), che sporgono dalle pareti del tunnel nelle baie posteriori, con inserti M3 in bugne Ø7,4 sul ripiano a circa (−60; ±31). Lì F1 non c'è più, la testa del braccio della coxa PS (R 9,45 attorno a (−80; 44)) resta a circa 20 mm e il gioco va ricontrollato a ±35°. In alternativa, dadi prigionieri nella chiglia con viti dall'alto. Poi aggiungere ad assieme.py una prova di estrazione: il pacco all'inviluppo massimo traslato da 0 a 150 mm verso −X non deve toccare nulla."
+   },
+   {
+    "titolo": "Le bugne dei regolatori sono 1,016 mm fuori asse rispetto ai fori del Pololu D42V110F6",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Corpo_Base, reg_bugna_* (le 8 bugne dei due regolatori); formula z = cor_reg_ztop − (reg_w ∓ reg_fori_y)/2",
+    "prova": "Ho letto dallo STEP Pololu dentro Corpo le facce cilindriche dei fori di fissaggio (raggio 1,092, cioè Ø2,18). Stanno a x 16,16 / 55,02 e z −0,39 / −25,79. Gli assi delle bugne nel modello stanno a x 16,16 / 55,02 ma a z +0,62 / −24,77: tutti e 4 i fori sono spostati di 1,01 mm in z, su entrambi i lati, perché il destro è specchiato. Nella terna del regolatore i fori stanno a 4,19 mm dal bordo delle piazzole di potenza e a 2,16 dagli altri tre bordi. La formula invece li mette centrati sul lato da 31,75 (3,175 / 28,575). Una vite M2 (Ø2,0) in un foro Ø2,18 tollera circa 0,09 mm di disallineamento: il regolatore non si avvita sugli inserti. L'interferenza è 0 mm³, quindi il controllo non lo segnala.",
+    "correzione": "Nuovo parametro reg_fori_bordo = 4.19 mm (fonte: STEP Pololu D42V110F6, stato V). Quote delle bugne: z = cor_reg_ztop − reg_fori_bordo e z = cor_reg_ztop − reg_fori_bordo − reg_fori_y, cioè −0,39 e −25,79. Le x restano (reg_l ∓ reg_fori_x)/2. Dopo la rigenerazione, controllare in uno script la coassialità tra bugne e fori dello STEP (scarto < 0,05 mm)."
+   },
+   {
+    "titolo": "Le gondole non sono legate al tunnel: d'angolo tangenti per 0,01 mm, medie unite solo dal ripiano da 2 mm",
+    "severita": "alta",
+    "certezza": "probabile",
+    "parte": "Corpo_Base: radice delle sei gondole (culla, bugna lato albero, ripiano, pareti delle baie)",
+    "prova": "Spigolo interno della culla AS in (75,44; 26,99) contro la faccia del tunnel a y 27,00. Il lato b = −12,45 della culla sale da y 27 a 30,2 tra x 75,4 e 81, quindi la gondola d'angolo tocca il tunnel solo lungo uno spigolo. Ho intersecato in Fusion la base con lastre di 0,5 mm. A y 27,0–27,5, per |x| ≤ 65,5, c'è solo il ripiano (262 mm² = 131 × 2) più gli sbalzi delle bugne della SSC-32; la gondola d'angolo porta appena 20 mm² di spigolo. A y 28,5 c'è soltanto il ripiano (z −31,95…−29,95). Guscio di 0,5 mm attorno alla gondola AS: 78 mm³, cioè estremità della parete della baia (2 × 34) più un triangolo di ripiano di circa 7 mm². Gondola MS: la bugna lato albero si ferma a y 29,95 (2,95 dal tunnel, e sopra il tetto) e la culla a 35,55; tra culla e tunnel c'è solo il ripiano. Nel modello mancano le «pareti di testa delle baie fino al tunnel» e le «nervature alla radice delle gondole» della proposta, su cui il giudice struttura aveva basato il giudizio. Stima: momento sul perno 13,8 kgf·cm (1,35 N·m). Su una lastra da 2 mm con larghezza efficace da 40 a 131 mm (W 27–87 mm³) dà da 15 a 50 MPa: oltre la resistenza a fatica del PETG-CF. La gondola cede e l'asse della coxa si inclina.",
+    "correzione": "Prolungare i fianchi della culla media fino al tunnel con pareti di testa piene da z −31,95 a −9,4 (x da ±12,45 a ±13,95; spessore 1,5, perché il regolatore parte da x 14), unite alla parete del tunnel. Portare la bugna lato albero fino al ripiano e al tunnel. Gondole d'angolo: riempire il triangolo tra culla e tunnel (x 75,4–81, y 27–30,2) e aggiungere un'anima dall'estremità lato albero della culla alla parete del tunnel. Poi rilanciare la sentinella dei volumi e le interferenze (regolatori, cavi dei servo nella finestra)."
+   },
+   {
+    "titolo": "F1 è appoggiato sulla fessura dei cavi e chiude la micro-USB della SSC-32",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Assieme: Portafusibile_F1 sul tetto; Corpo_Base: fessura_cavi; SSC-32",
+    "prova": "F1 occupa x −83,4…−61,4, |y| ≤ 20, z −9,4…+5,6 (letto dal modello). La fessura dei cavi nel tetto va da x −83,4 a −70,4 con |y| ≤ 9 ed è interamente sotto il fondo di F1. È l'unico passaggio dal tunnel (dove stanno il T-plug e il codino 12 AWG) al piano elettronico, perché lo sportello chiude tutto il retro del tunnel (|y| ≤ 27, z −39,4…−9,4). La micro-USB della SSC-32 (x −50,8…−45,2, y −16,25…−8,75, z 0,2…2,9) sta a 10,6 mm dalla faccia di F1 alla stessa quota: lì non entra una spina micro-USB con il suo cavo. La proposta prevedeva di configurare la SSC-32 dal vano di coda senza smontare nulla.",
+    "correzione": "Spostare la fessura fuori dall'ingombro di F1, sopra l'estremità del T-plug: per esempio x −83,4…−70,4, y da 20 a 25. Il codino sale direttamente dall'uscita del T-plug (|y| 15) all'estremità di F1 (y 20) senza passare sotto i rebbi. Mettere F1 di costa (15 mm lungo X, x −83,4…−68,4) per lasciare circa 17 mm davanti alla micro-USB e prevedere un cavo micro-USB a 90°. In alternativa, F1 in un fermaglio sfilabile."
+   },
+   {
+    "titolo": "La fessura del flat della camera è un vicolo cieco: torretta e piede la chiudono",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Corpo_Vassoio: torretta, mensola, piede_mensola; camera e flat",
+    "prova": "Il flat esce dal bordo inferiore della testa e scende nel piano del retro (x 92,5–92,65), nella fessura da 0,5 mm (x 92,3–92,8). In Fusion la fessura risulta vuota da z 2,6 a 18,25, ma chiusa sotto dal piede della mensola (4,4 mm³ di materiale tra z 1 e 2,6). Verso −X la torretta è piena (x 82–92,3, |y| ≤ 6) da z 2,6 a 27,75: 939 mm³ tra z 2,7 e 18,2, 167 mm³ tra 18,25 e 21. Il connettore FPC dell'ESP32 è a x 40,75–45,25, z 17,6–19,6, con il flat in uscita verso +X, e il modulo dell'antenna sale fino a z 20,8. Dalla fessura non c'è strada verso il connettore se non piegando due volte il flat di lato attorno alla torretta. Il corpo 'flat' compenetra il vassoio (1,44 mm³), ma assieme.py → _voluta scarta sempre i corpi 'flat', quindi il controllo non lo segnala.",
+    "correzione": "Aprire nella torretta una finestra passante per il flat: |y| ≤ 3,5, da z 17,5 a 21,5, su tutto lo spessore (x 82–92,3). Così il flat si piega a 90° sotto la testa e corre verso −X sopra il modulo dell'antenna fino al connettore (circa 50 mm contro i 54 disponibili). Togliere 'flat' dallo scarto di _voluta e modellare il percorso vero, così il controllo lo verifica."
+   },
+   {
+    "titolo": "Sportello: i rebbi non toccano il pacco nominale e, con il T-plug, occupano la zona dei cavi del pacco",
+    "severita": "media",
+    "certezza": "probabile",
+    "parte": "Corpo_Sportello (cor_sport_rebbio = 17), Tplug, Rif_Batteria/uscita_cavi",
+    "prova": "Punta dei rebbi a x −68,4. Retro del pacco a x −60 per 139 mm (batteria–sportello misurato: 8,4 mm), −58 per 137, −65 per l'inviluppo massimo (3,4). La schiuma di D10 è da 3–5 mm: con il pacco nominale resta un gioco di 3,4–5,4 mm e il pacco scorre avanti e indietro. Inoltre la zona d'uscita dei cavi riservata nel modello della batteria (x −85…−60, |y| ≤ 12, z −32,7…−20,7) è occupata dai rebbi per 551 mm³ (|y| 10–12, z −29…−20,7) e dal T-plug per 691 mm³. Il T-plug arriva a x −65,4: 0,4 mm dal pacco all'inviluppo massimo. Il controllo non lo vede perché _voluta scarta 'uscita_cavi'.",
+    "correzione": "Scrivere cor_sport_rebbio come formula del pacco misurato: 164,4 mm − bat_l − schiuma compressa (circa 23 mm per 139 e 2 mm di schiuma), e ristamparlo dopo la misura con il calibro. Mettere i rebbi dove il pacco non ha uscite di cavi, da guardare sul pacco reale. Arretrare o girare il T-plug fuori dalla zona di curva dei 12 AWG. Togliere 'uscita_cavi' dallo scarto e controllare."
+   },
+   {
+    "titolo": "Le bugne degli inserti M2 dei regolatori sono troppo sottili (parete 0,9) e le viti non si raggiungono",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Corpo_Base: reg_bugna_* (cor_reg_bugna_d 5,2, ins_m2_d 3,4)",
+    "prova": "Parete della bugna (5,2 − 3,4)/2 = 0,9 mm, contro la parete minima di 1,3 mm per l'inserto M2 CNC Kitchen in dimensioni-componenti.md: l'inserto a caldo deforma o spacca la bugna. Il diametro 5,2 era giustificato da un reoforo «a circa 2,7 dal foro». Nello STEP, con i fori nella posizione vera (difetto precedente), gli ingombri sul lato della parete distano almeno 3,42 mm dall'asse (piedini a x 49,8–51,6 vicino al foro (55,02; −25,79)) e 4,2 mm per i fori alti. Le viti entrano dal lato componenti: tra la testa M2 (y ≈ 39,8) e la parete del tunnel (y 27) restano 12,8 mm. Il braccio corto di una chiave a L da 1,5 mm è di circa 15 mm, e le viti basse stanno a z −25,8, 4 mm sopra il ripiano.",
+    "correzione": "Bugne Ø6,2: parete 1,4 e 0,3 mm di margine dal piedino più vicino, da ricontrollare con lo STEP dopo lo spostamento. Per il montaggio, viti M2 infilate dall'esterno della parete della baia (foro passante Ø2,4 e svasatura sulla faccia a y 50) con dado autobloccante o distanziale femmina sul lato componenti. In alternativa, le guide a slitta suggerite dal giudice struttura."
+   },
+   {
+    "titolo": "Il vassoio dell'ESP32 non è fissato: colonnine senza fori e tetto senza inserti",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Corpo_Vassoio (col_pa/pb/aa/ab) e tetto di Corpo_Base",
+    "prova": "In fai_vassoio le quattro colonnine Ø6 sono cilindri pieni da z −9,4 a +1, appoggiati sul tetto senza fori. Corpo_Base non ha né bugne né inserti in (30; ±12,5) e (75; ±12,5). La proposta prevedeva «4 inserti M3 per le colonnine del vassoio». Il vassoio porta ESP32, basetta e camera (allineamento della visiera e del flat) in un robot che cammina. Non compare in «Da fare nel corpo», dove c'è solo il fermo della basetta.",
+    "correzione": "Fori Ø3,4 passanti nelle colonnine e bugne Ø7,4 alte ins_m3_l + 1 sul tetto, con inserti M3, nelle posizioni delle colonnine. Le colonnine si accorciano di conseguenza. Sotto il tetto non c'è posto: il pacco all'inviluppo massimo arriva a 0,6 mm. Ricontrollare il gioco con i Wago (vedi i giochi sotto 1 mm)."
+   },
+   {
+    "titolo": "Giochi sotto 1 mm ancora nel modello, contro la correzione di D-050",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Assieme: Wago, Corpo_Vassoio, Corpo_Coperchio, ESP32, T-plug",
+    "prova": "Distanze minime misurate in Fusion. Wago+ e Wago− contro le colonnine del vassoio: 0,05 mm (colonnina fino a x 33,00, Wago da x 33,05; Wago 221-415 quotato S). Torretta (z 27,75) contro coperchio (28,4): 0,65. Punta dell'antenna dell'ESP32 (x 81,1) contro torretta (x 82): 0,9. T-plug (x −65,4) contro pacco all'inviluppo massimo (x −65): 0,4. D-050 chiede giochi di almeno 1 mm, o parametrizzati, dove dipendono da dati S/C.",
+    "correzione": "Spostare le colonnine posteriori del vassoio a x 28 (o i Wago a x 50) per avere almeno 2 mm. Abbassare la torretta a cor_cam_z + cam_testa/2 + 0,3 (circa 27,05, cioè 1,35 dal coperchio), oppure alzare il coperchio. Arretrare l'ESP32 di 1 mm (centro a x 44). Rendere parametri tutti questi giochi."
+   },
+   {
+    "titolo": "Le teste delle viti posteriori della chiglia sporgono 3 mm sotto il fondo",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Corpo_Chiglia: foro_colonnina_s/d",
+    "prova": "Le colonnine vanno da z −41,4 a −31,95 con un foro Ø3,4 passante e senza lamatura. La testa di una M3 ISO 4762 (Ø5,5 × 3) appoggia sulla faccia a −41,4 e scende fino a circa −44,4. La chiglia era stata fissata a −41,4 proprio per non scendere sotto la nervatura della coxa (−41,35): le teste diventano il punto più basso del robot e tolgono 3 mm di luce.",
+    "correzione": "Nelle nuove orecchie posteriori (vedi il difetto sull'estrazione della batteria) mettere la lamatura Ø6,2 profonda 3,2 dal basso, oppure le viti dall'alto in dadi prigionieri. Su tutti i fissaggi della chiglia la testa deve restare sopra −41,4."
+   },
+   {
+    "titolo": "57 copie Rif_* nascoste rimaste alla radice nelle posizioni dell'assieme",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Design 'Hexapod v2 - MG996R': occorrenze alla radice",
+    "prova": "Alla radice, oltre alla libreria (y ≥ 250), ci sono copie spente di tentativi precedenti nelle posizioni del robot: Rif_Servo_MG996R:4…21 e Rif_Cuscinetto_LF1050ZZ:4…21 sugli assi delle coxe, Batteria:2…4, SSC32:2…4, ESP32:2…4 (due a x 45 e una a x 54), Camera:2…4, Reg_Servo:2…7 (alcune in posizioni vecchie, y ±32). Oggi le escludono la lampadina spenta e il filtro sul nome, ma la fase 5 (BOM e viteria dal modello) e ogni conteggio di massa o di interferenze che scorra la radice le conterebbero due o tre volte.",
+    "correzione": "Cancellarle con uno script che conservi solo le occorrenze di libreria (y ≥ 250) e le istanze dentro Corpo e Zampa. Poi rileggere la sentinella dei volumi e salvare."
+   }
+  ],
+  "verificato_senza_difetti": [
+   "Gondole contro i vincoli della zampa: fondo a −31,95, cuscinetto da −32,75 a −28,75 (sede Ø10 × 3,2, passaggio Ø7,2, 1,2 mm di fondo sopra), sede del servo 41,4 × 20,9 (0,2 per lato) da −27,55, alette a +1,65, inserti lato coda e fori pilota lato albero come nella zampa. Perno della coxa a 0,2 sotto il fondo della sede.",
+   "Orlo della base a +7, sotto la testa dell'anima (+8,05). Nessuna parte del corpo sopra +7 entro i raggi 34–44,55 nei settori spazzati (±35°).",
+   "Rotazione delle coxe con copie temporanee in Fusion (il design non è stato toccato), per AS, MS e PS a ±35° con femore/ginocchio a 0/90, 85/29, −49/54, 85/180, 40/29, −30/180, contro tutte le parti del Corpo: nessun contatto. Controllo del metodo: AS a 150° dà gli urti attesi. Il lato destro (AD, MD, PD) non l'ho rilanciato: corpo specchiato, zampa uguale.",
+   "Coperchio: lobi R22 a +28,4 contro ponti a +23,5 (4,9 mm). Gonne a 22,0 mm dall'asse MS e 21,9 dall'asse AS. Servo di coxa a 6,2 (AS) e 10,35 (MS) mm dal coperchio. Zona delle spine SSC a 3,2 mm. Testa della camera a 1,65.",
+   "Batteria nel tunnel: interno 50 × 28 (z −39,4…−11,4), 0,35 mm per lato e 0,6 in alto sull'inviluppo massimo. Battuta anteriore a x 79 su base e chiglia.",
+   "SSC-32: bugne Ø7 alte 8 a 65,5 × 48,5, PCB a −1,4. Zona delle barre a 1,25 mm dalle bugne e 2 mm sopra il tetto. Fori pilota Ø2,1 profondi 7 con 1 mm di fondo. PCB a 2,45 mm dalle bugne delle gondole medie e spine a 3,45 dalle alette.",
+   "Regolatori: nessuna compenetrazione con la base (0 mm³, piedini e componenti del retro compresi). 6,8 mm d'aria verso il tunnel, 3,75–3,8 mm dai servo di coxa MS e AS, 2 mm sopra il ripiano.",
+   "Vassoio: piano a |y| ≤ 16,5 nell'apertura di ±17 della parete anteriore; ESP32 a 4,9 mm dal vassoio con i pin.",
+   "Chiglia: orecchie anteriori e colonnine coassiali con gli inserti della base. Bugne M3 Ø7,4 con parete 1,6 (minimo rispettato). T-plug a 3,1 mm dalle bugne."
+  ]
+ },
+ {
+  "lente": "sistema",
+  "difetti": [
+   {
+    "titolo": "La torretta della camera chiude l'unica via del flat verso il connettore dell'ESP32; nel modello il flat scende dritto attraverso il tetto e la batteria",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Corpo_Vassoio (torretta, mensola, piede_mensola), Rif_Camera_OV3660_75, assieme.py _voluta",
+    "prova": "Valori letti in Fusion. Il connettore FPC dell'ESP32 sta a x 40,75…45,25, z 17,6…19,6, e il flat ci entra dal lato dell'antenna. Testa della camera: x 92,5…98,5, z 18,25…26,75. Il flat esce dal bordo basso della testa verso −z, perché l'asse X della terna camera va su +Z del robot e il flat va verso −X. La torretta è piena tra x 82 e 92,3, |y| ≤ 6, z 2,6…27,75 (pointContainment: (87,0,18) e (87,0,26) cadono dentro). La fessura da 0,5 mm (x 92,3…92,8) è chiusa in basso dal piede_mensola: (92,55; 0; 3) è fuori, (92,55; 0; 1,8) è dentro. Sopra la torretta (z 27,75) restano 0,65 mm fino al coperchio (28,4). Girando di lato (|y| > 6) servono circa 3 + 9 + 47 + 9 = 68 mm più le pieghe, ma il flat è lungo 75 − 8,5 − 12,5 = 54 mm. Il corpo 'flat' del modello scende dritto da z 18,25 a −35,75 e la linguetta arriva a −48,25, cioè dentro tetto e pacco. Il controllo interferenze scarta 'flat' e 'linguetta' in _voluta, quindi non l'ha segnalato.",
+    "correzione": "Lasciare libero il passaggio dietro la testa. Si può sostituire la torretta con due guance laterali (|y| da 3,5 a 6) oppure aprirci una finestra di almeno 7 × 6 mm alla quota del bordo basso della testa. Il flat fa una piega stretta dietro la testa, sale a circa z 21,5 e torna dritto sopra il modulo fino al connettore: circa 47 mm in pianta, contro 54 mm di flat più circa 8 mm di linguetta fuori dal connettore. In alternativa si ruota la camera di 180° sull'asse ottico (flat in alto, immagine raddrizzata nel firmware) e si abbassa la torretta. In entrambi i casi il corpo 'flat' va rimodellato lungo il percorso vero e tolto dalle esclusioni di _voluta."
+   },
+   {
+    "titolo": "F1 appoggiato sul tetto copre per intero la fessura da cui devono salire i cavi della batteria",
+    "severita": "alta",
+    "certezza": "certo",
+    "parte": "Corpo_Base (fessura_cavi) e Rif_Portafusibile_ATO (assieme.py pose_corpo)",
+    "prova": "La fessura nel tetto va da x −83,4 a −70,4, |y| ≤ 9, z −11,4…−9,4 (il punto (−77; 0; −10,4) è fuori dalla base). Il portafusibile F1 appoggia sul tetto da x −83,4 a −61,4, |y| ≤ 20, z −9,4…5,6: copre tutta la fessura senza alcun gioco sopra. Dalla fessura devono salire i due 12 AWG del codino del T-plug (il + verso F1, il − verso il Wago−, circa 16 cm in avanti sotto la SSC-32) e, se il cicalino sta sopra, anche la presa di bilanciamento (JST-XH, circa 10 × 6 mm). I fili di F1 escono dalle teste, a y ±20, fuori dalla fessura. Il percorso di potenza modellato quindi non si può montare.",
+    "correzione": "Mettere F1 su un ponticello stampato (fermaglio) con il lato inferiore a z ≥ +8. F1 arriverebbe a +23 e sotto il coperchio (28,4) restano 5 mm. Sotto il ponticello restano libere la fessura, il T-plug (vedi difetto sul T-plug) e la spina micro-USB. In alternativa spostare la fessura fuori dall'impronta di F1, ma ai lati (|y| da 20 a 25) restano solo 5 mm, che non bastano per due 12 AWG e la presa di bilanciamento. Dopo la modifica rilanciare il controllo con un ingombro dei cavi nella fessura."
+   },
+   {
+    "titolo": "T-plug spostato dentro il tunnel, dietro lo sportello: non è più a portata e affolla la zona dei cavi dietro il pacco",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Rif_Tplug, Corpo_Sportello (rebbi), zona dietro la batteria",
+    "prova": "Rif_Tplug sta a x −81,4…−65,4, |y| ≤ 15, z −39,4…−30,9: sul fondo della chiglia, da 4 a 20 mm dentro l'apertura (x −85,4) e sotto i rebbi (z ≥ −29). Per staccarlo bisogna sganciare lo sportello (denti non ancora modellati), sfilare i rebbi e separare a mano, in un'apertura di 50 × 28 mm, due spine di traverso lungo Y. Tra le teste della coppia (±15) e le pareti (±25) restano 10 mm per lato per piegare i 12 AWG. Il BOM chiede di staccare il T-plug a ogni fine uso e lo indica come sezionamento d'emergenza dei servo; D-050 ha scelto 'compatto' anche per 'T-plug a portata'. Nella stessa zona (x −85,4…−60) i rebbi (|y| 10–14, z −29…−15,4) attraversano l'ingombro d'uscita dei cavi del pacco (|y| ≤ 12, z −32,7…−20,7): il punto (−75; 11; −25) sta dentro entrambi. L'ingombro dei cavi è escluso dal controllo come 'uscita_cavi'. In quei 20–25 mm vanno raccolti anche circa 2 × 120 mm di 12 AWG del pacco (S) e il cavo di bilanciamento.",
+    "correzione": "Riportare il T-plug nel vano di coda sopra il tetto, come nella proposta approvata, raggiungibile dall'apertura posteriore senza aprire nulla. Per esempio lungo X a y da +9,5 a +25,5 e x da −83 a −53: lì è libero da SSC-32, bugne e corridoio della micro-USB. Il cavo del pacco sale dalla fessura e la scorta resta sopra il tetto. F1 va sul ponticello sopra (vedi il difetto su F1). Rebbi spostati a |y| ≥ 16, fuori dall'uscita dei cavi (il pacco arriva a ±23,65)."
+   },
+   {
+    "titolo": "Regolatori con i componenti caldi rivolti al vano della batteria; le feritoie previste guardano il lato freddo",
+    "severita": "media",
+    "certezza": "probabile",
+    "parte": "Rif_Reg_Servo_D42V110F6 (S e D) e bugne dei regolatori in Corpo_Base",
+    "prova": "Il lato componenti è a |y| 33,83, la faccia esterna del tunnel a 27: 6,8 mm d'aria. Poi c'è la parete da 2 mm e il pacco a |y| 23,65, quindi le celle stanno a circa 10 mm dall'induttore. Questo vale per 18,5 dei 31,75 mm di altezza del circuito (z −27,95…−9,4). Il retro del circuito guarda invece la parete esterna della baia a 4,6 mm: le 'feritoie delle baie anteriori' in quella parete servirebbero il lato freddo. Dissipazione stimata (S): 2–3 W per regolatore in marcia classica, 4–6 W in marcia bassa (8–9 A medi del BOM a 6 V, rendimento 90–93 %). Il BOM (B18) vuole i B1 'sollevati dalla plastica, vicino alle feritoie'. Nel modello stanno su bugne in PETG-CF Ø5,2 con foro per inserto Ø3,4: la parete è di 0,9 mm, sotto il minimo di 1,3 mm per gli inserti M2 riportato in dimensioni-componenti.md.",
+    "correzione": "Girare i regolatori con i componenti verso la parete esterna della baia e mettere le feritoie in quella parete, davanti a induttore e MOSFET. Il retro del circuito va verso il tunnel. Con i componenti a 5 mm dalla parete (y 48) il circuito sta a y 33,4–35 e i reofori a 31,6, con 4,6 mm dal tunnel. Fissarli con i distanziali B18 già approvati (M2 da 5–6 mm) su bugne più corte e Ø ≥ 6,0 (1,3 mm di parete). Misurare la temperatura al banco in marcia bassa prima di stampare la base."
+   },
+   {
+    "titolo": "Rebbi dello sportello tarati sull'inviluppo massimo: con un pacco reale da 137–139 mm la batteria ha 3–7 mm di gioco",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Corpo_Sportello, parametro cor_sport_rebbio = 17 mm",
+    "prova": "La battuta anteriore è a x 79. Con il pacco da 139 mm (bat_l, massimo delle schede 137–139) la coda del pacco sta a x −60. La punta dei rebbi è a −85,4 + 17 = −68,4: restano 8,4 mm (10,4 con un pacco da 137), contro 3–5 mm di schiuma EVA del BOM (D10). Il gioco lungo X è quindi di 3,4–7,4 mm. I rebbi chiudono solo l'inviluppo massimo di 144 mm (coda a −65, 3,4 mm). Circa 250 g restano liberi di scorrere a ogni passo, sopra cavi e connettori del pacco.",
+    "correzione": "Ricavare cor_sport_rebbio dal pacco misurato col calibro (già richiesto da D-050): rebbio = 85,4 − (L − 79) − s, con s la schiuma compressa (circa 3 mm). Con L = 139 si ottengono circa 22,4 mm. In alternativa due strati della schiuma D10, senza voci nuove. I rebbi vanno anche spostati a |y| ≥ 16 (vedi il difetto sul T-plug)."
+   },
+   {
+    "titolo": "F2, condensatori B7 e sportello di servizio delle USB-C non hanno un posto nel modello e mancano dall'elenco 'Da fare'",
+    "severita": "media",
+    "certezza": "certo",
+    "parte": "Assieme del corpo e progetto-meccanico.md 'Da fare nel corpo' (voci B6, B7, D-034)",
+    "prova": "Nel Corpo non ci sono istanze di condensatori: Rif_Condensatore_2200uF esiste solo in libreria. Il portafusibile MINI di F2 non ha nemmeno un componente Rif_ né parametri. Nessuna delle due voci compare in 'Da fare'. Il posto di F2 nella proposta, (71; 8,5; −5,5) disteso lungo X, ora è occupato: Wago+ fino a x 62,95, colonnina del vassoio a x 72–78 (|y| 9,5–15,5), parete del tunnel a x 79. Restano 16 mm, contro circa 35–45 mm di un portafusibile MINI in linea (S). I condensatori (Ø12,5 × 20 su una spina) in piedi arriverebbero a z 34,2, oltre il coperchio (28,4): vanno coricati. Il posto previsto, (−24; ±13,2; 16,9), ora cade nel corridoio della spina USB-C: con l'ESP32 spostato da x 54 a 45 le bocche sono a x 12,7, le porte a |y| 2,1–11,1 e z 17,6–20,9, e i 40 mm chiesti da D-034 arrivano a x −27. Il coperchio non ha lo sportello di servizio per le USB-C (D-034), e nemmeno 'Da fare' lo cita.",
+    "correzione": "Aggiungere F2 (nuovo Rif_ con le quote del prodotto) e i due condensatori nel modello, e le tre voci all'elenco 'Da fare'. Collocazioni possibili: per i condensatori un canale libero del gruppo posteriore (x −39,4…−29,2), coricati verso l'interno a x ≤ −29, fuori dal corridoio USB; per F2 una delle baie posteriori, libere da quando F1 è andato in coda. Prevedere lo sportello nel dorso sopra il corridoio delle USB-C, all'incirca tra x −35 e 15."
+   },
+   {
+    "titolo": "F1 lascia 10,6 mm dietro la micro-USB della SSC-32: la spina non entra",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Rif_Portafusibile_ATO e Rif_SSC32_V25 (micro_usb)",
+    "prova": "La bocca della micro-USB è a x −50,8, y −16,25…−8,75, z 0,2…2,9. F1 occupa x ≤ −61,4, |y| ≤ 20, z −9,4…5,6. Restano 10,6 mm, mentre una spina micro-USB con il suo corpo è lunga 20–25 mm (S) e il cavo deve ancora piegare. La proposta approvata dava la micro-USB 'nel vano di coda, la SSC-32 si configura senza smontarla'.",
+    "correzione": "Il ponticello di F1 con il lato inferiore a z ≥ +8 (difetto su F1) libera anche il corridoio della spina. Se invece si accetta di usare solo la seriale TTL, annotarlo in decisioni.md."
+   },
+   {
+    "titolo": "I ginocchi delle zampe anteriori restano nel campo della camera per tutto il passo",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Rif_Camera_OV3660_75 (lente a x 98,5, z 22,5) e zampe AS e AD",
+    "prova": "Angoli dall'asse ottico calcolati con le coxe del modello (80, ±44, 30°), Lc/Lf/Lt 55/65/110 e le pose a tripode di assieme.py. Nella posa di riferimento il ginocchio di AS è a 50,6°. Nel ciclo il ginocchio sta tra 45° e 60° (100/45), 44° e 66° (130/25), 47° e 62° (70/70); il piede tra 44° e 76°. Con i 120° usati nei documenti (±60°) ginocchio, servo del ginocchio e tibia stanno sempre ai bordi dell'immagine. Per portare il ginocchio a 60° nel caso peggiore la lente dovrebbe stare a x ≈ 137, cioè 36 mm oltre il muso: non c'è una correzione geometrica. D-050 non registra la cosa come accettata.",
+    "correzione": "Camera e lente sono decisioni dell'utente: chiedergli se accetta le zampe ai bordi, annotarlo in decisioni.md con questi angoli e, se serve un'immagine pulita, ritagliarla nel firmware (circa ±40° in orizzontale)."
+   },
+   {
+    "titolo": "Copie nascoste dei componenti del corpo rimaste alla radice dopo ogni lancio di istanze_corpo",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "Design 'Hexapod v2 - MG996R' (radice) e assieme.py fai_istanze_corpo",
+    "prova": "Alla radice, spente, ci sono tre serie di copie nelle posizioni del robot, oltre alla libreria a y ≥ 250: Rif_Servo_MG996R da :4 a :21 (18 servo), 18 cuscinetti, Rif_Batteria :2–:4, Rif_SSC32 :2–:4, Rif_ESP32 :2–:4 (una ancora a x 54), camere :2–:4 e Rif_Reg_Servo da :2 a :7 (quattro nella vecchia posizione (14; ±32)). In totale circa 3 × 680 g di componenti fantasma nel volume del robot. fai_istanze_corpo cancella solo le copie dentro Corpo. Inoltre `lib = {nome: occ}` sulla radice prende l'ultima occorrenza con quel nome, cioè una copia vecchia invece di quella della libreria: oggi non fa danni solo perché i componenti non sono riferimenti esterni. Il controllo interferenze le esclude (prefisso Rif_ alla radice), ma falserebbero massa e baricentro letti sulla radice senza filtrare la visibilità.",
+    "correzione": "Cancellare le occorrenze Rif_ alla radice con origine a y < 250. In fai_istanze_corpo scegliere le occorrenze di libreria solo tra quelle a y ≥ 250 e, dopo moveToComponent, controllare che alla radice non resti una copia."
+   },
+   {
+    "titolo": "La viteria nella stima di massa è bassa: il margine verso i 2750 g del calcolo statico si annulla",
+    "severita": "bassa",
+    "certezza": "probabile",
+    "parte": "progetto-meccanico.md, 'Massa e baricentro dal modello'",
+    "prova": "La stima mette 140 g di viteria e inserti (16 g a zampa nella proposta). Conto dalle parti: per zampa 8 M3 delle alette di femore e ginocchio, 8 M3 nelle squadrette e 4 nel blocco di Femore_A, 2 nel ponte e 2 nella squadretta della coxa, più 4 M3 delle alette del servo di coxa nel corpo: 168 M3 in tutto. A 0,85–1,0 g l'una (ISO 4762 M3 × 6–12, S) fanno 143–168 g. Si aggiungono circa 90 inserti × 0,35 g ≈ 30 g e la viteria del corpo (circa 15 g): 190–215 g invece di 140. Il totale atteso sale a circa 2730–2755 g, contro i 2750 g del calcolo statico che il documento chiama 'prudente'.",
+    "correzione": "Aggiornare la tabella: 2750 g è il valore atteso, non un limite prudente. Usare 2800 g come limite superiore (femore al 48,3 % secondo il giudice di sistema) e pesare la viteria di una zampa alla fase 5."
+   },
+   {
+    "titolo": "Voci del BOM approvato che il modello non usa più: distanziali B18 e cinghie D10",
+    "severita": "bassa",
+    "certezza": "certo",
+    "parte": "BOM.md voci B18 e D10",
+    "prova": "B18 prevede 8 distanziali M2 per i regolatori e 4 M2,5 per la SSC-32. Nel modello i regolatori stanno su bugne stampate da 4,6 mm con inserti M2 e la SSC-32 su bugne da 8 mm (ssc_dist) con viti M2,5 in fori pilota Ø2,1: nessun distanziale. D10 prevede 2 + 1 cinghie a strappo 20 × 300, ma il pacco è tenuto dallo sportello con i rebbi e serve solo la schiuma.",
+    "correzione": "Togliere le cinghie da D10, oppure segnarle '—'. Tenere B18 solo se si adotta la correzione termica dei regolatori (distanziali sotto i B1), altrimenti toglierla. Aggiornare insieme la riga del costo."
+   }
+  ],
+  "verificato_senza_difetti": [
+   "Le posizioni nel modello di batteria, SSC-32, ESP32, camera, regolatori, F1, T-plug e Wago coincidono con pose_corpo (ingombri letti in Fusion).",
+   "Il 12 AWG passa sotto la SSC-32 dal lato posteriore (correzione di D-050): tra il tetto (z −9,4) e il circuito (−1,4) il canale centrale |y| < 19,5 è libero e alto 8 mm; le barre occupano solo |y| 19,5–27,5.",
+   "Lunghezze di potenza dentro il BOM: 12 AWG circa 15–17 cm per colore più i codini (B14: 0,5 + 0,5 m); 14 AWG da 5 a circa 20 cm per i due che attraversano da un Wago al regolatore opposto (B15: 0,5 + 0,5 m); 16 AWG circa 8–10 cm per cavo (B15: 0,6 + 0,6 m).",
+   "Wago 221-415: accettano il 12 AWG (fino a 4 mm²) e sul + bastano 4 vie su 5 (12 AWG, due 14 AWG, F2). Gli ingressi sono girati verso l'esterno come chiesto. La massa a stella (Wago−) sta a 14–35 mm dai due regolatori.",
+   "Antenna dell'ESP32 (modulo da x 55,6 a 81,1, z 17,6–20,8) sotto il coperchio in PETG. Il carbonio più vicino è l'orlo della parete anteriore della base (x 79–81, |y| ≥ 17, z ≤ 7), a circa 13 mm; i ponti delle coxe AS e AD stanno a circa 23 mm e i Wago (metallo) a circa 22 mm. Davanti all'antenna c'è solo la torretta in PETG.",
+   "Corridoio della spina USB-C dell'ESP32 (x da −27 a 12,7, |y| ≤ 12,6, z 16–23) libero da componenti della SSC-32, che stanno sotto z 8,7, e dalla zona spine (|y| ≥ 19,5).",
+   "F1 raggiungibile dal retro senza togliere il coperchio: sopra il tetto il vano di coda non ha parete posteriore (il punto (−85; 0; 20) è fuori dal coperchio).",
+   "Massa e baricentro modellati coerenti: 18 servo = 990 g; batteria, SSC-32, ESP32, camera e regolatori ≈ 330–340 g. Le masse non modellate in coda (F1, T-plug, 12 AWG, circa 40 g a x ≈ −75) spostano il baricentro di circa −1 mm: resta praticamente al centro in pianta.",
+   "Cavi dei servo: con la SSC-32 a x −14 e le coxe del modello, il ginocchio anteriore richiede circa 290–305 mm contro i 320 mm dichiarati, come già annotato in D-050 (4 prolunghe C5). Nessun peggioramento con la v0.2."
+  ]
+ }
+]
