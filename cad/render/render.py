@@ -41,9 +41,10 @@ from scipy.spatial import ConvexHull
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 MESH = os.path.join(QUI, 'mesh')
-COLORI = {'base': '#5d636b', 'coperchio': '#6a7079', 'interni': '#6f7c8c', 'servo_coxa': '#2a2a2d',
-          'zampe_struttura': '#5d636b', 'zampe_servo': '#2a2a2d',
-          # D-061: carapace e cover in PETG bianco, fascia, visiera, gonne e sportellino in PETG nero
+COLORI = {'base': '#3a3d42', 'coperchio': '#6a7079', 'interni': '#6f7c8c', 'servo_coxa': '#2a2a2d',
+          'zampe_struttura': '#3a3d42', 'zampe_servo': '#2a2a2d',
+          # D-065: struttura in PETG-CF nero; carapace e cover in PLA (bianco per ora), fascia, visiera, gonne e
+          # sportellino in PLA nero, piedini in TPU arancio
           'carapace': '#f2f2f2', 'nero': '#1e1f22', 'zampe_struttura_cover': '#f2f2f2',
           'zampe_struttura_ingombro_teste': '#2a2a2d', 'zampe_struttura_piedino': '#ff6a13'}      # per prefisso del nome del gruppo (vince il piu' lungo)
 # assi delle coxe: (x, y, direzione in gradi), D-050

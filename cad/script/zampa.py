@@ -140,11 +140,8 @@ PARAMETRI = [
     ('vite_m3_testa_d', '5.5 mm', 'mm', 'Vite M3 ISO 4762: diametro della testa (dk 5,32-5,5)'),
     ('fem_fascetta_u', '24.5 mm', 'mm', 'Femore: X dall anca della fascetta dei cavi dentro il blocco (sullo smusso alto)'),
     ('fem_fascetta_fondo', '10 mm', 'mm', 'Femore: Z del tunnel della fascetta nel blocco'),
-    ('cov_spina_d', '3 mm', 'mm', 'Lama B del femore: diametro delle spine'),
-    ('cov_spina_l', '3 mm', 'mm', 'Lama B del femore: lunghezza delle spine'),
-    ('cov_foro_spina_d', '3.1 mm', 'mm', 'Femore B: fori ciechi delle spine (il forzamento lo da la stampa, D-056)'),
-    ('cov_foro_spina_l', '3.3 mm', 'mm', 'Femore B: profondita dei fori delle spine'),
-    ('cov_spina_z', '6 mm', 'mm', 'Lama B: Z delle spine'),
+    ('cov_vite_b_z', '6 mm', 'mm', 'Lama B: Z delle due viti M2 svasate in inserti di Femore_B (al posto delle spine, D-065)'),
+    ('cov_svasatura', '0.9 mm', 'mm', 'Lama B: svasatura a 90 gradi sul foro da 2,4 (testa M2 da 4,0: resta 0,1 sotto la superficie)'),
     # --- lame del femore "Piena" (D-061): bombate, estremi esagonali raccordati attorno alle teste del femore
     ('cov_ap', '14.5 mm', 'mm', 'Lame: semialtezza e apotema degli estremi esagonali (teste del femore R13)'),
     ('cov_tc', '2.6 mm', 'mm', 'Lame: spessore al colmo (1,6 ai bordi alti e bassi)'),
@@ -172,8 +169,8 @@ PARAMETRI = [
     ('cox_ling_h', '1.6 mm', 'mm', 'Ponte: linguetta, altezza'),
     # --- tibia
     # --- stinco V2 allargato (D-061): fianco esterno ad arco tangente allo zoccolo, interno appena rastremato (al gamma
-    #     minimo e' il lato che passa a pochi centesimi dalla coxa: non cresce); fianchi Y simmetrici sul piano medio
-    #     dello zoccolo (D-062, richiesta dell'utente: prima la faccia +Y restava piana sul piano dell'orlo)
+    #     minimo e' il lato che passa a pochi centesimi dalla coxa: non cresce); fianchi Y simmetrici sul piano della
+    #     zampa, Y 0, cosi' il piede sta sull'asse del femore (D-065; in D-062 erano sul piano medio dello zoccolo, Y -7,35)
     ('tib_x_meno_alto', '6 mm', 'mm', 'Stinco: semilarghezza verso -X sotto lo zoccolo (come oggi)'),
     ('tib_x_meno_basso', '4 mm', 'mm', 'Stinco: semilarghezza verso -X alla punta'),
     ('tib_x_piu_basso', '4 mm', 'mm', 'Stinco: semilarghezza verso +X alla punta (in alto e cul_semi, a filo dello zoccolo)'),
@@ -182,8 +179,8 @@ PARAMETRI = [
     ('tib_z_arco', 'zam_Lt - tib_piede_sp - 4 mm', 'mm', 'Stinco: fine dell arco e dei fianchi dritti, sotto l asse del ginocchio'),
     ('tib_arco_R', '((cul_semi - tib_x_piu_basso) ^ 2 + (tib_z_arco - bug_coda) ^ 2) / (2 * (cul_semi - tib_x_piu_basso))',
      'mm', 'Stinco: raggio dell arco del fianco +X (tangente allo zoccolo, 275 mm)'),
-    ('tib_y_c', '(zy_fondo_est + zy_orlo) / 2', 'mm', 'Stinco: piano medio dei fianchi Y (piano medio dello zoccolo, -7,35)'),
-    ('tib_y_semi_alto', '(zy_orlo - zy_fondo_est) / 2', 'mm', 'Stinco: semilarghezza in Y sotto lo zoccolo (a filo dello zoccolo sui due lati)'),
+    ('tib_y_c', '0 mm', 'mm', 'Stinco: piano medio dei fianchi Y (piano della zampa: il piede sta sull asse del femore)'),
+    ('tib_y_semi_alto', '-(zy_fondo_est)', 'mm', 'Stinco: semilarghezza in Y sotto lo zoccolo (a filo dello zoccolo sul -Y, sul +Y sotto le alette del servo)'),
     ('tib_y_semi_basso', '7 mm', 'mm', 'Stinco: semilarghezza in Y alla fine dei fianchi dritti (punta 8 x 14)'),
     ('tib_punta_r', '3.8 mm', 'mm', 'Stinco: raggio della punta nel piano della zampa'),
     # --- guscio lungo della tibia (D-061, prova 3): fronte convesso che sporge verso l'esterno, sezione a C sfaccettata
@@ -375,9 +372,9 @@ def fai_femore_b(zampa):
     y_rim = 'zy_A_est - fem_piastra - fem_luce_A'
     for nome, x, z in _inserti_blocco():
         p.cilindro('y', y_rim, nome, x, z, 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
-    # fori ciechi per le spine della lama B (passata estetica, D-060)
-    for nome, x in (('foro_spina_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('foro_spina_g', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx')):
-        p.cilindro('y', 'zy_B_est', nome, x, 'cov_spina_z', 'cov_foro_spina_d', 'cov_foro_spina_l', 1, TAGLIA)
+    # inserti M2 per le due viti della lama B (D-065; prima fori ciechi per due spine stampate sulla lama)
+    for nome, x in (('ins_lama_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('ins_lama_g', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx')):
+        p.cilindro('y', 'zy_B_est', nome, x, 'cov_vite_b_z', 'ins_m2_d', 'ins_m2_l', 1, TAGLIA)
     # fascetta dei cavi dentro il blocco: due feritoie dallo smusso alto e un tunnel tra le due (la fascetta attorno al
     # femore di D-058 entrava nella testa dell'anima della coxa da alfa 74 gradi)
     xf0, xf1 = 'zam_Lc + fem_fascetta_u - fascetta_w / 2', 'zam_Lc + fem_fascetta_u + fascetta_w / 2'
@@ -520,14 +517,31 @@ def _cover_femore(zampa, nome, lato):
     tori = [fa for fa in corpo.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.TorusSurfaceType]
     _raccorda(comp, [('cov_r', [e for fa in tori for e in fa.edges])], 'raccordo_esterno')
     # fissaggio: lama A sulle teste M3 del blocco (fori senza raccordo: l'incastro sta sui fianchi delle teste);
-    # lama B con due spine nei fori ciechi di Femore_B
+    # lama B con due viti M2 svasate negli inserti di Femore_B (D-065): faccia interna piana per la stampa, smontabile
+    svasati = 0
     if lato == 'A':
         for nome_t, x, z in _inserti_blocco():
             p.cilindro('y', y0, nome_t.replace('ins_blocco', 'sede_testa'), x, z, 'cov_testa_d', 'cov_tc', verso, TAGLIA)
     else:
-        for nome_s, x in (('spina_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('spina_g', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx')):
-            p.cilindro('y', y0, nome_s, x, 'cov_spina_z', 'cov_spina_d', 'cov_spina_l', 1)
-    p.info = {'spigoli_sagoma': n_sagoma, 'spigoli_finestre': len(spf), 'facce_toro': len(tori)}
+        for nome_s, x in (('vite_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('vite_g', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx')):
+            p.cilindro('y', y0, 'foro_' + nome_s, x, 'cov_vite_b_z', 'vite_m2_pass', 'cov_tc + 1 mm', verso, TAGLIA)
+        corpo = comp.bRepBodies.item(0)
+        r_foro, yb = v('vite_m2_pass') / 2, abs(v(y0))
+        bordi = []
+        for fa in corpo.faces:
+            g = fa.geometry
+            if g.surfaceType == adsk.core.SurfaceTypes.CylinderSurfaceType and abs(g.radius * 10 - r_foro) < 0.01:
+                # bordo sulla faccia esterna bombata (non e' un cerchio), non quello sulla faccia interna piana
+                bordi += [e for e in fa.edges if abs(e.pointOnEdge.y * 10) > yb + 0.5]
+        if bordi:
+            ch = comp.features.chamferFeatures
+            ci = ch.createInput2()
+            ci.chamferEdgeSets.addEqualDistanceChamferEdgeSet(_collezione(bordi), adsk.core.ValueInput.createByString('cov_svasatura'), False)
+            cf = ch.add(ci)
+            cf.name = 'svasature'
+            p.n += 1
+        svasati = len(bordi)
+    p.info = {'svasature': svasati, 'spigoli_sagoma': n_sagoma, 'spigoli_finestre': len(spf), 'facce_toro': len(tori)}
     return occ, p
 
 
@@ -598,10 +612,10 @@ def _interseca(p, sk, asse, dist_expr, verso, nome):
 
 def _stinco(p, xk):
     """Stinco V2 allargato (D-061), costruito per primo e da solo: i tagli e le intersezioni toccano solo lui."""
-    yq = 'zy_fondo_est - 1 mm'
-    largo = 'zy_orlo - zy_fondo_est + 2 mm'
-    p.blocco('y', 'zy_fondo_est', 'stinco', xk + ' - tib_x_meno_alto', '-(zam_Lt - tib_piede_sp)', xk + ' + cul_semi', '-(bug_coda)',
-             'zy_orlo - zy_fondo_est', 1, NUOVO)
+    yq = 'tib_y_c - tib_y_semi_alto - 1 mm'
+    largo = '2 * tib_y_semi_alto + 2 mm'
+    p.blocco('y', 'tib_y_c - tib_y_semi_alto', 'stinco', xk + ' - tib_x_meno_alto', '-(zam_Lt - tib_piede_sp)', xk + ' + cul_semi',
+             '-(bug_coda)', '2 * tib_y_semi_alto', 1, NUOVO)
     # fianco -X: da 6 a 4 dall'asse, dritto
     p.blocco_obl('y', yq, 'fianco_meno_x', (xk + ' - tib_x_meno_alto', '-(bug_coda)'), (xk + ' - tib_x_meno_basso', '-(tib_z_arco)'),
                  '-(20 mm)', '100 mm', '-(20 mm)', '0 mm', largo, 1, TAGLIA)
@@ -634,10 +648,10 @@ def fai_tibia(zampa):
     # due fessure tonde attraverso lo stinco, al centro tra i fianchi a meta' fessura (V2: X +3,2 e +2,5 dall'asse)
     for nome, z0, z1, w, dx in (('fessura_alta', '44 mm', '62 mm', '3.6 mm', '3.2 mm'), ('fessura_bassa', '67 mm', '83 mm', '2.8 mm', '2.5 mm')):
         xc = xk + ' + ' + dx
-        p.blocco('y', 'zy_fondo_est - 1 mm', nome, xc + ' - ' + w, '-(%s - %s)' % (z1, w), xc + ' + ' + w, '-(%s + %s)' % (z0, w),
-                 'zy_orlo - zy_fondo_est + 2 mm', 1, TAGLIA)
+        p.blocco('y', 'tib_y_c - tib_y_semi_alto - 1 mm', nome, xc + ' - ' + w, '-(%s - %s)' % (z1, w), xc + ' + ' + w,
+                 '-(%s + %s)' % (z0, w), '2 * tib_y_semi_alto + 2 mm', 1, TAGLIA)
         for k, z in (('a', '-(%s + %s)' % (z0, w)), ('b', '-(%s - %s)' % (z1, w))):
-            p.cilindro('y', 'zy_fondo_est - 1 mm', '%s_%s' % (nome, k), xc, z, '2 * ' + w, 'zy_orlo - zy_fondo_est + 2 mm', 1, TAGLIA)
+            p.cilindro('y', 'tib_y_c - tib_y_semi_alto - 1 mm', '%s_%s' % (nome, k), xc, z, '2 * ' + w, '2 * tib_y_semi_alto + 2 mm', 1, TAGLIA)
     # inserto M3 per la vite in basso del guscio, dalla faccia +X dello stinco (sull'arco) verso -X
     xv = xk + ' + cul_semi - tib_arco_R + sqrt(tib_arco_R ^ 2 - (cov_tib_vite_z - bug_coda) ^ 2)'
     p.cilindro('x', xv, 'ins_guscio', 'tib_y_c', '-(cov_tib_vite_z)', 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
@@ -653,7 +667,8 @@ def fai_cover_tibia(zampa):
     comp = occ.component
     xk = 'zam_Lc + zam_Lf'
     xmax = xk + ' + cul_semi + cov_tib_sporgenza'
-    y0, y1 = '(zy_fondo_est - cov_tib_gio - cov_tib_sp)', 'zy_orlo + cov_tib_gio + cov_tib_sp'
+    # simmetrico sul piano della zampa come lo stinco (D-065): il fianco +Y passa fuori dalla cassa del servo
+    y0, y1 = '(zy_fondo_est - cov_tib_gio - cov_tib_sp)', '-(zy_fondo_est - cov_tib_gio - cov_tib_sp)'
     # profilo laterale: blocco dal centro dello stinco al fronte, intersecato con il cilindro del fronte convesso
     p.blocco('y', y0 + ' - 1 mm', 'pieno', xk, '-(cov_tib_z1)', xmax + ' + 2 mm', 'cov_tib_z0', y1 + ' - (' + y0 + ') + 2 mm', 1, NUOVO)
     sk = p.sk_cerchio('y', y0 + ' - 2 mm', 'fronte', xmax + ' - cov_tib_R', '-(cov_tib_zmax)', '2 * cov_tib_R')
@@ -684,9 +699,9 @@ def fai_cover_tibia(zampa):
     togli = [fa for fa in corpo.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.PlaneSurfaceType and
              (abs(fa.pointOnFace.x * 10 - xr) < 0.01 or abs(fa.pointOnFace.z * 10 - z0v) < 0.01 or abs(fa.pointOnFace.z * 10 - z1v) < 0.01)]
     p.svuota(togli, 'cov_tib_sp', 'guscio')
-    # niente fianco +Y dove gira il servo del ginocchio (sopra lo zoccolo), niente fianco -Y vicino alla testa del femore
-    p.blocco('y', y1 + ' - 3 mm', 'via_fianco_piu', xk + ' - 20 mm', '-(bug_coda) - 1 mm', xk + ' + cul_semi - 1 mm', 'cov_tib_z0 + 1 mm',
-             '4 mm', 1, TAGLIA)
+    # niente fianchi vicino alle teste del femore (piastre, squadretta e mozzo girano attorno all'asse del ginocchio)
+    p.blocco('y', y1 + ' - 2 mm', 'via_fianco_piu', xk + ' - 20 mm', '-(16 mm)', xk + ' + cul_semi + 1.5 mm', 'cov_tib_z0 + 1 mm',
+             '3 mm', 1, TAGLIA)
     p.blocco('y', y0 + ' - 1 mm', 'via_fianco_meno', xk + ' - 20 mm', '-(16 mm)', xk + ' + cul_semi + 1.5 mm', 'cov_tib_z0 + 1 mm',
              '3 mm', 1, TAGLIA)
     # tappi a rombo nelle finestre della parete +X della culla (dentro la parete del fronte, fino a 1,6 nella finestra)

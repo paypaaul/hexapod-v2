@@ -268,3 +268,24 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - **Lo stinco finisce a 108,4 invece che a 110**, così la suola resta a `zam_Lt` (110) e la cinematica non cambia; `tib_z_arco` segue (104,4).
 - Nel modello la stretta sullo stinco è zero; la presa vera (TPU elastico su uno stinco che si stringe verso la punta) si tara sul provino con 0, −0,2 e −0,4 mm. Stampa con la bocca sul piatto e la punta in alto.
 - Verificato: zampa senza interferenze, 54 pose libere e 17 controlli su 20 come prima; assieme senza interferenze; ciclo a tripode 100/45 e 70/70 libero. Massa attesa circa 2905 g (i piedini erano già stimati fra le parti non modellate).
+
+## D-065 — Tibia sull'asse del femore, lama B avvitata, materiali e inserti (2026-10-09)
+
+- **Tibia** (richiesta dell'utente: con D-062 il piede era spostato rispetto all'asse del femore; resta simmetrica, eventualmente più larga): stinco e guscio ora sono simmetrici sul **piano della zampa (Y 0)**, il piano medio fra le due piastre del femore. Il piede torna sull'asse.
+  - Lo stinco parte largo quanto lo zoccolo (±24,15) e si stringe dritto fino a ±7 alla fine dell'arco. Sul lato −Y è a filo dello zoccolo; sul lato +Y passa sotto le alette del servo, a 0,8 mm dalla loro punta. Le viti delle alette si raggiungono ancora: il loro asse sta 3,6 mm sopra lo stinco. Tibia 39,3 cm³.
+  - Il guscio va da −26,15 a +26,15 (12,7 cm³). Il fianco +Y passa fuori dalla cassa del servo del ginocchio, che prima restava scoperta. Come il −Y, è tolto nei 16 mm sotto il ginocchio, dove girano piastre, squadretta e mozzo.
+  - Visto da davanti, il ginocchio è centrato fra le due teste del femore.
+  - Verificato: zampa senza interferenze; 54 pose della scansione libere e 17 controlli su 20 come prima; quindi lo stinco più largo non tocca la coxa al γ minimo. Assieme senza interferenze; zampe vicine libere a 31° e a contatto a 32°, come prima; carapace contro le zampe libero (distanze minime invariate); cicli 100/45, 70/70 e rotazione a 30° liberi.
+  - Stampa: lo stinco ora sporge dal piano dell'orlo. Proposta: fondo della culla sul piatto e supporto a cuneo sotto lo stinco; decide l'utente nello slicer.
+- **Lama B avvitata**: le due spine stampate sulla faccia interna (che non lasciavano una faccia piana per il piatto, D-063) diventano due **viti M2 × 6 a testa svasata** in inserti M2 nella piastra di Femore_B, a X 81 e 94,5, Z 6. La faccia interna della lama è piana; le teste stanno a filo nelle svasature (0,9 mm a 90°), quindi il contatto fra zampe vicine non cambia. La lama si smonta senza forzare niente. Voce nuova D8b (12 viti), **da approvare**; gli inserti M2 passano da 16 a 28.
+- **Piedino**: resta un cappuccio separato (D-064) invece di una punta in TPU stampata insieme alla tibia con il beam interlocking. Si consuma sul pavimento e si cambia da solo (2 g contro una tibia con la culla). Si possono provare TPU e silicone (D9). La tibia resta di un solo materiale.
+- **Materiali** (scelta dell'utente):
+  - PETG-CF nero per le parti funzionali; sportello della batteria compreso, perché regge il pacco;
+  - PLA per le placche: carapace, lame e gusci, bianco per ora;
+  - TPU arancio per i piedini.
+  - Proposte mie:
+    - fascia, visiera, gonne e sportellino in un secondo PLA (nero): si stampano insieme al carapace e PLA su PLA si attacca senza interlocking. L'intarsio della fascia è di soli 0,6 mm, troppo sottile per l'interlocking con un altro materiale;
+    - vassoio dell'ESP32 in PLA, perché sta sotto l'antenna.
+  - Attenzione al PLA del carapace: rammollisce verso 55–60 °C. Sotto ci sono i due regolatori, che sotto carico scaldano. Le feritoie sopra le baie anteriori ci sono (D-052); se a robot montato l'interno scalda, il carapace si ristampa in PETG.
+- **Inserti in ottone**: il progetto li usa già quasi ovunque. Sono 94 M3 e 28 M2 a caldo; nessun bullone con dado. Le uniche viti in fori pilota sono quelle delle alette dal lato dell'albero (D-049). Dove si monta e smonta (carapace, sportello della batteria, guscio della tibia, ora la lama B) c'è sempre una vite in un inserto, mentre le parti che si aprono spesso senza attrezzi (sportellino, lama A) sono a incastro. L'utente ha un kit di inserti da Temu: se le misure vanno bene sostituisce D4 e D5; i fori si adeguano con `ins_m3_d`, `ins_m3_l`, `ins_m2_d` e `ins_m2_l`. **Misure da avere dall'utente** (il link non si apre da qui).
+- Massa attesa circa 2945 g; femore al 51 % dello stallo al punto di progetto (massa del calcolo aggiornata).

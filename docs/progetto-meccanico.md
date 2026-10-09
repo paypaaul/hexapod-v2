@@ -18,7 +18,7 @@ Tre architetture indipendenti, ciascuna con una priorità diversa, giudicate da 
 
 ### Architettura
 
-Terna della zampa (componente `Zampa`): origine sull'asse della coxa, all'altezza dell'asse del femore; X verso l'esterno, Y lungo l'asse del femore verso la piastra delle squadrette, Z in alto. Posa di riferimento: femore orizzontale (α = 0), tibia verticale (γ = 90°). La punta del piede sta a Y −7,35, sul piano medio dello zoccolo della tibia (D-062): la cinematica inversa la tiene come scostamento costante.
+Terna della zampa (componente `Zampa`): origine sull'asse della coxa, all'altezza dell'asse del femore; X verso l'esterno, Y lungo l'asse del femore verso la piastra delle squadrette, Z in alto. Posa di riferimento: femore orizzontale (α = 0), tibia verticale (γ = 90°). La punta del piede sta sul piano della zampa (Y 0, D-065).
 
 | Parte | Cosa fa | Come si stampa |
 |---|---|---|
@@ -159,17 +159,17 @@ Parti nuove (specifica in `ricerca/estetica-specifica.md`, scelte e varianti in 
 
 | Parte | Materiale | Cosa fa | Volume |
 |---|---|---|---|
-| `Corpo_Carapace` | PETG bianco | guscio da 1,6: pianta dall'unione di sei lobi esagonali sugli assi delle coxe, nucleo e baie, raccordi in pianta R12/R10, smusso unico 6 × 45°, cima a z 36; testa rastremata a 60° fino al mento; parte alta delle gonne, paratie dietro la testa, guance di coda (cornice della porta), quattro pozzetti delle viti, collare del cicalino, battuta dello sportellino; sedi di fascia e visiera, apertura a ottagono, feritoie, foro del pulsante, finestra del display, tacca | 49,1 cm³ |
-| `Corpo_Fascia` | PETG nero | intarsio da 0,6 sulla schiena e sugli smussi, a piena parete sul bordo del viso e della coda | 3,1 cm³ |
-| `Corpo_Visiera` | PETG nero | parete del viso sotto il carapace con la bugna e l'occhio della camera (tronco di piramide sul campo di 120° più 0,8 mm, tagliato con un loft) | 1,5 cm³ |
-| `Corpo_Gonne` | PETG nero | quattro pannelli sulle pareti delle baie, da z 7 a 28,4 | 3,8 cm³ |
-| `Corpo_Sportello_Servizio` | PETG nero | sportellino a filo nell'ottagono, sulla battuta, nervature di schiacciamento | 2,3 cm³ |
-| `Corpo_Sportello` | PETG bianco | come D-054, più smusso 1 × 45 sul contorno esterno | 5,5 cm³ |
-| `Cover_Femore_A`, `_B` | PETG bianco | lame bombate (toro) sulle due piastre del femore, finestre esagonali sui giunti | 3,8 cm³ |
-| `Cover_Tibia` | PETG bianco | guscio lungo dal ginocchio fin quasi al piede, fronte convesso, sezione a C, finestra lunga | 10,3 cm³ |
+| `Corpo_Carapace` | PLA bianco | guscio da 1,6: pianta dall'unione di sei lobi esagonali sugli assi delle coxe, nucleo e baie, raccordi in pianta R12/R10, smusso unico 6 × 45°, cima a z 36; testa rastremata a 60° fino al mento; parte alta delle gonne, paratie dietro la testa, guance di coda (cornice della porta), quattro pozzetti delle viti, collare del cicalino, battuta dello sportellino; sedi di fascia e visiera, apertura a ottagono, feritoie, foro del pulsante, finestra del display, tacca | 49,1 cm³ |
+| `Corpo_Fascia` | PLA nero | intarsio da 0,6 sulla schiena e sugli smussi, a piena parete sul bordo del viso e della coda | 3,1 cm³ |
+| `Corpo_Visiera` | PLA nero | parete del viso sotto il carapace con la bugna e l'occhio della camera (tronco di piramide sul campo di 120° più 0,8 mm, tagliato con un loft) | 1,5 cm³ |
+| `Corpo_Gonne` | PLA nero | quattro pannelli sulle pareti delle baie, da z 7 a 28,4 | 3,8 cm³ |
+| `Corpo_Sportello_Servizio` | PLA nero | sportellino a filo nell'ottagono, sulla battuta, nervature di schiacciamento | 2,3 cm³ |
+| `Corpo_Sportello` | PETG-CF nero | come D-054, più smusso 1 × 45 sul contorno esterno | 5,5 cm³ |
+| `Cover_Femore_A`, `_B` | PLA bianco | lame bombate (toro) sulle due piastre del femore, finestre esagonali sui giunti; la A si incastra sulle teste M3 del blocco, la B ha due viti M2 svasate in inserti di Femore_B (D-065) | 3,8 / 4,0 cm³ |
+| `Cover_Tibia` | PLA bianco | guscio lungo dal ginocchio fin quasi al piede, fronte convesso, sezione a C, finestra lunga; simmetrico sul piano della zampa, i fianchi passano fuori dalla cassa del servo del ginocchio (D-065) | 12,7 cm³ |
 | `Piedino` | TPU 95A arancio | cappuccio sulla punta dello stinco da 0,5 sotto il guscio fino al piede, parete e suola da 1,6; lo stinco finisce a 108,4 e la suola a 110 (D-064) | 1,4 cm³ |
 
-Il carapace, la fascia, la visiera e le gonne si stampano in un solo pezzo a due colori (capovolto, senza supporti); cicalino e pulsante salgono con il carapace. Fissaggio: 4 viti M3 × 8 nei pozzetti, sulle colonnine di D-052.
+Tibia (D-065): stinco simmetrico sul piano della zampa, largo in alto quanto lo zoccolo (±24,15: sul lato +Y passa sotto le alette del servo, a 0,8 mm) e 14 mm alla fine dell'arco, 39,3 cm³. Materiali (scelta dell'utente, D-065): PETG-CF nero per le parti funzionali, PLA per le placche (bianco per ora) e per fascia, visiera, gonne e sportellino (nero), TPU arancio per i piedini. Il carapace, la fascia, la visiera e le gonne si stampano in un solo pezzo a due colori (capovolto, senza supporti); cicalino e pulsante salgono con il carapace. Fissaggio: 4 viti M3 × 8 nei pozzetti, sulle colonnine di D-052.
 
 Verifiche (9 ottobre 2026, Fusion versione 24): assieme senza interferenze; coxe libere a ±35°; zampe vicine libere a 30° e 31°, contatto tra 31° e 32° su tutte le coppie laterali (a sinistra e a destra), anteriori e posteriori libere a 34°; carapace contro ogni zampa a imbardata −35, 0, +35 con (α, γ) = (85, 90), (85, 29), (60, 90): libero, distanza minima 4,6 mm (zampe medie) e 7,1 (le altre), contatto con α 100 (controllo); testa libera dalle zampe anteriori con α −49, 0, 85; sfilamento del carapace verso l'alto di 5, 10, 20 e 40 mm libero, a −2 le gonne toccano l'orlo delle baie (controllo); campo della camera (tronco da 7 × 7 sulla lente, 54,2° e 46,1°) libero, a +6° tocca le pareti dell'occhio (controllo); ciclo a tripode 100/45, 130/25, 80/60 e 70/70 (otto fasi) e rotazione sul posto di 30° a 100/45 e 70/70: nessun urto.
 
@@ -179,16 +179,16 @@ Verifiche (9 ottobre 2026, Fusion versione 24): assieme senza interferenze; coxe
 |---|---|
 | 18 servo MG996R | 990 |
 | 18 squadrette, 18 cuscinetti, 18 perni | 144 |
-| Parti stampate delle sei zampe: coxa 156, ponte 31, Femore_B 141, Femore_A 55, tibia 188 | 571 (95 a zampa) |
-| Cover delle zampe: lame A 29, lame B 31, gusci delle tibie 79; piedini in TPU 10 | 149 (25 a zampa) |
-| Parti stampate del corpo: base 198, carapace 62, chiglia 33, slitte 11, vassoio 9, sportello 7, gonne 5, fascia 4, sportellino 3, visiera 2 | 333 |
+| Parti stampate delle sei zampe: coxa 156, ponte 31, Femore_B 141, Femore_A 55, tibia 215 | 598 (100 a zampa) |
+| Cover delle zampe: lame A 28, lame B 30, gusci delle tibie 94; piedini in TPU 10 | 162 (27 a zampa) |
+| Parti stampate del corpo: base 198, carapace 61, chiglia 33, slitte 11, vassoio 9, sportello 7, gonne 5, fascia 4, sportellino 3, visiera 2 | 333 |
 | Batteria, SSC-32, ESP32, camera, due regolatori | 340 |
 | Pulsante (B3b) e cicalino | 18 |
-| **Totale modellato** | **2545** |
+| **Totale modellato** | **2583** |
 | Non modellato (stima): cavi e connettori 160, viteria e inserti 140, basetta e logica 25, fusibili, Wago, T-plug, interruttore 35 | circa 360 |
-| **Totale atteso** | **circa 2905** (il calcolo statico usa 2910) |
+| **Totale atteso** | **circa 2945** |
 
-Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %; PETG-CF 1,3 g/cm³, PETG 1,27); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,6; 0; −12,1) mm. Rispetto alla stima prima della passata estetica (2730 g) ci sono 180 g in più: 139 di cover (le lame sono piene e il guscio della tibia è lungo, mentre la specifica ne prevedeva 49), 21 di tibie più larghe, 19 di carapace. Con 2910 g il femore arriva al **51 % dello stallo** al punto di progetto 100/45 (48 % con 2750), il ginocchio al 47 %: sopra la soglia del 50 % che ci si era dati, dentro quanto accettato dall'utente (D-063).
+Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %; PETG-CF 1,3 g/cm³, PLA 1,24, TPU 1,21 pieno); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,6; 0; −13,0) mm. Con la tibia simmetrica sul piano della zampa (D-065) la massa sale di altri 40 g circa: femore sempre al **51 %** dello stallo. Rispetto alla stima prima della passata estetica (2730 g) ci sono 180 g in più: 139 di cover (le lame sono piene e il guscio della tibia è lungo, mentre la specifica ne prevedeva 49), 21 di tibie più larghe, 19 di carapace. Con 2910 g il femore arriva al **51 % dello stallo** al punto di progetto 100/45 (48 % con 2750), il ginocchio al 47 %: sopra la soglia del 50 % che ci si era dati, dentro quanto accettato dall'utente (D-063).
 
 ### Da fare nel corpo
 

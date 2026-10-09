@@ -39,6 +39,8 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
   - **cover delle zampe**: placche non strutturali, parti separate stampate in un altro colore e montate sulle zampe (ed eventualmente sul corpo), per coprire servo e cavi e dare un aspetto più moderno; non portano carico e non limitano l'escursione dei giunti;
   - **camera**: l'housing della OV3660 è integrato nel frontale del corpo (non un pezzo aggiunto dopo) e guarda in avanti.
 - **Pulsante d'accensione** da pannello Ø12 sul coperchio; **cicalino** sotto il coperchio in coda, display da una finestra, spinotto di bilanciamento dal retro (9 ottobre 2026, D-059).
+- **Materiali** (9 ottobre 2026, D-065): PETG-CF nero per le parti funzionali, PLA colorato per le placche (bianco per ora, il colore può cambiare), TPU arancio per i piedini. Con il toolchanger si possono fare pezzi multimateriale anche con materiali che non si attaccano (beam interlocking). Stampa e supporti li controlla l'utente nello slicer e dà riscontro.
+- **Tibia** simmetrica sul piano della zampa, con il piede sull'asse del femore (D-065).
 - Blender si valuta solo dopo che la fase 6 è completa e verificata.
 
 ## Regole di lavoro
@@ -189,7 +191,7 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 
 ## Prossimi passi
 
-1. **Da far decidere all'utente**: filamenti e colori (BOM, domanda 7); massa attesa 2910 g con il femore al 51 % dello stallo (D-063: va bene così o si alleggerisce il guscio della tibia); stampa della lama B (spine sulla faccia interna, D-063); domande 1–4 del BOM.
+1. **Da far decidere all'utente**: misure degli inserti del kit Temu (BOM, domanda 8); viti M2 × 6 svasate per le lame B (D8b); massa attesa 2945 g con il femore al 51 % dello stallo (D-065); domande 1–4 del BOM.
 2. **Corpo**: restano l'interruttore 2813 (non ancora piazzato) e i pettini per le anse dei cavi nelle baie posteriori. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo` (vanno in timeout ma finiscono: rileggere); controllo con `controllo`, `interferenze`, coxe a ±35° e a 31° tra vicine, `carapace_zampe`, `sfilamento`, `campo`, `ciclo` (100/45 e 70/70). Il carapace si rifà con `carapace` e poi `carapace_dettagli` (due chiamate: la seconda va in timeout ma finisce).
 3. **Zampa**: piedino in TPU fatto (D-064); nervature di schiacciamento delle culle e stretta del piedino dopo il provino. Dopo una modifica: `zampa.py` → parte, `giunti`, `limiti`, `misura`, `interferenze`, scansione delle pose (α a passi di 5, γ minimo e γ minimo − 2).
 4. **Provino** della culla e del giunto (passacavo nella fessura, viti nei fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata della coxa).

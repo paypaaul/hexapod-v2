@@ -83,11 +83,12 @@ Ogni giunto: il servo è stretto in una culla e appoggia sulle alette; l'albero 
 | D1 | Cuscinetto del lato opposto all'albero | 18 + 6 | flangiato schermato **5 × 10 × 4** (NMB LF-1050ZZ, venduto come MF105ZZ) | flangia Ø11,6 × 0,8 nella versione NMB (nei generici da 11,2 a 11,7); carico statico 276 N, dinamico 714 N, contro poche decine di newton di lavoro. Ordinare "ZZ" | a tua cura | V (NMB) | A |
 | D2 | Perno del cuscinetto | 18 + 6 | spina cilindrica **Ø5 × 12**, tolleranza h8 se si trova (ISO 2338), altrimenti m6 (ISO 8734); lunghezza fissata dal CAD della zampa (D-047) | le m6 entrano forzate nel cuscinetto: provarle su un cuscinetto campione | a tua cura | S, C | A |
 | D3 | Squadretta lato albero | 18 + 2 | disco in alluminio per servo a **25 denti** con fori M3, dichiarato compatibile MG996R | sostituisce la squadretta di plastica: niente gioco e niente deformazione con 2,6 kg. I 25 denti dell'MG996R sono il dato comune dei servo di questa taglia: prima di ordinarne 20, provarne una su un tuo servo | Amazon.it, confezioni da 5–10, circa 10–15 € | S, C | A |
-| D4 | Inserti a caldo M3 | 200 | CNC Kitchen M3 × 5,7 (Ø4,6; foro 4,0) | alette dei servo (72), zampe, corpo, coperchi | cnckitchen.store circa 9 € ogni 100 | S, V | A |
-| D5 | Inserti a caldo M2 | 50 | CNC Kitchen M2 × 3 (Ø3,6; foro 3,2) | regolatori, interruttore, piccole cover | cnckitchen.store circa 10 € | S, V | A |
+| D4 | Inserti a caldo M3 | 200 | CNC Kitchen M3 × 5,7 (Ø4,6; foro 4,0) | alette dei servo (72), zampe, corpo, coperchi | cnckitchen.store circa 9 € ogni 100; **l'utente ha un kit di inserti in ottone da Temu (9 ottobre 2026): se misure e quantità bastano lo sostituisce, e i fori si adeguano con `ins_m3_d` e `ins_m3_l`; misure da confermare** | S, V | A |
+| D5 | Inserti a caldo M2 | 50 | CNC Kitchen M2 × 3 (Ø3,6; foro 3,2) | regolatori, interruttore, lame B dei femori (D-065) | cnckitchen.store circa 10 €; come D4, forse dal kit Temu (`ins_m2_d`, `ins_m2_l`) | S, V | A |
 | D6 | Viti M3 | assortimento + 100 | testa cilindrica con esagono incassato (ISO 4762), inox A2, 6–25 mm; **in più 12 × M3 × 5** per le squadrette della coxa (D-049, approvate il 9 ottobre 2026) | alette dei servo, squadrette metalliche, zampe, corpo | Amazon.it, ferramenta | — | A |
 | D7 | Dadi e rondelle M3 | 50 + 100 | dadi esagonali DIN 934, rondelle DIN 125 | dove un inserto non entra | idem | — | A |
 | D8 | Viti M2 e M2,5 | assortimento | ISO 4762 inox | regolatori (M2), SSC-32 (M2,5: i suoi fori sono circa 3,0 mm) | idem | — | A |
+| D8b | Viti M2 × 6 a testa svasata piana | 12 + 4 | ISO 10642 (DIN 7991) inox, esagono incassato; testa Ø4,0 | lame B dei femori, a filo nelle svasature (D-065, al posto delle spine stampate) | Amazon.it, ferramenta | — | **da approvare** |
 | D9 | Piedini antiscivolo | 6 + 2 | stampati in TPU 95A oppure cappucci in silicone | scelta dopo una prova sui tuoi pavimenti | — | — | — |
 | D10 | Fermo batteria | 1 | schiuma EVA adesiva 3–5 mm | le cinghie non servono più: lo sportello preme il pacco con due rebbi e la schiuma (D-051, approvato il 9 ottobre 2026) | Amazon.it | — | A |
 | D11 | Guaina e fascette | 2 m + 1 conf. | guaina spiralata 6–8 mm, fascette 2,5 mm (tra queste 6 corte nel blocco dei femori, 6 nei ponti e 1 per F1, D-055 e D-061) | fasci dei 3 cavi per zampa, ancoraggi ai giunti | qualunque | — | A |
@@ -112,8 +113,10 @@ Conteggio fatto in Fusion sulle lavorazioni del modello (inserti, fori pilota, f
 | Vassoio → distanziali | M3 × 6 sui 4 distanziali M3 maschio-femmina da 5 mm (B18) | 4 |
 | Coperchio → colonnine del tetto | M3 × 8 in inserti M3 (D-052) | 4 |
 | Sportello della batteria → blocchetti della chiglia | M3 × 8 in inserti M3 (D-054) | 2 |
-| **Totale viti** | M3 × 5: 12; M3 × 6: 52; M3 × 8: 106; M3 × 10: 12; M3 × 16: 2; M2 × 5: 16 | |
-| **Inserti a caldo** | M3: 88 (30 nel corpo, nelle gondole e nella chiglia, 24 nelle coxe, 12 nelle tibie, 24 nei femori); M2: 16 | dentro le confezioni da 200 e 50 (D4, D5) |
+| Guscio della tibia → stinco | M3 × 10 in inserti M3 (D-061) | 6 |
+| Lama B → Femore_B | M2 × 6 a testa svasata in inserti M2 (D-065) | 12 |
+| **Totale viti** | M3 × 5: 12; M3 × 6: 52; M3 × 8: 106; M3 × 10: 18; M3 × 16: 2; M2 × 5: 16; M2 × 6 svasate: 12 | |
+| **Inserti a caldo** | M3: 94 (30 nel corpo, nelle gondole e nella chiglia, 24 nelle coxe, 18 nelle tibie, 24 nei femori); M2: 28 | dentro le confezioni da 200 e 50 (D4, D5) |
 | Fori pilota per viti M3 autofilettanti | 36 (alette lato albero dei 18 servo) | |
 
 Le voci D6 (viti M3 in assortimento più 100) e D8 (M2) vanno ordinate con queste quantità: in particolare servono circa 106 M3 × 8 e 52 M3 × 6, più dei pezzi di un assortimento normale.
@@ -122,10 +125,10 @@ Le voci D6 (viti M3 in assortimento più 100) e D8 (M2) vanno ordinate con quest
 
 | # | Voce | Q.tà | Uso | Nota | Stato |
 |---|---|---|---|---|---|
-| E1 | PETG-CF | 2 bobine da 1 kg | corpo, zampe, culle | servono circa 810 g di pezzi (stima dal modello del 9 ottobre: base 198, chiglia 33, slitte 11, zampe 574) più provini, supporti e scarti | ? |
-| E2 | PETG bianco non caricato | 1 bobina | carapace, cover delle zampe (lame e gusci delle tibie), sportello della batteria (D-061) | circa 210 g; non caricato anche perché sta sopra l'antenna Wi-Fi (il carbonio la scherma) | da approvare |
-| E2b | PETG nero non caricato | 1 bobina (anche piccola) | fascia, visiera, gonne, sportellino, vassoio | circa 25 g; stampato insieme al carapace con il toolchanger | da approvare |
-| E3 | TPU 95A arancio | pochi grammi | piedini (D9) | | da approvare |
+| E1 | PETG-CF nero | 2 bobine da 1 kg | tutte le parti funzionali: corpo (base, chiglia, slitte, sportello della batteria), zampe (coxa, ponte, femori, tibie) | circa 860 g di pezzi (stima dal modello del 9 ottobre) più provini, supporti e scarti | A (scelta dell'utente, 9 ottobre 2026) |
+| E2 | PLA colorato (bianco per ora) | 1 bobina | placche: carapace, lame dei femori, gusci delle tibie; vassoio dell'ESP32 (sotto l'antenna niente carbonio) | circa 230 g; il colore può cambiare | A (scelta dell'utente) |
+| E2b | PLA nero (o un secondo colore) | 1 bobina piccola | fascia, visiera, gonne, sportellino: stampati insieme al carapace, PLA su PLA si attacca senza interlocking | circa 15 g | proposta (D-065) |
+| E3 | TPU 95A arancio | pochi grammi | piedini (D9) | circa 10 g | A (scelta dell'utente) |
 
 ## Attrezzi necessari
 
@@ -152,4 +155,5 @@ Circa 380 € di componenti (di cui 110 € i due regolatori) più circa 100 €
 | 4 | Squadrette metalliche: va bene comprarne una per prova prima delle altre 19? | voce D3 |
 | 5 | Pulsante d'accensione | **Risposto il 9 ottobre 2026**: pulsante da pannello Ø12 sul coperchio, voce B3b |
 | 6 | Cicalino di sottotensione | **Risposto il 9 ottobre 2026**: (c), sotto il coperchio in coda sopra il T-plug, display da una finestra del dorso, spinotto di bilanciamento dal retro; serve un modello con i pin sul lato lungo (da scegliere all'ordine) | voci B9, C7, coperchio |
-| 7 | Filamenti e colori della passata estetica: PETG bianco, PETG nero non caricato, TPU arancio | **Da approvare** | voci E2, E2b, E3 |
+| 7 | Filamenti e colori della passata estetica | **Risposto il 9 ottobre 2026**: PETG-CF nero per le parti funzionali, PLA colorato (bianco per ora) per le placche, TPU arancio per i piedini; proposto PLA nero per fascia, visiera, gonne e sportellino | voci E1, E2, E2b, E3 |
+| 8 | Inserti in ottone del kit Temu: diametro esterno e lunghezza degli M3 e degli M2, e quanti ce ne sono | **Da rispondere** (il link non si apre da qui) | voci D4, D5, fori `ins_m3_*`, `ins_m2_*` |
