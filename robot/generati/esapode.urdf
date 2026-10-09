@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="esapode">
-  <!-- Generato da tools/genera_modelli.py (versione 2.1.0, Hexapod v2.1.0 v1): non modificare a mano. -->
+  <!-- Generato da tools/genera_modelli.py (versione 2.1.0, Hexapod v2.1.0 v2): non modificare a mano. -->
   <material name="scuro">
     <color rgba="0.18 0.18 0.2 1" />
   </material>
@@ -157,9 +157,9 @@
       <material name="scuro" />
     </visual>
     <inertial>
-      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
-      <mass value="0.11019" />
-      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+      <origin xyz="0.002593 -0.00143 -0.027231" rpy="0 0 0" />
+      <mass value="0.11144" />
+      <inertia ixx="0.000113461" ixy="-2.40801e-07" ixz="3.00625e-06" iyy="0.000102906" iyz="2.23786e-06" izz="2.36187e-05" />
     </inertial>
     <collision name="tibia_culla">
       <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
@@ -301,9 +301,9 @@
       <material name="scuro" />
     </visual>
     <inertial>
-      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
-      <mass value="0.11019" />
-      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+      <origin xyz="0.002593 -0.00143 -0.027231" rpy="0 0 0" />
+      <mass value="0.11144" />
+      <inertia ixx="0.000113461" ixy="-2.40801e-07" ixz="3.00625e-06" iyy="0.000102906" iyz="2.23786e-06" izz="2.36187e-05" />
     </inertial>
     <collision name="tibia_culla">
       <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
@@ -445,9 +445,9 @@
       <material name="scuro" />
     </visual>
     <inertial>
-      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
-      <mass value="0.11019" />
-      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+      <origin xyz="0.002593 -0.00143 -0.027231" rpy="0 0 0" />
+      <mass value="0.11144" />
+      <inertia ixx="0.000113461" ixy="-2.40801e-07" ixz="3.00625e-06" iyy="0.000102906" iyz="2.23786e-06" izz="2.36187e-05" />
     </inertial>
     <collision name="tibia_culla">
       <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
@@ -589,9 +589,9 @@
       <material name="scuro" />
     </visual>
     <inertial>
-      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
-      <mass value="0.11019" />
-      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+      <origin xyz="0.002593 -0.00143 -0.027231" rpy="0 0 0" />
+      <mass value="0.11144" />
+      <inertia ixx="0.000113461" ixy="-2.40801e-07" ixz="3.00625e-06" iyy="0.000102906" iyz="2.23786e-06" izz="2.36187e-05" />
     </inertial>
     <collision name="tibia_culla">
       <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
@@ -733,9 +733,9 @@
       <material name="scuro" />
     </visual>
     <inertial>
-      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
-      <mass value="0.11019" />
-      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+      <origin xyz="0.002593 -0.00143 -0.027231" rpy="0 0 0" />
+      <mass value="0.11144" />
+      <inertia ixx="0.000113461" ixy="-2.40801e-07" ixz="3.00625e-06" iyy="0.000102906" iyz="2.23786e-06" izz="2.36187e-05" />
     </inertial>
     <collision name="tibia_culla">
       <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
@@ -877,9 +877,9 @@
       <material name="scuro" />
     </visual>
     <inertial>
-      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
-      <mass value="0.11019" />
-      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+      <origin xyz="0.002593 -0.00143 -0.027231" rpy="0 0 0" />
+      <mass value="0.11144" />
+      <inertia ixx="0.000113461" ixy="-2.40801e-07" ixz="3.00625e-06" iyy="0.000102906" iyz="2.23786e-06" izz="2.36187e-05" />
     </inertial>
     <collision name="tibia_culla">
       <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
