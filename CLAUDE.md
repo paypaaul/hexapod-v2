@@ -187,7 +187,7 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 
 ## Prossimi passi
 
-1. **Approvazioni del 9 ottobre** (D-059): pulsante B3b, M3 × 5, B18, D10, C5; C6 tolta. **In attesa**: cicalino (BOM, domanda 6, consigliata la (c)) e le domande 1–4 del BOM. **Estetica non ancora applicata** (D-059): passata estetica sulle parti non strutturali e sulle facce in vista, con pulsante e cicalino, prima di chiudere il CAD.
+1. **Approvazioni del 9 ottobre** (D-059): pulsante B3b, M3 × 5, B18, D10, C5; C6 tolta. **In attesa**: cicalino (BOM, domanda 6, consigliata la (c)) e le domande 1–4 del BOM. **Passata estetica**: scelto "Kabuto" (D-060, `docs/ricerca/estetica-specifica.md`), **in attesa del via libera dell'utente** e dei filamenti; poi i 9 blocchi della specifica, il primo corregge due errori del femore di oggi (rondelle sovrapposte, fascetta di D-058).
 2. **Corpo v0.4** (D-052…D-057): restano interruttore e cicalino (dopo le risposte), pettini per le anse dei cavi nelle baie posteriori. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo` (vanno in timeout ma finiscono: rileggere); controllo con `controllo`, `interferenze`, coxe a ±35° e a 31° tra vicine, `ciclo` (100/45 e 70/70).
 3. **Zampa**: fascette dei cavi fatte (D-058, STL del ponte riesportato); restano nervature di schiacciamento delle culle e piedino, dopo il provino.
 4. **Provino** della culla e del giunto (passacavo nella fessura, viti nei fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata della coxa).
