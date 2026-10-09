@@ -10,3 +10,7 @@ cad/render/*.png
 
 # worktree degli agenti di Claude Code
 .claude/worktrees/
+.venv/
+.ruff_cache/
+.pytest_cache/
+build/

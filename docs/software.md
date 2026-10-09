@@ -236,7 +236,7 @@ Spegnimento: seduta sulla chiglia, parcheggio, rail spento, impulso su GPIO41.
 ### 2.7 Taratura dei servo
 
 - Per ogni giunto: canale, verso, impulso a due angoli noti (da cui offset e guadagno), impulso minimo e massimo.
-- Valori di partenza generati dalla repo: servo a metà corsa con α +20°, γ 100° e coxa in direzione neutra; versi opposti tra lato sinistro e destro.
+- Valori di partenza generati dalla repo: servo a metà corsa con α +20°, γ 100° e coxa in direzione neutra. Le sei zampe sono la stessa zampa ruotata, non specchiata: lo stesso verso vale per tutte (`robot/robot.yaml` → `servo.verso`, ipotesi da provare al banco).
 - Procedura dalla web app, nello stato CALIBRAZIONE: un servo alla volta, passi di ±1 e ±10 µs, **due pose fissate da dime stampate**: coxa a 0° e +30°, femore a 0° e +45°, ginocchio a 90° e 135°. Circa un'ora per il robot (S).
 - Salvataggio: blob con versione e CRC in una partizione NVS dedicata, copia in `robot/calib/<robot>.yaml` nella repo. All'avvio il firmware manda l'hash in telemetria e gli strumenti avvisano se non coincide. **Senza taratura valida il rail non si accende.**
 - Le correzioni le applica l'ESP32, non il comando `PO` della SSC-32: copre solo ±100 µs e non resta allo spegnimento (V).
