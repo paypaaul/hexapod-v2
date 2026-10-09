@@ -13,11 +13,19 @@ Uso tipico (script dell'agente, lanciato con python3 dalla cartella del concept)
     s.cilindro((x, y), r, z0, z1, '#222222')
     s.solido(punti_in_terna_zampa, '#ff6a13', zampe=True)     # replicato sulle sei zampe (terna della zampa)
     s.solido(punti, '#f2f2f2', specchia_y=True)                # anche specchiato rispetto a y = 0
+    # placca bombata: contorno (anche concavo, con fori) nel piano (u, v) di una terna; spessore al bordo, bombatura al
+    # centro e bordo arrotondato che seguono il contorno (campo di distanza dal bordo)
+    T = terna_piano((x0, y0, z0), asse_u, asse_v)               # w = u x v e' la normale verso l'esterno della placca
+    s.piastra([(u, v), ...], T, spessore=1.6, bombatura=2.0, raggio_bordo=4.0, colore='#f2f2f2', fori=[[(u, v), ...]], zampe=True)
     s.render('/percorso/nome')                                   # scrive nome_iso_ant.png, nome_iso_post.png, nome_fianco.png, nome_alto.png
 
 Unita' mm, terna del robot: X avanti, Y a sinistra, Z in alto, z = 0 sugli assi dei femori (posa di riferimento).
 Terna della zampa: origine sull'asse della coxa a z 0, X verso l'esterno lungo la zampa, Y = Z x X (lungo l'asse del femore,
 verso la piastra delle squadrette Femore_A), Z in alto. Le parti con zampe=True sono date in questa terna.
+
+Gruppi del modello: base, coperchio, interni, servo_coxa, zampe_servo, zampe_struttura_coxa, zampe_struttura_coxa_ponte,
+zampe_struttura_femore_a, zampe_struttura_femore_b, zampe_struttura_tibia. nascondi() e colore() valgono per prefisso:
+nascondi('zampe_struttura_tibia') toglie solo le tibie, colore('zampe_struttura', c) colora tutte le parti stampate.
 """
 import math
 import os
@@ -33,7 +41,7 @@ from scipy.spatial import ConvexHull
 QUI = os.path.dirname(os.path.abspath(__file__))
 MESH = os.path.join(QUI, 'mesh')
 COLORI = {'base': '#5d636b', 'coperchio': '#6a7079', 'interni': '#6f7c8c', 'servo_coxa': '#2a2a2d',
-          'zampe_struttura': '#5d636b', 'zampe_servo': '#2a2a2d'}
+          'zampe_struttura': '#5d636b', 'zampe_servo': '#2a2a2d'}      # per prefisso del nome del gruppo
 # assi delle coxe: (x, y, direzione in gradi), D-050
 COXE = {'AS': (80, 44, 30), 'MS': (0, 48, 90), 'PS': (-80, 44, 150), 'AD': (80, -44, -30), 'MD': (0, -48, -90), 'PD': (-80, -44, -150)}
 VISTE = {  # elevazione, azimut (gradi), zoom
@@ -52,6 +60,15 @@ def terna_zampa(nome):
     return m
 
 
+def terna_piano(origine, asse_u, asse_v):
+    """Matrice 4x4 per piastra(): origine e assi u, v (normalizzati qui); w = u x v."""
+    u = np.asarray(asse_u, float); u /= np.linalg.norm(u)
+    v = np.asarray(asse_v, float); v -= u * (u @ v); v /= np.linalg.norm(v)
+    m = np.eye(4)
+    m[:3, 0], m[:3, 1], m[:3, 2], m[:3, 3] = u, v, np.cross(u, v), origine
+    return m
+
+
 def leggi_stl(percorso):
     with open(percorso, 'rb') as f:
         dati = f.read()
@@ -66,16 +83,25 @@ class Scena:
         for f in sorted(os.listdir(mesh)):
             if f.endswith('.stl'):
                 g = f[:-4]
-                self.gruppi[g] = {'tri': leggi_stl(os.path.join(mesh, f)), 'colore': COLORI.get(g, '#777777'), 'visibile': True}
+                col = next((c for k, c in sorted(COLORI.items(), key=lambda kv: -len(kv[0])) if g.startswith(k)), '#777777')
+                self.gruppi[g] = {'tri': leggi_stl(os.path.join(mesh, f)), 'colore': col, 'visibile': True}
         self.extra = []
 
     # --- gruppi del modello attuale
+    def _trova(self, prefisso):
+        nomi = [g for g in self.gruppi if g == prefisso or g.startswith(prefisso + '_')]
+        if not nomi:
+            raise KeyError('nessun gruppo con prefisso %r: %s' % (prefisso, sorted(self.gruppi)))
+        return nomi
+
     def nascondi(self, *gruppi):
-        for g in gruppi:
-            self.gruppi[g]['visibile'] = False
+        for p in gruppi:
+            for g in self._trova(p):
+                self.gruppi[g]['visibile'] = False
 
     def colore(self, gruppo, c):
-        self.gruppi[gruppo]['colore'] = c
+        for g in self._trova(gruppo):
+            self.gruppi[g]['colore'] = c
 
     # --- parti nuove
     def _aggiungi(self, tri, colore, zampe=False, specchia_y=False, terna=None):
@@ -121,6 +147,59 @@ class Scena:
         elif asse == 'y':
             tri = tri[:, :, [0, 2, 1]]
         self._aggiungi(tri, colore, **kw)
+
+    def piastra(self, contorno, terna, spessore, colore, bombatura=0.0, raggio_bordo=0.0, fori=(), passo=None, **kw):
+        """Placca con faccia interna piana (w = 0) e faccia esterna bombata.
+
+        contorno e fori: poligoni (u, v) in ordine, anche concavi. Spessore al centro = spessore + bombatura; al bordo la
+        faccia esterna scende con un quarto di cerchio largo raggio_bordo fino a meta' spessore. La bombatura cresce con
+        la distanza dal bordo (segue la sagoma). terna: matrice 4x4 (vedi terna_piano) dal piano (u, v, w) alla scena.
+        """
+        from matplotlib.path import Path
+        from scipy.spatial import Delaunay
+        anelli = [np.asarray(contorno, float)] + [np.asarray(f, float) for f in fori]
+        lo, hi = anelli[0].min(0), anelli[0].max(0)
+        h = passo or max(hi - lo) / 70.0
+        bordi = []
+        for a in anelli:                                    # bordo ricampionato
+            pts = []
+            for k in range(len(a)):
+                p0, p1 = a[k], a[(k + 1) % len(a)]
+                n = max(1, int(math.ceil(np.linalg.norm(p1 - p0) / h)))
+                pts += [p0 + (p1 - p0) * t / n for t in range(n)]
+            bordi.append(np.array(pts))
+        dentro = lambda q: Path(anelli[0]).contains_points(q) & ~np.any([Path(f).contains_points(q) for f in anelli[1:]] or [np.zeros(len(q), bool)], axis=0)
+        gu, gv = np.meshgrid(np.arange(lo[0] + h / 2, hi[0], h), np.arange(lo[1] + h / 2, hi[1], h))
+        griglia = np.c_[gu.ravel(), gv.ravel()]
+        segm = np.concatenate([np.stack([b, np.roll(b, -1, 0)], 1) for b in bordi])
+        def dist(q):
+            a, b = segm[:, 0], segm[:, 1]
+            ab = b - a
+            t = np.clip(((q[:, None, :] - a) * ab).sum(2) / np.maximum((ab * ab).sum(1), 1e-12), 0, 1)
+            return np.linalg.norm(q[:, None, :] - (a + t[..., None] * ab), axis=2).min(1)
+        griglia = griglia[dentro(griglia)]
+        griglia = griglia[dist(griglia) > h * 0.45]
+        pts = np.concatenate(bordi + [griglia])
+        d = dist(pts)
+        d[:sum(len(b) for b in bordi)] = 0.0
+        rb = max(raggio_bordo, 1e-6)
+        q = np.sqrt(np.clip(1 - (1 - np.minimum(d / rb, 1)) ** 2, 0, 1)) if raggio_bordo > 0 else np.ones_like(d)
+        dmax = max(d.max(), 1e-6)
+        c = 1 - (1 - d / dmax) ** 2
+        w = spessore * (0.5 + 0.5 * q) + bombatura * c
+        tri = Delaunay(pts).simplices
+        cen = pts[tri].mean(1)
+        tri = tri[dentro(cen)]
+        sopra = np.c_[pts, w][tri]
+        sotto = np.c_[pts, np.zeros(len(pts))][tri]
+        lati = []
+        for b in bordi:
+            m = len(b)
+            for k in range(m):
+                a0, a1 = b[k], b[(k + 1) % m]
+                lati += [[(*a0, 0), (*a1, 0), (*a1, spessore / 2)], [(*a0, 0), (*a1, spessore / 2), (*a0, spessore / 2)]]
+        tutto = np.concatenate([sopra, sotto, np.array(lati)])
+        self._aggiungi(_trasforma(tutto, np.asarray(terna, float)), colore, **kw)
 
     def scatola(self, x0, y0, z0, x1, y1, z1, colore, **kw):
         self.solido([(x, y, z) for x in (x0, x1) for y in (y0, y1) for z in (z0, z1)], colore, **kw)

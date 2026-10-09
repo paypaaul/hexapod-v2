@@ -1,6 +1,6 @@
 """Esporta le mesh del modello (posa attuale, terna del robot) per i render schematici di `cad/render/render.py`.
 
-Gruppi: base, coperchio, interni, servo_coxa (corpo); zampe_struttura, zampe_servo (sei zampe). STL binari in mm,
+Gruppi: base, coperchio, interni, servo_coxa (corpo); zampe_servo e zampe_struttura_<parte> (sei zampe). STL binari in mm,
 qualita' bassa (circa 70 000 triangoli in tutto). Si lancia in sola lettura dal connettore:
     runpy.run_path('/Users/paul/hexapod-v2/cad/script/esporta_mesh.py')['main']()
 """
@@ -37,9 +37,12 @@ def _gruppi(root):
         else:
             g = 'interni'
         gruppi.setdefault(g, []).extend(b for b in _corpi(o) if b.name not in SALTA)
+    # zampe: servo e minuteria insieme, parti stampate una per gruppo (zampe_struttura_coxa, ..._tibia) per poterle
+    # sostituire nei render; render.py applica colore e visibilita' per prefisso (zampe_struttura vale per tutte)
     for z in [o for o in root.occurrences if o.component.name == 'Zampa']:
         for o in z.childOccurrences:
-            g = 'zampe_servo' if o.component.name.startswith('Rif_') else 'zampe_struttura'
+            n = o.component.name
+            g = 'zampe_servo' if n.startswith('Rif_') else 'zampe_struttura_' + n.lower()
             gruppi.setdefault(g, []).extend(_corpi(o))
     return gruppi
 
