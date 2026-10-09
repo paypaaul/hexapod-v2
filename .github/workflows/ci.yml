@@ -55,22 +55,27 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
-      - name: immagine di ESP-IDF (tre tentativi)
-        # i primi due giri del CI sono falliti nello scaricare l'immagine da Docker Hub (limite di richieste e timeout
-        # del 9 ottobre 2026), non nella compilazione: con l'immagine gia' presente l'azione non la riscarica
-        run: |
-          for i in 1 2 3; do
-            docker pull "espressif/idf:${ESP_IDF_VERSIONE}" && exit 0
-            echo "tentativo $i fallito, riprovo fra $((30 * i)) s"; sleep $((30 * i))
-          done
-          exit 1
-      - name: idf.py build (esp32s3)
-        uses: espressif/esp-idf-ci-action@e6f5c74232b1ccd4c97ed641f1e48553853f1fd5  # v1.2.0
+      # ESP-IDF installato dal repository di Espressif, senza Docker: il 9 ottobre 2026 l'immagine espressif/idf non si
+      # scaricava da Docker Hub (limite di richieste, poi timeout anche con tre tentativi). Stessa installazione del Mac
+      # (firmware/README.md), con la cache fra un giro e l'altro.
+      - uses: actions/cache@v4
         with:
-          esp_idf_version: ${{ env.ESP_IDF_VERSIONE }}
-          target: esp32s3
-          path: firmware
-          command: idf.py build && idf.py size
+          path: |
+            ~/esp/esp-idf
+            ~/.espressif
+          key: esp-idf-${{ env.ESP_IDF_VERSIONE }}-esp32s3-ubuntu-24.04
+      - name: ESP-IDF ${{ env.ESP_IDF_VERSIONE }} (esp32s3)
+        run: |
+          if [ ! -d ~/esp/esp-idf ]; then
+            git clone -b "$ESP_IDF_VERSIONE" --depth 1 --recursive --shallow-submodules https://github.com/espressif/esp-idf.git ~/esp/esp-idf
+          fi
+          ~/esp/esp-idf/install.sh esp32s3
+      - name: idf.py build (esp32s3)
+        run: |
+          . ~/esp/esp-idf/export.sh
+          cd firmware
+          idf.py build
+          idf.py size
       - name: dimensione dell'immagine contro lo slot OTA
         # la compilazione fallisce gia' se l'immagine non entra nella partizione (check_sizes.py dell'IDF); qui si
         # riporta l'occupazione dello slot ota_0 letto da partitions.csv
