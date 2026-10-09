@@ -91,6 +91,29 @@ Ogni giunto: il servo è stretto in una culla e appoggia sulle alette; l'albero 
 | D10 | Fermo batteria | 1 | schiuma EVA adesiva 3–5 mm | le cinghie non servono più: lo sportello preme il pacco con due rebbi e la schiuma (D-051) | Amazon.it | — | A |
 | D11 | Guaina e fascette | 2 m + 1 conf. | guaina spiralata 6–8 mm, fascette 2,5 mm | fasci dei 3 cavi per zampa, ancoraggi ai giunti | qualunque | — | A |
 
+## Viteria e inserti contati dal modello (fase 5, bozza del 9 ottobre 2026)
+
+Conteggio fatto in Fusion sulle lavorazioni del modello (inserti, fori pilota, fori passanti) moltiplicate per il numero di copie di ogni parte, comprese le specchiature del corpo. Lunghezze delle viti dalla pila di ogni giunto. Manca il fissaggio del coperchio, non ancora disegnato.
+
+| Dove | Cosa | Quantità |
+|---|---|---|
+| Alette dei 18 servo | M3 × 8 ISO 4762: lato coda in inserti, lato albero in fori pilota Ø2,5 (D-049) | 72 |
+| Femore_A → squadrette di femore e ginocchio | M3 × 6 | 48 |
+| Femore_A → blocco di Femore_B | M3 × 8 con 2 rondelle M3 DIN 125 di registro ciascuna | 24 viti, 48 rondelle |
+| Ponte → anima della coxa | M3 × 10 | 12 |
+| Squadretta di coxa (teste che fanno da spine, D-048) | **M3 × 5**, senza rondella (D-049, da approvare) | 12 |
+| Viti centrali delle squadrette | in dotazione con le squadrette | 18 |
+| Chiglia → base | M3 × 16 davanti (orecchie a tutta altezza), M3 × 8 dietro | 2 + 2 |
+| Slitte dei regolatori → parete della baia | M3 × 8 | 2 |
+| Regolatori → slitte | M2 × 5 in inserti M2 | 8 |
+| SSC-32 → bugne del tetto | M2 × 5 in inserti M2 (testa Ø3,8 sui fori da 3,0) | 4 |
+| Vassoio → distanziali | M3 × 6 sui 4 distanziali M3 maschio-femmina da 5 mm (B18) | 4 |
+| **Totale viti** | M3 × 5: 12; M3 × 6: 52; M3 × 8: 100; M3 × 10: 12; M3 × 16: 2; M2 × 5: 12 | |
+| **Inserti a caldo** | M3: 82 (24 nel corpo e nelle gondole, 24 nelle coxe, 12 nelle tibie, 24 nei femori); M2: 12 | dentro le confezioni da 200 e 50 (D4, D5) |
+| Fori pilota per viti M3 autofilettanti | 36 (alette lato albero dei 18 servo) | |
+
+Le voci D6 (viti M3 in assortimento più 100) e D8 (M2) vanno ordinate con queste quantità: in particolare servono circa 100 M3 × 8 e 52 M3 × 6, più dei pezzi di un assortimento normale.
+
 ## E. Materiali di stampa
 
 | # | Voce | Q.tà | Uso | Nota | Stato |
