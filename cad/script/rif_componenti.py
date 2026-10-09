@@ -162,6 +162,7 @@ LIBRERIA = {
     'Rif_Wago_221_415': (60, 550, 0),
     'Rif_Cicalino_BX100': (110, 550, 0),
     'Rif_Tplug': (170, 550, 0),
+    'Rif_Pulsante_12': (230, 550, 0),
 }
 
 GENERATI = [n for n in LIBRERIA if n not in STEP]
@@ -428,6 +429,9 @@ def fai_ingombri(des, root, rigenera, solo=None):
     fatti.append(componente(root, 'Rif_Wago_221_415', [('morsetto', box(0, 0, 0, p('wago_l'), p('wago_w'), p('wago_h')))]))
     fatti.append(componente(root, 'Rif_Cicalino_BX100', [('cicalino', box(0, 0, 0, 40.0, 25.0, 11.0))]))
     fatti.append(componente(root, 'Rif_Tplug', [('coppia_tplug', box(0, 0, 0, 30.0, 16.0, 8.5))]))
+    # pulsante da pannello Ø12 (B3b): origine al centro della faccia superiore del pannello, +Z in alto
+    fatti.append(componente(root, 'Rif_Pulsante_12', [('pulsante', unisci(cyl(0, 0, 0, 15.0, 2.0), cyl(0, 0, -21.6, 12.0, 21.6),
+                                                                       cyl(0, 0, -3.6, 17.3, 2.0)))]))
     return [o.component.name for o in fatti if o is not None]
 
 

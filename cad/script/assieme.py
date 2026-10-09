@@ -81,6 +81,9 @@ def pose_corpo(des):
     x0, z1, lr = _mm(des, 'cor_reg_x0'), _mm(des, 'cor_reg_ztop'), _mm(des, 'reg_l')
     out['Regolatore_S'] = ('Rif_Reg_Servo_D42V110F6', A['matrice']((x0 + lr, y_reg, z1), (-1, 0, 0), (0, 0, -1), (0, -1, 0)))
     out['Regolatore_D'] = ('Rif_Reg_Servo_D42V110F6', A['matrice']((x0, -y_reg, z1), (1, 0, 0), (0, 0, -1), (0, 1, 0)))
+    # cicalino sotto il carapace in coda (lato da 40 lungo Y, pin verso la coda) e pulsante sull'asse del dorso
+    out['Cicalino'] = ('Rif_Cicalino_BX100', _rz((_mm(des, 'cic_x0') + _mm(des, 'cic_x1')) / 2, 0, _mm(des, 'cic_z0'), 90.0))
+    out['Pulsante'] = ('Rif_Pulsante_12', _rz(_mm(des, 'car_puls_x'), 0, _mm(des, 'car_top'), 0.0))
     return out
 
 

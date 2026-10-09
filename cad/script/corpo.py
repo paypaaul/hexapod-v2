@@ -116,6 +116,55 @@ PARAMETRI = [
     ('cor_muso_semi', '20 mm', 'mm', 'Coperchio: semilarghezza del muso'),
     ('cor_muso_giu', '-1 mm', 'mm', 'Muso: bordo inferiore della fascia (sotto il vassoio, che finisce a z +1)'),
     ('cor_muso_finestra_d', '17 mm', 'mm', 'Muso: finestra della camera (cono di 120 gradi dal centro ottico a 2,5 mm, piu la lente Ø8)'),
+    # --- carapace "Piena" (D-060, D-061): sostituisce il coperchio
+    ('car_top', 'cor_cop_z + 7.6 mm', 'mm', 'Carapace: cima (6 mm d aria in piu sopra regolatori, cicalino e flat)'),
+    ('car_sp', 'cor_cop_sp', 'mm', 'Carapace: pareti'),
+    ('car_smusso', '6 mm', 'mm', 'Carapace: smusso unico a 45 gradi del contorno superiore'),
+    ('car_lobo_R', '32.3 mm', 'mm', 'Carapace: lobi esagonali sugli assi delle coxe, raggio ai vertici (un lato perpendicolare a ogni zampa)'),
+    ('car_lobo_a', 'car_lobo_R * cos(30 deg)', 'mm', 'Carapace: apotema dei lobi'),
+    ('car_valle_y', '56 mm', 'mm', 'Carapace: fondo delle valli tra i lobi (copre le bugne delle slitte, y 50-55,7)'),
+    ('car_viso_x', '102 mm', 'mm', 'Carapace: viso, tra le punte dei lobi anteriori'),
+    ('car_coda_x', 'cor_ang_x + car_lobo_R / 2 + 1 mm', 'mm', 'Carapace: coda, 1 mm oltre il vertice del lobo posteriore'),
+    ('car_testa_y', '30 mm', 'mm', 'Carapace: semilarghezza del nucleo di testa e coda'),
+    ('car_r_conv', '12 mm', 'mm', 'Carapace: raccordo in pianta dei vertici convessi (Piena; piu del doppio dello smusso)'),
+    ('car_r_conc', '10 mm', 'mm', 'Carapace: raccordo in pianta dei vertici concavi'),
+    ('car_mento_z', 'cor_muso_giu', 'mm', 'Testa: fondo, sotto il vassoio'),
+    ('car_mento_semi', '9.2 mm', 'mm', 'Testa: semilarghezza del mento (fuori da mensola e torretta, |y| 6)'),
+    ('car_testa_semi', '25.2 mm', 'mm', 'Testa: fianchi verticali sotto il carapace'),
+    ('car_testa_x0', 'cor_vas_x1 + 0.6 mm', 'mm', 'Testa: retro della parte bassa (il vassoio arriva a x 82)'),
+    ('car_rastr', '60 deg', 'deg', 'Testa: inclinazione dei fianchi rastremati'),
+    ('car_paratia_y0', '15 mm', 'mm', 'Paratie dietro la testa: da qui (ESP32 fino a |y| 14,15)'),
+    ('car_paratia_y1', '28.5 mm', 'mm', 'Paratie dietro la testa: fino a qui'),
+    ('car_fascia_semi', '17 mm', 'mm', 'Fascia nera: semilarghezza'),
+    ('car_fascia_h', '0.6 mm', 'mm', 'Fascia nera: intarsio (3 strati da 0,2)'),
+    ('car_pozzo_d', '7 mm', 'mm', 'Carapace: pozzetti delle viti'),
+    ('car_pozzo_D', '9.4 mm', 'mm', 'Carapace: tubo dei pozzetti'),
+    ('car_serv_semi', '16 mm', 'mm', 'Carapace: apertura di servizio |y| <= 16 (la fascia resta larga 1 mm ai lati)'),
+    ('car_serv_smusso', '6 mm', 'mm', 'Carapace: angoli a 45 gradi dell apertura (ottagono)'),
+    ('car_battuta', '1.5 mm', 'mm', 'Carapace: battuta dello sportellino sotto la pelle'),
+    ('car_puls_x', '-40 mm', 'mm', 'Pulsante d accensione sull asse, sopra lo zoccolo XBee della SSC-32'),
+    ('car_puls_d', '12.2 mm', 'mm', 'Foro del pulsante da pannello Ø12 (B3b)'),
+    ('cic_x0', '-87 mm', 'mm', 'Cicalino: estremo posteriore (pin verso la coda)'),
+    ('cic_x1', '-62 mm', 'mm', 'Cicalino: estremo anteriore'),
+    ('cic_semi', '20 mm', 'mm', 'Cicalino: semilarghezza (lato da 40 lungo Y)'),
+    ('cic_z0', '17.4 mm', 'mm', 'Cicalino: fondo (sopra il T-plug a 14,1)'),
+    ('car_fin_l', '14 mm', 'mm', 'Finestra del display del cicalino: lunghezza'),
+    ('car_fin_semi', '12 mm', 'mm', 'Finestra del display: semilarghezza'),
+    ('car_guancia_x0', 'car_coda_x + 3.35 mm', 'mm', 'Guance di coda: retro (1 mm dentro il lato del lobo posteriore)'),
+    ('car_guancia_x1', 'cor_tun_x0 + cor_sport_sp + 0.2 mm', 'mm', 'Guance di coda: fronte (0,2 dietro lo sportello della batteria)'),
+    ('car_guancia_y0', '25.4 mm', 'mm', 'Guance di coda: da qui'),
+    ('car_guancia_y1', 'cor_tun_semi', 'mm', 'Guance di coda: fino a qui'),
+    ('car_guancia_giu', 'cor_tetto - 1 mm', 'mm', 'Guance di coda: fondo (1 mm sopra lo sportello, che si sfila sotto)'),
+    ('car_occhio_x0', 'cor_cam_x + cam_alt + 0.9 mm', 'mm', 'Occhio: bocca interna, 0,9 davanti alla lente'),
+    ('cam_fov_h', '54.2 deg', 'deg', 'Camera: semicampo orizzontale (120 gradi in diagonale su 4:3, caso peggiore)'),
+    ('cam_fov_v', '46.1 deg', 'deg', 'Camera: semicampo verticale'),
+    ('car_occhio_marg', '0.8 mm', 'mm', 'Occhio: margine sul campo'),
+    ('car_occhio_si', 'cam_lente_d / 2 + (car_occhio_x0 - cor_cam_x - cam_alt) * tan(cam_fov_h) + car_occhio_marg', 'mm', 'Occhio: semilarghezza della bocca interna'),
+    ('car_occhio_vi', 'cam_lente_d / 2 + (car_occhio_x0 - cor_cam_x - cam_alt) * tan(cam_fov_v) + car_occhio_marg', 'mm', 'Occhio: semialtezza della bocca interna'),
+    ('car_occhio_se', 'cam_lente_d / 2 + (car_viso_x - cor_cam_x - cam_alt) * tan(cam_fov_h) + car_occhio_marg', 'mm', 'Occhio: semilarghezza della bocca esterna'),
+    ('car_occhio_ve', 'cam_lente_d / 2 + (car_viso_x - cor_cam_x - cam_alt) * tan(cam_fov_v) + car_occhio_marg', 'mm', 'Occhio: semialtezza della bocca esterna'),
+    ('car_bugna_semi', '11 mm', 'mm', 'Visiera: bugna dell occhio dietro la visiera, semilarghezza'),
+    ('car_bugna_z0', 'cor_cam_z - 7.5 mm', 'mm', 'Visiera: fondo della bugna dell occhio'),
 ]
 
 T0 = {}
@@ -372,6 +421,14 @@ def fai_sportello(corpo):
     for lato, y in (('s', '12 mm'), ('d', '-(12 mm)')):
         p.blocco('x', '-(cor_tun_x0)', 'rebbio_' + lato, y + ' - 2 mm', '-(29 mm)', y + ' + 2 mm', zt + ' - 4 mm',
                  'cor_sport_rebbio', 1)
+    # smusso 1 x 45 sul contorno della faccia esterna: con le guance del carapace fa la cornice della porta (D-061)
+    xe = -(p.val('cor_tun_x0') + p.val('cor_sport_sp'))
+    corpo_b = occ.component.bRepBodies.item(0)
+    fe = [fa for fa in corpo_b.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.PlaneSurfaceType
+          and abs(fa.pointOnFace.x * 10 - xe) < 0.01]
+    _smussa(p, [e for fa in fe for e in fa.edges if e.geometry.curveType == adsk.core.Curve3DTypes.Line3DCurveType],
+            '1 mm', 'smusso_cornice', False)
+    p.info = {'facce_esterne': len(fe), 'volume_cm3': round(corpo_b.volume, 2)}
     return occ, p
 
 
@@ -396,22 +453,318 @@ def fai_vassoio(corpo):
     return occ, p
 
 
+def _ottagono(p, q, nome, rientro, h, verso, op):
+    """Apertura di servizio a ottagono (angoli a 45 gradi da car_serv_smusso), rientrata di `rientro` per lato."""
+    x0, x1 = 'cor_serv_x0 + ' + rientro, 'cor_serv_x1 - ' + rientro
+    ys, c = 'car_serv_semi - ' + rientro, 'car_serv_smusso'
+    f = [p.blocco('z', q, nome + '_a', x0, '-(%s - %s)' % (ys, c), x1, '%s - %s' % (ys, c), h, verso, op)]
+    op2 = UNISCI if op == NUOVO else op
+    f.append(p.blocco('z', q, nome + '_b', '%s + %s' % (x0, c), '-(%s)' % ys, '%s - %s' % (x1, c), ys, h, verso, op2))
+    for k, (xa, ya, xb, yb) in enumerate((((x1 + ' - ' + c), ys, x1, '%s - %s' % (ys, c)),
+                                          (x1, '-(%s - %s)' % (ys, c), x1 + ' - ' + c, '-(%s)' % ys),
+                                          ('%s + %s' % (x0, c), '-(%s)' % ys, x0, '-(%s - %s)' % (ys, c)),
+                                          (x0, '%s - %s' % (ys, c), '%s + %s' % (x0, c), ys))):
+        # triangolo d'angolo: rettangolo sul lato a 45 gradi verso l'interno (i lati vanno in senso antiorario e
+        # b = a ruotato di +90 gradi punta fuori, quindi b < 0)
+        f.append(p.blocco_obl('z', q, '%s_angolo_%d' % (nome, k), (xa, ya), (xb, yb), '0 mm', '%s * sqrt(2)' % c,
+                              '-(%s * sqrt(2) / 2)' % c, '0 mm', h, verso, op2))
+    return f
+
+
 def fai_sportellino(corpo):
-    """Sportellino di servizio nel dorso del coperchio: piastra che sormonta l'apertura e cornice di centraggio."""
+    """Sportellino di servizio (PETG nero): lastra a filo nell'apertura a ottagono, appoggiata sulla battuta, con
+    nervature di schiacciamento sui lati lunghi (a filo dell'apertura nel modello: la stretta la da' la stampa, D-056)."""
     occ = _nuovo_comp(corpo, 'Corpo_Sportello_Servizio')
     p = Parte(occ.component)
-    p.blocco('z', 'cor_cop_z + cor_cop_sp', 'piastra', 'cor_serv_x0 - 2 mm', '-(cor_serv_semi + 2 mm)', 'cor_serv_x1 + 2 mm',
-             'cor_serv_semi + 2 mm', 'cor_cop_sp', 1, NUOVO)
-    p.blocco('z', 'cor_cop_z', 'cornice', 'cor_serv_x0 + 0.3 mm', '-(cor_serv_semi - 0.3 mm)', 'cor_serv_x1 - 0.3 mm',
-             'cor_serv_semi - 0.3 mm', 'cor_cop_sp')
-    p.blocco('z', 'cor_cop_z', 'vuoto', 'cor_serv_x0 + 1.5 mm', '-(cor_serv_semi - 1.5 mm)', 'cor_serv_x1 - 1.5 mm',
-             'cor_serv_semi - 1.5 mm', 'cor_cop_sp', 1, TAGLIA)
-    # nervature di schiacciamento sui lati lunghi della cornice: a filo dell'apertura nel modello (i fori stampati
-    # vengono piu' stretti di 0,1-0,2): lo sportellino resta su per attrito; si tarano sul pezzo stampato
+    _ottagono(p, 'car_top - car_sp', 'piastra', '0.2 mm', 'car_sp', 1, NUOVO)
     for nome, x in (('a', '16 mm'), ('p', '-(8 mm)')):
-        for lato, y0, y1 in (('s', 'cor_serv_semi - 0.3 mm', 'cor_serv_semi'), ('d', '-(cor_serv_semi)', '-(cor_serv_semi - 0.3 mm)')):
-            p.blocco('z', 'cor_cop_z', 'nervatura_%s%s' % (nome, lato), x + ' - 0.5 mm', y0, x + ' + 0.5 mm', y1, 'cor_cop_sp')
+        for lato, y0, y1 in (('s', 'car_serv_semi - 0.2 mm', 'car_serv_semi'), ('d', '-(car_serv_semi)', '-(car_serv_semi - 0.2 mm)')):
+            p.blocco('z', 'car_top - car_sp', 'nervatura_%s%s' % (nome, lato), x + ' - 0.5 mm', y0, x + ' + 0.5 mm', y1, 'car_sp')
     return occ, p
+
+
+# ----------------------------------------------------------------------------------- carapace (D-060, D-061)
+def _collezione(oggetti):
+    c = adsk.core.ObjectCollection.create()
+    for o in oggetti:
+        c.add(o)
+    return c
+
+
+def _spigoli_z(corpo, punti, tol=0.05):
+    """Spigoli rettilinei paralleli a Z che passano (in X, Y, mm) per i punti: [(x, y, chiave)] -> {chiave: [spigoli]}."""
+    out = {}
+    for e in corpo.edges:
+        if e.geometry.curveType != adsk.core.Curve3DTypes.Line3DCurveType:
+            continue
+        a, b = e.startVertex.geometry, e.endVertex.geometry
+        if abs(a.x - b.x) > 1e-5 or abs(a.y - b.y) > 1e-5:
+            continue
+        for x, y, k in punti:
+            if abs(a.x * 10 - x) < tol and abs(a.y * 10 - y) < tol:
+                out.setdefault(k, []).append(e)
+    return out
+
+
+def _raccorda(p, gruppi, nome):
+    fil = p.c.features.filletFeatures
+    inp = fil.createInput()
+    for r, spigoli in gruppi:
+        if spigoli:
+            inp.edgeSetInputs.addConstantRadiusEdgeSet(_collezione(spigoli), adsk.core.ValueInput.createByString(r), False)
+    f = fil.add(inp)
+    f.name = nome
+    p.n += 1
+    return f
+
+
+def _smussa(p, spigoli, dist_expr, nome, catena=True):
+    ch = p.c.features.chamferFeatures
+    ci = ch.createInput2()
+    ci.chamferEdgeSets.addEqualDistanceChamferEdgeSet(_collezione(spigoli), adsk.core.ValueInput.createByString(dist_expr), catena)
+    f = ch.add(ci)
+    f.name = nome
+    p.n += 1
+    return f
+
+
+def _lobo(p, nome, cx, cy):
+    """Lobo esagonale (vertici a 0, 60, ... gradi) come unione di tre rettangoli, da cor_cop_z a car_top."""
+    h = 'car_top - cor_cop_z'
+    f = [p.blocco('z', 'cor_cop_z', nome + '_0', cx + ' - car_lobo_R / 2', cy + ' - car_lobo_a', cx + ' + car_lobo_R / 2',
+                  cy + ' + car_lobo_a', h)]
+    for ang in (60, 120):
+        f.append(p.blocco_obl('z', 'cor_cop_z', '%s_%d' % (nome, ang), (cx, cy),
+                              ('%s + 10 mm * cos(%d deg)' % (cx, ang), '%s + 10 mm * sin(%d deg)' % (cy, ang)),
+                              '-(car_lobo_R / 2)', 'car_lobo_R / 2', '-(car_lobo_a)', 'car_lobo_a', h))
+    return f
+
+
+def _vertici_pianta(p):
+    """Vertici del contorno del carapace in pianta (meta' sinistra e specchio): (x, y, 'v' convesso | 'c' concavo)."""
+    v = p.val
+    R, a = v('car_lobo_R'), v('car_lobo_a')
+    ax, ay, my, vy, vx, cx = v('cor_ang_x'), v('cor_ang_y'), v('cor_med_y'), v('car_valle_y'), v('car_viso_x'), v('car_coda_x')
+    pts = []
+    # viso: la linea x = viso incontra il lato basso-anteriore del lobo AS (da (ax + R, ay) a (ax + R/2, ay - a))
+    t = (ax + R - vx) / (R / 2)
+    pts.append((vx, ay - t * a, 'c'))
+    pts += [(ax + R, ay, 'v'), (ax + R / 2, ay + a, 'v'), (ax - R / 2, ay + a, 'v')]
+    # valle tra AS e MS: lato basso-posteriore del lobo AS e lato basso-anteriore del lobo MS incontrano y = valle
+    t = (ay + a - vy) / a            # dal vertice (ax - R/2, ay + a) verso (ax - R, ay)
+    pts.append((ax - R / 2 - t * R / 2, vy, 'c'))
+    t = (my + a - vy) / a
+    pts.append((R / 2 + t * R / 2, vy, 'c'))
+    pts += [(R / 2, my + a, 'v'), (-R / 2, my + a, 'v')]
+    pts.append((-(R / 2 + t * R / 2), vy, 'c'))
+    t = (ay + a - vy) / a
+    pts.append((-(ax - R / 2 - t * R / 2), vy, 'c'))
+    pts += [(-(ax - R / 2), ay + a, 'v'), (-(ax + R / 2), ay + a, 'v'), (-(ax + R), ay, 'v')]
+    # coda: la linea x = -coda incontra il lato basso-posteriore del lobo PS
+    t = (ax + R - cx) / (R / 2)
+    pts.append((-cx, ay - t * a, 'c'))
+    return pts + [(x, -y, k) for x, y, k in pts]
+
+
+def fai_carapace(corpo):
+    """Carapace bianco (PETG): testa rastremata, pieno da nucleo, baie e sei lobi, raccordi in pianta, smusso 6 x 45,
+    svuotamento 1,6. I dettagli (unioni e tagli) sono in fai_carapace_dettagli."""
+    occ = _nuovo_comp(corpo, 'Corpo_Carapace')
+    p = Parte(occ.component)
+    info = {}
+    # A. testa piena con i fianchi rastremati a 60 gradi (prima del carapace, cosi' i tagli non toccano i lobi)
+    p.blocco('z', 'car_mento_z', 'testa', 'car_testa_x0', '-(car_testa_semi)', 'car_viso_x', 'car_testa_semi', 'cor_cop_z - car_mento_z', 1, NUOVO)
+    r = p.blocco_obl('x', 'car_testa_x0 - 1 mm', 'rastremazione_s', ('car_mento_semi', 'car_mento_z'),
+                     ('car_mento_semi + 10 mm * cos(car_rastr)', 'car_mento_z + 10 mm * sin(car_rastr)'), '-(5 mm)', '50 mm', '-(30 mm)', '0 mm',
+                     'car_viso_x - car_testa_x0 + 2 mm', 1, TAGLIA)
+    p.specchia([r], 'y', 'rastremazione_d')
+    # B. pieno del carapace
+    h = 'car_top - cor_cop_z'
+    p.blocco('z', 'cor_cop_z', 'nucleo', '-(car_coda_x)', '-(car_testa_y)', 'car_viso_x', 'car_testa_y', h)
+    p.blocco('z', 'cor_cop_z', 'baie', '-(cor_ang_x)', '-(car_valle_y)', 'cor_ang_x', 'car_valle_y', h)
+    las = _lobo(p, 'lobo_as', 'cor_ang_x', 'cor_ang_y')
+    lms = _lobo(p, 'lobo_ms', '0 mm', 'cor_med_y')
+    lps = p.specchia(las, 'x', 'lobi_ps')
+    p.specchia(las + lms + [lps], 'y', 'lobi_destri')
+    corpo_b = occ.component.bRepBodies.item(0)
+    zt = p.val('car_top')
+    cima = [fa for fa in corpo_b.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.PlaneSurfaceType and abs(fa.pointOnFace.z * 10 - zt) < 0.01]
+    info['area_cima_mm2'] = round(sum(fa.area for fa in cima) * 100, 1)
+    # C. raccordi in pianta sui vertici del contorno (R12 convessi, R10 concavi)
+    vert = _vertici_pianta(p)
+    sp = _spigoli_z(corpo_b, vert)
+    info['spigoli_pianta'] = {k: len(v_) for k, v_ in sp.items()}
+    _raccorda(p, [('car_r_conv', sp.get('v', [])), ('car_r_conc', sp.get('c', []))], 'raccordi_pianta')
+    # D. smusso del contorno superiore e svuotamento
+    corpo_b = occ.component.bRepBodies.item(0)
+    cima = [fa for fa in corpo_b.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.PlaneSurfaceType and abs(fa.pointOnFace.z * 10 - zt) < 0.01][0]
+    _smussa(p, [e for e in cima.edges], 'car_smusso', 'smusso')
+    corpo_b = occ.component.bRepBodies.item(0)
+    cima = [fa for fa in corpo_b.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.PlaneSurfaceType and abs(fa.pointOnFace.z * 10 - zt) < 0.01]
+    info['area_piano_mm2'] = round(sum(fa.area for fa in cima) * 100, 1)
+    zc, zm, xt = p.val('cor_cop_z'), p.val('car_mento_z'), p.val('car_testa_x0')
+    sotto = []
+    for fa in corpo_b.faces:
+        if fa.geometry.surfaceType != adsk.core.SurfaceTypes.PlaneSurfaceType:
+            continue
+        q = fa.pointOnFace
+        ok, n = fa.evaluator.getNormalAtPoint(q)
+        if (abs(q.z * 10 - zc) < 0.01 and n.z < -0.9) or (abs(q.z * 10 - zm) < 0.01 and n.z < -0.9) or (abs(q.x * 10 - xt) < 0.01 and n.x < -0.9):
+            sotto.append(fa)
+    info['facce_aperte'] = len(sotto)
+    p.svuota(sotto, 'car_sp', 'guscio')
+    info['volume_cm3'] = round(sum(b.volume for b in occ.component.bRepBodies), 2)
+    info['corpi'] = occ.component.bRepBodies.count
+    p.info = info
+    return occ, p
+
+
+def _sedi_fascia(p, op, b_viso, b_coda, h_bordo_viso, h_bordo_coda):
+    """Fascia nera sulla schiena, sullo smusso e sul bordo del viso e della coda: sedi nel carapace (TAGLIA) o pezzi
+    della fascia (NUOVO/UNISCI) con le stesse espressioni."""
+    op1 = op
+    op2 = UNISCI if op == NUOVO else op
+    f = [p.blocco('z', 'car_top - car_fascia_h', 'fascia_piano', '-(car_coda_x - car_smusso)', '-(car_fascia_semi)',
+                  'car_viso_x - car_smusso', 'car_fascia_semi', 'car_fascia_h', 1, op1)]
+    f.append(p.blocco_obl('y', '-(car_fascia_semi)', 'fascia_smusso_viso', ('car_viso_x', 'car_top - car_smusso'),
+                          ('car_viso_x - car_smusso', 'car_top'), b_viso[0], b_viso[1], b_viso[2], b_viso[3], '2 * car_fascia_semi', 1, op2))
+    f.append(p.blocco('x', 'car_viso_x - car_sp', 'fascia_bordo_viso', '-(car_fascia_semi)', 'cor_cop_z', 'car_fascia_semi',
+                      'car_top - car_smusso', h_bordo_viso, 1, op2))
+    f.append(p.blocco_obl('y', '-(car_fascia_semi)', 'fascia_smusso_coda', ('-(car_coda_x)', 'car_top - car_smusso'),
+                          ('-(car_coda_x - car_smusso)', 'car_top'), b_coda[0], b_coda[1], b_coda[2], b_coda[3], '2 * car_fascia_semi', 1, op2))
+    f.append(p.blocco('x', '-(car_coda_x)', 'fascia_bordo_coda', '-(car_fascia_semi)', 'cor_cop_z', 'car_fascia_semi',
+                      'car_top - car_smusso', h_bordo_coda, 1, op2))
+    return f
+
+
+def _fori_dorso(p):
+    """Fori del dorso che attraversano carapace e fascia: ottagono di servizio, pulsante, finestra del display, tacca."""
+    _ottagono(p, 'car_top - car_sp', 'apertura', '0 mm', 'car_sp', 1, TAGLIA)
+    p.cilindro('z', 'car_top - car_sp', 'foro_pulsante', 'car_puls_x', '0 mm', 'car_puls_d', 'car_sp', 1, TAGLIA)
+    p.blocco('z', 'car_top - car_sp', 'finestra_cicalino', '(cic_x0 + cic_x1) / 2 - car_fin_l / 2', '-(car_fin_semi)',
+             '(cic_x0 + cic_x1) / 2 + car_fin_l / 2', 'car_fin_semi', 'car_sp', 1, TAGLIA)
+    p.blocco('z', 'car_top', 'tacca', 'cor_serv_x1 + 1 mm', '-(5 mm)', 'cor_serv_x1 + 4 mm', '5 mm', '0.8 mm', -1, TAGLIA)
+
+
+def _occhio(p):
+    """Occhio della camera: tronco di piramide sul campo di 120 gradi piu' il margine, tagliato con un loft fra le due
+    bocche prolungate di 0,5 mm oltre le facce (le quattro estrusioni piane della specifica tagliavano anche fuori dal
+    tronco: un prisma estruso non si ferma agli spigoli delle pareti vicine)."""
+    k = '0.5 mm / (car_viso_x - car_occhio_x0)'
+    s_in, v_in = 'car_occhio_si - (car_occhio_se - car_occhio_si) * ' + k, 'car_occhio_vi - (car_occhio_ve - car_occhio_vi) * ' + k
+    s_ex, v_ex = 'car_occhio_se + (car_occhio_se - car_occhio_si) * ' + k, 'car_occhio_ve + (car_occhio_ve - car_occhio_vi) * ' + k
+    a = p.sk_rett('x', 'car_occhio_x0 - 0.5 mm', 'occhio_bocca_interna', '-(%s)' % s_in, 'cor_cam_z - (%s)' % v_in, s_in,
+                  'cor_cam_z + %s' % v_in)
+    b = p.sk_rett('x', 'car_viso_x + 0.5 mm', 'occhio_bocca_esterna', '-(%s)' % s_ex, 'cor_cam_z - (%s)' % v_ex, s_ex,
+                  'cor_cam_z + %s' % v_ex)
+    lo = p.c.features.loftFeatures
+    li = lo.createInput(adsk.fusion.FeatureOperations.CutFeatureOperation)
+    li.loftSections.add(a.profiles.item(0))
+    li.loftSections.add(b.profiles.item(0))
+    li.isSolid = True
+    li.participantBodies = list(p.c.bRepBodies)
+    f = lo.add(li)
+    f.name = 'occhio'
+    p.n += 1
+    return f
+
+
+def fai_carapace_dettagli(corpo):
+    """Unioni e tagli del carapace (seconda chiamata): gonne alte, paratie, guance di coda, pozzetti, collare del
+    cicalino, battuta dello sportellino; sedi di fascia e visiera, apertura, feritoie, pozzetti, fori."""
+    occ = L['trova_occ'](corpo.component, 'Corpo_Carapace')[0]
+    T0['Corpo_Carapace_dettagli'] = corpo.component.parentDesign.timeline.count
+    p = Parte(occ.component)
+    p.gruppo = 'Corpo_Carapace_dettagli'
+    # E. unioni
+    g = [p.blocco('z', 'cor_cop_z', 'gonna_alta_as', 'cor_gonna_x0', 'cor_baia_y - cor_gonna_sp', 'cor_gonna_x1', 'cor_baia_y',
+                  'car_top - car_sp - cor_cop_z')]
+    g.append(p.specchia(g, 'x', 'gonna_alta_ps'))
+    p.specchia(g, 'y', 'gonne_alte_destre')
+    pa = p.blocco('z', 'cor_orlo', 'paratia_s', 'cor_tun_x1', 'car_paratia_y0', 'car_testa_x0', 'car_paratia_y1', 'car_top - car_sp - cor_orlo')
+    p.specchia([pa], 'y', 'paratia_d')
+    gu = p.blocco('z', '-(car_guancia_giu)', 'guancia_s', '-(car_guancia_x0)', 'car_guancia_y0', '-(car_guancia_x1)', 'car_guancia_y1',
+                  'car_top - car_sp + car_guancia_giu')
+    p.specchia([gu], 'y', 'guancia_d')
+    tubi = [p.cilindro('z', 'cor_cop_z', 'pozzo_tubo_a', 'cor_col_xa', 'cor_col_y', 'car_pozzo_D', 'car_top - car_sp - cor_cop_z'),
+            p.cilindro('z', 'cor_cop_z', 'pozzo_tubo_p', '-(cor_col_xp)', 'cor_col_y', 'car_pozzo_D', 'car_top - car_sp - cor_cop_z')]
+    p.specchia(tubi, 'y', 'pozzi_tubi_destri')
+    hc = 'car_top - car_sp - cic_z0 - 8 mm'
+    cs = p.blocco('z', 'cic_z0 + 8 mm', 'collare_s', 'cic_x0 - 0.2 mm', 'cic_semi + 0.2 mm', 'cic_x1 + 0.2 mm', 'cic_semi + 1.4 mm', hc)
+    p.specchia([cs], 'y', 'collare_d')
+    p.blocco('z', 'cic_z0 + 8 mm', 'collare_fronte', 'cic_x1 + 0.2 mm', '-(14 mm)', 'cic_x1 + 1.4 mm', '14 mm', hc)
+    for x in ('-(80 mm)', '-(68 mm)'):
+        for lato, y0, y1 in (('s', 'cic_semi - 0.05 mm', 'cic_semi + 0.2 mm'), ('d', '-(cic_semi + 0.2 mm)', '-(cic_semi - 0.05 mm)')):
+            p.blocco('z', 'cic_z0 + 8 mm', 'collare_nervatura_%s%s' % (lato, x[3:5]), x + ' - 0.5 mm', y0, x + ' + 0.5 mm', y1, hc)
+    p.blocco('z', 'car_top - 2 * car_sp', 'battuta', 'cor_serv_x0 - 1 mm', '-(car_serv_semi + 1 mm)', 'cor_serv_x1 + 1 mm',
+             'car_serv_semi + 1 mm', 'car_sp')
+    p.blocco('z', 'car_top - 2 * car_sp', 'battuta_vuoto', 'cor_serv_x0 + car_battuta', '-(car_serv_semi - car_battuta)',
+             'cor_serv_x1 - car_battuta', 'car_serv_semi - car_battuta', 'car_sp', 1, TAGLIA)
+    # F. tagli: sedi della fascia (intarsio da 0,6 sul piano e sugli smussi, a piena parete sui bordi di viso e coda)
+    _sedi_fascia(p, TAGLIA, ('-(0.6 mm)', 'car_smusso * sqrt(2) + 0.6 mm', '-(1 mm)', 'car_fascia_h'),
+                 ('-(0.6 mm)', 'car_smusso * sqrt(2) + 0.6 mm', '-(car_fascia_h)', '1 mm'), 'car_sp + 0.1 mm', 'car_fascia_h')
+    p.blocco('x', 'car_viso_x - car_sp', 'sede_visiera', '-(car_testa_semi + 1 mm)', 'car_mento_z - 1 mm', 'car_testa_semi + 1 mm',
+             'cor_cop_z', 'car_sp + 0.1 mm', 1, TAGLIA)
+    _fori_dorso(p)
+    for lato, ys in (('s', 1), ('d', -1)):
+        y0, y1 = ('cor_fer_y - cor_fer_w / 2', 'cor_fer_y + cor_fer_w / 2') if ys > 0 else ('-(cor_fer_y + cor_fer_w / 2)', '-(cor_fer_y - cor_fer_w / 2)')
+        for i in range(N_FER):
+            x = _x_feritoia(i)
+            p.blocco('z', 'car_top - car_sp', 'feritoia_%s%d' % (lato, i), x, y0, x + ' + cor_fer_l', y1, 'car_sp', 1, TAGLIA)
+    for nome, x, y in (('as', 'cor_col_xa', 'cor_col_y'), ('ps', '-(cor_col_xp)', 'cor_col_y'),
+                       ('ad', 'cor_col_xa', '-(cor_col_y)'), ('pd', '-(cor_col_xp)', '-(cor_col_y)')):
+        p.cilindro('z', 'cor_cop_z + cor_cop_sp', 'pozzo_vano_' + nome, x, y, 'car_pozzo_d', 'car_top - cor_cop_z - cor_cop_sp', 1, TAGLIA)
+        p.cilindro('z', 'cor_cop_z', 'pozzo_foro_' + nome, x, y, 'vite_m3_pass', 'cor_cop_sp', 1, TAGLIA)
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
+    return occ, p
+
+
+def fai_fascia(corpo):
+    """Fascia nera (PETG non caricato) a filo nelle sedi del carapace, con i fori del dorso e l'occhio."""
+    occ = _nuovo_comp(corpo, 'Corpo_Fascia')
+    p = Parte(occ.component)
+    _sedi_fascia(p, NUOVO, ('0 mm', 'car_smusso * sqrt(2)', '0 mm', 'car_fascia_h'), ('0 mm', 'car_smusso * sqrt(2)', '-(car_fascia_h)', '0 mm'),
+                 'car_sp', 'car_fascia_h')
+    _fori_dorso(p)
+    _occhio(p)
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
+    return occ, p
+
+
+def fai_visiera(corpo):
+    """Visiera nera: parete del viso sotto il carapace, fianchi rastremati come la testa, bugna e occhio della camera."""
+    occ = _nuovo_comp(corpo, 'Corpo_Visiera')
+    p = Parte(occ.component)
+    p.blocco('x', 'car_viso_x - car_sp', 'visiera', '-(car_testa_semi)', 'car_mento_z', 'car_testa_semi', 'cor_cop_z', 'car_sp', 1, NUOVO)
+    r = p.blocco_obl('x', 'car_viso_x - car_sp - 1 mm', 'rastremazione_s', ('car_mento_semi', 'car_mento_z'),
+                     ('car_mento_semi + 10 mm * cos(car_rastr)', 'car_mento_z + 10 mm * sin(car_rastr)'), '-(5 mm)', '50 mm', '-(30 mm)', '0 mm',
+                     'car_sp + 2 mm', 1, TAGLIA)
+    p.specchia([r], 'y', 'rastremazione_d')
+    p.blocco('x', 'car_occhio_x0', 'bugna_occhio', '-(car_bugna_semi)', 'car_bugna_z0', 'car_bugna_semi', 'cor_cop_z',
+             'car_viso_x - car_sp - car_occhio_x0')
+    _occhio(p)
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
+    return occ, p
+
+
+def fai_gonne(corpo):
+    """Gonne nere sulle pareti delle baie, da z 7 al carapace: quattro corpi."""
+    occ = _nuovo_comp(corpo, 'Corpo_Gonne')
+    p = Parte(occ.component)
+    for verso, x0, x1 in (('a', 'cor_gonna_x0', 'cor_gonna_x1'), ('p', '-(cor_gonna_x1)', '-(cor_gonna_x0)')):
+        for lato, y0, y1 in (('s', 'cor_baia_y - cor_gonna_sp', 'cor_baia_y'), ('d', '-(cor_baia_y)', '-(cor_baia_y - cor_gonna_sp)')):
+            p.blocco('z', 'cor_orlo', 'gonna_%s%s' % (verso, lato), x0, y0, x1, y1, 'cor_cop_z - cor_orlo', 1, NUOVO)
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
+    return occ, p
+
+
+def togli_coperchio(corpo):
+    """Cancella il coperchio di D-052...D-057, sostituito da carapace, fascia, visiera e gonne."""
+    tolti = []
+    while L['trova_occ'](corpo.component, 'Corpo_Coperchio'):
+        L['trova_occ'](corpo.component, 'Corpo_Coperchio')[0].deleteMe()
+        tolti.append('Corpo_Coperchio')
+    return tolti
 
 
 def fai_coperchio(corpo):
@@ -490,11 +843,16 @@ def main(passi, **kw):
         if 'parametri' in passi:
             out['parametri'] = L['aggiungi_parametri'](des, PARAMETRI)
         corpo = _corpo(root)
+        if 'togli_coperchio' in passi:
+            out['togli_coperchio'] = togli_coperchio(corpo)
         for nome, f in (('base', fai_base), ('chiglia', fai_chiglia), ('sportello', fai_sportello), ('vassoio', fai_vassoio),
-                        ('slitta', fai_slitta), ('coperchio', fai_coperchio), ('sportellino', fai_sportellino)):
+                        ('slitta', fai_slitta), ('coperchio', fai_coperchio), ('sportellino', fai_sportellino),
+                        ('carapace', fai_carapace), ('carapace_dettagli', fai_carapace_dettagli), ('fascia', fai_fascia),
+                        ('visiera', fai_visiera), ('gonne', fai_gonne)):
             if nome in passi:
                 occ, p = f(corpo)
-                out[nome] = _chiudi(des, occ.component.name, p)
+                out[nome] = _chiudi(des, getattr(p, 'gruppo', occ.component.name), p)
+                out[nome].update(getattr(p, 'info', {}))
         if 'stato' in passi:
             out['stato'] = stato(des, root)
     except Exception:
