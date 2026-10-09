@@ -3,3 +3,7 @@ __pycache__/
 .DS_Store
 # modelli 3D di terzi: riscaricabili, vedi cad/modelli/README.md
 cad/modelli/**/*.step
+
+# mesh e immagini generate per i render schematici
+cad/render/mesh/
+cad/render/*.png

@@ -77,6 +77,8 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 
 | `cad/script/corpo.py` | corpo: base con gondole, chiglia, coperchio |
 | `cad/script/assieme.py` | assieme: istanze nel corpo, sei zampe, giunti di coxa, interferenze, rotazione delle coxe |
+| `cad/script/esporta_mesh.py`, `cad/render/render.py` | render schematici (matplotlib) del modello con parti nuove sopra: prima si esportano le mesh da Fusion (sola lettura), poi `Scena()` + parti + `render()` |
+| `docs/ricerca/estetica-dossier.md` | dossier per la passata estetica (indicazioni, quote, vincoli) |
 
 Versione MG90S: `git show mg90s:<percorso>` (per esempio `mg90s:cad/script/zampa.py`, `mg90s:cad/script/corpo.py`, `mg90s:cad/script/assieme.py`, `mg90s:docs/progetto-meccanico.md`). Sono la traccia più utile per scrivere gli script nuovi.
 
