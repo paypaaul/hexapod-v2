@@ -85,6 +85,34 @@ def pose_corpo(des):
     # cicalino sotto il carapace in coda (lato da 40 lungo Y, pin verso la coda) e pulsante sull'asse del dorso
     out['Cicalino'] = ('Rif_Cicalino_BX100', _rz((_mm(des, 'cic_x0') + _mm(des, 'cic_x1')) / 2, 0, _mm(des, 'cic_z0'), 90.0))
     out['Pulsante'] = ('Rif_Pulsante_12', _rz(_mm(des, 'car_puls_x'), 0, _mm(des, 'car_top'), 0.0))
+    # predisposizioni 2.1.0 (D-066): posti in corpo.py -> PARAMETRI
+    out['Interruttore'] = ('Rif_Interruttore_Pololu_2813', A['matrice']((_mm(des, 'cor_int_x'), 0, _mm(des, 'cor_int_z0') + _mm(des, 'int_w') / 2),
+                                                                 (0, 1, 0), (0, 0, 1), (1, 0, 0)))
+    zb = zt + _mm(des, 'cor_sen_bugna_h')
+    out['IMU'] = ('Rif_IMU', _rz(_mm(des, 'cor_imu_x'), _mm(des, 'cor_imu_y'), zb, 0.0))
+    out['ADC'] = ('Rif_ADC_ADS7830', _rz(_mm(des, 'cor_ads_x'), _mm(des, 'cor_ads_y'), zb, 0.0))
+    out['Prese_piedi'] = ('Rif_Prese_Piedi', _rz(_mm(des, 'cor_pre_x'), _mm(des, 'cor_pre_y'), zt + 0.5, 0.0))
+    a = des.unitsManager.evaluateExpression('cor_tof_ang', 'rad')
+    out['ToF_frontale'] = ('Rif_ToF_8x8', A['matrice']((_mm(des, 'cor_tof_x'), 0, _mm(des, 'cor_tof_z')),
+                                                       (math.sin(a), 0, math.cos(a)), (0, -1, 0), (math.cos(a), 0, -math.sin(a))))
+    b = des.unitsManager.evaluateExpression('cor_tofp_ang', 'rad')
+    yp = _mm(des, 'car_guancia_y0') - 0.5 - _mm(des, 'sen_tof_w') / 2
+    out['ToF_posteriore'] = ('Rif_ToF_1', A['matrice']((_mm(des, 'cor_tofp_x'), yp, _mm(des, 'cor_tofp_z')),
+                                                       (-math.sin(b), 0, math.cos(b)), (0, 1, 0), (-math.cos(b), 0, -math.sin(b))))
+    yi = _mm(des, 'cor_baia_y') - _mm(des, 'cor_parete') - _mm(des, 'cor_slitta_sp') - _mm(des, 'cor_sup_sp') - _mm(des, 'cor_ina_dist')
+    xi, zi = _mm(des, 'cor_ina_x'), _mm(des, 'cor_ina_z')
+    out['INA260_S'] = ('Rif_INA260', A['matrice']((xi, yi, zi), (1, 0, 0), (0, 0, 1), (0, -1, 0)))
+    out['INA260_D'] = ('Rif_INA260', A['matrice']((xi, -yi, zi), (-1, 0, 0), (0, 0, 1), (0, 1, 0)))
+    xg = -(_mm(des, 'car_guancia_x0') + _mm(des, 'car_guancia_x1')) / 2
+    out['Altoparlante'] = ('Rif_Altoparlante', A['matrice']((xg, -_mm(des, 'car_guancia_y0'), _mm(des, 'aud_alt_z')),
+                                                            (0, 0, 1), (1, 0, 0), (0, 1, 0)))
+    zs = _mm(des, 'car_top') - _mm(des, 'car_sp')
+    out['Ampli'] = ('Rif_Ampli_MAX98357A', _rz(_mm(des, 'aud_amp_x'), 0, zs - 3.5 - _mm(des, 'aud_amp_sp'), 0.0))
+    out['Scheda_carapace'] = ('Rif_Scheda_Carapace', _rz(_mm(des, 'sch_x'), 0, zs - 3.5 - _mm(des, 'sch_sp'), 90.0))
+    for lato, s in (('S', 1), ('D', -1)):
+        # scheda capovolta: la porta del microfono (sul fondo) guarda il foro, appoggiata all'anello della guarnizione
+        out['Microfono_' + lato] = ('Rif_Microfono_I2S', A['matrice']((_mm(des, 'aud_mic_x'), s * _mm(des, 'aud_mic_y'), zs - 0.6),
+                                                                       (0, 1, 0), (1, 0, 0), (0, 0, -1)))
     return out
 
 
@@ -128,6 +156,50 @@ def fai_istanze_corpo(des, root):
     for o in corpo.childOccurrences:
         o.isLightBulbOn = True
     return fatte
+
+
+def fai_istanze_nuove(des, root):
+    """Crea solo le istanze di pose_corpo che mancano (nessuna istanza dello stesso componente entro 1 mm): per i
+    componenti aggiunti dopo, senza rifare le altre (fai_istanze_corpo va in timeout)."""
+    corpo = _corpo(root)
+    lib = {o.component.name: o for o in root.occurrences if o.component.name.startswith('Rif_')}
+    fatte = []
+    for chiave, (nome_lib, m) in pose_corpo(des).items():
+        t = m.translation
+        cand = [o for o in corpo.component.occurrences if o.component.name == nome_lib]
+        if cand and math.dist([v * 10 for v in (t.x, t.y, t.z)],
+                              [v * 10 for v in (lambda q: (q.x, q.y, q.z))(A['piu_vicina'](cand, (t.x * 10, t.y * 10, t.z * 10)).transform2.translation)]) < 1.0:
+            continue
+        o = A['aggiungi_istanza'](root, lib[nome_lib], m, dentro=corpo)
+        o.isLightBulbOn = True
+        fatte.append(chiave)
+    for o in [o for o in root.occurrences if o.component.name.startswith('Rif_') and o.transform2.translation.y * 10 < 249]:
+        o.deleteMe()
+    return fatte
+
+
+def pulisci_istanze(des, root):
+    """Cancella le istanze Rif_ dentro Corpo che non stanno entro 1 mm da una posa di pose_corpo per lo stesso
+    componente (restano dopo aver spostato un posto con i parametri e rifatto istanze_nuove)."""
+    corpo = _corpo(root)
+    attese = {}
+    for nome_lib, m in pose_corpo(des).values():
+        t = m.translation
+        attese.setdefault(nome_lib, []).append((t.x * 10, t.y * 10, t.z * 10))
+    tolte = []
+    while True:
+        for o in corpo.component.occurrences:
+            n = o.component.name
+            if not n.startswith('Rif_'):
+                continue
+            t = o.transform2.translation
+            p = (t.x * 10, t.y * 10, t.z * 10)
+            if not any(math.dist(p, q) < 1.0 for q in attese.get(n, [])):
+                tolte.append('%s %s' % (n, [round(v, 1) for v in p]))
+                o.deleteMe()
+                break
+        else:
+            return tolte
 
 
 def controllo_corpo(des, root):
@@ -217,6 +289,9 @@ def _voluta(corpo_a, corpo_b, a, b):
     nomi = {a.split('+')[-1].split(':')[0], b.split('+')[-1].split(':')[0]}
     if nomi == {'Rif_Servo_MG996R', 'Rif_Squadretta_25T'}:
         return True
+    # i due sportellini di servizio sono alternativi: quello con la tacca dell'USB-C si monta solo con lo zaino
+    if nomi == {'Corpo_Sportello_Servizio', 'Corpo_Sportello_Servizio_Zaino'}:
+        return True
     if corpo_a in ('flat', 'linguetta', 'uscita_cavi') or corpo_b in ('flat', 'linguetta', 'uscita_cavi'):
         return True
     return False
@@ -242,7 +317,7 @@ def scansione_coxe(des, root, zampe, angoli):
 
 # ----------------------------------------------------------------------------------- ciclo a tripode
 SEGUONO_FEMORE = ('Femore_B', 'Femore_A', 'Ingombro_Teste_A', 'Cover_Femore_A', 'Cover_Femore_B')   # piu' le copie con origine sul femore (squadrette, perni)
-SEGUONO_TIBIA = ('Tibia', 'Cover_Tibia', 'Piedino', 'Cover_Tibia_Diffusore')
+SEGUONO_TIBIA = ('Tibia', 'Cover_Tibia', 'Piedino', 'Cover_Tibia_Diffusore', 'Rif_FSR_400')
 
 
 def _gruppo(des, o):
@@ -343,7 +418,9 @@ def verifica_ciclo(des, root, h, xf0, passo, alzata, fasi, giro=0.0):
 
 # ----------------------------------------------------------------------------------- carapace (D-061, specifica 5.4-5.8)
 GRUPPO_CARAPACE = ('Corpo_Carapace', 'Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
-SALGONO_COL_CARAPACE = GRUPPO_CARAPACE + ('Rif_Cicalino_BX100', 'Rif_Pulsante_12')
+# montati sul carapace o sulla visiera: si tolgono con loro (D-066)
+SALGONO_COL_CARAPACE = GRUPPO_CARAPACE + ('Rif_Cicalino_BX100', 'Rif_Pulsante_12', 'Corpo_Tappo_ToF', 'Corpo_Sportello_Servizio_Zaino',
+                                          'Rif_Altoparlante', 'Rif_Microfono_I2S', 'Rif_Ampli_MAX98357A', 'Rif_Scheda_Carapace', 'Rif_ToF_1')
 
 
 def _occ_carapace(root, nomi=GRUPPO_CARAPACE):
@@ -436,6 +513,10 @@ def main(passi, **kw):
         root = des.rootComponent
         if 'istanze_corpo' in passi:
             out['istanze_corpo'] = fai_istanze_corpo(des, root)
+        if 'pulisci_istanze' in passi:
+            out['pulisci_istanze'] = pulisci_istanze(des, root)
+        if 'istanze_nuove' in passi:
+            out['istanze_nuove'] = fai_istanze_nuove(des, root)
         if 'controllo' in passi:
             out['controllo'] = controllo_corpo(des, root)
         if 'zampe' in passi:
@@ -465,3 +546,4 @@ def main(passi, **kw):
     except Exception:
         out['errore'] = traceback.format_exc()
     print(json.dumps(out, indent=1, ensure_ascii=False))
+    return out

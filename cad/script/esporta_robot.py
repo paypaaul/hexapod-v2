@@ -46,14 +46,20 @@ ZA = runpy.run_path(os.path.join(QUI, 'zampa.py'))
 RHO = {'PETG-CF': 1.3, 'PLA': 1.24, 'TPU': 1.21}
 GUSCIO_CM, RIEMPIMENTO = 0.12, 0.25
 PLA = ('Corpo_Carapace', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Tibia', 'Cover_Tibia_Diffusore', 'Corpo_Vassoio', 'Corpo_Fascia',
+       'Corpo_Tappo_ToF', 'Corpo_Sportello_Servizio_Zaino',
        'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
 TPU = ('Piedino',)
 # parti comprate: massa dichiarata in g (servo: datasheet AZDelivery, V; batteria 245-259 +-20, arrotondata per eccesso;
 # le altre stimate dalle pagine dei venditori: sono i valori usati per i 2583 g di progetto-meccanico.md)
 COMPRATE = {'Rif_Servo_MG996R': 55.0, 'Rif_Squadretta_25T': 4.0, 'Rif_Cuscinetto_LF1050ZZ': 2.0, 'Rif_Perno_5': 2.0,
             'Rif_Batteria_2S5200': 260.0, 'Rif_SSC32_V25': 30.0, 'Rif_ESP32_S3_CAM': 12.0, 'Rif_Camera_OV3660_75': 4.0,
-            'Rif_Reg_Servo_D42V110F6': 17.0, 'Rif_Pulsante_12': 8.0, 'Rif_Cicalino_BX100': 10.0}
+            'Rif_Reg_Servo_D42V110F6': 17.0, 'Rif_Pulsante_12': 8.0, 'Rif_Cicalino_BX100': 10.0,
+            # predisposizioni 2.1.0 (D-066), dalle pagine dei produttori (S): si contano quando si montano
+            'Rif_Interruttore_Pololu_2813': 3.0, 'Rif_IMU': 1.0, 'Rif_ADC_ADS7830': 2.0, 'Rif_Prese_Piedi': 3.0, 'Rif_ToF_8x8': 0.5,
+            'Rif_ToF_1': 0.5, 'Rif_INA260': 3.0, 'Rif_Altoparlante': 1.5, 'Rif_Ampli_MAX98357A': 1.2, 'Rif_Scheda_Carapace': 5.0,
+            'Rif_Microfono_I2S': 0.4, 'Rif_FSR_400': 0.3}
 NON_MODELLATO_G = 360.0       # cavi, viteria, inserti, logica, fusibili, Wago, T-plug, interruttore (progetto-meccanico.md)
+ALTERNATIVE = ('Corpo_Sportello_Servizio_Zaino',)   # pezzi che sostituiscono un altro (si monta l'uno o l'altro)
 SALTA = ('flat', 'linguetta', 'zona_spine_servo', 'zona_barre_retro', 'uscita_cavi')   # ingombri non rigidi o sovrapposti
 # cicli a tripode verificati senza urti nel CAD (progetto-meccanico.md, 9 ottobre 2026): passo 60, alzata 30
 CICLI = [{'h': 100, 'xf0': 45, 'fasi': 8, 'giro': 0}, {'h': 130, 'xf0': 25, 'fasi': 8, 'giro': 0},
@@ -172,6 +178,8 @@ def _segmenti(des, root):
     seg = {'corpo': [], 'coxa': [], 'femore': [], 'tibia': []}
     corpo = _corpo_occ(root)
     for o in corpo.component.occurrences:
+        if o.component.name in ALTERNATIVE:
+            continue
         seg['corpo'].append((o.component.name, _corpi(o.component, o.transform2)))
     for o in _prima_zampa(root).component.occurrences:
         seg[AS['_gruppo'](des, o)].append((o.component.name, _corpi(o.component, o.transform2)))

@@ -31,6 +31,8 @@ def _gruppi(root):
     corpo = [o for o in root.occurrences if o.component.name == 'Corpo'][0]
     for o in corpo.childOccurrences:
         n = o.component.name
+        if n == 'Corpo_Sportello_Servizio_Zaino':          # alternativa allo sportellino, solo con lo zaino
+            continue
         if n in ('Corpo_Carapace', 'Corpo_Sportello'):
             g = 'carapace'
         elif n in ('Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio'):

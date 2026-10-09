@@ -312,3 +312,33 @@ Decisioni dell'utente del 9 ottobre: audio a bordo senza la microSD dell'ESP32, 
   - cicli a tripode 100/45 (8 fasi) e 70/70 (16 fasi) e rotazione sul posto a 30°: nessun urto;
   - carapace contro la zampa media: distanze minime invariate (4,6 mm).
 - Masse: tibia 111,4 g a segmento (+1,2: punta più larga e diffusore); modellato 2591 g, atteso circa 2951. FSR (3 g) e striscia (2 g) per zampa vanno aggiunti quando si comprano: circa 30 g in tutto, meno di mezzo punto di coppia al femore.
+
+**Blocco B — corpo** (fatto e verificato il 9 ottobre):
+- **Interruttore 2813** (B3): in piedi nella fessura fra la SSC-32 e il portafusibile (x −58,4, retro del circuito), su due guide con le scanalature per i bordi; sotto restano 5 mm per i fili; vicino a batteria, F1 e pulsante. Così il tetto sotto il vassoio resta per i sensori.
+- **IMU e ADC ADS7830** sul tetto del tunnel sotto il vassoio, su bugne alte 4 con inserti M2 (l'inserto resta nella bugna e il tetto sopra il pacco non si buca); freccia dell'asse X stampata accanto all'IMU. Interassi dei fori C. **Asola** 6 × 3 nel vassoio per i fili del bus.
+- **Prese dei piedi** (X5): fila di sei spine piegate in piedi in una scanalatura sul tetto (x 48…64, |y| 22–25), accanto all'ADC e fuori dal vassoio: si raggiungono a carapace tolto.
+- **Spie dei rail** (X13): due linguette sul tetto dietro il portafusibile con i fori dei LED da 3, rivolti verso la porta di coda.
+- **ToF frontale** (X8): la scheda inclinata di 20° sta nella mensola della camera, rifatta come sede; la mensola ora tocca la torretta, così la parte dietro la scheda resta attaccata. Nella visiera c'è la finestra a tronco di piramide sul campo (60° più 0,8 di margine), sotto l'occhio fra z 1 e 11, e un **tappo nero** a incastro finché il sensore manca (`Corpo_Tappo_ToF`). La cima della scheda passa a 0,4 dalla bugna dell'occhio e a 0,2 sotto la testa della camera: posizione del sensore sulla scheda e fori C.
+- **INA260** (X7): su due **supporti** separati (`Corpo_Supporto_INA260_S` e `_D`, PETG-CF), appoggiati alla faccia interna della slitta del regolatore con un labbro sul suo bordo e fermati dalla sua vite. La slitta destra è la sinistra ruotata: un prolungamento della slitta sarebbe finito a destra dentro il giro della coxa AD. Morsettiera in basso, sotto i cavi dei servo.
+- **Carapace**:
+  - **anello di stato** del pulsante, Ø 18–22, bianco a filo nella fascia, assottigliato da sotto a 0,8. Sotto c'è la **camera nera** Ø 28 × 4, stampata con la fascia, con la tacca per i fili dei due pixel;
+  - sedi delle **luci dei lobi** (piastrina 5 × 22 con due ganci) sotto ogni lobo, sulla direzione neutra della zampa;
+  - **ganci** per il cavo della catena lungo i fianchi;
+  - **bugne dello zaino** con inserti M2 messi dall'alto, a 58 × 23 sopra l'ottagono di servizio, lontano dall'antenna dell'ESP32. Lo zaino si avvita con viti M2 nei fori da 2,7 del Radxa: non serve una voce nuova;
+  - **microfoni**: fori Ø1 in fascia e carapace con l'anello per la guarnizione e la sede della scheda capovolta;
+  - bugne per **scheda del carapace** (X2) e **amplificatore** (X17), appesi al dorso davanti all'ottagono, sopra ESP32 e flat della camera. L'amplificatore sta sopra l'antenna dell'ESP32, a una decina di mm, sotto la plastica: l'effetto sul Wi-Fi è da provare;
+  - **altoparlante** su due guide della guancia destra della porta di coda;
+  - **ToF posteriore** su un piano inclinato di 35° sulla guancia sinistra. Copre in parte, dall'alto a sinistra, il T-plug visto dalla porta: dal basso si afferra ancora, ma va provato con la mano.
+- **Sportellino per lo zaino** (`Corpo_Sportello_Servizio_Zaino`): come quello normale con la tacca per il cavo USB-C. Si stampa solo con lo zaino; quello normale non cambia.
+- **FSR** nella zampa (`Rif_FSR_400`, istanza sotto la punta della tibia).
+- Non fatti, restano "posto da trovare": INA3221 (X15), sede del CAP1188 (X18), linee di luce della fascia (X22, fuori finché l'utente non le chiede); clip del bus fra SSC-32 e vassoio (bastano le fascette).
+- Verificato:
+  - istanze del corpo e della zampa al loro posto (scarto 0,000);
+  - assieme senza interferenze;
+  - coxe libere a ±35° e zampe vicine libere a 31°, a contatto a 32°;
+  - carapace contro le zampe AS, MS e PD: distanze invariate;
+  - sfilamento del carapace libero da +5 a +40 mm (a −2 tocca, come prima): altoparlante, microfoni, ampli, scheda del carapace, ToF posteriore e tappo salgono con il carapace;
+  - campo della camera libero;
+  - cicli a tripode 100/45 (8 fasi), 70/70 (16 fasi) e rotazione a 30°: nessun urto;
+  - zampa con l'FSR: 81 pose libere e 17 controlli su 20.
+- Masse: modellato 2625 g, atteso circa 2985 con tutte le predisposizioni montate. Il femore va al 52,1 % dello stallo a 100/45 (5,73 kgf·cm).

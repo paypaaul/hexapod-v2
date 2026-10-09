@@ -13,7 +13,7 @@
 
 versione: 2.1.0
 cad: cad.json
-cad_sha256: d98d012b372ccc6d8976642524a3b17dbfde8563048c922d60ae2a87ed82416d  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
+cad_sha256: 517ba75e95b7332a822525c9f4cc09a8edbf8832d8a00245b01660a489a66f30  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
 
 zampe: [AS, MS, PS, AD, MD, PD]          # A anteriore, M media, P posteriore; S sinistra, D destra
 tripodi: [[AS, PS, MD], [AD, PD, MS]]    # calc/statica_tripode.py -> TRIPODI

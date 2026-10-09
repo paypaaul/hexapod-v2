@@ -1,7 +1,7 @@
 {
  "versione": "2.1.0",
- "documento": "Hexapod v2.1.0 v2",
- "esportato": "2026-10-09T23:04:44",
+ "documento": "Hexapod v2.1.0 v3",
+ "esportato": "2026-10-10T00:01:56",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -201,14 +201,14 @@
  },
  "masse": {
   "segmenti_g": {
-   "corpo": 1031.0,
+   "corpo": 1063.2,
    "coxa": 94.1,
    "femore": 54.4,
-   "tibia": 111.4
+   "tibia": 111.7
   },
-  "modellato_g": 2590.7,
+  "modellato_g": 2624.6,
   "non_modellato_g": 360.0,
-  "atteso_g": 2950.7,
+  "atteso_g": 2984.6,
   "nota": "stampate con pareti 1,2 mm e riempimento 25 %, comprate con la massa dichiarata; il non modellato (cavi, viteria) va distribuito sul corpo"
  },
  "parti": {
@@ -266,112 +266,31 @@
    "materiale": "PETG-CF",
    "segmento": "corpo"
   },
-  "Corpo_Vassoio": {
-   "massa_g": 8.69,
-   "baricentro_mm": [
-    73.915,
-    0.0,
-    7.04
-   ],
-   "inerzia_gmm2": [
-    [
-     741.3,
-     -0.0,
-     -679.3
-    ],
-    [
-     -0.0,
-     4278.3,
-     0.0
-    ],
-    [
-     -679.3,
-     0.0,
-     4319.9
-    ]
-   ],
-   "materiale": "PLA",
-   "segmento": "corpo"
-  },
   "Corpo_Base": {
-   "massa_g": 197.65,
+   "massa_g": 199.04,
    "baricentro_mm": [
-    0.886,
-    0.0,
-    -16.604
+    0.726,
+    0.023,
+    -16.51
    ],
    "inerzia_gmm2": [
     [
-     433546.2,
-     0.0,
-     1129.7
+     434185.2,
+     -263.9,
+     1821.0
     ],
     [
-     0.0,
-     808258.3,
-     0.0
+     -263.9,
+     814028.3,
+     -39.2
     ],
     [
-     1129.7,
-     0.0,
-     1186726.2
+     1821.0,
+     -39.2,
+     1192531.6
     ]
    ],
    "materiale": "PETG-CF",
-   "segmento": "corpo"
-  },
-  "Corpo_Fascia": {
-   "massa_g": 3.8,
-   "baricentro_mm": [
-    8.551,
-    0.0,
-    35.206
-   ],
-   "inerzia_gmm2": [
-    [
-     416.6,
-     0.0,
-     5.6
-    ],
-    [
-     0.0,
-     16643.8,
-     0.0
-    ],
-    [
-     5.6,
-     0.0,
-     17043.9
-    ]
-   ],
-   "materiale": "PLA",
-   "segmento": "corpo"
-  },
-  "Corpo_Visiera": {
-   "massa_g": 1.83,
-   "baricentro_mm": [
-    101.051,
-    0.0,
-    15.214
-   ],
-   "inerzia_gmm2": [
-    [
-     389.1,
-     0.0,
-     1.5
-    ],
-    [
-     0.0,
-     124.0,
-     -0.0
-    ],
-    [
-     1.5,
-     -0.0,
-     266.4
-    ]
-   ],
-   "materiale": "PLA",
    "segmento": "corpo"
   },
   "Corpo_Sportello": {
@@ -996,27 +915,27 @@
    "segmento": "corpo"
   },
   "Corpo_Carapace": {
-   "massa_g": 60.82,
+   "massa_g": 63.16,
    "baricentro_mm": [
-    1.674,
-    0.0,
-    32.228
+    1.32,
+    0.154,
+    32.109
    ],
    "inerzia_gmm2": [
     [
-     106298.2,
-     0.0,
-     1136.5
+     109728.9,
+     904.0,
+     280.9
     ],
     [
-     0.0,
-     263595.4,
-     0.0
+     904.0,
+     277482.7,
+     109.9
     ],
     [
-     1136.5,
-     0.0,
-     364229.1
+     280.9,
+     109.9,
+     381267.6
     ]
    ],
    "materiale": "PLA",
@@ -1047,6 +966,519 @@
     ]
    ],
    "materiale": "PETG-CF",
+   "segmento": "corpo"
+  },
+  "Corpo_Visiera": {
+   "massa_g": 1.65,
+   "baricentro_mm": [
+    101.029,
+    0.0,
+    16.179
+   ],
+   "inerzia_gmm2": [
+    [
+     370.7,
+     0.0,
+     1.2
+    ],
+    [
+     0.0,
+     107.1,
+     0.0
+    ],
+    [
+     1.2,
+     0.0,
+     264.8
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Corpo_Tappo_ToF": {
+   "massa_g": 0.28,
+   "baricentro_mm": [
+    100.758,
+    0.0,
+    6.596
+   ],
+   "inerzia_gmm2": [
+    [
+     4.5,
+     -0.0,
+     0.1
+    ],
+    [
+     -0.0,
+     2.1,
+     0.0
+    ],
+    [
+     0.1,
+     0.0,
+     2.7
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Corpo_Supporto_INA260_S": {
+   "massa_g": 2.25,
+   "baricentro_mm": [
+    25.475,
+    44.417,
+    18.026
+   ],
+   "inerzia_gmm2": [
+    [
+     160.5,
+     -0.0,
+     -3.4
+    ],
+    [
+     -0.0,
+     260.0,
+     4.9
+    ],
+    [
+     -3.4,
+     4.9,
+     104.5
+    ]
+   ],
+   "materiale": "PETG-CF",
+   "segmento": "corpo"
+  },
+  "Corpo_Supporto_INA260_D": {
+   "massa_g": 2.25,
+   "baricentro_mm": [
+    25.475,
+    -44.417,
+    18.026
+   ],
+   "inerzia_gmm2": [
+    [
+     160.5,
+     0.0,
+     -3.4
+    ],
+    [
+     0.0,
+     260.0,
+     -4.9
+    ],
+    [
+     -3.4,
+     -4.9,
+     104.5
+    ]
+   ],
+   "materiale": "PETG-CF",
+   "segmento": "corpo"
+  },
+  "Corpo_Vassoio": {
+   "massa_g": 7.6,
+   "baricentro_mm": [
+    70.961,
+    -0.068,
+    7.018
+   ],
+   "inerzia_gmm2": [
+    [
+     699.1,
+     -10.9,
+     -661.8
+    ],
+    [
+     -10.9,
+     3648.7,
+     -2.7
+    ],
+    [
+     -661.8,
+     -2.7,
+     3692.2
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Corpo_Fascia": {
+   "massa_g": 4.2,
+   "baricentro_mm": [
+    3.943,
+    -0.0,
+    34.868
+   ],
+   "inerzia_gmm2": [
+    [
+     460.8,
+     -0.0,
+     -56.2
+    ],
+    [
+     -0.0,
+     17518.0,
+     -0.0
+    ],
+    [
+     -56.2,
+     -0.0,
+     17954.4
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Rif_IMU": {
+   "massa_g": 1.0,
+   "baricentro_mm": [
+    47.5,
+    -7.5,
+    -3.9
+   ],
+   "inerzia_gmm2": [
+    [
+     14.8,
+     -0.0,
+     0.0
+    ],
+    [
+     -0.0,
+     44.8,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     58.2
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Prese_Piedi": {
+   "massa_g": 3.0,
+   "baricentro_mm": [
+    56.0,
+    23.4,
+    -4.65
+   ],
+   "inerzia_gmm2": [
+    [
+     19.8,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     78.1,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     61.8
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_ToF_8x8": {
+   "massa_g": 0.5,
+   "baricentro_mm": [
+    95.246,
+    0.0,
+    9.192
+   ],
+   "inerzia_gmm2": [
+    [
+     17.8,
+     -0.0,
+     -4.0
+    ],
+    [
+     -0.0,
+     12.9,
+     -0.0
+    ],
+    [
+     -4.0,
+     -0.0,
+     8.2
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_INA260": {
+   "massa_g": 3.0,
+   "baricentro_mm": [
+    25.6,
+    37.028,
+    17.592
+   ],
+   "inerzia_gmm2": [
+    [
+     156.7,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     225.5,
+     -27.3
+    ],
+    [
+     0.0,
+     -27.3,
+     124.3
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_INA260_2": {
+   "massa_g": 3.0,
+   "baricentro_mm": [
+    25.6,
+    -37.028,
+    17.592
+   ],
+   "inerzia_gmm2": [
+    [
+     156.7,
+     0.0,
+     -0.0
+    ],
+    [
+     0.0,
+     225.5,
+     27.3
+    ],
+    [
+     -0.0,
+     27.3,
+     124.3
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Altoparlante": {
+   "massa_g": 1.5,
+   "baricentro_mm": [
+    -94.05,
+    -23.9,
+    12.0
+   ],
+   "inerzia_gmm2": [
+    [
+     29.3,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     43.2,
+     -0.0
+    ],
+    [
+     0.0,
+     -0.0,
+     16.2
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Ampli_MAX98357A": {
+   "massa_g": 1.2,
+   "baricentro_mm": [
+    60.7,
+    0.0,
+    29.4
+   ],
+   "inerzia_gmm2": [
+    [
+     32.6,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     38.5,
+     -0.0
+    ],
+    [
+     0.0,
+     -0.0,
+     69.3
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Scheda_Carapace": {
+   "massa_g": 5.0,
+   "baricentro_mm": [
+    39.5,
+    0.0,
+    26.4
+   ],
+   "inerzia_gmm2": [
+    [
+     408.7,
+     -0.0,
+     0.0
+    ],
+    [
+     -0.0,
+     200.4,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     541.7
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Interruttore_Pololu_2813": {
+   "massa_g": 3.0,
+   "baricentro_mm": [
+    -56.493,
+    0.0,
+    5.75
+   ],
+   "inerzia_gmm2": [
+    [
+     229.7,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     92.1,
+     -0.0
+    ],
+    [
+     0.0,
+     -0.0,
+     146.2
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_ADC_ADS7830": {
+   "massa_g": 2.0,
+   "baricentro_mm": [
+    54.25,
+    9.6,
+    -3.05
+   ],
+   "inerzia_gmm2": [
+    [
+     55.9,
+     -0.0,
+     0.0
+    ],
+    [
+     -0.0,
+     158.7,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     207.3
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_ToF_1": {
+   "massa_g": 0.5,
+   "baricentro_mm": [
+    -94.238,
+    18.4,
+    18.484
+   ],
+   "inerzia_gmm2": [
+    [
+     15.2,
+     -0.0,
+     5.9
+    ],
+    [
+     -0.0,
+     12.9,
+     0.0
+    ],
+    [
+     5.9,
+     0.0,
+     10.9
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Microfono_I2S": {
+   "massa_g": 0.4,
+   "baricentro_mm": [
+    89.3,
+    11.0,
+    32.9
+   ],
+   "inerzia_gmm2": [
+    [
+     9.4,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     5.5,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     14.7
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Microfono_I2S_2": {
+   "massa_g": 0.4,
+   "baricentro_mm": [
+    89.3,
+    -11.0,
+    32.9
+   ],
+   "inerzia_gmm2": [
+    [
+     9.4,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     5.5,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     14.7
+    ]
+   ],
+   "materiale": "comprato",
    "segmento": "corpo"
   },
   "Rif_Servo_MG996R_7": {
@@ -1587,6 +2019,33 @@
     ]
    ],
    "materiale": "PETG-CF",
+   "segmento": "tibia"
+  },
+  "Rif_FSR_400": {
+   "massa_g": 0.3,
+   "baricentro_mm": [
+    120.2,
+    -0.0,
+    -107.75
+   ],
+   "inerzia_gmm2": [
+    [
+     1.1,
+     -0.0,
+     -0.0
+    ],
+    [
+     -0.0,
+     1.1,
+     -0.0
+    ],
+    [
+     -0.0,
+     -0.0,
+     2.2
+    ]
+   ],
+   "materiale": "comprato",
    "segmento": "tibia"
   }
  },
@@ -6184,6 +6643,516 @@
    "unita": "mm",
    "espressione": "1.5 mm",
    "commento": "Stinco: smusso degli spigoli fra la faccia +X ad arco e i fianchi Y (con la punta larga 6 toccavano lo smusso interno del guscio fra Z 81 e 94; 1,5 ridà circa 0,4 di gioco)"
+  },
+  "sen_imu_l": {
+   "valore": 23.0,
+   "unita": "mm",
+   "espressione": "23 mm",
+   "commento": "IMU Pololu (X4): lunghezza S"
+  },
+  "sen_imu_w": {
+   "valore": 13.0,
+   "unita": "mm",
+   "espressione": "13 mm",
+   "commento": "IMU: larghezza S"
+  },
+  "sen_imu_sp": {
+   "valore": 3.0,
+   "unita": "mm",
+   "espressione": "3 mm",
+   "commento": "IMU: spessore con i componenti S"
+  },
+  "sen_imu_fori": {
+   "valore": 18.0,
+   "unita": "mm",
+   "espressione": "18 mm",
+   "commento": "IMU: interasse dei due fori sul lato lungo C"
+  },
+  "sen_ads_l": {
+   "valore": 30.5,
+   "unita": "mm",
+   "espressione": "30.5 mm",
+   "commento": "ADC ADS7830 (X6): lunghezza S"
+  },
+  "sen_ads_w": {
+   "valore": 17.7,
+   "unita": "mm",
+   "espressione": "17.7 mm",
+   "commento": "ADC ADS7830: larghezza S"
+  },
+  "sen_ads_sp": {
+   "valore": 4.7,
+   "unita": "mm",
+   "espressione": "4.7 mm",
+   "commento": "ADC ADS7830: spessore con i connettori STEMMA QT S"
+  },
+  "sen_ads_fori": {
+   "valore": 25.4,
+   "unita": "mm",
+   "espressione": "25.4 mm",
+   "commento": "ADC ADS7830: interasse dei due fori sul lato lungo C"
+  },
+  "sen_tof_l": {
+   "valore": 18.0,
+   "unita": "mm",
+   "espressione": "18 mm",
+   "commento": "ToF Pololu #3418 e #3415 (X8, X19): lunghezza della scheda S"
+  },
+  "sen_tof_w": {
+   "valore": 13.0,
+   "unita": "mm",
+   "espressione": "13 mm",
+   "commento": "ToF: larghezza della scheda S"
+  },
+  "sen_tof_pcb": {
+   "valore": 1.6,
+   "unita": "mm",
+   "espressione": "1.6 mm",
+   "commento": "ToF: spessore del circuito S"
+  },
+  "sen_tof_chip_l": {
+   "valore": 6.4,
+   "unita": "mm",
+   "espressione": "6.4 mm",
+   "commento": "ToF: lato lungo del sensore (VL53L7CX 6,4 x 3,0 x 1,75), al centro della scheda C"
+  },
+  "sen_tof_chip_w": {
+   "valore": 3.0,
+   "unita": "mm",
+   "espressione": "3 mm",
+   "commento": "ToF: lato corto del sensore C"
+  },
+  "sen_tof_chip_h": {
+   "valore": 1.4,
+   "unita": "mm",
+   "espressione": "1.4 mm",
+   "commento": "ToF: altezza del sensore sopra il circuito C"
+  },
+  "sen_ina_l": {
+   "valore": 22.9,
+   "unita": "mm",
+   "espressione": "22.9 mm",
+   "commento": "INA260 Adafruit (X7): lato S"
+  },
+  "sen_ina_w": {
+   "valore": 22.8,
+   "unita": "mm",
+   "espressione": "22.8 mm",
+   "commento": "INA260: altro lato S"
+  },
+  "sen_ina_sp": {
+   "valore": 2.7,
+   "unita": "mm",
+   "espressione": "2.7 mm",
+   "commento": "INA260: spessore senza morsettiera S"
+  },
+  "sen_ina_mors_h": {
+   "valore": 8.5,
+   "unita": "mm",
+   "espressione": "8.5 mm",
+   "commento": "INA260: morsettiera, altezza sopra il circuito C"
+  },
+  "sen_ina_fori": {
+   "valore": 17.8,
+   "unita": "mm",
+   "espressione": "17.8 mm",
+   "commento": "INA260: interasse dei due fori su un lato C"
+  },
+  "aud_amp_l": {
+   "valore": 19.4,
+   "unita": "mm",
+   "espressione": "19.4 mm",
+   "commento": "Amplificatore MAX98357A Adafruit 3006 (X17): lunghezza S"
+  },
+  "aud_amp_w": {
+   "valore": 17.8,
+   "unita": "mm",
+   "espressione": "17.8 mm",
+   "commento": "Amplificatore: larghezza S"
+  },
+  "aud_amp_sp": {
+   "valore": 3.0,
+   "unita": "mm",
+   "espressione": "3 mm",
+   "commento": "Amplificatore: spessore S"
+  },
+  "aud_alt_l": {
+   "valore": 15.0,
+   "unita": "mm",
+   "espressione": "15 mm",
+   "commento": "Altoparlante CMS-15113-078SP (X17): lunghezza S"
+  },
+  "aud_alt_w": {
+   "valore": 11.0,
+   "unita": "mm",
+   "espressione": "11 mm",
+   "commento": "Altoparlante: larghezza S"
+  },
+  "aud_alt_sp": {
+   "valore": 3.0,
+   "unita": "mm",
+   "espressione": "3 mm",
+   "commento": "Altoparlante: spessore S"
+  },
+  "aud_mic_l": {
+   "valore": 16.7,
+   "unita": "mm",
+   "espressione": "16.7 mm",
+   "commento": "Microfono I2S Adafruit 3421 (X16): lunghezza V"
+  },
+  "aud_mic_w": {
+   "valore": 12.7,
+   "unita": "mm",
+   "espressione": "12.7 mm",
+   "commento": "Microfono: larghezza V"
+  },
+  "aud_mic_sp": {
+   "valore": 1.8,
+   "unita": "mm",
+   "espressione": "1.8 mm",
+   "commento": "Microfono: spessore V"
+  },
+  "zai_l": {
+   "valore": 65.0,
+   "unita": "mm",
+   "espressione": "65 mm",
+   "commento": "Computer di bordo a zaino (Radxa ZERO 3W): lunghezza V"
+  },
+  "zai_w": {
+   "valore": 30.0,
+   "unita": "mm",
+   "espressione": "30 mm",
+   "commento": "Computer di bordo: larghezza V"
+  },
+  "zai_sp": {
+   "valore": 5.0,
+   "unita": "mm",
+   "espressione": "5 mm",
+   "commento": "Computer di bordo: spessore con i componenti S"
+  },
+  "zai_fori_l": {
+   "valore": 58.0,
+   "unita": "mm",
+   "espressione": "58 mm",
+   "commento": "Computer di bordo: interasse dei fori sul lato lungo (formato Raspberry Pi Zero) V"
+  },
+  "zai_fori_w": {
+   "valore": 23.0,
+   "unita": "mm",
+   "espressione": "23 mm",
+   "commento": "Computer di bordo: interasse dei fori sul lato corto V"
+  },
+  "sch_l": {
+   "valore": 30.0,
+   "unita": "mm",
+   "espressione": "30 mm",
+   "commento": "Scheda del carapace (X2): lunghezza S"
+  },
+  "sch_w": {
+   "valore": 20.0,
+   "unita": "mm",
+   "espressione": "20 mm",
+   "commento": "Scheda del carapace: larghezza S"
+  },
+  "sch_sp": {
+   "valore": 9.0,
+   "unita": "mm",
+   "espressione": "9 mm",
+   "commento": "Scheda del carapace: spessore con la spina IDC S"
+  },
+  "pre_l": {
+   "valore": 15.5,
+   "unita": "mm",
+   "espressione": "15.5 mm",
+   "commento": "Prese dei piedi: sei spine JR a 3 poli piegate, passo 2,54 S"
+  },
+  "pre_w": {
+   "valore": 2.6,
+   "unita": "mm",
+   "espressione": "2.6 mm",
+   "commento": "Prese dei piedi: spessore della fila S"
+  },
+  "pre_h": {
+   "valore": 8.5,
+   "unita": "mm",
+   "espressione": "8.5 mm",
+   "commento": "Prese dei piedi: altezza del circuito con le spine S"
+  },
+  "cor_int_x": {
+   "valore": -58.4,
+   "unita": "mm",
+   "espressione": "-( 58.4 mm )",
+   "commento": "Interruttore 2813 (B3): X del retro del circuito, in piedi fra la SSC-32 (x -50,8) e la costola del portafusibile (x -60)"
+  },
+  "cor_int_z0": {
+   "valore": -4.4,
+   "unita": "mm",
+   "espressione": "-( cor_tetto ) + 5 mm",
+   "commento": "Interruttore 2813: bordo inferiore (sotto restano 5 mm per i fili)"
+  },
+  "int_h_pcb": {
+   "valore": 1.6,
+   "unita": "mm",
+   "espressione": "1.6 mm",
+   "commento": "Interruttore 2813: spessore del circuito S"
+  },
+  "cor_int_guida": {
+   "valore": 1.2,
+   "unita": "mm",
+   "espressione": "1.2 mm",
+   "commento": "Guide della 2813: profondita delle scanalature in cui entrano i bordi del circuito"
+  },
+  "cor_sen_bugna_h": {
+   "valore": 4.0,
+   "unita": "mm",
+   "espressione": "4 mm",
+   "commento": "Bugne di IMU e ADC sul tetto: altezza (l inserto M2 resta nella bugna, il tetto sopra il pacco resta intero)"
+  },
+  "cor_sen_bugna_d": {
+   "valore": 5.5,
+   "unita": "mm",
+   "espressione": "5.5 mm",
+   "commento": "Bugne di IMU e ADC: diametro"
+  },
+  "cor_imu_x": {
+   "valore": 47.5,
+   "unita": "mm",
+   "espressione": "47.5 mm",
+   "commento": "IMU (X4): X del centro, sotto il vassoio"
+  },
+  "cor_imu_y": {
+   "valore": -7.5,
+   "unita": "mm",
+   "espressione": "-( 7.5 mm )",
+   "commento": "IMU: Y del centro"
+  },
+  "cor_ads_x": {
+   "valore": 54.25,
+   "unita": "mm",
+   "espressione": "54.25 mm",
+   "commento": "ADC ADS7830 (X6): X del centro, accanto all IMU"
+  },
+  "cor_ads_y": {
+   "valore": 9.6,
+   "unita": "mm",
+   "espressione": "9.6 mm",
+   "commento": "ADC: Y del centro (0,5 dalla colonnina del carapace a x 40)"
+  },
+  "cor_pre_x": {
+   "valore": 56.0,
+   "unita": "mm",
+   "espressione": "56 mm",
+   "commento": "Prese dei piedi (X5): X del centro della fila, fuori dal vassoio (si raggiungono a carapace tolto)"
+  },
+  "cor_pre_y": {
+   "valore": 23.4,
+   "unita": "mm",
+   "espressione": "23.4 mm",
+   "commento": "Prese dei piedi: Y del centro della fila, verso il fianco del tunnel"
+  },
+  "cor_vas_asola_x": {
+   "valore": 50.0,
+   "unita": "mm",
+   "espressione": "50 mm",
+   "commento": "Vassoio: centro dell asola dei fili del bus dei sensori"
+  },
+  "cor_tof_ang": {
+   "valore": 20.0,
+   "unita": "deg",
+   "espressione": "20 deg",
+   "commento": "ToF frontale (X8): inclinazione verso il basso (vede il pavimento davanti ai piedi anteriori)"
+  },
+  "cor_tof_x": {
+   "valore": 94.4,
+   "unita": "mm",
+   "espressione": "94.4 mm",
+   "commento": "ToF frontale: X del centro del retro della scheda (cima davanti a 0,4 dalla bugna dell occhio)"
+  },
+  "cor_tof_z": {
+   "valore": 9.5,
+   "unita": "mm",
+   "espressione": "9.5 mm",
+   "commento": "ToF frontale: Z del centro del retro della scheda (cima 0,2 sotto la testa della camera)"
+  },
+  "cor_tof_fov": {
+   "valore": 60.0,
+   "unita": "deg",
+   "espressione": "60 deg",
+   "commento": "ToF frontale: campo (V, VL53L7CX)"
+  },
+  "cor_tof_ap_y": {
+   "valore": 2.0,
+   "unita": "mm",
+   "espressione": "2 mm",
+   "commento": "ToF: semiapertura delle finestre del sensore in Y C"
+  },
+  "cor_tof_ap_z": {
+   "valore": 1.0,
+   "unita": "mm",
+   "espressione": "1 mm",
+   "commento": "ToF: semiapertura delle finestre del sensore lungo la scheda C"
+  },
+  "cor_tof_marg": {
+   "valore": 0.8,
+   "unita": "mm",
+   "espressione": "0.8 mm",
+   "commento": "ToF: margine sul campo nella finestra della visiera"
+  },
+  "cor_tof_gio": {
+   "valore": 0.2,
+   "unita": "mm",
+   "espressione": "0.2 mm",
+   "commento": "ToF: gioco della sede nella mensola e del tappo nella finestra"
+  },
+  "cor_tofp_x": {
+   "valore": -93.5,
+   "unita": "mm",
+   "espressione": "-( 93.5 mm )",
+   "commento": "ToF posteriore (X19): X del centro del retro della scheda, sulla guancia sinistra della porta"
+  },
+  "cor_tofp_z": {
+   "valore": 19.0,
+   "unita": "mm",
+   "espressione": "19 mm",
+   "commento": "ToF posteriore: Z del centro del retro della scheda (la cima resta sotto il bordo della coda a z 28,4)"
+  },
+  "cor_tofp_ang": {
+   "valore": 35.0,
+   "unita": "deg",
+   "espressione": "35 deg",
+   "commento": "ToF posteriore: inclinazione verso il basso"
+  },
+  "cor_ina_x": {
+   "valore": 25.6,
+   "unita": "mm",
+   "espressione": "cor_reg_x0 + sen_ina_l / 2 + 0.15 mm",
+   "commento": "INA260 (X7): X del centro, sul supporto sopra la slitta del regolatore"
+  },
+  "cor_ina_z": {
+   "valore": 20.0,
+   "unita": "mm",
+   "espressione": "20 mm",
+   "commento": "INA260: Z del centro (morsettiera in basso, sotto i cavi dei servo a z 25)"
+  },
+  "cor_sup_sp": {
+   "valore": 2.4,
+   "unita": "mm",
+   "espressione": "2.4 mm",
+   "commento": "Supporto dell INA260: spessore della piastra"
+  },
+  "cor_ina_dist": {
+   "valore": 3.0,
+   "unita": "mm",
+   "espressione": "3 mm",
+   "commento": "INA260: distanziali dal supporto"
+  },
+  "luc_anello_r0": {
+   "valore": 9.0,
+   "unita": "mm",
+   "espressione": "9 mm",
+   "commento": "Anello di stato del pulsante (X11): raggio interno (fuori dal dado del pulsante, r 8,65)"
+  },
+  "luc_anello_r1": {
+   "valore": 11.0,
+   "unita": "mm",
+   "espressione": "11 mm",
+   "commento": "Anello di stato del pulsante: raggio esterno"
+  },
+  "luc_bianco": {
+   "valore": 0.8,
+   "unita": "mm",
+   "espressione": "0.8 mm",
+   "commento": "Luci: bianco che resta sopra la luce (0,6-0,8 dal provino X10)"
+  },
+  "luc_camera_D": {
+   "valore": 28.0,
+   "unita": "mm",
+   "espressione": "28 mm",
+   "commento": "Camera nera sotto l anello: diametro esterno (<= 28, D-066)"
+  },
+  "luc_camera_h": {
+   "valore": 4.0,
+   "unita": "mm",
+   "espressione": "4 mm",
+   "commento": "Camera nera: altezza"
+  },
+  "luc_camera_sp": {
+   "valore": 1.2,
+   "unita": "mm",
+   "espressione": "1.2 mm",
+   "commento": "Camera nera: parete"
+  },
+  "luc_lobo_a": {
+   "valore": 17.0,
+   "unita": "mm",
+   "espressione": "17 mm",
+   "commento": "Luce dei lobi (X12): distanza della sede dall asse della coxa, sulla direzione neutra della zampa"
+  },
+  "luc_lobo_l": {
+   "valore": 22.0,
+   "unita": "mm",
+   "espressione": "22 mm",
+   "commento": "Luce dei lobi: lunghezza della sede (striscia di 2 pixel)"
+  },
+  "luc_lobo_w": {
+   "valore": 5.0,
+   "unita": "mm",
+   "espressione": "5 mm",
+   "commento": "Luce dei lobi: larghezza della sede"
+  },
+  "luc_spia_d": {
+   "valore": 3.1,
+   "unita": "mm",
+   "espressione": "3.1 mm",
+   "commento": "Spie dei rail (X13): fori dei LED da 3 mm nelle linguette di coda"
+  },
+  "zai_x": {
+   "valore": 2.0,
+   "unita": "mm",
+   "espressione": "2 mm",
+   "commento": "Zaino: X del centro dei fori, sopra l ottagono (lontano dall antenna dell ESP32, da x 55,6)"
+  },
+  "zai_bugna_d": {
+   "valore": 5.5,
+   "unita": "mm",
+   "espressione": "5.5 mm",
+   "commento": "Zaino: bugne degli inserti M2 sotto la pelle (fori 2,7 del Radxa: viti M2)"
+  },
+  "aud_mic_x": {
+   "valore": 89.3,
+   "unita": "mm",
+   "espressione": "89.3 mm",
+   "commento": "Microfoni (X16): X dei fori nella fascia, sopra la testa (scheda fra le paratie, a x 82,6, e lo smusso del viso)"
+  },
+  "aud_mic_y": {
+   "valore": 11.0,
+   "unita": "mm",
+   "espressione": "11 mm",
+   "commento": "Microfoni: Y dei fori"
+  },
+  "aud_mic_foro": {
+   "valore": 1.0,
+   "unita": "mm",
+   "espressione": "1 mm",
+   "commento": "Microfoni: diametro dei fori"
+  },
+  "aud_alt_z": {
+   "valore": 12.0,
+   "unita": "mm",
+   "espressione": "12 mm",
+   "commento": "Altoparlante (X17): Z del centro, sulla guancia destra della porta di coda"
+  },
+  "aud_amp_x": {
+   "valore": 60.7,
+   "unita": "mm",
+   "espressione": "60.7 mm",
+   "commento": "Amplificatore (X17): X del centro, appeso al dorso davanti alla scheda del carapace, sopra il flat"
+  },
+  "sch_x": {
+   "valore": 39.5,
+   "unita": "mm",
+   "espressione": "39.5 mm",
+   "commento": "Scheda del carapace (X2): X del centro, appesa al dorso davanti all ottagono"
   }
  }
 }

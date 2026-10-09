@@ -318,9 +318,11 @@ class Parte:
         d = adsk.fusion.DistanceExtentDefinition.create(VI.createByString(dist_expr))
         inp.setOneSideExtent(d, adsk.fusion.ExtentDirections.PositiveExtentDirection if positivo
                              else adsk.fusion.ExtentDirections.NegativeExtentDirection)
-        if op == TAGLIA:
+        if op == TAGLIA or (op == UNISCI and self.c.bRepBodies.count):
             # Senza questo un taglio asporta TUTTI i corpi che incontra, anche quelli degli altri
             # componenti dell'assieme (zampe, cuscinetti...): si limita ai corpi di questa parte.
+            # Anche l'unione: senza, Fusion unisce solo ai corpi visibili e con la parte nascosta ogni aggiunta
+            # diventava un corpo a parte (carapace di 68 corpi, 9 ottobre 2026).
             inp.participantBodies = [b for b in self.c.bRepBodies]
         f = ext.add(inp)
         f.name = nome

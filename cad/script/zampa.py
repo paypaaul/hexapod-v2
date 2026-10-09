@@ -929,6 +929,7 @@ ISTANZE = [
     ('Perno_Femore', 'Rif_Perno_5', ('zam_Lc', 'zy_B_est - perno_sporge', '0 mm'), ASSI_Y),
     ('Perno_Ginocchio', 'Rif_Perno_5', ('zam_Lc + zam_Lf', 'zy_B_est - perno_sporge', '0 mm'), ASSI_Y),
     ('Perno_Coxa', 'Rif_Perno_5', ('0 mm', '0 mm', '-(bug_coda + perno_sporge)'), ((1, 0, 0), (0, 1, 0), (0, 0, 1))),
+    ('FSR', 'Rif_FSR_400', ('zam_Lc + zam_Lf + sen_fsr_dx', '0 mm', '-(tib_punta_z + sen_fsr_sp)'), ((1, 0, 0), (0, 1, 0), (0, 0, 1))),
 ]
 # (nome del giunto, parte che si muove, parte fissa)
 RIGIDI = [
@@ -943,6 +944,7 @@ RIGIDI = [
     ('R_cover_tibia', 'Cover_Tibia', 'Tibia'),
     ('R_piedino', 'Piedino', 'Tibia'),
     ('R_diffusore', 'Cover_Tibia_Diffusore', 'Cover_Tibia'),
+    ('R_fsr', 'FSR', 'Tibia'),
 ]
 
 
@@ -972,6 +974,7 @@ def _istanze(zampa):
 
 
 def fai_istanze(des, root, zampa):
+    # vale solo con la prima Zampa all'origine (prima dell'assieme): con le zampe montate usare istanze_mancanti
     lib = {o.component.name: o for o in root.occurrences if o.component.name.startswith('Rif_')}
     gia = [o for o in zampa.component.occurrences if o.component.name.startswith('Rif_')]
     for o in gia:
@@ -981,6 +984,39 @@ def fai_istanze(des, root, zampa):
         A['aggiungi_istanza'](root, lib[nome_lib], m, dentro=zampa)
         fatte.append(chiave)
     return {'cancellate': len(gia), 'create': fatte}
+
+
+def fai_istanze_mancanti(des, root, zampa):
+    """Crea solo le istanze di ISTANZE che mancano, senza toccare le altre: alla radice nella posa in terna del robot
+    (posa nella zampa composta con la prima istanza di Zampa, montata e ruotata sul corpo) e poi spostate nella Zampa,
+    che conserva la posizione. Creandole direttamente nella zampa nascono fuori posto (CLAUDE.md)."""
+    lib = {o.component.name: o for o in root.occurrences if o.component.name.startswith('Rif_')}
+    presenti = _istanze(zampa)
+    fatte = []
+    for chiave, (nome_lib, m) in _pose(des).items():
+        o = presenti.get(chiave)
+        if o is not None:
+            t, a = o.transform2.translation, m.translation
+            if math.dist((t.x, t.y, t.z), (a.x, a.y, a.z)) * 10 < 1.0:
+                continue
+        mr = m.copy()
+        mr.transformBy(zampa.transform2)
+        A['aggiungi_istanza'](root, lib[nome_lib], mr, dentro=zampa)
+        fatte.append(chiave)
+    return fatte
+
+
+def fai_giunti_mancanti(des, zampa):
+    """Aggiunge solo i giunti rigidi di RIGIDI che mancano (fai_giunti li rifa' tutti)."""
+    comp = zampa.component
+    nomi = {j.name for j in comp.asBuiltJoints}
+    occ = _istanze(zampa)
+    fatti = []
+    for nome, a, b in RIGIDI:
+        if nome not in nomi:
+            A['giunto_rigido'](comp, occ[a], occ[b], nome)
+            fatti.append(nome)
+    return fatti
 
 
 def controlla_istanze(des, zampa):
@@ -1201,6 +1237,10 @@ def main(passi, **kw):
             out['punti'] = {o.component.name: _punti(o.component) for o in zampa.component.occurrences if o.component.name in PUNTI}
         if 'istanze' in passi:
             out['istanze'] = fai_istanze(des, root, zampa)
+        if 'istanze_mancanti' in passi:
+            out['istanze_mancanti'] = fai_istanze_mancanti(des, root, zampa)
+        if 'giunti_mancanti' in passi:
+            out['giunti_mancanti'] = fai_giunti_mancanti(des, zampa)
         if 'controllo' in passi:
             out['controllo'] = controlla_istanze(des, zampa)
         if 'giunti' in passi:

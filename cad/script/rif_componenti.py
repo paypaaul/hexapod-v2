@@ -129,6 +129,48 @@ PARAMETRI = [
     ('ins_m2_l', '4 mm', 'mm', 'Profondita del foro per inserto M2 (3 + 1)'),
     ('vite_m3_pass', '3.4 mm', 'mm', 'Foro passante per vite M3'),
     ('vite_m2_pass', '2.4 mm', 'mm', 'Foro passante per vite M2'),
+    # --- predisposizioni della versione 2.1.0 (D-066): sensori, luci, audio e computer di bordo. Quote dalle pagine dei
+    #     produttori lette nella ricerca del 9 ottobre (docs/predisposizioni.md); fori e posizione dei chip C, da
+    #     ricontrollare sulle schede vere prima di stampare
+    ('sen_imu_l', '23 mm', 'mm', 'IMU Pololu (X4): lunghezza S'),
+    ('sen_imu_w', '13 mm', 'mm', 'IMU: larghezza S'),
+    ('sen_imu_sp', '3 mm', 'mm', 'IMU: spessore con i componenti S'),
+    ('sen_imu_fori', '18 mm', 'mm', 'IMU: interasse dei due fori sul lato lungo C'),
+    ('sen_ads_l', '30.5 mm', 'mm', 'ADC ADS7830 (X6): lunghezza S'),
+    ('sen_ads_w', '17.7 mm', 'mm', 'ADC ADS7830: larghezza S'),
+    ('sen_ads_sp', '4.7 mm', 'mm', 'ADC ADS7830: spessore con i connettori STEMMA QT S'),
+    ('sen_ads_fori', '25.4 mm', 'mm', 'ADC ADS7830: interasse dei due fori sul lato lungo C'),
+    ('sen_tof_l', '18 mm', 'mm', 'ToF Pololu #3418 e #3415 (X8, X19): lunghezza della scheda S'),
+    ('sen_tof_w', '13 mm', 'mm', 'ToF: larghezza della scheda S'),
+    ('sen_tof_pcb', '1.6 mm', 'mm', 'ToF: spessore del circuito S'),
+    ('sen_tof_chip_l', '6.4 mm', 'mm', 'ToF: lato lungo del sensore (VL53L7CX 6,4 x 3,0 x 1,75), al centro della scheda C'),
+    ('sen_tof_chip_w', '3 mm', 'mm', 'ToF: lato corto del sensore C'),
+    ('sen_tof_chip_h', '1.4 mm', 'mm', 'ToF: altezza del sensore sopra il circuito C'),
+    ('sen_ina_l', '22.9 mm', 'mm', 'INA260 Adafruit (X7): lato S'),
+    ('sen_ina_w', '22.8 mm', 'mm', 'INA260: altro lato S'),
+    ('sen_ina_sp', '2.7 mm', 'mm', 'INA260: spessore senza morsettiera S'),
+    ('sen_ina_mors_h', '8.5 mm', 'mm', 'INA260: morsettiera, altezza sopra il circuito C'),
+    ('sen_ina_fori', '17.8 mm', 'mm', 'INA260: interasse dei due fori su un lato C'),
+    ('aud_amp_l', '19.4 mm', 'mm', 'Amplificatore MAX98357A Adafruit 3006 (X17): lunghezza S'),
+    ('aud_amp_w', '17.8 mm', 'mm', 'Amplificatore: larghezza S'),
+    ('aud_amp_sp', '3 mm', 'mm', 'Amplificatore: spessore S'),
+    ('aud_alt_l', '15 mm', 'mm', 'Altoparlante CMS-15113-078SP (X17): lunghezza S'),
+    ('aud_alt_w', '11 mm', 'mm', 'Altoparlante: larghezza S'),
+    ('aud_alt_sp', '3 mm', 'mm', 'Altoparlante: spessore S'),
+    ('aud_mic_l', '16.7 mm', 'mm', 'Microfono I2S Adafruit 3421 (X16): lunghezza V'),
+    ('aud_mic_w', '12.7 mm', 'mm', 'Microfono: larghezza V'),
+    ('aud_mic_sp', '1.8 mm', 'mm', 'Microfono: spessore V'),
+    ('zai_l', '65 mm', 'mm', 'Computer di bordo a zaino (Radxa ZERO 3W): lunghezza V'),
+    ('zai_w', '30 mm', 'mm', 'Computer di bordo: larghezza V'),
+    ('zai_sp', '5 mm', 'mm', 'Computer di bordo: spessore con i componenti S'),
+    ('zai_fori_l', '58 mm', 'mm', 'Computer di bordo: interasse dei fori sul lato lungo (formato Raspberry Pi Zero) V'),
+    ('zai_fori_w', '23 mm', 'mm', 'Computer di bordo: interasse dei fori sul lato corto V'),
+    ('sch_l', '30 mm', 'mm', 'Scheda del carapace (X2): lunghezza S'),
+    ('sch_w', '20 mm', 'mm', 'Scheda del carapace: larghezza S'),
+    ('sch_sp', '9 mm', 'mm', 'Scheda del carapace: spessore con la spina IDC S'),
+    ('pre_l', '15.5 mm', 'mm', 'Prese dei piedi: sei spine JR a 3 poli piegate, passo 2,54 S'),
+    ('pre_w', '2.6 mm', 'mm', 'Prese dei piedi: spessore della fila S'),
+    ('pre_h', '8.5 mm', 'mm', 'Prese dei piedi: altezza del circuito con le spine S'),
 ]
 
 # Modelli STEP: nome del componente -> percorso relativo a cad/modelli
@@ -155,7 +197,7 @@ LIBRERIA = {
     'Rif_ESP32_S3_CAM': (100, 350, 0),
     'Rif_Camera_OV3660_75': (200, 350, 0),
     'Rif_Batteria_2S5200': (0, 450, 0),
-    'Rif_Interruttore_2813': (120, 450, 0),
+    'Rif_Interruttore_Pololu_2813': (120, 450, 0),
     'Rif_Condensatore_2200uF': (160, 450, 0),
     'Rif_Basetta_50x70': (230, 450, 0),
     'Rif_Portafusibile_ATO': (0, 550, 0),
@@ -163,6 +205,18 @@ LIBRERIA = {
     'Rif_Cicalino_BX100': (110, 550, 0),
     'Rif_Tplug': (170, 550, 0),
     'Rif_Pulsante_12': (230, 550, 0),
+    'Rif_IMU': (0, 650, 0),
+    'Rif_ADC_ADS7830': (50, 650, 0),
+    'Rif_INA260': (100, 650, 0),
+    'Rif_ToF_8x8': (150, 650, 0),
+    'Rif_ToF_1': (190, 650, 0),
+    'Rif_Ampli_MAX98357A': (230, 650, 0),
+    'Rif_Altoparlante': (0, 710, 0),
+    'Rif_Microfono_I2S': (40, 710, 0),
+    'Rif_FSR_400': (80, 710, 0),
+    'Rif_Scheda_Carapace': (120, 710, 0),
+    'Rif_Prese_Piedi': (170, 710, 0),
+    'Rif_Computer_Zaino': (0, 780, 0),
 }
 
 GENERATI = [n for n in LIBRERIA if n not in STEP]
@@ -421,7 +475,9 @@ def fai_ingombri(des, root, rigenera, solo=None):
     fatti.append(componente(root, 'Rif_Perno_5', [('perno', cyl(0, 0, 0, p('perno_d'), p('perno_l')))]))
 
     # Minuteria
-    fatti.append(componente(root, 'Rif_Interruttore_2813', [('scheda', box(0, 0, 0, p('int_l'), p('int_w'), p('int_h')))]))
+    # 2813: circuito intero e componenti rientrati di 1,5 mm dai bordi, che entrano nelle guide del corpo (S)
+    fatti.append(componente(root, 'Rif_Interruttore_Pololu_2813', [('circuito', box(0, 0, 0, p('int_l'), p('int_w'), 1.6)),
+                                                            ('componenti', box(0, 0, 1.6, p('int_l') - 3.0, p('int_w') - 3.0, p('int_h') - 1.6))]))
     fatti.append(componente(root, 'Rif_Condensatore_2200uF', [('condensatore', cyl(0, 0, 0, p('cond_d'), p('cond_h')))]))
     # basetta 50 x 70 tagliata a misura (D-053): i fori si trapanano sulle colonnine del vassoio
     fatti.append(componente(root, 'Rif_Basetta_50x70', [('basetta', box(0, 0, 0, p('bas_l'), p('bas_w'), p('bas_sp')))]))
@@ -432,6 +488,24 @@ def fai_ingombri(des, root, rigenera, solo=None):
     # pulsante da pannello Ø12 (B3b): origine al centro della faccia superiore del pannello, +Z in alto
     fatti.append(componente(root, 'Rif_Pulsante_12', [('pulsante', unisci(cyl(0, 0, 0, 15.0, 2.0), cyl(0, 0, -21.6, 12.0, 21.6),
                                                                        cyl(0, 0, -3.6, 17.3, 2.0)))]))
+    # Predisposizioni 2.1.0 (D-066): circuiti con l'origine al centro del lato inferiore, +Z verso i componenti
+    fatti.append(componente(root, 'Rif_IMU', [('scheda', box(0, 0, 0, p('sen_imu_l'), p('sen_imu_w'), p('sen_imu_sp')))]))
+    fatti.append(componente(root, 'Rif_ADC_ADS7830', [('scheda', box(0, 0, 0, p('sen_ads_l'), p('sen_ads_w'), p('sen_ads_sp')))]))
+    il, iw = p('sen_ina_l'), p('sen_ina_w')
+    fatti.append(componente(root, 'Rif_INA260', [('scheda', box(0, 0, 0, il, iw, p('sen_ina_sp'))),
+                                                 ('morsettiera', box(0, -iw / 2 + 4.0, p('sen_ina_sp'), 10.0, 8.0, p('sen_ina_mors_h')))]))
+    tl, tw, tp = p('sen_tof_l'), p('sen_tof_w'), p('sen_tof_pcb')
+    for nome in ('Rif_ToF_8x8', 'Rif_ToF_1'):
+        fatti.append(componente(root, nome, [('scheda', box(0, 0, 0, tl, tw, tp)),
+                                             ('sensore', box(0, 0, tp, p('sen_tof_chip_l'), p('sen_tof_chip_w'), p('sen_tof_chip_h')))]))
+    fatti.append(componente(root, 'Rif_Ampli_MAX98357A', [('scheda', box(0, 0, 0, p('aud_amp_l'), p('aud_amp_w'), p('aud_amp_sp')))]))
+    fatti.append(componente(root, 'Rif_Altoparlante', [('altoparlante', box(0, 0, 0, p('aud_alt_l'), p('aud_alt_w'), p('aud_alt_sp')))]))
+    fatti.append(componente(root, 'Rif_Microfono_I2S', [('scheda', box(0, 0, 0, p('aud_mic_l'), p('aud_mic_w'), p('aud_mic_sp')))]))
+    # FSR: solo la testa, sotto la punta della tibia (la coda si piega nella tasca sulla faccia +X)
+    fatti.append(componente(root, 'Rif_FSR_400', [('testa', cyl(0, 0, 0, p('sen_fsr_testa_d'), p('sen_fsr_sp')))]))
+    fatti.append(componente(root, 'Rif_Scheda_Carapace', [('scheda', box(0, 0, 0, p('sch_l'), p('sch_w'), p('sch_sp')))]))
+    fatti.append(componente(root, 'Rif_Prese_Piedi', [('prese', box(0, 0, 0, p('pre_l'), p('pre_w'), p('pre_h')))]))
+    fatti.append(componente(root, 'Rif_Computer_Zaino', [('scheda', box(0, 0, 0, p('zai_l'), p('zai_w'), p('zai_sp')))]))
     return [o.component.name for o in fatti if o is not None]
 
 

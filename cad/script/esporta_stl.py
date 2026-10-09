@@ -15,7 +15,8 @@ V = runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ver
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'stl')
 PARTI = ('Coxa', 'Coxa_Ponte', 'Femore_A', 'Femore_B', 'Tibia', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Tibia', 'Piedino', 'Cover_Tibia_Diffusore',
          'Corpo_Base', 'Corpo_Chiglia', 'Corpo_Vassoio', 'Corpo_Slitta_Regolatore', 'Corpo_Sportello', 'Corpo_Carapace',
-         'Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
+         'Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio', 'Corpo_Tappo_ToF',
+         'Corpo_Supporto_INA260_S', 'Corpo_Supporto_INA260_D', 'Corpo_Sportello_Servizio_Zaino')
 
 
 def main(out=OUT):

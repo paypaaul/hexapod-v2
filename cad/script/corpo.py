@@ -166,6 +166,53 @@ PARAMETRI = [
     ('car_occhio_ve', 'cam_lente_d / 2 + (car_viso_x - cor_cam_x - cam_alt) * tan(cam_fov_v) + car_occhio_marg', 'mm', 'Occhio: semialtezza della bocca esterna'),
     ('car_bugna_semi', '11 mm', 'mm', 'Visiera: bugna dell occhio dietro la visiera, semilarghezza'),
     ('car_bugna_z0', 'cor_cam_z - 7.5 mm', 'mm', 'Visiera: fondo della bugna dell occhio'),
+    # --- predisposizioni della versione 2.1.0 (D-066): posti trovati nel modello; quote dei circuiti in rif_componenti.py
+    ('cor_int_x', '-(58.4 mm)', 'mm', 'Interruttore 2813 (B3): X del retro del circuito, in piedi fra la SSC-32 (x -50,8) e la costola del portafusibile (x -60)'),
+    ('cor_int_z0', '-(cor_tetto) + 5 mm', 'mm', 'Interruttore 2813: bordo inferiore (sotto restano 5 mm per i fili)'),
+    ('int_h_pcb', '1.6 mm', 'mm', 'Interruttore 2813: spessore del circuito S'),
+    ('cor_int_guida', '1.2 mm', 'mm', 'Guide della 2813: profondita delle scanalature in cui entrano i bordi del circuito'),
+    ('cor_sen_bugna_h', '4 mm', 'mm', 'Bugne di IMU e ADC sul tetto: altezza (l inserto M2 resta nella bugna, il tetto sopra il pacco resta intero)'),
+    ('cor_sen_bugna_d', '5.5 mm', 'mm', 'Bugne di IMU e ADC: diametro'),
+    ('cor_imu_x', '47.5 mm', 'mm', 'IMU (X4): X del centro, sotto il vassoio'),
+    ('cor_imu_y', '-(7.5 mm)', 'mm', 'IMU: Y del centro'),
+    ('cor_ads_x', '54.25 mm', 'mm', 'ADC ADS7830 (X6): X del centro, accanto all IMU'),
+    ('cor_ads_y', '9.6 mm', 'mm', 'ADC: Y del centro (0,5 dalla colonnina del carapace a x 40)'),
+    ('cor_pre_x', '56 mm', 'mm', 'Prese dei piedi (X5): X del centro della fila, fuori dal vassoio (si raggiungono a carapace tolto)'),
+    ('cor_pre_y', '23.4 mm', 'mm', 'Prese dei piedi: Y del centro della fila, verso il fianco del tunnel'),
+    ('cor_vas_asola_x', '50 mm', 'mm', 'Vassoio: centro dell asola dei fili del bus dei sensori'),
+    ('cor_tof_ang', '20 deg', 'deg', 'ToF frontale (X8): inclinazione verso il basso (vede il pavimento davanti ai piedi anteriori)'),
+    ('cor_tof_x', '94.4 mm', 'mm', 'ToF frontale: X del centro del retro della scheda (cima davanti a 0,4 dalla bugna dell occhio)'),
+    ('cor_tof_z', '9.5 mm', 'mm', 'ToF frontale: Z del centro del retro della scheda (cima 0,2 sotto la testa della camera)'),
+    ('cor_tof_fov', '60 deg', 'deg', 'ToF frontale: campo (V, VL53L7CX)'),
+    ('cor_tof_ap_y', '2 mm', 'mm', 'ToF: semiapertura delle finestre del sensore in Y C'),
+    ('cor_tof_ap_z', '1 mm', 'mm', 'ToF: semiapertura delle finestre del sensore lungo la scheda C'),
+    ('cor_tof_marg', '0.8 mm', 'mm', 'ToF: margine sul campo nella finestra della visiera'),
+    ('cor_tof_gio', '0.2 mm', 'mm', 'ToF: gioco della sede nella mensola e del tappo nella finestra'),
+    ('cor_tofp_x', '-(93.5 mm)', 'mm', 'ToF posteriore (X19): X del centro del retro della scheda, sulla guancia sinistra della porta'),
+    ('cor_tofp_z', '19 mm', 'mm', 'ToF posteriore: Z del centro del retro della scheda (la cima resta sotto il bordo della coda a z 28,4)'),
+    ('cor_tofp_ang', '35 deg', 'deg', 'ToF posteriore: inclinazione verso il basso'),
+    ('cor_ina_x', 'cor_reg_x0 + sen_ina_l / 2 + 0.15 mm', 'mm', 'INA260 (X7): X del centro, sul supporto sopra la slitta del regolatore'),
+    ('cor_ina_z', '20 mm', 'mm', 'INA260: Z del centro (morsettiera in basso, sotto i cavi dei servo a z 25)'),
+    ('cor_sup_sp', '2.4 mm', 'mm', 'Supporto dell INA260: spessore della piastra'),
+    ('cor_ina_dist', '3 mm', 'mm', 'INA260: distanziali dal supporto'),
+    ('luc_anello_r0', '9 mm', 'mm', 'Anello di stato del pulsante (X11): raggio interno (fuori dal dado del pulsante, r 8,65)'),
+    ('luc_anello_r1', '11 mm', 'mm', 'Anello di stato del pulsante: raggio esterno'),
+    ('luc_bianco', '0.8 mm', 'mm', 'Luci: bianco che resta sopra la luce (0,6-0,8 dal provino X10)'),
+    ('luc_camera_D', '28 mm', 'mm', 'Camera nera sotto l anello: diametro esterno (<= 28, D-066)'),
+    ('luc_camera_h', '4 mm', 'mm', 'Camera nera: altezza'),
+    ('luc_camera_sp', '1.2 mm', 'mm', 'Camera nera: parete'),
+    ('luc_lobo_a', '17 mm', 'mm', 'Luce dei lobi (X12): distanza della sede dall asse della coxa, sulla direzione neutra della zampa'),
+    ('luc_lobo_l', '22 mm', 'mm', 'Luce dei lobi: lunghezza della sede (striscia di 2 pixel)'),
+    ('luc_lobo_w', '5 mm', 'mm', 'Luce dei lobi: larghezza della sede'),
+    ('luc_spia_d', '3.1 mm', 'mm', 'Spie dei rail (X13): fori dei LED da 3 mm nelle linguette di coda'),
+    ('zai_x', '2 mm', 'mm', 'Zaino: X del centro dei fori, sopra l ottagono (lontano dall antenna dell ESP32, da x 55,6)'),
+    ('zai_bugna_d', '5.5 mm', 'mm', 'Zaino: bugne degli inserti M2 sotto la pelle (fori 2,7 del Radxa: viti M2)'),
+    ('aud_mic_x', '89.3 mm', 'mm', 'Microfoni (X16): X dei fori nella fascia, sopra la testa (scheda fra le paratie, a x 82,6, e lo smusso del viso)'),
+    ('aud_mic_y', '11 mm', 'mm', 'Microfoni: Y dei fori'),
+    ('aud_mic_foro', '1 mm', 'mm', 'Microfoni: diametro dei fori'),
+    ('aud_alt_z', '12 mm', 'mm', 'Altoparlante (X17): Z del centro, sulla guancia destra della porta di coda'),
+    ('aud_amp_x', '60.7 mm', 'mm', 'Amplificatore (X17): X del centro, appeso al dorso davanti alla scheda del carapace, sopra il flat'),
+    ('sch_x', '39.5 mm', 'mm', 'Scheda del carapace (X2): X del centro, appesa al dorso davanti all ottagono'),
 ]
 
 T0 = {}
@@ -448,9 +495,20 @@ def fai_vassoio(corpo):
     # indietro sopra la torretta e sopra il modulo dell'antenna) e mensola sotto la testa
     p.blocco('z', 'cor_vas_z + cor_vas_sp', 'torretta', 'cor_vas_x1', '-(6 mm)', 'cor_cam_x - 0.2 mm', '6 mm',
              'cor_cam_z - cor_vas_z - cor_vas_sp')
-    p.blocco('z', 'cor_vas_z', 'mensola', 'cor_cam_x', '-(6 mm)', 'cor_cam_x + cam_alt', '6 mm',
+    # la mensola tocca la torretta (prima stava a 0,2): con la sede del ToF la parte dietro la scheda resta attaccata
+    p.blocco('z', 'cor_vas_z', 'mensola', 'cor_cam_x - 0.2 mm', '-(6 mm)', 'cor_cam_x + cam_alt', '6 mm',
              'cor_cam_z - cam_testa / 2 - cor_vas_z')
     p.blocco('z', 'cor_vas_z', 'piede_mensola', 'cor_vas_x1 - 1 mm', '-(6 mm)', 'cor_cam_x + cam_alt', '6 mm', 'cor_vas_sp')
+    # D-066: asola per i fili del bus dei sensori verso IMU e ADC sotto il vassoio
+    p.blocco('z', 'cor_vas_z', 'asola_bus', 'cor_vas_asola_x - 3 mm', 'cor_fronte_semi - 4 mm', 'cor_vas_asola_x + 3 mm',
+             'cor_fronte_semi - 1 mm', 'cor_vas_sp', 1, TAGLIA)
+    # sede del ToF frontale nella mensola: via tutto davanti al retro della scheda inclinata (nel piano 'y' (u, v) = (x, z);
+    # b = a ruotato di +90 gradi punta indietro e in alto, quindi la scheda sta a b < 0); la cima della mensola resta
+    # sotto la testa della camera
+    p.blocco_obl('y', '-(sen_tof_w / 2 + cor_tof_gio)', 'sede_tof', ('cor_tof_x', 'cor_tof_z'),
+                 ('cor_tof_x + 10 mm * sin(cor_tof_ang)', 'cor_tof_z + 10 mm * cos(cor_tof_ang)'),
+                 '-(sen_tof_l / 2 + cor_tof_gio)', 'sen_tof_l / 2 + 3 mm', '-(15 mm)', 'cor_tof_gio',
+                 'sen_tof_w + 2 * cor_tof_gio', 1, TAGLIA)
     return occ, p
 
 
@@ -732,6 +790,20 @@ def fai_fascia(corpo):
                  'car_sp', 'car_fascia_h')
     _fori_dorso(p)
     _occhio(p)
+    # D-066: anello di stato attorno al pulsante (lo riempie il bianco del carapace) e fori dei microfoni
+    zf = 'car_top - car_fascia_h'
+    p.cilindro('z', zf, 'anello', 'car_puls_x', '0 mm', '2 * luc_anello_r1', 'car_fascia_h', 1, TAGLIA)
+    p.cilindro('z', zf, 'anello_dentro', 'car_puls_x', '0 mm', '2 * luc_anello_r0', 'car_fascia_h')
+    p.cilindro('z', zf, 'foro_pulsante_anello', 'car_puls_x', '0 mm', 'car_puls_d', 'car_fascia_h', 1, TAGLIA)
+    for lato, y in (('s', 'aud_mic_y'), ('d', '-(aud_mic_y)')):
+        p.cilindro('z', zf, 'mic_foro_' + lato, 'aud_mic_x', y, 'aud_mic_foro', 'car_fascia_h', 1, TAGLIA)
+    # camera nera sotto l'anello (corpo a parte nello stesso pezzo nero, stampato con il carapace capovolto), con la
+    # tacca per i fili dei due pixel verso la coda
+    zc = 'car_top - car_sp - luc_camera_h'
+    p.cilindro('z', zc, 'camera_nera', 'car_puls_x', '0 mm', 'luc_camera_D', 'luc_camera_h', 1, NUOVO)
+    p.cilindro('z', zc, 'camera_nera_vuoto', 'car_puls_x', '0 mm', 'luc_camera_D - 2 * luc_camera_sp', 'luc_camera_h', 1, TAGLIA)
+    p.blocco('z', zc, 'camera_nera_tacca', 'car_puls_x - luc_camera_D / 2 - 1 mm', '-(1.5 mm)',
+             'car_puls_x - luc_camera_D / 2 + luc_camera_sp + 1 mm', '1.5 mm', '2 mm', 1, TAGLIA)
     p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
     return occ, p
 
@@ -748,6 +820,217 @@ def fai_visiera(corpo):
     p.blocco('x', 'car_occhio_x0', 'bugna_occhio', '-(car_bugna_semi)', 'car_bugna_z0', 'car_bugna_semi', 'cor_cop_z',
              'car_viso_x - car_sp - car_occhio_x0')
     _occhio(p)
+    # D-066: finestra del ToF frontale sotto l'occhio (tronco di piramide sul campo inclinato, piu' il margine)
+    _tof_finestra(p, 'car_viso_x - car_sp - 0.5 mm', 'car_viso_x + 0.5 mm', '0 mm', adsk.fusion.FeatureOperations.CutFeatureOperation,
+                  'finestra_tof')
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
+    return occ, p
+
+
+def _tof_sezione(x):
+    """Finestra del ToF frontale sul piano X = x: (semilarghezza in Y, z basso, z alto) come espressioni. Il campo e' un
+    cono di cor_tof_fov attorno alla normale della scheda, inclinata di cor_tof_ang verso il basso, dalle finestre del
+    sensore piu' il margine: le sezioni dipendono linearmente da x, quindi il loft fra due sezioni e' esatto."""
+    sx = '(cor_tof_x + (sen_tof_pcb + sen_tof_chip_h) * cos(cor_tof_ang))'
+    sz = '(cor_tof_z - (sen_tof_pcb + sen_tof_chip_h) * sin(cor_tof_ang))'
+    d = '((%s) - %s)' % (x, sx)
+    sy = 'cor_tof_ap_y + %s * tan(cor_tof_fov / 2) + cor_tof_marg' % d
+    z0 = '%s - cor_tof_ap_z * cos(cor_tof_ang) - %s * tan(cor_tof_fov / 2 + cor_tof_ang) - cor_tof_marg' % (sz, d)
+    z1 = '%s + cor_tof_ap_z * cos(cor_tof_ang) + %s * tan(cor_tof_fov / 2 - cor_tof_ang) + cor_tof_marg' % (sz, d)
+    return sy, z0, z1
+
+
+def _loft(p, a, b, op, nome):
+    lo = p.c.features.loftFeatures
+    li = lo.createInput(op)
+    li.loftSections.add(a.profiles.item(0))
+    li.loftSections.add(b.profiles.item(0))
+    li.isSolid = True
+    if op != adsk.fusion.FeatureOperations.NewBodyFeatureOperation:
+        li.participantBodies = list(p.c.bRepBodies)
+    f = lo.add(li)
+    f.name = nome
+    p.n += 1
+    return f
+
+
+def _tof_finestra(p, xa, xb, rientro, op, nome):
+    sezioni = []
+    for x in (xa, xb):
+        sy, z0, z1 = _tof_sezione(x)
+        sezioni.append(p.sk_rett('x', x, '%s_%s' % (nome, 'a' if x == xa else 'b'), '-(%s - %s)' % (sy, rientro),
+                                 '%s + %s' % (z0, rientro), '%s - %s' % (sy, rientro), '%s - %s' % (z1, rientro)))
+    return _loft(p, sezioni[0], sezioni[1], op, nome)
+
+
+def fai_tappo_tof(corpo):
+    """Tappo nero della finestra del ToF frontale, finche' il sensore manca: a filo della visiera, con una flangia dietro."""
+    occ = _nuovo_comp(corpo, 'Corpo_Tappo_ToF')
+    p = Parte(occ.component)
+    _tof_finestra(p, 'car_viso_x - car_sp', 'car_viso_x', 'cor_tof_gio', adsk.fusion.FeatureOperations.NewBodyFeatureOperation, 'tappo')
+    sy, z0, z1 = _tof_sezione('car_viso_x - car_sp')
+    p.blocco('x', 'car_viso_x - car_sp - 0.8 mm', 'flangia', '-(%s + 1 mm)' % sy, '%s - 1 mm' % z0, '%s + 1 mm' % sy, '%s + 1 mm' % z1,
+             '0.8 mm', 1)
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 4)}
+    return occ, p
+
+
+def fai_supporto_ina(corpo, lato):
+    """Supporto dell'INA260 (X7) sopra la slitta del regolatore: piastra appoggiata alla faccia interna della slitta, con
+    un labbro sul suo bordo alto e la sua vite; due bugne con inserti M2 verso il tunnel. Un pezzo per lato (la slitta
+    destra e' la sinistra ruotata: un prolungamento della slitta finirebbe a destra nel giro della coxa AD)."""
+    occ = _nuovo_comp(corpo, 'Corpo_Supporto_INA260_' + ('S' if lato > 0 else 'D'))
+    p = Parte(occ.component)
+    yi = 'cor_baia_y - cor_parete - cor_slitta_sp'                     # faccia interna della slitta
+    def y(a, b):                                                       # intervallo in Y dal lato del tunnel, per i due lati
+        return (a, b) if lato > 0 else ('-(%s)' % b, '-(%s)' % a)
+    y0, y1 = y(yi + ' - cor_sup_sp', yi)
+    p.blocco('y', y0, 'piastra', 'cor_reg_x0', 'cor_reg_ztop + 1 mm', 'cor_reg_x0 + sen_ina_l + 0.3 mm', 'cor_ina_z + sen_ina_w / 2 + 1 mm',
+             'cor_sup_sp', 1, NUOVO)
+    y0, y1 = y(yi, 'cor_baia_y - cor_parete')
+    p.blocco('z', 'cor_orlo + 2 mm', 'labbro', 'cor_reg_x0', y0, 'cor_reg_x0 + sen_ina_l + 0.3 mm', y1, '1.6 mm')
+    # vite della slitta (passa supporto e slitta e va nell'inserto della parete della baia)
+    yq = yi + ' - cor_sup_sp'
+    p.cilindro('y', yq if lato > 0 else '-(%s)' % yq, 'foro_vite', 'cor_reg_x0 + reg_l / 2', 'cor_orlo - 1 mm', 'vite_m3_pass',
+               'cor_sup_sp', 1 if lato > 0 else -1, TAGLIA)
+    for k, dx in (('a', '-(sen_ina_fori / 2)'), ('b', 'sen_ina_fori / 2')):
+        x, z = 'cor_ina_x + ' + dx, 'cor_ina_z + sen_ina_w / 2 - 2.5 mm'
+        q = yq if lato > 0 else '-(%s)' % yq
+        p.cilindro('y', q, 'bugna_' + k, x, z, '5.2 mm', 'cor_ina_dist', -1 if lato > 0 else 1)
+        qb = (yq + ' - cor_ina_dist') if lato > 0 else '-(%s - cor_ina_dist)' % yq
+        p.cilindro('y', qb, 'ins_' + k, x, z, 'ins_m2_d', 'ins_m2_l', 1 if lato > 0 else -1, TAGLIA)
+    return occ, p
+
+
+def fai_sportellino_zaino(corpo):
+    """Sportellino da usare solo con lo zaino: come quello normale, con una tacca davanti per il cavo USB-C fra il
+    computer di bordo e l'ESP32 (le prese USB dell'ESP32 stanno sotto l'ottagono)."""
+    occ = _nuovo_comp(corpo, 'Corpo_Sportello_Servizio_Zaino')
+    p = Parte(occ.component)
+    _ottagono(p, 'car_top - car_sp', 'piastra', '0.2 mm', 'car_sp', 1, NUOVO)
+    for nome, x in (('a', '16 mm'), ('p', '-(8 mm)')):
+        for lato, y0, y1 in (('s', 'car_serv_semi - 0.2 mm', 'car_serv_semi'), ('d', '-(car_serv_semi)', '-(car_serv_semi - 0.2 mm)')):
+            p.blocco('z', 'car_top - car_sp', 'nervatura_%s%s' % (nome, lato), x + ' - 0.5 mm', y0, x + ' + 0.5 mm', y1, 'car_sp')
+    p.blocco('z', 'car_top - car_sp', 'tacca_usb', 'cor_serv_x1 - 8 mm', '-(6.5 mm)', 'cor_serv_x1', '6.5 mm', 'car_sp', 1, TAGLIA)
+    return occ, p
+
+
+def fai_base_predisposizioni(corpo):
+    """Predisposizioni 2.1.0 sulla base (D-066), aggiunte al Corpo_Base esistente (dopo 'base' si rifanno):
+    guide della 2813, bugne di IMU e ADC con la freccia dell'asse X, sede delle prese dei piedi, linguette delle spie."""
+    occ = L['trova_occ'](corpo.component, 'Corpo_Base')[0]
+    T0['Corpo_Base_predisposizioni'] = corpo.component.parentDesign.timeline.count
+    p = Parte(occ.component)
+    p.gruppo = 'Corpo_Base_predisposizioni'
+    zt = '-(cor_tetto)'
+    # 2813 in piedi fra SSC-32 e portafusibile: due colonnine con le scanalature per i bordi del circuito
+    h = 'cor_int_z0 + int_w - 4 mm + cor_tetto'
+    for lato, (a0, a1, g0, g1) in (('s', ('int_l / 2 - cor_int_guida', 'int_l / 2 + 1.8 mm', 'int_l / 2 - cor_int_guida', 'int_l / 2 + 0.2 mm')),
+                                   ('d', ('-(int_l / 2 + 1.8 mm)', '-(int_l / 2 - cor_int_guida)', '-(int_l / 2 + 0.2 mm)', '-(int_l / 2 - cor_int_guida)'))):
+        p.blocco('z', zt, 'guida_2813_' + lato, 'cor_int_x - 1.4 mm', a0, 'cor_int_x + int_h_pcb + 1.4 mm', a1, h)
+        p.blocco('z', 'cor_int_z0', 'scanalatura_2813_' + lato, 'cor_int_x - 0.2 mm', g0, 'cor_int_x + int_h_pcb + 0.2 mm', g1,
+                 h + ' - (cor_int_z0 + cor_tetto)', 1, TAGLIA)
+    # IMU e ADC: bugne con inserti M2 (l'inserto resta nella bugna) e freccia dell'asse X accanto all'IMU
+    zb = zt + ' + cor_sen_bugna_h'
+    for nome, x, y in (('imu_a', 'cor_imu_x - sen_imu_fori / 2', 'cor_imu_y'), ('imu_b', 'cor_imu_x + sen_imu_fori / 2', 'cor_imu_y'),
+                       ('ads_a', 'cor_ads_x - sen_ads_fori / 2', 'cor_ads_y'), ('ads_b', 'cor_ads_x + sen_ads_fori / 2', 'cor_ads_y')):
+        p.cilindro('z', zt, 'bugna_' + nome, x, y, 'cor_sen_bugna_d', 'cor_sen_bugna_h')
+        p.cilindro('z', zb, 'ins_' + nome, x, y, 'ins_m2_d', 'ins_m2_l', -1, TAGLIA)
+    yf = 'cor_imu_y - sen_imu_w / 2 - 2 mm'
+    p.blocco('z', zt, 'freccia_asta', 'cor_imu_x - 8 mm', yf + ' - 0.5 mm', 'cor_imu_x + 3 mm', yf + ' + 0.5 mm', '0.6 mm')
+    p.blocco_obl('z', zt, 'freccia_punta', ('cor_imu_x + 4 mm', yf), ('cor_imu_x + 4 mm + 10 mm * cos(45 deg)', yf + ' + 10 mm * sin(45 deg)'),
+                 '-(1.6 mm)', '1.6 mm', '-(1.6 mm)', '1.6 mm', '0.6 mm')
+    # prese dei piedi: fila di spine piegate in piedi in una scanalatura, raggiungibile dall'alto a carapace tolto
+    p.blocco('z', zt, 'sede_prese', 'cor_pre_x - pre_l / 2 - 1.2 mm', 'cor_pre_y - pre_w / 2 - 1.2 mm', 'cor_pre_x + pre_l / 2 + 1.2 mm',
+             'cor_pre_y + pre_w / 2 + 1.2 mm', '3 mm')
+    p.blocco('z', zt + ' + 0.5 mm', 'scanalatura_prese', 'cor_pre_x - pre_l / 2 - 0.2 mm', 'cor_pre_y - pre_w / 2 - 0.2 mm',
+             'cor_pre_x + pre_l / 2 + 0.2 mm', 'cor_pre_y + pre_w / 2 + 0.2 mm', '2.5 mm', 1, TAGLIA)
+    # spie dei rail: linguette sul tetto dietro il portafusibile, LED da 3 rivolti verso la porta di coda
+    for lato, (y0, y1, yc) in (('s', ('16 mm', '22 mm', '19 mm')), ('d', ('-(22 mm)', '-(16 mm)', '-(19 mm)'))):
+        p.blocco('x', '-(cor_tun_x0)', 'linguetta_spia_' + lato, y0, zt, y1, '4 mm', '1.4 mm')
+        p.cilindro('x', '-(cor_tun_x0)', 'foro_spia_' + lato, yc, '0 mm', 'luc_spia_d', '1.4 mm', 1, TAGLIA)
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
+    return occ, p
+
+
+def _lobi():
+    """(nome, centro x, centro y, direzione neutra) dei sei lobi del carapace, sugli assi delle coxe."""
+    return [('as', 'cor_ang_x', 'cor_ang_y', 'cor_ang_dir'), ('ad', 'cor_ang_x', '-(cor_ang_y)', '-(cor_ang_dir)'),
+            ('ps', '-(cor_ang_x)', 'cor_ang_y', '180 deg - cor_ang_dir'), ('pd', '-(cor_ang_x)', '-(cor_ang_y)', 'cor_ang_dir - 180 deg'),
+            ('ms', '0 mm', 'cor_med_y', None), ('md', '0 mm', '-(cor_med_y)', None)]
+
+
+def fai_carapace_predisposizioni(corpo):
+    """Predisposizioni 2.1.0 nel carapace (D-066), dopo carapace e carapace_dettagli: anello di stato del pulsante, sedi
+    delle luci dei lobi, ganci dei cavi, bugne dello zaino, fori e sedi dei microfoni, bugne di scheda del carapace e
+    amplificatore, altoparlante e ToF posteriore sulle guance di coda."""
+    occ = L['trova_occ'](corpo.component, 'Corpo_Carapace')[0]
+    T0['Corpo_Carapace_predisposizioni'] = corpo.component.parentDesign.timeline.count
+    p = Parte(occ.component)
+    p.gruppo = 'Corpo_Carapace_predisposizioni'
+    zs = 'car_top - car_sp'                                            # faccia interna del dorso
+    # anello del pulsante: bianco a filo nella sede della fascia fra r0 e r1, assottigliato da sotto a luc_bianco
+    zf = 'car_top - car_fascia_h'
+    p.cilindro('z', zf, 'anello_pieno', 'car_puls_x', '0 mm', '2 * luc_anello_r1', 'car_fascia_h')
+    p.cilindro('z', zf, 'anello_sede', 'car_puls_x', '0 mm', '2 * luc_anello_r0', 'car_fascia_h', 1, TAGLIA)
+    p.cilindro('z', zs, 'anello_gola', 'car_puls_x', '0 mm', '2 * luc_anello_r1', 'car_sp - luc_bianco', 1, TAGLIA)
+    p.cilindro('z', zs, 'anello_gola_dentro', 'car_puls_x', '0 mm', '2 * luc_anello_r0', 'car_sp - luc_bianco')
+    p.cilindro('z', zs, 'foro_pulsante_anello', 'car_puls_x', '0 mm', 'car_puls_d', 'car_sp', 1, TAGLIA)
+    # luci dei lobi: piastrina per la striscia sotto il dorso, sulla direzione neutra, con due ganci alle estremita'
+    for nome, cx, cy, d in _lobi():
+        def rett(nome_r, a0, a1, b0, b1, q, h, verso):
+            if d is None:                                             # zampe medie: direzione lungo Y, rettangolo dritto
+                sg = '' if cy.startswith('cor') else '-'
+                ya, yb = ('cor_med_y + (%s)' % a0, 'cor_med_y + (%s)' % a1)
+                if sg:
+                    ya, yb = '-(cor_med_y + (%s))' % a1, '-(cor_med_y + (%s))' % a0
+                return p.blocco('z', q, nome_r, b0, ya, b1, yb, h, verso)
+            return p.blocco_obl('z', q, nome_r, (cx, cy), ('%s + 10 mm * cos(%s)' % (cx, d), '%s + 10 mm * sin(%s)' % (cy, d)),
+                                a0, a1, b0, b1, h, verso)
+        a0, a1 = 'luc_lobo_a - luc_lobo_w / 2', 'luc_lobo_a + luc_lobo_w / 2'
+        rett('luce_lobo_' + nome, a0, a1, '-(luc_lobo_l / 2)', 'luc_lobo_l / 2', zs, '0.6 mm', -1)
+        for k, (b0, b1, l0, l1) in (('a', ('luc_lobo_l / 2 + 0.2 mm', 'luc_lobo_l / 2 + 1.4 mm', 'luc_lobo_l / 2 - 0.6 mm', 'luc_lobo_l / 2 + 1.4 mm')),
+                                    ('b', ('-(luc_lobo_l / 2 + 1.4 mm)', '-(luc_lobo_l / 2 + 0.2 mm)', '-(luc_lobo_l / 2 + 1.4 mm)', '-(luc_lobo_l / 2 - 0.6 mm)'))):
+            rett('gancio_lobo_%s_%s' % (nome, k), a0, a1, b0, b1, zs, '2.8 mm', -1)
+            rett('labbro_lobo_%s_%s' % (nome, k), a0, a1, l0, l1, zs + ' - 2.8 mm', '0.8 mm', 1)
+    # ganci del cavo della catena lungo i fianchi, sotto il dorso (cavo lungo X fra i due denti)
+    for x in ('-(40 mm)', '0 mm', '40 mm'):
+        for lato, sg in (('s', ''), ('d', '-')):
+            for k, (y0, y1) in (('i', ('41.8 mm', '43 mm')), ('e', ('46 mm', '47.2 mm'))):
+                ya, yb = (y0, y1) if not sg else ('-(%s)' % y1, '-(%s)' % y0)
+                p.blocco('z', zs, 'gancio_cavo_%s%s%s' % (lato, x.replace('-(', 'm').replace(' mm)', '').replace(' mm', ''), k),
+                         x + ' - 1 mm', ya, x + ' + 1 mm', yb, '3 mm', -1)
+    # zaino: quattro bugne sotto la pelle con inserti M2 messi dall'alto (fori 2,7 del Radxa: viti M2)
+    for k, (x, y) in enumerate((('zai_x - zai_fori_w / 2', 'zai_fori_l / 2'), ('zai_x + zai_fori_w / 2', 'zai_fori_l / 2'),
+                                ('zai_x - zai_fori_w / 2', '-(zai_fori_l / 2)'), ('zai_x + zai_fori_w / 2', '-(zai_fori_l / 2)'))):
+        p.cilindro('z', zs, 'zaino_bugna_%d' % k, x, y, 'zai_bugna_d', '3 mm', -1)
+        p.cilindro('z', 'car_top', 'zaino_ins_%d' % k, x, y, 'ins_m2_d', 'ins_m2_l', -1, TAGLIA)
+    # microfoni: foro, anello per la guarnizione e sede della scheda capovolta sul foro (porta sul fondo)
+    for lato, y in (('s', 'aud_mic_y'), ('d', '-(aud_mic_y)')):
+        p.cilindro('z', zs, 'mic_foro_' + lato, 'aud_mic_x', y, 'aud_mic_foro', 'car_sp', 1, TAGLIA)
+        p.cilindro('z', zs, 'mic_anello_' + lato, 'aud_mic_x', y, '5 mm', '0.6 mm', -1)
+        p.cilindro('z', zs, 'mic_anello_vuoto_' + lato, 'aud_mic_x', y, '3 mm', '0.6 mm', -1, TAGLIA)
+        xw, yl = 'aud_mic_w / 2', 'aud_mic_l / 2'
+        for k, (xa, ya, xb, yb) in enumerate((
+                ('aud_mic_x - %s - 1 mm' % xw, '%s - %s - 1 mm' % (y, yl), 'aud_mic_x - %s - 0.2 mm' % xw, '%s + %s + 1 mm' % (y, yl)),
+                ('aud_mic_x + %s + 0.2 mm' % xw, '%s - %s - 1 mm' % (y, yl), 'aud_mic_x + %s + 1 mm' % xw, '%s + %s + 1 mm' % (y, yl)),
+                ('aud_mic_x - %s - 0.2 mm' % xw, '%s - %s - 1 mm' % (y, yl), 'aud_mic_x + %s + 0.2 mm' % xw, '%s - %s - 0.2 mm' % (y, yl)),
+                ('aud_mic_x - %s - 0.2 mm' % xw, '%s + %s + 0.2 mm' % (y, yl), 'aud_mic_x + %s + 0.2 mm' % xw, '%s + %s + 1 mm' % (y, yl)))):
+            p.blocco('z', zs, 'mic_sede_%s%d' % (lato, k), xa, ya, xb, yb, '2.6 mm', -1)
+    # scheda del carapace e amplificatore: bugne con inserti M2 (fori C), inserti messi da sotto
+    for nome, x, y in (('sch_a', 'sch_x - 7.5 mm', '12.5 mm'), ('sch_b', 'sch_x + 7.5 mm', '12.5 mm'),
+                       ('sch_c', 'sch_x - 7.5 mm', '-(12.5 mm)'), ('sch_d', 'sch_x + 7.5 mm', '-(12.5 mm)'),
+                       ('amp_a', 'aud_amp_x - 7.5 mm', '-(6.4 mm)'), ('amp_b', 'aud_amp_x + 7.5 mm', '6.4 mm')):
+        p.cilindro('z', zs, 'bugna_' + nome, x, y, '5.5 mm', '3.5 mm', -1)
+        p.cilindro('z', zs + ' - 3.5 mm', 'ins_' + nome, x, y, 'ins_m2_d', 'ins_m2_l', 1, TAGLIA)
+    # altoparlante sulla guancia destra (due guide, si infila da dietro); ToF posteriore su un piano inclinato a sinistra
+    for k, (z0, z1) in (('basso', ('aud_alt_z - aud_alt_l / 2 - 1 mm', 'aud_alt_z - aud_alt_l / 2 - 0.2 mm')),
+                        ('alto', ('aud_alt_z + aud_alt_l / 2 + 0.2 mm', 'aud_alt_z + aud_alt_l / 2 + 1 mm'))):
+        p.blocco('y', '-(car_guancia_y0)', 'guida_altoparlante_' + k, '-(car_guancia_x0)', z0, '-(car_guancia_x1)', z1, '2.5 mm', 1)
+    y0 = 'car_guancia_y0 - 0.5 mm - sen_tof_w'
+    p.blocco_obl('y', y0, 'piano_tof_posteriore', ('cor_tofp_x', 'cor_tofp_z'),
+                 ('cor_tofp_x - 10 mm * sin(cor_tofp_ang)', 'cor_tofp_z + 10 mm * cos(cor_tofp_ang)'),
+                 '-(sen_tof_l / 2)', 'sen_tof_l / 2', '-(2 mm)', '0 mm', 'car_guancia_y0 + 0.2 mm - (%s)' % y0, 1)
     p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
     return occ, p
 
@@ -852,7 +1135,10 @@ def main(passi, **kw):
         for nome, f in (('base', fai_base), ('chiglia', fai_chiglia), ('sportello', fai_sportello), ('vassoio', fai_vassoio),
                         ('slitta', fai_slitta), ('coperchio', fai_coperchio), ('sportellino', fai_sportellino),
                         ('carapace', fai_carapace), ('carapace_dettagli', fai_carapace_dettagli), ('fascia', fai_fascia),
-                        ('visiera', fai_visiera), ('gonne', fai_gonne)):
+                        ('visiera', fai_visiera), ('gonne', fai_gonne), ('tappo_tof', fai_tappo_tof),
+                        ('supporto_ina_s', lambda c: fai_supporto_ina(c, 1)), ('supporto_ina_d', lambda c: fai_supporto_ina(c, -1)),
+                        ('sportellino_zaino', fai_sportellino_zaino), ('base_predisposizioni', fai_base_predisposizioni),
+                        ('carapace_predisposizioni', fai_carapace_predisposizioni)):
             if nome in passi:
                 occ, p = f(corpo)
                 out[nome] = _chiudi(des, getattr(p, 'gruppo', occ.component.name), p)
@@ -862,3 +1148,4 @@ def main(passi, **kw):
     except Exception:
         out['errore'] = traceback.format_exc()
     print(json.dumps(out, indent=1, ensure_ascii=False))
+    return out
