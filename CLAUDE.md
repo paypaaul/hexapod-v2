@@ -33,7 +33,12 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 - **Acquisti**: preferire la soluzione senza componenti in più, salvo problemi funzionali o estetica sgradevole. Ogni voce del BOM va approvata.
 - **Produzione**: FlashForge **Creator 5 Pro** (256 × 256 × 256 mm, da confermare), toolchanger a 4 testine, ugelli temprati da 0,4 mm; PLA / PLA-CF / PETG / PETG-CF. Supporti con interfaccia in altro materiale ammessi, ma al minimo.
 - Le fonti d'acquisto di cuscinetti e perni le cura l'utente.
-- Estetica "futuristica ma minimale"; quando è in conflitto con la funzione vince la funzione.
+- **Estetica** (indicazioni dell'utente, 9 ottobre 2026; carta bianca sul design dentro questi punti):
+  - futuristico ma minimale, pulito, moderno, bello da vedere: un oggetto "cool", non un assemblaggio di staffe;
+  - quando estetica e funzione sono in conflitto vince sempre la funzione;
+  - **cover delle zampe**: placche non strutturali, parti separate stampate in un altro colore e montate sulle zampe (ed eventualmente sul corpo), per coprire servo e cavi e dare un aspetto più moderno; non portano carico e non limitano l'escursione dei giunti;
+  - **camera**: l'housing della OV3660 è integrato nel frontale del corpo (non un pezzo aggiunto dopo) e guarda in avanti.
+- **Pulsante d'accensione** da pannello Ø12 sul coperchio; **cicalino** sotto il coperchio in coda, display da una finestra, spinotto di bilanciamento dal retro (9 ottobre 2026, D-059).
 - Blender si valuta solo dopo che la fase 6 è completa e verificata.
 
 ## Regole di lavoro
