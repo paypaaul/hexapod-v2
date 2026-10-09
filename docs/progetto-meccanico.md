@@ -173,6 +173,18 @@ Tibia (D-065): stinco simmetrico sul piano della zampa, largo in alto quanto lo 
 
 Verifiche (9 ottobre 2026, Fusion versione 24): assieme senza interferenze; coxe libere a ±35°; zampe vicine libere a 30° e 31°, contatto tra 31° e 32° su tutte le coppie laterali (a sinistra e a destra), anteriori e posteriori libere a 34°; carapace contro ogni zampa a imbardata −35, 0, +35 con (α, γ) = (85, 90), (85, 29), (60, 90): libero, distanza minima 4,6 mm (zampe medie) e 7,1 (le altre), contatto con α 100 (controllo); testa libera dalle zampe anteriori con α −49, 0, 85; sfilamento del carapace verso l'alto di 5, 10, 20 e 40 mm libero, a −2 le gonne toccano l'orlo delle baie (controllo); campo della camera (tronco da 7 × 7 sulla lente, 54,2° e 46,1°) libero, a +6° tocca le pareti dell'occhio (controllo); ciclo a tripode 100/45, 130/25, 80/60 e 70/70 (otto fasi) e rotazione sul posto di 30° a 100/45 e 70/70: nessun urto.
 
+### Render (9 ottobre 2026)
+
+Render con il motore di Fusion, colori per materiale (`cad/script/colori.py`: PETG-CF nero, placche in PLA bianco, fascia e visiera in PLA nero, piedini in TPU arancio). Gli esplosi spostano i pezzi lungo i loro assi di montaggio senza toccare il design (`cad/script/viste.py`); `cad/render/ritaglia.py` uniforma i ritagli.
+
+![Robot montato](immagini/render-montato-ant.png)
+
+![Esploso della zampa](immagini/render-esploso-zampa.png)
+
+![Esploso del corpo](immagini/render-esploso-corpo.png)
+
+Altre viste: [da dietro](immagini/render-montato-post.png), [di fianco](immagini/render-montato-fianco.png).
+
 ### Massa e baricentro dal modello (9 ottobre 2026, dopo la passata estetica)
 
 | Voce | Massa (g) |
