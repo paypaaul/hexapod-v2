@@ -340,6 +340,85 @@ def verifica_ciclo(des, root, h, xf0, passo, alzata, fasi, giro=0.0):
     return out
 
 
+# ----------------------------------------------------------------------------------- carapace (D-061, specifica 5.4-5.8)
+GRUPPO_CARAPACE = ('Corpo_Carapace', 'Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
+SALGONO_COL_CARAPACE = GRUPPO_CARAPACE + ('Rif_Cicalino_BX100', 'Rif_Pulsante_12')
+
+
+def _occ_carapace(root, nomi=GRUPPO_CARAPACE):
+    return [o for o in _corpo(root).childOccurrences if o.component.name in nomi]
+
+
+def carapace_zampe(des, root, zampe, imbardate, pose):
+    """Una zampa atteggiata alla volta contro il gruppo del carapace: interferenze e distanza minima del carapace da
+    femore e lame. Le altre zampe restano nella posa di riferimento."""
+    out = {}
+    mz = mappa_zampe(des, root)
+    car = _occ_carapace(root)
+    guscio = [b for o in car if o.component.name == 'Corpo_Carapace' for b in o.bRepBodies]
+    mm = adsk.core.Application.get().measureManager
+    for n in zampe:
+        zo = mz[n]
+        for yaw in imbardate:
+            for a, g in pose:
+                posa_zampa(des, zo, yaw, a, g)
+                r = A['interferenze'](des, car + [zo], scarta=_voluta)
+                urti = sorted(set('%s/%s' % (x[0].split('+')[-1], x[1].split('+')[-1]) for x in r))
+                dmin = None
+                for o in zo.childOccurrences:
+                    if o.component.name in ('Femore_A', 'Femore_B', 'Cover_Femore_A', 'Cover_Femore_B', 'Ingombro_Teste_A'):
+                        for b in o.bRepBodies:
+                            for cb in guscio:
+                                d = mm.measureMinimumDistance(b, cb).value * 10
+                                dmin = d if dmin is None else min(dmin, d)
+                out['%s %+g %g/%g' % (n, yaw, a, g)] = {'urti': urti or 'nessuno', 'dmin_mm': round(dmin, 2)}
+                A['ripristina'](des)
+    return out
+
+
+def sfilamento(des, root, quote):
+    """Il carapace (con fascia, visiera, gonne, sportellino, cicalino e pulsante) sollevato di dz mm: interferenze."""
+    out = {}
+    occ = _occ_carapace(root, SALGONO_COL_CARAPACE)
+    for dz in quote:
+        for o in occ:
+            m = o.transform2.copy()
+            t = adsk.core.Matrix3D.create()
+            t.translation = adsk.core.Vector3D.create(0, 0, dz / 10)
+            m.transformBy(t)
+            o.transform2 = m
+        r = interferenze(des, root)
+        out['%+g' % dz] = r if r else 'nessuna'
+        A['ripristina'](des)
+    return out
+
+
+def campo(des, root, piu_gradi=0.0):
+    """Campo della camera: tronco di piramide da un quadrato 7 x 7 sulla lente, con le semiaperture 54,2 e 46,1 gradi
+    (piu' piu_gradi), lungo 15 mm, in un componente provvisorio; interferenze con il gruppo del carapace, poi lo cancella."""
+    lib = runpy.run_path(os.path.join(QUI, 'lib_cad.py'))
+    x0 = _mm(des, 'cor_cam_x') + _mm(des, 'cam_alt')
+    zc = _mm(des, 'cor_cam_z')
+    th, tv = (math.radians(des.userParameters.itemByName(n).value * 180 / math.pi + piu_gradi) for n in ('cam_fov_h', 'cam_fov_v'))
+    occ = root.occurrences.addNewComponent(adsk.core.Matrix3D.create())
+    occ.component.name = 'Prova_Campo'
+    try:
+        p = lib['Parte'](occ.component)
+        a = p.sk_rett('x', '%.4f mm' % x0, 'bocca', '-3.5 mm', '%.4f mm' % (zc - 3.5), '3.5 mm', '%.4f mm' % (zc + 3.5))
+        sy, sz = 3.5 + 15 * math.tan(th), 3.5 + 15 * math.tan(tv)
+        b = p.sk_rett('x', '%.4f mm' % (x0 + 15), 'fondo', '%.4f mm' % -sy, '%.4f mm' % (zc - sz), '%.4f mm' % sy, '%.4f mm' % (zc + sz))
+        lo = occ.component.features.loftFeatures
+        li = lo.createInput(adsk.fusion.FeatureOperations.NewBodyFeatureOperation)
+        li.loftSections.add(a.profiles.item(0))
+        li.loftSections.add(b.profiles.item(0))
+        li.isSolid = True
+        lo.add(li)
+        r = A['interferenze'](des, _occ_carapace(root) + [occ])
+        return {'piu_gradi': piu_gradi, 'urti': [(x[0].split('+')[-1], x[1].split('+')[-1], x[2]) for x in r] or 'nessuno'}
+    finally:
+        occ.deleteMe()
+
+
 def stato(des, root):
     out = {'zampe': {n: o.name for n, o in mappa_zampe(des, root).items()},
            'giunti_coxa': {j.name: round(A['valore_giunto'](j), 2) for j in root.asBuiltJoints if j.name.startswith('G_coxa_')},
@@ -372,6 +451,13 @@ def main(passi, **kw):
         if 'ciclo' in passi:
             out['ciclo'] = verifica_ciclo(des, root, kw.get('h', 100.0), kw.get('xf0', 45.0), kw.get('passo', 60.0),
                                           kw.get('alzata', 30.0), kw.get('fasi', (0.0, 0.25)), kw.get('giro', 0.0))
+        if 'carapace_zampe' in passi:
+            out['carapace_zampe'] = carapace_zampe(des, root, kw['zampe'], kw.get('imbardate', (-35.0, 0.0, 35.0)),
+                                                   kw.get('pose', ((85.0, 90.0), (85.0, 29.0), (60.0, 90.0))))
+        if 'sfilamento' in passi:
+            out['sfilamento'] = sfilamento(des, root, kw.get('quote', (5.0, 10.0, 20.0, 40.0)))
+        if 'campo' in passi:
+            out['campo'] = campo(des, root, kw.get('piu_gradi', 0.0))
         if 'ripristina' in passi:
             out['ripristina'] = A['ripristina'](des)
         if 'stato' in passi:

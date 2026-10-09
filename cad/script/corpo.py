@@ -683,9 +683,12 @@ def fai_carapace_dettagli(corpo):
     p.specchia(g, 'y', 'gonne_alte_destre')
     pa = p.blocco('z', 'cor_orlo', 'paratia_s', 'cor_tun_x1', 'car_paratia_y0', 'car_testa_x0', 'car_paratia_y1', 'car_top - car_sp - cor_orlo')
     p.specchia([pa], 'y', 'paratia_d')
-    gu = p.blocco('z', '-(car_guancia_giu)', 'guancia_s', '-(car_guancia_x0)', 'car_guancia_y0', '-(car_guancia_x1)', 'car_guancia_y1',
-                  'car_top - car_sp + car_guancia_giu')
-    p.specchia([gu], 'y', 'guancia_d')
+    # sopra l'attacco dello smusso la guancia rientra dietro la linea della coda: a filo del lobo bucava lo smusso
+    gu = [p.blocco('z', '-(car_guancia_giu)', 'guancia_s', '-(car_guancia_x0)', 'car_guancia_y0', '-(car_guancia_x1)', 'car_guancia_y1',
+                   'car_top - car_smusso + car_guancia_giu'),
+          p.blocco('z', 'car_top - car_smusso', 'guancia_alta_s', '-(car_coda_x) + 1 mm', 'car_guancia_y0', '-(car_guancia_x1)',
+                   'car_guancia_y1', 'car_smusso - car_sp')]
+    p.specchia(gu, 'y', 'guance_d')
     tubi = [p.cilindro('z', 'cor_cop_z', 'pozzo_tubo_a', 'cor_col_xa', 'cor_col_y', 'car_pozzo_D', 'car_top - car_sp - cor_cop_z'),
             p.cilindro('z', 'cor_cop_z', 'pozzo_tubo_p', '-(cor_col_xp)', 'cor_col_y', 'car_pozzo_D', 'car_top - car_sp - cor_cop_z')]
     p.specchia(tubi, 'y', 'pozzi_tubi_destri')
@@ -694,7 +697,8 @@ def fai_carapace_dettagli(corpo):
     p.specchia([cs], 'y', 'collare_d')
     p.blocco('z', 'cic_z0 + 8 mm', 'collare_fronte', 'cic_x1 + 0.2 mm', '-(14 mm)', 'cic_x1 + 1.4 mm', '14 mm', hc)
     for x in ('-(80 mm)', '-(68 mm)'):
-        for lato, y0, y1 in (('s', 'cic_semi - 0.05 mm', 'cic_semi + 0.2 mm'), ('d', '-(cic_semi + 0.2 mm)', '-(cic_semi - 0.05 mm)')):
+        # a filo del cicalino nel modello, come le nervature dello sportellino (D-056): la stretta la da' la stampa
+        for lato, y0, y1 in (('s', 'cic_semi', 'cic_semi + 0.2 mm'), ('d', '-(cic_semi + 0.2 mm)', '-(cic_semi)')):
             p.blocco('z', 'cic_z0 + 8 mm', 'collare_nervatura_%s%s' % (lato, x[3:5]), x + ' - 0.5 mm', y0, x + ' + 0.5 mm', y1, hc)
     p.blocco('z', 'car_top - 2 * car_sp', 'battuta', 'cor_serv_x0 - 1 mm', '-(car_serv_semi + 1 mm)', 'cor_serv_x1 + 1 mm',
              'car_serv_semi + 1 mm', 'car_sp')
