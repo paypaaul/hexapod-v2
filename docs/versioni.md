@@ -14,8 +14,8 @@ Prima della 2.0.0: la versione progettata attorno agli MG90S, nel branch `mg90s`
 | Passo | Stato |
 |---|---|
 | Tag `v2.0.0`, copia del design Fusion, script legati a `versione.py` | fatto (9 ottobre 2026) |
-| Blocco A — zampa | da fare |
+| Blocco A — zampa | fatto e verificato (9 ottobre 2026, D-066): punta e piedino per l'FSR, gola e tasca dei fili, sede della striscia LED, diffusore, punti con nome |
 | Blocco B — corpo | da fare |
 | Blocco C — attrezzi da banco | da fare |
-| Blocco D — software S0 | da fare |
+| Blocco D — software S0 | in corso: `esporta_robot.py`, `robot/` e `tools/descrizione.py` fatti; nucleo, firmware, simulazione e gemello con due agenti |
 | Documenti, STL, render, tag `v2.1.0` | da fare |

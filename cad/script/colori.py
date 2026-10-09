@@ -38,7 +38,7 @@ PARTI = {
     'Corpo_Chiglia': 'Esa PETG-CF nero', 'Corpo_Slitta_Regolatore': 'Esa PETG-CF nero', 'Corpo_Sportello': 'Esa PETG-CF nero',
     # PLA: placche e vassoio (sotto l'antenna), parti nere stampate con il carapace
     'Corpo_Carapace': 'Esa PLA placche', 'Cover_Femore_A': 'Esa PLA placche', 'Cover_Femore_B': 'Esa PLA placche',
-    'Cover_Tibia': 'Esa PLA placche', 'Corpo_Vassoio': 'Esa PLA placche',
+    'Cover_Tibia': 'Esa PLA placche', 'Corpo_Vassoio': 'Esa PLA placche', 'Cover_Tibia_Diffusore': 'Esa PLA placche',
     'Corpo_Fascia': 'Esa PLA nero', 'Corpo_Visiera': 'Esa PLA nero', 'Corpo_Gonne': 'Esa PLA nero',
     'Corpo_Sportello_Servizio': 'Esa PLA nero',
     'Piedino': 'Esa TPU arancio',

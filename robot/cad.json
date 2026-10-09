@@ -1,7 +1,7 @@
 {
  "versione": "2.1.0",
- "documento": "Hexapod v2.1.0 v1",
- "esportato": "2026-10-09T22:34:18",
+ "documento": "Hexapod v2.1.0 v2",
+ "esportato": "2026-10-09T23:04:44",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -81,10 +81,48 @@
   },
   "punta_piede": [
    120.0,
-   0.0,
+   -0.0,
    -110.0
   ],
-  "nota_punta": "punto piu' basso della suola del piedino nella posa come costruita (z -110 nel modello)"
+  "nota_punta": "P_Punta_piede della Tibia: centro della suola del piedino nella posa come costruita",
+  "punti": {
+   "Coxa": {
+    "Asse_coxa": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "Asse_femore": [
+     55.0,
+     0.0,
+     0.0
+    ]
+   },
+   "Femore_B": {
+    "Asse_femore": [
+     55.0,
+     0.0,
+     0.0
+    ],
+    "Asse_ginocchio": [
+     120.0,
+     -0.0,
+     0.0
+    ]
+   },
+   "Tibia": {
+    "Asse_ginocchio": [
+     120.0,
+     -0.0,
+     0.0
+    ],
+    "Punta_piede": [
+     120.0,
+     -0.0,
+     -110.0
+    ]
+   }
+  }
  },
  "convenzioni": {
   "alpha": "alpha = -1 * valore di G_femore",
@@ -166,11 +204,11 @@
    "corpo": 1031.0,
    "coxa": 94.1,
    "femore": 54.4,
-   "tibia": 110.2
+   "tibia": 111.4
   },
-  "modellato_g": 2583.2,
+  "modellato_g": 2590.7,
   "non_modellato_g": 360.0,
-  "atteso_g": 2943.2,
+  "atteso_g": 2950.7,
   "nota": "stampate con pareti 1,2 mm e riempimento 25 %, comprate con la massa dichiarata; il non modellato (cavi, viteria) va distribuito sul corpo"
  },
  "parti": {
@@ -1443,85 +1481,112 @@
    "materiale": "comprato",
    "segmento": "tibia"
   },
-  "Tibia": {
-   "massa_g": 35.77,
+  "Cover_Tibia": {
+   "massa_g": 15.7,
    "baricentro_mm": [
-    121.701,
-    -3.466,
-    -46.653
+    133.824,
+    -0.715,
+    -34.887
    ],
    "inerzia_gmm2": [
     [
-     34612.8,
-     -210.9,
-     671.9
+     16620.5,
+     4.6,
+     -1034.7
     ],
     [
-     -210.9,
-     31517.5,
-     3829.9
+     4.6,
+     13148.9,
+     261.9
     ],
     [
-     671.9,
-     3829.9,
-     6460.1
+     -1034.7,
+     261.9,
+     4315.8
     ]
    ],
-   "materiale": "PETG-CF",
+   "materiale": "PLA",
    "segmento": "tibia"
   },
-  "Cover_Tibia": {
-   "massa_g": 15.72,
+  "Cover_Tibia_Diffusore": {
+   "massa_g": 0.51,
    "baricentro_mm": [
-    133.817,
-    -0.714,
-    -34.96
+    135.879,
+    0.0,
+    -56.069
    ],
    "inerzia_gmm2": [
     [
-     16682.1,
-     4.7,
-     -1041.3
+     117.9,
+     0.0,
+     -12.3
     ],
     [
-     4.7,
-     13211.0,
-     262.7
+     0.0,
+     114.4,
+     -0.0
     ],
     [
-     -1041.3,
-     262.7,
-     4316.5
+     -12.3,
+     -0.0,
+     6.5
     ]
    ],
    "materiale": "PLA",
    "segmento": "tibia"
   },
   "Piedino": {
-   "massa_g": 1.7,
+   "massa_g": 1.88,
    "baricentro_mm": [
-    120.39,
-    0.0,
-    -101.843
+    120.853,
+    -0.019,
+    -102.504
    ],
    "inerzia_gmm2": [
     [
-     106.7,
-     -0.0,
-     -3.0
+     119.4,
+     0.3,
+     -3.4
     ],
     [
-     -0.0,
-     67.2,
-     0.0
+     0.3,
+     88.1,
+     0.2
     ],
     [
-     -3.0,
-     0.0,
-     105.2
+     -3.4,
+     0.2,
+     122.3
     ]
    ],
    "materiale": "TPU",
+   "segmento": "tibia"
+  },
+  "Tibia": {
+   "massa_g": 36.35,
+   "baricentro_mm": [
+    121.712,
+    -3.481,
+    -47.243
+   ],
+   "inerzia_gmm2": [
+    [
+     35925.1,
+     -204.4,
+     795.5
+    ],
+    [
+     -204.4,
+     32794.4,
+     3910.1
+    ],
+    [
+     795.5,
+     3910.1,
+     6519.0
+    ]
+   ],
+   "materiale": "PETG-CF",
    "segmento": "tibia"
   }
  },
@@ -5527,10 +5592,10 @@
    "commento": "Stinco: semilarghezza verso -X alla punta"
   },
   "tib_x_piu_basso": {
-   "valore": 4.0,
+   "valore": 6.0,
    "unita": "mm",
-   "espressione": "4 mm",
-   "commento": "Stinco: semilarghezza verso +X alla punta (in alto e cul_semi, a filo dello zoccolo)"
+   "espressione": "6 mm",
+   "commento": "Stinco: semilarghezza verso +X alla fine dell arco (in alto e cul_semi, a filo dello zoccolo); 6 per la testa dell FSR (D-066, prima 4)"
   },
   "tib_z_arco": {
    "valore": 104.4,
@@ -5539,7 +5604,7 @@
    "commento": "Stinco: fine dell arco e dei fianchi dritti, sotto l asse del ginocchio"
   },
   "tib_arco_R": {
-   "valore": 262.36716,
+   "valore": 341.41124,
    "unita": "mm",
    "espressione": "( ( cul_semi - tib_x_piu_basso ) ^ 2 + ( tib_z_arco - bug_coda ) ^ 2 ) / ( 2 * ( cul_semi - tib_x_piu_basso ) )",
    "commento": "Stinco: raggio dell arco del fianco +X (tangente allo zoccolo, 275 mm)"
@@ -5963,6 +6028,162 @@
    "unita": "mm",
    "espressione": "0.9 mm",
    "commento": "Lama B: svasatura a 90 gradi sul foro da 2,4 (testa M2 da 4,0: resta 0,1 sotto la superficie)"
+  },
+  "sen_fsr_sp": {
+   "valore": 0.3,
+   "unita": "mm",
+   "espressione": "0.3 mm",
+   "commento": "FSR 400 Short: spessore (S, rivenditore)"
+  },
+  "sen_fsr_testa_d": {
+   "valore": 7.6,
+   "unita": "mm",
+   "espressione": "7.6 mm",
+   "commento": "FSR 400 Short: diametro della testa (S); area attiva 5,6 (V, Interlink)"
+  },
+  "sen_fsr_dx": {
+   "valore": 0.2,
+   "unita": "mm",
+   "espressione": "0.2 mm",
+   "commento": "FSR: X del centro della testa dall asse del ginocchio (centro della parte piana della punta)"
+  },
+  "tib_pistone_sp": {
+   "valore": 0.5,
+   "unita": "mm",
+   "espressione": "0.5 mm",
+   "commento": "Piedino: altezza del pistoncino sulla suola, che spinge sull area attiva dell FSR"
+  },
+  "tib_pistone_d": {
+   "valore": 4.5,
+   "unita": "mm",
+   "espressione": "4.5 mm",
+   "commento": "Piedino: diametro del pistoncino (piu piccolo dell area attiva, come chiede Interlink)"
+  },
+  "tib_punta_z": {
+   "valore": 107.6,
+   "unita": "mm",
+   "espressione": "zam_Lt - tib_piede_sp - sen_fsr_sp - tib_pistone_sp",
+   "commento": "Tibia: fine dello stinco, punta piana per l FSR; il piedino nasce dallo stinco lungo zam_Lt - tib_piede_sp"
+  },
+  "tib_punta_r_piu": {
+   "valore": 1.0,
+   "unita": "mm",
+   "espressione": "1 mm",
+   "commento": "Punta dello stinco: raccordo dello spigolo +X, su cui si piega la coda dell FSR (lo spigolo -X resta vivo)"
+  },
+  "tib_tasca_w": {
+   "valore": 6.0,
+   "unita": "mm",
+   "espressione": "6 mm",
+   "commento": "Tibia: tasca per linguette e saldature dell FSR sulla faccia +X, larghezza in Y"
+  },
+  "tib_tasca_h": {
+   "valore": 9.0,
+   "unita": "mm",
+   "espressione": "9 mm",
+   "commento": "Tibia: tasca dell FSR, altezza"
+  },
+  "tib_tasca_p": {
+   "valore": 1.2,
+   "unita": "mm",
+   "espressione": "1.2 mm",
+   "commento": "Tibia: tasca dell FSR, profondita"
+  },
+  "tib_tasca_y": {
+   "valore": 0.5,
+   "unita": "mm",
+   "espressione": "0.5 mm",
+   "commento": "Tibia: centro in Y della tasca dell FSR (tocca la gola dei fili)"
+  },
+  "tib_tasca_z0": {
+   "valore": 106.1,
+   "unita": "mm",
+   "espressione": "tib_punta_z - 1.5 mm",
+   "commento": "Tibia: fondo della tasca dell FSR, sopra il raccordo della punta"
+  },
+  "tib_gola_w": {
+   "valore": 2.0,
+   "unita": "mm",
+   "espressione": "2 mm",
+   "commento": "Tibia: gola dei fili dell FSR sulla faccia +X, larghezza"
+  },
+  "tib_gola_p": {
+   "valore": 2.0,
+   "unita": "mm",
+   "espressione": "2 mm",
+   "commento": "Tibia: gola dei fili dell FSR, profondita (si ferma al fondo della culla: la parete e di 2)"
+  },
+  "tib_gola_y": {
+   "valore": 4.5,
+   "unita": "mm",
+   "espressione": "4.5 mm",
+   "commento": "Tibia: centro in Y della gola, fuori dalla finestra del guscio (|Y| <= 3,5)"
+  },
+  "pied_tacca": {
+   "valore": 2.0,
+   "unita": "mm",
+   "espressione": "2 mm",
+   "commento": "Piedino: tacca per i fili nel bordo alto sul lato +X, sopra la gola"
+  },
+  "luc_tib_w": {
+   "valore": 5.4,
+   "unita": "mm",
+   "espressione": "5.4 mm",
+   "commento": "Tibia: sede piana della striscia LED WS2812B-2020 larga 5 (C), sotto la finestra del guscio"
+  },
+  "luc_tib_p": {
+   "valore": 0.5,
+   "unita": "mm",
+   "espressione": "0.5 mm",
+   "commento": "Tibia: profondita della sede della striscia alle estremita (al centro circa 1,3: sede piana su faccia ad arco)"
+  },
+  "luc_tib_z0": {
+   "valore": 32.95,
+   "unita": "mm",
+   "espressione": "cul_coda",
+   "commento": "Tibia: inizio della sede della striscia, al fondo della culla"
+  },
+  "luc_tib_z1": {
+   "valore": 80.0,
+   "unita": "mm",
+   "espressione": "cov_tib_fin_z1",
+   "commento": "Tibia: fine della sede della striscia, con la finestra del guscio"
+  },
+  "luc_dif_sp": {
+   "valore": 0.6,
+   "unita": "mm",
+   "espressione": "0.6 mm",
+   "commento": "Diffusore della tibia: spessore della lastra (0,6-0,8 dal provino di luce X10)"
+  },
+  "luc_dif_bordo": {
+   "valore": 2.0,
+   "unita": "mm",
+   "espressione": "2 mm",
+   "commento": "Diffusore: lastra oltre il bordo della finestra"
+  },
+  "luc_dif_h": {
+   "valore": 1.0,
+   "unita": "mm",
+   "espressione": "1 mm",
+   "commento": "Diffusore: altezza del bordino a incastro dentro la finestra (resta 0,6 sotto il fronte)"
+  },
+  "luc_dif_parete": {
+   "valore": 0.6,
+   "unita": "mm",
+   "espressione": "0.6 mm",
+   "commento": "Diffusore: parete del bordino"
+  },
+  "luc_dif_gio": {
+   "valore": 0.1,
+   "unita": "mm",
+   "espressione": "0.1 mm",
+   "commento": "Diffusore: gioco per lato del bordino nella finestra (incastro, da tarare sul provino)"
+  },
+  "tib_smusso_piu": {
+   "valore": 1.5,
+   "unita": "mm",
+   "espressione": "1.5 mm",
+   "commento": "Stinco: smusso degli spigoli fra la faccia +X ad arco e i fianchi Y (con la punta larga 6 toccavano lo smusso interno del guscio fra Z 81 e 94; 1,5 ridà circa 0,4 di gioco)"
   }
  }
 }

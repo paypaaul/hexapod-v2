@@ -31,7 +31,8 @@ def _spost_zampa(nome, x):
     coxa = abs(x) < 1
     tab = {'Coxa_Ponte': (0, 0, 35), 'Rif_Servo_MG996R': (0, 25, 0), 'Femore_A': (0, 65, 0), 'Ingombro_Teste_A': (0, 85, 0),
            'Cover_Femore_A': (0, 105, 0), 'Rif_Cuscinetto_LF1050ZZ': (0, -22, 0), 'Femore_B': (0, -48, 0),
-           'Cover_Femore_B': (0, -95, 0), 'Cover_Tibia': (30, 0, 0), 'Piedino': (0, 0, -30)}
+           'Cover_Femore_B': (0, -95, 0), 'Cover_Tibia': (34, 0, 0), 'Cover_Tibia_Diffusore': (17, 0, 0),
+           'Piedino': (0, 0, -30)}
     if nome == 'Rif_Squadretta_25T':
         return (0, 0, 18) if coxa else (0, 45, 0)
     if nome == 'Rif_Perno_5':

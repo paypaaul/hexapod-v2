@@ -174,7 +174,7 @@ PARAMETRI = [
     #     zampa, Y 0, cosi' il piede sta sull'asse del femore (D-065; in D-062 erano sul piano medio dello zoccolo, Y -7,35)
     ('tib_x_meno_alto', '6 mm', 'mm', 'Stinco: semilarghezza verso -X sotto lo zoccolo (come oggi)'),
     ('tib_x_meno_basso', '4 mm', 'mm', 'Stinco: semilarghezza verso -X alla punta'),
-    ('tib_x_piu_basso', '4 mm', 'mm', 'Stinco: semilarghezza verso +X alla punta (in alto e cul_semi, a filo dello zoccolo)'),
+    ('tib_x_piu_basso', '6 mm', 'mm', 'Stinco: semilarghezza verso +X alla fine dell arco (in alto e cul_semi, a filo dello zoccolo); 6 per la testa dell FSR (D-066, prima 4)'),
     ('tib_piede_sp', '1.6 mm', 'mm', 'Piedino in TPU (D9): parete e suola (4 perimetri); lo stinco finisce a zam_Lt - tib_piede_sp, la suola a zam_Lt'),
     ('tib_piede_z0', 'cov_tib_z1 + 0.5 mm', 'mm', 'Piedino: bordo alto, 0,5 sotto il guscio della tibia'),
     ('tib_z_arco', 'zam_Lt - tib_piede_sp - 4 mm', 'mm', 'Stinco: fine dell arco e dei fianchi dritti, sotto l asse del ginocchio'),
@@ -183,7 +183,33 @@ PARAMETRI = [
     ('tib_y_c', '0 mm', 'mm', 'Stinco: piano medio dei fianchi Y (piano della zampa: il piede sta sull asse del femore)'),
     ('tib_y_semi_alto', '-(zy_fondo_est)', 'mm', 'Stinco: semilarghezza in Y sotto lo zoccolo (a filo dello zoccolo sul -Y, sul +Y sotto le alette del servo)'),
     ('tib_y_semi_basso', '7 mm', 'mm', 'Stinco: semilarghezza in Y alla fine dei fianchi dritti (punta 8 x 14)'),
-    ('tib_punta_r', '3.8 mm', 'mm', 'Stinco: raggio della punta nel piano della zampa'),
+    # --- predisposizioni della versione 2.1.0 (D-066): sensore di forza nel piede (X5) e luci nelle tibie (X31)
+    ('sen_fsr_sp', '0.3 mm', 'mm', 'FSR 400 Short: spessore (S, rivenditore)'),
+    ('sen_fsr_testa_d', '7.6 mm', 'mm', 'FSR 400 Short: diametro della testa (S); area attiva 5,6 (V, Interlink)'),
+    ('sen_fsr_dx', '0.2 mm', 'mm', 'FSR: X del centro della testa dall asse del ginocchio (centro della parte piana della punta)'),
+    ('tib_pistone_sp', '0.5 mm', 'mm', 'Piedino: altezza del pistoncino sulla suola, che spinge sull area attiva dell FSR'),
+    ('tib_pistone_d', '4.5 mm', 'mm', 'Piedino: diametro del pistoncino (piu piccolo dell area attiva, come chiede Interlink)'),
+    ('tib_punta_z', 'zam_Lt - tib_piede_sp - sen_fsr_sp - tib_pistone_sp', 'mm', 'Tibia: fine dello stinco, punta piana per l FSR; il piedino nasce dallo stinco lungo zam_Lt - tib_piede_sp'),
+    ('tib_smusso_piu', '1.5 mm', 'mm', 'Stinco: smusso degli spigoli fra la faccia +X ad arco e i fianchi Y (con la punta larga 6 toccavano lo smusso interno del guscio fra Z 81 e 94; 1,5 ridà circa 0,4 di gioco)'),
+    ('tib_punta_r_piu', '1 mm', 'mm', 'Punta dello stinco: raccordo dello spigolo +X, su cui si piega la coda dell FSR (lo spigolo -X resta vivo)'),
+    ('tib_tasca_w', '6 mm', 'mm', 'Tibia: tasca per linguette e saldature dell FSR sulla faccia +X, larghezza in Y'),
+    ('tib_tasca_h', '9 mm', 'mm', 'Tibia: tasca dell FSR, altezza'),
+    ('tib_tasca_p', '1.2 mm', 'mm', 'Tibia: tasca dell FSR, profondita'),
+    ('tib_tasca_y', '0.5 mm', 'mm', 'Tibia: centro in Y della tasca dell FSR (tocca la gola dei fili)'),
+    ('tib_tasca_z0', 'tib_punta_z - 1.5 mm', 'mm', 'Tibia: fondo della tasca dell FSR, sopra il raccordo della punta'),
+    ('tib_gola_w', '2 mm', 'mm', 'Tibia: gola dei fili dell FSR sulla faccia +X, larghezza'),
+    ('tib_gola_p', '2 mm', 'mm', 'Tibia: gola dei fili dell FSR, profondita (si ferma al fondo della culla: la parete e di 2)'),
+    ('tib_gola_y', '4.5 mm', 'mm', 'Tibia: centro in Y della gola, fuori dalla finestra del guscio (|Y| <= 3,5)'),
+    ('pied_tacca', '2 mm', 'mm', 'Piedino: tacca per i fili nel bordo alto sul lato +X, sopra la gola'),
+    ('luc_tib_w', '5.4 mm', 'mm', 'Tibia: sede piana della striscia LED WS2812B-2020 larga 5 (C), sotto la finestra del guscio'),
+    ('luc_tib_p', '0.5 mm', 'mm', 'Tibia: profondita della sede della striscia alle estremita (al centro circa 1,3: sede piana su faccia ad arco)'),
+    ('luc_tib_z0', 'cul_coda', 'mm', 'Tibia: inizio della sede della striscia, al fondo della culla'),
+    ('luc_tib_z1', 'cov_tib_fin_z1', 'mm', 'Tibia: fine della sede della striscia, con la finestra del guscio'),
+    ('luc_dif_sp', '0.6 mm', 'mm', 'Diffusore della tibia: spessore della lastra (0,6-0,8 dal provino di luce X10)'),
+    ('luc_dif_bordo', '2 mm', 'mm', 'Diffusore: lastra oltre il bordo della finestra'),
+    ('luc_dif_h', '1 mm', 'mm', 'Diffusore: altezza del bordino a incastro dentro la finestra (resta 0,6 sotto il fronte)'),
+    ('luc_dif_parete', '0.6 mm', 'mm', 'Diffusore: parete del bordino'),
+    ('luc_dif_gio', '0.1 mm', 'mm', 'Diffusore: gioco per lato del bordino nella finestra (incastro, da tarare sul provino)'),
     # --- guscio lungo della tibia (D-061, prova 3): fronte convesso che sporge verso l'esterno, sezione a C sfaccettata
     ('cov_tib_sporgenza', '7.3 mm', 'mm', 'Guscio della tibia: sporgenza massima del fronte oltre la faccia +X dello zoccolo (con 5,8 lo smusso interno toccava gli spigoli di culla e stinco)'),
     ('cov_tib_zmax', '25 mm', 'mm', 'Guscio della tibia: quota (sotto il ginocchio) della sporgenza massima'),
@@ -226,6 +252,46 @@ def _nuovo_comp(zampa, nome):
     occ = genitore.occurrences.addNewComponent(adsk.core.Matrix3D.create())
     occ.component.name = nome
     return occ
+
+
+# punti con nome per il software e le dime (D-066): componente -> [(nome, x, z)] sul piano Y 0 della zampa
+PUNTI = {
+    'Coxa': [('Asse_coxa', '0 mm', '0 mm'), ('Asse_femore', 'zam_Lc', '0 mm')],
+    'Femore_B': [('Asse_femore', 'zam_Lc', '0 mm'), ('Asse_ginocchio', 'zam_Lc + zam_Lf', '0 mm')],
+    'Tibia': [('Asse_ginocchio', 'zam_Lc + zam_Lf', '0 mm'), ('Punta_piede', 'zam_Lc + zam_Lf', '-(zam_Lt)')],
+}
+
+
+def _punti(comp):
+    """Punti di costruzione P_<nome> nella terna della zampa, su uno schizzo vincolato dall'origine (si rifanno)."""
+    for cp in [c for c in comp.constructionPoints if c.name.startswith('P_')]:
+        cp.deleteMe()
+    for sk in [x for x in comp.sketches if x.name == 'sk_punti']:
+        sk.deleteMe()
+    p = Parte(comp)
+    sk = p._schizzo(comp.xZConstructionPlane, 'punti')
+    ex, o = sk.sketchToModelSpace(P3(1, 0, 0)), sk.sketchToModelSpace(P3(0, 0, 0))
+    u_lungo_x = abs(ex.x - o.x) > abs(ex.z - o.z)          # l'asse x dello schizzo e' la X del modello?
+    fatti = []
+    for nome, x, z in PUNTI[comp.name]:
+        vx, vz = p.val(x), p.val(z)
+        if abs(vx) < 1e-6 and abs(vz) < 1e-6:
+            pt = sk.originPoint
+        else:
+            # creato un po' fuori posto: con la stessa coordinata dell'origine Fusion deduce un allineamento e la quota
+            # diventa ipervincolata (CLAUDE.md, sk_poligono); le quote lo portano al valore
+            q = sk.modelToSketchSpace(P3(vx / 10, 0, vz / 10))
+            pt = sk.sketchPoints.add(P3(q.x + 0.031, q.y + 0.027, 0))
+            p._quota_da_origine(sk, pt, True, x if u_lungo_x else z)
+            p._quota_da_origine(sk, pt, False, z if u_lungo_x else x)
+        inp = comp.constructionPoints.createInput()
+        inp.setByPoint(pt)
+        cp = comp.constructionPoints.add(inp)
+        cp.name = 'P_' + nome
+        fatti.append(cp.name)
+    if not sk.isFullyConstrained:
+        raise RuntimeError('%s: schizzo dei punti non vincolato' % comp.name)
+    return fatti
 
 
 def _chiudi(des, nome, p):
@@ -595,8 +661,8 @@ def fai_femore_a(zampa):
     return occ, p
 
 
-def _interseca(p, sk, asse, dist_expr, verso, nome):
-    """Estrusione in intersezione dell'unico profilo dello schizzo, limitata ai corpi della parte."""
+def _interseca(p, sk, asse, dist_expr, verso, nome, corpi=None):
+    """Estrusione in intersezione dell'unico profilo dello schizzo, limitata ai corpi della parte (o a quelli dati)."""
     ext = p.c.features.extrudeFeatures
     inp = ext.createInput(sk.profiles.item(0), adsk.fusion.FeatureOperations.IntersectFeatureOperation)
     nrm = sk.xDirection.crossProduct(sk.yDirection)
@@ -604,18 +670,18 @@ def _interseca(p, sk, asse, dist_expr, verso, nome):
     inp.setOneSideExtent(adsk.fusion.DistanceExtentDefinition.create(adsk.core.ValueInput.createByString(dist_expr)),
                          adsk.fusion.ExtentDirections.PositiveExtentDirection if positivo
                          else adsk.fusion.ExtentDirections.NegativeExtentDirection)
-    inp.participantBodies = [b for b in p.c.bRepBodies]
+    inp.participantBodies = corpi if corpi is not None else [b for b in p.c.bRepBodies]
     f = ext.add(inp)
     f.name = nome
     p.n += 1
     return f
 
 
-def _stinco(p, xk):
+def _stinco(p, xk, fine='zam_Lt - tib_piede_sp'):
     """Stinco V2 allargato (D-061), costruito per primo e da solo: i tagli e le intersezioni toccano solo lui."""
     yq = 'tib_y_c - tib_y_semi_alto - 1 mm'
     largo = '2 * tib_y_semi_alto + 2 mm'
-    p.blocco('y', 'tib_y_c - tib_y_semi_alto', 'stinco', xk + ' - tib_x_meno_alto', '-(zam_Lt - tib_piede_sp)', xk + ' + cul_semi',
+    p.blocco('y', 'tib_y_c - tib_y_semi_alto', 'stinco', xk + ' - tib_x_meno_alto', '-(%s)' % fine, xk + ' + cul_semi',
              '-(bug_coda)', '2 * tib_y_semi_alto', 1, NUOVO)
     # fianco -X: da 6 a 4 dall'asse, dritto
     p.blocco_obl('y', yq, 'fianco_meno_x', (xk + ' - tib_x_meno_alto', '-(bug_coda)'), (xk + ' - tib_x_meno_basso', '-(tib_z_arco)'),
@@ -630,19 +696,47 @@ def _stinco(p, xk):
     p.blocco_obl('x', xk + ' - 20 mm', 'rastremazione_y_piu', ('tib_y_c + tib_y_semi_alto', '-(bug_coda)'),
                  ('tib_y_c + tib_y_semi_basso', '-(tib_z_arco)'), '-(20 mm)', '100 mm', '0 mm', '20 mm', '40 mm', 1, TAGLIA)
     corpo = p.c.bRepBodies.item(0)
-    zt = p.val('zam_Lt') - p.val('tib_piede_sp')
+    arco = [fa for fa in corpo.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.CylinderSurfaceType][0]
+    lati = [e for e in arco.edges if abs(e.startVertex.geometry.z - e.endVertex.geometry.z) * 10 > 10]
+    ch = p.c.features.chamferFeatures
+    ci = ch.createInput2()
+    ci.chamferEdgeSets.addEqualDistanceChamferEdgeSet(_collezione(lati), adsk.core.ValueInput.createByString('tib_smusso_piu'), False)
+    cf = ch.add(ci)
+    cf.name = 'smussi_piu_x'
+    p.n += 1
+    # punta piana per l'FSR (D-066): raccordato solo lo spigolo +X, dove si piega la coda del sensore
+    corpo = p.c.bRepBodies.item(0)
+    zt, xr = p.val(fine), p.val(xk)
     fondo = [e for e in corpo.edges if e.geometry.curveType == adsk.core.Curve3DTypes.Line3DCurveType
              and abs(e.startVertex.geometry.z * 10 + zt) < 0.05 and abs(e.endVertex.geometry.z * 10 + zt) < 0.05
-             and abs(e.startVertex.geometry.x - e.endVertex.geometry.x) < 1e-5]
-    _raccorda(p.c, [('tib_punta_r', fondo)], 'punta')
-    return len(fondo)
+             and abs(e.startVertex.geometry.x - e.endVertex.geometry.x) < 1e-5 and e.startVertex.geometry.x * 10 > xr]
+    _raccorda(p.c, [('tib_punta_r_piu', fondo)], 'punta')
+    return len(fondo), len(lati)
+
+
+def _x_faccia(xk, z):
+    """X della faccia +X dello stinco (arco del fianco) alla quota -z, per z da bug_coda alla punta."""
+    return '(%s + cul_semi - tib_arco_R + sqrt(tib_arco_R ^ 2 - ((%s) - bug_coda) ^ 2))' % (xk, z)
+
+
+def _taglio_faccia(p, xk, nome, z0, z1, y0, larghezza, prof, est0='0.5 mm', est1='0.5 mm', xa=None):
+    """Taglio lungo la faccia +X ad arco dello stinco fra le quote -z0 e -z1 (z0 < z1): fondo sulla corda, profondo
+    `prof` agli estremi (al centro in piu' la freccia dell'arco), da Y = y0 per `larghezza`; est0 ed est1 allungano la
+    corda oltre gli estremi, cosi' i tratti di una gola fatta a corde si sovrappongono."""
+    xa = xa or _x_faccia(xk, z0)
+    xb = _x_faccia(xk, z1)
+    corda = 'sqrt((%s - %s) ^ 2 + ((%s) - (%s)) ^ 2)' % (xa, xb, z1, z0)
+    a0 = '-(%s)' % est0 if est0 != '0 mm' else '0 mm'
+    # nel piano 'y' (u, v) = (x, z); la corda scende verso -Z e b (a ruotato di +90 gradi) punta verso +X, fuori
+    return p.blocco_obl('y', y0, nome, ('%s - %s' % (xa, prof), '-(%s)' % z0), ('%s - %s' % (xb, prof), '-(%s)' % z1),
+                        a0, '%s + %s' % (corda, est1), '0 mm', '%s + 3 mm' % prof, larghezza, 1, TAGLIA)
 
 
 def fai_tibia(zampa):
     occ = _nuovo_comp(zampa, 'Tibia')
     p = Parte(occ.component)
     xk = 'zam_Lc + zam_Lf'
-    n_punta = _stinco(p, xk)
+    n_punta, n_smussi = _stinco(p, xk, 'tib_punta_z')
     _culla(p, xk)
     _sede(p, xk)
     _alleggerisci_culla(p, xk, (1, -1))
@@ -653,10 +747,25 @@ def fai_tibia(zampa):
                  '-(%s + %s)' % (z0, w), '2 * tib_y_semi_alto + 2 mm', 1, TAGLIA)
         for k, z in (('a', '-(%s + %s)' % (z0, w)), ('b', '-(%s - %s)' % (z1, w))):
             p.cilindro('y', 'tib_y_c - tib_y_semi_alto - 1 mm', '%s_%s' % (nome, k), xc, z, '2 * ' + w, '2 * tib_y_semi_alto + 2 mm', 1, TAGLIA)
-    # inserto M3 per la vite in basso del guscio, dalla faccia +X dello stinco (sull'arco) verso -X
-    xv = xk + ' + cul_semi - tib_arco_R + sqrt(tib_arco_R ^ 2 - (cov_tib_vite_z - bug_coda) ^ 2)'
+    # inserto M3 per la vite in basso del guscio, dalla faccia +X dello stinco (sull'arco) verso -X; parte dalla faccia
+    # all'altezza del bordo alto del foro: dal centro, la meta' alta restava coperta da una pelle di 0,3 mm
+    xv = _x_faccia(xk, 'cov_tib_vite_z - ins_m3_d / 2')
     p.cilindro('x', xv, 'ins_guscio', 'tib_y_c', '-(cov_tib_vite_z)', 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
-    p.info = {'spigoli_punta': n_punta}
+    # FSR (X5, D-066): tasca per linguette e saldature dentro il piedino, poi gola dei fili fino al fondo della culla
+    # (non oltre: la parete della culla e' di 2), fatta a corde dell'arco; solo nella Tibia, non in _stinco, altrimenti
+    # il piedino le copierebbe e il TPU schiaccerebbe i fili
+    _taglio_faccia(p, xk, 'tasca_fsr', 'tib_tasca_z0 - tib_tasca_h', 'tib_tasca_z0', 'tib_tasca_y - tib_tasca_w / 2',
+                   'tib_tasca_w', 'tib_tasca_p', '0 mm', '0 mm')
+    yg = 'tib_gola_y - tib_gola_w / 2'
+    quote = ['tib_tasca_z0', '(bug_coda + (tib_tasca_z0 - bug_coda) * 2 / 3)', '(bug_coda + (tib_tasca_z0 - bug_coda) / 3)', 'bug_coda']
+    for k in range(3):
+        _taglio_faccia(p, xk, 'gola_fsr_%d' % k, quote[k + 1], quote[k], yg, 'tib_gola_w', 'tib_gola_p')
+    p.blocco('y', yg, 'gola_fsr_zoccolo', xk + ' + cul_semi - tib_gola_p', '-(bug_coda)', xk + ' + cul_semi + 1 mm', '-(cul_coda)',
+             'tib_gola_w', 1, TAGLIA)
+    # luci (X31, predisposizione): sede piana per la striscia sotto la finestra del guscio, dal fondo della culla
+    _taglio_faccia(p, xk, 'sede_luce', 'luc_tib_z0', 'luc_tib_z1', 'tib_y_c - luc_tib_w / 2', 'luc_tib_w', 'luc_tib_p',
+                   '0 mm', '0.5 mm', xa=xk + ' + cul_semi')
+    p.info = {'spigoli_punta': n_punta, 'spigoli_smussati': n_smussi, 'corpi': occ.component.bRepBodies.count}
     return occ, p
 
 
@@ -747,9 +856,61 @@ def fai_piedino(zampa):
     f = sh.add(inp)
     f.name = 'calza'
     p.n += 1
+    # FSR (D-066): la punta della tibia finisce 0,8 sopra il fondo (FSR 0,3 + pistoncino 0,5); il pistoncino sta sulla
+    # suola sotto il centro della testa. Fuori i raccordi sono quelli dello svuotamento (1,6 sul lato -X, 2,6 sul +X):
+    # piu' grandi assottiglierebbero la parete sotto 1,2 allo spigolo vivo -X della punta
+    p.cilindro('z', '-(zam_Lt - tib_piede_sp)', 'pistoncino', xk + ' + sen_fsr_dx', 'tib_y_c', 'tib_pistone_d', 'tib_pistone_sp', 1)
+    p.blocco('y', 'tib_gola_y - pied_tacca / 2', 'tacca_fili', xk, '-(tib_piede_z0 + pied_tacca)', xk + ' + 20 mm',
+             '-(tib_piede_z0) + 1 mm', 'pied_tacca', 1, TAGLIA)
     corpo = occ.component.bRepBodies.item(0)
     bb = corpo.boundingBox
-    p.info = {'bocca': len(bocca), 'volume_cm3': round(corpo.volume, 3), 'z_min': round(bb.minPoint.z * 10, 2), 'z_max': round(bb.maxPoint.z * 10, 2)}
+    p.info = {'bocca': len(bocca), 'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(corpo.volume, 3),
+              'z_min': round(bb.minPoint.z * 10, 2), 'z_max': round(bb.maxPoint.z * 10, 2)}
+    return occ, p
+
+
+def fai_cover_tibia_diffusore(zampa):
+    """Diffusore delle luci della tibia (X31, D-066): lastra sottile che segue l'interno del fronte del guscio dietro la
+    finestra lunga, con un bordino che entra a incastro nella finestra. Si monta solo con le luci: senza, la finestra
+    resta aperta come prima. Si costruiscono due corpi (bordino e lastra) sui cilindri del fronte e poi si uniscono."""
+    occ = _nuovo_comp(zampa, 'Cover_Tibia_Diffusore')
+    p = Parte(occ.component)
+    comp = occ.component
+    xk = 'zam_Lc + zam_Lf'
+    cx = xk + ' + cul_semi + cov_tib_sporgenza - cov_tib_R'          # centro del fronte convesso (fai_cover_tibia)
+    cz = '-(cov_tib_zmax)'
+    r_int = '(cov_tib_R - cov_tib_sp)'                                # faccia interna del fronte
+    yc, w = '-(cov_tib_fin_y)', 'cov_tib_fin_w'
+    za, zb = 'cov_tib_fin_z0 + %s / 2' % w, 'cov_tib_fin_z1 - %s / 2' % w   # centri delle estremita' tonde
+    ys = '(%s / 2 - luc_dif_gio)' % w                                 # semilarghezza del bordino
+    yi = '(%s / 2 - luc_dif_gio - luc_dif_parete)' % w
+    # bordino: asola esterna, tagliata fra la faccia interna del fronte e 0,6 sotto quella esterna, poi svuotata
+    p.blocco('x', xk, 'bordino', '%s - %s' % (yc, ys), '-(%s)' % zb, '%s + %s' % (yc, ys), '-(%s)' % za, '30 mm', 1, NUOVO)
+    for k, z in (('a', '-(%s)' % za), ('b', '-(%s)' % zb)):
+        p.cilindro('x', xk, 'bordino_' + k, yc, z, '2 * ' + ys, '30 mm', 1)
+    sk = p.sk_cerchio('y', '%s - 10 mm' % yc, 'bordino_cima', cx, cz, '2 * (%s + luc_dif_h)' % r_int)
+    _interseca(p, sk, 'y', '20 mm', 1, 'bordino_cima')
+    p.cilindro('y', '%s - 10 mm' % yc, 'bordino_fondo', cx, cz, '2 * ' + r_int, '20 mm', 1, TAGLIA)
+    p.blocco('x', xk, 'bordino_vuoto', '%s - %s' % (yc, yi), '-(%s)' % zb, '%s + %s' % (yc, yi), '-(%s)' % za, '30 mm', 1, TAGLIA)
+    for k, z in (('a', '-(%s)' % za), ('b', '-(%s)' % zb)):
+        p.cilindro('x', xk, 'bordino_vuoto_' + k, yc, z, '2 * ' + yi, '30 mm', 1, TAGLIA)
+    bordino = comp.bRepBodies.item(0)
+    # lastra contro la faccia interna del fronte, oltre il bordo della finestra
+    p.blocco('y', '%s - %s / 2 - luc_dif_bordo' % (yc, w), 'lastra', xk, '-(cov_tib_fin_z1 + luc_dif_bordo)', xk + ' + 30 mm',
+             '-(cov_tib_fin_z0 - luc_dif_bordo)', '%s + 2 * luc_dif_bordo' % w, 1, NUOVO)
+    lastra = [b for b in comp.bRepBodies if b != bordino][0]
+    sk = p.sk_cerchio('y', '%s - 10 mm' % yc, 'lastra_fuori', cx, cz, '2 * ' + r_int)
+    _interseca(p, sk, 'y', '20 mm', 1, 'lastra_fuori', corpi=[lastra])
+    p.cilindro('y', '%s - 10 mm' % yc, 'lastra_dentro', cx, cz, '2 * (%s - luc_dif_sp)' % r_int, '20 mm', 1, TAGLIA)
+    corpi = list(comp.bRepBodies)
+    cb = comp.features.combineFeatures
+    inp = cb.createInput(corpi[0], _collezione(corpi[1:]))
+    inp.operation = adsk.fusion.FeatureOperations.JoinFeatureOperation
+    f = cb.add(inp)
+    f.name = 'unione'
+    p.n += 1
+    corpo = comp.bRepBodies.item(0)
+    p.info = {'corpi': comp.bRepBodies.count, 'volume_cm3': round(corpo.volume, 4)}
     return occ, p
 
 
@@ -781,6 +942,7 @@ RIGIDI = [
     ('R_cover_femore_a', 'Cover_Femore_A', 'Femore_A'), ('R_cover_femore_b', 'Cover_Femore_B', 'Femore_B'),
     ('R_cover_tibia', 'Cover_Tibia', 'Tibia'),
     ('R_piedino', 'Piedino', 'Tibia'),
+    ('R_diffusore', 'Cover_Tibia_Diffusore', 'Cover_Tibia'),
 ]
 
 
@@ -975,6 +1137,25 @@ GAMMA_MIN = {-45: 54, -40: 55, -35: 45, -30: 46, -25: 46, -20: 46, -15: 45, -10:
              15: 39, 20: 37, 25: 35, 30: 33, 35: 31, 40: 29, 85: 29}
 
 
+def gamma_min(alpha):
+    """Ginocchio minimo della tabella per il femore ad alpha: fra due righe il massimo dei due (la tabella non e' monotona)."""
+    k = sorted(GAMMA_MIN)
+    for a0, a1 in zip(k, k[1:]):
+        if alpha == a0:
+            return GAMMA_MIN[a0]
+        if a0 < alpha < a1:
+            return max(GAMMA_MIN[a0], GAMMA_MIN[a1])
+    return GAMMA_MIN[k[-1]]
+
+
+def pose_scansione():
+    """(pose che devono essere libere, controlli che devono toccare). Pose: alpha a passi di 5 da -45 a 85 con gamma
+    al minimo della tabella, a 150 e a 180. Controlli: gamma minimo - 2 a ogni riga della tabella e il femore a -50."""
+    pose = [(float(a), float(g)) for a in range(-45, 90, 5) for g in (gamma_min(a), 150, 180)]
+    controlli = [(float(a), float(g) - 2.0) for a, g in sorted(GAMMA_MIN.items())] + [(-50.0, 90.0)]
+    return pose, controlli
+
+
 def fai_limiti(zampa):
     """Limiti dei giunti nei valori propri dei giunti (alpha = -valore, gamma = 90 - valore)."""
     a0, a1 = LIMITI['alpha']
@@ -1008,11 +1189,16 @@ def main(passi, **kw):
         zampa = _zampa(root)
         for nome, f in (('coxa', fai_coxa), ('ponte', fai_ponte), ('femore_b', fai_femore_b), ('femore_a', fai_femore_a),
                         ('tibia', fai_tibia), ('teste_a', fai_teste_a), ('cover_femore_a', fai_cover_femore_a),
-                        ('cover_femore_b', fai_cover_femore_b), ('cover_tibia', fai_cover_tibia), ('piedino', fai_piedino)):
+                        ('cover_femore_b', fai_cover_femore_b), ('cover_tibia', fai_cover_tibia), ('piedino', fai_piedino),
+                        ('diffusore', fai_cover_tibia_diffusore)):
             if nome in passi:
                 occ, p = f(zampa)
+                if occ.component.name in PUNTI:
+                    p.info = dict(getattr(p, 'info', {}), punti=_punti(occ.component))
                 out[nome] = _chiudi(des, occ.component.name, p)
                 out[nome].update(getattr(p, 'info', {}))
+        if 'punti' in passi:
+            out['punti'] = {o.component.name: _punti(o.component) for o in zampa.component.occurrences if o.component.name in PUNTI}
         if 'istanze' in passi:
             out['istanze'] = fai_istanze(des, root, zampa)
         if 'controllo' in passi:
@@ -1026,7 +1212,18 @@ def main(passi, **kw):
         if 'interferenze' in passi:
             out['interferenze'] = interferenze(des, zampa)
         if 'scansione' in passi:
-            out['scansione'] = scansione(des, zampa, kw['pose'])
+            libere, controlli = pose_scansione()
+            pose = kw.get('pose') or (libere if kw.get('quali') == 'libere' else controlli if kw.get('quali') == 'controlli'
+                                      else libere + controlli)
+            r = scansione(des, zampa, pose)
+            esito = {'libere': [k for k, v in r.items() if v == 'libera'], 'urti': {k: v for k, v in r.items() if v != 'libera'}}
+            if not kw.get('pose'):
+                chiavi_c = {'%g/%g' % pc for pc in controlli}
+                esito['riassunto'] = {'pose_libere': sum(1 for p in libere if '%g/%g' % p in esito['libere']),
+                                      'pose': len(libere) if kw.get('quali') != 'controlli' else 0,
+                                      'controlli_che_toccano': sum(1 for k in esito['urti'] if k in chiavi_c),
+                                      'controlli': len(controlli) if kw.get('quali') != 'libere' else 0}
+            out['scansione'] = esito
         if 'limiti' in passi:
             out['limiti'] = fai_limiti(zampa)
         if 'riferimento' in passi:
@@ -1037,3 +1234,4 @@ def main(passi, **kw):
     except Exception:
         out['errore'] = traceback.format_exc()
     print(json.dumps(out, indent=1, ensure_ascii=False))
+    return out

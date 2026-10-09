@@ -89,6 +89,10 @@ Verifiche della zampa v0, prima della revisione (9 ottobre 2026):
 - Tutte le pose di appoggio e volo delle sei andature di `calc/andature.py` (da 130/25 a 70/70, alzata 30) sono libere, con gioco minimo 1,6 mm.
 - Il firmware deve limitare γ in funzione di α e l'imbardata relativa delle zampe vicine (contatto se ruotano entrambe di 30° una verso l'altra).
 
+### Predisposizioni della versione 2.1.0 (D-066)
+
+Punta dello stinco piana per un sensore di forza FSR 400 Short sotto il piedino (tasca per le saldature e gola dei fili sulla faccia +X fino al fondo della culla), piedino con pistoncino e tacca, sede piana per una striscia di 3 LED sotto la finestra del guscio e diffusore `Cover_Tibia_Diffusore` a incastro nella finestra (si monta solo con le luci), punti con nome per il software (`P_Asse_*`, `P_Punta_piede`). Quote e verifiche in D-066.
+
 ### Da fare nella zampa
 
 - Nervature di schiacciamento nelle culle (da tarare sul provino), piedino in TPU, raccordi. Cavi: fascette nel ponte e nel blocco del femore (D-061).

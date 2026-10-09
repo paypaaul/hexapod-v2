@@ -1,6 +1,6 @@
 {
  "versione": "2.1.0",
- "documento": "Hexapod v2.1.0 v1",
+ "documento": "Hexapod v2.1.0 v2",
  "nota": "punta del piede (punto zampa.punta_piede di cad.json) letta dal modello con i giunti veri; imbardata = segno_imbardata * valore di G_coxa",
  "zampa": "AS",
  "riposo_robot": {

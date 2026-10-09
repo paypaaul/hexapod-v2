@@ -7,3 +7,6 @@ cad/modelli/**/*.step
 # mesh e immagini generate per i render schematici
 cad/render/mesh/
 cad/render/*.png
+
+# worktree degli agenti di Claude Code
+.claude/worktrees/

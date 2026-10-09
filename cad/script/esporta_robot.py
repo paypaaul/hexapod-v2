@@ -45,7 +45,7 @@ ZA = runpy.run_path(os.path.join(QUI, 'zampa.py'))
 # densita' PETG-CF 1,3, PLA 1,24, TPU 1,21 g/cm3 (piedino pieno). Materiali per parte da colori.py (D-065).
 RHO = {'PETG-CF': 1.3, 'PLA': 1.24, 'TPU': 1.21}
 GUSCIO_CM, RIEMPIMENTO = 0.12, 0.25
-PLA = ('Corpo_Carapace', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Tibia', 'Corpo_Vassoio', 'Corpo_Fascia',
+PLA = ('Corpo_Carapace', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Tibia', 'Cover_Tibia_Diffusore', 'Corpo_Vassoio', 'Corpo_Fascia',
        'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
 TPU = ('Piedino',)
 # parti comprate: massa dichiarata in g (servo: datasheet AZDelivery, V; batteria 245-259 +-20, arrotondata per eccesso;
@@ -204,9 +204,25 @@ def _limiti_giunti(root):
     return out
 
 
+def _punti(root):
+    """Punti con nome (P_<nome>, zampa.py -> PUNTI) delle parti della zampa, nella terna della zampa come costruita."""
+    out = {}
+    for o in _prima_zampa(root).component.occurrences:
+        for cp in o.component.constructionPoints:
+            if cp.name.startswith('P_'):
+                p = cp.geometry.copy()
+                p.transformBy(o.transform2)
+                out.setdefault(o.component.name, {})[cp.name[2:]] = [round(v * 10, 4) for v in (p.x, p.y, p.z)]
+    return out
+
+
 def geometria(des, root):
     t0 = time.time()
     lc, lf, lt = _mm(des, 'zam_Lc'), _mm(des, 'zam_Lf'), _mm(des, 'zam_Lt')
+    punti = _punti(root)
+    punta = punti.get('Tibia', {}).get('Punta_piede')
+    if punta is None or max(abs(a - b) for a, b in zip(punta, (lc + lf, 0.0, -lt))) > 1e-3:
+        raise RuntimeError('P_Punta_piede della Tibia manca o non e\' in (Lc + Lf, 0, -Lt): %s (zampa.py -> punti)' % punta)
     coxe = {n: {'x': round(x, 3), 'y': round(y, 3), 'direzione': round(d, 3)} for n, (x, y, d) in AS['coxe'](des).items()}
     giunti = _limiti_giunti(root)
     sf, sg = ZA['SF'], ZA['SG']
@@ -248,8 +264,9 @@ def geometria(des, root):
             'asse_coxa': {'punto': [0.0, 0.0, 0.0], 'direzione': [0.0, 0.0, 1.0]},
             'asse_femore': {'punto': [lc, 0.0, 0.0], 'direzione': [0.0, 1.0, 0.0]},
             'asse_ginocchio': {'punto': [lc + lf, 0.0, 0.0], 'direzione': [0.0, 1.0, 0.0]},
-            'punta_piede': [lc + lf, 0.0, -lt],
-            'nota_punta': 'punto piu\' basso della suola del piedino nella posa come costruita (z -110 nel modello)',
+            'punta_piede': punta,
+            'nota_punta': 'P_Punta_piede della Tibia: centro della suola del piedino nella posa come costruita',
+            'punti': punti,
         },
         'convenzioni': {
             'alpha': 'alpha = %g * valore di G_femore' % sf, 'gamma': 'gamma = 90 + %g * valore di G_ginocchio' % sg,
