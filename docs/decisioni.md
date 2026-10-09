@@ -225,3 +225,17 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
   - Con la sporgenza di 5,8 mm prevista, la superficie interna degli smussi toccava gli spigoli della culla in alto e dello stinco in basso (13,6 mm³): portata a 7,3, che sporge di più verso l'esterno come chiesto.
 - Verificato: zampa senza interferenze; 54 pose libere (anche γ 150 e 180); 17 controlli su 20 a γ minimo − 2 toccano (gli altri tre ora sono liberi: lo stinco più stretto in basso lascia più aria, la tabella del firmware resta prudente); assieme senza interferenze, coxe libere a ±35°, zampe vicine libere a 30° e 31°, ciclo a tripode 70/70 e 100/45 e rotazione sul posto a 30° liberi.
 - Da fare: il piedino in TPU (D9) sulla punta dello stinco; la massa delle cover delle zampe (circa 22 g per zampa) va riguardata con il bilancio completo in B8.
+
+## D-062 — Tibia e guscio simmetrici (2026-10-09)
+
+- **Richiesta dell'utente** (guardando in Fusion la tibia di B3): stinco e guscio simmetrici. Prima lo stinco aveva la faccia +Y piana sul piano dell'orlo e la faccia −Y inclinata (da 18 a 6 mm), e il guscio si stringeva solo sul lato −Y.
+- **Soluzione**: fianchi Y simmetrici sul **piano medio dello zoccolo** (`tib_y_c`, Y −7,35), che è anche il piano medio del guscio. Lo stinco parte a filo dello zoccolo sui due lati (33,6 mm, `tib_y_semi_alto`) e si stringe dritto fino a 14 mm alla fine dell'arco (`tib_y_semi_basso` 7). Il guscio ha la rastremazione specchiata, con i fianchi paralleli allo stinco a 0,4 mm d'aria (`cov_tib_y_semi_basso`), e la finestra lunga e la vite in basso sul piano medio. Gli altri fianchi (−X dritto, +X ad arco) non cambiano.
+- Scartata la simmetria sul piano Y 0, che avrebbe tenuto la punta sull'asse della zampa: lo stinco sarebbe uscito di 8,5 mm dallo zoccolo sul lato +Y e il guscio avrebbe avuto un gradino sotto lo zoccolo.
+- **Conseguenze**:
+  - la punta del piede passa da Y +1,7 a **Y −7,35** nella terna della zampa (verso il cuscinetto del ginocchio). Per la cinematica inversa è una costante; i momenti attorno agli assi di femore e ginocchio non cambiano. Il carico si sposta un po' sul lato del cuscinetto e meno sulla squadretta del servo. Supera il vincolo "il piede resta sull'asse della zampa" di D-060;
+  - **stampa**: lo stinco non ha più una faccia sul piano dell'orlo. Sdraiato sull'orlo serve un supporto a cuneo sotto la faccia +Y dello stinco (faccia a 8° dal piatto, alto al massimo circa 10 mm alla punta), con interfaccia nell'altro materiale;
+  - tibia 33,8 cm³ (circa 2 cm³ e 2 g in più); guscio 10,3 cm³, invariato.
+- Verificato in Fusion (versione 23):
+  - zampa senza interferenze, 54 pose della scansione libere; 17 controlli su 20 a γ minimo − 2 toccano, come prima;
+  - assieme: coxe libere a ±35°, zampe vicine libere a 30° e 31°, ciclo a tripode 70/70 e 100/45 e rotazione sul posto a 30° liberi. L'unica interferenza è tra il vecchio coperchio e il carapace nuovo, che lo sostituisce (B4).
+- Punto di ripristino della versione di B3: copia "Hexapod v2 - MG996R - ripristino tibia asimmetrica (v22)" nel progetto Fusion e tag git `ripristino-tibia-asimmetrica`.

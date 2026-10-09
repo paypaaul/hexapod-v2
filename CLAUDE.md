@@ -89,6 +89,7 @@ Versione MG90S: `git show mg90s:<percorso>` (per esempio `mg90s:cad/script/zampa
 - File esistenti nel progetto (NON modificare né cancellare senza chiedere):
   - `Tower Pro MG90S Micro servo` (file dell'utente) — lineage `urn:adsk.wipprod:dm.lineage:WfZcQDYtQ2mcTssS11zxYw`
   - `Hexapod v2 - MG90S` (versione MG90S, congelata; rinominato da "Hexapod v2 - Assieme" l'8 ottobre su richiesta dell'utente) — lineage `urn:adsk.wipprod:dm.lineage:G-L92GHuRaCuuYj8EQ4-jg`
+  - `Hexapod v2 - MG996R - ripristino tibia asimmetrica (v22)` (copia di ripristino chiesta dall'utente il 9 ottobre, prima di D-062) — lineage `urn:adsk.wipprod:dm.lineage:2kd8UmqPSSqdH-nUiwVWhw`
 - **Design di lavoro: `Hexapod v2 - MG996R`** — lineage `urn:adsk.wipprod:dm.lineage:AVxbp0QWS5m_QEugpeB99A`. Struttura in D-046: un solo file, zampa come componente istanziato (non file a parte), parti comprate `Rif_*` nella zona libreria (y ≥ 250 mm).
 - Modello dell'MG996R: STEP di terzi in `cad/modelli/mg996r/` (fonte nel README della cartella), importato in `Rif_Servo_MG996R` e riportato nella terna di progetto (origine sull'asse dell'albero al lato inferiore delle alette, +Z verso la cima dell'albero, cassa verso +X). Quote e scarti rispetto al datasheet in `docs/dimensioni-componenti.md`.
 - Script Fusion in `cad/script/`; si lanciano con `runpy.run_path(percorso)['main']()` dentro lo script del connettore, così restano nella repo.

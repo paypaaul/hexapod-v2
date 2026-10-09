@@ -18,7 +18,7 @@ Tre architetture indipendenti, ciascuna con una priorità diversa, giudicate da 
 
 ### Architettura
 
-Terna della zampa (componente `Zampa`): origine sull'asse della coxa, all'altezza dell'asse del femore; X verso l'esterno, Y lungo l'asse del femore verso la piastra delle squadrette, Z in alto. Posa di riferimento: femore orizzontale (α = 0), tibia verticale (γ = 90°).
+Terna della zampa (componente `Zampa`): origine sull'asse della coxa, all'altezza dell'asse del femore; X verso l'esterno, Y lungo l'asse del femore verso la piastra delle squadrette, Z in alto. Posa di riferimento: femore orizzontale (α = 0), tibia verticale (γ = 90°). La punta del piede sta a Y −7,35, sul piano medio dello zoccolo della tibia (D-062): la cinematica inversa la tiene come scostamento costante.
 
 | Parte | Cosa fa | Come si stampa |
 |---|---|---|
