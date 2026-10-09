@@ -119,6 +119,21 @@ Verifiche (9 ottobre 2026), con i giunti veri:
 - ogni zampa da sola a ±20° e ±35° di coxa: libera;
 - zampe vicine ruotate una verso l'altra: libere a 31° ciascuna, contatto a 34° (anteriore–media e media–posteriore); coppie anteriore e posteriore libere a 34°.
 
+### Massa e baricentro dal modello (9 ottobre 2026)
+
+| Voce | Massa (g) |
+|---|---|
+| 18 servo MG996R | 990 |
+| 18 squadrette, 18 cuscinetti, 18 perni | 145 |
+| Parti stampate delle sei zampe | 552 (92 a zampa) |
+| `Corpo_Base`, chiglia, coperchio provvisorio | 227 |
+| Batteria, SSC-32, ESP32, camera, due regolatori | 340 |
+| **Totale modellato** | **2254** |
+| Non modellato (stima): cavi e connettori 160, viteria e inserti 140, basetta e logica 25, vassoio, sportelli e gonna del coperchio 40, piedini 15, fusibili, Wago, T-plug, cicalino, interruttore 45 | circa 425 |
+| **Totale atteso** | **circa 2680** |
+
+Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,7; 0; −11,7) mm, cioè quasi sul centro in pianta e 12 mm sotto il piano dei femori. La massa di progetto del calcolo statico (2750 g) resta prudente.
+
 ### Da fare nel corpo
 
 - Fissaggio della chiglia alla base (viti fuori dagli ingombri di regolatori e fusibile, labbro di centraggio), sportello della batteria, vassoio dell'ESP32 con la torretta della camera, sedi di regolatori (bugne esterne o slitte), F1 e T-plug nel vano di coda, Wago, interruttore, cicalino; feritoie delle baie anteriori; gonna del coperchio (finestre ad almeno 22 mm dagli assi delle coxe) e muso in PETG; percorso dei cavi (tasche e pettini nelle baie posteriori).
