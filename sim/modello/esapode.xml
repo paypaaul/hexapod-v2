@@ -1,0 +1,233 @@
+<mujoco model="esapode">
+  <!-- Generato da tools/genera_modelli.py (versione 2.1.0, Hexapod v2.1.0 v1): non modificare a mano. -->
+  <compiler angle="radian" meshdir="../../robot/mesh" autolimits="true" />
+  <option timestep="0.002" integrator="implicitfast" />
+  <visual>
+    <global offwidth="1280" offheight="720" />
+  </visual>
+  <custom>
+    <numeric name="servo_stallo_nm" data="1.0787315" />
+    <numeric name="servo_velocita_rad_s" data="7.4799825" />
+    <numeric name="servo_smorzamento" data="0.14421578" />
+    <numeric name="servo_kp" data="12.361352" />
+    <numeric name="servo_semibanda_morta_rad" data="0.0039309217" />
+    <numeric name="servo_saturazione_gradi" data="5" />
+  </custom>
+  <default>
+    <default class="esapode">
+      <!-- smorzamento = stallo / velocita a vuoto: la retta coppia-velocita del motore a piena tensione; kp = stallo / 5 gradi (saturazione, S); forcerange = stallo a 6 V; banda morta in sim/servo.py -->
+      <joint type="hinge" damping="0.144216" armature="0" />
+      <position kp="12.3614" forcerange="-1.07873 1.07873" />
+      <geom friction="0.8 0.005 0.0001" solref="0.005 1" />
+      <default class="visivo">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" density="0" material="scuro" />
+      </default>
+      <default class="urto">
+        <geom group="3" rgba="0.9 0.5 0.1 0.4" />
+      </default>
+      <default class="piede">
+        <geom group="3" rgba="1 0.4 0 1" />
+      </default>
+    </default>
+  </default>
+  <asset>
+    <mesh name="corpo" file="corpo.stl" scale="0.001 0.001 0.001" />
+    <mesh name="coxa" file="coxa.stl" scale="0.001 0.001 0.001" />
+    <mesh name="femore" file="femore.stl" scale="0.001 0.001 0.001" />
+    <mesh name="tibia" file="tibia.stl" scale="0.001 0.001 0.001" />
+    <material name="scuro" rgba="0.18 0.18 0.2 1" />
+    <texture name="griglia" type="2d" builtin="checker" rgb1="0.32 0.34 0.36" rgb2="0.42 0.44 0.46" width="512" height="512" />
+    <material name="pavimento" texture="griglia" texrepeat="10 10" reflectance="0" />
+  </asset>
+  <worldbody>
+    <light name="sole" pos="0 0 2" dir="0 0 -1" directional="true" />
+    <geom name="pavimento" type="plane" size="0 0 0.05" material="pavimento" friction="0.8 0.005 0.0001" solref="0.005 1" />
+    <body name="corpo" pos="0 0 0.11" childclass="esapode">
+      <freejoint name="corpo" />
+      <inertial pos="0.004073 0.000014 -0.011555" mass="1.39104" fullinertia="0.00270093 0.00553239 0.007219 5.5901e-07 3.40985e-05 -3.09602e-07" />
+      <geom name="mesh_corpo" class="visivo" mesh="corpo" />
+      <geom name="chiglia" class="urto" type="box" pos="0.00015 0 -0.036675" size="0.08755 0.0347 0.004725" />
+      <geom name="scafo" class="urto" type="box" pos="0.00015 0 -0.012475" size="0.08755 0.048 0.019475" />
+      <geom name="carapace" class="urto" type="box" pos="0.002425 0 0.0215" size="0.099575 0.056 0.0145" />
+      <geom name="lobo_AS" class="urto" type="cylinder" pos="0.08 0.044 0.0215" size="0.0323 0.0145" />
+      <geom name="lobo_MS" class="urto" type="cylinder" pos="0 0.048 0.0215" size="0.0323 0.0145" />
+      <geom name="lobo_PS" class="urto" type="cylinder" pos="-0.08 0.044 0.0215" size="0.0323 0.0145" />
+      <geom name="lobo_AD" class="urto" type="cylinder" pos="0.08 -0.044 0.0215" size="0.0323 0.0145" />
+      <geom name="lobo_MD" class="urto" type="cylinder" pos="0 -0.048 0.0215" size="0.0323 0.0145" />
+      <geom name="lobo_PD" class="urto" type="cylinder" pos="-0.08 -0.044 0.0215" size="0.0323 0.0145" />
+      <site name="imu" pos="0.0525 0 -0.0059" size="0.005" rgba="0 0.6 1 1" />
+      <body name="coxa_AS" pos="0.08 0.044 0" quat="0.965925826 0 0 0.258819045">
+        <inertial pos="0.046381 -0.001983 -0.009636" mass="0.09408" fullinertia="4.08107e-05 6.21611e-05 4.48324e-05 1.33817e-06 4.98159e-06 -5.71956e-07" />
+        <joint name="g_coxa_AS" axis="0 0 1" range="-0.610865 0.610865" />
+        <geom name="mesh_coxa_AS" class="visivo" mesh="coxa" />
+        <geom name="coxa_culla_AS" class="urto" type="box" pos="0.054 0.00045 -0.01155" size="0.01345 0.0254 0.0268" />
+        <body name="femore_AS" pos="0.055 0 0">
+          <inertial pos="0.03256 0.003123 0.003408" mass="0.05442" fullinertia="3.75087e-05 3.19617e-05 6.25141e-05 1.18337e-08 -1.55199e-07 7.09479e-07" />
+          <joint name="g_femore_AS" axis="0 -1 0" range="-0.855211 1.48353" />
+          <geom name="mesh_femore_AS" class="visivo" mesh="femore" pos="-0.055 0 0" />
+          <geom name="femore_A_AS" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
+          <geom name="femore_B_AS" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
+          <body name="tibia_AS" pos="0.065 0 0">
+            <inertial pos="0.002529 -0.001422 -0.02668" mass="0.11019" fullinertia="0.000109382 9.87767e-05 2.34434e-05 -2.36664e-07 2.69122e-06 2.19796e-06" />
+            <joint name="g_ginocchio_AS" axis="0 -1 0" range="-1.064651 1.570796" />
+            <geom name="mesh_tibia_AS" class="visivo" mesh="tibia" pos="-0.12 0 0" />
+            <geom name="tibia_culla_AS" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
+            <geom name="tibia_stinco_AS" class="urto" type="capsule" fromto="0.003634 0 -0.03835 0 0 -0.094" size="0.0117" />
+            <geom name="piede_AS" class="piede" type="sphere" pos="0 0 -0.1044" size="0.0056" />
+            <site name="punta_AS" pos="0 0 -0.11" size="0.002" />
+            <site name="contatto_AS" type="sphere" size="0.0066" pos="0 0 -0.1044" rgba="0 1 0 0.3" />
+          </body>
+        </body>
+      </body>
+      <body name="coxa_MS" pos="0 0.048 0" quat="0.707106781 0 0 0.707106781">
+        <inertial pos="0.046381 -0.001983 -0.009636" mass="0.09408" fullinertia="4.08107e-05 6.21611e-05 4.48324e-05 1.33817e-06 4.98159e-06 -5.71956e-07" />
+        <joint name="g_coxa_MS" axis="0 0 1" range="-0.610865 0.610865" />
+        <geom name="mesh_coxa_MS" class="visivo" mesh="coxa" />
+        <geom name="coxa_culla_MS" class="urto" type="box" pos="0.054 0.00045 -0.01155" size="0.01345 0.0254 0.0268" />
+        <body name="femore_MS" pos="0.055 0 0">
+          <inertial pos="0.03256 0.003123 0.003408" mass="0.05442" fullinertia="3.75087e-05 3.19617e-05 6.25141e-05 1.18337e-08 -1.55199e-07 7.09479e-07" />
+          <joint name="g_femore_MS" axis="0 -1 0" range="-0.855211 1.48353" />
+          <geom name="mesh_femore_MS" class="visivo" mesh="femore" pos="-0.055 0 0" />
+          <geom name="femore_A_MS" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
+          <geom name="femore_B_MS" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
+          <body name="tibia_MS" pos="0.065 0 0">
+            <inertial pos="0.002529 -0.001422 -0.02668" mass="0.11019" fullinertia="0.000109382 9.87767e-05 2.34434e-05 -2.36664e-07 2.69122e-06 2.19796e-06" />
+            <joint name="g_ginocchio_MS" axis="0 -1 0" range="-1.064651 1.570796" />
+            <geom name="mesh_tibia_MS" class="visivo" mesh="tibia" pos="-0.12 0 0" />
+            <geom name="tibia_culla_MS" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
+            <geom name="tibia_stinco_MS" class="urto" type="capsule" fromto="0.003634 0 -0.03835 0 0 -0.094" size="0.0117" />
+            <geom name="piede_MS" class="piede" type="sphere" pos="0 0 -0.1044" size="0.0056" />
+            <site name="punta_MS" pos="0 0 -0.11" size="0.002" />
+            <site name="contatto_MS" type="sphere" size="0.0066" pos="0 0 -0.1044" rgba="0 1 0 0.3" />
+          </body>
+        </body>
+      </body>
+      <body name="coxa_PS" pos="-0.08 0.044 0" quat="0.258819045 0 0 0.965925826">
+        <inertial pos="0.046381 -0.001983 -0.009636" mass="0.09408" fullinertia="4.08107e-05 6.21611e-05 4.48324e-05 1.33817e-06 4.98159e-06 -5.71956e-07" />
+        <joint name="g_coxa_PS" axis="0 0 1" range="-0.610865 0.610865" />
+        <geom name="mesh_coxa_PS" class="visivo" mesh="coxa" />
+        <geom name="coxa_culla_PS" class="urto" type="box" pos="0.054 0.00045 -0.01155" size="0.01345 0.0254 0.0268" />
+        <body name="femore_PS" pos="0.055 0 0">
+          <inertial pos="0.03256 0.003123 0.003408" mass="0.05442" fullinertia="3.75087e-05 3.19617e-05 6.25141e-05 1.18337e-08 -1.55199e-07 7.09479e-07" />
+          <joint name="g_femore_PS" axis="0 -1 0" range="-0.855211 1.48353" />
+          <geom name="mesh_femore_PS" class="visivo" mesh="femore" pos="-0.055 0 0" />
+          <geom name="femore_A_PS" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
+          <geom name="femore_B_PS" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
+          <body name="tibia_PS" pos="0.065 0 0">
+            <inertial pos="0.002529 -0.001422 -0.02668" mass="0.11019" fullinertia="0.000109382 9.87767e-05 2.34434e-05 -2.36664e-07 2.69122e-06 2.19796e-06" />
+            <joint name="g_ginocchio_PS" axis="0 -1 0" range="-1.064651 1.570796" />
+            <geom name="mesh_tibia_PS" class="visivo" mesh="tibia" pos="-0.12 0 0" />
+            <geom name="tibia_culla_PS" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
+            <geom name="tibia_stinco_PS" class="urto" type="capsule" fromto="0.003634 0 -0.03835 0 0 -0.094" size="0.0117" />
+            <geom name="piede_PS" class="piede" type="sphere" pos="0 0 -0.1044" size="0.0056" />
+            <site name="punta_PS" pos="0 0 -0.11" size="0.002" />
+            <site name="contatto_PS" type="sphere" size="0.0066" pos="0 0 -0.1044" rgba="0 1 0 0.3" />
+          </body>
+        </body>
+      </body>
+      <body name="coxa_AD" pos="0.08 -0.044 0" quat="0.965925826 0 0 -0.258819045">
+        <inertial pos="0.046381 -0.001983 -0.009636" mass="0.09408" fullinertia="4.08107e-05 6.21611e-05 4.48324e-05 1.33817e-06 4.98159e-06 -5.71956e-07" />
+        <joint name="g_coxa_AD" axis="0 0 1" range="-0.610865 0.610865" />
+        <geom name="mesh_coxa_AD" class="visivo" mesh="coxa" />
+        <geom name="coxa_culla_AD" class="urto" type="box" pos="0.054 0.00045 -0.01155" size="0.01345 0.0254 0.0268" />
+        <body name="femore_AD" pos="0.055 0 0">
+          <inertial pos="0.03256 0.003123 0.003408" mass="0.05442" fullinertia="3.75087e-05 3.19617e-05 6.25141e-05 1.18337e-08 -1.55199e-07 7.09479e-07" />
+          <joint name="g_femore_AD" axis="0 -1 0" range="-0.855211 1.48353" />
+          <geom name="mesh_femore_AD" class="visivo" mesh="femore" pos="-0.055 0 0" />
+          <geom name="femore_A_AD" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
+          <geom name="femore_B_AD" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
+          <body name="tibia_AD" pos="0.065 0 0">
+            <inertial pos="0.002529 -0.001422 -0.02668" mass="0.11019" fullinertia="0.000109382 9.87767e-05 2.34434e-05 -2.36664e-07 2.69122e-06 2.19796e-06" />
+            <joint name="g_ginocchio_AD" axis="0 -1 0" range="-1.064651 1.570796" />
+            <geom name="mesh_tibia_AD" class="visivo" mesh="tibia" pos="-0.12 0 0" />
+            <geom name="tibia_culla_AD" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
+            <geom name="tibia_stinco_AD" class="urto" type="capsule" fromto="0.003634 0 -0.03835 0 0 -0.094" size="0.0117" />
+            <geom name="piede_AD" class="piede" type="sphere" pos="0 0 -0.1044" size="0.0056" />
+            <site name="punta_AD" pos="0 0 -0.11" size="0.002" />
+            <site name="contatto_AD" type="sphere" size="0.0066" pos="0 0 -0.1044" rgba="0 1 0 0.3" />
+          </body>
+        </body>
+      </body>
+      <body name="coxa_MD" pos="0 -0.048 0" quat="0.707106781 0 0 -0.707106781">
+        <inertial pos="0.046381 -0.001983 -0.009636" mass="0.09408" fullinertia="4.08107e-05 6.21611e-05 4.48324e-05 1.33817e-06 4.98159e-06 -5.71956e-07" />
+        <joint name="g_coxa_MD" axis="0 0 1" range="-0.610865 0.610865" />
+        <geom name="mesh_coxa_MD" class="visivo" mesh="coxa" />
+        <geom name="coxa_culla_MD" class="urto" type="box" pos="0.054 0.00045 -0.01155" size="0.01345 0.0254 0.0268" />
+        <body name="femore_MD" pos="0.055 0 0">
+          <inertial pos="0.03256 0.003123 0.003408" mass="0.05442" fullinertia="3.75087e-05 3.19617e-05 6.25141e-05 1.18337e-08 -1.55199e-07 7.09479e-07" />
+          <joint name="g_femore_MD" axis="0 -1 0" range="-0.855211 1.48353" />
+          <geom name="mesh_femore_MD" class="visivo" mesh="femore" pos="-0.055 0 0" />
+          <geom name="femore_A_MD" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
+          <geom name="femore_B_MD" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
+          <body name="tibia_MD" pos="0.065 0 0">
+            <inertial pos="0.002529 -0.001422 -0.02668" mass="0.11019" fullinertia="0.000109382 9.87767e-05 2.34434e-05 -2.36664e-07 2.69122e-06 2.19796e-06" />
+            <joint name="g_ginocchio_MD" axis="0 -1 0" range="-1.064651 1.570796" />
+            <geom name="mesh_tibia_MD" class="visivo" mesh="tibia" pos="-0.12 0 0" />
+            <geom name="tibia_culla_MD" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
+            <geom name="tibia_stinco_MD" class="urto" type="capsule" fromto="0.003634 0 -0.03835 0 0 -0.094" size="0.0117" />
+            <geom name="piede_MD" class="piede" type="sphere" pos="0 0 -0.1044" size="0.0056" />
+            <site name="punta_MD" pos="0 0 -0.11" size="0.002" />
+            <site name="contatto_MD" type="sphere" size="0.0066" pos="0 0 -0.1044" rgba="0 1 0 0.3" />
+          </body>
+        </body>
+      </body>
+      <body name="coxa_PD" pos="-0.08 -0.044 0" quat="0.258819045 0 0 -0.965925826">
+        <inertial pos="0.046381 -0.001983 -0.009636" mass="0.09408" fullinertia="4.08107e-05 6.21611e-05 4.48324e-05 1.33817e-06 4.98159e-06 -5.71956e-07" />
+        <joint name="g_coxa_PD" axis="0 0 1" range="-0.610865 0.610865" />
+        <geom name="mesh_coxa_PD" class="visivo" mesh="coxa" />
+        <geom name="coxa_culla_PD" class="urto" type="box" pos="0.054 0.00045 -0.01155" size="0.01345 0.0254 0.0268" />
+        <body name="femore_PD" pos="0.055 0 0">
+          <inertial pos="0.03256 0.003123 0.003408" mass="0.05442" fullinertia="3.75087e-05 3.19617e-05 6.25141e-05 1.18337e-08 -1.55199e-07 7.09479e-07" />
+          <joint name="g_femore_PD" axis="0 -1 0" range="-0.855211 1.48353" />
+          <geom name="mesh_femore_PD" class="visivo" mesh="femore" pos="-0.055 0 0" />
+          <geom name="femore_A_PD" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
+          <geom name="femore_B_PD" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
+          <body name="tibia_PD" pos="0.065 0 0">
+            <inertial pos="0.002529 -0.001422 -0.02668" mass="0.11019" fullinertia="0.000109382 9.87767e-05 2.34434e-05 -2.36664e-07 2.69122e-06 2.19796e-06" />
+            <joint name="g_ginocchio_PD" axis="0 -1 0" range="-1.064651 1.570796" />
+            <geom name="mesh_tibia_PD" class="visivo" mesh="tibia" pos="-0.12 0 0" />
+            <geom name="tibia_culla_PD" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
+            <geom name="tibia_stinco_PD" class="urto" type="capsule" fromto="0.003634 0 -0.03835 0 0 -0.094" size="0.0117" />
+            <geom name="piede_PD" class="piede" type="sphere" pos="0 0 -0.1044" size="0.0056" />
+            <site name="punta_PD" pos="0 0 -0.11" size="0.002" />
+            <site name="contatto_PD" type="sphere" size="0.0066" pos="0 0 -0.1044" rgba="0 1 0 0.3" />
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <position name="coxa_AS" joint="g_coxa_AS" class="esapode" ctrlrange="-1.572369 1.572369" />
+    <position name="femore_AS" joint="g_femore_AS" class="esapode" ctrlrange="-1.223303 1.921435" />
+    <position name="ginocchio_AS" joint="g_ginocchio_AS" class="esapode" ctrlrange="-1.397836 1.746902" />
+    <position name="coxa_MS" joint="g_coxa_MS" class="esapode" ctrlrange="-1.572369 1.572369" />
+    <position name="femore_MS" joint="g_femore_MS" class="esapode" ctrlrange="-1.223303 1.921435" />
+    <position name="ginocchio_MS" joint="g_ginocchio_MS" class="esapode" ctrlrange="-1.397836 1.746902" />
+    <position name="coxa_PS" joint="g_coxa_PS" class="esapode" ctrlrange="-1.572369 1.572369" />
+    <position name="femore_PS" joint="g_femore_PS" class="esapode" ctrlrange="-1.223303 1.921435" />
+    <position name="ginocchio_PS" joint="g_ginocchio_PS" class="esapode" ctrlrange="-1.397836 1.746902" />
+    <position name="coxa_AD" joint="g_coxa_AD" class="esapode" ctrlrange="-1.572369 1.572369" />
+    <position name="femore_AD" joint="g_femore_AD" class="esapode" ctrlrange="-1.223303 1.921435" />
+    <position name="ginocchio_AD" joint="g_ginocchio_AD" class="esapode" ctrlrange="-1.397836 1.746902" />
+    <position name="coxa_MD" joint="g_coxa_MD" class="esapode" ctrlrange="-1.572369 1.572369" />
+    <position name="femore_MD" joint="g_femore_MD" class="esapode" ctrlrange="-1.223303 1.921435" />
+    <position name="ginocchio_MD" joint="g_ginocchio_MD" class="esapode" ctrlrange="-1.397836 1.746902" />
+    <position name="coxa_PD" joint="g_coxa_PD" class="esapode" ctrlrange="-1.572369 1.572369" />
+    <position name="femore_PD" joint="g_femore_PD" class="esapode" ctrlrange="-1.223303 1.921435" />
+    <position name="ginocchio_PD" joint="g_ginocchio_PD" class="esapode" ctrlrange="-1.397836 1.746902" />
+  </actuator>
+  <sensor>
+    <touch name="contatto_AS" site="contatto_AS" />
+    <touch name="contatto_MS" site="contatto_MS" />
+    <touch name="contatto_PS" site="contatto_PS" />
+    <touch name="contatto_AD" site="contatto_AD" />
+    <touch name="contatto_MD" site="contatto_MD" />
+    <touch name="contatto_PD" site="contatto_PD" />
+    <accelerometer name="imu_acc" site="imu" />
+    <gyro name="imu_gyro" site="imu" />
+    <framequat name="imu_quat" objtype="site" objname="imu" />
+  </sensor>
+  <keyframe>
+    <key name="in_piedi" qpos="0 0 0.100088444 1 0 0 0 0 0.127463484 -0.305425805 0 0.127463484 -0.305425805 0 0.127463484 -0.305425805 0 0.127463484 -0.305425805 0 0.127463484 -0.305425805 0 0.127463484 -0.305425805" ctrl="0 0.127463484 -0.305425805 0 0.127463484 -0.305425805 0 0.127463484 -0.305425805 0 0.127463484 -0.305425805 0 0.127463484 -0.305425805 0 0.127463484 -0.305425805" />
+  </keyframe>
+</mujoco>

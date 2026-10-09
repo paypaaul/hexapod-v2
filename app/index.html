@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Esapode, gemello</title>
+    <link rel="stylesheet" href="./src/stile.css" />
+  </head>
+  <body>
+    <div id="scena"></div>
+    <aside id="pannello">
+      <h1>Esapode v2.1 · gemello</h1>
+      <p class="avviso" id="natura">
+        Pose <strong>comandate</strong>, calcolate dal generatore d'andatura: non sono misurate. I servo MG996R non
+        dicono dove sono; il corpo si muove come se i piedi in appoggio non scivolassero.
+      </p>
+      <label>Andatura
+        <select id="andatura">
+          <option value="tripode">tripode</option>
+          <option value="rotazione">rotazione sul posto</option>
+        </select>
+      </label>
+      <label>h, altezza dell'asse dei femori <output id="v-h"></output> mm
+        <input id="h" type="range" min="60" max="140" step="1" />
+      </label>
+      <label>xf0, distanza del piede dall'asse del femore <output id="v-xf0"></output> mm
+        <input id="xf0" type="range" min="15" max="90" step="1" />
+      </label>
+      <label>giro, rotazione del corpo a ogni passo <output id="v-giro"></output>°
+        <input id="giro" type="range" min="-30" max="30" step="1" />
+      </label>
+      <label>periodo del ciclo <output id="v-periodo"></output> s
+        <input id="periodo" type="range" min="0.6" max="3" step="0.1" />
+      </label>
+      <div class="pulsanti">
+        <button id="pausa" type="button">pausa</button>
+        <button id="inizio" type="button">da capo</button>
+      </div>
+      <p id="stato" class="stato" aria-live="polite"></p>
+      <details>
+        <summary>angoli comandati</summary>
+        <table id="angoli">
+          <thead><tr><th>zampa</th><th>imbardata</th><th>alpha</th><th>gamma</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </details>
+    </aside>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

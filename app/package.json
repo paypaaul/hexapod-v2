@@ -1,0 +1,27 @@
+{
+  "name": "esapode-gemello",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Gemello digitale cinematico dell'esapode nel browser (app/README.md)",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "modelli": "node scripts/modelli.mjs",
+    "dev": "npm run modelli && vite",
+    "build": "npm run modelli && tsc --noEmit && vite build",
+    "anteprima": "vite preview",
+    "test": "node --test test/*.test.ts",
+    "dimensione": "node scripts/dimensione.mjs"
+  },
+  "dependencies": {
+    "three": "0.186.0",
+    "urdf-loader": "0.13.1"
+  },
+  "devDependencies": {
+    "@types/three": "0.186.0",
+    "typescript": "6.0.3",
+    "vite": "8.3.1"
+  }
+}
