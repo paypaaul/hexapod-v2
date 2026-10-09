@@ -84,6 +84,8 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 | `cad/script/esporta_stl.py` | STL di tutte le parti stampate in `cad/stl/` (orientamento e materiali nel README della cartella) |
 | `cad/script/esporta_mesh.py`, `cad/render/render.py` | render schematici (matplotlib) del modello con parti nuove sopra: prima si esportano le mesh da Fusion (sola lettura), poi `Scena()` + parti + `render()` |
 | `docs/ricerca/estetica-dossier.md` | dossier per la passata estetica (indicazioni, quote, vincoli) |
+| `docs/piano-elettronica-software.md` | piano unico (backlog, da approvare): sensori, luci, elettronica e software, roadmap P0…P10, cose da predisporre nel CAD, decisioni per l'utente |
+| `docs/predisposizioni.md`, `docs/software.md` | dettaglio delle due ricerche del 9 ottobre: sensori, luci ed espansioni; firmware, controllo, RL e visione |
 
 Versione MG90S: `git show mg90s:<percorso>` (per esempio `mg90s:cad/script/zampa.py`, `mg90s:cad/script/corpo.py`, `mg90s:cad/script/assieme.py`, `mg90s:docs/progetto-meccanico.md`). Sono la traccia più utile per scrivere gli script nuovi.
 
@@ -202,5 +204,6 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 
 **Backlog** (chiesto dall'utente il 9 ottobre 2026):
 - **Provino degli inserti del kit Temu** (BOM D4, D5): fori M3 per Ø4,2 a 3,9 / 4,0 / 4,1 mm e M2 per Ø3,2 a 2,9 / 3,0 / 3,1, in PETG-CF, anche con le lunghezze 5 e 6 mm. Poi aggiornare `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` (in `rif_componenti.py`) e rigenerare: `ins_m3_d` pilota anche le bugne delle culle (`bug_coda`, `bug_corto`, `bug_semi`), quindi dopo serve la verifica completa di zampa e assieme.
+- **Sensori, luci, elettronica e software** (ricerca del 9 ottobre 2026, con revisori): piano in `docs/piano-elettronica-software.md`, dettagli in `docs/predisposizioni.md` e `docs/software.md`. Tutto da approvare; le predisposizioni nel CAD (punta dello stinco e piedino per il sensore di forza, sedi di IMU, ADC e ToF, luci, dime di taratura) vanno decise prima di stampare tibie, piedini e carapace.
 - **Placca superiore del femore**: una cover anche sopra il femore (oggi ci sono solo le lame ai lati, D-061), non strutturale, che non limiti le escursioni né il contatto tra zampe vicine (oggi a 32°).
 5. Fase 5 (BOM finale: viteria contata dal modello, da aggiornare a ogni modifica) e fase 6 (ciclo a tripode verificato in quattro assetti e rotazione sul posto a 30° per passo in due; campo della camera stimato: i ginocchi anteriori stanno al bordo dell'immagine; resta da fare l'andatura con il corpo inclinato o spostato, se servirà).
