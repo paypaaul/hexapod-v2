@@ -204,6 +204,97 @@ def scansione_coxe(des, root, zampe, angoli):
     return out
 
 
+# ----------------------------------------------------------------------------------- ciclo a tripode
+SEGUONO_FEMORE = ('Femore_B', 'Femore_A')          # piu' le copie con origine sul femore (squadrette, perni)
+SEGUONO_TIBIA = ('Tibia',)
+
+
+def _gruppo(des, o):
+    """'coxa', 'femore' o 'tibia': a quale segmento appartiene una parte annidata nella Zampa (terna della zampa)."""
+    n = o.component.name
+    if n in SEGUONO_FEMORE:
+        return 'femore'
+    if n in SEGUONO_TIBIA:
+        return 'tibia'
+    lc, lf = _mm(des, 'zam_Lc'), _mm(des, 'zam_Lf')
+    t = o.transform2.translation
+    x, y = t.x * 10, t.y * 10
+    if n == 'Rif_Servo_MG996R' or n == 'Rif_Cuscinetto_LF1050ZZ':
+        return 'tibia' if abs(x - (lc + lf)) < 1 else 'coxa'
+    if n in ('Rif_Squadretta_25T', 'Rif_Perno_5'):
+        if abs(x) < 1:
+            return 'coxa'
+        return 'femore'
+    return 'coxa'
+
+
+def _rot_y(gradi, x0):
+    m = adsk.core.Matrix3D.create()
+    m.setToRotation(math.radians(gradi), adsk.core.Vector3D.create(0, 1, 0), adsk.core.Point3D.create(x0 / 10, 0, 0))
+    return m
+
+
+def _rot_z(gradi):
+    m = adsk.core.Matrix3D.create()
+    m.setToRotation(math.radians(gradi), adsk.core.Vector3D.create(0, 0, 1), adsk.core.Point3D.create(0, 0, 0))
+    return m
+
+
+def posa_zampa(des, zo, imbardata, alpha, gamma):
+    """Atteggia UNA istanza di Zampa imponendo le trasformate delle parti annidate (la posa resta non catturata)."""
+    lc, lf = _mm(des, 'zam_Lc'), _mm(des, 'zam_Lf')
+    for o in zo.component.occurrences:
+        g = _gruppo(des, o)
+        m = o.transform2.copy()                       # nativa = posa "come costruito" nella terna della zampa
+        if g == 'tibia':
+            m.transformBy(_rot_y(90.0 - gamma, lc + lf))
+        if g in ('tibia', 'femore'):
+            m.transformBy(_rot_y(-alpha, lc))
+        m.transformBy(_rot_z(imbardata))
+        m.transformBy(zo.transform2)
+        o.createForAssemblyContext(zo).transform2 = m
+
+
+def pose_tripode(des, h, xf0, passo, alzata, fase):
+    """{zampa: (imbardata, alpha, gamma)} alla fase 0..1 del ciclo; tripode A (AS, PS, MD) in appoggio nella prima meta'."""
+    st = runpy.run_path(os.path.join(os.path.dirname(QUI), '..', 'calc', 'statica_tripode.py'))
+    lc, lf, lt = _mm(des, 'zam_Lc'), _mm(des, 'zam_Lf'), _mm(des, 'zam_Lt')
+    out = {}
+    for n, (x, y, d) in coxe(des).items():
+        fx = x + (lc + xf0) * math.cos(math.radians(d))
+        fy = y + (lc + xf0) * math.sin(math.radians(d))
+        a_tripode = n in ('AS', 'PS', 'MD')
+        u = fase if a_tripode else (fase + 0.5) % 1.0
+        if u < 0.5:                                   # appoggio: il piede va da +passo/2 a -passo/2
+            dx, dz = passo / 2 - passo * (u / 0.5), 0.0
+        else:                                         # volo: torna avanti alzandosi
+            v = (u - 0.5) / 0.5
+            dx, dz = -passo / 2 + passo * v, alzata * math.sin(math.pi * v)
+        px, py = fx + dx - x, fy - y
+        yaw = math.degrees(math.atan2(py, px)) - d
+        yaw = (yaw + 180) % 360 - 180
+        x_f = math.hypot(px, py) - lc
+        s = st['ik_piano'](x_f, h - dz, lf, lt)
+        out[n] = (round(yaw, 2), round(s[0], 2), round(s[3], 2)) if s else None
+    return out
+
+
+def verifica_ciclo(des, root, h, xf0, passo, alzata, fasi):
+    out = {}
+    zampe = mappa_zampe(des, root)
+    for f in fasi:
+        pose = pose_tripode(des, h, xf0, passo, alzata, f)
+        if any(v is None for v in pose.values()):
+            out['%g' % f] = {'pose': pose, 'esito': 'piede non raggiungibile'}
+            continue
+        for n, (yaw, a, g) in pose.items():
+            posa_zampa(des, zampe[n], yaw, a, g)
+        r = interferenze(des, root)
+        out['%g' % f] = {'pose': pose, 'urti': r if r else 'nessuno'}
+        A['ripristina'](des)
+    return out
+
+
 def stato(des, root):
     out = {'zampe': {n: o.name for n, o in mappa_zampe(des, root).items()},
            'giunti_coxa': {j.name: round(A['valore_giunto'](j), 2) for j in root.asBuiltJoints if j.name.startswith('G_coxa_')},
@@ -233,6 +324,11 @@ def main(passi, **kw):
             out['interferenze'] = interferenze(des, root)
         if 'coxe' in passi:
             out['coxe'] = scansione_coxe(des, root, kw.get('zampe', ZAMPE), kw.get('angoli', (-35, -20, 20, 35)))
+        if 'ciclo' in passi:
+            out['ciclo'] = verifica_ciclo(des, root, kw.get('h', 100.0), kw.get('xf0', 45.0), kw.get('passo', 60.0),
+                                          kw.get('alzata', 30.0), kw.get('fasi', (0.0, 0.25)))
+        if 'ripristina' in passi:
+            out['ripristina'] = A['ripristina'](des)
         if 'stato' in passi:
             out['stato'] = stato(des, root)
     except Exception:

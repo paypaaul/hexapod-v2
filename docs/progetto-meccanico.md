@@ -119,6 +119,14 @@ Verifiche (9 ottobre 2026), con i giunti veri:
 - ogni zampa da sola a ±20° e ±35° di coxa: libera;
 - zampe vicine ruotate una verso l'altra: libere a 31° ciascuna, contatto a 34° (anteriore–media e media–posteriore); coppie anteriore e posteriore libere a 34°.
 
+### Ciclo a tripode sul modello (9 ottobre 2026)
+
+`assieme.py` → `ciclo`: per ogni fase calcola imbardata, femore e ginocchio di ognuna delle sei zampe (piede neutro a Lc + x_f0 dalla coxa, passo 60 lungo X, volo a parabola con alzata 30) e atteggia le zampe una per una imponendo le trasformate delle parti annidate (`posa_zampa`); poi controlla le interferenze di tutto l'assieme e ripristina.
+
+- Controllo del metodo: una zampa con il femore a −60° e due zampe vicine a 40° una verso l'altra danno gli urti attesi.
+- Assetti 100/45 e 130/25: quattro fasi (0, 1/8, 1/4, 3/8 del ciclo; la seconda metà è simmetrica): **nessun urto**.
+- Assetti bassi 80/60 e 70/70: sedici fasi: **nessun urto**; il ginocchio scende al minimo a 41°. La correzione del piede delle zampe d'angolo prevista dal modello 2D non serve con questa traiettoria.
+
 ### Massa e baricentro dal modello (9 ottobre 2026)
 
 | Voce | Massa (g) |
