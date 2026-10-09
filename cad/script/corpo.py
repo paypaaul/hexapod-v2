@@ -114,6 +114,8 @@ PARAMETRI = [
     ('cor_cop_lobo', '22 mm', 'mm', 'Coperchio: raggio dei lobi sopra gli assi delle coxe'),
     ('cor_muso_x', '101 mm', 'mm', 'Coperchio: punta del muso'),
     ('cor_muso_semi', '20 mm', 'mm', 'Coperchio: semilarghezza del muso'),
+    ('cor_muso_giu', '-1 mm', 'mm', 'Muso: bordo inferiore della fascia (sotto il vassoio, che finisce a z +1)'),
+    ('cor_muso_finestra_d', '17 mm', 'mm', 'Muso: finestra della camera (cono di 120 gradi dal centro ottico a 2,5 mm, piu la lente Ø8)'),
 ]
 
 T0 = {}
@@ -427,6 +429,11 @@ def fai_coperchio(corpo):
                        ('lobo_ps', '-(cor_ang_x)', 'cor_ang_y'), ('lobo_pd', '-(cor_ang_x)', '-(cor_ang_y)'),
                        ('lobo_ms', '0 mm', 'cor_med_y'), ('lobo_md', '0 mm', '-(cor_med_y)')):
         p.cilindro('z', 'cor_cop_z', nome, x, y, '2 * cor_cop_lobo', 'cor_cop_sp')
+    # muso: fascia davanti e ai lati di vassoio, torretta e camera, con la finestra della camera (in PETG come il coperchio)
+    p.blocco('x', 'cor_muso_x', 'muso_fronte', '-(cor_muso_semi)', 'cor_muso_giu', 'cor_muso_semi', 'cor_cop_z', 'cor_cop_sp', -1)
+    p.blocco('y', 'cor_muso_semi', 'muso_fianco_s', 'cor_tun_x1', 'cor_muso_giu', 'cor_muso_x', 'cor_cop_z', 'cor_cop_sp', -1)
+    p.blocco('y', '-(cor_muso_semi)', 'muso_fianco_d', 'cor_tun_x1', 'cor_muso_giu', 'cor_muso_x', 'cor_cop_z', 'cor_cop_sp', 1)
+    p.cilindro('x', 'cor_muso_x', 'finestra_camera', '0 mm', 'cor_cam_z', 'cor_muso_finestra_d', 'cor_cop_sp', -1, TAGLIA)
     # tacca per l'unghia sotto il bordo anteriore dello sportellino di servizio
     p.blocco('z', 'cor_cop_z + cor_cop_sp', 'tacca_sportellino', 'cor_serv_x1 + 1 mm', '-(5 mm)', 'cor_serv_x1 + 4 mm', '5 mm', '0.8 mm', -1,
              TAGLIA)

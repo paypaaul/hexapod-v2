@@ -171,3 +171,9 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - **Sportellino** (sopra USB-C e pulsanti dell'ESP32): resta su per attrito, con quattro nervature larghe 1 mm sui lati lunghi della cornice, a filo dell'apertura nel modello (i fori stampati vengono più stretti di 0,1–0,2 mm: l'interferenza viene dalla stampa e si tara sul pezzo). Una tacca nel dorso sotto il bordo anteriore (3 × 10, profonda 0,8) per sollevarlo con l'unghia. Scartati i denti a scatto: con 1,6 mm di dorso il dente sarebbe lungo 3 mm e non fletterebbe senza rompersi.
 - **Chiglia**: niente labbro di centraggio. Un labbro interno toglierebbe 2,8 mm al tunnel, dove il pacco ha 1,3 mm d'aria per lato; uno esterno urterebbe il ripiano delle baie. La centrano le quattro viti M3 nei fori da 3,4 (±0,2 mm).
 - **Stampa della base** (con il fondo sul piatto): il tetto del tunnel è un ponte di 50 mm lungo 162, e le 12 bugne sotto le alette dei servo di coxa sono sbalzi piatti a 25,6 mm dal piatto: supporti con interfaccia nell'altro materiale (toolchanger), sotto il tetto solo nella parte interna del tunnel. Un tetto a falde non ci sta: tra pacco e tetto ci sono 2,6 mm.
+
+## D-057 — Muso del coperchio (2026-10-09)
+
+- Il coperchio scende davanti e ai lati di vassoio, torretta e camera con una fascia da 1,6 mm (x da 81 a 101, |y| fino a 20, fino a z −1, sotto il vassoio): ripara ESP32, antenna e camera dagli urti e chiude il corpo davanti. È in PETG come tutto il coperchio (antenna fuori dal carbonio).
+- **Finestra della camera** Ø17 centrata sull'asse ottico (z 22,5): il cono di 120° dal centro ottico, a 2,5 mm, ha raggio 4,3; i bordi della finestra, il dorso e i fianchi restano fuori dal campo. Davanti alla lente restano 0,9 mm: il coperchio si sfila verso l'alto senza toccarla.
+- Verificato: nessuna interferenza; coxe anteriori libere a ±35°; ciclo a tripode libero a 100/45.
