@@ -1,0 +1,945 @@
+{
+ "proposte": [
+  {
+   "chiave": "compatto",
+   "nome": "Corpo compatto e basso",
+   "sintesi": "Corpo a \"spina dorsale\". In basso al centro c'è un tunnel chiuso per la batteria, la cui chiglia sta a z −41,4, alla stessa quota della nervatura della coxa: la luce da terra resta quella della zampa. Le sei gondole sono attaccate ai fianchi del tunnel e tra loro ci sono quattro baie laterali: nelle due anteriori i regolatori da 6 V, in quella posteriore sinistra il fusibile F1. Sopra il tunnel c'è un solo piano elettronico: la SSC-32 al centro; l'ESP32 davanti, su un vassoio in PETG, con antenna e camera nel muso non caricato; T-plug, presa di bilanciamento e micro-USB della SSC-32 nel vano di coda. Il coperchio è piatto, in PETG, a +30.\n\nCoxe d'angolo in (±80, ±44) a ±30° dall'asse longitudinale, coxe medie in (0, ±48). Due zampe vicine si toccano a 32,5° (32,0° con 2 mm di gioco); con le posizioni provvisorie di CONFIG il contatto era a 30°. Con le zampe d'angolo più in avanti la coppia al femore scende di 4 punti: 48 % invece di 52 % a 2,75 kg.\n\nIngombri: nucleo del corpo 166 × 100 mm, 235 × 173 con le gondole, alto 71,4 mm (da −41,4 a +30). Impronta dei piedi in posizione neutra 333 × 296 mm, contro 332 × 356 di CONFIG. Robot stimato 2,74 kg, baricentro a (+1,3; 0; −9,2), cioè 9 mm sotto il piano dei femori.\n\nPrezzo della scelta:\n- le zampe d'angolo lavorano più in senso radiale: nelle due andature più basse (80/60 e 70/70) il firmware deve spostare il loro piede neutro di 5 mm verso l'esterno;\n- l'assetto alto 130/25 sale dal 48 al 54 %;\n- i ginocchi anteriori entrano ai bordi del campo da 120° della camera.\n\nScartata la variante con l'ESP32 impilato sopra la SSC-32. Accorcerebbe il muso di circa 10 mm (l'ingombro resta fissato dalle gondole d'angolo a ±117,6), ma porterebbe il coperchio a +34 e l'antenna sopra la SSC-32, in mezzo al carbonio.",
+   "coxe": [
+    {
+     "zampa": "AS",
+     "x": 80,
+     "y": 44,
+     "direzione_gradi": 30
+    },
+    {
+     "zampa": "MS",
+     "x": 0,
+     "y": 48,
+     "direzione_gradi": 90
+    },
+    {
+     "zampa": "PS",
+     "x": -80,
+     "y": 44,
+     "direzione_gradi": 150
+    },
+    {
+     "zampa": "AD",
+     "x": 80,
+     "y": -44,
+     "direzione_gradi": -30
+    },
+    {
+     "zampa": "MD",
+     "x": 0,
+     "y": -48,
+     "direzione_gradi": -90
+    },
+    {
+     "zampa": "PD",
+     "x": -80,
+     "y": -44,
+     "direzione_gradi": -150
+    }
+   ],
+   "coxa_libera_tra_vicine_gradi": 32.5,
+   "statica": "Calcoli lanciati con python3 inline. Le posizioni delle coxe sono state sostituite solo in memoria: i file della repo non sono cambiati.\n\n**calc/statica_tripode.py**, coxe proposte, punto di progetto 100/45, passo 60:\n- **2600 g:**\n  - piede più carico: 1029 gf (40 %);\n  - femore 4,99 kgf·cm = 45 % dello stallo; ginocchio 4,58 = 42 %;\n  - coxa ±17°, femore da +1° a +9°, ginocchio da 66° a 85° in appoggio;\n  - momento sul perno della coxa 13,1 kgf·cm;\n  - margine di stabilità 59 mm;\n  - piedi del tripode A: AS (167, 94), PS (−167, 94), MD (0, −148).\n- **2750 g:** piede 1089 gf, femore 5,28 kgf·cm = 48 %, ginocchio 4,84 = 44 %, momento sulla coxa 13,8, margine 59 mm.\n- **CONFIG provvisorio a 2750 g, per confronto:** femore 52 % (oltre il limite), ginocchio 36 %, margine 58 mm.\n- **Fase di volo segnalata \"NON FATTIBILE\".** Lo script usa il criterio generico ginocchio ≥ 40°: AS, a fine passo con il piede alzato di 30 mm (x_f 20,5, femore 32°), arriva a 39,7°. Il limite vero della zampa con il femore a 30–35° è 33° (tabella GAMMA_MIN di zampa.py), quindi restano 6,7° di margine. In CONFIG lo stesso punto stava a 41,5°.\n\n**calc/andature.py**, 2750 g, baricentro 9,3 mm sotto il piano dei femori (stimato), FONDO 41,4. Valori a tripode (tra parentesi CONFIG):\n\n| Assetto | Coppia | Margine | Ribaltamento |\n|---|---|---|---|\n| 130/25 | 54 % (48 %) | 49 mm | 22° |\n| 110/40 | 48 % (47 %) | 57 mm | 29° |\n| 90/55 | 57 % (62 %) | 64 mm (62) | 39° (37°) |\n| 70/70 | 70 % (78 %) | 72 mm (67) | 50° (48°) |\n\nA coppie e a onda la coppia va dal 41 al 58 %.\n\n**calc/zampa_escursioni.py** con le pose di marcia delle coxe proposte:\n- assetti da 130/25 a 90/55 liberi, gioco minimo 2,2–2,7 mm;\n- 80/60 e 70/70: contatto tra culla della tibia e blocco del femore sulle zampe d'angolo in volo (ginocchio 27–28° con il femore a 66–81°);\n- con il piede neutro delle zampe d'angolo 5 mm più fuori tutte le andature sono libere (gioco ≥ 1,4 mm) e la coppia sale di 1 punto (71 % a 70/70). È una regola per il firmware, non serve geometria nuova.\n\n**Confronto tra disposizioni d'angolo** (2750 g; contatto tra vicine; coppia max; margine):\n\n| Coxe d'angolo | Contatto | Femore | Ginocchio | Margine | Note |\n|---|---|---|---|---|---|\n| (80, 44) a 30° | 32,5° | 48 % | 44 % | 59 mm | scelta |\n| (85, 44) a 35° | 31,75° | 50 % | 41 % | 57 mm | |\n| (88, 46) a 38° | 31,0° | 52 % | 39 % | 56 mm | |\n| (90, 48) a 40° | 30,25° | 53 % | 38 % | 55 mm | andature basse libere senza correzioni |\n\nÈ stata scelta la prima: è la più compatta e ha più margine sia sul contatto sia sul femore.",
+   "pianta": "Terna del robot: X avanti, Y a sinistra, z = 0 sul piano degli assi dei femori. Quote in mm.\n\n**Corpo_Base: tunnel e piano elettronico**\n- Tunnel della batteria: x da −85,4 a +81, |y| ≤ 27 (pareti di 2,0); interno 162 × 50 × 28, da x −83 a +79.\n- Il piano elettronico ha la stessa impronta, sopra il tetto del tunnel.\n\n**Corpo_Base: quattro baie laterali** tra gondola media e gondola d'angolo:\n- in x da ±12,45 (fianco della gondola media) a ±65,5 (fianco della gondola d'angolo);\n- in y da |27| a |50|, parete esterna 2,0 con feritoie;\n- fondo a ripiano da −31,95 a −29,95, alla quota del fondo delle gondole;\n- area in pianta 1300 mm² ciascuna.\n\nNucleo del corpo senza gondole: 166,4 × 100.\n\n**Gondole** (culle uguali a quelle della zampa: 45,4 × 24,9, bugne fino a −18,05 e +38,35 lungo l'asse del servo):\n- medie: da y ±29,95 (bugne lato albero, 2,95 mm dal tunnel) a ±86,35;\n- d'angolo: le bugne interne toccano la parete del tunnel; punta più lontana in (±117,6, ±55,7).\n- Ingombro della base con le gondole: 235,1 × 172,7.\n\n**Coperchio**: segue il nucleo, da x −85,4 a +101 con il muso; |y| ≤ 50 sulle baie.\n- Sopra ogni coxa ha un lobo di raggio 22 attorno all'asse, che copre il mozzo del ponte e il passaggio dei cavi: ingombro 204 × 140.\n- La gonna del coperchio rientra a 18–25 mm dagli assi delle coxe: lascia una finestra sopra ogni coxa, sotto il lobo, per il ponte e per i cavi di femore e ginocchio.\n\n**Muso** in PETG: da x 81 a 101, larghezza da 40 a 16, finestra della camera sul fronte.\n\n**Vincoli della zampa rispettati:**\n- gondola e corpo dentro il raggio 39,32 nei settori spazzati dall'anima;\n- base sotto +7,0, cioè sotto la testa dell'anima (+8,05);\n- niente corpo nel raggio 12 attorno agli assi tra +17,05 e +23,5 (mozzo del ponte);\n- chiglia a ≥ 7,55 mm dalla testa del braccio, che ha raggio 9,45.",
+   "pila_z": "Quote dal basso verso l'alto (mm, z = 0 sul piano dei femori):\n\n| Quota | Cosa c'è |\n|---|---|\n| −41,4 | fondo della chiglia, uguale alla nervatura della coxa (−41,35): la luce resta h − 41,4 (58,6 mm a h = 100) |\n| −39,4 | piano interno della chiglia = appoggio della batteria |\n| −38,35 / −33,15 | braccio inferiore della coxa (nervatura fino a −41,35): passa sotto le gondole e il ripiano, non sotto la chiglia |\n| −32,75 | flangia del cuscinetto LF-1050ZZ |\n| −31,95 | fondo di gondole, ripiano delle baie e base (faccia sul piatto di stampa); giunto tra chiglia e base |\n| −29,95 | faccia superiore del ripiano delle baie |\n| −28 … +3,8 | regolatori in piedi nelle baie anteriori |\n| −28 … −6 | F1 nella baia posteriore sinistra |\n| −12,0 | sommità della batteria all'inviluppo massimo di 27,4 (vano alto 28) |\n| −11,4 / −9,4 | tetto del tunnel = pavimento del piano elettronico |\n| −8,4 … −0,1 | Wago sotto il vassoio |\n| −9,4 … −1,4 | colonnine della SSC-32 (8 mm); sotto la scheda restano 6 mm per le barre |\n| −1,4 / +0,2 | circuito della SSC-32 |\n| +1,0 / +2,6 | piano del Vassoio_ESP32 |\n| +1,65 | orlo delle gondole = lato inferiore delle alette dei servo di coxa |\n| +5,9 / +7,5 | basetta (saldature sotto fino a +3,4) |\n| +7,0 | orlo della base (pareti delle baie, coda, fronte); appoggio del coperchio |\n| +11,85 | sommità della cassa dei servo di coxa |\n| +14,2 | sommità delle spine dei servo |\n| +16,0 / +17,6 | circuito dell'ESP32; USB-C fino a +20,9 |\n| +17,05 / +23,5 | ponti delle coxe |\n| +18,25 / +26,75 | testa della camera (asse ottico a +22,5) |\n| +25,2 | limite della curva dei cavi sopra le spine (spina 14 + curva) |\n| +28,4 / +30,0 | coperchio: lato inferiore e dorso |\n\nIl corpo è alto 71,4 mm. Le masse grandi stanno in basso: batteria a −26,7, servo di coxa a −8, SSC-32 a +1. Baricentro del corpo a −10,2.",
+   "componenti": [
+    {
+     "nome": "Batteria OVONIC 2S 5200 hardcase",
+     "centro": "(9,5; 0; −26,7) per il pacco nominale 139 × 47,3 × 25,4; inviluppo massimo da x −65 a 79",
+     "orientamento": "lato lungo lungo X, cavi verso −X (coda)",
+     "note": "Battuta fissa sulla parete anteriore (x 79). Dietro il pacco una zona cavi di 18 mm (x da −83 a −65); i cavi salgono nel vano di coda da un intaglio nel tetto (x da −83 a −68, |y| ≤ 10) aperto verso il retro. Lo sportello preme sugli spigoli posteriori bassi con due linguette e schiuma EVA (D10). Gioco 0,35 per lato all'inviluppo massimo, 1,35–2 sul nominale."
+    },
+    {
+     "nome": "Servo di coxa MG996R (6)",
+     "centro": "albero sugli assi delle coxe; cassa con centro a 10,25 dall'asse verso l'esterno, z −7,65",
+     "orientamento": "albero in alto, coda verso l'esterno lungo la direzione neutra, alette a z +1,65",
+     "note": "Inseriti dall'alto nelle gondole. Il cavo sale nella fessura lato albero (larga 6,7) fino all'orlo ed entra nel piano elettronico."
+    },
+    {
+     "nome": "Cuscinetti LF-1050ZZ della coxa (6)",
+     "centro": "sugli assi, flangia da z −31,95 a −32,75",
+     "orientamento": "inseriti da sotto nel fondo delle gondole",
+     "note": "Sedi nel fondo delle gondole: stampate con la faccia sul piatto, ponte di 10 mm, senza supporti."
+    },
+    {
+     "nome": "SSC-32 V2.5",
+     "centro": "(−14; 0; −0,6), circuito da x −50 a 22",
+     "orientamento": "lato lungo lungo X, morsettiera verso +X; canali 0–15 a sinistra (VS1), 16–31 a destra (VS2); micro-USB verso la coda",
+     "note": "Quattro bugne alte 8 sul tetto con inserti M2 (D5) e viti M2 nei fori Ø3; i distanziali B18 della SSC-32 non servono. Zona spine |y| da 19,6 a 27,5, alta fino a +25,2; barre sotto, da −7,4 a −1,4."
+    },
+    {
+     "nome": "Vassoio con basetta millefori (C2 tagliata a 56 × 32)",
+     "centro": "(54; 0; 6,7)",
+     "orientamento": "nel piano, lato lungo lungo X",
+     "note": "Porta zoccoli, regolatore da 5 V e traslatore (sotto l'ESP32, tra le file degli zoccoli), partitore, diodo e resistenza dell'abilitazione. Colonnine del vassoio in (28, ±23) e (78, ±23)."
+    },
+    {
+     "nome": "ESP32-S3-CAM UICPAL",
+     "centro": "(54; 0; 16,8), circuito da x 22,7 a 85,3",
+     "orientamento": "antenna verso +X (punta a x 90,1), USB-C verso −X",
+     "note": "L'antenna sta nel muso in PETG. Carbonio più vicino: ponti delle coxe anteriori a circa 20 mm, tetto del tunnel 25 mm sotto. Dietro le USB-C restano 40 mm liberi per la spina (x da −17,3 a 22,7, |y| ≤ 6,5, z da 15,5 a 22,0), sopra la parte anteriore della SSC-32."
+    },
+    {
+     "nome": "Camera OV3660 75 mm",
+     "centro": "testa in (95,5; 0; 22,5)",
+     "orientamento": "asse ottico +X",
+     "note": "Torretta del vassoio, lente arretrata di 2,5 mm dietro la finestra del muso (x 101). Il flat usa circa 50 mm dei 61,5 utili."
+    },
+    {
+     "nome": "Regolatore Pololu D42V110F6 sinistro (VS1)",
+     "centro": "(35,6; 35,9; −12,1), ingombro da x 14 a 57,2 e da y 30,2 a 41,6",
+     "orientamento": "in piedi: circuito parallelo alla parete del tunnel, 43,2 lungo X, 31,8 in verticale, componenti verso l'esterno, piazzole di potenza in alto",
+     "note": "Quattro M2 su distanziali da 5 mm (B18) in inserti M2 sul fianco del tunnel. Aria: 5,4 mm verso la parete della baia, feritoie nel ripiano sotto e nel coperchio sopra."
+    },
+    {
+     "nome": "Regolatore Pololu D42V110F6 destro (VS2)",
+     "centro": "(35,6; −35,9; −12,1)",
+     "orientamento": "speculare al sinistro",
+     "note": "Come il sinistro."
+    },
+    {
+     "nome": "Regolatore 5 V D24V22F5 e traslatore BSS138",
+     "centro": "sulla basetta, circa (40; 0; 9) e (65; 0; 9)",
+     "orientamento": "nel piano, sotto l'ESP32",
+     "note": "Altezza massima 7 contro 8,5 di zoccolo."
+    },
+    {
+     "nome": "Portafusibile ATO F1",
+     "centro": "(−36; 37,5; −17), ingombro da x −56 a −16, y da 30 a 45, z da −28 a −6",
+     "orientamento": "in piedi lungo X, coperchio verso l'alto",
+     "note": "Fermaglio stampato nella baia; 12 AWG in arrivo dal T-plug, che sta a 6 cm."
+    },
+    {
+     "nome": "Wago 221-415 (due)",
+     "centro": "(+) (45; 10,3; −4,25) e (−) (45; −10,3; −4,25)",
+     "orientamento": "distesi lungo X, leve in alto, sul tetto del tunnel sotto il vassoio",
+     "note": "Centro stella tra i due regolatori. Leve 1,1 mm sotto il vassoio: si cablano prima di montarlo."
+    },
+    {
+     "nome": "Portafusibile MINI F2",
+     "centro": "(71; 8,5; −5,5)",
+     "orientamento": "disteso lungo X",
+     "note": "Sul ramo logica, accanto al Wago positivo."
+    },
+    {
+     "nome": "Coppia di T-plug",
+     "centro": "(−67; 14; −5,2), ingombro da x −82 a −52 e da y 6 a 22",
+     "orientamento": "lungo X, sul tetto nel vano di coda",
+     "note": "Si raggiunge dall'apertura posteriore del vano di coda (z da −9,4 a +7, |y| ≤ 22) senza togliere nulla."
+    },
+    {
+     "nome": "Presa di bilanciamento e prolunga C7",
+     "centro": "(−70; 0; −5)",
+     "orientamento": "nel vano di coda, sopra l'intaglio",
+     "note": "Il cicalino si stacca da qui."
+    },
+    {
+     "nome": "Cicalino BX100",
+     "centro": "(−68,5; 0; 19,5)",
+     "orientamento": "disteso, display in alto",
+     "note": "Fissato sotto il dorso del coperchio in coda, con una finestra per il display; prolunga di bilanciamento lunga 10–15 cm."
+    },
+    {
+     "nome": "Interruttore Pololu #2813",
+     "centro": "(40,2; 0; 25,7)",
+     "orientamento": "disteso, pulsante verso l'alto",
+     "note": "Su due bugne M2 sotto il coperchio, sopra l'ESP32 (2,7 mm d'aria); il pulsante esce dal dorso. Il pulsante resta così lontano dalle zampe."
+    },
+    {
+     "nome": "Condensatori 2200 µF (due)",
+     "centro": "(−24; ±13,2; 16,9)",
+     "orientamento": "asse lungo X, inclinati verso l'interno sopra la fascia centrale della SSC-32",
+     "note": "Ciascuno su una spina in un canale libero della propria fila; 0,2 mm dalla zona spine e 0,5 dal passaggio della spina USB."
+    },
+    {
+     "nome": "Barre sul retro della SSC-32",
+     "centro": "lungo le file VS e massa, da x −38 a 10, y circa ±23,7 e ±26,2, z circa −2,5",
+     "orientamento": "lungo X",
+     "note": "Alimentate a metà fila (x circa −14) dai cavi da 16 AWG dei regolatori."
+    }
+   ],
+   "parti": [
+    {
+     "nome": "Corpo_Base",
+     "funzione": "Parte strutturale, dove arrivano tutti i carichi delle zampe. Contiene: le sei gondole (culle dei servo di coxa con le sedi dei cuscinetti, bugne e fessura del cavo); parte alta delle pareti del tunnel e tetto; parete anteriore di battuta; ripiano e pareti delle quattro baie, con nervature sopra il ripiano alla radice delle gondole (non sotto: lì passa il braccio); pareti del vano di coda; bugne di SSC-32, vassoio, regolatori e coperchio; fermagli per F1 e T-plug; inserti per la chiglia. Gondole, tunnel e baie formano celle chiuse.",
+     "stampa": "PETG-CF, 235,1 × 172,7 × 38,95 mm (z da −31,95 a +7,0): sul piatto da 256 restano 10 mm per lato lungo X. Fondo sul piatto. Supporti solo sotto il tetto del tunnel: ponte di 50 mm a 20,5 mm dal piatto, un canale dritto facile da pulire. Bugne delle gondole con smusso a 45° sotto. Pareti di 2,0.",
+     "massa_g": 204
+    },
+    {
+     "nome": "Corpo_Chiglia",
+     "funzione": "Fondo e parte bassa delle pareti del tunnel (da −41,4 a −31,95): chiude la sezione del tunnel e fa da appoggio alla batteria. Otto orecchie avvitate con M3 negli inserti del ripiano, in x ±25 e ±55, lontano dai bracci delle coxe.",
+     "stampa": "PETG-CF, 166,4 × 70 × 9,45 mm, fondo sul piatto, senza supporti.",
+     "massa_g": 30
+    },
+    {
+     "nome": "Corpo_Coperchio",
+     "funzione": "Copertura non strutturale da +7 a +30, trasparente alla radio. Ha sei lobi di raggio 22 sopra i ponti delle coxe, le finestre per i cavi delle zampe, la finestra della camera nel muso, quella del display del cicalino, il foro del pulsante, la sede dello sportello di servizio e feritoie sopra le baie anteriori. Fissato con 8 viti M3 negli inserti dell'orlo della base.",
+     "stampa": "PETG non caricato, 204 × 140 × 23 mm, capovolto (dorso sul piatto), senza supporti; dorso 1,6, gonna 1,2.",
+     "massa_g": 49
+    },
+    {
+     "nome": "Vassoio_ESP32",
+     "funzione": "Piano su 4 colonnine con due guide a labbro per la basetta e torretta della camera nel muso. È in PETG per lasciare libera l'antenna.",
+     "stampa": "PETG, circa 76 × 34 × 27 mm, piano sul piatto; un piccolo supporto sotto la visiera della camera.",
+     "massa_g": 6
+    },
+    {
+     "nome": "Sportello_Batteria",
+     "funzione": "Chiude il tunnel dietro (54 × 32). Due linguette lunghe 18 con schiuma premono il pacco contro la battuta anteriore. Due denti a scatto nella chiglia e uno sotto il tetto: si apre senza attrezzi.",
+     "stampa": "PETG, 54 × 32 × 20 mm, in piano.",
+     "massa_g": 6
+    },
+    {
+     "nome": "Sportello_Servizio",
+     "funzione": "Sportellino a scatto nel dorso del coperchio (x da −20 a 28, |y| ≤ 17), sopra le USB-C e i pulsanti dell'ESP32.",
+     "stampa": "PETG, 48 × 34 × 5 mm, in piano.",
+     "massa_g": 4
+    }
+   ],
+   "accesso_e_montaggio": "**Ordine di montaggio**\n1. Inserti nella base:\n   - M3: 8 per il coperchio, 8 per la chiglia, 4 per le colonnine del vassoio, 12 per le alette lato coda dei servo di coxa (lato albero: fori pilota Ø2,5, come nella zampa, D-049);\n   - M2: 4 per la SSC-32, 8 per i regolatori, 4 per l'interruttore nel coperchio.\n2. Cuscinetti premuti da sotto nel fondo delle gondole. Chiglia avvitata da sotto con 8 M3.\n3. Servo di coxa calati dall'alto nelle gondole, con il passacavo nella fessura. Viti delle alette appena accostate.\n4. SSC-32, preparata al banco con barre e codini da 16 AWG saldati, sulle bugne. Poi regolatori sui fianchi del tunnel, F1 nel suo fermaglio, codino del T-plug nel vano di coda, Wago e F2 sul tetto davanti. Cablaggio di potenza.\n5. Vassoio con basetta, ESP32 e camera sulle colonnine; collegare il flat.\n6. Zampe:\n   - coxa sopra la gondola, perno nel cuscinetto da sotto;\n   - ponte sulla squadretta, 2 M3 nell'anima;\n   - per ultime si stringono le viti delle alette del servo di coxa, così l'albero si allinea al cuscinetto (come per femore e ginocchio, D-049).\n7. Cavi dei servo sulle file della SSC-32, scorte legate (vedi \"cavi\").\n8. Batteria dal retro, sportello.\n9. Coperchio (8 M3) e sportello di servizio.\n\n**Cambio della batteria, senza attrezzi**\n1. Dal vano di coda, aperto dietro, si staccano T-plug e presa di bilanciamento.\n2. Si spingono i cavi giù nell'intaglio del tetto.\n3. Si sgancia lo Sportello_Batteria (denti a scatto) e si sfila il pacco all'indietro.\n4. Per rimontare si fa il contrario. Il coperchio non si tocca.\n\n**Accesso**\n- **USB-C e pulsanti BOOT/RST dell'ESP32:**\n  - si apre a scatto lo sportello di servizio sul dorso;\n  - le USB-C (x 22,7, rivolte all'indietro) hanno 40 mm liberi per la spina, che entra orizzontale; il cavo esce verso l'alto al centro del dorso, il criterio di D-034, senza prolunghe;\n  - la posizione di BOOT e RST sulla scheda non è pubblicata: se non sono vicino alle USB si premono con una punta attraverso lo sportello (da controllare sulla scheda).\n- **T-plug:** sempre a portata di mano dall'apertura del vano di coda. È anche il sezionamento di emergenza dei servo.\n- **Micro-USB della SSC-32:** anche lei nel vano di coda, la SSC-32 si configura senza smontarla.\n- **Interruttore:** pulsante sul dorso, davanti.\n- **Display del cicalino:** visibile da una finestra nel dorso, in coda.\n- **Fusibile F1:**\n  - nella baia posteriore sinistra, si raggiunge togliendo il coperchio (8 viti M3);\n  - si cambia raramente: il passaggio da 15 a 30 A dopo le prime prove, oppure un guasto, che va cercato comunque a coperchio aperto;\n  - se si vuole un accesso diretto basta uno sportellino a scatto nel coperchio sopra la baia, senza acquisti.\n- **Coperchio:** si toglie verso l'alto senza smontare le zampe, perché i lobi stanno sopra i ponti. Interruttore e cicalino restano appesi ai loro fili, con 15 cm di scorta.",
+   "cavi": "**Cavi dei servo**\n\nDistanze in pianta da ogni coxa al suo gruppo di canali: AS circa 78 mm (gruppo anteriore, x 0–10), MS circa 28 mm, PS circa 51 mm (gruppo posteriore, x da −38 a −28). Le zampe destre sono speculari sulla fila destra.\n\nPercorsi:\n- **Coxa:** esce dal passacavo, sale nella fessura lato albero della gondola fino all'orlo (+1,65), attraversa il piano elettronico e scende nella spina.\n- **Femore:** esce in cima alla culla della coxa e scorre sul braccio del ponte fino all'asse. Lì fa un'ansa di torsione sotto il lobo del coperchio: tra il ponte (+23,5) e il coperchio (+28,4) ci sono 4,9 mm. Poi entra nella galleria sopra le file della SSC-32 (|y| da 20 a 33, z da 14 a 28) e scende nella spina.\n- **Ginocchio:** dalla tibia lungo il femore, con anse al ginocchio e all'anca, poi lo stesso percorso del femore.\n\nLunghezze stimate, contro i 32 cm dichiarati (dato S):\n\n| Cavo | AS / AD | MS / MD | PS / PD | Esito |\n|---|---|---|---|---|\n| Coxa | 11 cm | 7 cm | 9 cm | 21–25 cm di scorta per cavo |\n| Femore | 19 cm | 14 cm | 17 cm | 13–18 cm di scorta |\n| Ginocchio | 31 cm | 26 cm | 29 cm | anteriori al limite |\n\nServono **4 prolunghe da 15 cm** (voce C5): obbligatorie sui ginocchi di AS e AD, consigliate su PS e PD.\n\nLe scorte (circa 2,4 m di piattina in tutto) si legano a figura di otto:\n- nella baia posteriore destra, che è libera;\n- accanto a F1;\n- nella parte alta delle baie anteriori, lasciando libere le feritoie dei regolatori.\n\nIn alternativa si accorciano i cavi delle coxe con nuovi contatti JR, ma servono pinza e contatti (acquisto da approvare).\n\n**Potenza**\n- **12 AWG:**\n  - codino del T-plug → F1 nella baia posteriore sinistra: circa 6 cm;\n  - F1 → Wago positivo davanti: circa 15 cm, sotto il centro della SSC-32, dove tra circuito e tetto ci sono 8 mm liberi tranne che sotto le file;\n  - negativo del T-plug → Wago negativo: circa 17 cm.\n  - In tutto circa 0,4 m, contro 0,5 + 0,5 m del BOM.\n- **14 AWG:** dai Wago agli ingressi dei regolatori, 4 cavi da circa 5–6 cm (BOM: 0,5 + 0,5 m).\n- **16 AWG:** dalle piazzole di ogni regolatore, che stanno sul bordo alto, entrano sotto la SSC-32 lateralmente tra gondola media e regolatore (x 14–20) e raggiungono il centro delle barre VS e massa (x circa −14). Circa 6 cm per cavo, 4 cavi (BOM: 0,6 + 0,6 m).\n- **Barre:** filo da 1 mm su 4 file, circa 18 cm.\n- **Massa a stella** nel Wago negativo, tra i due regolatori.\n\n**Logica**\n- Wago+ → F2 → interruttore sotto il dorso, circa 6 cm.\n- Uscita dell'interruttore:\n  - → regolatore da 5 V sulla basetta, circa 8 cm;\n  - → VL della SSC-32 sulla morsettiera anteriore, circa 6 cm;\n  - → partitore 100k/47k → GPIO1.\n- GPIO41 → pin OFF dell'interruttore.\n- GPIO42 → diodo → abilitazione dei due regolatori, circa 6 cm ciascuno.\n- Seriale GPIO21/14 → traslatore sulla basetta → RX/TX/GND accanto alla morsettiera: Dupont da 6–8 cm.\n- Flat della camera: circa 50 mm usati dei 61,5 utili.\n- Bilanciamento: dalla presa nel vano di coda al cicalino sotto il dorso con la prolunga C7, 10–15 cm.\n- In tutto circa 1,2 m di 22 AWG, contro 2 m del BOM.",
+   "massa_robot_g": 2743,
+   "verifiche": "**Dati letti in Fusion**\n\nUno script in sola lettura sul design \"Hexapod v2 - MG996R v7\" ha letto gli ingombri delle parti della zampa nella sua terna e i parametri utente. Confermati:\n- cx_anima 40,55, cz_alette_coxa 1,65, cz_mensola 8,05, cz_ponte da 17,05 a 23,5, cox_ponte_r 12, cz_braccio_su 33,15, bug_coda 38,35;\n- zampa larga ±30,55, con il perno dell'anca sporgente fino a −31,95;\n- braccio e ponte con testa di raggio 9,45 e 12 sull'asse.\n\nNel design non è stato creato né mosso nulla.\n\n**Modello in pianta della zampa**\n\nSagome dalle quote lette: anima e culla, torretta e squadretta del femore, piastre del femore da 42 a 133, blocco, perni, tibia, più le due gondole. Si usa la funzione di distanza tra poligoni convessi di calc/zampa_escursioni.py.\n\nTaratura: sulle posizioni di CONFIG il modello dà contatto a 30,5°, il valore di 30° scritto nei documenti.\n\n**Zampe vicine, con le coxe proposte**\n\n| Coppia | Contatto se ruotano entrambe | Con 2 mm di gioco |\n|---|---|---|\n| AS–MS e PD–MD | 32,5° | 32,0° |\n| MS–PS e MD–AD | 32,75° | 32,25° |\n| AS–AD e PS–PD | 36,0° | 35,5° |\n\nUna zampa sola che ruota, con la vicina ferma: contatto da 51° a 68°. Con la vicina che le viene incontro di 17° (tripode): da 42,5° a 54°.\n\n**Zampe contro il corpo**, una zampa per volta, gioco 1 mm, per fasce di quota:\n- da −31,95 a +7 (anima, culla, femore, tibia contro tunnel e baie): libero fino a ≥ 52,5°;\n- da +7 a +28,4 (anche testa dell'anima, ponte e mozzo R12, contro la gonna e il muso): libero fino a ≥ 52,5°;\n- da +28,4 a +30 (femore come se fosse alzato a 85°, sempre a ≥ 37,5 dall'asse, contro coperchio e lobi R22): libero fino a ≥ 49°.\n\nIl corpo quindi non limita mai prima delle zampe vicine.\n\nBraccio inferiore della coxa contro la chiglia: 7,55 mm a 0° per le coxe d'angolo, 11,55 per le medie; contatto solo oltre 67–79°.\n\n**Interferenze tra i componenti**\n\nIngombri 3D: scatole, più gondole e parti alte dei servo di coxa ruotate (cassa, alette, teste delle viti, torretta e squadretta, mozzo).\n\nNessuna sovrapposizione. Gli unici contatti sono quelli voluti:\n- batteria all'inviluppo massimo contro la battuta anteriore;\n- spine nelle loro prese (USB-C, micro-USB);\n- gondole saldate a tunnel e baie (stessa parte).\n\nSpazi minimi:\n- circuito della SSC-32 ↔ bugne delle gondole medie: 2,45 mm;\n- spine ↔ alette delle coxe medie: 3,45 mm; ↔ teste delle viti: 3,4 mm;\n- curva dei cavi (+25,2) ↔ coperchio: 3,2 mm;\n- regolatore ↔ gondola media: 1,55 mm; ↔ bugna della gondola d'angolo: 2,96 mm; ↔ parete della baia: 5,4 mm d'aria;\n- ESP32 ↔ coperchio: 7,5 mm; ↔ interruttore: 2,7 mm;\n- condensatori ↔ zona spine: 0,2 mm; ↔ passaggio della spina USB: 0,5 mm;\n- leve dei Wago ↔ vassoio: 1,1 mm;\n- testa della camera ↔ coperchio: 0,45 mm;\n- batteria ↔ pareti del tunnel: 0,35 mm per lato all'inviluppo massimo.\n\nCorrezioni fatte durante la verifica:\n- coxe medie spostate da y 46 a 48: il circuito della SSC-32 era a 0,45 mm dalle bugne;\n- colonnine del vassoio spostate a |y| 23, perché toccavano i Wago;\n- pareti delle baie abbassate all'orlo della gondola negli ultimi 5 mm verso le gondole d'angolo: a +7 arrivavano a 0,56 mm dalla cassa del servo di coxa.\n\n**Cicli e andature**\n\nStatica a tripode e andature come nel campo \"statica\". Pose di marcia della zampa con le coxe proposte: tutte libere spostando di 5 mm verso l'esterno il piede neutro delle zampe d'angolo negli assetti 80/60 e 70/70.\n\n**Masse e baricentro** (somma pesata, stima S):\n\n| Voce | Massa |\n|---|---|\n| Corpo | 1253 g, di cui 299 g di parti stampate |\n| Sei zampe da 248 g | 1490 g |\n| Robot | 2743 g, baricentro (+1,3; −0,1; −9,2) |\n\nOgni zampa: 92 g stampati, 110 g di servo, 13,5 g di squadrette, 8 g tra cuscinetti e perni, 16 g di viteria, 3 g di piedino, 6 g di cavi.\n\nVolume della Corpo_Base: 170 cm³ × 1,3 g/cm³ × 0,92 di riempimento; le gondole sono circa 110 g. Rispetto al bilancio di dimensionamento.md (2,51 kg) pesano di più le zampe (551 g contro 420) e la viteria (140 contro 90).\n\n**Stampa:** la base, 235,1 × 172,7, sta nel piatto da 256 (dato S) con 10 mm per lato; tutte le altre parti con ampio margine.\n\n**Non verificato:** altezze reali dei componenti della SSC-32 (ipotesi ≤ +10,2 sopra il circuito), posizione di BOOT e RST, ingombro reale delle spine. Nessuna verifica in Fusion: tutto viene da modelli 2D e da scatole.",
+   "rischi": [
+    "Margine tra zampe vicine piccolo: 32,5° a contatto contro i ±30 richiesti. Il modello in pianta è conservativo in altezza ma ignora cavi, raccordi e fascette sulle zampe. Il firmware deve limitare l'imbardata relativa delle vicine a circa 30°; in marcia a tripode (±17) il margine è di 15°.",
+    "Zampe d'angolo a 30°: lavorano più in senso radiale. Nell'assetto alto 130/25 la coppia sale al 54 % (48 % con CONFIG). Il controllo generico ginocchio ≥ 40° di statica_tripode.py segnala la fase di volo per 0,3° (39,7°; il limite vero è 33°). Negli assetti 80/60 e 70/70 serve la regola del firmware: piede neutro d'angolo 5 mm più fuori, altrimenti in volo la tibia tocca il blocco del femore.",
+    "Camera: con le zampe anteriori a 30° i ginocchi anteriori sono a circa 46° dall'asse ottico e restano ai bordi del campo da 120°. Da verificare in fase 6; leve possibili: camera più alta o passo più corto.",
+    "Cavi: i ginocchi delle zampe anteriori stanno al limite dei 32 cm, dato S non misurato: servono 4 prolunghe (C5). I cavi delle coxe avanzano di 21–25 cm ciascuno: circa 2,4 m di scorte da sistemare nelle baie senza chiudere le feritoie.",
+    "Spazi stretti che dipendono da dati non misurati: SSC-32 (72 × 55, dato S) a 2,45 mm dalle gondole medie; passaggio della spina USB-C sopra la SSC-32 valido solo se i suoi componenti stanno sotto +10,2 (zoccolo XBee ed elettrolitici non sono quotati); condensatori a 0,2–0,5 mm dalle zone libere; testa della camera a 0,45 mm dal coperchio (altezza circa 6, dato C).",
+    "Batteria: con l'inviluppo massimo dichiarato (49,3) resta 0,35 mm per lato; un pacco al limite di tolleranza o gonfio può non scorrere. Il vano va confermato con il calibro sul pacco prima di stampare la base.",
+    "Stampa della base: 235 × 173 mm in PETG-CF su un piatto da 256 (dato S, da confermare) con un fondo piano grande, quindi rischio di deformazione. Il tetto del tunnel è un ponte di 50 mm su supporti. La chiglia separata chiude la sezione del tunnel con 8 viti: la rigidezza torsionale dipende da quel giunto.",
+    "Gondole lunghe a sbalzo: quelle medie sporgono fino a y ±86, ciascuna è una culla aperta in alto. La flessione alla radice è bassa (circa 0,7 MPa con 15 kgf·cm), ma la torsione della sezione aperta la chiudono solo il servo avvitato, il ripiano e le pareti delle baie. Da provare sul provino o con un calcolo a elementi finiti.",
+    "Antenna nel muso a circa 20 mm dai ponti in PETG-CF delle coxe anteriori e 25 mm sopra il tetto del tunnel. Portata da provare a coperchio montato; la riserva è l'antenna esterna (C8).",
+    "Calore: due regolatori in baie chiuse sotto il coperchio, 2–3 W ciascuno in marcia. Feritoie nel ripiano e nel coperchio; la temperatura va misurata al banco con la marcia bassa.",
+    "Massa stimata 2,74 kg, già sopra i 2,6 kg di progetto. Le gondole da sole pesano circa 110 g; alleggerirle con finestre è possibile ma tocca la parte più caricata.",
+    "Fusibile F1 raggiungibile solo togliendo il coperchio (8 viti), a meno di aggiungere uno sportellino.",
+    "La massa a stella non sta proprio accanto ai regolatori: è al centro tra i due, a circa 5 cm, con 12 AWG che corre 15–17 cm dalla coda al muso sotto la SSC-32."
+   ]
+  },
+  {
+   "chiave": "accessibile",
+   "nome": "Corpo per manutenzione e accesso",
+   "sintesi": "La proposta è un telaio in PETG-CF in un solo pezzo (241,9 × 242,7 × 42 mm) a stella esagonale, con le sei gondole dei servo di coxa integrate. Al centro c'è un tunnel per la batteria, chiuso sopra dal ponte dell'elettronica, che forma una sezione scatolare lunga 150 mm.\n\nTutto ciò che serve spesso si raggiunge senza attrezzi e senza toccare le zampe:\n- **Vano di servizio in coda** (x −116…−62), dietro uno sportello a cerniera con dente a scatto. Contiene la batteria (si sfila con una cinghia), la spina T, il fusibile F1, i due Wago (la massa a stella), F2, il cicalino dietro una finestra e l'interruttore.\n- **Coperchio centrale senza viti** (2 linguette, 4 ganci, 1 scatto). Togliendolo si scoprono la SSC-32 con tutte le spine, i pettini e le tasche dei cavi, le USB-C e i pulsanti dell'ESP32, F2 e i regolatori. Una tacca con tappo permette di lavorare con il cavo USB collegato e il coperchio chiuso.\n- **Due regolatori da 6 V** in condotti separati sui fianchi posteriori: aria dal fondo, uscita da feritoie nel fianco, tra le zampe.\n- **ESP32 e camera** nel muso, su un vassoio in PETG non caricato e sotto un coperchio in PETG, lontani dal carbonio e dai regolatori.\n\nAssi di coxa proposti:\n- AS/AD in (86; ±50) a ±40°\n- MS/MD in (0; ±83) a ±90°\n- PS/PD in (−86; ±50) a ±140°\n\nSono le posizioni che danno il massimo spazio tra le zampe dentro il piatto da 256: le CONFIG attuali (95; 60) e (0; 78) porterebbero il telaio a 257 mm.\n\nRisultati principali:\n- Due zampe vicine si toccano a 32° (entrambe ruotate una verso l'altra); le coppie anteriore e posteriore a 49°. Il corpo è libero per la coxa fino a ±48°.\n- A 2,7 kg: femore al 47 %, ginocchio al 40 %, margine di stabilità 61 mm. Con CONFIG il femore arriva al 51 %.\n\nValori proposti per CONFIG['coxa'] nei calcoli (nessun file modificato):\nAS (86, 50, 40), MS (0, 83, 90), PS (−86, 50, 140), AD (86, −50, −40), MD (0, −83, −90), PD (−86, −50, −140).",
+   "coxe": [
+    {
+     "zampa": "AS",
+     "x": 86,
+     "y": 50,
+     "direzione_gradi": 40
+    },
+    {
+     "zampa": "MS",
+     "x": 0,
+     "y": 83,
+     "direzione_gradi": 90
+    },
+    {
+     "zampa": "PS",
+     "x": -86,
+     "y": 50,
+     "direzione_gradi": 140
+    },
+    {
+     "zampa": "AD",
+     "x": 86,
+     "y": -50,
+     "direzione_gradi": -40
+    },
+    {
+     "zampa": "MD",
+     "x": 0,
+     "y": -83,
+     "direzione_gradi": -90
+    },
+    {
+     "zampa": "PD",
+     "x": -86,
+     "y": -50,
+     "direzione_gradi": -140
+    }
+   ],
+   "coxa_libera_tra_vicine_gradi": 32,
+   "statica": "Ho rilanciato calc/statica_tripode.py e calc/andature.py importandoli in uno script esterno. Ho sostituito CONFIG['coxa'] con le coxe proposte; le altre voci sono quelle di progetto (Lc 55, Lf 65, Lt 110, passo 60, alzata 30).\n\n**Punto di progetto h 100 / x_f0 45:**\n- **2,6 kg**: femore 4,94 kgf·cm (45 % dello stallo), ginocchio 4,22 (38 %). Carico massimo su un piede: 40 % del peso.\n  - Coxa ±17° in appoggio; appoggio più volo con femore +2…+38° e ginocchio 41…84° (sopra i minimi della zampa, 29–33° per α ≥ 35°).\n  - Momento sul perno della coxa 12,9 kgf·cm; margine di stabilità 61 mm.\n- **2,7 kg** (massa di riferimento, vedi la stima della massa): femore 5,13 (47 %), ginocchio 4,38 (40 %), momento 13,4 kgf·cm, margine 61 mm.\n- **Confronto con CONFIG** (95; 60; 45° e 0; 78) a 2,7 kg: femore 5,65 = 51 % (oltre il limite), ginocchio 36 %, margine 58 mm. Con le zampe d'angolo a 40° e più vicine all'asse il triangolo dei piedi è più centrato sul baricentro e il carico si divide in modo più uniforme.\n\n**andature.py a 2,7 kg** (tripode / a coppie / a onda; margine; ribaltamento):\n\n| Assetto | Tripode | A coppie | A onda | Margine | Ribaltamento |\n|---|---|---|---|---|---|\n| 130/25 | 51 % | 44 % | 45 % | 53 mm | 22° |\n| 110/40 | 44 % | 38 % | 39 % | 59 mm | 28° |\n| 90/55 | 56 % | 44 % | 46 % | 66 mm | 36° |\n| 70/70 | 70 % | 54 % | 57 % | 72 mm | 46° |\n\nCon CONFIG a 2,7 kg il tripode vale 47 / 46 / 61 / 76 %, con margini 50 / 56 / 62 / 67 mm. La proposta è migliore in tutti gli assetti tranne quello alto e raccolto (+4 punti).\n\n**Pose della zampa** (zampa_escursioni.Zampa, pose di marcia generate con le nuove coxe): tutte libere. Gioco minimo da 130/25 a 70/70: 2,7 / 2,7 / 2,7 / 2,2 / 1,3 / 1,2 mm. Con le coxe a 45° era 1,6 negli ultimi due: le zampe d'angolo a 40° avvicinano il piede in fondo al passo.\n\n**Luce sotto il corpo**: invariata (h − 41,4). Il fondo è a z −40, la nervatura della coxa a −41,35.\n\n**Baricentro stimato**: x −1,5 mm, z −11,6 mm (sotto il piano dei femori). andature.py lo mette a 0, quindi il ribaltamento calcolato è leggermente prudente.",
+   "pianta": "Terna del robot: X avanti, Y a sinistra, z = 0 sugli assi dei femori. La pianta è simmetrica rispetto al piano XZ.\n\n**Ingombri:**\n- Telaio con le gondole: 241,9 × 242,7 mm. Gli estremi sono le bugne delle gondole d'angolo a x ±121,0 e quelle delle medie a y ±121,35.\n- Corpo completo da x −120,4 (sportello) a +121; il vassoio e il coperchio del muso arrivano a +119,6.\n\n**Scafo** (pareti 2,0 mm, da z −40 a +2). Contorno, metà sinistra:\n- muso a x +100 per |y| ≤ 21, smusso fino a (104,5; 26,4);\n- lungo la retta x_s = −1 della gondola AS fino a (77,2; 58,9);\n- fianco anteriore fino a (12,45; 82), dietro la gondola MS fino a (−12,45; 82);\n- fianco posteriore fino a (−77,2; 58,9), poi retta x_s = −1 della gondola PS fino a (−104,5; 26,4);\n- coda a |y| ≤ 26,4 fino a x −118 (telaio dello sportello).\n\nArea 25 700 mm², perimetro 630 mm.\n\nLe pareti passano 1 mm dietro ogni asse di coxa, perpendicolari alla direzione della zampa: dentro il raggio di 39,3 mm la zampa non arriva mai. Sotto z −32 il fondo ha attorno a ogni asse una tacca 36 × 11 mm (x_s ≤ −12 per |y_s| ≤ 18), che lascia passare il braccio inferiore della coxa e la nervatura fino a ±48°.\n\n**Gondole.** La culla è quella della zampa: x_s da −12,45 a +32,95, |y_s| ≤ 12,45, bugne fino a −18,05 e +38,35 con |y_s| ≤ 8,7. Il raggio massimo dall'asse è 39,32 mm; l'orlo è a z +1,65, il fondo a −31,95. La parte interna (x_s da −18 a −1) sta dentro lo scafo ed è legata al fondo e alle pareti dei fianchi; quella esterna sporge.\n\n**Interno:**\n- Tunnel della batteria: |y| ≤ 26,85 (interno 50,5, pareti 1,6), da x −116 a +88, con la battuta a +86…+88.\n- Quattro baie laterali tra il tunnel e i fianchi (anteriori x 15…70, posteriori x −15…−70, fino a y 60–80). Due paratie trasversali a x = ±14, una per lato, continuano i fianchi della gondola media e chiudono le celle.\n- Vano di servizio da x −116 a −62; muso da +88 a +100.\n\n**Sopra lo scafo:**\n- Vassoio e coperchio del muso: x da +38 a +119,6, |y| ≤ 27, ridotto a ±16 sul davanti.\n- Coperchio centrale: da x −118 a +58, largo fino a |y| = 63 al centro. Il bordo passa 20 mm dietro ogni asse di coxa, così lascia libere le viti interne delle alette e la zona del ponte della coxa (R12 + 1).\n\n**Estetica:** scafo scuro in carbonio con sei gondole sporgenti; coperchio chiaro sfaccettato con una costola centrale; le feritoie dei regolatori fanno da \"branchie\" sui fianchi posteriori; il muso a visiera ha la lente arretrata.",
+   "pila_z": "Quote in mm, z = 0 sul piano degli assi dei femori.\n\n**Fondo e batteria:**\n- −41,35: nervatura della coxa, il punto più basso vicino al corpo; la luce resta h − 41,4.\n- −40…−38: fondo (2,0 sotto il tunnel; 1,6 con finestre e prese d'aria nelle baie).\n- −38…−37: cinghia di estrazione (tratto della cinghia a strappo D10).\n- −37…−9,6: batteria sull'inviluppo massimo di 27,4 (25,4 + 2 di tolleranza).\n- −10,5…−7,5: EVA da 3 mm sotto il ponte. Il pacco massimo la schiaccia di 0,9 mm; quello nominale resta fermo.\n- −7,5…−5,5: Ponte_Elettronica, cioè il tetto del tunnel che chiude la sezione.\n\n**SSC-32:**\n- −5,5…+2,5: colonnine da 8 mm; barre di potenza sotto la scheda da −3,5 a +2,5, a 2 mm dal ponte.\n- +2,5…+4,1: PCB.\n- +4,1…+29,1: spine e curve dei cavi (25 mm liberi).\n\n**Gondole e coxe:**\n- Fondo della gondola a −31,95, flangia del cuscinetto fino a −32,75; il braccio inferiore della coxa passa sotto, da −33,15 a −38,35.\n- Orlo della gondola (alette del servo di coxa) a +1,65; teste delle viti fino a +7,05.\n- Cassa del servo fino a +11,85, albero fino a +18,05.\n- Pelle superiore dello scafo attorno alle gondole a +2, intagliata attorno alle alette.\n\n**Muso:**\n- +2…+4: piastra del vassoio.\n- +6…+7,6: basetta.\n- +7,6…+16,1: zoccoli femmina.\n- +16,1…+17,7: PCB dell'ESP32; antenna tra 16 e 19,5; USB-C con centro a z ≈ 19,4.\n- +22,25…+30,75: testa della camera, asse ottico a +26,5.\n\n**Coperchi:**\n- Coperchio centrale da +32,4 a +34 sopra la SSC-32 (la parte alta, |y| ≤ 32, arriva fino alla coda); la gonna scende a +2…+16 verso i fianchi.\n- Coperchio del muso a +34 dietro e +32 davanti.\n\nAltezza del corpo da −40 a +34: 74 mm.\n\n**Vincoli della zampa rispettati:**\n- La gondola resta sotto +1,65, con la testa dell'anima a +8,05 e a raggio 34–40,55.\n- Pelle e coperchio stanno sotto +16 o fuori dal raggio di 13 mm dietro ogni asse; il ponte della coxa è a +17,05…+23,5.\n- Il fondo resta fuori dalla spazzata del braccio inferiore (−38,35…−33,15) e della nervatura.",
+   "componenti": [
+    {
+     "nome": "Batteria OVONIC 2S 5200 (inviluppo 144 × 49,3 × 27,4)",
+     "centro": "(10; 0; −23,3)",
+     "orientamento": "lato lungo lungo X, cavi verso −X (vano di servizio)",
+     "note": "Nel tunnel, 0,6 mm di gioco per lato. Faccia anteriore a x ≤ +82 contro 4 mm di EVA e la battuta a +86. Faccia posteriore tra −62 (pacco massimo) e −52 (minimo), spinta dai bracci dello sportello. Appoggiata sulla cinghia di estrazione."
+    },
+    {
+     "nome": "SSC-32 V2.5 (72 × 55)",
+     "centro": "PCB (0; 0; 3,3), z 2,5–4,1",
+     "orientamento": "lato lungo lungo X; morsettiera e pin seriali verso −X (coda), micro-USB verso +X",
+     "note": "Su 4 colonnine stampate dal ponte a (±32,75; ±24,25), sopra le pareti del tunnel, con inserti M2 e vite M2 con rondella M3 (fori della scheda circa 3,0). Canali 0–15 a sinistra (VS1), 16–31 a destra (VS2), 0 e 16 dal lato della morsettiera. Gruppi: PS 0–2, MS 4–6, condensatore 8, AS 12–14; PD 16–18, MD 20–22, condensatore 24, AD 28–30; il quarto canale di ogni gruppo resta libero. Zona spine |y| 18–27,5 fino a z 29,1."
+    },
+    {
+     "nome": "Condensatori 2200 µF (2)",
+     "centro": "(6,25; ±10,5; 24,35)",
+     "orientamento": "coricati sulla propria spina, asse lungo Y verso il centro",
+     "note": "Nei canali 8 e 24. Restano 1,8 mm sotto il coperchio e 1 mm tra i due."
+    },
+    {
+     "nome": "Basetta 70 × 50",
+     "centro": "(75; 0; 6,8), z 6–7,6",
+     "orientamento": "piana, 70 lungo X",
+     "note": "Su 4 colonnine del vassoio. L'ESP32 occupa il lato destro (y −25…+3,3); a sinistra (y 3,3…25) c'è la striscia della logica."
+    },
+    {
+     "nome": "ESP32-S3-CAM UICPAL",
+     "centro": "PCB (73,3; −10,85; 16,9)",
+     "orientamento": "antenna verso +X (punta a x 109,4), due USB-C verso −X a x 42",
+     "note": "Su zoccoli femmina. L'antenna è sotto il coperchio del muso in PETG, a 14 mm dal carbonio più vicino e a più di 30 mm dalle gondole d'angolo. Dietro le USB restano 25 mm liberi (x 17…42, z 15,5…24) sopra la striscia centrale della SSC-32."
+    },
+    {
+     "nome": "Camera OV3660 75 mm, lente 120°",
+     "centro": "testa (114; −10,85; 26,5)",
+     "orientamento": "asse ottico +X, lente a x ≈ 117 arretrata di 2,6 mm nella finestra (larga almeno 16)",
+     "note": "È spostata di 10,85 mm a destra per tenere il flat dritto: circa 41 mm dei 61,5 utili, con 20 mm di scorta ripiegata sopra il modulo. Sta sulla torretta del vassoio, quindi togliendo il coperchio non si tira il flat. Fuori dal campo: ginocchia anteriori a 64° dall'asse, piedi a 68°."
+    },
+    {
+     "nome": "Regolatore 5 V D24V22F5",
+     "centro": "(93; 14; 11,6)",
+     "orientamento": "piano sulla striscia logica della basetta",
+     "note": "Ingresso dall'interruttore (22 AWG, circa 250 mm); uscita sul pin 5V dell'ESP32."
+    },
+    {
+     "nome": "Traslatore di livello BSS138; partitore e rete di abilitazione",
+     "centro": "(52; 12,5; 9,8) e (71,5; 13; 9,8)",
+     "orientamento": "sulla basetta",
+     "note": "Il traslatore è dietro l'ESP32, sotto il passaggio dello spinotto USB."
+    },
+    {
+     "nome": "Regolatore 6 V sinistro D42V110F6 (VS1)",
+     "centro": "(−40,6; 58,5; −18,1)",
+     "orientamento": "verticale; lato da 43,2 parallelo al fianco posteriore sinistro (imbardata 19,6°); componenti verso l'interno; piazzole di potenza in alto (z ≈ −4,7)",
+     "note": "Scheda da z −34 a −2,2, su 4 distanziali M2 da 5 mm, con il PCB a 7 mm dalla faccia esterna del fianco. Sta in un condotto 45 × 20 × 40 con 4 prese 3 × 30 nel fondo e 5 feritoie 3 × 14 alte nel fianco, che dà sull'aria libera tra le zampe MS e PS."
+    },
+    {
+     "nome": "Regolatore 6 V destro D42V110F6 (VS2)",
+     "centro": "(−40,6; −58,5; −18,1)",
+     "orientamento": "simmetrico al sinistro",
+     "note": "Ha il suo condotto: i due regolatori non si scaldano a vicenda."
+    },
+    {
+     "nome": "Morsetto Wago 221-415, positivo",
+     "centro": "(−95; 15,7; −1,9)",
+     "orientamento": "contro la parete sinistra del vano di servizio, ingressi verso l'asse, leve in alto",
+     "note": "Ingressi: F1 e uscite verso il regolatore sinistro, il destro e F2, più uno libero. Raggiungibile dallo sportello."
+    },
+    {
+     "nome": "Morsetto Wago 221-415, negativo (massa a stella)",
+     "centro": "(−95; −15,7; −1,9)",
+     "orientamento": "contro la parete destra del vano",
+     "note": "Riceve il negativo della batteria, le masse dei due regolatori e la massa della logica."
+    },
+    {
+     "nome": "Portafusibile F1 ATO (40 × 22 × 15)",
+     "centro": "(−70,5; 0; 5)",
+     "orientamento": "trasversale (40 lungo Y), coperchio verso −X",
+     "note": "In una staffa a scatto del telaio. La lama si cambia dallo sportello senza attrezzi."
+    },
+    {
+     "nome": "Portafusibile F2 (mini, quote S)",
+     "centro": "(−96; 16; 9)",
+     "orientamento": "lungo X, sopra il Wago positivo",
+     "note": "Sul ramo della logica, prima dell'interruttore."
+    },
+    {
+     "nome": "Interruttore Pololu 2813",
+     "centro": "(−95,3; −11,85; 18,05)",
+     "orientamento": "pulsante verso +Z",
+     "note": "Si preme attraverso una lamella stampata nel coperchio (14 mm di corsa a vuoto). Spegnendo la logica, l'abilitazione dei regolatori va a massa e si spengono anche i servo: fa da arresto rapido."
+    },
+    {
+     "nome": "Cicalino BX100 (40 × 25 × 11)",
+     "centro": "(−110,5; 0; −23,5)",
+     "orientamento": "in piedi, display verso −X",
+     "note": "Dietro la finestra dello sportello; la presa di bilanciamento si stacca dal vano."
+    },
+    {
+     "nome": "Spine T accoppiate (30 × 16 × 8,5, S)",
+     "centro": "(−82; 0; −32,75)",
+     "orientamento": "coricate trasversali sul fondo del vano",
+     "note": "Raggiungibili a sportello aperto, a 1 mm dal cicalino."
+    },
+    {
+     "nome": "Servo di coxa MG996R (6)",
+     "centro": "albero sull'asse coxa; alette a z +1,65",
+     "orientamento": "albero verso +Z, coda verso l'esterno lungo la direzione neutra (±40°, ±90°, ±140°)",
+     "note": "Cavo verso l'interno a z −21,85 attraverso una fessura da 6,7 aperta dall'orlo. Viti delle alette: inserti M3 lato coda, fori pilota da 2,5 lato interno, come nella zampa (D-049)."
+    },
+    {
+     "nome": "Cuscinetti LF-1050ZZ (6)",
+     "centro": "sull'asse coxa, sotto ogni gondola",
+     "orientamento": "flangia in basso",
+     "note": "Flangia da z −31,95 a −32,75; si montano dal basso."
+    },
+    {
+     "nome": "Tasche della scorta dei cavi (6)",
+     "centro": "AS x 24…64, MS x −14…+14, PS x −64…−24 (e simmetriche); |y| 31…42/45; z −36…−9",
+     "orientamento": "aperte in alto, contro la parete esterna del tunnel",
+     "note": "Ogni zampa ha la sua tasca, con il dente del pettine sopra. Contengono anche la giunzione della prolunga del ginocchio con la clip."
+    },
+    {
+     "nome": "Prolunghe del ginocchio (6 × 15 cm, voce C5, con clip C6)",
+     "centro": "giunzione nella tasca della zampa",
+     "orientamento": "lungo la tasca",
+     "note": "Servono perché il cavo del ginocchio, stimato fino a 321 mm, è al limite dei 320 dichiarati (dato S)."
+    }
+   ],
+   "parti": [
+    {
+     "nome": "Corpo_Telaio",
+     "funzione": "Vasca strutturale. Comprende: fondo; sei gondole (culle dei servo di coxa, sedi dei cuscinetti, bugne con inserti, fessure dei cavi verso l'interno); pareti dei fianchi con i due condotti dei regolatori e le feritoie; tunnel della batteria con la battuta anteriore; paratie trasversali a x ±14; vano di servizio con staffe per F1, Wago, F2, interruttore e cicalino; telaio dello sportello con tacche aperte per la cerniera e labbro per lo scatto; pelle superiore attorno alle gondole con le asole d'ingresso dei cavi; inserti per ponte (8 M3), vassoio (2 M3) e regolatori (8 M2); sedi dei ganci del coperchio. È una sezione scatolare quando il ponte è avvitato.",
+     "stampa": "PETG-CF, fondo sul piatto. Ingombro 241,9 × 242,7 × 42 mm sul piatto 256 × 256: restano 7 mm per lato. Supporti con interfaccia in PLA solo sotto il fondo delle sei gondole, che sporgono 8 mm sopra il piatto. Pareti 2,0 (tunnel 1,6), fondo 2,0/1,6.",
+     "massa_g": 262
+    },
+    {
+     "nome": "Ponte_Elettronica",
+     "funzione": "Tetto del tunnel, che chiude la sezione da x −62 a +88. Porta 4 colonnine da 8 mm con inserti M2 per la SSC-32, due pettini lungo i bordi (|y| 28–31) con un dente per zampa e il nome inciso, gli appoggi posteriori del vassoio e le finestre di alleggerimento. Si fissa con 8 viti M3 negli inserti in cima alle pareti del tunnel; sotto ha l'EVA da 3 mm.",
+     "stampa": "PETG-CF, piastra sul piatto, 150 × 62 × 15,5, senza supporti.",
+     "massa_g": 22
+    },
+    {
+     "nome": "Vassoio_Muso",
+     "funzione": "Porta la basetta (4 colonnine), la torretta della camera e la guida del flat. È avvitato al ponte (2 M3) e alle pareti del muso (2 M3); da x +100 a +119,6 sta a sbalzo come una visiera. È in plastica non caricata perché sta sotto l'antenna.",
+     "stampa": "PETG non caricato, piastra sul piatto, 82 × 54 × 31.",
+     "massa_g": 15
+    },
+    {
+     "nome": "Coperchio_Centrale",
+     "funzione": "Cover non strutturale e sfaccettata sopra SSC-32, baie, tasche e vano di servizio. Si fissa senza attrezzi: 2 linguette anteriori sotto il bordo del coperchio del muso, 4 ganci a L nelle asole dei fianchi, 1 scatto in coda sopra lo sportello. Ha la lamella del pulsante, la tacca con tappo per il cavo USB e le feritoie sopra i condotti.",
+     "stampa": "PETG non caricato, 1,2 mm, 180 × 138 × 32. Si stampa capovolto sulla faccetta centrale, con facce a 45° o più.",
+     "massa_g": 45
+    },
+    {
+     "nome": "Coperchio_Muso",
+     "funzione": "Copre ESP32, antenna e camera ed è trasparente al Wi-Fi. Ha la finestra della lente. Si aggancia al vassoio con due denti anteriori e il coperchio centrale lo tiene dal bordo posteriore: si toglie dopo il centrale, senza attrezzi.",
+     "stampa": "PETG non caricato, 1,2 mm, 62 × 54 × 32, capovolto.",
+     "massa_g": 12
+    },
+    {
+     "nome": "Sportello_Batteria",
+     "funzione": "Chiude coda e vano di servizio. In basso ha due perni di cerniera che entrano in tacche aperte del telaio, quindi si stacca del tutto; in alto un dente a scatto in PETG flessibile. Due bracci spintori (|y| 21–24,5, z −37…−31, circa 56 mm, lunghezza da fissare sul pacco misurato) con EVA in punta spingono la batteria contro la battuta. Ha la finestra del display del cicalino. Aperto fa da scivolo per il pacco.",
+     "stampa": "PETG non caricato, 2,4 mm, 52 × 60 più i bracci; faccia esterna sul piatto, bracci in piedi.",
+     "massa_g": 12
+    }
+   ],
+   "accesso_e_montaggio": "**Montaggio**\n1. Inserti a caldo nel telaio: 12 M3 nelle bugne lato coda delle gondole, 8 M3 in cima alle pareti del tunnel, 2 M3 nel muso, 8 M2 per i regolatori, 2 M2 per l'interruttore (fori da confermare: C). Nel ponte: 4 M2.\n2. Cuscinetti delle coxe nelle sedi sotto le gondole, dal basso.\n3. Servo di coxa nelle gondole dall'alto, con il passacavo nella fessura verso l'interno. Le viti delle alette si avvicinano e si stringono per ultime, a coxa montata, come nella zampa.\n4. Regolatori sui distanziali nei condotti, già cablati: 14 AWG in ingresso, 16 AWG in uscita, filo di abilitazione. Le piazzole stanno in alto.\n5. Vano di servizio: Wago, F2 e interruttore sulle staffe, F1 nella sua clip, cicalino dietro la finestra, codino della spina T.\n6. SSC-32 preparata al banco: barre saldate sul retro, 16 AWG a metà fila, ponticelli tolti, configurata via micro-USB. Poi si avvita sul ponte; si incolla l'EVA sotto il ponte e si avvita il ponte al tunnel. Si saldano i 16 AWG sui regolatori: è l'unico punto da dissaldare per togliere la SSC-32.\n7. Vassoio con basetta, ESP32 e camera (flat già collegato) su ponte e muso, poi il coperchio del muso.\n8. Zampe: braccio inferiore della coxa sotto la gondola con il perno nel cuscinetto, ponte della coxa sopra, poi le viti delle alette.\n9. Cavi di ogni zampa: asola d'ingresso, tasca, pettine, gruppo di canali. Infine coperchio centrale, batteria, sportello.\n\n**Cambio batteria** (senza attrezzi, circa 20 s, zampe al loro posto)\n1. Si preme il dente dello sportello: lo sportello si apre verso il basso e fa da scivolo.\n2. Si staccano la spina T (sul fondo del vano) e la presa di bilanciamento dal cicalino.\n3. Si tira la cinghia: il pacco esce all'indietro tra le zampe posteriori, che in posizione neutra lasciano libero |y| ≤ 50.\n4. Si inserisce il pacco nuovo con i cavi verso lo sportello e si ricollegano bilanciamento e spina T.\n5. Si chiude: i bracci spingono il pacco contro l'EVA anteriore.\n\nLa carica si fa fuori dal robot, quindi la prolunga di bilanciamento C7 non serve.\n\n**Accessi senza smontare le zampe**\n- **USB-C e pulsanti dell'ESP32**: si toglie il coperchio centrale (premere lo scatto in coda, sollevare il retro, arretrare di 5 mm). Le porte sono a x 42, rivolte all'indietro, con 25 mm liberi per lo spinotto. Il bordo del muso è a x 58, quindi i primi 16 mm della scheda restano scoperti. Con il tappo della tacca tolto si lavora col cavo collegato e il coperchio chiuso. Se BOOT e RST non sono vicino alle USB (posizione C), si sfila anche il coperchio del muso.\n- **Fusibile F1, spina T, Wago, cicalino**: dallo sportello. **F2**: dallo sportello o dall'alto.\n- **Interruttore**: dalla lamella del coperchio, oppure direttamente a coperchio tolto.\n- **SSC-32**: a coperchio tolto sono scoperti tutte le spine, i pin seriali, la morsettiera e il pulsante BAUD. La micro-USB resta sotto il vassoio: si configura al banco oppure dalla seriale attraverso l'ESP32.\n- **Cavi**: pettini, tasche e asole sono aperti dall'alto.\n- **Regolatori**: visibili dall'alto nei condotti, con le piazzole verso l'alto.\n- **Sostituire un servo**:\n  - di femore o ginocchio: si stacca la spina (o la giunzione della prolunga nella tasca) e si sfila il cavo dal pettine, dalla tasca e dall'asola aperta;\n  - di coxa: si toglie il ponte della coxa (2 M3) e si sfila il servo dall'alto; il cavo esce dalla fessura aperta e la spina si stacca dalla SSC-32.",
+   "cavi": "**Servo** (cavo di 320 mm, dato S)\n\nLunghezza = tratto sulla zampa + tratto nel corpo.\n- Tratto sulla zampa (stima, perché il percorso dei cavi sulla zampa non è ancora disegnato):\n  - ginocchio 230 mm: uscita 15 + ansa del ginocchio 20 + femore 65 + ansa dell'anca 20 + coxa 65 + ansa d'imbardata 30 + discesa 15;\n  - femore 125 mm;\n  - coxa 0 (esce già dentro il corpo).\n- Tratto nel corpo: ingresso → tasca → pettine → spina, con il percorso maggiorato del 10 % più le salite.\n\n| Zampa | Ginocchio | Femore | Coxa |\n|---|---|---|---|\n| AS, AD, PS, PD | 321 mm (−1: prolunga) | 216 (+104) | 110 (+210) |\n| MS, MD | 300 (+20) | 195 (+125) | 89 (+231) |\n\nPropongo 6 prolunghe da 15 cm sui ginocchi, tutte uguali, con le clip (voci C5 e C6 del BOM, già previste da 0 a 12 dopo il CAD).\n\n**Percorso dei cavi servo**\n- Cavi di femore e ginocchio: dalla cima del ponte della coxa scendono in un'asola 12 × 6 aperta in alto, accanto all'estremità interna della gondola e 14–20 mm dietro l'asse, dove c'è un punto per la fascetta.\n- Cavo della coxa: esce dalla fessura della gondola a z −21,85, già nella baia.\n- La scorta si ripiega nella tasca della zampa, poi i cavi salgono nel dente del pettine con il nome della zampa e finiscono nel loro gruppo di 4 canali. Per ogni gamba la scorta arriva a circa 0,5 m, quasi tutta dei cavi delle coxe.\n\n**Potenza** (schema del BOM)\n- Batteria → spina T sul fondo del vano → 12 AWG, circa 45 mm → F1 → 12 AWG, circa 45 mm → Wago positivo.\n- Negativo: 12 AWG, circa 50 mm → Wago negativo (massa a stella nel vano, accanto ai regolatori).\n- Wago → 14 AWG ai regolatori: circa 85 mm al sinistro, circa 110 mm al destro (passa sotto il ponte dietro la SSC-32).\n- Regolatori → 16 AWG, circa 65 mm, fino a metà delle barre VS e massa sotto la SSC-32 (x 0, y ±23). Entrano di lato tra il ponte (−5,5) e la scheda (+2,5).\n- Barre di rame da Ø1: 4 × circa 52 mm.\n- Totali indicativi: 12 AWG 0,1 m per colore, 14 AWG 0,2 m, 16 AWG 0,15 m. Stanno dentro le voci B14–B16.\n\n**Logica** (22 AWG, passa sotto la SSC-32 tra le due barre)\n- Wago positivo → F2 → interruttore, tutto nel vano (circa 40 mm).\n- Interruttore → VL+ della morsettiera: circa 80 mm.\n- Interruttore → regolatore 5 V sulla basetta: circa 250 mm.\n- Partitore sulla basetta → GPIO1.\n- GPIO42 → diodo → abilitazione dei due regolatori: circa 150 mm ciascuno, con la resistenza a massa vicino ai regolatori.\n- GPIO41 → pin OFF dell'interruttore: circa 250 mm.\n- Seriale traslatore → RX/TX/GND accanto alla morsettiera: circa 110 mm (Dupont, voce C4).\n- Bilanciamento → cicalino: circa 55 mm.\n- Il flat della camera resta tutto sul vassoio.\n- Totale 22 AWG circa 1,5 m, dentro la voce B17 da 2 m.",
+   "massa_robot_g": 2632,
+   "verifiche": "I conti sono fatti con script Python temporanei in /tmp/corpo_calc; nessun file della repo è stato modificato. Il modello Fusion l'ho letto in sola lettura, solo per gli ingombri dei corpi di Zampa nella sua terna: Coxa x −9,45…67,45, z −41,35…19,6; Coxa_Ponte ±12 più il braccio fino a 44,55, z 17,05…23,5; Femore_A e Femore_B y −30,55…+30,55, x 42…133; Tibia x 107,55…132,45.\n\n**1. Contatto tra zampe vicine** (in pianta). La zampa è una fascia x 42…133 × ±30,55 più culla e anima da x 40,55.\n- Modello tarato su CONFIG: ritrova 30,5° (il documento dice 30°).\n- Proposta, entrambe ruotate una verso l'altra: AS-MS 32,0° (31,5° contando 2 mm per lato di perni e teste di viti); AS-AD e PS-PD 49,0°.\n- Una sola zampa verso la vicina ferma: AS→MS 61,5°, MS→AS 59,0°.\n- Tra le disposizioni che stanno nel piatto (|x|, |y| ≤ 122) e lasciano almeno 1 mm di gioco negli assetti bassi, la ricerca non trova niente oltre 33°.\n\n**2. Spazzata delle parti della zampa contro il corpo** (modello 2,5D, ogni 1,5°, sei coxe). Parti della zampa:\n- fascia femore/culla, a tutte le quote;\n- testa dell'anima, +8,05…+19,6;\n- ponte (R12 più braccio ±12 fino a 44,55), +17,05…+23,5;\n- braccio inferiore (R9,45 più braccio ±9,45), −38,35…−33,15;\n- nervatura, −41,35…−38,35.\n\nParti del corpo: telaio basso e alto, gondole, vassoio e coperchio del muso, coperchio centrale (gonna e parte alta), ponte, sportello.\n\nEsito: nessuna distanza sotto 1 mm fino a ±48°. Il minimo è 1,2 mm tra gondola e anima, come da progetto della zampa. A ±50° lo sportello è a 0,2 mm dalla fascia di PS e PD. Per arrivare a ±48° le tacche del fondo sono state allargate da ±14 a ±18 (a ±46° prima toccavano). Limite proposto per il firmware: ±45°.\n\n**3. Ingombri dei componenti.** 41 scatole orientate più 14 strutture, verificate con il metodo degli assi separatori in pianta più il controllo in quota. Nessuna sovrapposizione non voluta. Giochi minimi:\n- batteria nel tunnel: 0,6 mm per lato;\n- EVA schiacciata di 0,9 mm dal pacco massimo;\n- condensatori sotto il coperchio: 1,8 mm;\n- spinotto USB-C dalla zona spine: 1,15 mm;\n- morsettiera e pin seriali: 0,8 mm (posizioni C);\n- servo AS/AD dal bordo del ponte: 0,42 mm sull'inviluppo a scatola, almeno 5,6 mm sulla cassa vera;\n- regolatore dalla tasca PS: circa 4 mm;\n- barre sotto la scheda: 2 mm sopra il ponte.\n\n**4. Pose di marcia della zampa** (zampa_escursioni) con le nuove coxe: tutte libere, gioco minimo 1,2 mm.\n\n**5. Volume di stampa**:\n- telaio 241,9 × 242,7 × 42;\n- coperchio centrale 180 × 138 × 32;\n- ponte 150 × 62;\n- tutto entro 256 × 256 × 256 (dato S).\n\n**6. Cavi**: lunghezze nel campo \"cavi\". Prima la batteria era più indietro (centro a −14) e il baricentro risultava 3,7 mm dietro l'origine; spostandola a +10 è sceso a −1,5 mm e il vano di servizio è passato da 30 a 54 mm.\n\n**7. Massa** (bilancio di dimensionamento.md, aggiornato con le parti stampate qui stimate):\n- servo 990, batteria 252, SSC-32 45, ESP32 e camera 14, regolatori 30, logica 25, fusibili e connettori 60, cablaggio e prolunghe 100, giunti 110, viteria 90 g;\n- zampe 6 × 92 = 552 g;\n- corpo stampato 368 g;\n- totale 2632 g, con baricentro a x −1,5, z −11,6.\n\n**8. Statica**: rilanciata a 2,6 e 2,7 kg, vedi il campo \"statica\".",
+   "rischi": [
+    "Piatto di stampa: il telaio misura 241,9 × 242,7 mm sul piatto da 256 × 256, un dato S non ancora confermato. Restano 7 mm per lato. Se il piatto è più piccolo o serve il brim, il telaio non entra. Alternative: coxe medie a y ±80 e d'angolo a x ±83 (contatto tra vicine circa 31°), oppure telaio in due metà con una giunzione strutturale da progettare.",
+    "Spazio tra zampe vicine: AS-MS si toccano a 32° quando ruotano entrambe una verso l'altra (31,5° contando perni e teste di viti), solo 2° sopra il ±30° richiesto. Il firmware deve limitare l'imbardata relativa tra vicine (somma verso l'altra non oltre circa 60°) e quella assoluta a ±45°. Più margine si ottiene solo con un corpo più grande del piatto.",
+    "Assetti bassi: con le coxe d'angolo a 40° il gioco minimo nelle pose 80/60 e 70/70 scende a 1,3 e 1,2 mm (era 1,6). Nell'assetto alto 130/25 il tripode sale al 51 % (47 % con CONFIG).",
+    "Cavi del ginocchio: lunghezza stimata fino a 321 mm contro i 320 dichiarati (dato S), e il percorso sulla zampa non è ancora disegnato. Servono 6 prolunghe da 15 cm e 6 clip (C5 e C6, da approvare). Resta da ripiegare molta scorta, fino a circa 0,5 m per zampa, soprattutto dei cavi delle coxe.",
+    "Raffreddamento dei regolatori solo per convezione nei condotti. Con 8–9 A per lato nella marcia bassa la scheda può arrivare al limite termico e ridurre la corrente. Va provato al banco con il condotto stampato. Ripieghi: feritoie anche nel coperchio sopra i condotti, oppure una ventolina da 25 mm (sarebbe un acquisto).",
+    "Spinotto USB-C: passa tra 0,4 e 1 mm sopra i componenti alti della SSC-32 (zoccolo XBee, elettrolitici: altezze C). Se tocca, si alza la basetta di 2 mm o si usa un cavo a 90°. La posizione di BOOT e RST non è pubblicata (C).",
+    "La camera è spostata di 10,85 mm a destra per tenere il flat dritto, perché la striscia della logica occupa la sinistra della basetta. Centrarla richiede due pieghe a 45° del flat, che costano circa 8 dei 20 mm di scorta.",
+    "Wi-Fi: l'antenna è sotto PETG non caricato ma a 14 mm dal carbonio e a 30 mm dalle gondole e dai servo d'angolo. La portata va provata; il ripiego è l'antenna esterna C8.",
+    "Vano di servizio affollato: spina T, F1, Wago, F2, interruttore, cicalino e i 12 AWG. La lunghezza dei cavi della batteria non è dichiarata (circa 120 mm, S).",
+    "La spina T è il sezionamento vero dei servo, ma sta dietro lo sportello (2–3 s per aprirlo). L'arresto rapido è il pulsante: spegne la logica e quindi l'abilitazione dei regolatori.",
+    "Fermo della batteria: i bracci dello sportello hanno lunghezza fissa. Vanno dimensionati sul pacco misurato con il calibro, perché l'EVA assorbe circa 2 mm e non i ±5 mm di tolleranza dichiarati.",
+    "Incastri senza attrezzi (ganci e scatto del coperchio, dente e cerniera dello sportello): da tarare con prove di stampa. Lo scatto è il primo pezzo da ristampare se si consuma.",
+    "La sezione del tunnel è chiusa solo con il ponte avvitato: senza ponte il telaio è debole a torsione e il robot non deve camminare. In stampa servono sei zone di supporto sotto le gondole.",
+    "Per smontare la SSC-32 bisogna dissaldare i due 16 AWG sui regolatori. La sua micro-USB non si raggiunge da montata.",
+    "Le viti interne delle alette dei servo di coxa vanno in fori pilota (nessun inserto, per la fessura del cavo, come nella zampa): si consumano se un servo si cambia spesso.",
+    "Massa: circa 1,3 kg del bilancio sono stime. Il telaio può pesare 250–285 g e il robot 2,6–2,75 kg. Il punto di progetto è verificato a 2,7 kg (femore al 47 %).",
+    "Il controllo d'interferenza è un modello 2,5D: prismi verticali, con la fascia della zampa considerata a tutte le quote. È prudente, ma non sostituisce le interferenze in Fusion sul modello vero, con raccordi, teste delle viti e cavi."
+   ]
+  },
+  {
+   "chiave": "stabile",
+   "nome": "Scafo a cassone esagonale largo (stabilità e rigidezza)",
+   "sintesi": "Le coxe stanno su un rombo quasi radiale. Quelle d'angolo sono strette sul muso e sulla coda, in (±98, ±20), orientate a ±40° e ±140°; quelle medie sono molto larghe, in (0, ±100), a ±90°. Rispetto alle posizioni provvisorie di CONFIG, a 2,7 kg:\n- il femore scende dal 51 al 45 % dello stallo;\n- il margine di stabilità sale da 58 a 79 mm;\n- il ribaltamento migliora di 7–9° in tutti gli assetti;\n- due zampe vicine si toccano a 40,9° ciascuna, invece di 30,5° (gioco di 2 mm a 40,3°).\n\nIl corpo è un cassone di torsione in PETG-CF, con tre celle chiuse. È fatto da Corpo_Scafo (fondo, pareti, 6 gondole integrali, due paratie a x = ±41) e da Corpo_Piano, avvitato sopra con 20 M3 in inserti. Gli assi delle coxe stanno sulla linea delle pareti, quindi la coppia della zampa entra direttamente nel fondo e nel piano.\n\nNel cassone stanno la SSC-32, i due regolatori, i Wago, F2 e il cicalino. Sul piano ci sono la batteria (al centro, di traverso, sotto uno sportello che si apre senza attrezzi), l'ESP32 e la camera (davanti, sotto un cover in PETG), poi F1 e il T-plug (dietro).\n\nMassa stimata del robot: circa 2,65 kg. Costi principali:\n- corpo largo 200 mm, 277 con le gondole;\n- scafo stampato in diagonale, 244,8 mm sul piatto da 256 (S);\n- SSC-32 dentro il cassone chiuso;\n- l'assetto alto e raccolto peggiora (57 % contro 47 %).",
+   "coxe": [
+    {
+     "zampa": "AS",
+     "x": 98,
+     "y": 20,
+     "direzione_gradi": 40
+    },
+    {
+     "zampa": "MS",
+     "x": 0,
+     "y": 100,
+     "direzione_gradi": 90
+    },
+    {
+     "zampa": "PS",
+     "x": -98,
+     "y": 20,
+     "direzione_gradi": 140
+    },
+    {
+     "zampa": "AD",
+     "x": 98,
+     "y": -20,
+     "direzione_gradi": -40
+    },
+    {
+     "zampa": "MD",
+     "x": 0,
+     "y": -100,
+     "direzione_gradi": -90
+    },
+    {
+     "zampa": "PD",
+     "x": -98,
+     "y": -20,
+     "direzione_gradi": -140
+    }
+   ],
+   "coxa_libera_tra_vicine_gradi": 40.9,
+   "statica": "calc/statica_tripode.py e calc/andature.py lanciati con queste coxe, Lc 55, Lf 65, Lt 110 e passo 60, aggiornando CONFIG in memoria (nessun file modificato).\n\nstatica_tripode.py, punto di progetto h 100 / x_f0 45:\n- 2700 g: femore 4,99 kgf·cm = 45 %, tibia 4,79 = 44 %; carico massimo su un piede 1182 gf (44 % del peso; le medie portano circa il 30 %); margine di stabilità 79 mm; momento sul perno di coxa 14,7 kgf·cm; coxa ±17° in appoggio, femore da +2 a +38°, ginocchio da 41 a 84°. Piedi neutri: AS (175, 84), MS (0, 200).\n- 2620 g: femore 44 %, tibia 42 %.\n- Riferimento CONFIG attuale a 2700 g: femore 51 % (oltre il limite), tibia 36 %, margine 58 mm.\n\nandature.py a 2700 g, valori del tripode (tra parentesi CONFIG attuale):\n\n| Assetto | Coppia | Margine | Ribaltamento | A coppie | A onda |\n|---|---|---|---|---|---|\n| alto e raccolto 130/25 | 57 % (47) | 71 mm (50) | 29° (21) | 43 % | 45 % |\n| medio 110/40 | 48 % (46) | 77 mm (56) | 35° (27) | 37 % | 39 % |\n| classico 90/55 | 52 % (61) | 83 mm (62) | 43° (34) | 41 % | 47 % |\n| basso e largo 70/70 | 62 % (76) | 89 mm (67) | 52° (44) | 51 % | 56 % |\n\nLettura: il layout favorisce gli assetti classici e bassi che l'utente si aspetta e peggiora quello alto e raccolto. Gli angoli sono più caricati delle medie (44 contro 30 %): una ripartizione esatta richiederebbe medie meno larghe, che però riporterebbero il contatto tra zampe vicine sotto i 40°.",
+   "pianta": "Scafo a esadecagono, simmetrico. Vertici (faccia esterna delle pareti, mm): (106, ±10,46), (90, ±29,5), (44,4, ±79,1), (12,45, ±100), (−12,45, ±100), (−44,4, ±79,1), (−90, ±29,5), (−106, ±10,46).\n\nGeometria:\n- 212 × 200 mm senza gondole, 266 × 277 con le gondole; area 276 cm², perimetro 613 mm.\n- Il contorno passa per gli assi delle coxe: ogni gondola ha metà dentro (X da −18,05 a 0 nella terna della zampa) e metà fuori (fino a X 38,35, raggio 39,32), come chiede la zampa.\n- Le gondole AS/AD, e così PS/PD, sono a 4,9 mm l'una dall'altra e si fondono in un unico blocco di muso e di coda.\n- I vertici (±44,4, ±79,1) sono un rigonfiamento di 6 mm dei lati lunghi, che fa posto agli angoli della batteria. I lati lunghi restano a 12–59 mm dalle zampe ruotate di ±45°.\n\nIntagli:\n- nel piano, per ogni servo di coxa: X ≥ −17,6, |Y| ≤ 9,75 (alette e viti raggiungibili dall'alto);\n- nel cover: cerchio di raggio 13,5 attorno a ogni asse (squadretta R10, ponte R12), più una feritoia laterale per i cavi delle zampe.\n\nCelle interne:\n- anteriore x 41,6…106: regolatori, Wago, F2;\n- centrale x −40…40: SSC-32;\n- posteriore x −106…−41,6: cicalino.",
+   "pila_z": "Quote nella terna del robot, z = 0 sugli assi dei femori.\n\nSotto lo scafo (parti della zampa):\n- −41,35: punto più basso delle zampe (nervatura della coxa);\n- −38,35…−33,15: braccio della coxa sotto la gondola (1,2 mm sotto il fondo dello scafo);\n- −32,75: flangia del cuscinetto LF-1050ZZ.\n\nScafo:\n- −31,95: fondo esterno di scafo e gondole, che è anche il piano di stampa. Con h = 100 la luce è 68 mm sotto lo scafo e 58,6 sotto la nervatura;\n- −30,35: faccia interna del fondo (1,6 mm);\n- −27,55: fondo interno delle gondole (4,4 mm, sede del cuscinetto da sotto);\n- −28,35…−22,35: barre di potenza sotto la SSC-32;\n- −22,35…−20,75: PCB della SSC-32, su colonnine stampate da 8 mm;\n- −21,85: uscita del cavo del servo di coxa;\n- −29,35…+2,45: regolatori verticali;\n- +1,65: orlo delle gondole (lato inferiore delle alette dei servo di coxa);\n- +4,25: sommità della zona spine della SSC-32 (25 mm), 2,8 mm sotto il piano;\n- +7,05: teste delle viti delle alette, sommità delle pareti dello scafo e delle pareti laterali delle gondole (la testa della coxa parte da +8,05).\n\nPiano: Corpo_Piano da +7,05 a +9,05 (2,0 mm).\n\nSopra il piano:\n- +10,05…+37,45: batteria, su 1 mm di EVA;\n- fino a +12,15: servo di coxa (cassa e torretta), fuori dal cover;\n- +14,05…+19,55: squadretta della coxa; +17,05…+23,5: ponte;\n- +13,05…+14,65: basetta;\n- +23,15…+24,75: PCB dell'ESP32; antenna fino a +27,95;\n- +25…+33,5: camera;\n- +41,2: dorso del cover e dello sportello.\n\nAltezza totale del corpo: 73 mm.",
+   "componenti": [
+    {
+     "nome": "Batteria OVONIC 2S 5200 (inviluppo 144 × 49,3 × 27,4)",
+     "centro": "(−20, 0, 23,75); x −44,65…4,65, y ±72",
+     "orientamento": "lato lungo lungo Y, cavi verso +Y (sinistra)",
+     "note": "Sul piano, su EVA da 1 mm, battute stampate. Due cinghie a strappo (D10) lungo X a y = ±40, nelle feritoie del piano. A 28 mm dal mozzo di MS. I cavi salgono entro 10 mm dalla testata."
+    },
+    {
+     "nome": "SSC-32 (72 × 55)",
+     "centro": "(0, 0, −21,55)",
+     "orientamento": "lato lungo lungo X, morsettiera verso +X; canali 0–15 (VS1) a sinistra, 16–31 (VS2) a destra",
+     "note": "Su 4 colonnine stampate da 8 mm, con inserti M2 in (±32,75, ±24,25); niente distanziali comprati. Barre saldate sotto (6 mm). Zona spine fino a +4,25. Configurata al banco via micro-USB prima del montaggio."
+    },
+    {
+     "nome": "Regolatore 6 V sinistro D42V110F6 (VS1)",
+     "centro": "(48,4, 23,6, −13,45); x 41,6…55,2, y 2…45,2, z −29,35…+2,45",
+     "orientamento": "PCB verticale sulla faccia anteriore della paratia anteriore, piazzole di potenza in alto",
+     "note": "4 distanziali M2 da 4 mm. Convezione dalle feritoie del fondo a quelle del piano (a |y| 26–45, a lato della basetta)."
+    },
+    {
+     "nome": "Regolatore 6 V destro D42V110F6 (VS2)",
+     "centro": "(48,4, −23,6, −13,45)",
+     "orientamento": "speculare al sinistro",
+     "note": "Idem."
+    },
+    {
+     "nome": "Wago 221-415 positivo",
+     "centro": "(66,3, 25, −26,2); x 57…75,6, y 10…39,9",
+     "orientamento": "leve in alto, ingressi verso −X",
+     "note": "Fuori dalla zona d'uscita del cavo del servo di coxa AS (x ≥ 77,9)."
+    },
+    {
+     "nome": "Wago 221-415 negativo (massa a stella)",
+     "centro": "(66,3, −25, −26,2)",
+     "orientamento": "speculare",
+     "note": "Punto unico di massa, accanto ai regolatori."
+    },
+    {
+     "nome": "Portafusibile mini F2 (2 A) e giunzioni della logica",
+     "centro": "(66, 0, −27)",
+     "orientamento": "lungo X",
+     "note": "Sul fondo della cella anteriore."
+    },
+    {
+     "nome": "Cicalino BX100 (40 × 25 × 11)",
+     "centro": "(−57,5, 0, −24,85); x −70…−45",
+     "orientamento": "piatto, lato da 40 lungo Y",
+     "note": "Nella cella posteriore. Lo si sente dalle feritoie del piano. Si collega alla presa di bilanciamento con la prolunga C7 (voce già nel BOM); la giunzione resta sotto lo sportello."
+    },
+    {
+     "nome": "Basetta millefori (tagliata a 56 × 50)",
+     "centro": "(50, 0, 13,85)",
+     "orientamento": "lato da 56 lungo X",
+     "note": "Su 4 borchie del piano alte 4 mm, con M2. Sotto l'ESP32, tra le file di pin: regolatore 5 V (x 60…77,8), traslatore (x 36…56), partitore, diodo e resistenze di abilitazione."
+    },
+    {
+     "nome": "ESP32-S3-CAM UICPAL",
+     "centro": "(53,1, 0, 23,95); PCB x 21,8…84,4, y ±14,15",
+     "orientamento": "antenna verso +X (punta a x 89,2), USB-C verso −X (x 20,8)",
+     "note": "Su zoccoli femmina. Lo spigolo del PCB è a 14,8 mm dagli assi di AS/AD (ponte R12): la scheda non sporge sopra i ponti. L'antenna è sotto il cover in PETG, ma a 3–8 mm dai ponti in PETG-CF."
+    },
+    {
+     "nome": "Camera OV3660 (testa 8,5 × 8,5 × 6)",
+     "centro": "(100,5, 0, 29,25)",
+     "orientamento": "asse ottico +X",
+     "note": "Su Supporto_Camera, nel cuneo del piano tra i servo di AS e AD, sopra i loro ponti. Il flat usa 46,7 mm dei 61,5 utili; la scorta si piega sotto il cover."
+    },
+    {
+     "nome": "Interruttore Pololu 2813",
+     "centro": "(52,7, 36,2, 38)",
+     "orientamento": "pulsante in alto",
+     "note": "Su Colonnina_Interruttore, dalla cella anteriore sinistra fino al cover anteriore. Il pulsante si raggiunge da un foro del cover, sempre, senza togliere niente."
+    },
+    {
+     "nome": "Coppia di T-plug",
+     "centro": "(−56, 36, 13,3); x −64…−48, y 21…51",
+     "orientamento": "lungo Y",
+     "note": "Su Supporto_Tplug, sporge da un intaglio posteriore sinistro dello sportello: è il sezionamento d'emergenza, raggiungibile sempre."
+    },
+    {
+     "nome": "Portafusibile ATO F1 (40 × 22 × 15)",
+     "centro": "(−59, 0, 16,55); x −70…−48",
+     "orientamento": "di traverso (40 lungo Y)",
+     "note": "Sul piano, dietro la batteria, sotto lo sportello. Il primo intaglio, quello di PS, è a 18 mm."
+    },
+    {
+     "nome": "Condensatori 2200 µF (2)",
+     "centro": "un canale libero per lato sugli header della SSC-32",
+     "orientamento": "in piedi, alti 20",
+     "note": "Dentro la zona spine da 25 mm."
+    },
+    {
+     "nome": "Servo di coxa MG996R (6) e cuscinetti LF-1050ZZ (6)",
+     "centro": "sugli assi delle coxe; alette a z +1,65; cuscinetti nel fondo delle gondole",
+     "orientamento": "albero in alto, coda verso l'esterno lungo la direzione neutra",
+     "note": "Il cavo esce dalla finestra della testata interna, direttamente nel cassone. La fessura del passacavo è larga 6,7 come nella zampa; le viti delle alette lato albero vanno quindi in fori pilota Ø2,5."
+    }
+   ],
+   "parti": [
+    {
+     "nome": "Corpo_Scafo",
+     "funzione": "Vasca strutturale: fondo da 1,6 con finestre e feritoie; pareti da 1,6 alte fino a +7,05; 6 gondole integrali (culla del servo di coxa, pareti da 2,0 alzate a +7,05 ai lati delle alette, fondo da 4,4 con la sede del cuscinetto da sotto, bugne con 2 inserti M3 lato coda); paratie a x = ±41 con passaggi per i cavi; 2 fazzoletti per gondola; 20 borchie con inserto M3 per il piano; colonnine della SSC-32; borchie dei regolatori. Le gondole d'angolo sono fuse a coppie nel muso e nella coda.",
+     "stampa": "PETG-CF, fondo sul piatto, ruotata di 45°: ingombro sul piatto 244,8 × 244,8 × 39 mm (piatto 256, S). Senza supporti: smussi a 45° sotto le bugne interne, finestre dei cavi con ponti ≤ 9 mm, sedi dei cuscinetti come fori ciechi sul piatto. Tesa (brim) per il pezzo largo.",
+     "massa_g": 220
+    },
+    {
+     "nome": "Corpo_Piano",
+     "funzione": "Faccia superiore del cassone di torsione, avvitata con 20 M3 × 10 agli inserti dello scafo. Porta batteria, basetta, camera, interruttore, F1 e T-plug. Ha gli intagli dei servo di coxa, feritoie di sfiato, feritoie per le cinghie e per i cavi (dietro ogni gondola e verso la SSC-32) e borchie M2.",
+     "stampa": "PETG-CF da 2,0 mm, piano sul piatto, 212 × 200 mm, senza supporti.",
+     "massa_g": 63
+    },
+    {
+     "nome": "Cover_Anteriore",
+     "funzione": "Copre ESP32 (metà anteriore), camera (con visiera) e interruttore. Non strutturale; 4 M2 nel piano. In plastica non caricata, sopra l'antenna.",
+     "stampa": "PETG da 1,2 mm, dorso sul piatto, circa 76 × 150 mm.",
+     "massa_g": 25
+    },
+    {
+     "nome": "Sportello_Batteria",
+     "funzione": "Copre batteria, USB-C e pulsanti dell'ESP32, F1 e la giunzione del cicalino. Senza attrezzi: 2 linguette davanti sotto il labbro del cover anteriore e uno scatto stampato in coda. Ha l'intaglio per il T-plug.",
+     "stampa": "PETG da 1,2 mm, dorso sul piatto, circa 136 × 200 mm. Lo scatto si tara con un provino.",
+     "massa_g": 34
+    },
+    {
+     "nome": "Supporto_Camera",
+     "funzione": "Torretta larga 9 mm nel cuneo del muso, tra i servo di coxa di AS e AD. Porta la testa della camera sopra i loro ponti. Resta sul piano quando si toglie il cover.",
+     "stampa": "PETG, in piedi, senza supporti.",
+     "massa_g": 2
+    },
+    {
+     "nome": "Colonnina_Interruttore",
+     "funzione": "Porta la scheda 2813 con il pulsante a filo del cover anteriore.",
+     "stampa": "PETG, in piedi.",
+     "massa_g": 2
+    },
+    {
+     "nome": "Supporto_Tplug, Fermo_F1, fermacavi",
+     "funzione": "Culle a scatto per T-plug e portafusibile; ancoraggi per le fascette delle matasse dei cavi.",
+     "stampa": "PETG-CF o PETG, in piano.",
+     "massa_g": 8
+    }
+   ],
+   "accesso_e_montaggio": "Montaggio:\n1. Inserti nello scafo (20 M3 per il piano, 12 M3 lato coda delle gondole, M2 per la SSC-32 e i regolatori) e nel piano (M2 per cover, basetta, camera).\n2. Cuscinetti nelle sedi delle gondole, da sotto.\n3. Al banco: barre e cavi da 16 AWG saldati sulla SSC-32; ponticelli tolti; configurazione via micro-USB. Poi nello scafo: SSC-32, regolatori sulla paratia, Wago, F2, cicalino, cavi da 12 AWG.\n4. Coxa: la C va attorno alla gondola prima del servo. Con la coxa abbassata la testa passa sopra le bugne lato coda (+1,65); sollevandola il perno entra nel cuscinetto. Poi il servo di coxa scende dall'alto con la coxa ruotata di circa 30°, così la testa libera la coda delle alette; il cavo passa per la fessura nel cassone. Le viti delle alette si stringono per ultime. Infine squadretta e ponte, come da procedura della zampa. **Sequenza da verificare con la zampa.**\n5. Cavi di femore e ginocchio: dalla feritoia laterale alla feritoia del piano; tutti i connettori sulla SSC-32; matasse legate nelle celle.\n6. Corpo_Piano con 20 M3.\n7. Basetta con l'ESP32, Supporto_Camera, colonnina, supporti di F1 e T-plug.\n8. Cover anteriore, batteria, sportello.\n\nAccesso:\n- **Cambio batteria, senza attrezzi:** si sgancia lo scatto in coda e si sfila lo sportello; si stacca il T-plug (già accessibile) e la giunzione del bilanciamento; si aprono le due cinghie; la batteria si solleva. Circa 20 s.\n- **T-plug:** sporge sempre dallo sportello, in coda a sinistra.\n- **F1:** sotto lo sportello, dietro la batteria, nel portafusibile con coperchio.\n- **USB-C dell'ESP32:** sotto lo sportello a x ≈ 21, rivolta verso la batteria, con 16,2 mm liberi. Basta una spina a gomito o corta; con la batteria tolta va bene qualunque cavo. In alternativa l'OTA.\n- **BOOT/RST:** la posizione sulla scheda non è pubblicata (C). Se sono sul lato dell'antenna serve un foro nel cover anteriore.\n- **Interruttore:** pulsante nel cover anteriore, sempre raggiungibile.\n- **SSC-32 e servo di coxa:** manutenzione rara e lenta. Si tolgono sportello, batteria, cover anteriore e basetta (o si stacca il flat), poi le 20 viti del piano. Le viti delle alette dei servo di coxa si raggiungono invece dall'alto, attraverso l'intaglio del piano, togliendo solo il cover.",
+   "cavi": "Servo (cavo dichiarato 32 cm, dato S). Lunghezze stimate con 15 mm di scorta di percorso:\n\n| Cavo | Percorso | Lunghezza | Avanzo |\n|---|---|---|---|\n| Coxa | dalla finestra della testata interna della gondola, nel cassone, all'header | 93–101 mm | ≈ 220 mm |\n| Femore | uscita del servo nella coxa → testa dell'anima → ansa → cassone → header | 164–173 mm | ≈ 150 mm |\n| Ginocchio (angoli) | come il femore, più l'ansa del ginocchio (25), il femore (65) e l'ansa dell'anca (30) | ≈ 289 mm | ≈ 30 mm |\n| Ginocchio (medie) | idem; le medie sono più lontane dagli header | ≈ 298 mm | ≈ 20 mm |\n\nPercorso dei cavi di femore e ginocchio:\n- legati alla testa dell'anima;\n- ansa di 45–50 mm (raggio 13–34 dall'asse, z 7–17, sotto il braccio del ponte, accanto alla cassa del servo di coxa); con l'imbardata di ±40° la lunghezza varia di circa 17 mm;\n- entrano da una feritoia nel fianco del cover, a X −2, Y ±16 dalla parte della SSC-32;\n- scendono da una feritoia del piano nel cassone.\n\nL'avanzo totale, circa 2,5 m, si piega a matasse legate nelle celle anteriore e posteriore. In alternativa si accorciano coxa e femore ricrimpando i connettori JR.\n\nAssegnazione dei canali: header sinistro (VS1, 0–15) AS verso il muso, MS al centro, PS verso la coda; destro (VS2, 16–31) speculare. Un condensatore per lato in un canale libero.\n\nPotenza:\n- batteria (cavi sul lato +Y, circa 80 mm usati su 120, S) → T-plug in coda a sinistra → F1 sul piano;\n- 12 AWG giù da un passacavo a (−47, −25) nella cella posteriore, poi sul fondo della cella centrale a y ≈ −45 (sotto le matasse), poi da un foro basso nella paratia anteriore fino al Wago positivo; il negativo uguale fino al Wago negativo. Circa 170 mm ciascuno (B14 ne prevede 0,5 m);\n- Wago → regolatori in 14 AWG, circa 40 mm;\n- uscite dei regolatori → 16 AWG sopra una tacca della paratia → metà delle barre VS e di massa sul retro della SSC-32, circa 80 mm;\n- massa a stella sul Wago negativo.\n\nLogica (22 AWG):\n- Wago positivo → F2 → su nel piano → interruttore sulla colonnina → basetta: regolatore 5 V → pin 5V dell'ESP32; partitore → GPIO1;\n- VL → morsettiera della SSC-32, giù da una feritoia del piano a x ≈ 15;\n- GPIO42 → diodo → EN dei due regolatori, giù nella cella anteriore, circa 60 mm;\n- GPIO41 → pin OFF dell'interruttore;\n- TX21/RX14 → traslatore → pin seriali della SSC-32 (x 10…18), dalla stessa feritoia.\n\nAltri cavi:\n- flat della camera: 46,7 mm su 61,5;\n- bilanciamento → giunzione sotto lo sportello → prolunga C7 → cicalino nella cella posteriore.",
+   "massa_robot_g": 2650,
+   "verifiche": "**1. Modello in pianta della zampa.** Ricavato in Fusion con script in sola lettura: sezioni planeIntersection di Zampa:1 a 27 quote. Risultati:\n- piastre del femore da X 42,0, |Y| ≤ 30,55;\n- anima e culla X 40,55…67,45, Y −24,15…9,45;\n- testa da X 34 (z 8,05–19,6);\n- ponte R12 più braccio fino a X 44,55 (z 17,05–23,5);\n- squadretta R10;\n- servo del femore da raggio 47,96;\n- femore alzato fino a +85°: X ≥ 36,9.\n\nTarato su CONFIG: contatto a 30,5° (il documento dice 30°).\n\n**2. Zampe vicine** (le quattro coppie laterali danno lo stesso valore):\n- entrambe verso l'altra: contatto a 40,9°, gioco di 2 mm a 40,3°;\n- una sola: AS verso MS nessun contatto fino a 90°, MS verso AS 80,4°;\n- AS–AD: 26,6° entrambe, 53,3° una sola. Nel granchio laterale sono circa 13° per parte con passo 60.\n\n**3. Ricerca del layout.** Circa 24.000 combinazioni di (x, y, angolo degli angoli, y delle medie) con tre vincoli:\n- contatto ≥ 40° con 2 mm di gioco;\n- scafo con gondole ≤ 245 mm sul piatto (ruotabile);\n- statica valida.\n\nCon lo scafo allineato al piatto (≤ 250) il massimo è 38,6°. Con la coda aperta per estrarre la batteria non c'è nessuna soluzione: per questo la batteria è sopra il piano.\n\n**4. Corpo contro zampe in movimento.**\n- 86.636 punti del corpo (esadecagono più gondole, piano con intagli, cover con intagli R13,5, z da −31 a +40) contro le 6 zampe ruotate di ±45° con 1 mm di gioco: 0 contatti.\n- Casi di controllo (punto sul ponte, sull'anima, sull'anima ruotata) rilevati correttamente.\n- Coxa libera rispetto al corpo: AS da −62 a +47°, MS ±50°, PS da −47 a +49° (AD e PD speculari).\n\n**5. Componenti.** 22 ingombri a scatola: nessuna sovrapposizione.\n- Giochi minimi 1,0 mm (T-plug/F1, basetta/colonnina).\n- Margine minimo dal contorno 2,5 mm (camera); batteria 4,6 mm.\n- Wago e cicalino spostati fuori dalle zone d'uscita dei cavi di coxa.\n- Spine della SSC-32 a 2,8 mm sotto il piano.\n- Spigolo dell'ESP32 a 14,8 mm dagli assi AS/AD (ponte R12).\n- Flat 46,7/61,5 mm; spazio dietro l'USB-C 16,2 mm.\n\n**6. Piatto di stampa.** Scafo 265,9 × 276,7 dritto, 244,8 × 244,8 a 45°; piano 212 × 200; cover sotto 200 × 140.\n\n**7. Rigidezza a torsione.** Sezione chiusa centrale circa 200 × 37,4 mm, pareti 1,6–2,0: J ≈ 8,3·10⁵ mm⁴, GJ ≈ 1,1·10⁹ N·mm² (G 1,3 GPa, stimato). Torsione sotto 0,03° sul corpo con 3 volte il carico a tripode. Gondole:\n- l'asse sta sulla parete, quindi niente sbalzo;\n- la coppia di circa 29 N, tra cuscinetto (z −32) e servo (z +2…+17), entra nel fondo e nel piano come forza nel loro piano;\n- freccia del fondo della gondola circa 0,005 mm con 24 N.\n\n**8. Massa e baricentro.**\n- Stampati del corpo: 220 + 63 + 25 + 34 + 12 = 354 g.\n- Totale circa 2650 g.\n- Baricentro stimato x ≈ −1 mm, z ≈ −1 mm. La batteria sopra il piano alza il baricentro di circa 2–3 mm; il ribaltamento cala di meno di 0,5°.",
+   "rischi": [
+    "Piatto di stampa: lo scafo con le gondole occupa 244,8 × 244,8 mm in diagonale su un piatto da 256 dichiarato dai rivenditori (S). Se la Creator 5 Pro ha zone di spurgo o un'area utile minore, non entra. Ripieghi: layout (96, 20, 40°, 100), 242 mm con contatto a 40,4° (39,8° con 2 mm di gioco); oppure scafo diviso in x = 0 con giunzione avvitata, che costa rigidezza.",
+    "Il contatto tra zampe vicine a 40,9° è giusto sopra l'obiettivo: il firmware deve limitare l'imbardata relativa. Le coppie anteriore e posteriore (AS–AD, PS–PD) si toccano a 26,6° se ruotano entrambe verso il muso (granchio con passo lungo).",
+    "Ripartizione: gli angoli portano fino al 44 % del peso, le medie il 30 %. La tibia sale al 44 % (prima 36 %). L'assetto alto e raccolto (130/25) va al 57 % contro il 47 % di prima: il corpo favorisce gli assetti bassi.",
+    "Corpo largo (200 mm, 277 con le gondole) e robot quasi rotondo: piedi neutri a 200 mm dall'asse in Y. Più ingombro a terra e più plastica: 354 g di stampati contro 370 di bilancio.",
+    "Cavi del ginocchio: 289–298 mm stimati contro 320 dichiarati (S), cioè il 7–10 % di margine con un modello di percorso a ±20 mm. Se il cavo reale è da 30 cm servono 6 prolunghe C5, voce già prevista nel BOM. Inoltre circa 2,5 m di cavi in avanzo da piegare nelle celle.",
+    "La SSC-32 e i connettori dei servo stanno nel cassone chiuso: per controllarli o sostituire un servo bisogna togliere batteria, cover, basetta e 20 viti del piano. La zona spine da 25 mm è una stima: restano 2,8 mm sotto il piano.",
+    "Calore: due regolatori nel cassone (3–4 W ciascuno in marcia classica, di più in quella bassa), con convezione da feritoie nel fondo e nel piano. La temperatura va misurata al banco.",
+    "Antenna dell'ESP32 a 3–8 mm dai ponti in PETG-CF di AS e AD, sopra il piano in PETG-CF: la portata Wi-Fi può calare. Ripiego: antenna esterna IPEX (C8, già nel BOM come voce non acquistata).",
+    "La camera vede le ginocchia delle zampe anteriori: le ginocchia stanno a circa 48° dall'asse ottico, dentro i ±60° dichiarati.",
+    "USB-C a 16,2 mm dalla batteria: con la batteria montata serve una spina a gomito o corta. Posizione di BOOT/RST non nota.",
+    "Sequenza di montaggio della coxa: la testa passa sopra la coda della gondola solo prima del servo, e il servo entra con la coxa ruotata. Va verificata con la zampa vera e con il provino.",
+    "Pezzo grande in PETG-CF (circa 245 mm in diagonale): rischio di deformazione; servono camera chiusa e tesa. Scatto dello sportello e tolleranze da tarare con provini."
+   ]
+  }
+ ],
+ "giudizi": [
+  {
+   "giudice": "ingombri",
+   "valutazioni": [
+    {
+     "proposta": "compatto",
+     "punteggio": 7,
+     "difetti_bloccanti": [],
+     "difetti_minori": [
+      "Bugne degli inserti M3 della chiglia, nel ripiano a (±25; ±31) e (±55; ±31). Con un inserto di 5,7 mm e 1 mm di fondo salgono fino a circa z −25,3. Si sovrappongono di 2,75 mm in z ai due regolatori (fondo a −28; x 14–57,2; y 30,2–41,6) e a F1 (x −56…−16; y 30–45; z −28…−6). Collidono 6 orecchie su 8.",
+      "F2 (MINI in linea, centro x 71, disteso lungo X, quote non date). Tra il Wago+ (fino a x 59,95) e la parete anteriore del tunnel (x 79) restano 19 mm. Un portafusibile in linea da 30–40 mm tocca sia il Wago sia la parete: con 36 mm le sovrapposizioni sono −7 e −2 mm. Il dato non è verificabile.",
+      "Parete anteriore del tunnel (x 79–81) alta fino all'orlo +7. La attraversano il vassoio (z 1,0–2,6, che deve arrivare alla torretta della camera a x ≈ 95) e la basetta 56 × 32 centrata a x 54 (x 26–82, z 5,9–7,5, sovrapposizione di 1,1 mm). Manca un'apertura o un tratto di parete più basso.",
+      "Inserti M2 dei regolatori nel fianco del tunnel, spesso 2,0 mm. L'inserto è lungo 3,0 mm: o sporge nel vano batteria, dove il gioco è 0,35 mm, o richiede una bugna esterna. La bugna sposta i regolatori di circa 3 mm verso l'esterno e cambia l'aria di 5,4 mm dichiarata verso la parete della baia.",
+      "La finestra della gonna del coperchio (\"18–25 mm dagli assi\") non è fissata. Con 18 mm il ponte della zampa media tocca la gonna a 42° (gioco 1 mm). Con 22 mm il limite è 51°, dato dal femore contro la baia a y = 50, non \"≥ 52,5°\". Inoltre una gonna a 18–25 mm dall'asse MS (y 23–30) taglia la galleria dei cavi dichiarata a |y| 20–33.",
+      "Molti giochi sotto 1 mm poggiano su dati non misurati: condensatori a 0,2 mm dalla zona spine (zona spine da 25 mm, dato C); testa della camera a 0,45 mm dal coperchio; interruttore a 0,65 mm sotto il coperchio; batteria a 0,35 mm per lato; leve dei Wago a 1,1 mm dal vassoio; colonnine del vassoio a circa 0,4 mm dai Wago.",
+      "I due Wago 221-415 sono affiancati a 2 mm (y 1…19,6 e −19,6…−1) senza dire da che lato entrano i fili. Se gli ingressi guardano verso il centro, non c'è posto per i 12 e 14 AWG.",
+      "L'affermazione sull'antenna è sbagliata. Il carbonio più vicino non sono i ponti a 20 mm ma l'orlo della parete anteriore della base in PETG-CF (x 81, z ≤ 7), a circa 10 mm.",
+      "Il corridoio dello spinotto USB (|y| ≤ 6,5) non può contenere nessuna delle due USB-C affiancate, che stanno fuori asse. La soluzione regge solo perché uno spinotto di circa 25 mm finisce prima dei condensatori (x −14)."
+     ],
+     "punti_forti": [
+      "Contatto tra zampe vicine ricalcolato con il modello in pianta tarato su CONFIG (30,5°): AS–MS 32,6° (32,1° con 2 mm), AS–AD 35,9°, con una sola zampa che ruota da 50,7° a 68,4°. I numeri dichiarati sono giusti.",
+      "Corpo contro zampe, spazzata con le parti reali lette in Fusion: nessun contatto prima di 42–51° (secondo la finestra della gonna), cioè sempre oltre il contatto tra zampe vicine. Chiglia a 7,55 mm dai bracci d'angolo e a 11,55 mm da quelli medi: confermato.",
+      "Ingombro della base 235,1 × 172,7 confermato: 10 mm per lato sul piatto da 256, l'unico con margine reale. Coperchio e altre parti con ampio margine.",
+      "Quote delle gondole coerenti e ricalcolate: bugne medie a 2,95 mm dal tunnel, SSC-32 a 2,45 mm dalle bugne, regolatore a 1,55 mm dalla gondola media e a 2,96 mm dalla bugna d'angolo, spine a 3,45 mm dalle alette.",
+      "Batteria estraibile all'indietro su un percorso libero (|y| ≤ 25, sotto il tetto), con uno sportello a scatto senza parti rotanti. Tutto ciò che sta sotto +7 resta sotto la testa dell'anima (+8,05)."
+     ],
+     "verifiche_fatte": "Script in sola lettura sul design \"Hexapod v2 - MG996R v7\": ingombri delle parti di Zampa e sezioni in pianta a 14 quote (pointContainment). Risultati: ponte con mozzo R12 e braccio che si stringe da ±12 a ±9 fino a X 44,5 (z 19,6–23,5); braccio inferiore con testa R9,45 e lato −Y fino a −24,15; nervatura solo per X 27–42,5; testa dell'anima da X 34, |Y| ≤ 9. Modello in pianta con le stesse funzioni di distanza di calc/zampa_escursioni.py, tarato su CONFIG (30,5°). Su questa proposta: contatto tra vicine (entrambe e una sola); spazzata ogni 0,5° delle sei parti della zampa, per fasce di quota, contro nucleo, baie, chiglia, orecchie, muso, coperchio con finestra da R18, R22 e R25, gondole e servo delle altre zampe. Poi sovrapposizione a scatole di 30 ingombri e confronto delle misure con il piatto."
+    },
+    {
+     "proposta": "accessibile",
+     "punteggio": 4.5,
+     "difetti_bloccanti": [
+      "Il percorso di estrazione della batteria è ostruito. Il pacco (|y| ≤ 24,65, z −37…−9,6) esce passando dal vano di servizio (x −116…−62). Lì stanno la coppia di T-plug coricata sul fondo, (−82; 0; −32,75), z −37…−28,5, e il cicalino in piedi (x −116…−105, |y| ≤ 20, z −36…−11) su una staffa del telaio. Il cambio \"senza attrezzi in 20 s\" non si può fare come descritto.",
+      "Lo sportello è incernierato in basso e ha due bracci spintori lunghi 56 mm (|y| 21–24,5, z −37…−31). Aprendolo \"verso il basso\", i bracci ruotano attorno alla cerniera (raggio 56,7) e salgono nel vano. A circa 32° di apertura colpiscono i due Wago montati contro le pareti del vano (y 5,8–24,4, z −6…+2,3), quindi lo sportello non si apre."
+     ],
+     "difetti_minori": [
+      "Le tacche del fondo (x_s −12…−1, |y_s| ≤ 18) sono troppo strette per il braccio inferiore della coxa. Il gioco scende sotto 1 mm a circa 39° e il braccio tocca il fondo a circa 43°: a ±45° la sua parte dietro la parete arriva a |y_s| 19,3. Il \"libero fino a ±48°\" non si ritrova, anche se il limite resta sopra il contatto tra zampe vicine (32°).",
+      "Spinotto USB-C. L'ESP32 è spostato a destra (y −25…+3,3) e la posizione delle due USB-C non è pubblicata (C). Con porte a ±7 mm dal centro della scheda, lo spinotto destro occupa y −23,9…−11,9 e invade di circa 6 mm la zona spine (|y| ≥ 18) sopra il gruppo dei canali di AD. Il gioco di 1,15 mm dichiarato non è verificabile.",
+      "Testa della camera fino a +30,75 contro il coperchio del muso a +32 con pelle da 1,2 mm: restano 0,05 mm, con una tolleranza della testa di ±0,2.",
+      "Telaio 241,9 × 242,7 mm sul piatto da 256 (dato S): 7 mm per lato, senza margine per una tesa né per un'area utile più piccola del dichiarato.",
+      "Massa a stella (Wago−) a x −95, a 55–60 mm dai regolatori (x −40,6): non \"accanto\" come chiede lo schema del BOM, e il 14 AWG verso il regolatore destro deve passare sotto il ponte.",
+      "Il T-plug \"a 1 mm dal cicalino\" non torna con le coordinate dichiarate: la distanza risulta di circa 15 mm. Mancano lo spazio per la curva dei cavi da 12 AWG della batteria, che restano a 5 mm dalla spina, e la quota di F2."
+     ],
+     "punti_forti": [
+      "Contatto tra vicine ricalcolato: AS–MS 31,95° (31,5° con 2 mm), AS–AD 48,6°, con una sola zampa 58,6–61,1°. I valori dichiarati sono giusti.",
+      "Contorno del telaio ricostruito dalle quote dichiarate: ingombro 241,9 × 242,7 confermato. Il femore tocca il muso a 53,5° e lo sportello a 52°, in linea con quanto dichiarato.",
+      "La parete passa 1 mm dietro gli assi: anima, testa e femore restano fuori dallo scafo fino a ±45°. L'idea della tacca nel fondo per il braccio della coxa è giusta nel principio.",
+      "Con il coperchio tolto la SSC-32 è tutta scoperta. La zona spine ha 3,3 mm sotto il coperchio centrale. I regolatori nei condotti sono a 7,5–9 mm dalle culle MS e PS."
+     ],
+     "verifiche_fatte": "Stessa geometria della zampa letta in Fusion (sola lettura) e stesso modello tarato su CONFIG. Ho ricostruito il contorno del telaio dai vertici dichiarati, con la coda e le tacche del fondo. Spazzata delle parti della zampa contro scafo, fondo con tacche, coperchio centrale (bordo a 20 mm dagli assi), muso (anche allungato fino a x 106 per contenere l'ESP32), sportello, gondole e servo. Penetrazione del braccio nel fondo fuori dalla tacca, angolo per angolo. Sovrapposizioni a scatole dell'elettronica, ingombro della batteria che esce verso −X e rotazione dei bracci dello sportello attorno alla cerniera, ogni 2°."
+    },
+    {
+     "proposta": "stabile",
+     "punteggio": 4,
+     "difetti_bloccanti": [
+      "Le coppie anteriore e posteriore (AS–AD, PS–PD) hanno gli assi a 40 mm. Le zampe si toccano quando ruotano entrambe di 26,65° una verso l'altra (25,45° con 2 mm): sotto i ±30° richiesti e peggio dei 30,5° di CONFIG. Il valore di sintesi \"40,9°\" vale solo per le coppie laterali: 'coxa_libera_tra_vicine_gradi' dovrebbe essere 26,6.",
+      "L'intaglio del Corpo_Piano per i servo di coxa è largo |Y| ≤ 9,75, ma la cassa dell'MG996R è larga ±10,25 (STEP) o ±10,0 (datasheet). La cassa sale fino a +11,85 e quindi attraversa il piano (z 7,05–9,05). L'interferenza è di 0,25–0,5 mm per lato su tutti e sei i servo, 0,45–0,7 mm con il gioco di stampa: il piano non si monta."
+     ],
+     "difetti_minori": [
+      "Cover e sportello hanno solo un intaglio di raggio 13,5 attorno agli assi, mentre il contorno dello scafo passa per gli assi. Sulla linea del contorno il ponte (mozzo R12 più braccio largo 24 che si stringe a 18) arriva a r 13,2 a 30° e a r 15,8 a 45°. Con una gonna lungo il contorno, il ponte scende sotto 1 mm già a circa 25°. Anche gli spigoli della cassa del servo (x_s −10,25, |y_s| 10,25) stanno a r 14,5, fuori dall'intaglio. Lo Sportello_Batteria, largo 200, ha il bordo proprio sugli assi MS/MD. Il contorno di cover e sportello non è dato, quindi \"0 contatti a ±45°\" non è verificabile.",
+      "F2 (66; 0; −27) sta tra i due regolatori (y da ±2 a ±45,2, x fino a 55,2): c'è posto per un portafusibile lungo al massimo 21,6 mm. Uno in linea da 30–40 mm tocca entrambi i regolatori (−4,5 mm con 36 mm).",
+      "La Colonnina_Interruttore \"dalla cella anteriore sinistra\" a (52,7; 36,2) cade dentro l'ingombro del regolatore sinistro (x 41,6–55,2, y 2–45,2): deve partire dal piano.",
+      "Piatto: lo scafo entra solo a 45°, con 244,8 × 244,8 mm su 256 (dato S), cioè 5,6 mm per lato. Con la tesa che la proposta stessa prevede (≥ 5 mm) si arriva a circa 255 mm.",
+      "Antenna dell'ESP32 a 2,1 mm in pianta dal mozzo del ponte AS, in PETG-CF, e 1,25 mm sopra di esso.",
+      "Spine e cavi della SSC-32 stanno 2,8 mm sotto un piano fissato con 20 viti, sotto batteria, cover e basetta. La USB-C è a 16,2 mm dalla batteria: con la batteria montata serve uno spinotto a gomito.",
+      "Le bugne delle gondole AS e AD distano 3,47 mm, non 4,9 (4,9 è la distanza tra le culle). Si fondono comunque."
+     ],
+     "punti_forti": [
+      "Coppie laterali ricalcolate: 40,9° (40,3° con 2 mm); con una sola zampa, da MS verso AS 80,5° e da AS verso MS libero.",
+      "Il contorno passa davvero per gli assi ed è perpendicolare alla direzione neutra. Il femore tocca il contorno solo a +55° per AS e a ±79,5° per MS; contro la gondola e il servo AD, AS arriva a −63,5°.",
+      "Ingombro ricostruito, 265,9 × 276,7 dritto e 244,8 a 45° (miglior rotazione 45°): coincide con quello dichiarato.",
+      "Nel cassone non ci sono altre sovrapposizioni: regolatori a 1,8 mm dai Wago, Wago a 5,5 mm dietro le bugne AS, basetta a 5,6 mm dalla cassa del servo AS, ESP32 a 2,8 mm dal mozzo AS."
+     ],
+     "verifiche_fatte": "Stessa geometria della zampa letta in Fusion (sola lettura) e stesso modello tarato su CONFIG. Ho controllato che l'esadecagono sia convesso e passi per gli assi. Contatto tra vicine per tutte le coppie, con 0 e 2 mm di gioco. Spazzata della zampa contro scafo più piano e contro gondole e servo delle altre zampe. Sweep del ponte contro cover e sportello con intaglio R13,5 e raggio massimo del ponte oltre la linea del contorno, da 20° a 45°. Ingombro della proiezione ruotata da 0° a 90° ogni 0,1°. Sovrapposizioni a scatole dei componenti di cassone e piano, e confronto dell'intaglio del piano con la cassa del servo dello STEP."
+    }
+   ],
+   "raccomandazione": "Per ingombri e interferenze consiglio \"compatto\" come base del corpo. È l'unica proposta con margine vero sul piatto (10 mm per lato). I suoi numeri chiave reggono al ricalcolo: contatto tra vicine a 32,6°, contatto tra le zampe anteriori a 35,9°, corpo libero oltre i 42–51°. I difetti che ho trovato sono locali e si correggono senza toccare le posizioni delle coxe.\n\nNon consiglio \"accessibile\" così com'è: la sua funzione principale, il cambio batteria dal vano di servizio, fallisce due volte. Il pacco non passa perché il vano contiene T-plug e cicalino, e lo sportello a cerniera con i bracci spintori non si apre perché i bracci colpiscono i Wago.\n\nNon consiglio nemmeno \"stabile\": le zampe anteriori e posteriori si toccano a 26,6°, sotto i ±30° richiesti, e il dato di sintesi (40,9°) lo nasconde. In più l'intaglio del piano è più stretto della cassa del servo di coxa. Correggere il contatto anteriore vuol dire allargare il layout, che già entra nel piatto solo in diagonale con 5,6 mm per lato.\n\nNessuna delle tre è verificata in Fusion: tutti i giochi sotto 1 mm vanno ricontrollati sul modello vero e sui pezzi misurati.",
+   "correzioni_necessarie": [
+    "Compatto: spostare le 8 orecchie della chiglia (inserti a (±25; ±31) e (±55; ±31)) fuori dall'ingombro di regolatori e F1, oppure alzare regolatori e F1 di almeno 3 mm. Il regolatore arriverebbe a +6,8, sotto l'orlo a +7.",
+    "Compatto: quotare F2 sul prodotto vero e spostarlo dove entra, per esempio nella baia posteriore destra o nel vano di coda. A x 71 c'è posto solo per un portafusibile lungo 19 mm, tra il Wago+ e la parete anteriore.",
+    "Compatto: aprire o abbassare la parete anteriore del tunnel (x 79–81) per |y| ≤ 17, dove passano il vassoio (z 1–2,6) e la basetta. In alternativa accorciare la basetta fino a x ≤ 78.",
+    "Compatto: mettere gli inserti M2 dei regolatori in bugne esterne sul fianco del tunnel, mai passanti nel vano batteria (gioco 0,35 mm). Poi ricalcolare la y dei regolatori e l'aria verso la parete della baia.",
+    "Compatto: fissare la finestra della gonna del coperchio ad almeno 22 mm dagli assi delle coxe medie. Con 18 mm il ponte la tocca a 42°. La galleria dei cavi (|y| 20–33) va ridisegnata dentro la gonna.",
+    "Compatto: dichiarare il lato d'ingresso dei Wago (verso l'esterno) e lasciare lo spazio per la curva dei 12 e 14 AWG.",
+    "Compatto: correggere il testo sull'antenna. Il carbonio più vicino è l'orlo anteriore della base, a circa 10 mm.",
+    "Compatto: rendere parametri utente tutti i giochi sotto 1 mm (condensatori 0,2; camera 0,45; interruttore 0,65; batteria 0,35 per lato; Wago 1,1). Non stampare la base prima di aver misurato con il calibro batteria, SSC-32 (altezze dei componenti sotto lo spinotto USB) e camera.",
+    "Per tutte le proposte: verificare in Fusion con i corpi veri le interferenze tra corpo e zampe, con la coxa a ±35° e il femore da −49° a +85°, e il contatto tra zampe vicine. I modelli 2D a fasce non vedono raccordi, teste delle viti e cavi.",
+    "Se si scegliesse \"accessibile\": togliere T-plug e cicalino dal percorso del pacco (|y| ≤ 24,65, z −37…−9,6) e rendere lo sportello sfilabile all'indietro invece che a cerniera. Allargare le tacche del fondo almeno a |y_s| ≤ 22 e quotare la posizione delle USB-C prima di fissare l'ESP32 spostato a destra.",
+    "Se si scegliesse \"stabile\": portare le coxe anteriori e posteriori a un contatto di almeno 30° (oggi 26,6°), allargare l'intaglio del piano almeno a |Y| ≥ 10,7 e definire il contorno di cover e sportello ad almeno 17 mm dagli assi, oltre il raggio del ponte a 45°."
+   ]
+  },
+  {
+   "giudice": "struttura",
+   "valutazioni": [
+    {
+     "proposta": "compatto",
+     "punteggio": 7,
+     "difetti_bloccanti": [],
+     "difetti_minori": [
+      "Le orecchie della chiglia (x ±25 e ±55, |y| da 27 a 35, M3 in inserti del ripiano) urtano i regolatori e F1. Il ripiano è spesso 2,0 mm, mentre un inserto M3 del BOM (foro Ø4,2 profondo 6,7) vuole una bugna Ø7,4 alta circa 6 mm sopra il ripiano, fino a z ≈ −24. Quelle di x 25 e 55 entrano nel regolatore (x 14–57,2, y ≥ 30,2, z ≥ −28) per 3,9 mm in quota; quelle di x −25 e −55 entrano in F1 (x −56…−16). Anche con inserti corti la sovrapposizione resta di 1,25 mm. Le bugne non erano tra gli ingombri controllati.",
+      "Il tunnel della batteria è diviso in quota tra due pezzi: base sopra −31,95, chiglia sotto. Sul pacco all'inviluppo massimo restano 0,35 mm per lato, ma la chiglia è centrata solo da 8 M3 nei fori di passaggio (±0,2–0,3 mm). Lo scalino tra le due pareti cade proprio dove scorre il pacco. La proposta lo segnala solo come tolleranza del pacco.",
+      "Il tetto del tunnel si stampa su supporti: 162 × 50 mm, alti 20,5 (circa 165 cm³ di volume da riempire). Si tolgono facilmente da sotto, ma la faccia supportata, ruvida, resta a 0,6 mm dal pacco all'inviluppo massimo.",
+      "\"Gondole, tunnel e baie formano celle chiuse\" è ottimistico. Le baie sono canali aperti in alto e il coperchio non è strutturale: l'unica sezione chiusa è il tunnel, e solo con la chiglia avvitata. Per la torsione del corpo basta: con 1 N·m il taglio è 0,3 N/mm, circa 13 N per vite, molto sotto l'attrito di serraggio. La chiglia però è strutturale e non facoltativa.",
+      "Regolatori in piedi sul fianco del tunnel con 4 M2 orizzontali. Il fianco è spesso 2,0 mm, mentre un inserto M2 vuole un foro profondo 4: servono bugne. Tra le teste delle viti e la parete della baia restano circa 12–14 mm, troppo pochi per un cacciavite o una brugola in asse.",
+      "F1 si raggiunge solo togliendo il coperchio (8 M3). Lo stesso vale per controllare le spine della SSC-32 e per cambiare un servo di coxa. Interruttore e cicalino restano appesi al coperchio.",
+      "I Wago stanno sotto il vassoio, con le leve a 1,1 mm: per qualunque intervento sulla distribuzione si smontano vassoio, ESP32 e camera.",
+      "La procedura di sostituzione del servo di coxa è incompleta. La testa dell'anima (x 34–44,55, |y| ≤ 9,45, da z +8,05) sta sopra la coda dell'aletta (fino a x 37,55) e sopra le viti lato coda (x 34,25). Tolto il ponte, la coxa va ruotata di almeno 33° per sfilare il servo. Per stringere \"per ultime\" le viti lato coda, a ponte montato, serve la coxa a ±27° o più, cioè il servo alimentato. Calcolato con zampa.py (testa_anima_alta).",
+      "La testa della camera è a 0,45 mm dal coperchio: calando il coperchio la si urta.",
+      "Massa del coperchio stimata in 49 g: dal dorso (1,6 mm su circa 22 800 mm²) più la gonna ne risultano circa 60–67."
+     ],
+     "punti_forti": [
+      "Corpo_Base in un pezzo con le sei gondole appoggiate sul piatto. Le sedi dei cuscinetti sono fori ciechi sulla faccia del piatto, senza supporti sotto le gondole. Con 235,1 × 172,7 mm restano 10 mm per lato su X e 42 su Y: l'unico corpo che entrerebbe anche se il piatto utile fosse più piccolo di 256.",
+      "Gondole medie: i fianchi della culla proseguono come pareti di testa delle baie fino al tunnel, cioè anime profonde 34 mm nel piano del momento ribaltante. L'asse è a 2 mm dalla parete esterna della baia, quindi la coppia orizzontale tra cuscinetto e servo entra alla radice. Le gondole d'angolo sono appoggiate al tunnel. Momento sul perno ricalcolato: 13,8 kgf·cm a 2750 g.",
+      "Cambio della batteria dal retro senza attrezzi; il percorso tra le zampe posteriori è libero (braccio della coxa a |y| ≥ 34,5).",
+      "T-plug e micro-USB della SSC-32 sempre raggiungibili dall'apertura del vano di coda. USB-C dell'ESP32 da uno sportello a scatto con 40 mm liberi, come in D-034.",
+      "Ordine di montaggio esplicito e coerente con D-049. La coxa entra di taglio sopra il servo già montato e il perno si infila da sotto, come vuole la revisione della zampa.",
+      "Massa del Corpo_Base (204 g, 170 cm³) coerente con il mio conto a mano: circa 100 cm³ di gondole più circa 70 di tunnel, baie e bugne."
+     ],
+     "verifiche_fatte": "Letti progetto-meccanico.md, D-047…D-049, ricerca/zampa-v0-revisione.json (montaggio della coxa, perno da sotto, sedi), dimensioni-componenti.md, BOM.md, studio-componenti.md, D-034 e D-036 della versione MG90S. Geometria della testa dell'anima e del ponte letta da cad/script/zampa.py (testa_anima_alta x 34–44,55, |y| ≤ 9,45). Rilanciato statica_tripode.py a 2750 g con le coxe di P1: femore 48 %, tibia 44 %, momento sul perno 13,8 kgf·cm (confermati). Python inline: bugne della chiglia contro regolatori e F1 (collisione confermata), rotazione della coxa che libera aletta e viti lato coda (33° e 27°), margini sul piatto, massa della base e del coperchio. Non ho letto il modello in Fusion: la zampa la conoscevo dallo script."
+    },
+    {
+     "proposta": "accessibile",
+     "punteggio": 6,
+     "difetti_bloccanti": [],
+     "difetti_minori": [
+      "Il fondo è a −40 e le gondole a −31,95: la parte esterna di tutte e sei le gondole si stampa su supporti alti 8 mm. Le sedi dei cuscinetti, e in particolare la faccia d'appoggio della flangia, nascono quindi su interfaccia di supporto invece che sulla faccia del piatto. Eppure quella faccia è il riferimento assiale della coxa (il braccio passa 0,4 mm sotto la flangia). Planarità e diametro peggiorano e vanno ripassati a mano.",
+      "Il telaio misura 241,9 × 242,7 su 256 (dato S): 6,65 mm per lato. Con l'interfaccia in PLA serve un cambio di utensile per strato, e una torre di spurgo o pulizia non ha più posto; brim impossibile. Se l'area utile della Creator 5 Pro è più piccola, il pezzo non entra.",
+      "La radice delle gondole è la più debole delle tre. L'asse sta 1 mm fuori da una parete di 2,0 mm perpendicolare alla zampa, e sotto −32 quella parete è intagliata per 11 × 36 mm proprio alla radice (tacche per il braccio). La coppia orizzontale del momento sul perno (circa 30 N tra cuscinetto e albero; 13,7 kgf·cm a 2750 g, ricalcolato) arriva sul bordo libero della parete e la carica fuori dal suo piano. Per le gondole d'angolo l'unico irrigidimento sono i 17 mm interni della culla: le paratie a x ±14 esistono solo per le medie.",
+      "La pelle superiore a +2 \"attorno alle gondole\", se copre anche le baie, è una superficie orizzontale a 42 mm dal piatto che non compare tra i supporti dichiarati.",
+      "SSC-32: la micro-USB non si raggiunge a scheda montata. Per smontare la scheda si dissaldano i 16 AWG sui regolatori, dentro condotti larghi 20 mm e a pochi millimetri dal PETG-CF (temperatura di transizione vetrosa circa 80 °C). Anche il montaggio prevede di saldarli in opera.",
+      "L'interruttore si preme attraverso una lamella stampata con 14 mm di corsa a vuoto: una lamella di PETG da 1,2 mm non regge a lungo quella flessione ripetuta. Serve un pistoncino.",
+      "Il coperchio centrale senza viti (2 linguette, 4 ganci, 1 scatto) va bene per la manutenzione, ma su un robot che cammina e può cadere la tenuta è da provare. Manca almeno una vite imperdibile di sicurezza.",
+      "Regolatori verticali in condotti stretti con 4 M2 orizzontali: come in P1, il cacciavite non entra in asse.",
+      "Cambio del servo di coxa: vale lo stesso rilievo di P1 (coxa ruotata di almeno 33° per sfilare il servo; viti lato coda sotto la testa dell'anima). La procedura non lo dice.",
+      "La massa del telaio è probabilmente sottostimata. Fondo di 25 700 mm² da 1,6–2 mm, pareti di 630 × 42 mm da 2 mm, tunnel e sei gondole fanno circa 250 cm³, cioè circa 300 g contro 262: robot sui 2,67–2,7 kg."
+     ],
+     "punti_forti": [
+      "La manutenzione migliore delle tre. Il coperchio senza attrezzi scopre SSC-32 e tutte le spine, pettini, USB-C, F2 e regolatori. F1, T-plug, Wago e cicalino si raggiungono dallo sportello posteriore.",
+      "Servo di coxa sostituibile senza aprire la struttura: ponte, viti delle alette, cavo dalla fessura aperta e spina sulla SSC-32 già scoperta.",
+      "Tunnel della batteria in un solo pezzo, con 0,6 mm per lato. Lo sportello a cerniera è staccabile, ha bracci spintori e c'è una cinghia d'estrazione: cambio senza attrezzi e senza toccare le zampe.",
+      "Ponte_Elettronica avvitato con 8 M3: chiude il tunnel in una sezione scatolare di circa 54 × 35 mm. Rigidezza a torsione più che sufficiente, purché il ponte sia montato.",
+      "Cavi gestiti zampa per zampa: tasche, pettini con il nome, giunzioni delle prolunghe accessibili."
+     ],
+     "verifiche_fatte": "Ricontrollati gli ingombri del telaio: coda della media a y 83 + 38,35 = 121,35; coda d'angolo a 86 + 38,35·cos 40° + 8,7·sin 40° ≈ 121. Margini sul piatto di 6,65 mm. Rilanciato statica_tripode.py a 2750 g con le coxe di P2: femore 47 %, tibia 41 %, momento sul perno 13,7 kgf·cm. Valutato il percorso del carico dal cuscinetto alla parete intagliata, la posizione delle sedi dei cuscinetti in stampa e la massa del telaio con un conto a mano. Confrontata la procedura del servo di coxa con la geometria della testa dell'anima in zampa.py."
+    },
+    {
+     "proposta": "stabile",
+     "punteggio": 5,
+     "difetti_bloccanti": [
+      "SSC-32, regolatori, Wago, F2 e tutti i 18 connettori dei servo stanno nel cassone chiuso dal Corpo_Piano con 20 M3. Sopra il piano ci sono batteria, basetta con ESP32, camera, interruttore, F1 e T-plug, e i cavi di femore e ginocchio passano nelle sue feritoie. Il cavo del servo di coxa entra nel cassone dalla testata interna della gondola. Per cambiare un servo di coxa, ricontrollare una spina o un regolatore (anche il ripiego D24V150F6) bisogna togliere sportello, batteria, cover anteriore e basetta (o staccare il flat), svitare 20 viti e sollevare un piano legato da cavi di potenza e di logica. Per 18 MG996R e un primo avviamento fatto di molte prove, con questa lente non è accettabile. Non si corregge senza cambiare architettura: la SSC-32 andrebbe sopra il piano, dove ora sta la batteria."
+     ],
+     "difetti_minori": [
+      "L'intaglio del piano per il servo di coxa è largo |Y| ≤ 9,75. La cassa è larga 20 (datasheet) o 20,5 (STEP), cioè semilarghezza 10,0–10,25, con sede a 10,45, e sale fino a +11,85 attraversando il piano (+7,05…+9,05). L'interferenza è di 0,25–0,5 mm per lato: l'intaglio va portato almeno a ±10,65.",
+      "Lo scafo si stampa ruotato di 45°: 244,8 × 244,8 su un piatto di 256 (dato S), cioè 5,6 mm per lato. La proposta chiede anche il brim: siamo al limite.",
+      "La sequenza di montaggio della coxa presuppone un perno già fissato nella coxa (\"abbassata, poi sollevata\"). La revisione della zampa prevede invece il perno infilato da sotto a coxa montata, con un ritegno. Inoltre i 30° di rotazione indicati per calare il servo non bastano: la coda dell'aletta (x fino a 37,55, |y| ≤ 10,25) esce da sotto la testa dell'anima solo da circa 33°.",
+      "USB-C dell'ESP32 con 16,2 mm liberi verso la batteria: serve un cavo a gomito, oppure si toglie la batteria.",
+      "Il momento sul perno delle coxe d'angolo è il più alto delle tre: 15,0 kgf·cm a 2750 g (ricalcolato), con il 44 % del peso su un piede. È compensato dalla struttura migliore, ma è il caso più carico per gondola e cuscinetto.",
+      "Lo Sportello_Batteria (136 × 200, PETG da 1,2) è dichiarato 34 g, ma il solo dorso fa circa 33 cm³ (41 g); con i fianchi alti circa 30 mm si arriva a 60–70 g. Gli stampati del corpo sono quindi più vicini a 390 che a 354 g.",
+      "Regolatori nella cella chiusa: non si ispezionano e non se ne misura la temperatura in opera senza aprire il cassone.",
+      "Venti viti M3 a ogni apertura del cassone."
+     ],
+     "punti_forti": [
+      "La struttura migliore delle tre. Il cassone ha tre celle chiuse dal piano avvitato con 20 M3; gli assi delle coxe stanno sulla linea delle pareti e metà gondola è dentro. La coppia orizzontale del momento entra nel fondo (lato cuscinetto) e nel piano (lato servo), nel loro piano. Le gondole d'angolo sono fuse a coppie nel muso e nella coda.",
+      "Lo scafo si stampa senza supporti: gondole e sedi dei cuscinetti sulla faccia del piatto, smussi a 45° sotto le bugne.",
+      "Cambio della batteria dall'alto senza attrezzi, T-plug che sporge sempre, F1 sotto lo sportello, pulsante sempre raggiungibile.",
+      "Fondo a −31,95, sopra il braccio della coxa: nessuna tacca nel fondo."
+     ],
+     "verifiche_fatte": "Ricontrollato l'ingombro a 45° (coda d'angolo con bugne a (121,8; 51,3), proiezione ≈ 122,4 per lato) e quello dritto (266 × 276,7). Rilanciato statica_tripode.py a 2750 g con le coxe di P3: femore 46 %, tibia 44 %, momento sul perno 15,0 kgf·cm. Confrontato l'intaglio del piano con le quote della cassa in dimensioni-componenti.md e con cul_sede_semi di zampa.py. Calcolata la rotazione della coxa che libera la coda dell'aletta (33°). Stimata la massa dello sportello. Il percorso dei cavi della coxa verso la SSC-32 l'ho dedotto da quanto scrive la proposta."
+    }
+   ],
+   "raccomandazione": "Con la lente di struttura, stampa, montaggio e manutenzione, la base migliore è \"compatto\" (P1, 7/10).\n\n**Perché P1**\n- Ha l'equilibrio migliore. Il corpo strutturale si stampa in un solo pezzo con le sei gondole e le sedi dei cuscinetti sulla faccia del piatto.\n- Sta nel piatto con margine ampio (235 × 173), senza supporti fuori dal tunnel.\n- Le gondole medie hanno i fianchi che continuano nelle pareti delle baie; quelle d'angolo sono appoggiate al tunnel.\n- Batteria e USB si raggiungono senza attrezzi, T-plug e micro-USB della SSC-32 sono sempre a portata.\n- Il costo è un coperchio da 8 viti per raggiungere SSC-32 e F1.\n\n**P2 (\"accessibile\", 6/10)**\n- È il riferimento per la manutenzione: coperchio senza attrezzi; F1, Wago e T-plug dallo sportello.\n- Lo pagano stampa e struttura:\n  - sei gondole su supporti alti 8 mm, con le sedi dei cuscinetti su interfaccia di supporto;\n  - 6,65 mm di margine sul piatto con un secondo materiale e quindi senza posto per una torre di spurgo;\n  - radici delle gondole a 1 mm da una parete di 2 mm intagliata sotto.\n\n**P3 (\"stabile\", 5/10)**\n- Ha la struttura migliore e si stampa senza supporti.\n- Però chiude SSC-32, regolatori e 18 connettori in un cassone da 20 viti sotto batteria ed elettronica: cambiare un servo di coxa vuol dire smontare quasi tutto.\n- Ha anche un intaglio del piano più stretto della cassa del servo.\n\n**Cosa prendere dalle altre**\n- Da P2: un coperchio ad apertura rapida sopra la SSC-32 e F1 raggiungibile dal retro.\n- Da P3: il principio di portare i fianchi di ogni gondola fino a una parete o al tunnel, anche per le gondole d'angolo.\n\n**Valido per tutte e tre:** la procedura di sostituzione del servo di coxa deve dire che la testa dell'anima copre la coda dell'aletta e le viti lato coda. Tolto il ponte, la coxa va ruotata di 33° o più; per il serraggio finale delle viti lato coda il servo va alimentato e portato a ±27° o più.",
+   "correzioni_necessarie": [
+    "P1, chiglia: spostare le orecchie fuori dalle impronte dei regolatori (x 14–57,2) e di F1 (x −56…−16). Si possono mettere per esempio a x ±5 e ±70, controllando il braccio della coxa d'angolo, che arriva a |y| ≥ 34,5. In alternativa, dadi prigionieri nelle orecchie e viti dall'alto. In ogni caso le bugne degli inserti vanno messe tra gli ingombri controllati.",
+    "P1, tunnel della batteria: aggiungere un labbro di centraggio tra chiglia e base, con invito di 0,5 × 45° sul giunto. Se il pacco misurato con il calibro lo permette, portare la larghezza interna da 50 a circa 51 mm. Tenere la faccia supportata del tetto ad almeno 1 mm dal pacco, oppure fare il tetto a due falde a 45° per stamparlo senza supporti.",
+    "P1, regolatori: niente M2 orizzontali da avvitare dentro la baia. Montarli su guide a slitta stampate con un fermo, oppure con viti a testa svasata dall'interno del tunnel, messe prima della chiglia. Prevedere le bugne per gli inserti M2, perché il fianco del tunnel è spesso solo 2,0 mm.",
+    "P1, accessi: spostare F1 nel vano di coda accanto al T-plug, così si raggiunge dall'apertura posteriore. Fissare il coperchio con linguette davanti e 2 viti imperdibili invece di 8 M3. Dare un connettore a interruttore e cicalino, oppure montarli sulla base. Togliere i Wago da sotto il vassoio, o rendere il vassoio estraibile senza staccare il flat della camera.",
+    "Per tutte le proposte: scrivere la procedura di sostituzione del servo di coxa. Ordine: coperchio, spina sulla SSC-32, ponte (2 M3), coxa ruotata di circa 35° (libera da 33°, contatto con la vicina ferma da 51°), viti delle alette, servo verso l'alto con il passacavo nella fessura aperta. Per il serraggio finale delle viti lato coda, il servo va alimentato e portato a ±30–35°.",
+    "Per tutte le proposte: provino di una gondola integrale con servo, cuscinetto LF-1050ZZ e coxa vera, caricato con il momento sul perno (14–15 kgf·cm, circa 30 N di coppia orizzontale tra cuscinetto e albero) e con la coppia di stallo. Si misura la torsione della culla aperta oltre la parete della baia prima di stampare la base.",
+    "Confermare l'area utile della Creator 5 Pro, e se servono zona di spurgo o torre per il cambio utensile, prima di fissare la pianta. Vale per tutte, ed è decisivo per P2 e P3.",
+    "Se si adottano parti di P3: intaglio del piano per il servo di coxa ad almeno ±10,65. Se si adottano parti di P2: sedi dei cuscinetti sulla faccia del piatto, oppure ripassate a misura dopo la stampa."
+   ]
+  },
+  {
+   "giudice": "sistema",
+   "valutazioni": [
+    {
+     "proposta": "1 - compatto (Corpo compatto e basso)",
+     "punteggio": 7,
+     "difetti_bloccanti": [],
+     "difetti_minori": [
+      "Margine tra zampe vicine piccolo. Il mio modello in pianta (fascia X 40,55-133, Y ±30,55, tarato su CONFIG = 30,5°) dà il contatto a 32,75° (32,25° con 2 mm di gioco), contro i ±30 richiesti. Spostando le coxe medie fino a y 60 si guadagna solo 1,25°: con un corpo così compatto il limite è strutturale e va coperto dal firmware (somma delle imbardate verso la vicina ≤ 60°).",
+      "Coppia nell'assetto alto 130/25 al 54 % a tripode (48 % con CONFIG). Negli assetti 80/60 e 70/70 serve la regola del firmware 'piede neutro d'angolo 5 mm più fuori'. statica_tripode.py segnala la fase di volo come 'NON FATTIBILE' (ginocchio 39,7° contro il criterio generico di 40°); con la tabella vera (33° a α 30°) più i 3° del firmware restano circa 3,7°.",
+      "Scorte dei cavi (circa 2,4 m) messe anche 'nella parte alta delle baie anteriori', cioè sopra i regolatori e sotto le feritoie del coperchio: il camino d'aria di circa 58 mm resta parzialmente chiuso.",
+      "Giochi che dipendono da dati non misurati: condensatori a 0,2-0,5 mm, testa della camera a 0,45 mm dal coperchio, batteria a 0,35 mm per lato sull'inviluppo massimo (49,3), passaggio della spina USB-C valido solo se i componenti della SSC-32 stanno sotto +10,2.",
+      "Il 12 AWG va da F1, nella baia posteriore sinistra, al Wago sul muso: 15-17 cm sotto la SSC-32. Le barre occupano da −7,4 a −1,4 sotto le file e lasciano solo 2 mm sopra il tetto (−9,4), quindi il cavo non può entrare di lato sotto le file: deve entrare dalla testa posteriore della scheda (x < −50). Il percorso non è descritto.",
+      "F1 si raggiunge solo togliendo il coperchio (8 M3). Il BOM prevede di passare da 15 a 30 A dopo le prime prove, quindi almeno uno smontaggio è certo.",
+      "Ginocchi anteriori nel campo della camera da 120°: li calcolo da 45° a 60° dall'asse ottico, 51° in posizione neutra. Sono dentro l'inquadratura, non 'ai bordi'.",
+      "Viti M2 nei fori da circa 3,0 della SSC-32 (il BOM, voce D8, prevede M2,5): gioco radiale di 0,5 mm, va messa una rondella."
+     ],
+     "punti_forti": [
+      "Statica riprodotta esattamente. A 2750 g: femore 48,0 %, ginocchio 44,0 %, margine 59 mm. Andature a tripode 54/48/57/70 %, ribaltamento 22/29/38/50° con il baricentro a −9,2. Rispetto a CONFIG (52 %) il femore scende di 4 punti.",
+      "Cavi dei servo più corti delle tre proposte. Con un modello uguale per tutte (215 mm sulla zampa per il ginocchio, tratto nel corpo +15 %): ginocchio AS 304 mm, PS 274, MS 251, contro circa 306 utili. Bastano davvero 4 prolunghe (C5), sui ginocchi di AS e AD.",
+      "Stima di massa più onesta e completa: 2743 g, con viteria (140 g), squadrette, piedini e cavi della zampa. È coerente con i circa 2,75 kg di D-049.",
+      "Rispetta D-034 (40 mm liberi dietro le USB-C, sportello sul dorso). T-plug e micro-USB della SSC-32 si raggiungono dall'apertura di coda; la batteria esce dal retro senza attrezzi. Ho verificato che il corridoio |y| ≤ 25 dietro la coda è libero dalle zampe posteriori e dalle gondole (la fascia della zampa PS parte da y 37,8).",
+      "Stampa più sicura: la base misura 235,1 × 172,7 e sul piatto da 256 restano 10 mm per lato.",
+      "Massa a stella a circa 25-50 mm dai regolatori; 14 e 16 AWG cortissimi (5-6 cm); antenna nel muso in PETG, con il carbonio più vicino a circa 18-20 mm.",
+      "Baricentro basso (batteria a −26,7) e luce da terra invariata (h − 41,4)."
+     ],
+     "verifiche_fatte": "Ho rilanciato statica_tripode.py (valuta, margine, volo con gamma_min 40 e 33) da 2600 a 2800 g e andature.py per 4 assetti × 3 andature, con il baricentro a −9,2: tutti i numeri dichiarati sono riprodotti. Contatto tra zampe vicine con un modello in pianta indipendente (distanza tra poligoni di zampa_escursioni.py, tarato su CONFIG = 30,5°): AS-MS 32,75°, AS-AD 36°; una zampa sola verso la vicina ferma 50,5-68,5°. Scansione di varianti (medie a y 48-60, angoli da 30 a 35°): al massimo +1,25° di contatto. Campo della camera: angoli di ginocchi e piedi a 100/45, 90/55 e 70/70 su tutto il passo. Lunghezze dei cavi dei servo con lo stesso modello per tutte e tre le proposte. Corridoio di estrazione della batteria contro le zampe posteriori. Percorso del 12 AWG contro le quote delle barre. Parametri del design 'Hexapod v2 - MG996R v7' letti in Fusion in sola lettura (bat_, ssc_, srv_cavo_z = 23,5 cioè uscita del cavo a z −21,85, cz_, cx_): coerenti."
+    },
+    {
+     "proposta": "2 - accessibile (Corpo per manutenzione e accesso)",
+     "punteggio": 6,
+     "difetti_bloccanti": [
+      "Il cicalino BX100 sta in piedi in (−110,5; 0; −23,5): occupa x da −116 a −105, |y| ≤ 20, z da −36 a −11, ed è montato su una staffa del telaio. È nel percorso di estrazione della batteria (|y| ≤ 24,65, z da −37 a −9,6, il pacco esce all'indietro proprio da lì): così come è descritto, il pacco non esce. Il controllo delle interferenze è statico e non lo vede. Si corregge facilmente: cicalino sullo sportello, oppure sopra z −6 come i Wago. Anche il codino del T-plug sta sul fondo, nel percorso, ma è flessibile e si sposta."
+     ],
+     "difetti_minori": [
+      "Il telaio misura 241,9 × 242,7 su un piatto da 256 non confermato (dato S): restano 7 mm per lato, senza contare la tesa. Servono supporti con interfaccia in PLA sotto il fondo delle sei gondole (8 mm sopra il piatto), cioè proprio dove appoggia la flangia dei cuscinetti LF-1050ZZ: la sede di riferimento viene stampata sul supporto.",
+      "Massa sottostimata: 2632 g con il bilancio preliminare (viteria 90 g, niente piedini). Contata come la proposta 1 arriva a circa 2,80 kg. A 2800 g il femore è al 48,3 %, il tripode a 90/55 al 57 % e a 70/70 al 72 %.",
+      "Dietro le USB-C restano 25 mm invece dei circa 40 di D-034. Per accedervi si toglie il coperchio centrale (senza attrezzi, quindi accettabile).",
+      "Massa a stella nel vano di servizio, a circa 70-80 mm dai regolatori (il BOM la vuole 'accanto ai regolatori'). Elettricamente va bene.",
+      "Contatto tra zampe vicine a 32,0° (31,5° contando perni e teste): lo stesso margine sottile della proposta 1.",
+      "Con il mio modello i ginocchi arrivano a circa 295 mm su tutte le zampe, contro circa 306 utili: le 6 prolunghe (C5 e C6) sono giustificate. Le loro giunzioni nelle tasche sono 6 connessioni in più da 2,5 A di stallo.",
+      "Camera spostata di 10,85 mm a destra: campo asimmetrico (AD a 54-55° a fine passo, AS a 59-60°).",
+      "Il ribaltamento dichiarato (24-51°) usa il baricentro a −11,6, che dipende da una massa ottimistica."
+     ],
+     "punti_forti": [
+      "Accesso migliore. Coperchio centrale senza viti con sotto tutte le spine, le USB-C, F2 e i regolatori. Dallo sportello si raggiungono F1, il T-plug, i Wago e il cicalino. Tasche e pettini dei cavi organizzati per zampa.",
+      "Termica migliore. Ogni regolatore ha il suo condotto (prese nel fondo, feritoie alte nel fianco verso l'aria libera tra le zampe), lontano dalle scorte dei cavi e dall'elettronica.",
+      "Antenna migliore: sotto PETG non caricato, a 14 mm dal carbonio e a più di 30 mm dalle gondole. Camera migliore: ginocchi anteriori da 55 a 76° dall'asse ottico, quasi sempre fuori dal campo da 120°.",
+      "Cavi di potenza cortissimi: 12 AWG circa 0,1 m per colore, 14 AWG 85-110 mm, 16 AWG circa 65 mm.",
+      "Statica riprodotta: a 2700 g femore 46,6 %, ginocchio 39,8 %, margine 61,5 mm; nessuna segnalazione sul volo.",
+      "Nessun acquisto fuori dal BOM: la prolunga C7 non serve perché la carica si fa fuori dal robot."
+     ],
+     "verifiche_fatte": "Ho rilanciato statica_tripode.py e andature.py alla massa dichiarata (2632 g) e a 2750 e 2800 g, con il baricentro a −11,6: i valori dichiarati sono riprodotti. Contatto tra vicine con il mio modello in pianta: AS-MS 32,0° (31,5° con 2 mm di gioco), AS-AD 48,75°. Campo della camera dalla lente in (117; −10,85; 26,5). Lunghezze dei cavi con il modello comune, passando per l'asola. Controllo per scatole del percorso di estrazione della batteria contro cicalino, T-plug, Wago e F1: cicalino e T-plug sono nel percorso. Corridoio della batteria tra le zampe posteriori: libero (fascia della zampa da y 52,7). Massa ricontata con lo stesso criterio della proposta 1."
+    },
+    {
+     "proposta": "3 - stabile (Scafo a cassone esagonale largo)",
+     "punteggio": 4.5,
+     "difetti_bloccanti": [
+      "Antenna dell'ESP32 a 3-8 mm dai ponti in PETG-CF delle coxe AS e AD, sopra un piano in PETG-CF. Va contro il vincolo dello studio dei componenti ('antenna dell'ESP32 fuori dal carbonio') e rende probabile l'acquisto dell'antenna esterna C8.",
+      "USB-C dell'ESP32 a 16,2 mm dalla batteria: contro D-034 (circa 40 mm liberi, senza acquisti). Servono una spina a gomito, cioè un acquisto, oppure togliere la batteria a ogni collegamento.",
+      "SSC-32 e tutte le 18 spine chiuse nel cassone. Per controllare o cambiare una spina, o sostituire un servo, si tolgono sportello, batteria, cover anteriore, basetta (o il flat) e 20 viti M3: per un robot con 18 MG996R clone non è una manutenzione accettabile.",
+      "Regolatori (3-4 W ciascuno) nella cella anteriore chiusa, insieme a Wago, F2 e alle matasse di scorta. Sfogano dalle feritoie del piano dentro il volume sotto la Cover_Anteriore, dove stanno l'ESP32 e la basetta, e non sono previste feritoie nella cover."
+     ],
+     "difetti_minori": [
+      "Stampa: lo scafo misura 244,8 × 244,8 in diagonale sul piatto da 256 (dato S). Restano 5,6 mm per lato, e la tesa necessaria se li mangia.",
+      "Cavi del ginocchio sottostimati: la proposta usa circa 185 mm sulla zampa, contro i 215-230 delle altre due. Con il modello comune i ginocchi medi arrivano a circa 311 mm contro circa 306 utili, i ginocchi d'angolo a circa 301: servono le prolunghe, almeno su MS e MD, probabilmente su tutte e sei.",
+      "Batteria sul dorso, sotto uno sportello in PETG da 1,2 mm: il baricentro sale a circa −1 (contro −9/−12 delle altre) e il LiPo è la parte più esposta in caso di ribaltamento.",
+      "Coppia nell'assetto alto 130/25 al 56-58 %; ginocchio al 44 % al punto di progetto; le zampe d'angolo portano il 44 % del peso.",
+      "AS e AD si toccano a 26,25° se ruotano entrambe una verso l'altra (granchio con passo lungo, circa 13° per parte).",
+      "Ginocchi anteriori a 41-61° dall'asse ottico: dentro il campo.",
+      "Robot molto largo: piedi neutri a ±200 in Y, impronta di circa 349 × 400 mm.",
+      "La 'sequenza di montaggio della coxa' descritta (coxa prima del servo, servo inserito con la coxa ruotata) non serve: nel modello il perno entra da sotto attraverso il foro passante del braccio (zampa.py, foro_perno con perno_sporge 1,4)."
+     ],
+     "punti_forti": [
+      "Margine meccanico e statico nettamente migliore. Con il mio modello il contatto tra vicine è a 41,0° (40,5° con 2 mm di gioco). Margine di stabilità 79 mm contro 58-61. Ribaltamento 29/35/43/52°. Femore al 45,3 % a 2700 g; tripode a 90/55 al 51-53 % e a 70/70 al 61-63 %.",
+      "Il T-plug sporge sempre dallo sportello e il pulsante dell'interruttore è sempre raggiungibile: sezionamento d'emergenza ottimo.",
+      "Massa a stella accanto ai regolatori; 14 AWG di circa 40 mm.",
+      "Cassone di torsione chiuso: concetto strutturale solido (non è la mia lente)."
+     ],
+     "verifiche_fatte": "Ho rilanciato statica_tripode.py e andature.py a 2650, 2750 e 2800 g, con il baricentro a −1: i valori dichiarati sono riprodotti (femore 45 %, margine 79 mm, 130/25 al 56-58 %). Contatto tra vicine con il modello in pianta: AS-MS 41,0°, AS-AD 26,25°, una zampa sola MS verso AS 80,5°. Campo della camera dalla lente in (104,75; 0; 29,25). Lunghezze dei cavi con il modello comune: il cavo entra dalla feritoia della cover, scende dal piano e arriva alla spina a −6,75. Controllo nel modello in Fusion e in zampa.py di come si monta il perno della coxa. Massa ricontata con lo stesso criterio della proposta 1 (circa 2,8 kg)."
+    }
+   ],
+   "raccomandazione": "Partire dalla proposta 1 (compatto), con le correzioni elencate, prendendo dalla proposta 2 l'organizzazione termica e quella dei cavi.\n\nSul piano di sistema nessuna delle tre domina.\n- La 3 è la migliore per statica e spazio tra le zampe (contatto a 41°, margine 79 mm, ribaltamento +7-9°). Però viola due vincoli espliciti: antenna fuori dal carbonio e D-034 per le USB. Seppellisce la SSC-32 sotto 20 viti, chiude i regolatori nel cassone con lo sfogo verso l'ESP32 e sta a 5,6 mm dal bordo del piatto. Sono difetti di disposizione, non dettagli.\n- La 2 ha il miglior accesso, la miglior termica e la miglior posizione di antenna e camera. Però il telaio sta a 7 mm dal bordo del piatto, ha supporti sotto le sedi dei cuscinetti, una massa ottimistica (circa 2,80 kg contati come la 1) e un cicalino che, come è descritto, blocca l'uscita della batteria.\n- La 1 ha la stessa statica della 2 a parità di massa (femore 48 %), i cavi dei servo più corti (bastano 4 prolunghe), la stampa più sicura (10 mm per lato), D-034 rispettato, il T-plug a portata di mano e la stima di massa più realistica (2,74 kg).\n\nIl margine tra zampe vicine (32,5-32,75°) è uguale nella 1 e nella 2 ed è strutturale per un corpo che sta nel piatto: spostare le coxe medie fino a y 60 fa guadagnare solo 1,25°. Va quindi coperto dal firmware.\n\nPer tutte e tre vale lo stesso fatto: il cavo del ginocchio da 32 cm (dato S) è al limite (da −5 a +12 mm con un modello comune), quindi le prolunghe C5 e C6 vanno messe in conto.",
+   "correzioni_necessarie": [
+    "Proposta 1, termica: niente scorte di cavo nelle baie dei regolatori. Ogni baia anteriore deve fare da camino libero dalle feritoie del ripiano a quelle del coperchio. Le scorte vanno nella baia posteriore destra e in tasche per zampa lungo il tunnel, come le tasche e i pettini della proposta 2. La temperatura dei regolatori va misurata al banco nella marcia 70/70.",
+    "Proposta 1, percorso del 12 AWG: da F1 entra sotto la SSC-32 dalla testa posteriore della scheda (x < −50) e corre al centro (|y| < 19). Non può passare di lato sotto le file, perché le barre occupano da −7,4 a −1,4 e sopra il tetto restano 2 mm. Va disegnata la fascia del 12 AWG, del 16 AWG e del 22 AWG nei 6 mm liberi.",
+    "Proposta 1, giochi minimi di almeno 1 mm dove ora dipendono da dati C o S: testa della camera e coperchio (0,45), condensatori (0,2-0,5), leve dei Wago e vassoio (1,1). Batteria ad almeno 0,6 mm per lato sull'inviluppo massimo, oppure vano quotato col calibro sul pacco prima di stampare la base.",
+    "Proposta 1: sportellino a scatto nel coperchio sopra F1 (nessun acquisto), perché il passaggio da 15 a 30 A è già in programma.",
+    "Per tutte: massa di progetto 2,75 kg con lo stesso conteggio (viteria circa 140 g, piedini, squadrette). Le masse di 2,63 e 2,65 kg delle proposte 2 e 3 vanno riportate a circa 2,80 kg prima di confrontare le coppie.",
+    "Firmware, da scrivere in progetto-meccanico.md: somma delle imbardate di due zampe vicine verso l'altra entro 60° (contatto a 32,75°); imbardata assoluta entro ±30°; γ minimo in funzione di α dalla tabella della zampa più 3°; nella proposta 1, piede neutro delle zampe d'angolo 5 mm più fuori negli assetti 80/60 e 70/70.",
+    "Cavi: mettere in conto le prolunghe C5 con le clip C6 sui ginocchi (4 nella proposta 1, 6 nelle altre). Il percorso dei cavi sulla zampa va disegnato prima di fissare le lunghezze, perché con un modello comune i ginocchi sono a 295-311 mm contro circa 306 utili.",
+    "Se si prende qualcosa della proposta 2: il cicalino va tolto dal percorso della batteria (sullo sportello, oppure sopra z −6). Le sedi dei cuscinetti delle gondole non vanno stampate su supporto.",
+    "Viti della SSC-32: M2 con rondella negli inserti M2 (D5), oppure M2,5 come dice il BOM (D8). Va deciso e annotato, perché M2 nei fori da 3,0 lascia 0,5 mm di gioco radiale."
+   ]
+  }
+ ]
+}

@@ -46,17 +46,17 @@ def stallo_kgfcm(v):
 # Configurazione di riferimento = punto di progetto PRELIMINARE (vedi docs/dimensionamento.md).
 # Lunghezze e posizioni degli assi sono stime da confermare con il CAD.
 CONFIG = {
-    "massa_g": 2600.0,          # massa di progetto: bilancio preliminare 2.51 kg + margine (docs/dimensionamento.md)
+    "massa_g": 2750.0,          # massa di progetto: stima con zampe da 92 g e viteria (D-050, revisione della zampa)
     "com_xy": (0.0, 0.0),       # baricentro nel piano, terna corpo
     "v_servo": 6.0,             # tensione del rail servo
     # assi coxa: nome -> (x, y, direzione neutra della zampa in gradi dall'asse longitudinale +x)
-    "coxa": {
-        "AS": (95.0, 60.0, 45.0),     # anteriore sinistra
-        "MS": (0.0, 78.0, 90.0),      # media sinistra
-        "PS": (-95.0, 60.0, 135.0),   # posteriore sinistra
-        "AD": (95.0, -60.0, -45.0),
-        "MD": (0.0, -78.0, -90.0),
-        "PD": (-95.0, -60.0, -135.0),
+    "coxa": {    # D-050: disposizione del corpo "compatto"
+        "AS": (80.0, 44.0, 30.0),     # anteriore sinistra
+        "MS": (0.0, 48.0, 90.0),      # media sinistra
+        "PS": (-80.0, 44.0, 150.0),   # posteriore sinistra
+        "AD": (80.0, -44.0, -30.0),
+        "MD": (0.0, -48.0, -90.0),
+        "PD": (-80.0, -44.0, -150.0),
     },
     "Lc": 55.0,     # asse coxa -> asse femore (zampa D-047: anima della coxa fuori dalla gondola)
     "Lf": 65.0,     # asse femore -> asse ginocchio (D-047, verificato con calc/zampa_escursioni.py)
@@ -65,7 +65,7 @@ CONFIG = {
     "h": 100.0,     # altezza asse femore dal suolo (assetto di marcia classico)
     "passo": 60.0,  # corsa del piede in appoggio (mm), simmetrica attorno al neutro
     "alzata": 30.0, # sollevamento del piede in volo (mm)
-    "gamma_min": 40.0,  # angolo interno minimo al ginocchio (obiettivo per la zampa nuova)
+    "gamma_min": 36.0,  # ginocchio minimo: tabella GAMMA_MIN della zampa (33 a femore +30) piu 3 di margine
     "corsa_servo": 160.0,  # escursione utile di un servo (gradi), su 180 nominali
 }
 
