@@ -404,6 +404,11 @@ def fai_sportellino(corpo):
              'cor_serv_semi - 0.3 mm', 'cor_cop_sp')
     p.blocco('z', 'cor_cop_z', 'vuoto', 'cor_serv_x0 + 1.5 mm', '-(cor_serv_semi - 1.5 mm)', 'cor_serv_x1 - 1.5 mm',
              'cor_serv_semi - 1.5 mm', 'cor_cop_sp', 1, TAGLIA)
+    # nervature di schiacciamento sui lati lunghi della cornice: a filo dell'apertura nel modello (i fori stampati
+    # vengono piu' stretti di 0,1-0,2): lo sportellino resta su per attrito; si tarano sul pezzo stampato
+    for nome, x in (('a', '16 mm'), ('p', '-(8 mm)')):
+        for lato, y0, y1 in (('s', 'cor_serv_semi - 0.3 mm', 'cor_serv_semi'), ('d', '-(cor_serv_semi)', '-(cor_serv_semi - 0.3 mm)')):
+            p.blocco('z', 'cor_cop_z', 'nervatura_%s%s' % (nome, lato), x + ' - 0.5 mm', y0, x + ' + 0.5 mm', y1, 'cor_cop_sp')
     return occ, p
 
 
@@ -422,6 +427,9 @@ def fai_coperchio(corpo):
                        ('lobo_ps', '-(cor_ang_x)', 'cor_ang_y'), ('lobo_pd', '-(cor_ang_x)', '-(cor_ang_y)'),
                        ('lobo_ms', '0 mm', 'cor_med_y'), ('lobo_md', '0 mm', '-(cor_med_y)')):
         p.cilindro('z', 'cor_cop_z', nome, x, y, '2 * cor_cop_lobo', 'cor_cop_sp')
+    # tacca per l'unghia sotto il bordo anteriore dello sportellino di servizio
+    p.blocco('z', 'cor_cop_z + cor_cop_sp', 'tacca_sportellino', 'cor_serv_x1 + 1 mm', '-(5 mm)', 'cor_serv_x1 + 4 mm', '5 mm', '0.8 mm', -1,
+             TAGLIA)
     # fori delle viti delle colonnine e feritoie sopra i regolatori (dopo i lobi, che altrimenti li richiuderebbero)
     for nome, x, y in (('foro_as', 'cor_col_xa', 'cor_col_y'), ('foro_ps', '-(cor_col_xp)', 'cor_col_y'),
                        ('foro_ad', 'cor_col_xa', '-(cor_col_y)'), ('foro_pd', '-(cor_col_xp)', '-(cor_col_y)')):
