@@ -185,3 +185,10 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - **Femore**: una fascetta da 200 mm attorno a tutto il femore, vicino all'anca (circa 15 mm dall'asse), senza feritoie: vicino al ginocchio la tibia ripiegata a γ 29° passerebbe a pochi millimetri.
 - **Anse**: tra la culla della tibia e la fascetta del femore il cavo del ginocchio va da 22 a 40 mm al variare di γ; tra la fascetta del femore e il ponte, da 11 a 56 mm al variare di α. Le anse si lasciano sopra il servo del femore. `calc/cavi_servo.py` ne tiene conto (anse di 10, 17 e 20 mm per imbardata, anca e ginocchio).
 - Verificato: ponte rigenerato, giunti e limiti della zampa rifatti, posa di riferimento misurata (0; 90), nessuna interferenza nella zampa e nell'assieme, coxe libere a ±35°, ciclo a tripode libero a 70/70. STL del ponte riesportato.
+
+## D-059 — Risposte dell'utente del 9 ottobre; estetica non ancora applicata
+
+- **Pulsante d'accensione**: approvato il pulsante da pannello Ø12 sul coperchio (voce B3b), collegato ai pin A e B della 2813.
+- **Approvate** "se necessarie": 12 viti M3 × 5 (D6), distanziali B18, schiuma D10 al posto delle cinghie, 4 prolunghe C5. Tutte servono al modello. **Tolta C6** (clip delle prolunghe): non serve, le quattro giunzioni si chiudono con il termorestringente B19.
+- **Cicalino**: domanda riscritta (BOM, domanda 6). Nella prima versione avevo scritto che dentro il corpo non c'era posto: è sbagliato. Sotto il coperchio in coda, sopra il T-plug, c'è spazio (25 × 40 × 14 mm), il display si vede da una finestra del dorso e lo spinotto di bilanciamento si stacca dal retro come il T-plug.
+- **Estetica** ("futuristica ma minimale"): finora **non applicata**. Coperchio, muso, gonne e sportelli sono forme funzionali (piastre, lobi circolari, scatola del muso) e nessuna decisione ne ha tenuto conto; l'unico accenno è nel giudizio sulle architetture della zampa. Va fatta una passata estetica sulle parti non strutturali (coperchio, muso, gonne, sportelli) e sulle facce in vista di zampe e base, prima di considerare chiuso il CAD; pulsante e cicalino si collocano dentro quella passata.
