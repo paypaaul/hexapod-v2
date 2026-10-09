@@ -1,0 +1,945 @@
+<?xml version="1.0"?>
+<robot name="esapode">
+  <!-- Generato da tools/genera_modelli.py (versione 2.1.0, Hexapod v2.1.0 v1): non modificare a mano. -->
+  <material name="scuro">
+    <color rgba="0.18 0.18 0.2 1" />
+  </material>
+  <link name="corpo">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/corpo.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.004073 0.000014 -0.011555" rpy="0 0 0" />
+      <mass value="1.39104" />
+      <inertia ixx="0.00270093" ixy="5.5901e-07" ixz="3.40985e-05" iyy="0.00553239" iyz="-3.09602e-07" izz="0.007219" />
+    </inertial>
+    <collision name="chiglia">
+      <origin xyz="0.00015 0 -0.036675" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1751 0.0694 0.00945" />
+      </geometry>
+    </collision>
+    <collision name="scafo">
+      <origin xyz="0.00015 0 -0.012475" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1751 0.096 0.03895" />
+      </geometry>
+    </collision>
+    <collision name="carapace">
+      <origin xyz="0.002425 0 0.0215" rpy="0 0 0" />
+      <geometry>
+        <box size="0.19915 0.112 0.029" />
+      </geometry>
+    </collision>
+    <collision name="lobo_AS">
+      <origin xyz="0.08 0.044 0.0215" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.0323" length="0.029" />
+      </geometry>
+    </collision>
+    <collision name="lobo_MS">
+      <origin xyz="0 0.048 0.0215" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.0323" length="0.029" />
+      </geometry>
+    </collision>
+    <collision name="lobo_PS">
+      <origin xyz="-0.08 0.044 0.0215" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.0323" length="0.029" />
+      </geometry>
+    </collision>
+    <collision name="lobo_AD">
+      <origin xyz="0.08 -0.044 0.0215" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.0323" length="0.029" />
+      </geometry>
+    </collision>
+    <collision name="lobo_MD">
+      <origin xyz="0 -0.048 0.0215" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.0323" length="0.029" />
+      </geometry>
+    </collision>
+    <collision name="lobo_PD">
+      <origin xyz="-0.08 -0.044 0.0215" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.0323" length="0.029" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="imu" />
+  <joint name="imu" type="fixed">
+    <parent link="corpo" />
+    <child link="imu" />
+    <origin xyz="0.0525 0 -0.0059" rpy="0 0 0" />
+  </joint>
+  <link name="coxa_AS">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/coxa.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.046381 -0.001983 -0.009636" rpy="0 0 0" />
+      <mass value="0.09408" />
+      <inertia ixx="4.08107e-05" ixy="1.33817e-06" ixz="4.98159e-06" iyy="6.21611e-05" iyz="-5.71956e-07" izz="4.48324e-05" />
+    </inertial>
+    <collision name="coxa_culla">
+      <origin xyz="0.054 0.00045 -0.01155" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0269 0.0508 0.0536" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="femore_AS">
+    <visual>
+      <origin xyz="-0.055 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/femore.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.03256 0.003123 0.003408" rpy="0 0 0" />
+      <mass value="0.05442" />
+      <inertia ixx="3.75087e-05" ixy="1.18337e-08" ixz="-1.55199e-07" iyy="3.19617e-05" iyz="7.09479e-07" izz="6.25141e-05" />
+    </inertial>
+    <collision name="femore_A">
+      <origin xyz="0.0325 0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_0">
+      <origin xyz="0 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_1">
+      <origin xyz="0.065 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B">
+      <origin xyz="0.0325 -0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_0">
+      <origin xyz="0 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_1">
+      <origin xyz="0.065 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="tibia_AS">
+    <visual>
+      <origin xyz="-0.12 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/tibia.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
+      <mass value="0.11019" />
+      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+    </inertial>
+    <collision name="tibia_culla">
+      <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
+      <geometry>
+        <box size="0.032167 0.0523 0.0566" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco">
+      <origin xyz="0.001817 0 -0.066175" rpy="0 -3.076393075 0" />
+      <geometry>
+        <cylinder radius="0.0117" length="0.055768" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_0">
+      <origin xyz="0.003634 0 -0.03835" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_1">
+      <origin xyz="0 0 -0.094" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="piede">
+      <origin xyz="0 0 -0.1044" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0056" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="piede_AS" />
+  <joint name="g_coxa_AS" type="revolute">
+    <parent link="corpo" />
+    <child link="coxa_AS" />
+    <origin xyz="0.08 0.044 0" rpy="0 0 0.523598776" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.610865" upper="0.610865" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_femore_AS" type="revolute">
+    <parent link="coxa_AS" />
+    <child link="femore_AS" />
+    <origin xyz="0.055 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.855211" upper="1.48353" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_ginocchio_AS" type="revolute">
+    <parent link="femore_AS" />
+    <child link="tibia_AS" />
+    <origin xyz="0.065 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-1.064651" upper="1.570796" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="punta_AS" type="fixed">
+    <parent link="tibia_AS" />
+    <child link="piede_AS" />
+    <origin xyz="0 0 -0.11" rpy="0 0 0" />
+  </joint>
+  <link name="coxa_MS">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/coxa.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.046381 -0.001983 -0.009636" rpy="0 0 0" />
+      <mass value="0.09408" />
+      <inertia ixx="4.08107e-05" ixy="1.33817e-06" ixz="4.98159e-06" iyy="6.21611e-05" iyz="-5.71956e-07" izz="4.48324e-05" />
+    </inertial>
+    <collision name="coxa_culla">
+      <origin xyz="0.054 0.00045 -0.01155" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0269 0.0508 0.0536" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="femore_MS">
+    <visual>
+      <origin xyz="-0.055 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/femore.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.03256 0.003123 0.003408" rpy="0 0 0" />
+      <mass value="0.05442" />
+      <inertia ixx="3.75087e-05" ixy="1.18337e-08" ixz="-1.55199e-07" iyy="3.19617e-05" iyz="7.09479e-07" izz="6.25141e-05" />
+    </inertial>
+    <collision name="femore_A">
+      <origin xyz="0.0325 0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_0">
+      <origin xyz="0 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_1">
+      <origin xyz="0.065 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B">
+      <origin xyz="0.0325 -0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_0">
+      <origin xyz="0 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_1">
+      <origin xyz="0.065 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="tibia_MS">
+    <visual>
+      <origin xyz="-0.12 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/tibia.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
+      <mass value="0.11019" />
+      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+    </inertial>
+    <collision name="tibia_culla">
+      <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
+      <geometry>
+        <box size="0.032167 0.0523 0.0566" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco">
+      <origin xyz="0.001817 0 -0.066175" rpy="0 -3.076393075 0" />
+      <geometry>
+        <cylinder radius="0.0117" length="0.055768" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_0">
+      <origin xyz="0.003634 0 -0.03835" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_1">
+      <origin xyz="0 0 -0.094" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="piede">
+      <origin xyz="0 0 -0.1044" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0056" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="piede_MS" />
+  <joint name="g_coxa_MS" type="revolute">
+    <parent link="corpo" />
+    <child link="coxa_MS" />
+    <origin xyz="0 0.048 0" rpy="0 0 1.570796327" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.610865" upper="0.610865" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_femore_MS" type="revolute">
+    <parent link="coxa_MS" />
+    <child link="femore_MS" />
+    <origin xyz="0.055 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.855211" upper="1.48353" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_ginocchio_MS" type="revolute">
+    <parent link="femore_MS" />
+    <child link="tibia_MS" />
+    <origin xyz="0.065 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-1.064651" upper="1.570796" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="punta_MS" type="fixed">
+    <parent link="tibia_MS" />
+    <child link="piede_MS" />
+    <origin xyz="0 0 -0.11" rpy="0 0 0" />
+  </joint>
+  <link name="coxa_PS">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/coxa.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.046381 -0.001983 -0.009636" rpy="0 0 0" />
+      <mass value="0.09408" />
+      <inertia ixx="4.08107e-05" ixy="1.33817e-06" ixz="4.98159e-06" iyy="6.21611e-05" iyz="-5.71956e-07" izz="4.48324e-05" />
+    </inertial>
+    <collision name="coxa_culla">
+      <origin xyz="0.054 0.00045 -0.01155" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0269 0.0508 0.0536" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="femore_PS">
+    <visual>
+      <origin xyz="-0.055 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/femore.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.03256 0.003123 0.003408" rpy="0 0 0" />
+      <mass value="0.05442" />
+      <inertia ixx="3.75087e-05" ixy="1.18337e-08" ixz="-1.55199e-07" iyy="3.19617e-05" iyz="7.09479e-07" izz="6.25141e-05" />
+    </inertial>
+    <collision name="femore_A">
+      <origin xyz="0.0325 0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_0">
+      <origin xyz="0 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_1">
+      <origin xyz="0.065 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B">
+      <origin xyz="0.0325 -0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_0">
+      <origin xyz="0 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_1">
+      <origin xyz="0.065 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="tibia_PS">
+    <visual>
+      <origin xyz="-0.12 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/tibia.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
+      <mass value="0.11019" />
+      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+    </inertial>
+    <collision name="tibia_culla">
+      <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
+      <geometry>
+        <box size="0.032167 0.0523 0.0566" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco">
+      <origin xyz="0.001817 0 -0.066175" rpy="0 -3.076393075 0" />
+      <geometry>
+        <cylinder radius="0.0117" length="0.055768" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_0">
+      <origin xyz="0.003634 0 -0.03835" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_1">
+      <origin xyz="0 0 -0.094" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="piede">
+      <origin xyz="0 0 -0.1044" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0056" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="piede_PS" />
+  <joint name="g_coxa_PS" type="revolute">
+    <parent link="corpo" />
+    <child link="coxa_PS" />
+    <origin xyz="-0.08 0.044 0" rpy="0 0 2.617993878" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.610865" upper="0.610865" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_femore_PS" type="revolute">
+    <parent link="coxa_PS" />
+    <child link="femore_PS" />
+    <origin xyz="0.055 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.855211" upper="1.48353" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_ginocchio_PS" type="revolute">
+    <parent link="femore_PS" />
+    <child link="tibia_PS" />
+    <origin xyz="0.065 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-1.064651" upper="1.570796" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="punta_PS" type="fixed">
+    <parent link="tibia_PS" />
+    <child link="piede_PS" />
+    <origin xyz="0 0 -0.11" rpy="0 0 0" />
+  </joint>
+  <link name="coxa_AD">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/coxa.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.046381 -0.001983 -0.009636" rpy="0 0 0" />
+      <mass value="0.09408" />
+      <inertia ixx="4.08107e-05" ixy="1.33817e-06" ixz="4.98159e-06" iyy="6.21611e-05" iyz="-5.71956e-07" izz="4.48324e-05" />
+    </inertial>
+    <collision name="coxa_culla">
+      <origin xyz="0.054 0.00045 -0.01155" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0269 0.0508 0.0536" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="femore_AD">
+    <visual>
+      <origin xyz="-0.055 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/femore.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.03256 0.003123 0.003408" rpy="0 0 0" />
+      <mass value="0.05442" />
+      <inertia ixx="3.75087e-05" ixy="1.18337e-08" ixz="-1.55199e-07" iyy="3.19617e-05" iyz="7.09479e-07" izz="6.25141e-05" />
+    </inertial>
+    <collision name="femore_A">
+      <origin xyz="0.0325 0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_0">
+      <origin xyz="0 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_1">
+      <origin xyz="0.065 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B">
+      <origin xyz="0.0325 -0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_0">
+      <origin xyz="0 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_1">
+      <origin xyz="0.065 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="tibia_AD">
+    <visual>
+      <origin xyz="-0.12 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/tibia.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
+      <mass value="0.11019" />
+      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+    </inertial>
+    <collision name="tibia_culla">
+      <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
+      <geometry>
+        <box size="0.032167 0.0523 0.0566" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco">
+      <origin xyz="0.001817 0 -0.066175" rpy="0 -3.076393075 0" />
+      <geometry>
+        <cylinder radius="0.0117" length="0.055768" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_0">
+      <origin xyz="0.003634 0 -0.03835" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_1">
+      <origin xyz="0 0 -0.094" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="piede">
+      <origin xyz="0 0 -0.1044" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0056" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="piede_AD" />
+  <joint name="g_coxa_AD" type="revolute">
+    <parent link="corpo" />
+    <child link="coxa_AD" />
+    <origin xyz="0.08 -0.044 0" rpy="0 0 -0.523598776" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.610865" upper="0.610865" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_femore_AD" type="revolute">
+    <parent link="coxa_AD" />
+    <child link="femore_AD" />
+    <origin xyz="0.055 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.855211" upper="1.48353" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_ginocchio_AD" type="revolute">
+    <parent link="femore_AD" />
+    <child link="tibia_AD" />
+    <origin xyz="0.065 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-1.064651" upper="1.570796" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="punta_AD" type="fixed">
+    <parent link="tibia_AD" />
+    <child link="piede_AD" />
+    <origin xyz="0 0 -0.11" rpy="0 0 0" />
+  </joint>
+  <link name="coxa_MD">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/coxa.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.046381 -0.001983 -0.009636" rpy="0 0 0" />
+      <mass value="0.09408" />
+      <inertia ixx="4.08107e-05" ixy="1.33817e-06" ixz="4.98159e-06" iyy="6.21611e-05" iyz="-5.71956e-07" izz="4.48324e-05" />
+    </inertial>
+    <collision name="coxa_culla">
+      <origin xyz="0.054 0.00045 -0.01155" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0269 0.0508 0.0536" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="femore_MD">
+    <visual>
+      <origin xyz="-0.055 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/femore.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.03256 0.003123 0.003408" rpy="0 0 0" />
+      <mass value="0.05442" />
+      <inertia ixx="3.75087e-05" ixy="1.18337e-08" ixz="-1.55199e-07" iyy="3.19617e-05" iyz="7.09479e-07" izz="6.25141e-05" />
+    </inertial>
+    <collision name="femore_A">
+      <origin xyz="0.0325 0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_0">
+      <origin xyz="0 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_1">
+      <origin xyz="0.065 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B">
+      <origin xyz="0.0325 -0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_0">
+      <origin xyz="0 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_1">
+      <origin xyz="0.065 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="tibia_MD">
+    <visual>
+      <origin xyz="-0.12 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/tibia.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
+      <mass value="0.11019" />
+      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+    </inertial>
+    <collision name="tibia_culla">
+      <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
+      <geometry>
+        <box size="0.032167 0.0523 0.0566" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco">
+      <origin xyz="0.001817 0 -0.066175" rpy="0 -3.076393075 0" />
+      <geometry>
+        <cylinder radius="0.0117" length="0.055768" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_0">
+      <origin xyz="0.003634 0 -0.03835" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_1">
+      <origin xyz="0 0 -0.094" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="piede">
+      <origin xyz="0 0 -0.1044" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0056" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="piede_MD" />
+  <joint name="g_coxa_MD" type="revolute">
+    <parent link="corpo" />
+    <child link="coxa_MD" />
+    <origin xyz="0 -0.048 0" rpy="0 0 -1.570796327" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.610865" upper="0.610865" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_femore_MD" type="revolute">
+    <parent link="coxa_MD" />
+    <child link="femore_MD" />
+    <origin xyz="0.055 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.855211" upper="1.48353" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_ginocchio_MD" type="revolute">
+    <parent link="femore_MD" />
+    <child link="tibia_MD" />
+    <origin xyz="0.065 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-1.064651" upper="1.570796" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="punta_MD" type="fixed">
+    <parent link="tibia_MD" />
+    <child link="piede_MD" />
+    <origin xyz="0 0 -0.11" rpy="0 0 0" />
+  </joint>
+  <link name="coxa_PD">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/coxa.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.046381 -0.001983 -0.009636" rpy="0 0 0" />
+      <mass value="0.09408" />
+      <inertia ixx="4.08107e-05" ixy="1.33817e-06" ixz="4.98159e-06" iyy="6.21611e-05" iyz="-5.71956e-07" izz="4.48324e-05" />
+    </inertial>
+    <collision name="coxa_culla">
+      <origin xyz="0.054 0.00045 -0.01155" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0269 0.0508 0.0536" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="femore_PD">
+    <visual>
+      <origin xyz="-0.055 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/femore.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.03256 0.003123 0.003408" rpy="0 0 0" />
+      <mass value="0.05442" />
+      <inertia ixx="3.75087e-05" ixy="1.18337e-08" ixz="-1.55199e-07" iyy="3.19617e-05" iyz="7.09479e-07" izz="6.25141e-05" />
+    </inertial>
+    <collision name="femore_A">
+      <origin xyz="0.0325 0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_0">
+      <origin xyz="0 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_A_1">
+      <origin xyz="0.065 0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B">
+      <origin xyz="0.0325 -0.02055 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.013" length="0.065" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_0">
+      <origin xyz="0 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+    <collision name="femore_B_1">
+      <origin xyz="0.065 -0.02055 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.013" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="tibia_PD">
+    <visual>
+      <origin xyz="-0.12 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../mesh/tibia.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scuro" />
+    </visual>
+    <inertial>
+      <origin xyz="0.002529 -0.001422 -0.02668" rpy="0 0 0" />
+      <mass value="0.11019" />
+      <inertia ixx="0.000109382" ixy="-2.36664e-07" ixz="2.69122e-06" iyy="9.87767e-05" iyz="2.19796e-06" izz="2.34434e-05" />
+    </inertial>
+    <collision name="tibia_culla">
+      <origin xyz="0.003634 0 -0.01005" rpy="0 0 0" />
+      <geometry>
+        <box size="0.032167 0.0523 0.0566" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco">
+      <origin xyz="0.001817 0 -0.066175" rpy="0 -3.076393075 0" />
+      <geometry>
+        <cylinder radius="0.0117" length="0.055768" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_0">
+      <origin xyz="0.003634 0 -0.03835" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="tibia_stinco_1">
+      <origin xyz="0 0 -0.094" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0117" />
+      </geometry>
+    </collision>
+    <collision name="piede">
+      <origin xyz="0 0 -0.1044" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0056" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="piede_PD" />
+  <joint name="g_coxa_PD" type="revolute">
+    <parent link="corpo" />
+    <child link="coxa_PD" />
+    <origin xyz="-0.08 -0.044 0" rpy="0 0 -2.617993878" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.610865" upper="0.610865" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_femore_PD" type="revolute">
+    <parent link="coxa_PD" />
+    <child link="femore_PD" />
+    <origin xyz="0.055 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-0.855211" upper="1.48353" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="g_ginocchio_PD" type="revolute">
+    <parent link="femore_PD" />
+    <child link="tibia_PD" />
+    <origin xyz="0.065 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-1.064651" upper="1.570796" effort="1.0787" velocity="7.48" />
+    <dynamics damping="0.144216" />
+  </joint>
+  <joint name="punta_PD" type="fixed">
+    <parent link="tibia_PD" />
+    <child link="piede_PD" />
+    <origin xyz="0 0 -0.11" rpy="0 0 0" />
+  </joint>
+</robot>

@@ -1,0 +1,6 @@
+# Ambiente della simulazione e dei suoi test (sim/README.md). Versioni fissate: il modello e le soglie della prova SIL
+# sono stati verificati con queste.
+mujoco==3.14.0
+numpy==2.5.3
+PyYAML==6.0.3
+pytest==9.1.1
