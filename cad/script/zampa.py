@@ -171,12 +171,32 @@ PARAMETRI = [
     ('cox_ling_semi', '1.5 mm', 'mm', 'Ponte: linguetta, semilarghezza'),
     ('cox_ling_h', '1.6 mm', 'mm', 'Ponte: linguetta, altezza'),
     # --- tibia
-    ('tib_stinco_semi', '6 mm', 'mm', 'Tibia: semilarghezza dello stinco nel piano della zampa'),
-    ('tib_fin_semi', '3 mm', 'mm', 'Tibia: semilarghezza delle finestre dello stinco'),
-    ('tib_fin_l', '15 mm', 'mm', 'Tibia: lunghezza delle finestre dello stinco'),
-    ('tib_fin_passo', '21 mm', 'mm', 'Tibia: passo delle finestre dello stinco'),
-    ('tib_fin_z0', '38 mm', 'mm', 'Tibia: inizio della prima finestra sotto l asse del ginocchio'),
-    ('tib_piede_r', '6 mm', 'mm', 'Tibia: raggio del piede'),
+    # --- stinco V2 allargato (D-061): fianco esterno ad arco tangente allo zoccolo, interno appena rastremato (al gamma
+    #     minimo e' il lato che passa a pochi centesimi dalla coxa: non cresce), faccia +Y piana sul piatto di stampa
+    ('tib_x_meno_alto', '6 mm', 'mm', 'Stinco: semilarghezza verso -X sotto lo zoccolo (come oggi)'),
+    ('tib_x_meno_basso', '4 mm', 'mm', 'Stinco: semilarghezza verso -X alla punta'),
+    ('tib_x_piu_basso', '4 mm', 'mm', 'Stinco: semilarghezza verso +X alla punta (in alto e cul_semi, a filo dello zoccolo)'),
+    ('tib_z_arco', 'zam_Lt - 4 mm', 'mm', 'Stinco: fine dell arco e dei fianchi dritti, sotto l asse del ginocchio'),
+    ('tib_arco_R', '((cul_semi - tib_x_piu_basso) ^ 2 + (tib_z_arco - bug_coda) ^ 2) / (2 * (cul_semi - tib_x_piu_basso))',
+     'mm', 'Stinco: raggio dell arco del fianco +X (tangente allo zoccolo, 275 mm)'),
+    ('tib_y_meno_alto', '18 mm', 'mm', 'Stinco: estensione verso -Y sotto lo zoccolo (allargato, prima 9,45)'),
+    ('tib_y_meno_basso', '6 mm', 'mm', 'Stinco: estensione verso -Y alla punta'),
+    ('tib_punta_r', '3.8 mm', 'mm', 'Stinco: raggio della punta nel piano della zampa'),
+    # --- guscio lungo della tibia (D-061, prova 3): fronte convesso che sporge verso l'esterno, sezione a C sfaccettata
+    ('cov_tib_sporgenza', '7.3 mm', 'mm', 'Guscio della tibia: sporgenza massima del fronte oltre la faccia +X dello zoccolo (con 5,8 lo smusso interno toccava gli spigoli di culla e stinco)'),
+    ('cov_tib_zmax', '25 mm', 'mm', 'Guscio della tibia: quota (sotto il ginocchio) della sporgenza massima'),
+    ('cov_tib_R', '288 mm', 'mm', 'Guscio della tibia: raggio del fronte (4,7 mm di sporgenza in cima, 4,6 sullo stinco in fondo)'),
+    ('cov_tib_z0', 'cul_corto + 1.2 mm', 'mm', 'Guscio della tibia: bordo alto sopra il ginocchio'),
+    ('cov_tib_z1', '94 mm', 'mm', 'Guscio della tibia: bordo basso sotto il ginocchio (sopra il piedino)'),
+    ('cov_tib_sp', '1.6 mm', 'mm', 'Guscio della tibia: spessore'),
+    ('cov_tib_gio', '0.4 mm', 'mm', 'Guscio della tibia: aria sui fianchi della culla e dello stinco'),
+    ('cov_tib_smusso', '4 mm', 'mm', 'Guscio della tibia: smussi a 45 gradi tra fronte e fianchi'),
+    ('cov_tib_ym_basso', '10.1 mm', 'mm', 'Guscio della tibia: estensione verso -Y in fondo (stinco 8,13 + aria + spessore)'),
+    ('cov_tib_fin_w', '7 mm', 'mm', 'Guscio della tibia: larghezza della finestra lunga'),
+    ('cov_tib_fin_y', '6 mm', 'mm', 'Guscio della tibia: centro della finestra verso -Y'),
+    ('cov_tib_fin_z0', '32 mm', 'mm', 'Guscio della tibia: inizio della finestra sotto il ginocchio (sotto i tappi)'),
+    ('cov_tib_fin_z1', '80 mm', 'mm', 'Guscio della tibia: fine della finestra'),
+    ('cov_tib_vite_z', '88 mm', 'mm', 'Guscio della tibia: vite M3 in basso nello stinco, sotto la finestra'),
 ]
 
 
@@ -555,20 +575,129 @@ def fai_femore_a(zampa):
     return occ, p
 
 
+def _interseca(p, sk, asse, dist_expr, verso, nome):
+    """Estrusione in intersezione dell'unico profilo dello schizzo, limitata ai corpi della parte."""
+    ext = p.c.features.extrudeFeatures
+    inp = ext.createInput(sk.profiles.item(0), adsk.fusion.FeatureOperations.IntersectFeatureOperation)
+    nrm = sk.xDirection.crossProduct(sk.yDirection)
+    positivo = ({'x': nrm.x, 'y': nrm.y, 'z': nrm.z}[asse] > 0) == (verso > 0)
+    inp.setOneSideExtent(adsk.fusion.DistanceExtentDefinition.create(adsk.core.ValueInput.createByString(dist_expr)),
+                         adsk.fusion.ExtentDirections.PositiveExtentDirection if positivo
+                         else adsk.fusion.ExtentDirections.NegativeExtentDirection)
+    inp.participantBodies = [b for b in p.c.bRepBodies]
+    f = ext.add(inp)
+    f.name = nome
+    p.n += 1
+    return f
+
+
+def _stinco(p, xk):
+    """Stinco V2 allargato (D-061), costruito per primo e da solo: i tagli e le intersezioni toccano solo lui."""
+    yq = '-(tib_y_meno_alto) - 1 mm'
+    largo = 'tib_y_meno_alto + zy_orlo + 2 mm'
+    p.blocco('y', '-(tib_y_meno_alto)', 'stinco', xk + ' - tib_x_meno_alto', '-(zam_Lt)', xk + ' + cul_semi', '-(bug_coda)',
+             'tib_y_meno_alto + zy_orlo', 1, NUOVO)
+    # fianco -X: da 6 a 4 dall'asse, dritto
+    p.blocco_obl('y', yq, 'fianco_meno_x', (xk + ' - tib_x_meno_alto', '-(bug_coda)'), (xk + ' - tib_x_meno_basso', '-(tib_z_arco)'),
+                 '-(20 mm)', '100 mm', '-(20 mm)', '0 mm', largo, 1, TAGLIA)
+    # fianco +X: arco tangente alla faccia dello zoccolo, fino a 4 dall'asse alla fine dell'arco
+    sk = p.sk_cerchio('y', yq, 'arco_piu_x', xk + ' + cul_semi - tib_arco_R', '-(bug_coda)', '2 * tib_arco_R')
+    _interseca(p, sk, 'y', largo, 1, 'arco_piu_x')
+    # faccia -Y: da 18 a 6, dritta (la +Y resta sul piano dell'orlo)
+    p.blocco_obl('x', xk + ' - 20 mm', 'rastremazione_y', ('-(tib_y_meno_alto)', '-(bug_coda)'), ('-(tib_y_meno_basso)', '-(tib_z_arco)'),
+                 '-(20 mm)', '100 mm', '-(20 mm)', '0 mm', '40 mm', 1, TAGLIA)
+    corpo = p.c.bRepBodies.item(0)
+    zt = p.val('zam_Lt')
+    fondo = [e for e in corpo.edges if e.geometry.curveType == adsk.core.Curve3DTypes.Line3DCurveType
+             and abs(e.startVertex.geometry.z * 10 + zt) < 0.05 and abs(e.endVertex.geometry.z * 10 + zt) < 0.05
+             and abs(e.startVertex.geometry.x - e.endVertex.geometry.x) < 1e-5]
+    _raccorda(p.c, [('tib_punta_r', fondo)], 'punta')
+    return len(fondo)
+
+
 def fai_tibia(zampa):
     occ = _nuovo_comp(zampa, 'Tibia')
     p = Parte(occ.component)
     xk = 'zam_Lc + zam_Lf'
+    n_punta = _stinco(p, xk)
     _culla(p, xk)
-    p.blocco('y', '-(zy_orlo)', 'stinco', xk + ' - tib_stinco_semi', '-(zam_Lt - tib_piede_r)', xk + ' + tib_stinco_semi',
-             '-(cul_coda)', '2 * zy_orlo')
-    p.cilindro('y', '-(zy_orlo)', 'piede', xk, '-(zam_Lt - tib_piede_r)', '2 * tib_piede_r', '2 * zy_orlo')
     _sede(p, xk)
     _alleggerisci_culla(p, xk, (1, -1))
-    for i in range(3):
-        z0 = 'tib_fin_z0 + %d * tib_fin_passo' % i
-        p.blocco('y', '-(zy_orlo)', 'finestra_stinco_%d' % (i + 1), xk + ' - tib_fin_semi', '-(%s + tib_fin_l)' % z0,
-                 xk + ' + tib_fin_semi', '-(%s)' % z0, '2 * zy_orlo', 1, TAGLIA)
+    # due fessure tonde attraverso lo stinco, al centro tra i fianchi a meta' fessura (V2: X +3,2 e +2,5 dall'asse)
+    for nome, z0, z1, w, dx in (('fessura_alta', '44 mm', '62 mm', '3.6 mm', '3.2 mm'), ('fessura_bassa', '67 mm', '83 mm', '2.8 mm', '2.5 mm')):
+        xc = xk + ' + ' + dx
+        p.blocco('y', '-(tib_y_meno_alto) - 1 mm', nome, xc + ' - ' + w, '-(%s - %s)' % (z1, w), xc + ' + ' + w, '-(%s + %s)' % (z0, w),
+                 'tib_y_meno_alto + zy_orlo + 2 mm', 1, TAGLIA)
+        for k, z in (('a', '-(%s + %s)' % (z0, w)), ('b', '-(%s - %s)' % (z1, w))):
+            p.cilindro('y', '-(tib_y_meno_alto) - 1 mm', '%s_%s' % (nome, k), xc, z, '2 * ' + w, 'tib_y_meno_alto + zy_orlo + 2 mm', 1, TAGLIA)
+    # inserto M3 per la vite in basso del guscio, dalla faccia +X dello stinco (sull'arco) verso -X
+    xv = xk + ' + cul_semi - tib_arco_R + sqrt(tib_arco_R ^ 2 - (cov_tib_vite_z - bug_coda) ^ 2)'
+    p.cilindro('x', xv, 'ins_guscio', '0 mm', '-(cov_tib_vite_z)', 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
+    p.info = {'spigoli_punta': n_punta}
+    return occ, p
+
+
+def fai_cover_tibia(zampa):
+    """Guscio lungo della tibia (PETG bianco): dal ginocchio fin quasi al piede, fronte convesso, sezione a C con smussi
+    a 45 gradi, aperto dietro; due tappi a rombo nelle finestre della parete +X della culla e una vite M3 in basso."""
+    occ = _nuovo_comp(zampa, 'Cover_Tibia')
+    p = Parte(occ.component)
+    comp = occ.component
+    xk = 'zam_Lc + zam_Lf'
+    xmax = xk + ' + cul_semi + cov_tib_sporgenza'
+    y0, y1 = '(zy_fondo_est - cov_tib_gio - cov_tib_sp)', 'zy_orlo + cov_tib_gio + cov_tib_sp'
+    # profilo laterale: blocco dal centro dello stinco al fronte, intersecato con il cilindro del fronte convesso
+    p.blocco('y', y0 + ' - 1 mm', 'pieno', xk, '-(cov_tib_z1)', xmax + ' + 2 mm', 'cov_tib_z0', y1 + ' - (' + y0 + ') + 2 mm', 1, NUOVO)
+    sk = p.sk_cerchio('y', y0 + ' - 2 mm', 'fronte', xmax + ' - cov_tib_R', '-(cov_tib_zmax)', '2 * cov_tib_R')
+    _interseca(p, sk, 'y', y1 + ' - (' + y0 + ') + 4 mm', 1, 'fronte_convesso')
+    # sagoma frontale: fianco +Y dritto, fianco -Y dritto fino allo zoccolo e poi rastremato verso il fondo
+    p.blocco('x', xk + ' - 1 mm', 'taglio_y_piu', y1, '-(cov_tib_z1) - 1 mm', y1 + ' + 10 mm', 'cov_tib_z0 + 1 mm', '30 mm', 1, TAGLIA)
+    p.blocco('x', xk + ' - 1 mm', 'taglio_y_meno', y0 + ' - 10 mm', '-(cov_tib_z1) - 1 mm', y0, 'cov_tib_z0 + 1 mm', '30 mm', 1, TAGLIA)
+    p.blocco_obl('x', xk + ' - 1 mm', 'rastremazione', (y0, '-(bug_coda)'), ('-(cov_tib_ym_basso)', '-(cov_tib_z1)'),
+                 '-(20 mm)', '100 mm', '-(20 mm)', '0 mm', '30 mm', 1, TAGLIA)
+    corpo = comp.bRepBodies.item(0)
+    fronte = [fa for fa in corpo.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.CylinderSurfaceType][0]
+    z0v, z1v = p.val('cov_tib_z0'), -p.val('cov_tib_z1')
+    lunghi = []
+    for e in fronte.edges:
+        a, b = e.startVertex.geometry, e.endVertex.geometry
+        if abs(a.z - b.z) * 10 > 5:                        # gli spigoli lungo la tibia, non quelli in cima e in fondo
+            lunghi.append(e)
+    ch = comp.features.chamferFeatures
+    ci = ch.createInput2()
+    ci.chamferEdgeSets.addEqualDistanceChamferEdgeSet(_collezione(lunghi), adsk.core.ValueInput.createByString('cov_tib_smusso'), True)
+    cf = ch.add(ci)
+    cf.name = 'smussi_fronte'
+    p.n += 1
+    corpo = comp.bRepBodies.item(0)
+    xr = p.val(xk)
+    togli = [fa for fa in corpo.faces if fa.geometry.surfaceType == adsk.core.SurfaceTypes.PlaneSurfaceType and
+             (abs(fa.pointOnFace.x * 10 - xr) < 0.01 or abs(fa.pointOnFace.z * 10 - z0v) < 0.01 or abs(fa.pointOnFace.z * 10 - z1v) < 0.01)]
+    p.svuota(togli, 'cov_tib_sp', 'guscio')
+    # niente fianco +Y dove gira il servo del ginocchio (sopra lo zoccolo), niente fianco -Y vicino alla testa del femore
+    p.blocco('y', y1 + ' - 3 mm', 'via_fianco_piu', xk + ' - 20 mm', '-(bug_coda) - 1 mm', xk + ' + cul_semi - 1 mm', 'cov_tib_z0 + 1 mm',
+             '4 mm', 1, TAGLIA)
+    p.blocco('y', y0 + ' - 1 mm', 'via_fianco_meno', xk + ' - 20 mm', '-(16 mm)', xk + ' + cul_semi + 1.5 mm', 'cov_tib_z0 + 1 mm',
+             '3 mm', 1, TAGLIA)
+    # tappi a rombo nelle finestre della parete +X della culla (dentro la parete del fronte, fino a 1,6 nella finestra)
+    # la cima dei tappi sta dentro lo spessore del fronte (piu' in basso il fronte e' piu' sporgente): segue la sporgenza
+    for k, (zc, xt) in enumerate((('-(cul_fin_z1)', xmax + ' - 2.5 mm'), ('-(cul_fin_z2)', xmax + ' - 1.2 mm'))):
+        p.blocco_obl('x', xt, 'tappo_%d' % k, ('cul_fin_y', zc), ('cul_fin_y + 1 mm', zc + ' + 1 mm'),
+                     '-(cul_fin_lato / 2 - 0.2 mm)', 'cul_fin_lato / 2 - 0.2 mm', '-(cul_fin_lato / 2 - 0.2 mm)', 'cul_fin_lato / 2 - 0.2 mm',
+                     '(%s) - (%s + cul_semi - cul_parete + 0.4 mm)' % (xt, xk), -1)
+    # vite in basso: bossolo dallo stinco al fronte e foro passante. Lo stinco e' ad arco: il bossolo parte dal punto
+    # piu' sporgente della faccia sotto di lui (3,5 mm sopra la vite), cosi' non entra nello stinco
+    xs = xk + ' + cul_semi - tib_arco_R + sqrt(tib_arco_R ^ 2 - (cov_tib_vite_z - 3.5 mm - bug_coda) ^ 2) + 0.05 mm'
+    p.cilindro('x', xs, 'bossolo_vite', '0 mm', '-(cov_tib_vite_z)', '7 mm', '2.5 mm', 1)        # finisce dentro la parete del fronte
+    p.cilindro('x', xs, 'foro_vite', '0 mm', '-(cov_tib_vite_z)', 'vite_m3_pass', '12 mm', 1, TAGLIA)
+    # finestra lunga sul fronte
+    yc = '-(cov_tib_fin_y)'
+    xf = xk + ' + 8 mm'
+    p.blocco('x', xf, 'finestra', yc + ' - cov_tib_fin_w / 2', '-(cov_tib_fin_z1 - cov_tib_fin_w / 2)', yc + ' + cov_tib_fin_w / 2',
+             '-(cov_tib_fin_z0 + cov_tib_fin_w / 2)', '30 mm', 1, TAGLIA)
+    for k, z in (('a', '-(cov_tib_fin_z0 + cov_tib_fin_w / 2)'), ('b', '-(cov_tib_fin_z1 - cov_tib_fin_w / 2)')):
+        p.cilindro('x', xf, 'finestra_' + k, yc, z, 'cov_tib_fin_w', '30 mm', 1, TAGLIA)
+    p.info = {'spigoli_smussati': len(lunghi), 'facce_tolte': len(togli), 'corpi': comp.bRepBodies.count}
     return occ, p
 
 
@@ -598,6 +727,7 @@ RIGIDI = [
     ('R_servo_ginocchio', 'Servo_Ginocchio', 'Tibia'), ('R_cuscinetto_ginocchio', 'Cuscinetto_Ginocchio', 'Tibia'),
     ('R_teste_a', 'Ingombro_Teste_A', 'Femore_A'),
     ('R_cover_femore_a', 'Cover_Femore_A', 'Femore_A'), ('R_cover_femore_b', 'Cover_Femore_B', 'Femore_B'),
+    ('R_cover_tibia', 'Cover_Tibia', 'Tibia'),
 ]
 
 
@@ -826,7 +956,7 @@ def main(passi, **kw):
         zampa = _zampa(root)
         for nome, f in (('coxa', fai_coxa), ('ponte', fai_ponte), ('femore_b', fai_femore_b), ('femore_a', fai_femore_a),
                         ('tibia', fai_tibia), ('teste_a', fai_teste_a), ('cover_femore_a', fai_cover_femore_a),
-                        ('cover_femore_b', fai_cover_femore_b)):
+                        ('cover_femore_b', fai_cover_femore_b), ('cover_tibia', fai_cover_tibia)):
             if nome in passi:
                 occ, p = f(zampa)
                 out[nome] = _chiudi(des, occ.component.name, p)
