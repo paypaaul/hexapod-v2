@@ -158,3 +158,10 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - Scartate: guide verticali con lo sportello che scende dall'alto (a robot capovolto si sfila da solo), aggancio nelle fessure dei cavi più viti in basso (i rebbi non escono ruotando), viti in alto (nessun posto: tetto da 2 mm, F1 a 2 mm dalla coda, sedi dei servo posteriori accanto al tunnel), denti a scatto (forza di sgancio da tarare, nessuna leva raggiungibile).
 - Cambio della batteria: due viti, si sfila lo sportello, si sfila il pacco. T-plug e F1 restano raggiungibili dal retro senza togliere lo sportello.
 - Verificato: nessuna interferenza; distanza minima dalla coxa posteriore che ruota: chiglia 2,35 mm (1,83 a +35°), sportello 3,98 mm (2,16 a +35°): per questo le viti sono a |y| 28,5 e non 29. Coxe libere a ±35° e tra vicine a 31°, ciclo a tripode libero a 70/70.
+
+## D-055 — Wago in piedi, fissaggio di F1 (2026-10-09)
+
+- **Errore trovato**: i due Wago 221-415 sdraiati sul ripiano delle baie posteriori (D-051) avevano gli ingressi dei fili a 1,4 mm dalla parete della baia (la baia è larga 21 mm, il Wago è profondo 18,6): i cavi da 12–16 AWG non sarebbero entrati. Ora stanno **in piedi**, con gli ingressi in alto (fili dall'alto, sotto il coperchio) e le leve verso la parete della baia (12 mm d'aria per aprirle), il dorso a 0,5 mm dal fianco del tunnel; x da −46 a −16, z da −29,95 a −11,35.
+- **Sede dei Wago** stampata con la base: due spalle alle estremità (alte 6, gioco 0,2) e due labbri da 1,6 che coprono 1 mm delle estremità della faccia delle leve, fuori dalle leve. Il Wago entra dall'alto e resta fermo tra spalle, labbri e fianco del tunnel; se al banco balla, una goccia di colla a caldo.
+- **F1**: due costole sul tetto (alte 3, larghe 24, gioco 0,2) lo fermano lungo X; lo stringe al tetto una fascetta da 2,5 mm (voce D11) che passa nelle due fessure dei cavi a x ≈ −76, fuori dalla linguetta dello sportello e dalle uscite dei fili del portafusibile. La coppia di T-plug resta appoggiata sopra F1, tenuta dai suoi cavi.
+- Verificato: nessuna interferenza; coxe libere a ±35° e tra vicine a 31°, ciclo a tripode libero a 70/70.

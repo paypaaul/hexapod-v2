@@ -70,11 +70,12 @@ def pose_corpo(des):
     # la coppia di T-plug sta nella zona dei cavi dietro il pacco: si stacca aprendo lo sportello della batteria
     # coppia di T-plug sopra il portafusibile, nel vano di coda: si raggiunge dal retro
     out['Tplug'] = ('Rif_Tplug', _rz(x_coda + 2 + _mm(des, 'fus_w') / 2, 0, zt + _mm(des, 'fus_h'), 90.0))
-    # Wago sul ripiano delle baie posteriori, leve in alto (raggiungibili togliendo il coperchio)
-    z_rip = -_mm(des, 'cor_fondo') + _mm(des, 'cor_ripiano')
-    y_w = _mm(des, 'cor_tun_semi') + 1.0 + _mm(des, 'wago_w') / 2
-    out['Wago_piu'] = ('Rif_Wago_221_415', _rz(-31.0, y_w, z_rip, 0.0))
-    out['Wago_meno'] = ('Rif_Wago_221_415', _rz(-31.0, -y_w, z_rip, 180.0))
+    # Wago in piedi sul ripiano delle baie posteriori: ingressi dei fili in alto, leve verso la parete della baia
+    # (sdraiati avevano gli ingressi a 1,4 mm dalla parete); si raggiungono togliendo il coperchio
+    z_w = -_mm(des, 'cor_fondo') + _mm(des, 'cor_ripiano') + _mm(des, 'wago_w') / 2
+    y_w, x_w = _mm(des, 'cor_tun_semi') + _mm(des, 'cor_wago_luce'), -_mm(des, 'cor_wago_x')
+    out['Wago_piu'] = ('Rif_Wago_221_415', A['matrice']((x_w, y_w, z_w), (-1, 0, 0), (0, 0, 1), (0, 1, 0)))
+    out['Wago_meno'] = ('Rif_Wago_221_415', A['matrice']((x_w, -y_w, z_w), (1, 0, 0), (0, 0, 1), (0, -1, 0)))
     # regolatori sulla parete esterna della baia, componenti verso il tunnel, piazzole in alto
     y_reg = _mm(des, 'cor_baia_y') - _mm(des, 'cor_parete') - _mm(des, 'cor_reg_dist')
     x0, z1, lr = _mm(des, 'cor_reg_x0'), _mm(des, 'cor_reg_ztop'), _mm(des, 'reg_l')

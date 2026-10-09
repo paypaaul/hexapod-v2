@@ -76,6 +76,11 @@ PARAMETRI = [
     ('cor_vas_x0', '26 mm', 'mm', 'Vassoio: estremo posteriore (davanti alla SSC-32)'),
     ('cor_vas_x1', '82 mm', 'mm', 'Vassoio: estremo anteriore'),
     ('cor_vas_col_d', '6 mm', 'mm', 'Vassoio: diametro delle colonnine'),
+    # --- Wago in piedi sul ripiano delle baie posteriori, portafusibile F1 sul tetto in coda
+    ('cor_wago_x', '31 mm', 'mm', 'Wago: X (negativa) del centro, sul ripiano della baia posteriore'),
+    ('cor_wago_luce', '0.5 mm', 'mm', 'Wago: aria tra il dorso e il fianco del tunnel'),
+    ('cor_sede_gio', '0.2 mm', 'mm', 'Sedi di Wago e F1: gioco per lato'),
+    ('cor_sede_h', '6 mm', 'mm', 'Sede dei Wago: altezza delle pareti'),
     ('cor_bas_x0', '22 mm', 'mm', 'Basetta: bordo posteriore (file dei pin dell ESP32 da 22,5; SSC-32 fino a 22)'),
     ('cor_bas_luce', '3.3 mm', 'mm', 'Basetta: luce sopra il vassoio (sotto ci sono le teste M3 alte 3 e le saldature)'),
     ('cor_bas_col_d', '5.8 mm', 'mm', 'Basetta: diametro delle colonnine del vassoio con inserto M2'),
@@ -245,6 +250,15 @@ def fai_base(corpo):
     for nome, x in (('colonnina_a', 'cor_col_xa'), ('colonnina_p', '-(cor_col_xp)')):
         sx.append(p.cilindro('z', '-(cor_tetto)', nome, x, 'cor_col_y', 'cor_chi_bugna_d', 'cor_tetto + cor_cop_z'))
         sx.append(p.cilindro('z', 'cor_cop_z', nome + '_ins', x, 'cor_col_y', 'ins_m3_d', 'ins_m3_l', -1, TAGLIA))
+    # sede del Wago in piedi (ingressi dei fili in alto, leve verso la parete della baia): due spalle e due labbri
+    # sulle estremita' della faccia delle leve (1 mm sul corpo, fuori dalle leve)
+    zr = '-(cor_fondo) + cor_ripiano'
+    yf = 'cor_tun_semi + cor_wago_luce + wago_h + cor_sede_gio'          # davanti alla faccia delle leve
+    xe, xi = 'cor_wago_x + wago_l / 2 + cor_sede_gio', 'cor_wago_x - wago_l / 2 - cor_sede_gio'
+    for nome, x0, x1, xl0, xl1 in (('wago_spalla_p', '-(%s + 1.6 mm)' % xe, '-(%s)' % xe, '-(%s + 1.6 mm)' % xe, '-(cor_wago_x + wago_l / 2 - 1 mm)'),
+                                   ('wago_spalla_a', '-(%s)' % xi, '-(%s - 1.6 mm)' % xi, '-(cor_wago_x - wago_l / 2 + 1 mm)', '-(%s - 1.6 mm)' % xi)):
+        sx.append(p.blocco('z', zr, nome, x0, 'cor_tun_semi - 1 mm', x1, yf + ' + 1.6 mm', 'cor_sede_h'))
+        sx.append(p.blocco('z', zr, nome + '_labbro', xl0, yf, xl1, yf + ' + 1.6 mm', 'cor_sede_h'))
     for i in range(N_FER):
         x = _x_feritoia(i)
         sx.append(p.blocco('z', '-(cor_fondo)', 'feritoia_%d' % i, x, 'cor_fer_y - cor_fer_w / 2', x + ' + cor_fer_l',
@@ -273,6 +287,10 @@ def fai_base(corpo):
     for lato, y0, y1 in (('s', 'cor_cavi_y0', 'cor_tun_semi - cor_parete'), ('d', '-(cor_tun_semi - cor_parete)', '-(cor_cavi_y0)')):
         p.blocco('z', '-(cor_tetto) - cor_tetto_sp', 'fessura_cavi_' + lato, '-(cor_tun_x0 - cor_parete)', y0,
                  '-(cor_tun_x0 - cor_parete - cor_cavi_x)', y1, 'cor_tetto_sp', 1, TAGLIA)
+    # costole che fermano il portafusibile F1 lungo X sul tetto (lo stringe una fascetta che passa nelle fessure dei cavi)
+    for nome, x0, x1 in (('costola_f1_p', '-(cor_tun_x0 - cor_parete + cor_sede_gio + 1.2 mm)', '-(cor_tun_x0 - cor_parete + cor_sede_gio)'),
+                         ('costola_f1_a', '-(cor_tun_x0 - cor_parete - fus_w - cor_sede_gio)', '-(cor_tun_x0 - cor_parete - fus_w - cor_sede_gio - 1.2 mm)')):
+        p.blocco('z', '-(cor_tetto)', nome, x0, '-(12 mm)', x1, '12 mm', '3 mm')
     # bugne del vassoio (distanziali M3 maschio-femmina da 10, voce B18) sul tetto, con inserti M3
     for nome, x, y in _vassoio_fori():
         p.cilindro('z', '-(cor_tetto)', nome, x, y, 'cor_chi_bugna_d', 'cor_tetto + cor_vas_z - 5 mm')
