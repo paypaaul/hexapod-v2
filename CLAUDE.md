@@ -180,8 +180,8 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 
 ## Prossimi passi
 
-1. **Da far approvare all'utente** (non bloccano): 12 viti M3 × 5 per le squadrette della coxa (D-049, BOM D6); distanziali B18 cambiati in 4 M3 maschio-femmina da 5 mm e cinghie D10 tolte (D-051); domande aperte in fondo al BOM.
-2. **Corpo, dettagli rimasti** (elenco in `docs/progetto-meccanico.md`, "Da fare nel corpo"): sportello della batteria, vano di coda con F1 e T-plug, Wago, interruttore, cicalino, gonna e fissaggio del coperchio, muso, feritoie, cavi. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo`; controllo con `controllo`, `interferenze`, coxe a 31° tra vicine, `ciclo` (100/45 e 70/70).
-3. Revisione del corpo fatta (D-051); restano i punti "da fare o da provare" di D-051.
+1. **Da far approvare all'utente** (non bloccano): 12 viti M3 × 5 per le squadrette della coxa (D-049, BOM D6); distanziali B18 cambiati in 4 M3 maschio-femmina da 5 mm e cinghie D10 tolte (D-051); 4 prolunghe C5 e clip C6 (quantità dal CAD); domande aperte in fondo al BOM, in particolare **pulsante d'accensione e cicalino** (domande 5 e 6): decidono le ultime modifiche del coperchio.
+2. **Corpo v0.4** (D-052…D-057): restano interruttore e cicalino (dopo le risposte), pettini per le anse dei cavi nelle baie posteriori. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo` (vanno in timeout ma finiscono: rileggere); controllo con `controllo`, `interferenze`, coxe a ±35° e a 31° tra vicine, `ciclo` (100/45 e 70/70).
+3. **Zampa**: ganci dei cavi lungo coxa e femore (percorsi in `progetto-meccanico.md`, "Cavi dei servo"); poi rigenerare gli STL in `cad/stl/`.
 4. **Provino** della culla e del giunto (passacavo nella fessura, viti nei fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata della coxa).
-5. Fase 5 (BOM finale con la viteria dal modello) e fase 6 (verifica completa del movimento; il ciclo a tripode è già verificato in quattro assetti).
+5. Fase 5 (BOM finale: viteria contata dal modello, da aggiornare a ogni modifica) e fase 6 (verifica completa del movimento: il ciclo a tripode è verificato in quattro assetti; restano la rotazione sul posto e il campo della camera, dove i ginocchi anteriori stanno al bordo dell'immagine).
