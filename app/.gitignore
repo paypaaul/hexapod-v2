@@ -1,0 +1,4 @@
+node_modules/
+dist/
+# generati da scripts/modelli.mjs a ogni build
+public/modelli/
