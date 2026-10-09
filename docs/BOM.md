@@ -122,9 +122,10 @@ Le voci D6 (viti M3 in assortimento più 100) e D8 (M2) vanno ordinate con quest
 
 | # | Voce | Q.tà | Uso | Nota | Stato |
 |---|---|---|---|---|---|
-| E1 | PETG-CF | 2 bobine da 1 kg | corpo, zampe, culle | servono circa 700 g di pezzi più provini, supporti e scarti | ? |
-| E2 | PETG o PLA non caricato | 1 bobina | cover, sportelli, zona sopra l'antenna Wi-Fi | il carbonio scherma l'antenna | ? |
-| E3 | TPU 95A | pochi grammi | piedini | | ? |
+| E1 | PETG-CF | 2 bobine da 1 kg | corpo, zampe, culle | servono circa 810 g di pezzi (stima dal modello del 9 ottobre: base 198, chiglia 33, slitte 11, zampe 574) più provini, supporti e scarti | ? |
+| E2 | PETG bianco non caricato | 1 bobina | carapace, cover delle zampe (lame e gusci delle tibie), sportello della batteria (D-061) | circa 210 g; non caricato anche perché sta sopra l'antenna Wi-Fi (il carbonio la scherma) | da approvare |
+| E2b | PETG nero non caricato | 1 bobina (anche piccola) | fascia, visiera, gonne, sportellino, vassoio | circa 25 g; stampato insieme al carapace con il toolchanger | da approvare |
+| E3 | TPU 95A arancio | pochi grammi | piedini (D9) | | da approvare |
 
 ## Attrezzi necessari
 
@@ -151,3 +152,4 @@ Circa 380 € di componenti (di cui 110 € i due regolatori) più circa 100 €
 | 4 | Squadrette metalliche: va bene comprarne una per prova prima delle altre 19? | voce D3 |
 | 5 | Pulsante d'accensione | **Risposto il 9 ottobre 2026**: pulsante da pannello Ø12 sul coperchio, voce B3b |
 | 6 | Cicalino di sottotensione | **Risposto il 9 ottobre 2026**: (c), sotto il coperchio in coda sopra il T-plug, display da una finestra del dorso, spinotto di bilanciamento dal retro; serve un modello con i pin sul lato lungo (da scegliere all'ordine) | voci B9, C7, coperchio |
+| 7 | Filamenti e colori della passata estetica: PETG bianco, PETG nero non caricato, TPU arancio | **Da approvare** | voci E2, E2b, E3 |

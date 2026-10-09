@@ -1,6 +1,7 @@
 """Esporta le mesh del modello (posa attuale, terna del robot) per i render schematici di `cad/render/render.py`.
 
-Gruppi: base, coperchio, interni, servo_coxa (corpo); zampe_servo e zampe_struttura_<parte> (sei zampe). STL binari in mm,
+Gruppi: base, carapace (bianco: carapace e sportello della batteria), nero (fascia, visiera, gonne, sportellino), interni,
+servo_coxa (corpo); zampe_servo e zampe_struttura_<parte> (sei zampe). STL binari in mm,
 qualita' bassa (circa 70 000 triangoli in tutto). Si lancia in sola lettura dal connettore:
     runpy.run_path('/Users/paul/hexapod-v2/cad/script/esporta_mesh.py')['main']()
 """
@@ -28,8 +29,10 @@ def _gruppi(root):
     corpo = [o for o in root.occurrences if o.component.name == 'Corpo'][0]
     for o in corpo.childOccurrences:
         n = o.component.name
-        if n in ('Corpo_Coperchio', 'Corpo_Sportello_Servizio'):
-            g = 'coperchio'
+        if n in ('Corpo_Carapace', 'Corpo_Sportello'):
+            g = 'carapace'
+        elif n in ('Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio'):
+            g = 'nero'
         elif n.startswith('Corpo_'):
             g = 'base'
         elif n in ('Rif_Servo_MG996R', 'Rif_Cuscinetto_LF1050ZZ'):

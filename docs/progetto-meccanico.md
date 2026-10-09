@@ -1,6 +1,6 @@
 # Progetto meccanico — versione MG996R
 
-Stato al 9 ottobre 2026: **zampa v0.1 modellata, rivista da quattro revisori e corretta** (D-047, D-048, D-049), verificata in Fusion con i giunti veri. Corpo v0 e assieme con sei zampe e giunti di coxa modellati e verificati (D-050).
+Stato al 9 ottobre 2026: **zampa v0.1 modellata, rivista da quattro revisori e corretta** (D-047, D-048, D-049), verificata in Fusion con i giunti veri. Corpo v0 e assieme con sei zampe e giunti di coxa modellati e verificati (D-050). **Passata estetica applicata** (D-060…D-063): carapace al posto del coperchio, cover delle zampe, tibia simmetrica; vedi "Passata estetica" più sotto.
 
 ![Zampa v0, femore a +12°, ginocchio a 75°](immagini/zampa-v0.png)
 
@@ -108,7 +108,7 @@ Disposizione "compatto" (D-050, confronto in `ricerca/corpo-disposizioni.json`).
 |---|---|---|
 | `Corpo_Base` | tunnel della batteria (parte alta e tetto), ripiano e pareti delle baie, sei gondole (culle uguali a quelle della zampa: fessura del passacavo verso il centro, cuscinetto nel fondo), parete anteriore sopra il tetto con l'apertura per vassoio e basetta, quattro bugne della SSC-32 con fori pilota M2,5 | 140 cm³ |
 | `Corpo_Chiglia` | fondo e parte bassa del tunnel, da −41,4 a −31,95 | 24 cm³ |
-| `Corpo_Coperchio` | dorso da +28,4 a +30 con i lobi sopra le coxe, gonne laterali sulle pareti delle baie (a 22 mm dagli assi delle coxe) | 40 cm³ |
+| `Corpo_Coperchio` | fino a D-062: dorso da +28,4 a +30 con i lobi sopra le coxe, gonne laterali sulle pareti delle baie; **sostituito dal carapace** (D-063) | 40 cm³ |
 | `Corpo_Sportello` | sportello della batteria sul retro: piastra e due rebbi alti che premono il pacco (con schiuma) contro la battuta anteriore; sotto i rebbi passa la coppia di T-plug | 5 cm³ |
 | `Corpo_Vassoio` | in PETG: piano per la basetta dell'ESP32 su quattro colonnine dal tetto, torretta e mensola della camera con una fessura di 0,5 mm per il flat | 9 cm³ |
 
@@ -151,20 +151,43 @@ Verifiche (9 ottobre 2026), con i giunti veri:
 
 Lato destro uguale entro 1 mm. Servono **4 prolunghe** per i ginocchi delle zampe d'angolo (voce C5). Gli altri cavi sono più lunghi del necessario: circa 1,1 m di cavo in più per lato, da raccogliere in anse nelle baie posteriori sopra i Wago (circa 5 cm³ per lato contro 28 cm³ liberi), lontano dal camino d'aria delle baie anteriori. Fascette lungo la zampa: una nelle feritoie del ponte (X 24) e una nelle feritoie del blocco del femore (D-061; quella attorno al femore di D-058 urtava la coxa da α 74°).
 
-### Massa e baricentro dal modello (9 ottobre 2026; corpo aggiornato alla v0.4)
+### Passata estetica (D-060…D-063)
+
+![Assieme con il carapace, render schematico](immagini/assieme-carapace-iso.png)
+
+Parti nuove (specifica in `ricerca/estetica-specifica.md`, scelte e varianti in D-060…D-063):
+
+| Parte | Materiale | Cosa fa | Volume |
+|---|---|---|---|
+| `Corpo_Carapace` | PETG bianco | guscio da 1,6: pianta dall'unione di sei lobi esagonali sugli assi delle coxe, nucleo e baie, raccordi in pianta R12/R10, smusso unico 6 × 45°, cima a z 36; testa rastremata a 60° fino al mento; parte alta delle gonne, paratie dietro la testa, guance di coda (cornice della porta), quattro pozzetti delle viti, collare del cicalino, battuta dello sportellino; sedi di fascia e visiera, apertura a ottagono, feritoie, foro del pulsante, finestra del display, tacca | 49,1 cm³ |
+| `Corpo_Fascia` | PETG nero | intarsio da 0,6 sulla schiena e sugli smussi, a piena parete sul bordo del viso e della coda | 3,1 cm³ |
+| `Corpo_Visiera` | PETG nero | parete del viso sotto il carapace con la bugna e l'occhio della camera (tronco di piramide sul campo di 120° più 0,8 mm, tagliato con un loft) | 1,5 cm³ |
+| `Corpo_Gonne` | PETG nero | quattro pannelli sulle pareti delle baie, da z 7 a 28,4 | 3,8 cm³ |
+| `Corpo_Sportello_Servizio` | PETG nero | sportellino a filo nell'ottagono, sulla battuta, nervature di schiacciamento | 2,3 cm³ |
+| `Corpo_Sportello` | PETG bianco | come D-054, più smusso 1 × 45 sul contorno esterno | 5,5 cm³ |
+| `Cover_Femore_A`, `_B` | PETG bianco | lame bombate (toro) sulle due piastre del femore, finestre esagonali sui giunti | 3,8 cm³ |
+| `Cover_Tibia` | PETG bianco | guscio lungo dal ginocchio fin quasi al piede, fronte convesso, sezione a C, finestra lunga | 10,3 cm³ |
+
+Il carapace, la fascia, la visiera e le gonne si stampano in un solo pezzo a due colori (capovolto, senza supporti); cicalino e pulsante salgono con il carapace. Fissaggio: 4 viti M3 × 8 nei pozzetti, sulle colonnine di D-052.
+
+Verifiche (9 ottobre 2026, Fusion versione 24): assieme senza interferenze; coxe libere a ±35°; zampe vicine libere a 30° e 31°, contatto tra 31° e 32° su tutte le coppie laterali (a sinistra e a destra), anteriori e posteriori libere a 34°; carapace contro ogni zampa a imbardata −35, 0, +35 con (α, γ) = (85, 90), (85, 29), (60, 90): libero, distanza minima 4,6 mm (zampe medie) e 7,1 (le altre), contatto con α 100 (controllo); testa libera dalle zampe anteriori con α −49, 0, 85; sfilamento del carapace verso l'alto di 5, 10, 20 e 40 mm libero, a −2 le gonne toccano l'orlo delle baie (controllo); campo della camera (tronco da 7 × 7 sulla lente, 54,2° e 46,1°) libero, a +6° tocca le pareti dell'occhio (controllo); ciclo a tripode 100/45, 130/25, 80/60 e 70/70 (otto fasi) e rotazione sul posto di 30° a 100/45 e 70/70: nessun urto.
+
+### Massa e baricentro dal modello (9 ottobre 2026, dopo la passata estetica)
 
 | Voce | Massa (g) |
 |---|---|
 | 18 servo MG996R | 990 |
-| 18 squadrette, 18 cuscinetti, 18 perni | 145 |
-| Parti stampate delle sei zampe | 552 (92 a zampa) |
-| Parti stampate del corpo v0.4: base 198, coperchio con muso 52, chiglia 33, vassoio 9, sportello 7, due slitte 11, sportellino 5 | 314 |
+| 18 squadrette, 18 cuscinetti, 18 perni | 144 |
+| Parti stampate delle sei zampe: coxa 156, ponte 31, Femore_B 141, Femore_A 55, tibia 191 | 574 (96 a zampa) |
+| Cover delle zampe: lame A 29, lame B 31, gusci delle tibie 79 | 139 (23 a zampa) |
+| Parti stampate del corpo: base 198, carapace 62, chiglia 33, slitte 11, vassoio 9, sportello 7, gonne 5, fascia 4, sportellino 3, visiera 2 | 333 |
 | Batteria, SSC-32, ESP32, camera, due regolatori | 340 |
-| **Totale modellato** | **2341** |
-| Non modellato (stima): cavi e connettori 160, viteria e inserti 140, basetta e logica 25, piedini 15, fusibili, Wago, T-plug, cicalino, interruttore 45 | circa 385 |
-| **Totale atteso** | **circa 2730** |
+| Pulsante (B3b) e cicalino | 18 |
+| **Totale modellato** | **2537** |
+| Non modellato (stima): cavi e connettori 160, viteria e inserti 140, basetta e logica 25, piedini 15, fusibili, Wago, T-plug, interruttore 35 | circa 375 |
+| **Totale atteso** | **circa 2910** |
 
-Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,7; 0; −11,7) mm, cioè quasi sul centro in pianta e 12 mm sotto il piano dei femori. La massa di progetto del calcolo statico (2750 g) resta sopra l'attesa, ma ormai di soli 20 g: la base (198 g, quasi tutta pareti sottili) è la voce da guardare nello slicer.
+Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %; PETG-CF 1,3 g/cm³, PETG 1,27); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,6; 0; −12,1) mm. Rispetto alla stima prima della passata estetica (2730 g) ci sono 180 g in più: 139 di cover (le lame sono piene e il guscio della tibia è lungo, mentre la specifica ne prevedeva 49), 21 di tibie più larghe, 19 di carapace. Con 2910 g il femore arriva al **51 % dello stallo** al punto di progetto 100/45 (48 % con 2750), il ginocchio al 47 %: sopra la soglia del 50 % che ci si era dati, dentro quanto accettato dall'utente (D-063).
 
 ### Da fare nel corpo
 

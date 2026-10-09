@@ -23,8 +23,9 @@ Unita' mm, terna del robot: X avanti, Y a sinistra, Z in alto, z = 0 sugli assi 
 Terna della zampa: origine sull'asse della coxa a z 0, X verso l'esterno lungo la zampa, Y = Z x X (lungo l'asse del femore,
 verso la piastra delle squadrette Femore_A), Z in alto. Le parti con zampe=True sono date in questa terna.
 
-Gruppi del modello: base, coperchio, interni, servo_coxa, zampe_servo, zampe_struttura_coxa, zampe_struttura_coxa_ponte,
-zampe_struttura_femore_a, zampe_struttura_femore_b, zampe_struttura_tibia. nascondi() e colore() valgono per prefisso:
+Gruppi del modello: base, carapace, nero, interni, servo_coxa, zampe_servo, zampe_struttura_coxa, zampe_struttura_coxa_ponte,
+zampe_struttura_femore_a, zampe_struttura_femore_b, zampe_struttura_tibia, zampe_struttura_cover_femore_a, ..._b,
+zampe_struttura_cover_tibia, zampe_struttura_ingombro_teste_a (fino a D-060 c'era coperchio al posto di carapace e nero). nascondi() e colore() valgono per prefisso:
 nascondi('zampe_struttura_tibia') toglie solo le tibie, colore('zampe_struttura', c) colora tutte le parti stampate.
 """
 import math
@@ -41,7 +42,10 @@ from scipy.spatial import ConvexHull
 QUI = os.path.dirname(os.path.abspath(__file__))
 MESH = os.path.join(QUI, 'mesh')
 COLORI = {'base': '#5d636b', 'coperchio': '#6a7079', 'interni': '#6f7c8c', 'servo_coxa': '#2a2a2d',
-          'zampe_struttura': '#5d636b', 'zampe_servo': '#2a2a2d'}      # per prefisso del nome del gruppo
+          'zampe_struttura': '#5d636b', 'zampe_servo': '#2a2a2d',
+          # D-061: carapace e cover in PETG bianco, fascia, visiera, gonne e sportellino in PETG nero
+          'carapace': '#f2f2f2', 'nero': '#1e1f22', 'zampe_struttura_cover': '#f2f2f2',
+          'zampe_struttura_ingombro_teste': '#2a2a2d'}      # per prefisso del nome del gruppo (vince il piu' lungo)
 # assi delle coxe: (x, y, direzione in gradi), D-050
 COXE = {'AS': (80, 44, 30), 'MS': (0, 48, 90), 'PS': (-80, 44, 150), 'AD': (80, -44, -30), 'MD': (0, -48, -90), 'PD': (-80, -44, -150)}
 VISTE = {  # elevazione, azimut (gradi), zoom

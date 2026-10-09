@@ -239,3 +239,25 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
   - zampa senza interferenze, 54 pose della scansione libere; 17 controlli su 20 a γ minimo − 2 toccano, come prima;
   - assieme: coxe libere a ±35°, zampe vicine libere a 30° e 31°, ciclo a tripode 70/70 e 100/45 e rotazione sul posto a 30° liberi. L'unica interferenza è tra il vecchio coperchio e il carapace nuovo, che lo sostituisce (B4).
 - Punto di ripristino della versione di B3: copia "Hexapod v2 - MG996R - ripristino tibia asimmetrica (v22)" nel progetto Fusion e tag git `ripristino-tibia-asimmetrica`.
+
+## D-063 — Carapace e parti nere costruiti, verifiche e masse (2026-10-09)
+
+- **B4–B6** (`corpo.py` → `carapace`, `carapace_dettagli`, `fascia`, `visiera`, `gonne`, `sportellino`, `sportello`, `togli_coperchio`): carapace, fascia, visiera, gonne, sportellino a ottagono e smusso dello sportello della batteria, come la specifica (`ricerca/estetica-specifica.md`, 2.1–2.7). Il vecchio `Corpo_Coperchio` è cancellato, senza lavorazioni orfane. `Rif_Pulsante_12` nuovo in libreria; cicalino e pulsante sono istanze nel corpo (`assieme.py` → `pose_corpo`).
+- **Scarti dalla specifica**, tutti trovati sul modello:
+  - **occhio della camera fatto con un loft** fra le due bocche, prolungate di 0,5 mm oltre le facce. Le quattro estrusioni piane della specifica avrebbero tagliato anche fuori dal tronco: un prisma estruso non si ferma agli spigoli delle pareti vicine, e il taglio in alto avrebbe aperto tutta la visiera sopra l'occhio;
+  - **guance di coda in due blocchi**: la parte sopra l'attacco dello smusso (z 30) bucava lo smusso del lobo posteriore (un cuneo di 3 mm visibile dal retro) e ora rientra 1 mm dietro la linea della coda;
+  - nervature del collare del cicalino a filo nel modello, come quelle dello sportellino (D-056), così il controllo delle interferenze resta pulito;
+  - angoli dell'ottagono: i rettangoli dei tagli d'angolo stanno dalla parte interna del lato a 45°. Con i lati in senso antiorario, b = a ruotato di +90° punta fuori, quindi i rettangoli sono a b < 0.
+- Volumi: carapace 49,1 cm³ (51,1 dopo lo svuotamento, contro 53 ± 3 stimati), fascia 3,1, visiera 1,5, gonne 3,8, sportellino 2,3, sportello 5,5.
+- **Verifiche (B7, Fusion versione 24)**, ognuna con il suo caso di controllo:
+  - assieme senza interferenze; coxe libere a ±35°;
+  - zampe vicine: libere a 30° e 31°, contatto tra 31° e 32° su tutte e quattro le coppie laterali. Il verso è stato provato: a sinistra AS +, MS −; a destra AD −, MD +; MD −, PD +. Anteriori e posteriori libere a 34°;
+  - carapace contro ogni zampa (`assieme.py` → `carapace_zampe`), imbardata −35, 0, +35 con (α, γ) = (85, 90), (85, 29), (60, 90): libero. Distanza minima da femori, lame e teste: 4,6 mm sulle zampe medie, 7,1 sulle altre. Controllo: α 100 tocca il carapace;
+  - testa: zampe anteriori a ±35° con α −49, 0, 85 e γ 90 o 180: libere dalla visiera e dal carapace;
+  - sfilamento (`sfilamento`): carapace, fascia, visiera, gonne, sportellino, cicalino e pulsante sollevati di 5, 10, 20 e 40 mm: liberi. Controllo: a −2 mm le gonne e il carapace toccano la base;
+  - campo della camera (`campo`): tronco di piramide da 7 × 7 sulla lente con 54,2° e 46,1°, lungo 15 mm, libero da visiera, fascia e carapace. Controllo: con +6° tocca visiera e fascia;
+  - ciclo a tripode 100/45, 130/25 e 80/60 in 4 fasi, 70/70 in 8; rotazione sul posto di 30° a 100/45 e 70/70: nessun urto;
+  - timeline senza avvisi, nessuna posa pendente.
+- **Masse** (`progetto-meccanico.md`, tabella aggiornata): totale atteso **circa 2910 g** (2730 prima della passata estetica). Le cover pesano 139 g contro i 49 della specifica, perché le lame sono piene (B2) e il guscio della tibia è lungo (scelta dell'utente); le tibie più larghe 21 g; il carapace 19 g. `calc/statica_tripode.py` con 2910 g: femore al **51 % dello stallo** al punto di progetto 100/45 (48 % con 2750), ginocchio al 47 %. È sopra la soglia del 50 % che ci si era dati, ma dentro quanto l'utente ha accettato ("accetta di superare il 50 % dello stallo"). Massa di progetto del calcolo portata a 2910. Se servirà alleggerire, la prima leva è il guscio della tibia (1,2 mm invece di 1,6: circa 20 g in meno); la base (198 g) va guardata nello slicer.
+- **Stampa** (`cad/stl/README.md`, STL riesportati con `cad/script/esporta_stl.py`): il carapace con fascia, visiera e gonne è un pezzo a due colori, capovolto, senza supporti. Aperto: la **lama B** ha le spine sulla faccia interna e non ha una faccia piana da mettere sul piatto. O si stampa con la bombatura in giù e un supporto d'interfaccia sotto i bordi (al massimo 1 mm), o le spine diventano fori e si usano spine separate; si decide con il provino.
+- Render a colori della versione attuale in `immagini/assieme-carapace-*.png`; `esporta_mesh.py` ha i gruppi `carapace` e `nero`.

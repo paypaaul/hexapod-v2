@@ -2,7 +2,7 @@
 
 Robot esapode a 18 gradi di libertà (6 zampe × 3 servo MG996R), stampato in 3D e comandato da un ESP32-S3 con camera e una SSC-32. Progetto personale, in fase di progettazione CAD.
 
-![Assieme con il coperchio](docs/immagini/assieme-v0-coperchio.png)
+![Assieme con il carapace (render schematico, D-061)](docs/immagini/assieme-carapace-iso.png)
 
 ## Dove guardare
 

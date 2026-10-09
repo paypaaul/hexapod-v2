@@ -14,7 +14,7 @@ Questa repo è la memoria del progetto: una sessione nuova deve poter ripartire 
 | 1. Studio di ciò che cambia | **fatta** (2026-10-08, studio ridotto): `docs/studio-componenti.md`, `docs/dimensionamento.md` (preliminare), `docs/dimensioni-componenti.md` |
 | 2. BOM e revisione | **fatta e approvata** (2026-10-08): `docs/BOM.md` v2.0. Restano aperte le domande in fondo al BOM |
 | 3. Dimensioni e modelli 3D | **fatta** (2026-10-08): design Fusion **"Hexapod v2 - MG996R"** con 79 parametri, servo e regolatori da STEP, 14 ingombri in libreria (`cad/script/rif_componenti.py`, D-046); elenco in `docs/dimensioni-componenti.md` |
-| 4. Progettazione CAD | **in corso**: zampa v0.1 (D-047…D-049) e corpo v0.4 rivisto e corretto (D-050…D-057) con assieme a sei zampe e giunti di coxa, verificati con i giunti veri (`docs/progetto-meccanico.md`, `cad/script/zampa.py`, `corpo.py`, `assieme.py`); prossimi i dettagli del corpo e il ciclo a tripode |
+| 4. Progettazione CAD | **in corso**: zampa v0.1 (D-047…D-049), corpo v0.4 (D-050…D-057) e **passata estetica applicata e verificata** (D-060…D-063: carapace con fascia, visiera e occhio, gonne, cover delle zampe, tibia simmetrica), assieme a sei zampe con giunti veri (`docs/progetto-meccanico.md`, `cad/script/zampa.py`, `corpo.py`, `assieme.py`); restano piedino, pettini dei cavi, interruttore |
 | 5. BOM finale (viteria dal modello) | **bozza**: viteria e inserti contati dal modello in `docs/BOM.md` (manca il fissaggio del coperchio) |
 | 6. Verifica del movimento | da fare |
 
@@ -77,6 +77,7 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 
 | `cad/script/corpo.py` | corpo: base con gondole, chiglia, coperchio |
 | `cad/script/assieme.py` | assieme: istanze nel corpo, sei zampe, giunti di coxa, interferenze, rotazione delle coxe |
+| `cad/script/esporta_stl.py` | STL di tutte le parti stampate in `cad/stl/` (orientamento e materiali nel README della cartella) |
 | `cad/script/esporta_mesh.py`, `cad/render/render.py` | render schematici (matplotlib) del modello con parti nuove sopra: prima si esportano le mesh da Fusion (sola lettura), poi `Scena()` + parti + `render()` |
 | `docs/ricerca/estetica-dossier.md` | dossier per la passata estetica (indicazioni, quote, vincoli) |
 
@@ -188,8 +189,8 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 
 ## Prossimi passi
 
-1. **Approvazioni del 9 ottobre** (D-059): pulsante B3b, M3 × 5, B18, D10, C5; C6 tolta. **In attesa**: cicalino (BOM, domanda 6, consigliata la (c)) e le domande 1–4 del BOM. **Passata estetica**: scelto "Kabuto" (D-060, `docs/ricerca/estetica-specifica.md`), **in attesa del via libera dell'utente** e dei filamenti; poi i 9 blocchi della specifica, il primo corregge due errori del femore di oggi (rondelle sovrapposte, fascetta di D-058).
-2. **Corpo v0.4** (D-052…D-057): restano interruttore e cicalino (dopo le risposte), pettini per le anse dei cavi nelle baie posteriori. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo` (vanno in timeout ma finiscono: rileggere); controllo con `controllo`, `interferenze`, coxe a ±35° e a 31° tra vicine, `ciclo` (100/45 e 70/70).
-3. **Zampa**: fascette dei cavi fatte (D-058, STL del ponte riesportato); restano nervature di schiacciamento delle culle e piedino, dopo il provino.
+1. **Da far decidere all'utente**: filamenti e colori (BOM, domanda 7); massa attesa 2910 g con il femore al 51 % dello stallo (D-063: va bene così o si alleggerisce il guscio della tibia); stampa della lama B (spine sulla faccia interna, D-063); domande 1–4 del BOM.
+2. **Corpo**: restano l'interruttore 2813 (non ancora piazzato) e i pettini per le anse dei cavi nelle baie posteriori. Dopo ogni modifica: `corpo.py` → parte; poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo` (vanno in timeout ma finiscono: rileggere); controllo con `controllo`, `interferenze`, coxe a ±35° e a 31° tra vicine, `carapace_zampe`, `sfilamento`, `campo`, `ciclo` (100/45 e 70/70). Il carapace si rifà con `carapace` e poi `carapace_dettagli` (due chiamate: la seconda va in timeout ma finisce).
+3. **Zampa**: piedino in TPU (D9) sulla punta 8 × 14 dello stinco simmetrico; nervature di schiacciamento delle culle dopo il provino. Dopo una modifica: `zampa.py` → parte, `giunti`, `limiti`, `misura`, `interferenze`, scansione delle pose (α a passi di 5, γ minimo e γ minimo − 2).
 4. **Provino** della culla e del giunto (passacavo nella fessura, viti nei fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata della coxa).
 5. Fase 5 (BOM finale: viteria contata dal modello, da aggiornare a ogni modifica) e fase 6 (ciclo a tripode verificato in quattro assetti e rotazione sul posto a 30° per passo in due; campo della camera stimato: i ginocchi anteriori stanno al bordo dell'immagine; resta da fare l'andatura con il corpo inclinato o spostato, se servirà).
