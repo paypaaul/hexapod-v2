@@ -44,6 +44,7 @@ PARTI = {
     'Piedino': 'Esa TPU arancio',
     'Corpo_Tappo_ToF': 'Esa PLA nero', 'Corpo_Sportello_Servizio_Zaino': 'Esa PLA nero',
     'Corpo_Supporto_INA260_S': 'Esa PETG-CF nero', 'Corpo_Supporto_INA260_D': 'Esa PETG-CF nero',
+    'Dima_Posa_1': 'Esa PLA placche', 'Dima_Posa_2': 'Esa PLA placche', 'Attrezzo_Cavalletto': 'Esa PETG-CF nero',
     'Rif_IMU': 'Esa scheda blu', 'Rif_ADC_ADS7830': 'Esa scheda blu', 'Rif_INA260': 'Esa scheda blu', 'Rif_ToF_8x8': 'Esa scheda verde',
     'Rif_ToF_1': 'Esa scheda verde', 'Rif_Ampli_MAX98357A': 'Esa scheda blu', 'Rif_Altoparlante': 'Esa plastica nera',
     'Rif_Microfono_I2S': 'Esa scheda blu', 'Rif_FSR_400': 'Esa grigio chiaro', 'Rif_Scheda_Carapace': 'Esa scheda verde',

@@ -1,6 +1,6 @@
 # STL delle parti stampate
 
-Esportati da Fusion il 9 ottobre 2026 (design "Hexapod v2 - MG996R", dopo D-065) con `cad/script/esporta_stl.py`. Ogni file è nella terna del suo componente: terna della zampa per le parti della zampa, terna del robot per quelle del corpo. Gli orientamenti qui sotto sono proposte: li confermi tu nello slicer. Sono file di prova: le quote marcate C (squadretta, giochi, forzamenti) si confermano con il provino.
+Esportati da Fusion il 10 ottobre 2026 (design "Hexapod v2.1.0", dopo D-066) con `cad/script/esporta_stl.py`. Ogni file è nella terna del suo componente: terna della zampa per le parti della zampa, terna del robot per quelle del corpo. Gli orientamenti qui sotto sono proposte: li confermi tu nello slicer. Sono file di prova: le quote marcate C (squadretta, giochi, forzamenti) si confermano con il provino.
 
 Materiali (scelta dell'utente, D-065): **PETG-CF nero** per le parti funzionali, **PLA** per le placche (bianco per ora; fascia, visiera, gonne e sportellino in un secondo colore, nero), **TPU 95A arancio** per i piedini.
 
@@ -16,7 +16,8 @@ Materiali (scelta dell'utente, D-065): **PETG-CF nero** per le parti funzionali,
 | `Cover_Femore_A.stl` | PLA | faccia interna (piana) sul piatto, bombatura in alto | si incastra sulle teste M3 del blocco |
 | `Cover_Femore_B.stl` | PLA | faccia interna (piana) sul piatto, bombatura in alto | due fori svasati per viti M2 × 6 a testa piana (D-065) |
 | `Cover_Tibia.stl` | PLA | retro aperto sul piatto, fronte in alto | il fronte fa da ponte fra i due smussi; supporti piccoli sotto i due tappi e il bossolo della vite |
-| `Piedino.stl` | TPU 95A | bocca sul piatto, punta in alto | calza la punta dello stinco; nel modello la stretta è zero, da tarare sul provino (0 / −0,2 / −0,4 mm) |
+| `Piedino.stl` | TPU 95A | bocca sul piatto, punta in alto | calza la punta dello stinco; nel modello la stretta è zero, da tarare sul provino (0 / −0,2 / −0,4 mm). Dalla 2.1.0 la suola è piana, con il pistoncino per l'FSR dentro e la tacca dei fili (D-066) |
+| `Cover_Tibia_Diffusore.stl` | PLA bianco (o PETG traslucido fumé) | lastra sul piatto, bordino in alto | solo con le luci nelle tibie: si incastra da dentro nella finestra del guscio (D-066) |
 
 ## Corpo
 
@@ -29,8 +30,18 @@ Materiali (scelta dell'utente, D-065): **PETG-CF nero** per le parti funzionali,
 | `Corpo_Chiglia.stl` | PETG-CF | fondo sul piatto | |
 | `Corpo_Vassoio.stl` | PLA (sta sotto l'antenna: niente carbonio) | piano sul piatto | |
 | `Corpo_Slitta_Regolatore.stl` | PETG-CF | due copie | |
+| `Corpo_Supporto_INA260_S.stl`, `Corpo_Supporto_INA260_D.stl` | PETG-CF | piastra sul piatto | solo con gli INA260 (X7): si appoggiano alla slitta e prendono la sua vite (M3 più lunga di 2,4) |
+| `Corpo_Tappo_ToF.stl` | PLA nero | flangia sul piatto | chiude la finestra del ToF frontale finché il sensore manca |
+| `Corpo_Sportello_Servizio_Zaino.stl` | PLA nero | come lo sportellino | al posto dello sportellino, solo con il computer a zaino (tacca per l'USB-C) |
 
 Parti in PETG-CF: ugello temprato 0,4, pareti 3 perimetri (1,2 mm), 4–5 strati sopra e sotto, riempimento 25 %.
+
+## Attrezzi da banco (`attrezzi/`, D-066)
+
+| File | Materiale | Orientamento di stampa proposto | Note |
+|---|---|---|---|
+| `attrezzi/Dima_Posa_1.stl`, `attrezzi/Dima_Posa_2.stl` | PLA o PETG | piastra sul piatto, denti in alto | dime di taratura: si infilano sui perni del femore dal lato B (lama B tolta); posa 1: imbardata 0, femore 0, ginocchio 90; posa 2: 30, 45, 135 |
+| `attrezzi/Attrezzo_Cavalletto.stl` | PETG-CF | base sul piatto | regge il robot sotto la chiglia con le zampe libere; alto 137 mm |
 
 ## Provino della culla (da stampare per primo)
 

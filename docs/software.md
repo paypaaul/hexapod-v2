@@ -266,6 +266,10 @@ Spegnimento: seduta sulla chiglia, parcheggio, rail spento, impulso su GPIO41.
 - Per ogni giunto: canale, verso, impulso a due angoli noti (da cui offset e guadagno), impulso minimo e massimo.
 - Valori di partenza generati dalla repo: servo a metà corsa con α +20°, γ 100° e coxa in direzione neutra. Le sei zampe sono la stessa zampa ruotata, non specchiata: lo stesso verso vale per tutte (`robot/robot.yaml` → `servo.verso`, ipotesi da provare al banco).
 - Procedura dalla web app, nello stato CALIBRAZIONE: un servo alla volta, passi di ±1 e ±10 µs, **due pose fissate da dime stampate**: coxa a 0° e +30°, femore a 0° e +45°, ginocchio a 90° e 135°. Circa un'ora per il robot (S).
+- Dime (versione 2.1.0, D-066):
+  - si usano `Dima_Posa_1` e `Dima_Posa_2`, in `cad/stl/attrezzi/`, infilate sui perni del femore dal lato B, con la lama B tolta;
+  - ogni giunto va contro il suo dente da un verso noto: il femore scende, il ginocchio chiude, la coxa gira in senso antiorario;
+  - il robot sta sul cavalletto, con le zampe libere.
 - Salvataggio: blob con versione e CRC in una partizione NVS dedicata, copia in `robot/calib/<robot>.yaml` nella repo. All'avvio il firmware manda l'hash in telemetria e gli strumenti avvisano se non coincide. **Senza taratura valida il rail non si accende.**
 - Le correzioni le applica l'ESP32, non il comando `PO` della SSC-32: copre solo ±100 µs e non resta allo spegnimento (V).
 - Perché due punti: la squadretta a 25 denti si cala a passi di 14,4°, quindi l'errore di montaggio arriva a ±7,2°, circa ±80 µs (*calcolo*). Il guadagno dell'MG996R non è pubblicato: circa 11 µs/° sul campo 500–2500 µs (S). Se femore e ginocchio risultano non lineari si aggiunge un terzo punto.

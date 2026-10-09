@@ -342,3 +342,25 @@ Decisioni dell'utente del 9 ottobre: audio a bordo senza la microSD dell'ESP32, 
   - cicli a tripode 100/45 (8 fasi), 70/70 (16 fasi) e rotazione a 30°: nessun urto;
   - zampa con l'FSR: 81 pose libere e 17 controlli su 20.
 - Masse: modellato 2625 g, atteso circa 2985 con tutte le predisposizioni montate. Il femore va al 52,1 % dello stallo a 100/45 (5,73 kgf·cm).
+
+**Blocco C — attrezzi da banco** (fatto e verificato il 10 ottobre, `cad/script/attrezzi.py`, STL in `cad/stl/attrezzi/`):
+- **Dime di posa**, due per tutte le zampe, uguali perché le zampe sono la stessa zampa ruotata:
+  - `Dima_Posa_1`: imbardata 0°, femore 0°, ginocchio 90°;
+  - `Dima_Posa_2`: imbardata +30°, femore +45°, ginocchio 135°.
+  Sono le due pose della taratura a due punti di `software.md` 2.7.
+- **Come è fatta.** La dima è una piastra che si infila sui due perni del femore dal lato B, con la lama B tolta (due viti), e si appoggia ai mozzi. Ha tre denti:
+  - contro la faccia +X della culla della coxa (femore);
+  - contro la faccia −X della culla della tibia (ginocchio);
+  - con un braccio contro il fianco della cassa del servo di coxa, che sta nel corpo (imbardata).
+
+  Non servono facce nuove sulle parti. Le tre facce sono quasi radiali rispetto al loro asse: ruotando il giunto il punto di contatto si sposta lungo la normale della faccia, circa 0,4 mm per grado.
+- **Verificato sulla zampa AS** atteggiata nelle due pose:
+  - nessun urto con zampa e corpo;
+  - i tre denti a distanza 0,000 dalle loro facce;
+  - controllo a ±2°: il dente del femore urta la coxa a −2°, quello del ginocchio la tibia a 88°, quello dell'imbardata la cassa a +2°; dall'altra parte resta libero.
+
+  In taratura quindi si porta il femore giù contro il dente, il ginocchio a chiudere e la coxa in senso antiorario, a passi di 1 e 10 µs. Passa da pochi decimi di millimetro di gioco a contatto: la precisione attesa è quella della stampa più la taratura (±0,5° circa, C).
+- **Cavalletto** (`Attrezzo_Cavalletto`, PETG-CF, 222 cm³):
+  - culla sotto la chiglia fra x −30 e +30, con labbri sui fianchi alti 8 mm, sotto il ripiano delle baie; resta lontana dallo sportello della batteria e dalle viti;
+  - colonna cava 60 × 40 e base 160 × 120. Il tavolo sta a z −170, perché il piede più basso arriva a −159 con femore −49 e ginocchio 139.
+  - Verificato: nessun urto con il robot, né con le zampe AS, MS e PS in 18 pose basse e ripiegate (imbardata −35, 0, +35; femore −45 e −49, ginocchio al minimo e a 139).

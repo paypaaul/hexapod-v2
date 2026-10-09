@@ -82,6 +82,8 @@ Prossimo passo: vedi in fondo, "Prossimi passi".
 | `cad/script/colori.py` | aspetti dei pezzi nel design per materiale (D-065); il colore delle placche si cambia in `COLORI['Esa PLA placche']` |
 | `cad/script/viste.py` | esplosi di zampa e corpo (posa non catturata, poi `ripristina`), inquadrature e render locale di Fusion; `cad/render/ritaglia.py` uniforma i ritagli; render in `docs/immagini/render-*.png` |
 | `cad/script/esporta_stl.py` | STL di tutte le parti stampate in `cad/stl/` (orientamento e materiali nel README della cartella) |
+| `cad/script/attrezzi.py` | dime di posa per la taratura e cavalletto da banco, con le verifiche (D-066); STL in `cad/stl/attrezzi/` |
+| `cad/script/esporta_robot.py`, `robot/`, `tools/`, `firmware/`, `sim/`, `app/` | software S0: descrizione del robot dal CAD, nucleo e firmware ESP-IDF, simulazione MuJoCo, gemello nel browser (stato in `docs/software.md`) |
 | `cad/script/esporta_mesh.py`, `cad/render/render.py` | render schematici (matplotlib) del modello con parti nuove sopra: prima si esportano le mesh da Fusion (sola lettura), poi `Scena()` + parti + `render()` |
 | `docs/ricerca/estetica-dossier.md` | dossier per la passata estetica (indicazioni, quote, vincoli) |
 | `docs/piano-v2.1.0.md` | piano della versione 2.1.0: file e versioni, blocchi di lavoro, verifiche, come riprendere |

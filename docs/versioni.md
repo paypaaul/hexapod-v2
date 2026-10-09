@@ -16,6 +16,6 @@ Prima della 2.0.0: la versione progettata attorno agli MG90S, nel branch `mg90s`
 | Tag `v2.0.0`, copia del design Fusion, script legati a `versione.py` | fatto (9 ottobre 2026) |
 | Blocco A — zampa | fatto e verificato (9 ottobre 2026, D-066): punta e piedino per l'FSR, gola e tasca dei fili, sede della striscia LED, diffusore, punti con nome |
 | Blocco B — corpo | fatto e verificato (9 ottobre 2026, D-066): 2813, IMU, ADC, prese dei piedi, spie, ToF frontale e posteriore, INA260, anello del pulsante, luci dei lobi, zaino, audio |
-| Blocco C — attrezzi da banco | da fare |
+| Blocco C — attrezzi da banco | fatto e verificato (10 ottobre 2026, D-066): due dime di posa per tutte le zampe e cavalletto |
 | Blocco D — software S0 | fatto e verificato (9 ottobre 2026): stato in `docs/software.md` |
 | Documenti, STL, render, tag `v2.1.0` | da fare |
