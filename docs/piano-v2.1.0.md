@@ -100,3 +100,19 @@ Copia del file Fusion e tag git, poi A, B, C. D gira con agenti in parallelo dal
 1. Leggere `CLAUDE.md`, poi questo file, poi la sezione 5 (CAD) e la 2.3 (GPIO) di `docs/piano-elettronica-software.md`.
 2. Controllare che ci siano gli strumenti del connettore Fusion e quale file è aperto: la v2.1.0, non la v2.0.
 3. `git log --oneline -5` e `docs/versioni.md` dicono a che blocco si è arrivati.
+
+## Seguito: tre correzioni (versione 2.1.1, chieste dall'utente il 10 ottobre 2026)
+
+Sullo stesso design "Hexapod v2.1.0" (correzioni piccole: niente copia del file Fusion), tag `v2.1.1` a fine lavoro, decisione D-067.
+
+1. **Camera nera dell'anello del pulsante da Ø28 a Ø32** (`luc_camera_D`).
+   - Con Ø28 fra il dado del pulsante (r 8,65) e la parete (r 12,8) restano 4 mm e un pezzo di striscia WS2812B-2020 largo 5 non entra. Il limite di 28 veniva dai canali delle linee della fascia (X22), che non si fanno.
+   - Aggiungere la **sede dei due pixel**: un fondo o una piastrina che chiude la camera in basso, con il pezzo di striscia incollato rivolto verso l'anello, e la tacca per i fili verso la coda.
+   - Ricontrollare pozzetti (−56, ±22,5), battuta dello sportellino, SSC-32 e cavi dei servo sotto (z ≤ 25), sfilamento del carapace.
+2. **Fermo dei fili della tibia** (FSR: 2 fili; LED: 3 fili da 30 AWG) sulla parete +X della culla della tibia, sotto il guscio: oggi dalla gola in su e dalla cima della striscia corrono nell'aria fino alla cima del guscio.
+   - Un gancio o una scanalatura poco profonda (≤ 0,8, la parete è di 2), fuori dalle finestre a rombo e dai tappi del guscio.
+   - Poi le verifiche della zampa (interferenze, scansione, cicli).
+3. **Schema del cablaggio**: documento nuovo `docs/cablaggio.md`, con uno schema e una tabella.
+   - Per ogni cavo: da dove a dove, percorso (giunti attraversati, fascette, ganci), connettore, numero di fili e sezione.
+   - Cavi da coprire: servo, FSR, LED delle tibie, catena LED del carapace (anello, lobi) attraverso la scheda del carapace con la spina IDC, bus I2C dei sensori, ToF, microfoni e amplificatore, INA260, spie, alimentazione.
+   - Partire da `docs/piano-elettronica-software.md` (sezioni 2.1–2.5), `docs/predisposizioni.md`, `calc/cavi_servo.py` e D-066.
