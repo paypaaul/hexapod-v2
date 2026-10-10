@@ -103,6 +103,8 @@ Copia del file Fusion e tag git, poi A, B, C. D gira con agenti in parallelo dal
 
 ## Seguito: tre correzioni (versione 2.1.1, chieste dall'utente il 10 ottobre 2026)
 
+**Fatta il 10 ottobre 2026** (D-067, tag `v2.1.1`): camera Ø32 × 6 con il fondo e due sedi da un pixel, fermo dei fili sulla culla della tibia, `cablaggio.md`. In più: striscia a 60 LED/m per tutte le luci e un pixel per lobo.
+
 Sullo stesso design "Hexapod v2.1.0" (correzioni piccole: niente copia del file Fusion), tag `v2.1.1` a fine lavoro, decisione D-067.
 
 1. **Camera nera dell'anello del pulsante da Ø28 a Ø32** (`luc_camera_D`).

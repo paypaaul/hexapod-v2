@@ -419,7 +419,8 @@ def verifica_ciclo(des, root, h, xf0, passo, alzata, fasi, giro=0.0):
 # ----------------------------------------------------------------------------------- carapace (D-061, specifica 5.4-5.8)
 GRUPPO_CARAPACE = ('Corpo_Carapace', 'Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
 # montati sul carapace o sulla visiera: si tolgono con loro (D-066)
-SALGONO_COL_CARAPACE = GRUPPO_CARAPACE + ('Rif_Cicalino_BX100', 'Rif_Pulsante_12', 'Corpo_Tappo_ToF', 'Corpo_Sportello_Servizio_Zaino',
+SALGONO_COL_CARAPACE = GRUPPO_CARAPACE + ('Rif_Cicalino_BX100', 'Rif_Pulsante_12', 'Corpo_Fondo_Anello', 'Corpo_Tappo_ToF',
+                                          'Corpo_Sportello_Servizio_Zaino',
                                           'Rif_Altoparlante', 'Rif_Microfono_I2S', 'Rif_Ampli_MAX98357A', 'Rif_Scheda_Carapace', 'Rif_ToF_1')
 
 

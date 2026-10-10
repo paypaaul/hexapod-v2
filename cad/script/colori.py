@@ -42,7 +42,7 @@ PARTI = {
     'Corpo_Fascia': 'Esa PLA nero', 'Corpo_Visiera': 'Esa PLA nero', 'Corpo_Gonne': 'Esa PLA nero',
     'Corpo_Sportello_Servizio': 'Esa PLA nero',
     'Piedino': 'Esa TPU arancio',
-    'Corpo_Tappo_ToF': 'Esa PLA nero', 'Corpo_Sportello_Servizio_Zaino': 'Esa PLA nero',
+    'Corpo_Tappo_ToF': 'Esa PLA nero', 'Corpo_Fondo_Anello': 'Esa PLA nero', 'Corpo_Sportello_Servizio_Zaino': 'Esa PLA nero',
     'Corpo_Supporto_INA260_S': 'Esa PETG-CF nero', 'Corpo_Supporto_INA260_D': 'Esa PETG-CF nero',
     'Dima_Posa_1': 'Esa PLA placche', 'Dima_Posa_2': 'Esa PLA placche', 'Attrezzo_Cavalletto': 'Esa PETG-CF nero',
     'Rif_IMU': 'Esa scheda blu', 'Rif_ADC_ADS7830': 'Esa scheda blu', 'Rif_INA260': 'Esa scheda blu', 'Rif_ToF_8x8': 'Esa scheda verde',

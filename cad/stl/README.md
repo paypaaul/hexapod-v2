@@ -8,7 +8,7 @@ Materiali (scelta dell'utente, D-065): **PETG-CF nero** per le parti funzionali,
 
 | File | Materiale | Orientamento di stampa proposto | Note |
 |---|---|---|---|
-| `Tibia.stl` | PETG-CF | fondo della culla (faccia −Y) sul piatto, apertura della culla in alto | **provino della culla**: contiene una culla completa. Lo stinco è simmetrico sul piano della zampa (D-065) e si stacca dal piatto verso la punta (fino a circa 17 mm): serve un supporto a cuneo sotto lo stinco |
+| `Tibia.stl` | PETG-CF | fondo della culla (faccia −Y) sul piatto, apertura della culla in alto | **provino della culla**: contiene una culla completa. Lo stinco è simmetrico sul piano della zampa (D-065) e si stacca dal piatto verso la punta (fino a circa 17 mm): serve un supporto a cuneo sotto lo stinco. Dalla 2.1.1 c'è la gola dei fili sulla parete +X della culla con tre ponticelli: in questa posizione crescono come pareti in piedi, senza supporti (D-067) |
 | `Coxa.stl` | PETG-CF | faccia +Y (orlo della culla, braccio, anima) sul piatto | foro del perno orizzontale in stampa |
 | `Coxa_Ponte.stl` | PETG-CF | faccia superiore sul piatto (sede del disco verso l'alto) | |
 | `Femore_B.stl` | PETG-CF | faccia esterna della piastra dei perni sul piatto | blocco in piedi; due fori per inserti M2 sulla faccia esterna (lama B) |
@@ -32,6 +32,7 @@ Materiali (scelta dell'utente, D-065): **PETG-CF nero** per le parti funzionali,
 | `Corpo_Slitta_Regolatore.stl` | PETG-CF | due copie | |
 | `Corpo_Supporto_INA260_S.stl`, `Corpo_Supporto_INA260_D.stl` | PETG-CF | piastra sul piatto | solo con gli INA260 (X7): si appoggiano alla slitta e prendono la sua vite (M3 più lunga di 2,4) |
 | `Corpo_Tappo_ToF.stl` | PLA nero | flangia sul piatto | chiude la finestra del ToF frontale finché il sensore manca |
+| `Corpo_Fondo_Anello.stl` | PLA nero | disco sul piatto, gonna e sedi dei pixel in alto | chiude da sotto la camera nera dell'anello del pulsante: si infila sul corpo del pulsante dopo il dado e calza la parete della camera (forzamento leggero, D-067). Nelle due sedi va un pixel di striscia ciascuna, LED in su |
 | `Corpo_Sportello_Servizio_Zaino.stl` | PLA nero | come lo sportellino | al posto dello sportellino, solo con il computer a zaino (tacca per l'USB-C) |
 
 Parti in PETG-CF: ugello temprato 0,4, pareti 3 perimetri (1,2 mm), 4–5 strati sopra e sotto, riempimento 25 %.

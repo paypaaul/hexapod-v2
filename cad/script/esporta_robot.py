@@ -46,7 +46,7 @@ ZA = runpy.run_path(os.path.join(QUI, 'zampa.py'))
 RHO = {'PETG-CF': 1.3, 'PLA': 1.24, 'TPU': 1.21}
 GUSCIO_CM, RIEMPIMENTO = 0.12, 0.25
 PLA = ('Corpo_Carapace', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Tibia', 'Cover_Tibia_Diffusore', 'Corpo_Vassoio', 'Corpo_Fascia',
-       'Corpo_Tappo_ToF', 'Corpo_Sportello_Servizio_Zaino',
+       'Corpo_Tappo_ToF', 'Corpo_Sportello_Servizio_Zaino', 'Corpo_Fondo_Anello',
        'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
 TPU = ('Piedino',)
 # parti comprate: massa dichiarata in g (servo: datasheet AZDelivery, V; batteria 245-259 +-20, arrotondata per eccesso;
@@ -297,7 +297,8 @@ def geometria(des, root):
     }
     os.makedirs(OUT, exist_ok=True)
     testo = json.dumps(out, indent=1, ensure_ascii=False, sort_keys=False)
-    with open(os.path.join(OUT, 'cad.json'), 'w') as f:
+    # utf-8 esplicito: la codifica predefinita del Python di Fusion dipende dalla sessione (il 10 ottobre era ascii)
+    with open(os.path.join(OUT, 'cad.json'), 'w', encoding='utf-8') as f:
         f.write(testo + '\n')
     return {'file': 'robot/cad.json', 'parti': len(parti), 'masse': out['masse'],
             'sha256': hashlib.sha256(testo.encode()).hexdigest()[:12], 's': round(time.time() - t0, 1)}
@@ -395,11 +396,11 @@ def pose(des, root, imbardate=POSE_IMBARDATA):
     percorso = os.path.join(OUT, 'pose_cad.json')
     vecchie = []
     if os.path.exists(percorso):
-        with open(percorso) as f:
+        with open(percorso, encoding='utf-8') as f:
             vecchie = [r for r in json.load(f)['pose'] if r['comandati'][0] not in imbardate]
     doc = adsk.core.Application.get().activeDocument
     tutte = sorted(vecchie + righe, key=lambda r: tuple(r['comandati']))
-    with open(percorso, 'w') as f:
+    with open(percorso, 'w', encoding='utf-8') as f:
         json.dump({'versione': V['VERSIONE'], 'documento': doc.name,
                    'nota': 'punta del piede (punto zampa.punta_piede di cad.json) letta dal modello con i giunti veri; '
                            'imbardata = segno_imbardata * valore di G_coxa', 'zampa': n,

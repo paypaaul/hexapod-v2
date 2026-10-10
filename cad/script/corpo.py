@@ -198,9 +198,19 @@ PARAMETRI = [
     ('luc_anello_r0', '9 mm', 'mm', 'Anello di stato del pulsante (X11): raggio interno (fuori dal dado del pulsante, r 8,65)'),
     ('luc_anello_r1', '11 mm', 'mm', 'Anello di stato del pulsante: raggio esterno'),
     ('luc_bianco', '0.8 mm', 'mm', 'Luci: bianco che resta sopra la luce (0,6-0,8 dal provino X10)'),
-    ('luc_camera_D', '28 mm', 'mm', 'Camera nera sotto l anello: diametro esterno (<= 28, D-066)'),
-    ('luc_camera_h', '4 mm', 'mm', 'Camera nera: altezza'),
+    ('luc_camera_D', '32 mm', 'mm', 'Camera nera sotto l anello: diametro esterno (con 28 un pezzo di striscia largo 5 non entrava, D-067)'),
+    ('luc_camera_h', '6 mm', 'mm', 'Camera nera: altezza (i pixel stanno sotto il dado del pulsante, alto 2 nell ingombro, C: margine 3)'),
     ('luc_camera_sp', '1.2 mm', 'mm', 'Camera nera: parete'),
+    ('luc_tacca_w', '4 mm', 'mm', 'Camera nera: larghezza della tacca dei fili verso la coda (6 fili da 30 AWG affiancati, 3,3)'),
+    ('luc_tacca_h', '3 mm', 'mm', 'Camera nera: altezza della tacca dal fondo (i fili passano sopra la gonna del fondo)'),
+    ('luc_fondo_sp', '1.2 mm', 'mm', 'Fondo della camera nera: spessore'),
+    ('luc_gonna_h', '1.2 mm', 'mm', 'Fondo della camera nera: altezza della gonna che calza la parete da fuori'),
+    ('luc_gonna_sp', '0.8 mm', 'mm', 'Fondo della camera nera: spessore della gonna'),
+    ('luc_fondo_gio', '0.05 mm', 'mm', 'Fondo della camera nera: gioco per lato della gonna (forzamento leggero, da tarare con il provino X10)'),
+    ('luc_pix_l', '17.1 mm', 'mm', 'Sede di un pixel: lunghezza (un pixel di striscia a 60 LED/m, 16,7, piu 0,4)'),
+    ('luc_pix_w', '5.4 mm', 'mm', 'Sede di un pixel: larghezza (striscia FPC larga 5, piu 0,4; va anche quella da 4)'),
+    ('luc_pix_r0', '6.5 mm', 'mm', 'Sede di un pixel: bordo interno dall asse del pulsante (corpo r 6, foro r 6,1); LED a r 9,2, sotto l anello'),
+    ('luc_pix_prof', '0.4 mm', 'mm', 'Sede di un pixel: profondita nel fondo'),
     ('luc_lobo_a', '17 mm', 'mm', 'Luce dei lobi (X12): distanza della sede dall asse della coxa, sulla direzione neutra della zampa'),
     ('luc_lobo_l', '22 mm', 'mm', 'Luce dei lobi: lunghezza della sede (striscia di 2 pixel)'),
     ('luc_lobo_w', '5 mm', 'mm', 'Luce dei lobi: larghezza della sede'),
@@ -798,13 +808,33 @@ def fai_fascia(corpo):
     for lato, y in (('s', 'aud_mic_y'), ('d', '-(aud_mic_y)')):
         p.cilindro('z', zf, 'mic_foro_' + lato, 'aud_mic_x', y, 'aud_mic_foro', 'car_fascia_h', 1, TAGLIA)
     # camera nera sotto l'anello (corpo a parte nello stesso pezzo nero, stampato con il carapace capovolto), con la
-    # tacca per i fili dei due pixel verso la coda
+    # tacca per i fili dei due pixel verso la coda; la chiude da sotto Corpo_Fondo_Anello (D-067)
     zc = 'car_top - car_sp - luc_camera_h'
     p.cilindro('z', zc, 'camera_nera', 'car_puls_x', '0 mm', 'luc_camera_D', 'luc_camera_h', 1, NUOVO)
     p.cilindro('z', zc, 'camera_nera_vuoto', 'car_puls_x', '0 mm', 'luc_camera_D - 2 * luc_camera_sp', 'luc_camera_h', 1, TAGLIA)
-    p.blocco('z', zc, 'camera_nera_tacca', 'car_puls_x - luc_camera_D / 2 - 1 mm', '-(1.5 mm)',
-             'car_puls_x - luc_camera_D / 2 + luc_camera_sp + 1 mm', '1.5 mm', '2 mm', 1, TAGLIA)
+    p.blocco('z', zc, 'camera_nera_tacca', 'car_puls_x - luc_camera_D / 2 - 1 mm', '-(luc_tacca_w / 2)',
+             'car_puls_x - luc_camera_D / 2 + luc_camera_sp + 1 mm', 'luc_tacca_w / 2', 'luc_tacca_h', 1, TAGLIA)
     p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
+    return occ, p
+
+
+def fai_fondo_anello(corpo):
+    """Fondo della camera nera dell'anello (X11, D-067): disco nero con una gonna che calza da sotto la parete della
+    camera, il foro per il corpo del pulsante e due sedi per un pixel di striscia ciascuna, ai lati del pulsante sotto
+    l'anello (LED rivolti in su). Si monta dopo il dado del pulsante; i fili escono dalla tacca della camera sopra la
+    gonna. I pixel passano sotto il dado; un pezzo unico di due pixel (33,3) chiederebbe una camera di circa Ø43."""
+    occ = _nuovo_comp(corpo, 'Corpo_Fondo_Anello')
+    p = Parte(occ.component)
+    zc = 'car_top - car_sp - luc_camera_h'
+    de = 'luc_camera_D + 2 * (luc_fondo_gio + luc_gonna_sp)'
+    p.cilindro('z', zc, 'disco', 'car_puls_x', '0 mm', de, 'luc_fondo_sp', -1, NUOVO)
+    p.cilindro('z', zc, 'gonna', 'car_puls_x', '0 mm', de, 'luc_gonna_h')
+    p.cilindro('z', zc, 'gonna_vuoto', 'car_puls_x', '0 mm', 'luc_camera_D + 2 * luc_fondo_gio', 'luc_gonna_h', 1, TAGLIA)
+    p.cilindro('z', zc, 'foro_pulsante', 'car_puls_x', '0 mm', 'car_puls_d', 'luc_fondo_sp', -1, TAGLIA)
+    for lato, y0, y1 in (('s', 'luc_pix_r0', 'luc_pix_r0 + luc_pix_w'), ('d', '-(luc_pix_r0 + luc_pix_w)', '-(luc_pix_r0)')):
+        p.blocco('z', zc, 'sede_pixel_' + lato, 'car_puls_x - luc_pix_l / 2', y0, 'car_puls_x + luc_pix_l / 2', y1, 'luc_pix_prof', -1,
+                 TAGLIA)
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 3)}
     return occ, p
 
 
@@ -1137,7 +1167,8 @@ def main(passi, **kw):
                         ('carapace', fai_carapace), ('carapace_dettagli', fai_carapace_dettagli), ('fascia', fai_fascia),
                         ('visiera', fai_visiera), ('gonne', fai_gonne), ('tappo_tof', fai_tappo_tof),
                         ('supporto_ina_s', lambda c: fai_supporto_ina(c, 1)), ('supporto_ina_d', lambda c: fai_supporto_ina(c, -1)),
-                        ('sportellino_zaino', fai_sportellino_zaino), ('base_predisposizioni', fai_base_predisposizioni),
+                        ('sportellino_zaino', fai_sportellino_zaino), ('fondo_anello', fai_fondo_anello),
+                        ('base_predisposizioni', fai_base_predisposizioni),
                         ('carapace_predisposizioni', fai_carapace_predisposizioni)):
             if nome in passi:
                 occ, p = f(corpo)

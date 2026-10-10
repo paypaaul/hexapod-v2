@@ -1,4 +1,4 @@
-# Descrizione unica del robot (versione 2.1.0): la parte scritta a mano. La geometria, le masse e i limiti meccanici
+# Descrizione unica del robot (versione 2.1.1): la parte scritta a mano. La geometria, le masse e i limiti meccanici
 # stanno in cad.json, esportato dal modello Fusion con cad/script/esporta_robot.py; tools/descrizione.py unisce i
 # due file, tools/genera_header.py ne fa l'header del firmware, tools/genera_modelli.py URDF e MJCF. Il CI controlla che cad_sha256 sia quello di
 # cad.json: se si riesporta dal CAD, si aggiorna anche qui (e si rigenera).
@@ -11,9 +11,9 @@
 #   ginocchio (180 = distesa). Cinematica: calc/statica_tripode.py -> ik_piano (soluzione a ginocchio alto).
 # Stato dei dati: V verificato, S stimato, C da confermare (come nei documenti).
 
-versione: 2.1.0
+versione: 2.1.1
 cad: cad.json
-cad_sha256: 517ba75e95b7332a822525c9f4cc09a8edbf8832d8a00245b01660a489a66f30  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
+cad_sha256: cd3cb2039349696cda986edd70389780873264e87b79edc507dbaa79d8c54459  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
 
 zampe: [AS, MS, PS, AD, MD, PD]          # A anteriore, M media, P posteriore; S sinistra, D destra
 tripodi: [[AS, PS, MD], [AD, PD, MS]]    # calc/statica_tripode.py -> TRIPODI

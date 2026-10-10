@@ -54,7 +54,7 @@ SPOST_CORPO = {
     'Corpo_Supporto_INA260_S': (0, 0, 52), 'Corpo_Supporto_INA260_D': (0, 0, 52), 'Rif_INA260': (0, 0, 74),
     'Rif_Interruttore_Pololu_2813': (0, 0, 40), 'Rif_IMU': (0, 0, 40), 'Rif_ADC_ADS7830': (0, 0, 40), 'Rif_Prese_Piedi': (0, 0, 40),
     'Rif_ToF_8x8': (18, 0, 72), 'Corpo_Tappo_ToF': (14, 0, 150), 'Rif_ToF_1': (-12, 0, 150), 'Rif_Altoparlante': (-12, 0, 150),
-    'Rif_Microfono_I2S': (0, 0, 132), 'Rif_Ampli_MAX98357A': (0, 0, 132), 'Rif_Scheda_Carapace': (0, 0, 132),
+    'Rif_Microfono_I2S': (0, 0, 132), 'Corpo_Fondo_Anello': (0, 0, 132), 'Rif_Ampli_MAX98357A': (0, 0, 132), 'Rif_Scheda_Carapace': (0, 0, 132),
 }
 
 # inquadrature: (direzione dell'occhio, terna 'robot' o 'zampa', bersaglio in mm nella stessa terna, ampiezza in cm)

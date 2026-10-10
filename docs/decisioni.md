@@ -364,3 +364,27 @@ Decisioni dell'utente del 9 ottobre: audio a bordo senza la microSD dell'ESP32, 
   - culla sotto la chiglia fra x −30 e +30, con labbri sui fianchi alti 8 mm, sotto il ripiano delle baie; resta lontana dallo sportello della batteria e dalle viti;
   - colonna cava 60 × 40 e base 160 × 120. Il tavolo sta a z −170, perché il piede più basso arriva a −159 con femore −49 e ginocchio 139.
   - Verificato: nessun urto con il robot, né con le zampe AS, MS e PS in 18 pose basse e ripiegate (imbardata −35, 0, +35; femore −45 e −49, ginocchio al minimo e a 139).
+
+## D-067 — Versione 2.1.1: camera dell'anello, fermo dei fili della tibia, cablaggio (2026-10-10)
+
+Correzioni chieste dall'utente il 10 ottobre, sullo stesso design "Hexapod v2.1.0" (nessuna copia del file Fusion), tag `v2.1.1`. Piano in `piano-v2.1.0.md`, ultima sezione.
+
+- **Striscia LED** (X9): WS2812B-2020 a **60 LED/m**, larga 4 o 5 mm. È la densità che il produttore Superlighting elenca per le strisce 2020 da 4 e 5 mm; a 100 LED/m ho trovato solo un'inserzione esaurita, e 120 e 160 LED/m solo da rivenditori senza scheda tecnica. Un solo tipo di striscia per tutte le luci: un pixel misura 16,7 mm.
+- **Camera nera dell'anello del pulsante** (X11): da Ø28 × 4 a **Ø32 × 6**. Con Ø28 fra il dado del pulsante (r 8,65) e la parete restavano 4,15 mm, e un pezzo di striscia largo 5 non entrava. Il limite di 28 veniva dalle linee di luce della fascia (X22), che non si fanno.
+  - **Fondo** nuovo, `Corpo_Fondo_Anello` (PLA nero, 0,96 cm³): disco con una gonna che calza da sotto la parete della camera (0,05 di gioco per lato, forzamento leggero da tarare), con il foro per il corpo del pulsante e **due sedi da un pixel** (17,1 × 5,4 × 0,4) ai lati del pulsante, a Y ±(6,5…11,9). I LED stanno a r 9,2, sotto l'anello (r 9–11).
+  - I pixel passano **sotto il dado** del pulsante: per questo la camera è alta 6. Dal pezzo di striscia al dado restano 3 mm con il dado alto 2 dell'ingombro (C). Due pezzi da un pixel e non un pezzo da due, che a 60 LED/m è lungo 33,3 e chiederebbe una camera di circa Ø43. Il ponticello di 3 fili fra i due pezzi gira attorno al corpo del pulsante sul lato della testa.
+  - La **tacca** dei fili nella parete, verso la coda, passa da 3 × 2 a 4 × 3: due fili da 3 a 30 AWG, in entrata e in uscita, sopra la gonna.
+  - Verificato: assieme senza interferenze; il fondo tocca solo la camera (appoggio), con 0,1 mm dal corpo del pulsante, 3,3 dalla zona delle spine della SSC-32, 3,8 dal carapace e 5,9 dallo sportellino. Sfilamento del carapace libero da +5 a +40 con il fondo che sale insieme a lui. Il volume della camera (682 mm³) e quello del fondo (955 mm³) coincidono con il calcolo a mano.
+- **Luci dei lobi** (X12): **un pixel per lobo** invece di due. La sede 5 × 22 della 2.1.0 era stata pensata per due pixel a 100 LED/m. A 60 LED/m due pixel sono lunghi 33,3. Sotto il dorso piano del lobo, nella fascia della sede (17 ± 2,5 mm dall'asse della coxa), la larghezza è di 27–32 mm (calcolo dai parametri del lobo, S), e con i ganci ne servirebbero 36. Un pixel da 16,7 entra nella sede di oggi. La catena del carapace ha così 8 pixel: 2 dell'anello e 6 dei lobi.
+- **Fermo dei fili della tibia**: gola larga 4 e profonda 0,8 sulla parete +X della culla, da Z −33 a +12,45 (la testata), a Y 4,4…8,4.
+  - Sta fuori dalle finestre a rombo e dai tappi del guscio, che arrivano a Y 3,5. Tiene il doppino dell'FSR (28 AWG siliconico, circa Ø0,9, S) e i 3 fili della striscia da 30 AWG.
+  - Tre **ponticelli** a Z −28, −10 e +6, staccati 0,3 dalla parete: sotto restano 1,1 mm. Sporgono 1,1, dove il guscio è a 4–5,7 dalla parete. La tibia si stampa sul fondo della culla, quindi i ponticelli crescono come pareti in piedi, senza supporti.
+  - Una prima versione larga 3,2, con i ponticelli a filo, era pensata per fili da 30 AWG. Il doppino dell'FSR è da 28 AWG (X5) e lì non passava: è stata rifatta prima delle verifiche finali.
+  - Verificato: tibia un solo corpo, volume −115,5 mm³ come da calcolo; zampa senza interferenze; 81 pose libere e 17 controlli su 20 che toccano, come prima. Assieme senza interferenze, dime con i denti a contatto, cavalletto libero nelle 18 pose.
+- **Cablaggio**: schema e tabelle di tutti i cavi in `cablaggio.md`. Restano aperti:
+  - le prese delle luci delle tibie, non ancora nel CAD;
+  - il ramo delle tibie, che ripete i primi tre pixel della catena, cioè l'anello e il primo lobo;
+  - il tetto di corrente, che deve contare sei volte i pixel delle tibie;
+  - i pettini delle anse.
+- **Esportazione**: `esporta_robot.py` scrive i JSON in UTF-8 esplicito. Il 10 ottobre il Python di Fusion aveva l'ASCII come codifica predefinita, e la "Ø" di un commento ha interrotto la scrittura di `cad.json`.
+- Masse: tibia 111,9 g a segmento, corpo 1064,7; modellato 2627 g, atteso circa 2987.

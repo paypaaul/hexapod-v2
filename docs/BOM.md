@@ -145,7 +145,7 @@ Nel CAD della 2.1.0 (D-066) ci sono le sedi per queste voci; **niente è approva
 | X6 ADS7830 | bugne accanto all'IMU |
 | X7 2 × INA260 | supporti sopra le slitte dei regolatori |
 | X8 ToF VL53L7CX | mensola della camera, finestra nella visiera, tappo |
-| X9, X11, X12, X31 luci | anello del pulsante con camera nera, sedi dei lobi, sedi nelle tibie e diffusore |
+| X9, X11, X12, X31 luci (striscia WS2812B-2020 a 60 LED/m, D-067) | anello del pulsante con camera nera Ø32 × 6 e fondo con due sedi da un pixel; sedi dei lobi da un pixel; sedi nelle tibie con il fermo dei fili, diffusore. Cablaggio in `cablaggio.md` |
 | X13 spie dei rail | linguette in coda |
 | X2 scheda del carapace, X17 amplificatore e altoparlante, X16 microfoni, X19 ToF posteriore | bugne sotto il dorso, guide e piano sulle guance di coda, fori con anello |
 | Computer a zaino (Radxa ZERO 3W) | quattro bugne M2 sopra l'ottagono, sportellino con la tacca dell'USB-C |

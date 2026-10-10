@@ -201,6 +201,12 @@ PARAMETRI = [
     ('tib_gola_p', '2 mm', 'mm', 'Tibia: gola dei fili dell FSR, profondita (si ferma al fondo della culla: la parete e di 2)'),
     ('tib_gola_y', '4.5 mm', 'mm', 'Tibia: centro in Y della gola, fuori dalla finestra del guscio (|Y| <= 3,5)'),
     ('pied_tacca', '2 mm', 'mm', 'Piedino: tacca per i fili nel bordo alto sul lato +X, sopra la gola'),
+    ('tib_fermo_y', '6.4 mm', 'mm', 'Tibia: centro in Y della gola dei fili sulla parete +X della culla (fuori dai rombi, |Y+5| > 8,5, sotto l orlo a 9,45)'),
+    ('tib_fermo_w', '4 mm', 'mm', 'Tibia: larghezza della gola dei fili (doppino dell FSR 28 AWG siliconico, Ø0,9 S, e 3 fili della striscia da 30 AWG, Ø0,5-0,75: 3,3-4,05)'),
+    ('tib_fermo_p', '0.8 mm', 'mm', 'Tibia: profondita della gola dei fili (la parete della culla e di 2: ne restano 1,2)'),
+    ('tib_ponte_luce', '0.3 mm', 'mm', 'Tibia: ponticelli staccati dalla parete sopra la gola: sotto restano 1,1 per i fili da 0,9'),
+    ('tib_ponte_sp', '0.8 mm', 'mm', 'Tibia: spessore dei ponticelli sopra la gola (sporgono 1,1 dalla parete; il guscio e a 4-5,7)'),
+    ('tib_ponte_l', '2 mm', 'mm', 'Tibia: lunghezza dei ponticelli lungo la tibia'),
     ('luc_tib_w', '5.4 mm', 'mm', 'Tibia: sede piana della striscia LED WS2812B-2020 larga 5 (C), sotto la finestra del guscio'),
     ('luc_tib_p', '0.5 mm', 'mm', 'Tibia: profondita della sede della striscia alle estremita (al centro circa 1,3: sede piana su faccia ad arco)'),
     ('luc_tib_z0', 'cul_coda', 'mm', 'Tibia: inizio della sede della striscia, al fondo della culla'),
@@ -735,6 +741,20 @@ def _taglio_faccia(p, xk, nome, z0, z1, y0, larghezza, prof, est0='0.5 mm', est1
                         a0, '%s + %s' % (corda, est1), '0 mm', '%s + 3 mm' % prof, larghezza, 1, TAGLIA)
 
 
+def _fermo_fili(p, xk):
+    """Fermo dei fili di FSR e luci (D-067): gola sulla parete +X della culla, dal fondo della culla alla testata, fuori
+    dalle finestre a rombo e dai tappi del guscio, con tre ponticelli sotto cui passano i fili. La tibia si stampa sul
+    fondo della culla (Y in alto): i ponticelli crescono come pareti in piedi, senza supporti."""
+    xf = xk + ' + cul_semi'
+    y0, y1 = 'tib_fermo_y - tib_fermo_w / 2', 'tib_fermo_y + tib_fermo_w / 2'
+    p.blocco('x', xf, 'gola_fili', y0, '-(cul_coda)', y1, 'cul_corto', 'tib_fermo_p', -1, TAGLIA)
+    # fra le finestre e lontano dalle loro punte (|Y+5| > 8,5 in ogni caso), dove il guscio e' a 4-5,7 dalla parete
+    for k, z in enumerate(('-(cul_coda - 5 mm)', '-(10 mm)', '6 mm')):
+        z0, z1 = z + ' - tib_ponte_l / 2', z + ' + tib_ponte_l / 2'
+        p.blocco('x', xf, 'ponte_fili_%d' % k, y0 + ' - 0.8 mm', z0, y1 + ' + 0.8 mm', z1, 'tib_ponte_luce + tib_ponte_sp', 1)
+        p.blocco('x', xf, 'sotto_ponte_%d' % k, y0, z0, y1, z1, 'tib_ponte_luce', 1, TAGLIA)
+
+
 def fai_tibia(zampa):
     occ = _nuovo_comp(zampa, 'Tibia')
     p = Parte(occ.component)
@@ -768,6 +788,7 @@ def fai_tibia(zampa):
     # luci (X31, predisposizione): sede piana per la striscia sotto la finestra del guscio, dal fondo della culla
     _taglio_faccia(p, xk, 'sede_luce', 'luc_tib_z0', 'luc_tib_z1', 'tib_y_c - luc_tib_w / 2', 'luc_tib_w', 'luc_tib_p',
                    '0 mm', '0.5 mm', xa=xk + ' + cul_semi')
+    _fermo_fili(p, xk)
     p.info = {'spigoli_punta': n_punta, 'spigoli_smussati': n_smussi, 'corpi': occ.component.bRepBodies.count}
     return occ, p
 
@@ -1236,6 +1257,12 @@ def main(passi, **kw):
                     p.info = dict(getattr(p, 'info', {}), punti=_punti(occ.component))
                 out[nome] = _chiudi(des, occ.component.name, p)
                 out[nome].update(getattr(p, 'info', {}))
+        if 'fermo_fili' in passi:                  # solo sulla tibia della 2.1.0, una volta: fai_tibia lo fa gia'
+            occ = L['trova_occ'](zampa.component, 'Tibia')[0]
+            T0['Tibia_fermo_fili'] = des.timeline.count
+            p = Parte(occ.component)
+            _fermo_fili(p, 'zam_Lc + zam_Lf')
+            out['fermo_fili'] = _chiudi(des, 'Tibia_fermo_fili', p)
         if 'punti' in passi:
             out['punti'] = {o.component.name: _punti(o.component) for o in zampa.component.occurrences if o.component.name in PUNTI}
         if 'istanze' in passi:
