@@ -397,7 +397,7 @@ Tutti da approvare. Costi indicativi (S), da ricontrollare all'ordine. Fase = fa
 | Marcatori AprilTag | localizzazione | P9 | — | — | carta |
 | Software libero (ESP-IDF e componenti, MuJoCo, pytest, ruff, Rerun, mcap, three.js, Vite, Node.js, OpenCV) | S0 e oltre | P0 | — | — | 0 € (installazione da approvare) |
 
-Somme indicative (S): voci alte circa 150 €, medie circa 90 €, basse circa 200–230 €. Prezzi e link letti il 10 ottobre 2026 nel BOM, sezione X (D-068): con le spedizioni alte circa 177 €, medie circa 140 €, basse circa 321 €. Dime e cavalletto si stampano dalle bobine già scelte.
+Somme indicative (S): voci alte circa 150 €, medie circa 90 €, basse circa 200–230 €. Prezzi e link letti il 10 ottobre 2026 nel BOM, sezione X (D-068): con le spedizioni alte circa 169 €, medie circa 141 €, basse circa 319 €. Dime e cavalletto si stampano dalle bobine già scelte.
 
 ## 7. Decisioni che servono dall'utente
 

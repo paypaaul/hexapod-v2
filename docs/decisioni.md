@@ -397,7 +397,7 @@ Chiesto dall'utente il 10 ottobre: BOM con prezzi e link d'acquisto al prezzo mi
 - AliExpress va bene per la minuteria, sempre con l'alternativa europea.
 
 - **Come**: due giri di ricerca con 10 ricercatori e 10 verificatori (Sonnet). I verificatori hanno riaperto ogni link e corretto prezzi, spedizioni e codici. I totali sono calcolati da uno script sulle righe, non a mano.
-- **Carrelli delle voci approvate** (BOM, "Carrelli e costo totale"): circa **486 €** consegnati, contro i circa 480 stimati nella v2.0.
+- **Carrelli delle voci approvate** (BOM, "Carrelli e costo totale"): circa **486 €** consegnati (496 € dopo i prezzi letti in Chrome, vedi sotto), contro i circa 480 stimati nella v2.0.
   - **Kamami**: regolatori Pololu e quasi tutta la minuteria, 185 €. Le spedizioni lette sono 8,24 € (Kamami) e 25,90 € (Gedex); quelle di Amazon e AliExpress sono stime.
   - **3DJake.it**: filamenti, 102 €.
   - **Gedex**: viti DIN 912 inox nelle quantità esatte, 53 € con 25,90 di spedizione.
@@ -421,3 +421,5 @@ Chiesto dall'utente il 10 ottobre: BOM con prezzi e link d'acquisto al prezzo mi
   - La catena del carapace ha 16 pixel. Il ramo delle tibie ripete i primi 6 e porta 36 pixel reali: il tetto di corrente del firmware deve contarli.
   - La striscia viene da fuori UE: dogana possibile.
   - Cambiano solo i commenti dei parametri `luc_pix_*`; `cablaggio.md`, `predisposizioni.md` e il BOM sono aggiornati.
+  - **Correzione, stesso giorno**: cercando in Chrome, su AliExpress un'inserzione ([1005009482531544](https://it.aliexpress.com/item/1005009482531544.html)) vende la 2020 su FPC da 4 mm a 60, 90, 120 e 200 LED/m. Quindi la 60 LED/m esiste; è il produttore Superlighting a non elencarla. Si resta a 120 LED/m, che dà 2 pixel per sede e i lobi a 2 pixel, e la si compra lì: 11,79 € al metro con la spedizione gratuita, invece di Superlighting.
+- **Prezzi Amazon.it e AliExpress letti in Chrome** (10 ottobre, su richiesta dell'utente): sul Mac dell'utente, con una scheda comandata via AppleScript, che apre le pagine di ricerca e di prodotto e legge prezzi, varianti, ASIN e foto. Le stime S di quei negozi sono diventate prezzi letti. Le viti passano da Gedex ad Amazon: kit inox più due confezioni, 42,03 € contro 53,03. Il totale delle approvate è circa **496 €**. Nel BOM c'è una colonna con la foto di ogni voce: sono link alle immagini dei negozi e dei produttori, non copie nella repo.
