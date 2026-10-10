@@ -215,6 +215,7 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 4. **Provino** della culla e del giunto (passacavo nella fessura, viti nei fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata della coxa).
 
 **Backlog** (chiesto dall'utente il 9 ottobre 2026):
+- **Ordini già fatti** (chiesto dall'utente il 10 ottobre 2026): prima di ordinare, ricordare all'utente di dare accesso ai suoi ordini Temu, Amazon e AliExpress. Servono a controllare cosa ha già e a toglierlo dal BOM, come gli inserti del kit Temu (BOM, domanda 3).
 - **Provino degli inserti del kit Temu** (BOM D4, D5): fori M3 per Ø4,2 a 3,9 / 4,0 / 4,1 mm e M2 per Ø3,2 a 2,9 / 3,0 / 3,1, in PETG-CF, anche con le lunghezze 5 e 6 mm. Poi aggiornare `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` (in `rif_componenti.py`) e rigenerare: `ins_m3_d` pilota anche le bugne delle culle (`bug_coda`, `bug_corto`, `bug_semi`), quindi dopo serve la verifica completa di zampa e assieme.
 - **Sensori, luci, elettronica e software** (ricerca del 9 ottobre 2026, con revisori): piano in `docs/piano-elettronica-software.md`, dettagli in `docs/predisposizioni.md` e `docs/software.md`. Predisposizioni nel CAD e software S0 fatti nella 2.1.0 (D-066); le voci da comprare restano da approvare (BOM, sezione X). Prossimo nel software: S1, banco dell'elettronica.
 - **Placca superiore del femore**: una cover anche sopra il femore (oggi ci sono solo le lame ai lati, D-061), non strutturale, che non limiti le escursioni né il contatto tra zampe vicine (oggi a 32°).
