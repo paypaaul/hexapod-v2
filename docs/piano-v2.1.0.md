@@ -118,3 +118,28 @@ Sullo stesso design "Hexapod v2.1.0" (correzioni piccole: niente copia del file 
    - Per ogni cavo: da dove a dove, percorso (giunti attraversati, fascette, ganci), connettore, numero di fili e sezione.
    - Cavi da coprire: servo, FSR, LED delle tibie, catena LED del carapace (anello, lobi) attraverso la scheda del carapace con la spina IDC, bus I2C dei sensori, ToF, microfoni e amplificatore, INA260, spie, alimentazione.
    - Partire da `docs/piano-elettronica-software.md` (sezioni 2.1–2.5), `docs/predisposizioni.md`, `calc/cavi_servo.py` e D-066.
+
+## Seguito: versione 2.1.2 — scelta delle predisposizioni (approvata dall'utente il 10 ottobre 2026)
+
+Sullo stesso design "Hexapod v2.1.0", tag `v2.1.2`, decisione D-069. L'utente ha approvato la classificazione delle voci X in sei classi (importante, good-to-have, superfluo; ha posto o no).
+
+- **Confermate come predisposizione**:
+  - sensori e loro infrastruttura: X1, X2, X3, X4, X5, X6, X7, X8, X14 (2 NTC), X19, X20, X23, X24;
+  - luci: X9, X10, X11, X12, X13, X31;
+  - audio: X16, X17;
+  - computer di bordo a zaino.
+- **Backlog, senza predisposizione**: X15, X18, X21, X22, X25, X26, X27, X28, X29, X30, X32, X33.
+- **Tocco senza sensore nuovo**: colpetto e doppio colpetto dall'IMU, pressione localizzata dal centro di pressione degli FSR, molleggio con controllo di ammettenza, passo di recupero. Va in `software.md`; il tocco capacitivo X18 resta in backlog.
+
+Lavori:
+1. **Prese delle luci delle tibie**: seconda fila di 6 spine JR, speculare a quella dei piedi sul lato −Y del tetto del tunnel. Va verificato il posto: IMU, cavi e asola.
+2. **Presa di T-plug e spinotto con il ToF posteriore montato**: ingombro di due dita nella porta di coda e controllo delle interferenze. Se non passa, il ToF si sposta sopra il piano del T-plug.
+3. **Provino di luce** (X10): piastrina 60 × 40 in `attrezzi.py`, con:
+   - gradini di bianco da 0,4 a 1,6;
+   - intarsio nero da 0,6;
+   - camere nere da 2, 4 e 6;
+   - anello e fessura;
+   - sedi per 3 pixel.
+   STL in `cad/stl/attrezzi/`.
+4. **Documenti**: D-069; classificazione in `predisposizioni.md`, nel piano elettronico, nella sezione X del BOM e in `CLAUDE.md`; NTC da 3 a 2; tocco dai sensori esistenti in `software.md`.
+5. **Chiusura**: verifiche, salvataggio in Fusion, STL, esportazione del robot, commit, tag `v2.1.2`.
