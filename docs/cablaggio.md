@@ -98,7 +98,7 @@ Ogni servo ha il suo cavo a 3 fili (massa, +6 V, segnale), lungo 32 cm dichiarat
 - **Femore**: esce dall'alto della culla della coxa, sull'asse dell'anca. Passa sul braccio del ponte (fascetta da 2,5 mm nelle feritoie a X 28, \|Y\| 5,5, D-058) e sopra l'asse della coxa, dove l'imbardata cambia meno la lunghezza. Entra sotto il coperchio a z 25. Attraversa un giunto, l'imbardata.
 - **Ginocchio**: esce dalla finestra del cavo nella testata della culla della tibia, sull'asse del ginocchio. Fa l'ansa del ginocchio, 22–40 mm al variare di γ, e passa nella fascetta dentro il blocco del femore (feritoie a X 79,5, tunnel a Z 10, D-060). Segue l'ansa dell'anca, 11–56 mm al variare di α, poi ponte, imbardata e canale come il femore. Attraversa tre giunti.
 - **Prolunghe** (BOM C5): 4 JR maschio-femmina da 15 cm, 22 AWG, sui ginocchi delle zampe d'angolo. Le giunzioni si chiudono con il termorestringente (C6).
-- Restano da disegnare i pettini per le anse dei cavi nelle baie posteriori (`CLAUDE.md`, Prossimi passi).
+- I pettini per le anse dei cavi nelle baie posteriori sono in backlog: pezzi separati, da disegnare con le lunghezze misurate (`CLAUDE.md`, Backlog).
 
 ### 3.3 Zampa: sensore di forza e luci della tibia
 
@@ -173,5 +173,5 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 2. **Il ramo delle tibie ripete i primi sei pixel della catena**. Oggi sono i quattro dell'anello e i due del primo lobo, quindi le tibie avrebbero gli stessi colori. Per tenerle indipendenti servono sei pixel nascosti in testa alla catena, per esempio 5 cm di striscia sulla basetta. Da decidere con X31.
 3. **Tetto di corrente**: i 600 mA del firmware devono contare ogni pixel delle tibie sei volte (36 pixel reali per 6 indirizzi).
 4. **Lunghezze dei fili** (S): si misurano sulla prima zampa montata, prima di tagliare gli altri cinque.
-5. **Pettini delle anse** nelle baie posteriori: ancora da disegnare.
+5. **Pettini delle anse** nelle baie posteriori: in backlog, come pezzi separati sulla parete del tunnel, da disegnare dopo il montaggio di una zampa con le lunghezze misurate (`CLAUDE.md`, Backlog).
 6. **Wago**: il positivo sta sul lato sinistro (+Y), il negativo, massa a stella di tutti i rami, sul destro (−Y), come nell'assieme (`assieme.py` → `Wago_piu`, `Wago_meno`).

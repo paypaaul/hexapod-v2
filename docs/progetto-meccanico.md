@@ -219,4 +219,4 @@ Masse con tutte le predisposizioni montate: 2625 g modellati e circa 2985 attesi
 
 ### Da fare nel corpo
 
-- Interruttore e cicalino (da decidere: vedi le domande in `BOM.md`); pettini per le anse dei cavi nelle baie posteriori (percorsi e lunghezze: sezione "Cavi dei servo"). Note di stampa della base in D-056.
+- Interruttore e cicalino (da decidere: vedi le domande in `BOM.md`); pettini per le anse dei cavi nelle baie posteriori, in backlog come pezzi separati sulla parete del tunnel, da disegnare dopo il montaggio di una zampa (percorsi e lunghezze: sezione "Cavi dei servo"). Note di stampa della base in D-056.
