@@ -1,7 +1,7 @@
 {
  "versione": "2.1.1",
- "documento": "Hexapod v2.1.0 v7",
- "esportato": "2026-10-10T10:17:02",
+ "documento": "Hexapod v2.1.0 v8",
+ "esportato": "2026-10-10T12:47:37",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -7311,25 +7311,25 @@
    "valore": 17.1,
    "unita": "mm",
    "espressione": "17.1 mm",
-   "commento": "Sede di un pixel: lunghezza (un pixel di striscia a 60 LED/m, 16,7, piu 0,4)"
+   "commento": "Sede dei pixel: lunghezza (due pixel di striscia 2020 a 120 LED/m, 16,7, piu 0,4; D-068)"
   },
   "luc_pix_w": {
    "valore": 5.4,
    "unita": "mm",
    "espressione": "5.4 mm",
-   "commento": "Sede di un pixel: larghezza (striscia FPC larga 5, piu 0,4; va anche quella da 4)"
+   "commento": "Sede dei pixel: larghezza (striscia FPC larga 4, fino a 5, piu 0,4)"
   },
   "luc_pix_r0": {
    "valore": 6.5,
    "unita": "mm",
    "espressione": "6.5 mm",
-   "commento": "Sede di un pixel: bordo interno dall asse del pulsante (corpo r 6, foro r 6,1); LED a r 9,2, sotto l anello"
+   "commento": "Sede dei pixel: bordo interno dall asse del pulsante (corpo r 6, foro r 6,1); LED a r 10,1, sotto l anello (r 9-11)"
   },
   "luc_pix_prof": {
    "valore": 0.4,
    "unita": "mm",
    "espressione": "0.4 mm",
-   "commento": "Sede di un pixel: profondita nel fondo"
+   "commento": "Sede dei pixel: profondita nel fondo"
   },
   "tib_fermo_y": {
    "valore": 6.4,

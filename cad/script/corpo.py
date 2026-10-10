@@ -207,10 +207,10 @@ PARAMETRI = [
     ('luc_gonna_h', '1.2 mm', 'mm', 'Fondo della camera nera: altezza della gonna che calza la parete da fuori'),
     ('luc_gonna_sp', '0.8 mm', 'mm', 'Fondo della camera nera: spessore della gonna'),
     ('luc_fondo_gio', '0.05 mm', 'mm', 'Fondo della camera nera: gioco per lato della gonna (forzamento leggero, da tarare con il provino X10)'),
-    ('luc_pix_l', '17.1 mm', 'mm', 'Sede di un pixel: lunghezza (un pixel di striscia a 60 LED/m, 16,7, piu 0,4)'),
-    ('luc_pix_w', '5.4 mm', 'mm', 'Sede di un pixel: larghezza (striscia FPC larga 5, piu 0,4; va anche quella da 4)'),
-    ('luc_pix_r0', '6.5 mm', 'mm', 'Sede di un pixel: bordo interno dall asse del pulsante (corpo r 6, foro r 6,1); LED a r 9,2, sotto l anello'),
-    ('luc_pix_prof', '0.4 mm', 'mm', 'Sede di un pixel: profondita nel fondo'),
+    ('luc_pix_l', '17.1 mm', 'mm', 'Sede dei pixel: lunghezza (due pixel di striscia 2020 a 120 LED/m, 16,7, piu 0,4; D-068)'),
+    ('luc_pix_w', '5.4 mm', 'mm', 'Sede dei pixel: larghezza (striscia FPC larga 4, fino a 5, piu 0,4)'),
+    ('luc_pix_r0', '6.5 mm', 'mm', 'Sede dei pixel: bordo interno dall asse del pulsante (corpo r 6, foro r 6,1); LED a r 10,1, sotto l anello (r 9-11)'),
+    ('luc_pix_prof', '0.4 mm', 'mm', 'Sede dei pixel: profondita nel fondo'),
     ('luc_lobo_a', '17 mm', 'mm', 'Luce dei lobi (X12): distanza della sede dall asse della coxa, sulla direzione neutra della zampa'),
     ('luc_lobo_l', '22 mm', 'mm', 'Luce dei lobi: lunghezza della sede (striscia di 2 pixel)'),
     ('luc_lobo_w', '5 mm', 'mm', 'Luce dei lobi: larghezza della sede'),
@@ -820,9 +820,9 @@ def fai_fascia(corpo):
 
 def fai_fondo_anello(corpo):
     """Fondo della camera nera dell'anello (X11, D-067): disco nero con una gonna che calza da sotto la parete della
-    camera, il foro per il corpo del pulsante e due sedi per un pixel di striscia ciascuna, ai lati del pulsante sotto
-    l'anello (LED rivolti in su). Si monta dopo il dado del pulsante; i fili escono dalla tacca della camera sopra la
-    gonna. I pixel passano sotto il dado; un pezzo unico di due pixel (33,3) chiederebbe una camera di circa Ø43."""
+    camera, il foro per il corpo del pulsante e due sedi da 16,7 mm (due pixel di striscia 2020 a 120 LED/m ciascuna,
+    D-068), ai lati del pulsante sotto l'anello (LED rivolti in su). Si monta dopo il dado del pulsante; i fili escono
+    dalla tacca della camera sopra la gonna. I pixel passano sotto il dado del pulsante."""
     occ = _nuovo_comp(corpo, 'Corpo_Fondo_Anello')
     p = Parte(occ.component)
     zc = 'car_top - car_sp - luc_camera_h'

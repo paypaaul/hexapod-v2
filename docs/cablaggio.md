@@ -44,8 +44,8 @@ ESP32-S3 ─ GPIO21 TX / GPIO14 RX ─ traslatore C1 ─ RX / TX della SSC-32 �
                                                                 ├─ ToF frontale 0x30 nella mensola
                                                                 └─ connettore a 16 poli ─ scheda del carapace: Qwiic,
                                                                    TCA9534 0x20, ToF posteriore 0x31
-         ─ GPIO48 ─ 10 kΩ a massa ─ SN74AHCT1G125 ─ 330 Ω ─┬─ polo 4 ─ anello (2 pixel) ─ 6 lobi (1 pixel ciascuno)
-                                                           └─ ramo delle tibie: 6 × 3 pixel in parallelo (ripetono i primi 3)
+         ─ GPIO48 ─ 10 kΩ a massa ─ SN74AHCT125N ── 330 Ω ─┬─ polo 4 ─ anello (4 pixel) ─ 6 lobi (2 pixel ciascuno)
+                                                           └─ ramo delle tibie: 6 × 6 pixel in parallelo (ripetono i primi 6)
          ─ GPIO38 BCLK, 39 WS, 40 dati dei microfoni, 2 dati dell'ampli ─ poli 10-13 ─ 2 microfoni, ampli ─ altoparlante
          ─ camera OV3660: flat da 75 mm (SCCB su GPIO4 e 5, da sola)
 ```
@@ -54,7 +54,7 @@ ESP32-S3 ─ GPIO21 TX / GPIO14 RX ─ traslatore C1 ─ RX / TX della SSC-32 �
 
 ```
 punta della tibia: FSR ─ tasca ─ gola 2 × 2 sullo stinco ──┐
-striscia LED (3 pixel) ─ capo in alto a z −33 ─────────────┴─ gola del fermo sulla parete +X della culla,
+striscia LED (6 pixel) ─ capo in alto a z −33 ─────────────┴─ gola del fermo sulla parete +X della culla,
    sotto tre ponticelli ─ testata della culla ─ si unisce al cavo del servo del ginocchio
    ─ ansa del ginocchio ─ fascetta nel blocco del femore ─ ansa dell'anca ─ fascetta del ponte (+ cavo del servo del femore)
    ─ sopra l'asse della coxa (ansa dell'imbardata) ─ sotto il coperchio a z 25 ─┬─ servo: canali della SSC-32
@@ -144,8 +144,8 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 
 | Cavo | Da → a | Percorso | Connettore | Fili | Stato |
 |---|---|---|---|---|---|
-| Catena LED (X9, X11, X12) | scheda → anello del pulsante → lobi PS, MS, AS, AD, MD, PD | dalla scheda lungo il lato sinistro dell'ottagono fino alla camera dell'anello. Entra dalla tacca verso la coda ed esce dalla stessa tacca. Poi lungo i fianchi nei ganci sotto il dorso (x −40, 0, 40, \|y\| 41,8–47,2), con il passaggio da sinistra a destra davanti | saldati sulle piazzole della striscia | 3 × 30 AWG (5 V, dato, massa) | S percorso; 8 pixel in tutto |
-| Dentro la camera dell'anello | due pezzi da un pixel nelle sedi del fondo, a Y ±(6,5…11,9) | entra al capo DIN del pezzo +Y, dalla parte della coda. Dal capo DOUT un ponticello di 3 fili gira attorno al corpo del pulsante sul lato della testa e va al capo DIN del pezzo −Y. Dal capo DOUT del pezzo −Y esce verso la tacca | saldati | 3 + 3 + 3 fili da 30 AWG | V spazio nel CAD (camera Ø32 × 6, D-067) |
+| Catena LED (X9, X11, X12) | scheda → anello del pulsante → lobi PS, MS, AS, AD, MD, PD | dalla scheda lungo il lato sinistro dell'ottagono fino alla camera dell'anello. Entra dalla tacca verso la coda ed esce dalla stessa tacca. Poi lungo i fianchi nei ganci sotto il dorso (x −40, 0, 40, \|y\| 41,8–47,2), con il passaggio da sinistra a destra davanti | saldati sulle piazzole della striscia | 3 × 30 AWG (5 V, dato, massa) | S percorso; 16 pixel in tutto (D-068) |
+| Dentro la camera dell'anello | due pezzi da due pixel (16,7 mm a 120 LED/m, D-068) nelle sedi del fondo, a Y ±(6,5…11,9) | entra al capo DIN del pezzo +Y, dalla parte della coda. Dal capo DOUT un ponticello di 3 fili gira attorno al corpo del pulsante sul lato della testa e va al capo DIN del pezzo −Y. Dal capo DOUT del pezzo −Y esce verso la tacca | saldati | 3 + 3 + 3 fili da 30 AWG | V spazio nel CAD (camera Ø32 × 6, D-067) |
 | Pulsante | pulsante → scheda → poli 15-16 | sotto il dorso, circa 9 cm | saldati | 2 fili | S |
 | Microfoni (X16) | due schede (x 83…96, \|y\| 3…19) → scheda | sotto il dorso, circa 5 cm | saldati | 5 per scheda: 3,3 V, massa, BCLK, WS, dati. I dati dei due microfoni sono uniti sul polo 12; SEL a massa su uno e a 3,3 V sull'altro | S |
 | Amplificatore (X17) | scheda → ampli (x 51…70) | sotto il dorso | saldati | 5: 5 V, massa, BCLK, WS, dati | S |
@@ -169,8 +169,8 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 ## 5. Aperti
 
 1. **Prese delle luci delle tibie** (C): non ci sono ancora nel CAD. Proposta: una seconda fila di sei spine JR a 3 poli (massa, +5 V, dato, l'ordine dei servo) speculare a quella dei piedi, sul lato −Y. Il posto va verificato. Si fa se si decide di montare X31.
-2. **Il ramo delle tibie ripete i primi tre pixel della catena**. Oggi sono i due dell'anello e il primo lobo, quindi le tibie avrebbero gli stessi colori. Per tenerle indipendenti servono tre pixel nascosti in testa alla catena, per esempio un pezzetto di striscia sulla basetta. Da decidere con X31.
-3. **Tetto di corrente**: i 600 mA del firmware devono contare ogni pixel delle tibie sei volte (18 pixel reali per 3 indirizzi).
+2. **Il ramo delle tibie ripete i primi sei pixel della catena**. Oggi sono i quattro dell'anello e i due del primo lobo, quindi le tibie avrebbero gli stessi colori. Per tenerle indipendenti servono sei pixel nascosti in testa alla catena, per esempio 5 cm di striscia sulla basetta. Da decidere con X31.
+3. **Tetto di corrente**: i 600 mA del firmware devono contare ogni pixel delle tibie sei volte (36 pixel reali per 6 indirizzi).
 4. **Lunghezze dei fili** (S): si misurano sulla prima zampa montata, prima di tagliare gli altri cinque.
 5. **Pettini delle anse** nelle baie posteriori: ancora da disegnare.
 6. **Quale Wago è il positivo**: uno per lato, si decide al montaggio. Il negativo è la massa a stella di tutti i rami.

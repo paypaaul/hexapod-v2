@@ -335,8 +335,8 @@ Stato: **sicuro** = quote e posto controllati sul modello nella revisione, resta
 | `Corpo_Base` | linguetta delle spie dei rail in coda, sotto il cicalino | due fori Ø3,1 rivolti indietro a \|y\| ≈ 10 | X13 | posto da trovare con F1, T-plug e cavi della batteria |
 | `Corpo_Base` | sede dell'INA3221 | 38,6 × 22,9 × 10,5; fuori dalla pianta dei Wago (x −46…−16, \|y\| 27,5–35,8) e sopra il raggio dei cavi | X15 | posto da trovare (sopra i Wago non ci sta) |
 | `Corpo_Slitta_Regolatore` | prolungata in alto con due inserti M2 per l'INA260 sulla faccia verso il tunnel, morsettiera in alto | fino a z ≈ 32, x 14…37; ~2 g per lato | X7 | da verificare: smusso del carapace, gonne, cavi anteriori, feritoie a \|y\| 30. Ripiego: scheda in linea nel 16 AWG |
-| `Corpo_Carapace`, `Corpo_Fascia` | anello di stato del pulsante | foro anulare Ø18–22 attorno al pulsante (x −40); bianco 0,6–0,8 (dal provino X10); camera nera Ø32 × 6 (z 28,4…34,4) con il fondo e due sedi da un pixel a \|y\| 6,5–11,9 | X11 | fatto (D-067); X22 non si fa; dado del pulsante C |
-| `Corpo_Carapace` | luce dei lobi | sede 5 × 22 × 0,6 con due ganci per lobo, sulla direzione neutra della zampa, per un pixel a 60 LED/m (D-067); cavo lungo i fianchi nei ganci (cablaggio.md) | X12 | fatto |
+| `Corpo_Carapace`, `Corpo_Fascia` | anello di stato del pulsante | foro anulare Ø18–22 attorno al pulsante (x −40); bianco 0,6–0,8 (dal provino X10); camera nera Ø32 × 6 (z 28,4…34,4) con il fondo e due sedi da 16,7 mm (due pixel ciascuna) a \|y\| 6,5–11,9 | X11 | fatto (D-067); X22 non si fa; dado del pulsante C |
+| `Corpo_Carapace` | luce dei lobi | sede 5 × 22 × 0,6 con due ganci per lobo, sulla direzione neutra della zampa, per due pixel di striscia 2020 a 120 LED/m (D-068); cavo lungo i fianchi nei ganci (cablaggio.md) | X12 | fatto |
 | `Corpo_Carapace` | ganci passacavo della striscia | alti 3 ogni 40 mm, fuori dalla battuta dello sportellino (x −21…29, \|y\| ≤ 17) e dai pozzetti (x 40 e −56, \|y\| 17,8–27,2) | X9 | sicuro |
 | `Corpo_Carapace`, `Corpo_Fascia` | linee di luce lungo la fascia | gola a \|y\| 17–18,5 con 0,6–0,8 di bianco; canali neri a U alti 5, interno ≥ 5,4 centrato su \|y\| 17,75; tre tratti per lato (x −91…−61, −51…35, 45…96); passaggio nelle paratie (x 81…82,6) | X22 | da ridisegnare: con pareti da 0,8 il canale occupa \|y\| 14,25–21,25, z 29,4…34,4, e urta tre cose. (1) La battuta dello sportellino (x −21…29). (2) Il collare del cicalino (\|y\| 20,2–21,4, z 25,4…34,4) per tutto x −87…−62, e il cicalino stesso se è alto più di 12 (D-059 gli lascia 14, fino a z 31,4). (3) La camera nera di X11 fra x ≈ −47 e −33. Tratto posteriore da togliere o spostare, tratto centrale spezzato |
 | `Corpo_Carapace` | scheda del carapace con la spina che si sfila dall'ottagono | testata con spina ~9 + 9, 470 µF Ø6,3–8, TCA9534; libero il passaggio dell'USB-C (\|y\| ≤ 13, z 14…24) | X2, X20 | posto da trovare: prima da guardare x 29…50, \|y\| ≤ 16, sopra l'ESP32, prima dell'antenna (da x 55,6) |
@@ -397,7 +397,7 @@ Tutti da approvare. Costi indicativi (S), da ricontrollare all'ordine. Fase = fa
 | Marcatori AprilTag | localizzazione | P9 | — | — | carta |
 | Software libero (ESP-IDF e componenti, MuJoCo, pytest, ruff, Rerun, mcap, three.js, Vite, Node.js, OpenCV) | S0 e oltre | P0 | — | — | 0 € (installazione da approvare) |
 
-Somme indicative (S): voci alte circa 150 €, medie circa 90 €, basse circa 200–230 €. Dime e cavalletto si stampano dalle bobine già scelte.
+Somme indicative (S): voci alte circa 150 €, medie circa 90 €, basse circa 200–230 €. Prezzi e link letti il 10 ottobre 2026 nel BOM, sezione X (D-068): con le spedizioni alte circa 177 €, medie circa 140 €, basse circa 321 €. Dime e cavalletto si stampano dalle bobine già scelte.
 
 ## 7. Decisioni che servono dall'utente
 

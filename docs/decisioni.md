@@ -369,13 +369,13 @@ Decisioni dell'utente del 9 ottobre: audio a bordo senza la microSD dell'ESP32, 
 
 Correzioni chieste dall'utente il 10 ottobre, sullo stesso design "Hexapod v2.1.0" (nessuna copia del file Fusion), tag `v2.1.1`. Piano in `piano-v2.1.0.md`, ultima sezione.
 
-- **Striscia LED** (X9): WS2812B-2020 a **60 LED/m**, larga 4 o 5 mm. È la densità che il produttore Superlighting elenca per le strisce 2020 da 4 e 5 mm; a 100 LED/m ho trovato solo un'inserzione esaurita, e 120 e 160 LED/m solo da rivenditori senza scheda tecnica. Un solo tipo di striscia per tutte le luci: un pixel misura 16,7 mm.
+- **Striscia LED** (X9): WS2812B-2020 a **60 LED/m**, larga 4 o 5 mm. È la densità che il produttore Superlighting elenca per le strisce 2020 da 4 e 5 mm; a 100 LED/m ho trovato solo un'inserzione esaurita, e 120 e 160 LED/m solo da rivenditori senza scheda tecnica. Un solo tipo di striscia per tutte le luci: un pixel misura 16,7 mm. **Corretto in D-068**: la 2020 a 60 LED/m su 4–5 mm non esiste; si usa quella a 120 LED/m.
 - **Camera nera dell'anello del pulsante** (X11): da Ø28 × 4 a **Ø32 × 6**. Con Ø28 fra il dado del pulsante (r 8,65) e la parete restavano 4,15 mm, e un pezzo di striscia largo 5 non entrava. Il limite di 28 veniva dalle linee di luce della fascia (X22), che non si fanno.
   - **Fondo** nuovo, `Corpo_Fondo_Anello` (PLA nero, 0,96 cm³): disco con una gonna che calza da sotto la parete della camera (0,05 di gioco per lato, forzamento leggero da tarare), con il foro per il corpo del pulsante e **due sedi da un pixel** (17,1 × 5,4 × 0,4) ai lati del pulsante, a Y ±(6,5…11,9). I LED stanno a r 9,2, sotto l'anello (r 9–11).
-  - I pixel passano **sotto il dado** del pulsante: per questo la camera è alta 6. Dal pezzo di striscia al dado restano 3 mm con il dado alto 2 dell'ingombro (C). Due pezzi da un pixel e non un pezzo da due, che a 60 LED/m è lungo 33,3 e chiederebbe una camera di circa Ø43. Il ponticello di 3 fili fra i due pezzi gira attorno al corpo del pulsante sul lato della testa.
+  - I pixel passano **sotto il dado** del pulsante: per questo la camera è alta 6. Dal pezzo di striscia al dado restano 3 mm con il dado alto 2 dell'ingombro (C). Due pezzi da un pixel e non un pezzo da due, che a 60 LED/m è lungo 33,3 e chiederebbe una camera di circa Ø43. Il ponticello di 3 fili fra i due pezzi gira attorno al corpo del pulsante sul lato della testa. Con la striscia di D-068 ogni sede porta 2 pixel: l'anello ne ha 4.
   - La **tacca** dei fili nella parete, verso la coda, passa da 3 × 2 a 4 × 3: due fili da 3 a 30 AWG, in entrata e in uscita, sopra la gonna.
   - Verificato: assieme senza interferenze; il fondo tocca solo la camera (appoggio), con 0,1 mm dal corpo del pulsante, 3,3 dalla zona delle spine della SSC-32, 3,8 dal carapace e 5,9 dallo sportellino. Sfilamento del carapace libero da +5 a +40 con il fondo che sale insieme a lui. Il volume della camera (682 mm³) e quello del fondo (955 mm³) coincidono con il calcolo a mano.
-- **Luci dei lobi** (X12): **un pixel per lobo** invece di due. La sede 5 × 22 della 2.1.0 era stata pensata per due pixel a 100 LED/m. A 60 LED/m due pixel sono lunghi 33,3. Sotto il dorso piano del lobo, nella fascia della sede (17 ± 2,5 mm dall'asse della coxa), la larghezza è di 27–32 mm (calcolo dai parametri del lobo, S), e con i ganci ne servirebbero 36. Un pixel da 16,7 entra nella sede di oggi. La catena del carapace ha così 8 pixel: 2 dell'anello e 6 dei lobi.
+- **Luci dei lobi** (X12): **un pixel per lobo** invece di due. La sede 5 × 22 della 2.1.0 era stata pensata per due pixel a 100 LED/m. A 60 LED/m due pixel sono lunghi 33,3. Sotto il dorso piano del lobo, nella fascia della sede (17 ± 2,5 mm dall'asse della coxa), la larghezza è di 27–32 mm (calcolo dai parametri del lobo, S), e con i ganci ne servirebbero 36. Un pixel da 16,7 entra nella sede di oggi. La catena del carapace ha così 8 pixel: 2 dell'anello e 6 dei lobi. **Corretto in D-068**: con la striscia a 120 LED/m due pixel sono lunghi 16,7 e i lobi tornano a 2 pixel.
 - **Fermo dei fili della tibia**: gola larga 4 e profonda 0,8 sulla parete +X della culla, da Z −33 a +12,45 (la testata), a Y 4,4…8,4.
   - Sta fuori dalle finestre a rombo e dai tappi del guscio, che arrivano a Y 3,5. Tiene il doppino dell'FSR (28 AWG siliconico, circa Ø0,9, S) e i 3 fili della striscia da 30 AWG.
   - Tre **ponticelli** a Z −28, −10 e +6, staccati 0,3 dalla parete: sotto restano 1,1 mm. Sporgono 1,1, dove il guscio è a 4–5,7 dalla parete. La tibia si stampa sul fondo della culla, quindi i ponticelli crescono come pareti in piedi, senza supporti.
@@ -388,3 +388,36 @@ Correzioni chieste dall'utente il 10 ottobre, sullo stesso design "Hexapod v2.1.
   - i pettini delle anse.
 - **Esportazione**: `esporta_robot.py` scrive i JSON in UTF-8 esplicito. Il 10 ottobre il Python di Fusion aveva l'ASCII come codifica predefinita, e la "Ø" di un commento ha interrotto la scrittura di `cad.json`.
 - Masse: tibia 111,9 g a segmento, corpo 1064,7; modellato 2627 g, atteso circa 2987.
+
+## D-068 — BOM con prezzi e link; striscia LED a 120 LED/m (2026-10-10)
+
+Chiesto dall'utente il 10 ottobre: BOM con prezzi e link d'acquisto al prezzo migliore e stima del totale. Scelte dell'utente:
+- prezzi per le voci approvate, con il loro totale, e un totale a parte per le predisposizioni X;
+- "prezzo migliore" vuol dire costo consegnato in Italia, spedizioni comprese, con pochi negozi;
+- AliExpress va bene per la minuteria, sempre con l'alternativa europea.
+
+- **Come**: due giri di ricerca con 10 ricercatori e 10 verificatori (Sonnet). I verificatori hanno riaperto ogni link e corretto prezzi, spedizioni e codici. I totali sono calcolati da uno script sulle righe, non a mano.
+- **Carrelli delle voci approvate** (BOM, "Carrelli e costo totale"): circa **486 €** consegnati, contro i circa 480 stimati nella v2.0.
+  - **Kamami**: regolatori Pololu e quasi tutta la minuteria, 185 €. Le spedizioni lette sono 8,24 € (Kamami) e 25,90 € (Gedex); quelle di Amazon e AliExpress sono stime.
+  - **3DJake.it**: filamenti, 102 €.
+  - **Gedex**: viti DIN 912 inox nelle quantità esatte, 53 € con 25,90 di spedizione.
+  - **AliExpress**: squadrette, circa 25 €.
+  - **Amazon.it**: 13 voci di minuteria, circa 121 €. Amazon non è leggibile dagli strumenti, quindi queste sono stime S.
+- **Fuori dal totale**: D1 e D2 (le procura l'utente) e le voci da approvare (D8b, E2b, C7).
+- **Predisposizioni X**: alte circa 177 €, alte e medie circa 267 €, tutte circa 569 €, con le spedizioni.
+- **Sostituzioni trovate nei negozi**:
+  - C1: modulo KAmod a 4 canali al posto dell'Adafruit 757; il tipo di MOSFET va confermato;
+  - C3: diodo 1N5819 al posto del 1N5817;
+  - X9: buffer SN74AHCT125N in DIP-14 per la millefori;
+  - X13: LED giallo 590 nm, perché l'ambra non c'è a magazzino;
+  - X17: altoparlante CMS-15113-078SP-67 (IP67);
+  - X33: seesaw ATtiny1616 (#5690).
+  - Il condensatore EEU-FR1C222 è alto fino a 22 mm, non 20.
+- **Striscia LED**: corregge D-067. Sulle pagine del produttore Superlighting la WS2812B-2020 a 60 LED/m su FPC da 4–5 mm **non esiste**: la 60 LED/m da 4 mm usa LED 3535, alti 2,5 mm. La 2020 esiste a 90, 96, 120, 160 e 200 LED/m. Si sceglie la **2020 a 120 LED/m, FPC 4 mm, spessa circa 1 mm** (Superlighting p-4003), con un pixel ogni 8,33 mm e taglio a ogni LED.
+  - Le sedi del CAD non cambiano. Erano fatte per 16,7 × 5 mm e ora portano 2 pixel ciascuna; lo spessore di 1 mm sta sotto l'1,4 previsto.
+  - **Anello**: 4 pixel, 2 per sede. I LED stanno a r 10,1, proprio sotto l'anello (r 9–11).
+  - **Lobi**: tornano a **2 pixel**, 16,7 mm nella sede da 22.
+  - **Tibie**: 6 pixel per tibia, 50 mm.
+  - La catena del carapace ha 16 pixel. Il ramo delle tibie ripete i primi 6 e porta 36 pixel reali: il tetto di corrente del firmware deve contarli.
+  - La striscia viene da fuori UE: dogana possibile.
+  - Cambiano solo i commenti dei parametri `luc_pix_*`; `cablaggio.md`, `predisposizioni.md` e il BOM sono aggiornati.
