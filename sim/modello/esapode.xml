@@ -1,5 +1,5 @@
 <mujoco model="esapode">
-  <!-- Generato da tools/genera_modelli.py (versione 2.1.0, Hexapod v2.1.0 v3): non modificare a mano. -->
+  <!-- Generato da tools/genera_modelli.py (versione 2.1.1, Hexapod v2.1.0 v7): non modificare a mano. -->
   <compiler angle="radian" meshdir="../../robot/mesh" autolimits="true" />
   <option timestep="0.002" integrator="implicitfast" />
   <visual>
@@ -44,7 +44,7 @@
     <geom name="pavimento" type="plane" size="0 0 0.05" material="pavimento" friction="0.8 0.005 0.0001" solref="0.005 1" />
     <body name="corpo" pos="0 0 0.11" childclass="esapode">
       <freejoint name="corpo" />
-      <inertial pos="0.004388 0.000078 -0.010759" mass="1.42318" fullinertia="0.00274891 0.00563697 0.00730677 -7.69664e-06 1.95803e-05 -6.82744e-07" />
+      <inertial pos="0.004324 0.000078 -0.010703" mass="1.42471" fullinertia="0.00275126 0.0056423 0.00730856 -7.70097e-06 2.31268e-05 -6.76217e-07" />
       <geom name="mesh_corpo" class="visivo" mesh="corpo" />
       <geom name="chiglia" class="urto" type="box" pos="0.00015 0 -0.036675" size="0.08755 0.0347 0.004725" />
       <geom name="scafo" class="urto" type="box" pos="0.00015 0 -0.012475" size="0.08755 0.048 0.019475" />
@@ -68,7 +68,7 @@
           <geom name="femore_A_AS" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
           <geom name="femore_B_AS" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
           <body name="tibia_AS" pos="0.065 0 0">
-            <inertial pos="0.002587 -0.001426 -0.027448" mass="0.11174" fullinertia="0.000115403 0.000104849 2.36232e-05 -2.39778e-07 2.9486e-06 2.27231e-06" />
+            <inertial pos="0.002576 -0.001438 -0.02751" mass="0.11189" fullinertia="0.000115708 0.000105128 2.36561e-05 -2.3414e-07 2.96651e-06 2.30464e-06" />
             <joint name="g_ginocchio_AS" axis="0 -1 0" range="-1.064651 1.570796" />
             <geom name="mesh_tibia_AS" class="visivo" mesh="tibia" pos="-0.12 0 0" />
             <geom name="tibia_culla_AS" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
@@ -91,7 +91,7 @@
           <geom name="femore_A_MS" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
           <geom name="femore_B_MS" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
           <body name="tibia_MS" pos="0.065 0 0">
-            <inertial pos="0.002587 -0.001426 -0.027448" mass="0.11174" fullinertia="0.000115403 0.000104849 2.36232e-05 -2.39778e-07 2.9486e-06 2.27231e-06" />
+            <inertial pos="0.002576 -0.001438 -0.02751" mass="0.11189" fullinertia="0.000115708 0.000105128 2.36561e-05 -2.3414e-07 2.96651e-06 2.30464e-06" />
             <joint name="g_ginocchio_MS" axis="0 -1 0" range="-1.064651 1.570796" />
             <geom name="mesh_tibia_MS" class="visivo" mesh="tibia" pos="-0.12 0 0" />
             <geom name="tibia_culla_MS" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
@@ -114,7 +114,7 @@
           <geom name="femore_A_PS" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
           <geom name="femore_B_PS" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
           <body name="tibia_PS" pos="0.065 0 0">
-            <inertial pos="0.002587 -0.001426 -0.027448" mass="0.11174" fullinertia="0.000115403 0.000104849 2.36232e-05 -2.39778e-07 2.9486e-06 2.27231e-06" />
+            <inertial pos="0.002576 -0.001438 -0.02751" mass="0.11189" fullinertia="0.000115708 0.000105128 2.36561e-05 -2.3414e-07 2.96651e-06 2.30464e-06" />
             <joint name="g_ginocchio_PS" axis="0 -1 0" range="-1.064651 1.570796" />
             <geom name="mesh_tibia_PS" class="visivo" mesh="tibia" pos="-0.12 0 0" />
             <geom name="tibia_culla_PS" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
@@ -137,7 +137,7 @@
           <geom name="femore_A_AD" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
           <geom name="femore_B_AD" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
           <body name="tibia_AD" pos="0.065 0 0">
-            <inertial pos="0.002587 -0.001426 -0.027448" mass="0.11174" fullinertia="0.000115403 0.000104849 2.36232e-05 -2.39778e-07 2.9486e-06 2.27231e-06" />
+            <inertial pos="0.002576 -0.001438 -0.02751" mass="0.11189" fullinertia="0.000115708 0.000105128 2.36561e-05 -2.3414e-07 2.96651e-06 2.30464e-06" />
             <joint name="g_ginocchio_AD" axis="0 -1 0" range="-1.064651 1.570796" />
             <geom name="mesh_tibia_AD" class="visivo" mesh="tibia" pos="-0.12 0 0" />
             <geom name="tibia_culla_AD" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
@@ -160,7 +160,7 @@
           <geom name="femore_A_MD" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
           <geom name="femore_B_MD" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
           <body name="tibia_MD" pos="0.065 0 0">
-            <inertial pos="0.002587 -0.001426 -0.027448" mass="0.11174" fullinertia="0.000115403 0.000104849 2.36232e-05 -2.39778e-07 2.9486e-06 2.27231e-06" />
+            <inertial pos="0.002576 -0.001438 -0.02751" mass="0.11189" fullinertia="0.000115708 0.000105128 2.36561e-05 -2.3414e-07 2.96651e-06 2.30464e-06" />
             <joint name="g_ginocchio_MD" axis="0 -1 0" range="-1.064651 1.570796" />
             <geom name="mesh_tibia_MD" class="visivo" mesh="tibia" pos="-0.12 0 0" />
             <geom name="tibia_culla_MD" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
@@ -183,7 +183,7 @@
           <geom name="femore_A_PD" class="urto" type="capsule" fromto="0 0.02055 0 0.065 0.02055 0" size="0.013" />
           <geom name="femore_B_PD" class="urto" type="capsule" fromto="0 -0.02055 0 0.065 -0.02055 0" size="0.013" />
           <body name="tibia_PD" pos="0.065 0 0">
-            <inertial pos="0.002587 -0.001426 -0.027448" mass="0.11174" fullinertia="0.000115403 0.000104849 2.36232e-05 -2.39778e-07 2.9486e-06 2.27231e-06" />
+            <inertial pos="0.002576 -0.001438 -0.02751" mass="0.11189" fullinertia="0.000115708 0.000105128 2.36561e-05 -2.3414e-07 2.96651e-06 2.30464e-06" />
             <joint name="g_ginocchio_PD" axis="0 -1 0" range="-1.064651 1.570796" />
             <geom name="mesh_tibia_PD" class="visivo" mesh="tibia" pos="-0.12 0 0" />
             <geom name="tibia_culla_PD" class="urto" type="box" pos="0.003634 0 -0.01005" size="0.016084 0.02615 0.0283" />
