@@ -6,7 +6,8 @@ Ogni gruppo di modifiche è una versione: un tag git e un file Fusion proprio ne
 |---|---|---|---|---|
 | 2.0.0 | congelata (9 ottobre 2026) | `v2.0.0` | "Hexapod v2 - MG996R", versione 28 (`urn:adsk.wipprod:dm.lineage:AVxbp0QWS5m_QEugpeB99A`) | zampa, corpo, assieme a sei zampe con giunti veri, passata estetica, tibia simmetrica sul piano della zampa, piedino in TPU, colori e render (D-047…D-065) |
 | 2.1.0 | fatta (10 ottobre 2026) | `v2.1.0` | "Hexapod v2.1.0" (`urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`), copia della 2.0.0 versione 28; la 2.1.0 è la versione 5 del file | predisposizioni per sensori, luci, audio e computer di bordo; attrezzi da banco; software senza hardware (S0). Piano in `docs/piano-v2.1.0.md` |
-| 2.1.1 | fatta (10 ottobre 2026), design di lavoro | `v2.1.1` | lo stesso "Hexapod v2.1.0" (correzioni piccole, senza copia), versione 7 | camera dell'anello Ø32 × 6 con il fondo e le sedi dei pixel, fermo dei fili sulla tibia, schema del cablaggio; striscia corretta in D-068 (2020 a 120 LED/m) (`docs/cablaggio.md`, D-067) |
+| 2.1.1 | fatta (10 ottobre 2026) | `v2.1.1` | lo stesso "Hexapod v2.1.0" (correzioni piccole, senza copia), versione 7 | camera dell'anello Ø32 × 6 con il fondo e le sedi dei pixel, fermo dei fili sulla tibia, schema del cablaggio; striscia corretta in D-068 (2020 a 120 LED/m) (`docs/cablaggio.md`, D-067) |
+| 2.1.2 | fatta (10 ottobre 2026), design di lavoro | `v2.1.2` | lo stesso "Hexapod v2.1.0", versione 10 | scelta delle predisposizioni (D-069: approvate e backlog), prese delle luci delle tibie, provino di luce, presa del T-plug verificata, tocco dai sensori esistenti (`software.md` 4.3b) |
 
 Prima della 2.0.0: la versione progettata attorno agli MG90S, nel branch `mg90s` e nel file "Hexapod v2 - MG90S".
 

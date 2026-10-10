@@ -92,6 +92,7 @@ def pose_corpo(des):
     out['IMU'] = ('Rif_IMU', _rz(_mm(des, 'cor_imu_x'), _mm(des, 'cor_imu_y'), zb, 0.0))
     out['ADC'] = ('Rif_ADC_ADS7830', _rz(_mm(des, 'cor_ads_x'), _mm(des, 'cor_ads_y'), zb, 0.0))
     out['Prese_piedi'] = ('Rif_Prese_Piedi', _rz(_mm(des, 'cor_pre_x'), _mm(des, 'cor_pre_y'), zt + 0.5, 0.0))
+    out['Prese_luci'] = ('Rif_Prese_Piedi', _rz(_mm(des, 'cor_pre_x'), -_mm(des, 'cor_pre_y'), zt + 0.5, 0.0))
     a = des.unitsManager.evaluateExpression('cor_tof_ang', 'rad')
     out['ToF_frontale'] = ('Rif_ToF_8x8', A['matrice']((_mm(des, 'cor_tof_x'), 0, _mm(des, 'cor_tof_z')),
                                                        (math.sin(a), 0, math.cos(a)), (0, -1, 0), (math.cos(a), 0, -math.sin(a))))

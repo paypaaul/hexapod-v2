@@ -135,9 +135,9 @@ Le voci D6 (viti M3 in assortimento più 100) e D8 (M2) vanno ordinate con quest
 
 Saldatore con punta per inserti a caldo (o kit di punte dedicate), multimetro, pinza spelafili, termosoffiatore o accendino per il termorestringente, chiavi a brugola da 1,5 / 2 / 2,5 mm, calibro per controllare i pezzi stampati. Al banco, per le prime accensioni: un alimentatore regolabile con limite di corrente sarebbe utile ma non indispensabile (si parte con F1 da 15 A).
 
-## X. Predisposizioni della versione 2.1.0 (candidati, da approvare)
+## X. Predisposizioni (scelte in D-069, acquisti da approvare)
 
-Nel CAD della 2.1.0 (D-066) ci sono le sedi per queste voci; **niente è approvato né da comprare**. L'elenco completo, con fasi, masse, correnti e costi indicativi, è in `docs/piano-elettronica-software.md`, sezione 6. Dove il posto è nel modello:
+Nel CAD ci sono le sedi per le voci approvate come predisposizione in D-069 (la tabella in testa a `predisposizioni.md`). Le voci in backlog non hanno sedi. **Niente è ancora approvato per l'acquisto.** L'elenco completo, con fasi, masse, correnti e costi indicativi, è in `docs/piano-elettronica-software.md`, sezione 6. Dove il posto è nel modello:
 
 | Voce | Posto nel modello (D-066) |
 |---|---|
@@ -146,67 +146,64 @@ Nel CAD della 2.1.0 (D-066) ci sono le sedi per queste voci; **niente è approva
 | X6 ADS7830 | bugne accanto all'IMU |
 | X7 2 × INA260 | supporti sopra le slitte dei regolatori |
 | X8 ToF VL53L7CX | mensola della camera, finestra nella visiera, tappo |
-| X9, X11, X12, X31 luci (striscia WS2812B-2020 a 120 LED/m, D-068) | anello del pulsante con camera nera Ø32 × 6 e fondo con due sedi da 16,7 mm (2 pixel ciascuna); sedi dei lobi da 2 pixel; sedi nelle tibie con il fermo dei fili, diffusore. Cablaggio in `cablaggio.md` |
+| X9, X11, X12, X31 luci (striscia WS2812B-2020 a 120 LED/m, D-068) | anello del pulsante con camera nera Ø32 × 6 e fondo con due sedi da 16,7 mm (2 pixel ciascuna); sedi dei lobi da 2 pixel; sedi nelle tibie con il fermo dei fili, diffusore, prese delle luci delle tibie sul tetto del tunnel (2.1.2). Cablaggio in `cablaggio.md` |
+| X10 provino di luce | `Attrezzo_Provino_Luce_Nero` e `_Bianco`, stampa a due colori (2.1.2) |
 | X13 spie dei rail | linguette in coda |
 | X2 scheda del carapace, X17 amplificatore e altoparlante, X16 microfoni, X19 ToF posteriore | bugne sotto il dorso, guide e piano sulle guance di coda, fori con anello |
 | Computer a zaino (Radxa ZERO 3W) | quattro bugne M2 sopra l'ottagono, sportellino con la tacca dell'USB-C |
 
-Prezzi delle voci X (10 ottobre 2026, IVA inclusa; facoltativi, niente è approvato). La striscia LED è la WS2812B-2020 a **120 LED/m**, larga 4 mm (D-068).
+Prezzi delle voci X (10 ottobre 2026, IVA inclusa). Quali si predispongono e quali vanno in backlog è deciso in D-069; **l'acquisto di ogni voce resta da approvare**. La striscia LED è la WS2812B-2020 a 120 LED/m, larga 4 mm (D-068). X10, X11 e X12 non hanno costi propri: sono pezzi della stessa striscia.
 
-| Foto | Livello | Voce | Prodotto | Negozio | Costo |
+| Foto | Scelta (D-069) | Voce | Prodotto | Negozio | Costo |
 |---|---|---|---|---|---|
-| <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | alte | X1 | cavi Qwiic Adafruit 4210 100 mm, 5 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4210/10230021) | 5,06 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | alte | X1 | cavo Qwiic con prese femmina Adafruit 4397 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4397/10824270) | 1,01 € (V) |
-| <img src="https://kamami.pl/105748-large_default/dc-dc-step-down-converter-module-33v-d24v5f3.jpg" width="48" alt="X3"> | alte | X3 | Pololu D24V5F3 #2842 | [Kamami](https://kamami.pl/en/step-down/558118-pololu-2842-pololu-33v-500ma-step-down-voltage-regulator-d24v5f3.html) | 7,76 € (V) |
-| <img src="https://a.pololu-files.com/picture/0J11767.1200x627.jpg?9cec8ded097e97a57913799c94b50cc0" width="48" alt="X4"> | alte | X4 | Pololu LSM6DSO #2798 | [pololu.com](https://www.pololu.com/product/2798) | 22,40 € (S) |
-| <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | alte | X5 | Interlink FSR 400 Short 34-00004, 7 pz | [Tinytronics](https://www.tinytronics.nl/en/sensors/weight-pressure-force/membrane/interlink-electronics-fsr-400-short-tail-membrane-pressure-sensor-7.6mm-round-soldertabs) | 35,00 € (V) |
-| <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | alte | X5 | cavo siliconico 28 AWG, rosso e nero, 3 m ciascuno | [AliExpress](https://it.aliexpress.com/item/1005009017260144.html) | 3,42 € (V) |
-| <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | alte | X5 | partitori: 10 kΩ 1 % × 6, 100 nF × 6 | [DigiKey.it](https://www.digikey.it/en/products/detail/yageo/MFR-25FRF52-10K/14626) | 1,36 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/5836-00.jpg" width="48" alt="X6"> | alte | X6 | Adafruit ADS7830 #5836 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/5836/21839818) | 6,37 € (V) |
-| <img src="https://kamami.pl/80509-large_default/vl53l7cx-time-of-flight-8-8-zone-wide-fov-distance-sensor-carrier-with-voltage-regulator-350cm-max.jpg" width="48" alt="X8"> | alte | X8 | Pololu VL53L7CX #3418 | [Kamami](https://kamami.pl/czujniki-odleglosci/1186902-vl53l7cx-time-of-flight-8-8-zone-wide-fov-distance-sensor-carrier-with-voltage-regulator-350cm-max-5906623469284.html) | 19,30 € (V) |
-| <img src="https://ae-pic-a1.aliexpress-media.com/kf/S640d105dc5154baab34c8ed3fac068166.jpg" width="48" alt="X9"> | alte | X9 | striscia WS2812B-2020 120 LED/m, FPC 4 mm, 1 m | [AliExpress](https://it.aliexpress.com/item/1005009482531544.html) | 11,79 € (V) |
-| <img src="https://ae-pic-a1.aliexpress-media.com/kf/S640d105dc5154baab34c8ed3fac068166.jpg" width="48" alt="X9"> | alte | X9 | SN74AHCT125N DIP-14, 330 Ω × 2, 10 kΩ × 2, PTC Bourns MF-R075 × 2 | [DigiKey.it](https://www.digikey.it/en/products/detail/texas-instruments/SN74AHCT125N/375798) | 2,38 € (V) |
-| <img src="https://mm.digikey.com/Volume0/opasdata/d220001/medias/images/667/WP710A10SYD.JPG" width="48" alt="X13"> | alte | X13 | LED 3 mm giallo Kingbright WP710A10SYD × 2, 1 kΩ × 2 | [DigiKey.it](https://www.digikey.it/en/products/detail/kingbright/WP710A10SYD/3084207) | 1,09 € (V) |
-| <img src="https://mm.digikey.com/Volume0/opasdata/d220001/medias/images/864/61201623021.jpg" width="48" alt="X2"> | medie | X2 | box header 2 × 8, 2 IDC 16 poli, cavo piatto 61 cm, 470 µF 10 V | [DigiKey.it](https://www.digikey.it/en/products/detail/w%C3%BCrth-elektronik/61201623021/2060599) | 5,26 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/4226-12.jpg" width="48" alt="X7"> | medie | X7 | Adafruit INA260 #4226, 2 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4226/10130492) | 21,32 € (V) |
-| <img src="https://www.buerklin.com/en/images/dae/9163079581726/500x500/ntc-10-k-1-0-06-w-3988-k-0-002-w-k-15-s-tht-b57861s0103f040.webp" width="48" alt="X14"> | medie | X14 | NTC TDK B57861S0103F040, 3 pz | [Bürklin](https://buerklin.com/en/p/epcos/ntc-thermistors/b57861s0103f040/80E6746) | 11,32 € (S) |
-| <img src="https://www.buerklin.com/en/images/dae/9163079581726/500x500/ntc-10-k-1-0-06-w-3988-k-0-002-w-k-15-s-tht-b57861s0103f040.webp" width="48" alt="X14"> | medie | X14 | 10 kΩ 1 % × 3 | [DigiKey.it](https://www.digikey.it/en/products/detail/yageo/MFR-25FRF52-10K/14626) | 0,14 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/3421-03.jpg" width="48" alt="X16"> | medie | X16 | Adafruit SPH0645 #3421, 2 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/3421/6691114) | 14,88 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/3006-04.jpg" width="48" alt="X17"> | medie | X17 | Adafruit MAX98357A #3006 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/3006/6058477) | 6,37 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/3006-04.jpg" width="48" alt="X17"> | medie | X17 | altoparlante Same Sky CMS-15113-078SP-67 | [DigiKey.it](https://www.digikey.it/en/products/detail/same-sky-formerly-cui-devices/CMS-15113-078SP-67/9561103) | 3,21 € (V) |
-| <img src="https://kamami.pl/31951-large_default/distance-sensor-vl53l1x-4-400-cm-in-tof-technology-with-voltage-regulator.jpg" width="48" alt="X19"> | medie | X19 | Pololu VL53L1X #3415 | [Kamami](https://kamami.pl/en/distance-sensors/571453-distance-sensor-vl53l1x-4-400-cm-in-tof-technology-with-voltage-regulator.html) | 28,78 € (V) |
-| <img src="https://www.sparkfun.com/media/catalog/product/cache/6b78ac9ed927a3c2db42a3c84dab4ce5/1/7/17047-SparkFun_Qwiic_GPIO-01.jpg" width="48" alt="X20"> | medie | X20 | SparkFun Qwiic GPIO TCA9534 DEV-17047 (in arrivo il 24 novembre) | [DigiKey.it](https://www.digikey.it/en/products/detail/sparkfun-electronics/17047/13419022) | 7,23 € (V) |
-| <img src="https://ae-pic-a1.aliexpress-media.com/kf/Sa63c7c29c9a64cf68382d7b623461fe3N.jpg" width="48" alt="X31"> | medie | X31 | cavo siliconico 30 AWG, 3 colori × 3 m | [AliExpress](https://it.aliexpress.com/item/1005009017260144.html) | 4,77 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/6062-00.jpg" width="48" alt="X15"> | basse | X15 | Adafruit INA3221 #6062, 2 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/6062/25660599) | 23,44 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/1602-00.jpg" width="48" alt="X18"> | basse | X18 | Adafruit CAP1188 #1602 e nastro di rame #3483 | [DigiKey.it](https://www.digikey.it/en/products/result?keywords=1528-1026-ND) | 13,83 € (V) |
-| <img src="https://a.pololu-files.com/picture/0J12702.1200x627.jpg?6551b3a74a9f8d833593244ea054a247" width="48" alt="X25"> | basse | X25 | Pololu VL53L4CD #3692 | [pololu.com](https://www.pololu.com/product/3692) | 15,65 € (S) |
-| <img src="https://ae-pic-a1.aliexpress-media.com/kf/S32a95c86378c4a3c9017996ccd10a488k.jpg" width="48" alt="X26"> | basse | X26 | Hi-Link HLK-LD2410C | [AliExpress](https://it.aliexpress.com/item/1005008754208019.html) | 3,79 € (S) |
-| <img src="https://cdn-shop.adafruit.com/480x360/3595-06.jpg" width="48" alt="X27"> | basse | X27 | Adafruit APDS-9960 #3595 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/3595/7652603) | 8,04 € (V) |
-| <img src="https://ae-pic-a1.aliexpress-media.com/kf/Sbb6aa0c9301d4a5589eab94f24c09d30O.jpg" width="48" alt="X28"> | basse | X28 | LDROBOT LD06 | [AliExpress](https://it.aliexpress.com/item/1005010348234406.html) | 36,57 € (S) |
-| <img src="https://cdn-shop.adafruit.com/480x360/4469-05.jpg" width="48" alt="X29"> | basse | X29 | Adafruit MLX90640 110° #4469 (in arrivo il 4 novembre) | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4469/11497511) | 80,29 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/5836-00.jpg" width="48" alt="X32"> | basse | X32 | Adafruit ADS7830 #5836, 2 in più | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/5836/21839818) | 12,74 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/5690-00.jpg" width="48" alt="X33"> | basse | X33 | Adafruit seesaw ATtiny1616 #5690 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/5690/18627499) | 5,31 € (V) |
-| <img src="https://radxa.com/zero/3w/thumb_zero3w.webp" width="48" alt="Radxa"> | basse | Radxa | Radxa ZERO 3W 4 GB / 32 GB eMMC | [RS Components](https://ie.rs-online.com/web/p/rock-sbc-boards/2564694) | 62,13 € (S) |
-| <img src="https://cdn1.botland.store/80780-pdt_540/step-down-voltage-converter-d36v28f5-5v-32a-pololu-3782.jpg" width="48" alt="Reg 5 V"> | basse | Reg 5 V | Pololu D36V28F5 #3782 (Botland: solo clienti B2B?) | [Botland](https://botland.store/converters-step-down/17169-step-down-voltage-converter-d36v28f5-5v-32a-pololu-3782-5903351242837.html) | 17,90 € (S) |
-| <img src="https://kamami.pl/74354-large_default/modul-konwertera-usb-uart-na-usb-c-ch340n.jpg" width="48" alt="USB-seriale"> | basse | USB-seriale | modulo CH340N USB-C 3,3/5 V | [Kamami](https://kamami.pl/konwertery-usb---uart--rs232/1183592-modul-konwertera-usb-uart-na-usb-c-ch340n-5906623466696.html) | 1,71 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | approvata | X1 | cavi Qwiic Adafruit 4210 100 mm, 5 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4210/10230021) | 5,06 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | approvata | X1 | cavo Qwiic con prese femmina Adafruit 4397 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4397/10824270) | 1,01 € (V) |
+| <img src="https://kamami.pl/105748-large_default/dc-dc-step-down-converter-module-33v-d24v5f3.jpg" width="48" alt="X3"> | approvata | X3 | Pololu D24V5F3 #2842 | [Kamami](https://kamami.pl/en/step-down/558118-pololu-2842-pololu-33v-500ma-step-down-voltage-regulator-d24v5f3.html) | 7,76 € (V) |
+| <img src="https://a.pololu-files.com/picture/0J11767.1200x627.jpg?9cec8ded097e97a57913799c94b50cc0" width="48" alt="X4"> | approvata | X4 | Pololu LSM6DSO #2798 | [pololu.com](https://www.pololu.com/product/2798) | 22,40 € (S) |
+| <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | approvata | X5 | Interlink FSR 400 Short 34-00004, 7 pz | [Tinytronics](https://www.tinytronics.nl/en/sensors/weight-pressure-force/membrane/interlink-electronics-fsr-400-short-tail-membrane-pressure-sensor-7.6mm-round-soldertabs) | 35,00 € (V) |
+| <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | approvata | X5 | cavo siliconico 28 AWG, rosso e nero, 3 m ciascuno | [AliExpress](https://it.aliexpress.com/item/1005009017260144.html) | 3,42 € (V) |
+| <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | approvata | X5 | partitori: 10 kΩ 1 % × 6, 100 nF × 6 | [DigiKey.it](https://www.digikey.it/en/products/detail/yageo/MFR-25FRF52-10K/14626) | 1,36 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/5836-00.jpg" width="48" alt="X6"> | approvata | X6 | Adafruit ADS7830 #5836 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/5836/21839818) | 6,37 € (V) |
+| <img src="https://kamami.pl/80509-large_default/vl53l7cx-time-of-flight-8-8-zone-wide-fov-distance-sensor-carrier-with-voltage-regulator-350cm-max.jpg" width="48" alt="X8"> | approvata | X8 | Pololu VL53L7CX #3418 | [Kamami](https://kamami.pl/czujniki-odleglosci/1186902-vl53l7cx-time-of-flight-8-8-zone-wide-fov-distance-sensor-carrier-with-voltage-regulator-350cm-max-5906623469284.html) | 19,30 € (V) |
+| <img src="https://ae-pic-a1.aliexpress-media.com/kf/S640d105dc5154baab34c8ed3fac068166.jpg" width="48" alt="X9"> | approvata | X9 | striscia WS2812B-2020 120 LED/m, FPC 4 mm, 1 m | [AliExpress](https://it.aliexpress.com/item/1005009482531544.html) | 11,79 € (V) |
+| <img src="https://ae-pic-a1.aliexpress-media.com/kf/S640d105dc5154baab34c8ed3fac068166.jpg" width="48" alt="X9"> | approvata | X9 | SN74AHCT125N DIP-14, 330 Ω × 2, 10 kΩ × 2, PTC Bourns MF-R075 × 2 | [DigiKey.it](https://www.digikey.it/en/products/detail/texas-instruments/SN74AHCT125N/375798) | 2,38 € (V) |
+| <img src="https://mm.digikey.com/Volume0/opasdata/d220001/medias/images/667/WP710A10SYD.JPG" width="48" alt="X13"> | approvata | X13 | LED 3 mm giallo Kingbright WP710A10SYD × 2, 1 kΩ × 2 | [DigiKey.it](https://www.digikey.it/en/products/detail/kingbright/WP710A10SYD/3084207) | 1,09 € (V) |
+| <img src="https://mm.digikey.com/Volume0/opasdata/d220001/medias/images/864/61201623021.jpg" width="48" alt="X2"> | approvata | X2 | box header 2 × 8, 2 IDC 16 poli, cavo piatto 61 cm, 470 µF 10 V | [DigiKey.it](https://www.digikey.it/en/products/detail/w%C3%BCrth-elektronik/61201623021/2060599) | 5,26 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/4226-12.jpg" width="48" alt="X7"> | approvata | X7 | Adafruit INA260 #4226, 2 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4226/10130492) | 21,32 € (V) |
+| <img src="https://www.buerklin.com/en/images/dae/9163079581726/500x500/ntc-10-k-1-0-06-w-3988-k-0-002-w-k-15-s-tht-b57861s0103f040.webp" width="48" alt="X14"> | approvata | X14 | NTC TDK B57861S0103F040, 3 pz | [Bürklin](https://buerklin.com/en/p/epcos/ntc-thermistors/b57861s0103f040/80E6746) | 11,32 € (S) |
+| <img src="https://www.buerklin.com/en/images/dae/9163079581726/500x500/ntc-10-k-1-0-06-w-3988-k-0-002-w-k-15-s-tht-b57861s0103f040.webp" width="48" alt="X14"> | approvata | X14 | 10 kΩ 1 % × 3 | [DigiKey.it](https://www.digikey.it/en/products/detail/yageo/MFR-25FRF52-10K/14626) | 0,14 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/3421-03.jpg" width="48" alt="X16"> | approvata | X16 | Adafruit SPH0645 #3421, 2 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/3421/6691114) | 14,88 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/3006-04.jpg" width="48" alt="X17"> | approvata | X17 | Adafruit MAX98357A #3006 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/3006/6058477) | 6,37 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/3006-04.jpg" width="48" alt="X17"> | approvata | X17 | altoparlante Same Sky CMS-15113-078SP-67 | [DigiKey.it](https://www.digikey.it/en/products/detail/same-sky-formerly-cui-devices/CMS-15113-078SP-67/9561103) | 3,21 € (V) |
+| <img src="https://kamami.pl/31951-large_default/distance-sensor-vl53l1x-4-400-cm-in-tof-technology-with-voltage-regulator.jpg" width="48" alt="X19"> | approvata | X19 | Pololu VL53L1X #3415 | [Kamami](https://kamami.pl/en/distance-sensors/571453-distance-sensor-vl53l1x-4-400-cm-in-tof-technology-with-voltage-regulator.html) | 28,78 € (V) |
+| <img src="https://www.sparkfun.com/media/catalog/product/cache/6b78ac9ed927a3c2db42a3c84dab4ce5/1/7/17047-SparkFun_Qwiic_GPIO-01.jpg" width="48" alt="X20"> | approvata | X20 | SparkFun Qwiic GPIO TCA9534 DEV-17047 (in arrivo il 24 novembre) | [DigiKey.it](https://www.digikey.it/en/products/detail/sparkfun-electronics/17047/13419022) | 7,23 € (V) |
+| <img src="https://ae-pic-a1.aliexpress-media.com/kf/Sa63c7c29c9a64cf68382d7b623461fe3N.jpg" width="48" alt="X31"> | approvata | X31 | cavo siliconico 30 AWG, 3 colori × 3 m | [AliExpress](https://it.aliexpress.com/item/1005009017260144.html) | 4,77 € (V) |
+| <img src="https://radxa.com/zero/3w/thumb_zero3w.webp" width="48" alt="Radxa"> | approvata | Radxa | Radxa ZERO 3W 4 GB / 32 GB eMMC | [RS Components](https://ie.rs-online.com/web/p/rock-sbc-boards/2564694) | 62,13 € (S) |
+| <img src="https://cdn1.botland.store/80780-pdt_540/step-down-voltage-converter-d36v28f5-5v-32a-pololu-3782.jpg" width="48" alt="Reg 5 V"> | approvata | Reg 5 V | Pololu D36V28F5 #3782 (Botland: solo clienti B2B?) | [Botland](https://botland.store/converters-step-down/17169-step-down-voltage-converter-d36v28f5-5v-32a-pololu-3782-5903351242837.html) | 17,90 € (S) |
+| <img src="https://kamami.pl/74354-large_default/modul-konwertera-usb-uart-na-usb-c-ch340n.jpg" width="48" alt="USB-seriale"> | approvata | USB-seriale | modulo CH340N USB-C 3,3/5 V | [Kamami](https://kamami.pl/konwertery-usb---uart--rs232/1183592-modul-konwertera-usb-uart-na-usb-c-ch340n-5906623466696.html) | 1,71 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/6062-00.jpg" width="48" alt="X15"> | backlog | X15 | Adafruit INA3221 #6062, 2 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/6062/25660599) | 23,44 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/1602-00.jpg" width="48" alt="X18"> | backlog | X18 | Adafruit CAP1188 #1602 e nastro di rame #3483 | [DigiKey.it](https://www.digikey.it/en/products/result?keywords=1528-1026-ND) | 13,83 € (V) |
+| <img src="https://a.pololu-files.com/picture/0J12702.1200x627.jpg?6551b3a74a9f8d833593244ea054a247" width="48" alt="X25"> | backlog | X25 | Pololu VL53L4CD #3692 | [pololu.com](https://www.pololu.com/product/3692) | 15,65 € (S) |
+| <img src="https://ae-pic-a1.aliexpress-media.com/kf/S32a95c86378c4a3c9017996ccd10a488k.jpg_480x480q75.jpg_.avif" width="48" alt="X26"> | backlog | X26 | Hi-Link HLK-LD2410C | [AliExpress](https://it.aliexpress.com/item/1005008754208019.html) | 3,79 € (S) |
+| <img src="https://cdn-shop.adafruit.com/480x360/3595-06.jpg" width="48" alt="X27"> | backlog | X27 | Adafruit APDS-9960 #3595 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/3595/7652603) | 8,04 € (V) |
+| <img src="https://ae-pic-a1.aliexpress-media.com/kf/Sbb6aa0c9301d4a5589eab94f24c09d30O.jpg_480x480q75.jpg_.avif" width="48" alt="X28"> | backlog | X28 | LDROBOT LD06 | [AliExpress](https://it.aliexpress.com/item/1005010348234406.html) | 36,57 € (S) |
+| <img src="https://cdn-shop.adafruit.com/480x360/4469-05.jpg" width="48" alt="X29"> | backlog | X29 | Adafruit MLX90640 110° #4469 (in arrivo il 4 novembre) | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4469/11497511) | 80,29 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/5836-00.jpg" width="48" alt="X32"> | backlog | X32 | Adafruit ADS7830 #5836, 2 in più | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/5836/21839818) | 12,74 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/5690-00.jpg" width="48" alt="X33"> | backlog | X33 | Adafruit seesaw ATtiny1616 #5690 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/5690/18627499) | 5,31 € (V) |
 
 | Insieme | Merce | Spedizioni | Totale |
 |---|---|---|---|
-| alte | 116,94 € | 52,50 € | 169,44 € |
-| medie | 103,28 € | 37,69 € | 140,97 € |
-| basse | 281,40 € | 37,50 € | 318,90 € |
-| alte e medie | 220,22 € | 40,19 € | 260,41 € |
-| tutte | 501,62 € | 57,69 € | 559,31 € |
+| predisposizioni approvate, senza computer di bordo | 221,93 € | 40,19 € | 262,12 € |
+| predisposizioni approvate, con computer di bordo e il suo regolatore | 301,96 € | 57,69 € | 359,65 € |
+| backlog | 199,66 € | 20,00 € | 219,66 € |
 
-- **Spedizioni**: quelle di pololu.com (circa 20 €), RS, Bürklin, Botland e Tinytronics sono stime S. pololu.com spedisce da fuori UE, quindi può esserci la dogana. AliExpress spedisce gratis sopra 10 €. DigiKey è gratis sopra 75 €, altrimenti costa 25 €: con alte e medie si arriva a 76 €.
+- **Spedizioni**: le stime S sono pololu.com (circa 20 €, da fuori UE: possibile dogana), RS, Bürklin, Botland e Tinytronics. AliExpress spedisce gratis sopra 10 €. DigiKey spedisce gratis sopra 75 €, altrimenti costa 25 €; con le voci approvate si supera la soglia, ancora di più spostando lì B7 e B8.
 - **Da controllare**:
   - X13: a magazzino c'è solo il LED giallo a 590 nm;
   - X17: l'altoparlante è la variante -67 (IP67);
-  - X33: il seesaw attuale è l'ATtiny1616 (#5690);
-  - X20 e X29: in arrivo a novembre;
-  - X4 e X25: solo su pololu.com;
-  - il regolatore 5 V del computer di bordo: Botland dice di vendere solo a clienti B2B;
-  - X26 e X28: prezzo letto nell'elenco di ricerca di AliExpress, non nella pagina del prodotto.
+  - X20: in arrivo a novembre;
+  - X4: solo su pololu.com;
+  - il regolatore 5 V del computer di bordo: Botland dice di vendere solo a clienti B2B.
 
 Viteria in più se si montano tutte, da contare a robot deciso: inserti M2 (D5) per IMU 2, ADC 2, INA260 4, scheda del carapace 4, amplificatore 2, zaino 4; viti M2 corte per le stesse; viti M3 delle slitte più lunghe di 2,4 mm con i supporti degli INA260.
 

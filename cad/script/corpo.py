@@ -178,7 +178,7 @@ PARAMETRI = [
     ('cor_ads_x', '54.25 mm', 'mm', 'ADC ADS7830 (X6): X del centro, accanto all IMU'),
     ('cor_ads_y', '9.6 mm', 'mm', 'ADC: Y del centro (0,5 dalla colonnina del carapace a x 40)'),
     ('cor_pre_x', '56 mm', 'mm', 'Prese dei piedi (X5): X del centro della fila, fuori dal vassoio (si raggiungono a carapace tolto)'),
-    ('cor_pre_y', '23.4 mm', 'mm', 'Prese dei piedi: Y del centro della fila, verso il fianco del tunnel'),
+    ('cor_pre_y', '23.4 mm', 'mm', 'Prese dei piedi: Y del centro della fila, verso il fianco del tunnel; a -Y le prese delle luci delle tibie (D-069)'),
     ('cor_vas_asola_x', '50 mm', 'mm', 'Vassoio: centro dell asola dei fili del bus dei sensori'),
     ('cor_tof_ang', '20 deg', 'deg', 'ToF frontale (X8): inclinazione verso il basso (vede il pavimento davanti ai piedi anteriori)'),
     ('cor_tof_x', '94.4 mm', 'mm', 'ToF frontale: X del centro del retro della scheda (cima davanti a 0,4 dalla bugna dell occhio)'),
@@ -945,6 +945,26 @@ def fai_sportellino_zaino(corpo):
     return occ, p
 
 
+def _prese(p, zt, y, suffisso):
+    """Sede di una fila di sei spine JR piegate in piedi (pre_l x pre_w), centrata in (cor_pre_x, y) sul tetto."""
+    p.blocco('z', zt, 'sede_prese' + suffisso, 'cor_pre_x - pre_l / 2 - 1.2 mm', '%s - pre_w / 2 - 1.2 mm' % y,
+             'cor_pre_x + pre_l / 2 + 1.2 mm', '%s + pre_w / 2 + 1.2 mm' % y, '3 mm')
+    p.blocco('z', zt + ' + 0.5 mm', 'scanalatura_prese' + suffisso, 'cor_pre_x - pre_l / 2 - 0.2 mm', '%s - pre_w / 2 - 0.2 mm' % y,
+             'cor_pre_x + pre_l / 2 + 0.2 mm', '%s + pre_w / 2 + 0.2 mm' % y, '2.5 mm', 1, TAGLIA)
+
+
+def fai_prese_luci(corpo):
+    """Solo per la base della 2.1.0, una volta (D-069): aggiunge la fila delle prese delle luci delle tibie, che
+    fai_base_predisposizioni fa gia'."""
+    occ = L['trova_occ'](corpo.component, 'Corpo_Base')[0]
+    T0['Corpo_Base_prese_luci'] = corpo.component.parentDesign.timeline.count
+    p = Parte(occ.component)
+    p.gruppo = 'Corpo_Base_prese_luci'
+    _prese(p, '-(cor_tetto)', '-(cor_pre_y)', '_luci')
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 3)}
+    return occ, p
+
+
 def fai_base_predisposizioni(corpo):
     """Predisposizioni 2.1.0 sulla base (D-066), aggiunte al Corpo_Base esistente (dopo 'base' si rifanno):
     guide della 2813, bugne di IMU e ADC con la freccia dell'asse X, sede delle prese dei piedi, linguette delle spie."""
@@ -971,10 +991,8 @@ def fai_base_predisposizioni(corpo):
     p.blocco_obl('z', zt, 'freccia_punta', ('cor_imu_x + 4 mm', yf), ('cor_imu_x + 4 mm + 10 mm * cos(45 deg)', yf + ' + 10 mm * sin(45 deg)'),
                  '-(1.6 mm)', '1.6 mm', '-(1.6 mm)', '1.6 mm', '0.6 mm')
     # prese dei piedi: fila di spine piegate in piedi in una scanalatura, raggiungibile dall'alto a carapace tolto
-    p.blocco('z', zt, 'sede_prese', 'cor_pre_x - pre_l / 2 - 1.2 mm', 'cor_pre_y - pre_w / 2 - 1.2 mm', 'cor_pre_x + pre_l / 2 + 1.2 mm',
-             'cor_pre_y + pre_w / 2 + 1.2 mm', '3 mm')
-    p.blocco('z', zt + ' + 0.5 mm', 'scanalatura_prese', 'cor_pre_x - pre_l / 2 - 0.2 mm', 'cor_pre_y - pre_w / 2 - 0.2 mm',
-             'cor_pre_x + pre_l / 2 + 0.2 mm', 'cor_pre_y + pre_w / 2 + 0.2 mm', '2.5 mm', 1, TAGLIA)
+    _prese(p, zt, 'cor_pre_y', '')
+    _prese(p, zt, '-(cor_pre_y)', '_luci')                            # luci delle tibie (X31, D-069): fila speculare
     # spie dei rail: linguette sul tetto dietro il portafusibile, LED da 3 rivolti verso la porta di coda
     for lato, (y0, y1, yc) in (('s', ('16 mm', '22 mm', '19 mm')), ('d', ('-(22 mm)', '-(16 mm)', '-(19 mm)'))):
         p.blocco('x', '-(cor_tun_x0)', 'linguetta_spia_' + lato, y0, zt, y1, '4 mm', '1.4 mm')
@@ -1167,7 +1185,7 @@ def main(passi, **kw):
                         ('carapace', fai_carapace), ('carapace_dettagli', fai_carapace_dettagli), ('fascia', fai_fascia),
                         ('visiera', fai_visiera), ('gonne', fai_gonne), ('tappo_tof', fai_tappo_tof),
                         ('supporto_ina_s', lambda c: fai_supporto_ina(c, 1)), ('supporto_ina_d', lambda c: fai_supporto_ina(c, -1)),
-                        ('sportellino_zaino', fai_sportellino_zaino), ('fondo_anello', fai_fondo_anello),
+                        ('sportellino_zaino', fai_sportellino_zaino), ('fondo_anello', fai_fondo_anello), ('prese_luci', fai_prese_luci),
                         ('base_predisposizioni', fai_base_predisposizioni),
                         ('carapace_predisposizioni', fai_carapace_predisposizioni)):
             if nome in passi:

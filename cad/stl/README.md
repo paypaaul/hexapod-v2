@@ -43,6 +43,7 @@ Parti in PETG-CF: ugello temprato 0,4, pareti 3 perimetri (1,2 mm), 4–5 strati
 |---|---|---|---|
 | `attrezzi/Dima_Posa_1.stl`, `attrezzi/Dima_Posa_2.stl` | PLA o PETG | piastra sul piatto, denti in alto | dime di taratura: si infilano sui perni del femore dal lato B (lama B tolta); posa 1: imbardata 0, femore 0, ginocchio 90; posa 2: 30, 45, 135 |
 | `attrezzi/Attrezzo_Cavalletto.stl` | PETG-CF | base sul piatto | regge il robot sotto la chiglia con le zampe libere; alto 137 mm |
+| `attrezzi/Attrezzo_Provino_Luce_Nero.stl` + `attrezzi/Attrezzo_Provino_Luce_Bianco.stl` | PLA nero + PLA bianco, in una stampa a due colori | fondo sul piatto, bianco in alto (le strisce di bianco fanno ponte sulle camere) | provino di luce (X10, D-069): camere da 2, 4 e 6 mm sotto bianchi da 0,4 a 1,6 e l'anello del pulsante con l'intarsio nero; uno spezzone di striscia da 120 LED/m nei canali sotto |
 
 ## Provino della culla (da stampare per primo)
 

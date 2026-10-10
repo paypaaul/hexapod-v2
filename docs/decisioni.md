@@ -423,3 +423,33 @@ Chiesto dall'utente il 10 ottobre: BOM con prezzi e link d'acquisto al prezzo mi
   - Cambiano solo i commenti dei parametri `luc_pix_*`; `cablaggio.md`, `predisposizioni.md` e il BOM sono aggiornati.
   - **Correzione, stesso giorno**: cercando in Chrome, su AliExpress un'inserzione ([1005009482531544](https://it.aliexpress.com/item/1005009482531544.html)) vende la 2020 su FPC da 4 mm a 60, 90, 120 e 200 LED/m. Quindi la 60 LED/m esiste; è il produttore Superlighting a non elencarla. Si resta a 120 LED/m, che dà 2 pixel per sede e i lobi a 2 pixel, e la si compra lì: 11,79 € al metro con la spedizione gratuita, invece di Superlighting.
 - **Prezzi Amazon.it e AliExpress letti in Chrome** (10 ottobre, su richiesta dell'utente): sul Mac dell'utente, con una scheda comandata via AppleScript, che apre le pagine di ricerca e di prodotto e legge prezzi, varianti, ASIN e foto. Le stime S di quei negozi sono diventate prezzi letti. Le viti passano da Gedex ad Amazon: kit inox più due confezioni, 42,03 € contro 53,03. Il totale delle approvate è circa **496 €**. Nel BOM c'è una colonna con la foto di ogni voce: sono link alle immagini dei negozi e dei produttori, non copie nella repo.
+
+## D-069 — Versione 2.1.2: scelta delle predisposizioni, prese delle luci, provino di luce (2026-10-10)
+
+L'utente ha chiesto di fare chiarezza sulle predisposizioni con sei classi: importanza (importante, good-to-have, superfluo) per posto nel CAD (c'è o no). Dove c'è il posto la predisposizione si approva; dove manca, l'importante cerca opzioni e il resto va in backlog. Tre giudici indipendenti hanno classificato le voci, ognuno da un punto di vista: camminata e sicurezza, esperienza d'uso, costo e complessità. Ha deciso la maggioranza. Il posto nel CAD viene dal modello. L'utente ha approvato tutto il 10 ottobre.
+
+- **Importante, con posto** → approvata: X1, X2, X4, X5, X6, X7, X8, X9, X11, X13. Circa 45 g e 135 €, meno di un punto di coppia al femore.
+- **Importante senza posto**: nessuna voce.
+- **Good-to-have, con posto o senza CAD** → approvata: X3 (si compra solo se il 3,3 V della scheda non regge), X10, X12, X14 (2 NTC, non 3: l'ADC ha 8 canali e 6 sono dei piedi), X19 con X20, X23, X24, computer di bordo a zaino.
+- **Good-to-have senza posto** → backlog: X15 (correnti dei femori: ridondanti con X5 e X7, 16 g, sopra i Wago non ci sta), X32 (angolo vero dei servo: va aperto ogni servo, servono ADC in più).
+- **Superfluo, con posto** → approvata: X16, X17 (scelta dell'utente del 9 ottobre), X31 (sede e fermo già fatti, il guscio non cambia).
+- **Superfluo senza posto o con costo d'aspetto** → backlog: X18, X21 (le fessure si vedrebbero anche spente), X22, X25, X26, X27, X28, X29, X30, X33. Nessuna di queste ha sedi nel modello: non c'è niente da togliere.
+- **Tocco senza X18**: colpetto e doppio colpetto dall'IMU, pressione localizzata dal centro di pressione degli FSR, molleggio con controllo di ammettenza e passo di recupero, lenti e morbidi con gli MG996R (`software.md` 4.3b). La carezza leggera resta solo con X18.
+- **"Predisposizione approvata" vale per CAD e documenti**: l'acquisto di ogni voce resta da approvare nel BOM.
+
+Modifiche al CAD (stesso design "Hexapod v2.1.0", versione 10 del file, tag `v2.1.2`):
+- **Prese delle luci delle tibie**: seconda fila di sei spine JR sul tetto del tunnel, speculare a quella dei piedi, x 48…64, y −25…−22.
+  - `corpo.py` → `_prese`, fatta anche da `fai_base_predisposizioni`; il passo `prese_luci` è servito una volta sola. Istanza `Prese_luci` in `assieme.py`.
+  - Volume +0,150 cm³ come da calcolo, base di un solo corpo, istanze al loro posto, assieme senza interferenze.
+- **T-plug con il ToF posteriore**: visto da dietro il ToF copre solo l'angolo in alto a sinistra del T-plug (3 × 3 mm) e sta 8 mm più indietro. Lo spazio stretto viene dalla porta, larga 50,8:
+  - aria attorno al T-plug: 3,3 mm sotto il cicalino, 7 mm verso l'altoparlante, 10,4 mm verso la guancia sinistra;
+  - sotto c'è il portafusibile.
+  Alzare il ToF non aiuta, e a z 19 c'era stato messo per non toccare il bordo della fascia. Si prova a mano sul primo carapace; il ripiego è una linguetta di nastro sulla metà lato batteria.
+- **Provino di luce** (X10): `Attrezzo_Provino_Luce_Nero` e `_Bianco`, da stampare insieme in due colori con il fondo sul piatto (`attrezzi.py` → `provino_luce`).
+  - Tre camere profonde 2, 4 e 6 mm, ciascuna con quattro strisce di bianco da 0,4, 0,8, 1,2 e 1,6.
+  - L'anello del pulsante come sul carapace: camera Ø29,6 × 6, bianco 1,6 con l'intarsio nero da 0,6, anello assottigliato a 0,8.
+  - Canali sotto per uno spezzone di striscia da 120 LED/m.
+  - Volumi del bianco come da calcolo (288 mm³ per camera, 663 per l'anello).
+- **Cablaggio**: chiusi gli aperti 1 (prese delle luci) e 6 (Wago positivo a sinistra, negativo a destra).
+- **Masse**: corpo 1067,9 g a segmento; modellato 2630 g, atteso circa 2990.
+

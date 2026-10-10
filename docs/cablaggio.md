@@ -59,7 +59,7 @@ striscia LED (6 pixel) ─ capo in alto a z −33 ──────────
    ─ ansa del ginocchio ─ fascetta nel blocco del femore ─ ansa dell'anca ─ fascetta del ponte (+ cavo del servo del femore)
    ─ sopra l'asse della coxa (ansa dell'imbardata) ─ sotto il coperchio a z 25 ─┬─ servo: canali della SSC-32
                                                                                ├─ FSR: prese dei piedi
-                                                                               └─ LED: prese delle luci (C, non ancora nel CAD)
+                                                                               └─ LED: prese delle luci (lato −Y, D-069)
 ```
 
 ## 3. Cavi uno per uno
@@ -105,7 +105,7 @@ Ogni servo ha il suo cavo a 3 fili (massa, +6 V, segnale), lungo 32 cm dichiarat
 | Cavo | Da → a | Percorso | Connettore | Fili e sezione | Stato |
 |---|---|---|---|---|---|
 | Sensore di forza (X5) | FSR sotto la punta dello stinco → prese dei piedi → partitore (10 kΩ 1 % al 3,3 V, 100 nF a massa) → ADS7830, canali 0–5 | coda dell'FSR piegata sul raccordo della punta, saldature nella tasca 6 × 9. Poi gola 2 × 2 sullo stinco fino al fondo della culla, gola del fermo sulla parete +X della culla sotto tre ponticelli, testata. Infine con il cavo del servo del ginocchio (3.2) fino alla fila delle prese | spina JR femmina (dalle prolunghe C5 avanzate, 2 poli su 3: segnale e massa) sulle prese dei piedi (x 48…64, y 22…25) | doppino 28 AWG siliconico, circa 0,4–0,5 m | S lunghezza; C canali: proposta nell'ordine di `robot.yaml` (AS, MS, PS, AD, MD, PD = 0…5) |
-| Luci della tibia (X31) | capo alto della striscia (z −33) → prese delle luci → 5 V dopo il PTC, massa, dato dal buffer | dal capo della striscia alla gola del fermo, poi come l'FSR | spina JR a 3 poli: massa, +5 V, dato, come un servo | 3 × 30 AWG siliconico | C: le prese delle luci non sono ancora nel CAD (5) |
+| Luci della tibia (X31) | capo alto della striscia (z −33) → prese delle luci (x 48…64, y −25…−22) → 5 V dopo il PTC, massa, dato dal buffer | dal capo della striscia alla gola del fermo, poi come l'FSR | spina JR a 3 poli: massa, +5 V, dato, come un servo | 3 × 30 AWG siliconico | prese nel CAD dalla 2.1.2 (D-069) |
 
 - **Fili che attraversano i giunti**, per zampa: 8 al ginocchio e all'anca (servo del ginocchio, 2 dell'FSR, 3 delle luci). All'imbardata sono 11, con i 3 del servo del femore.
 - **Gola del fermo** (D-067): larga 4 e profonda 0,8 sulla parete +X della culla, da z −33 a +12,45, a Y 4,4…8,4. Sta fuori dalle finestre a rombo e dai tappi del guscio. I tre ponticelli a z −28, −10 e +6 lasciano 1,1 mm sotto di sé. Si infilano i fili prima di saldarli all'altro capo.
@@ -164,13 +164,14 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 ## 4. Smontaggio
 
 - **Carapace**: si toglie lo sportellino, si sfila la spina IDC dall'ottagono, si svitano le 4 viti, si stacca il cicalino dalla presa di bilanciamento e si solleva. Anello, fondo, lobi, microfoni, ampli, altoparlante e ToF posteriore restano sul carapace con i loro fili.
+- **T-plug** (sezionamento d'emergenza): sta 7 mm dentro la porta di coda, appoggiato al portafusibile, con 3,3 mm sotto il cicalino. Si prende con la punta delle dita sul retro e sui fianchi: 7 mm d'aria verso l'altoparlante, 10,4 mm verso la guancia sinistra. Il ToF posteriore copre solo l'angolo in alto a sinistra (3 × 3 mm) visto da dietro e sta 8 mm più indietro (verifica della 2.1.2). Si prova a mano sul primo carapace; se è scomodo, una linguetta di nastro sulla metà lato batteria.
 - **Zampa**: si staccano dalla SSC-32 le tre spine dei servo, poi la spina dell'FSR dalle prese dei piedi e quella delle luci dalle sue prese. Tutti questi fili restano sulla zampa.
 
 ## 5. Aperti
 
-1. **Prese delle luci delle tibie** (C): non ci sono ancora nel CAD. Proposta: una seconda fila di sei spine JR a 3 poli (massa, +5 V, dato, l'ordine dei servo) speculare a quella dei piedi, sul lato −Y. Il posto va verificato. Si fa se si decide di montare X31.
+1. **Prese delle luci delle tibie**: fatte nella 2.1.2 (D-069). Seconda fila di sei spine JR a 3 poli (massa, +5 V, dato, l'ordine dei servo) speculare a quella dei piedi, sul tetto del tunnel a x 48…64, y −25…−22, nessuna interferenza.
 2. **Il ramo delle tibie ripete i primi sei pixel della catena**. Oggi sono i quattro dell'anello e i due del primo lobo, quindi le tibie avrebbero gli stessi colori. Per tenerle indipendenti servono sei pixel nascosti in testa alla catena, per esempio 5 cm di striscia sulla basetta. Da decidere con X31.
 3. **Tetto di corrente**: i 600 mA del firmware devono contare ogni pixel delle tibie sei volte (36 pixel reali per 6 indirizzi).
 4. **Lunghezze dei fili** (S): si misurano sulla prima zampa montata, prima di tagliare gli altri cinque.
 5. **Pettini delle anse** nelle baie posteriori: ancora da disegnare.
-6. **Quale Wago è il positivo**: uno per lato, si decide al montaggio. Il negativo è la massa a stella di tutti i rami.
+6. **Wago**: il positivo sta sul lato sinistro (+Y), il negativo, massa a stella di tutti i rami, sul destro (−Y), come nell'assieme (`assieme.py` → `Wago_piu`, `Wago_meno`).

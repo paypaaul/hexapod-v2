@@ -307,7 +307,7 @@ Ogni fase lascia la repo in uno stato da cui ripartire. "Si compra" vuol dire: d
   - microfoni, altoparlante, amplificatore e scheda del carapace;
   - zaino;
   - punti con nome, dime e cavalletto.
-- Restano "posto da trovare": INA3221 (X15), sede del CAP1188 (X18) e linee di luce della fascia (X22). Le fessure dell'occhio (X21) sono fuori finché l'utente non le chiede.
+- **Scelta del 10 ottobre (D-069)**: le predisposizioni approvate e il backlog sono nella tabella in testa a `predisposizioni.md`. In backlog, senza sede: X15, X18, X21, X22, X25–X30, X32, X33. Nella 2.1.2 si sono aggiunti le prese delle luci delle tibie e il provino di luce (X10).
 - Le righe qui sotto sono la specifica di partenza: dove differiscono, vale D-066.
 
 Un solo elenco, dalle due ricerche. Parametri nuovi con i prefissi `sen_` (sensori) e `luc_` (luci). Dopo ogni gruppo le verifiche solite: interferenze, sentinella dei volumi, timeline.
@@ -356,7 +356,7 @@ Stato: **sicuro** = quote e posto controllati sul modello nella revisione, resta
 
 ## 6. Candidati per il BOM
 
-Tutti da approvare. Costi indicativi (S), da ricontrollare all'ordine. Fase = fase del piano in cui servono. Corrente a 3,3 V salvo dove è scritto.
+Tutti da approvare per l'acquisto; quali si predispongono e quali vanno in backlog è deciso in D-069 (`predisposizioni.md`). Costi indicativi (S), da ricontrollare all'ordine. Fase = fase del piano in cui servono. Corrente a 3,3 V salvo dove è scritto.
 
 | Voce | Uso | Fase | Massa | Corrente | Costo |
 |---|---|---|---|---|---|

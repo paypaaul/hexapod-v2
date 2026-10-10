@@ -18,7 +18,7 @@ PARTI = ('Coxa', 'Coxa_Ponte', 'Femore_A', 'Femore_B', 'Tibia', 'Cover_Femore_A'
          'Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio', 'Corpo_Tappo_ToF',
          'Corpo_Supporto_INA260_S', 'Corpo_Supporto_INA260_D', 'Corpo_Sportello_Servizio_Zaino', 'Corpo_Fondo_Anello')
 # attrezzi da banco (attrezzi.py): in cad/stl/attrezzi/
-ATTREZZI = ('Dima_Posa_1', 'Dima_Posa_2', 'Attrezzo_Cavalletto')
+ATTREZZI = ('Dima_Posa_1', 'Dima_Posa_2', 'Attrezzo_Cavalletto', 'Attrezzo_Provino_Luce_Nero', 'Attrezzo_Provino_Luce_Bianco')
 
 
 def main(out=OUT):

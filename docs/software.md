@@ -426,6 +426,18 @@ Servono IMU e contatti dei piedi (ricerca sensori).
 
 Sono i riflessi di Walknet e la modalità "balance" del codice Phoenix. Senza la posizione dei servo sono l'unico modo di chiudere l'anello: il contatto dice dove sta davvero il piede. Gli stessi segnali diventano ingressi della politica. Requisiti per la ricerca sensori: IMU a 6 assi a 200–400 Hz con filtro d'assetto a 50–100 Hz; 6 contatti letti ad almeno 100 Hz con latenza sotto 10 ms; corrente ad almeno 50 Hz. I 4 ingressi della SSC-32 non bastano per sei piedi.
 
+### 4.3b Tocco, spinte e molleggio con i sensori che ci sono (D-069)
+
+Il tocco capacitivo sul carapace (X18) è in backlog. Gran parte di quello che dava si ottiene da IMU (X4), contatti dei piedi (X5) e correnti dei rail (X7), senza hardware in più:
+- **Colpetti**: l'LSM6DSO riconosce in hardware colpetto e doppio colpetto, con soglia, durata e asse configurabili. Un doppio colpetto sulla schiena può diventare un comando, per esempio "seduto" o "attenzione".
+- **Dove si preme**: una pressione sul carapace sposta il carico fra i sei piedi. Il centro di pressione degli FSR rispetto al baricentro dice dove si è premuto (testa, coda, un fianco o un lobo) e quanto forte, in modo relativo. Esempi: premere sulla coda per farlo sedere, premere su un lobo per fargli alzare quella zampa.
+- **Molleggio** (controllo di ammettenza): la spinta esterna stimata dalla variazione del carico sui piedi e dall'IMU sposta il riferimento del corpo come una massa su molla e smorzatore. Premi e il corpo cede, lasci e torna su. Rigidezza e smorzamento sono parametri del modo.
+- **Spinta laterale e passo di recupero**: col livellamento di 4.3 il corpo torna orizzontale. Se il baricentro stimato si avvicina al bordo del poligono d'appoggio, il generatore d'andatura fa un passo nella direzione della spinta.
+- **Limiti**: gli MG996R sono servo di posizione lenti (0,14 s per 60° a vuoto), con 5 µs di banda morta e gioco negli ingranaggi, e senza coppia misurabile per giunto. Il ciclo è a 50 Hz e gli FSR danno un carico relativo, non una misura. Quindi le reazioni sono lente e morbide, con circa 100–200 ms di ritardo: vanno bene per spinte e pressioni a mano, non per urti forti.
+- **Rispetto ai cani robot**: Spot o Unitree misurano la coppia di ogni giunto a centinaia di hertz con motori controllati in coppia, e reagiscono in pochi millisecondi.
+- **Cosa resta escluso**: una carezza leggera non sposta carico né dà accelerazione, quindi non si sente. Per quella serve X18.
+- **Quando**: in P5 col livellamento, in P6 come interazione. Si prova prima nel simulatore, applicando forze esterne al corpo in MuJoCo.
+
 ### 4.4 Apprendimento per rinforzo
 
 | Livello | Cosa | Dove si addestra | Dove gira |

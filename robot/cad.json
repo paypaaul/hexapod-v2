@@ -1,7 +1,7 @@
 {
- "versione": "2.1.1",
- "documento": "Hexapod v2.1.0 v8",
- "esportato": "2026-10-10T12:47:37",
+ "versione": "2.1.2",
+ "documento": "Hexapod v2.1.0 v10",
+ "esportato": "2026-10-10T17:29:49",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -201,14 +201,14 @@
  },
  "masse": {
   "segmenti_g": {
-   "corpo": 1064.7,
+   "corpo": 1067.9,
    "coxa": 94.1,
    "femore": 54.4,
    "tibia": 111.9
   },
-  "modellato_g": 2627.1,
+  "modellato_g": 2630.2,
   "non_modellato_g": 360.0,
-  "atteso_g": 2987.1,
+  "atteso_g": 2990.2,
   "nota": "stampate con pareti 1,2 mm e riempimento 25 %, comprate con la massa dichiarata; il non modellato (cavi, viteria) va distribuito sul corpo"
  },
  "parti": {
@@ -267,27 +267,27 @@
    "segmento": "corpo"
   },
   "Corpo_Base": {
-   "massa_g": 199.04,
+   "massa_g": 199.24,
    "baricentro_mm": [
-    0.726,
-    0.023,
-    -16.51
+    0.78,
+    0.0,
+    -16.502
    ],
    "inerzia_gmm2": [
     [
-     434185.2,
-     -263.9,
-     1821.0
+     434306.1,
+     -12.9,
+     1730.9
     ],
     [
-     -263.9,
-     814028.3,
-     -39.2
+     -12.9,
+     814640.4,
+     -1.0
     ],
     [
-     1821.0,
-     -39.2,
-     1192531.6
+     1730.9,
+     -1.0,
+     1193236.8
     ]
    ],
    "materiale": "PETG-CF",
@@ -1506,6 +1506,33 @@
     ]
    ],
    "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Rif_Prese_Piedi_2": {
+   "massa_g": 3.0,
+   "baricentro_mm": [
+    56.0,
+    -23.4,
+    -4.65
+   ],
+   "inerzia_gmm2": [
+    [
+     19.8,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     78.1,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     61.8
+    ]
+   ],
+   "materiale": "comprato",
    "segmento": "corpo"
   },
   "Rif_Servo_MG996R_7": {

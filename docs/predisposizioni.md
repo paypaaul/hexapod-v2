@@ -1,6 +1,19 @@
 # Predisposizioni per sensori, luci ed espansioni (backlog)
 
-9 ottobre 2026. È un backlog: niente è approvato né comprato, e nel CAD non è ancora modellato niente. Ogni voce nuova del BOM va approvata dall'utente.
+9 ottobre 2026. Nato come backlog; le predisposizioni sono state modellate nella 2.1.0 (D-066), e il 10 ottobre l'utente ha scelto quali tenere (D-069, tabella qui sotto). Ogni acquisto resta da approvare nel BOM.
+
+**Scelta del 10 ottobre 2026 (D-069)**:
+
+| Classe | Esito | Voci |
+|---|---|---|
+| importante, con posto | predisposizione approvata | X1, X2, X4, X5, X6, X7, X8, X9, X11, X13 |
+| importante senza posto | opzioni da cercare | nessuna |
+| good-to-have, con posto o senza CAD | predisposizione approvata | X3 (solo se serve), X10, X12, X14 (2 NTC), X19, X20, X23, X24, computer di bordo a zaino |
+| good-to-have senza posto | backlog | X15, X32 |
+| superfluo, con posto | predisposizione approvata | X16, X17, X31 |
+| superfluo senza posto, o con un costo d'aspetto | backlog | X18, X21, X22, X25, X26, X27, X28, X29, X30, X33 |
+
+Il tocco sul carapace senza X18 (colpetti dall'IMU, pressione dagli FSR, molleggio) è descritto in `software.md` 4.3b.
 
 Nasce da quattro ricerche indipendenti: stato del robot, percezione dell'ambiente, luci e interazione, integrazione elettrica e meccanica. Qui sono unite: doppioni fusi, conflitti risolti (sezione 2.9). Il piano che unisce questo documento e `software.md` è `piano-elettronica-software.md`.
 
@@ -164,7 +177,7 @@ Codici X1…X33 solo per questo documento (le sigle del BOM sono altre). Costi i
 
 | Voce | A cosa serve | Parte candidata | Interfaccia e indirizzo | Dove nel robot | Cosa predisporre nel CAD | Massa | Corrente | Costo | Dati |
 |---|---|---|---|---|---|---|---|---|---|
-| X14 Temperatura dei regolatori | rallentare prima che un regolatore si spenga o che il carapace in PLA (55–60 °C) si deformi; decide se il carapace va in PETG (D-065) | 2 (+1) NTC 10 kΩ 1 % TDK B57861S0103F040 (Ø2,41), ciascuna con 10 kΩ 1 % | ADS7830 canali 6 e 7 | incollate sulla bobina o sul MOSFET di ogni regolatore, nel camino | nessuna: i fili non devono chiudere il camino | ~1 g | 0,17 mA ciascuna | ~3 € | V (TDK); S risoluzione 0,6 °C a 60 °C |
+| X14 Temperatura dei regolatori | rallentare prima che un regolatore si spenga o che il carapace in PLA (55–60 °C) si deformi; decide se il carapace va in PETG (D-065) | 2 NTC 10 kΩ 1 % TDK B57861S0103F040 (Ø2,41), ciascuna con 10 kΩ 1 % (D-069: non 3, l'ADC ha 2 canali liberi) | ADS7830 canali 6 e 7 | incollate sulla bobina o sul MOSFET di ogni regolatore, nel camino | nessuna: i fili non devono chiudere il camino | ~1 g | 0,17 mA ciascuna | ~3 € | V (TDK); S risoluzione 0,6 °C a 60 °C |
 | X15 Corrente del servo di ogni femore | contatto e carico per zampa senza fili oltre i giunti; stallo di un singolo femore, che gli INA260 non distinguono (vedono 9 servo); modello I²t | 2 × Adafruit INA3221 (#6062): 3 canali, shunt 50 mΩ, ±3,2 A, 38,6 × 22,9 × 10,5, 5,8 g | I2C 0x40 e 0x41 (ponticello) | in serie al filo rosso dei femori; posto da trovare nel CAD. Sopra i Wago non ci sta: la scheda finisce 1,35 mm sopra gli ingressi dei fili, sulla stessa pianta (5). Da dimostrare nel CAD prima di tenerla in media priorità | sede dopo aver trovato il posto | ~16 g | 0,35 mA ciascuno (S) | ~24 € | V (Adafruit); S corrente in appoggio (~1,4 A); C fori; da provare il segnale in marcia |
 | X16 Udito stereo | comandi a voce offline (ESP-SR: solo inglese o cinese) e direzione dei suoni: il robot si gira verso chi chiama | 2 × Adafruit 3421 (Knowles SPH0645LM4H, I2S, porta sul fondo), 16,7 × 12,7 × 1,8, 0,4 g | I2S: BCLK 38, WS 39, dati 40; SEL a massa e a 3,3 V | sotto il dorso della testa (x ≈ 83–95), ai lati del flat della camera, dentro la fascia: posto da trovare nel CAD. Centrate su \|y\| 11 le schede arrivano a \|y\| 17,35, dentro i canali di X22 (da 17,2) | due fori Ø1 nella fascia con anello e guarnizione, due sedi | ~3 g | ~1 mA (S) | ~14 € | V dimensioni (Adafruit), full-duplex (ESP-IDF); S rumore dei servo; C spazio |
 | X17 Voce | conferme e avvisi a voce (batteria, giunto in errore per nome), personalità | Adafruit 3006 (MAX98357A, I2S, classe D, 19,4 × 17,8 × 3, 1,2 g); altoparlante CUI (Same Sky) CMS-15113-078SP, 8 Ω, 0,7 W, 15 × 11 × 3 | I2S, dati sul GPIO2; 5 V | amplificatore sotto il dorso: posto da trovare nel CAD (lungo il lato −Y dell'ottagono non c'è il volume, 2.3); altoparlante su una guancia di coda, il suono esce dalla porta aperta; T-plug e spinotto devono restare a portata di mano | sede dell'amplificatore, sede dell'altoparlante | ~4 g | 5 V: fino a ~200 mA | ~10 € | V (Adafruit); S altoparlante (estratti CUI); C resa dalla porta |

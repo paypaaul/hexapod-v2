@@ -55,7 +55,11 @@ PARAMETRI = [
 
 # (imbardata, femore, ginocchio) in gradi delle due pose (software.md 2.7)
 POSE = {'Dima_Posa_1': (0.0, 0.0, 90.0), 'Dima_Posa_2': (30.0, 45.0, 135.0)}
-LIBRERIA = {'Dima_Posa_1': (0, 850, 0), 'Dima_Posa_2': (100, 850, 0), 'Attrezzo_Cavalletto': (260, 850, 0)}
+LIBRERIA = {'Dima_Posa_1': (0, 850, 0), 'Dima_Posa_2': (100, 850, 0), 'Attrezzo_Cavalletto': (260, 850, 0),
+            'Attrezzo_Provino_Luce_Nero': (420, 850, 0), 'Attrezzo_Provino_Luce_Bianco': (420, 850, 0)}
+# provino di luce (X10, D-069): profondita' delle camere sopra la striscia e spessori del bianco da provare
+PROV_CAMERE = (2.0, 4.0, 6.0)
+PROV_BIANCO = (0.4, 0.8, 1.2, 1.6)
 
 
 def _mm(des, expr):
@@ -187,6 +191,54 @@ def fai_cavalletto(des, root):
     return occ, p
 
 
+def fai_provino_luce(des, root):
+    """Provino di luce (X10, D-069) in due componenti, nero e bianco, da stampare insieme in due colori con il fondo sul
+    piatto. Uno spezzone di striscia a 120 LED/m si infila nel canale sotto (alto 1,6): sotto ogni camera cade sempre un
+    LED. Riga 1: tre camere profonde PROV_CAMERE (dal canale al bianco da 1,6), ciascuna coperta da quattro strisce di
+    bianco spesse PROV_BIANCO. Riga 2: l'anello del pulsante come sul carapace (camera nera luc_camera_D x luc_camera_h,
+    bianco car_sp con l'intarsio nero car_fascia_h, anello luc_anello_r0..r1 assottigliato da sotto a luc_bianco)."""
+    nero, bianco = _comp(root, 'Attrezzo_Provino_Luce_Nero'), _comp(root, 'Attrezzo_Provino_Luce_Bianco')
+    pn, pb = Parte(nero.component), Parte(bianco.component)
+    can, cav, w = 1.6, 16.0, 2.0                                    # canale, lato delle camere, pareti
+    sp, fa, bi = _mm(des, 'car_sp'), _mm(des, 'car_fascia_h'), _mm(des, 'luc_bianco')
+    r0, r1 = _mm(des, 'luc_anello_r0'), _mm(des, 'luc_anello_r1')
+    dc, hc = _mm(des, 'luc_camera_D') - 2 * _mm(des, 'luc_camera_sp'), _mm(des, 'luc_camera_h')
+    xs = [-(cav + w), 0.0, cav + w]
+    y0, y1 = 0.0, cav + 2                                           # cavita' della riga 1 in y
+    zt = [can + d + max(PROV_BIANCO) for d in PROV_CAMERE]
+    op = NUOVO
+    for i, (xc, z) in enumerate(zip(xs, zt)):
+        pn.blocco('z', _f(0), 'blocco_%d' % i, _f(xc - cav / 2 - w), _f(y0 - w), _f(xc + cav / 2 + w), _f(y1 + w), _f(z), 1, op)
+        op = UNISCI
+    yr, zr = -(dc / 2 + w + 2), can + hc + sp                       # centro e cima dell'anello
+    pn.blocco('z', _f(0), 'blocco_anello', _f(-(dc / 2 + w)), _f(yr - dc / 2 - w), _f(dc / 2 + w), _f(y0 - w), _f(zr), 1, UNISCI)
+    for i, (xc, z) in enumerate(zip(xs, zt)):
+        pn.blocco('z', _f(can), 'camera_%d' % i, _f(xc - cav / 2), _f(y0), _f(xc + cav / 2), _f(y1), _f(z - can), 1, TAGLIA)
+    pn.cilindro('z', _f(can), 'camera_anello', _f(0), _f(yr), _f(dc), _f(zr - can), 1, TAGLIA)
+    pn.blocco('z', _f(0), 'canale', _f(xs[0] - cav), _f((y0 + y1) / 2 - 2.3), _f(xs[2] + cav), _f((y0 + y1) / 2 + 2.3), _f(can), 1, TAGLIA)
+    yl = yr + (r0 + r1) / 2                                         # i pixel stanno sotto l'anello, come nel fondo vero
+    pn.blocco('z', _f(0), 'canale_anello', _f(-(dc / 2 + w + 1)), _f(yl - 2.3), _f(dc / 2 + w + 1), _f(yl + 2.3), _f(can), 1, TAGLIA)
+    # intarsio nero sopra il bianco dell'anello, aperto sull'anello
+    pn.cilindro('z', _f(zr - fa), 'intarsio', _f(0), _f(yr), _f(dc), _f(fa), 1, UNISCI)
+    pn.cilindro('z', _f(zr - fa), 'intarsio_anello', _f(0), _f(yr), _f(2 * r1), _f(fa), 1, TAGLIA)
+    pn.cilindro('z', _f(zr - fa), 'intarsio_dentro', _f(0), _f(yr), _f(2 * r0), _f(fa), 1, UNISCI)
+    # bianco: strisce sulle tre camere e pelle dell'anello
+    for i, (xc, z) in enumerate(zip(xs, zt)):
+        for k, t in enumerate(PROV_BIANCO):                         # le strisce di una camera si toccano: un corpo
+            xa = xc - cav / 2 + k * cav / len(PROV_BIANCO)
+            pb.blocco('z', _f(z - t), 'bianco_%d_%d' % (i, k), _f(xa), _f(y0), _f(xa + cav / len(PROV_BIANCO)), _f(y1), _f(t), 1,
+                      NUOVO if k == 0 else UNISCI)
+    pb.cilindro('z', _f(zr - sp), 'pelle_anello', _f(0), _f(yr), _f(dc), _f(sp - fa), 1, NUOVO)
+    pb.cilindro('z', _f(zr - fa), 'anello', _f(0), _f(yr), _f(2 * r1), _f(fa), 1, UNISCI)
+    pb.cilindro('z', _f(zr - fa), 'anello_dentro', _f(0), _f(yr), _f(2 * r0), _f(fa), 1, TAGLIA)
+    pb.cilindro('z', _f(zr - sp), 'gola', _f(0), _f(yr), _f(2 * r1), _f(sp - bi), 1, TAGLIA)
+    pb.cilindro('z', _f(zr - sp), 'gola_dentro', _f(0), _f(yr), _f(2 * r0), _f(sp - bi), 1, UNISCI)
+    for o, p in ((nero, pn), (bianco, pb)):
+        c = o.component.bRepBodies
+        p.info = {'corpi': c.count, 'volume_cm3': round(sum(b.volume for b in c), 3)}
+    return nero, pn, bianco, pb
+
+
 def _chiudi(des, t0, nome, p):
     L['raggruppa'](des, t0, nome)
     return dict({'lavorazioni': p.n, 'schizzi_non_vincolati': p.non_vincolati}, **getattr(p, 'info', {}))
@@ -289,6 +341,12 @@ def main(passi, **kw):
             occ, p = fai_cavalletto(des, root)
             occ.isLightBulbOn = False
             out['cavalletto'] = _chiudi(des, t0, 'Attrezzo_Cavalletto', p)
+        if 'provino_luce' in passi:
+            t0 = des.timeline.count
+            nero, pn, bianco, pb = fai_provino_luce(des, root)
+            nero.isLightBulbOn = bianco.isLightBulbOn = False
+            out['provino_luce'] = {'nero': dict(pn.info), 'bianco': dict(pb.info)}
+            L['raggruppa'](des, t0, 'Attrezzo_Provino_Luce')
         if 'verifica_dime' in passi:
             out['verifica_dime'] = verifica_dime(des, root, kw.get('zampa', 'AS'))
         if 'verifica_cavalletto' in passi:

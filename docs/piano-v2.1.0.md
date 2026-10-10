@@ -121,6 +121,8 @@ Sullo stesso design "Hexapod v2.1.0" (correzioni piccole: niente copia del file 
 
 ## Seguito: versione 2.1.2 — scelta delle predisposizioni (approvata dall'utente il 10 ottobre 2026)
 
+**Fatta il 10 ottobre 2026** (D-069, tag `v2.1.2`).
+
 Sullo stesso design "Hexapod v2.1.0", tag `v2.1.2`, decisione D-069. L'utente ha approvato la classificazione delle voci X in sei classi (importante, good-to-have, superfluo; ha posto o no).
 
 - **Confermate come predisposizione**:
