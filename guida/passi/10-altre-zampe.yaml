@@ -7,6 +7,46 @@ sezione:
   titolo: Le altre cinque zampe
   colore: "#d9480f"
   terna: robot
+  # stato all'inizio: il corpo come nella sezione 9 e la zampa AS montata, senza lama B (stesso elenco della sezione 11)
+  presenti_iniziali:
+    - corpo/Corpo_Base
+    - corpo/Corpo_Chiglia
+    - "corpo/Servo_Coxa_*"
+    - "corpo/Cuscinetto_Coxa_*"
+    - "corpo/Corpo_Slitta_Regolatore_*"
+    - "corpo/Regolatore_*"
+    - corpo/SSC32
+    - corpo/Corpo_Vassoio
+    - corpo/Basetta
+    - corpo/ESP32
+    - corpo/Camera
+    - corpo/Portafusibile_F1
+    - corpo/Tplug
+    - "corpo/Wago_*"
+    - corpo/Interruttore
+    - corpo/Prese_piedi
+    - corpo/Prese_luci
+    - corpo/ToF_frontale
+    - corpo/IMU
+    - corpo/Corpo_Piastrina_IMU
+    - corpo/ADC
+    - "corpo/INA260_*"
+    - "corpo/Corpo_Supporto_INA260_*"
+    - zampa/Coxa@AS
+    - zampa/Coxa_Ponte@AS
+    - "zampa/Cuscinetto_*@AS"
+    - "zampa/Perno_*@AS"
+    - "zampa/Squadretta_*@AS"
+    - "zampa/Servo_*@AS"
+    - zampa/Femore_A@AS
+    - zampa/Femore_B@AS
+    - zampa/Tibia@AS
+    - zampa/Piedino@AS
+    - zampa/FSR_piede@AS
+    - zampa/Cover_Tibia@AS
+    - zampa/Cover_Tibia_Diffusore@AS
+    - zampa/Cover_Femore_A@AS
+    - zampa/Cover_Femore_A_Feritoia@AS
   obiettivo: >-
     Montare sul corpo le zampe MS, PS, AD, MD e PD, già fatte nella sezione 6, ripetendo la sezione 9, in due lotti: prima il lato sinistro, poi il
     destro. Le zampe sono tutte uguali; cambiano solo i canali, le prese e la prolunga del ginocchio sulle zampe
@@ -26,7 +66,22 @@ passi:
   - id: "10.01"
     titolo: Ordine e lotti
     formato: grande
-    immagine: false
+    # le cinque zampe come sottoassiemi gia' fatti (sezione 6): non contano come pezzi; senza lama B, come la AS
+    assiemi:
+      - chiavi: "zampa/*@[MP]S"
+        esclusi: ["zampa/Cover_Femore_B@*", "zampa/Cover_Femore_B_Feritoia@*"]
+        nome: "Zampe MS e PS montate (sezione 6), lotto 1"
+      - chiavi: "zampa/*@?D"
+        esclusi: ["zampa/Cover_Femore_B@*", "zampa/Cover_Femore_B_Feritoia@*"]
+        nome: "Zampe AD, MD e PD montate (sezione 6), lotto 2"
+    vista: {direzione: [0.15, 0.1, 0.98], su: [1, 0, 0]}
+    etichette:
+      - {testo: "AS · 0", chiave: zampa/Tibia@AS}
+      - {testo: "MS · 1", chiave: zampa/Tibia@MS}
+      - {testo: "PS · 1", chiave: zampa/Tibia@PS}
+      - {testo: "AD · 2", chiave: zampa/Tibia@AD}
+      - {testo: "MD · 2", chiave: zampa/Tibia@MD}
+      - {testo: "PD · 2", chiave: zampa/Tibia@PD}
     testo:
       - "Monta le zampe nell'ordine della tabella, una alla volta, con la sezione 9."
       - "Finisci il lato sinistro prima di cominciare il destro."

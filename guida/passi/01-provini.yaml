@@ -103,7 +103,12 @@ passi:
   - id: "1.04"
     titolo: Squadretta, misure
     formato: grande
-    immagine: false
+    in_evidenza: [zampa/Squadretta_coxa]
+    mostra: []
+    vista: {direzione: [0.9, 0.35, 0.25], su: [0, 0, 1]}
+    etichette:
+      - {testo: disco, punto: [10, 0, 18]}
+      - {testo: mozzo, punto: [4.5, 0, 14.5]}
     testo:
       - "Misura e annota con il calibro le sei quote della tabella."
       - "Infila la squadretta sull'albero di un servo: deve entrare a mano e non ballare."
@@ -121,8 +126,8 @@ passi:
         - ["Ø dei fori filettati", "3 (M3) [C]", "sq_fori_d", ""]
     avvisi:
       - {tipo: importante, testo: "Se i denti non sono 25 o il foro centrale non calza l'albero, fermati: il progetto è sui 25 denti dell'MG996R (BOM D3)."}
-      - {tipo: nota, testo: "sq_h e sq_sp entrano nella pila delle quote lungo Y della zampa (zy_orlo, zy_disco, zy_A_est): se cambiano, cambiano tutti i pezzi della zampa (D-046)."}
-      - {tipo: nota, testo: "Il foro centrale (Ø3,2 nel modello) non ha un parametro: serve solo a controllare che la vite in dotazione entri [C]."}
+      - {tipo: nota, testo: "sq_h e sq_sp entrano nelle quote lungo Y: se cambiano, cambiano tutti i pezzi della zampa (D-046)."}
+      - {tipo: nota, testo: "Il foro centrale (Ø3,2 nel modello) non ha parametro: controlla solo che la vite in dotazione entri [C]."}
     attrezzi: [calibro]
     fonti: [D-046, D-048, "docs/BOM.md D3 e domanda 4", "cad/script/rif_componenti.py sq_*", "cad/stl/README.md 'Provino della culla' (ultimo capoverso)"]
 
@@ -130,7 +135,14 @@ passi:
     titolo: Culla, stampa e misure
     formato: grande
     in_evidenza: [zampa/Tibia]
+    mostra: []
     vista: {direzione: [0.5, -0.8, 0.45], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: zampa/Tibia, lav: sede_cuscinetto}
+      - {chiave: zampa/Tibia, lav: passaggio_perno}
+      - {chiave: zampa/Tibia, lav: "pilota_corto_*"}
+      - {chiave: zampa/Tibia, lav: fessura_cavo}
+      - {chiave: zampa/Tibia, lav: finestra_cavo}
     etichette:
       - {testo: PIATTO, punto: [120, -24.15, -12]}
     testo:
@@ -154,15 +166,19 @@ passi:
 
   - id: "1.06"
     titolo: Cuscinetto nella sede
-    formato: mezzo
+    formato: grande
     in_evidenza: [zampa/Tibia, zampa/Cuscinetto_ginocchio]
+    mostra: []
     esploso: {pezzi: {"zampa/Cuscinetto_ginocchio": [0, -30, 0]}}
     vista: zampa_B
+    evidenzia: [{chiave: zampa/Tibia, lav: sede_cuscinetto}]
     testo:
       - "Premi il cuscinetto LF-1050ZZ nella sede dal lato B, flangia verso fuori."
       - "Spingi col pollice, solo sulla flangia, fino in battuta."
       - "Controlla che l'anello interno giri libero."
       - "Misura e annota se è bastato il pollice."
+    extra:
+      - {nome: "cuscinetto flangiato LF-1050ZZ", qta: 1, bom: D1}
     avvisi:
       - {tipo: attenzione, testo: "Niente morsa piana: premeresti flangia e anello interno insieme."}
       - {tipo: prova, testo: "Atteso: entra col pollice, l'anello gira libero [C]. Se no, cus_sede_d (oggi 10,0) va aumentato."}
@@ -170,14 +186,17 @@ passi:
 
   - id: "1.07"
     titolo: Perno nel cuscinetto
-    formato: mezzo
+    formato: grande
     in_evidenza: [zampa/Tibia, zampa/Cuscinetto_ginocchio, zampa/Perno_ginocchio]
+    mostra: []
     esploso: {pezzi: {"zampa/Perno_ginocchio": [0, -22, 0]}}
     vista: zampa_B
     testo:
       - "Infila il perno Ø5 × 12 nell'anello interno del cuscinetto, dal lato B."
       - "Controlla che scorra a mano e non balli."
       - "Misura e annota: scorrevole, o forzato."
+    extra:
+      - {nome: "perno Ø5 × 12", qta: 1, bom: D2}
     avvisi:
       - {tipo: nota, testo: "I perni h8 scorrono nel cuscinetto, gli m6 entrano forzati (BOM D2, D-049)."}
       - {tipo: prova, testo: "Atteso: scorrevole, senza gioco apprezzabile [C]. Se entra forzato, annotalo: cambia la scelta del perno (D2)."}
@@ -187,9 +206,14 @@ passi:
     titolo: Servo nella culla
     formato: grande
     in_evidenza: [zampa/Tibia, zampa/Cuscinetto_ginocchio, zampa/Servo_ginocchio]
+    mostra: []
     esploso: {pezzi: {"zampa/Servo_ginocchio": [0, 45, 0]}}
     vista: zampa_A
-    evidenzia: [{chiave: zampa/Tibia, lav: fessura_cavo}, {chiave: zampa/Tibia, lav: finestra_cavo}]
+    evidenzia:
+      - {chiave: zampa/Tibia, lav: fessura_cavo}
+      - {chiave: zampa/Tibia, lav: finestra_cavo}
+      - {chiave: zampa/Tibia, lav: "ins_coda_*"}
+      - {chiave: zampa/Tibia, lav: "pilota_corto_*"}
     testo:
       - "Togli i gommini dalle alette del servo."
       - "Infila la spina del cavo nella finestra della testata, da dentro la culla."
@@ -216,8 +240,14 @@ passi:
     titolo: Giunto, stampa e misure
     formato: grande
     in_evidenza: [zampa/Coxa, zampa/Coxa_Ponte]
+    mostra: []
     esploso: {pezzi: {"zampa/Coxa_Ponte": [0, 0, 35]}}
     vista: zampa_A
+    evidenzia:
+      - {chiave: zampa/Coxa, lav: foro_perno}
+      - {chiave: zampa/Coxa_Ponte, lav: "foro_testa_*"}
+      - {chiave: zampa/Coxa_Ponte, lav: sede_disco}
+      - {chiave: zampa/Coxa_Ponte, lav: foro_centrale}
     testo:
       - "Stampa Coxa.stl con la faccia +Y sul piatto, senza supporti [V]."
       - "Stampa Coxa_Ponte.stl con la faccia superiore sul piatto e la sede del disco in alto."
@@ -241,10 +271,14 @@ passi:
 
   - id: "1.10"
     titolo: Ponte sulla squadretta
-    formato: mezzo
+    formato: grande
     in_evidenza: [zampa/Coxa_Ponte, zampa/Squadretta_coxa]
-    esploso: {pezzi: {"zampa/Coxa_Ponte": [0, 0, 30]}}
+    mostra: []
+    esploso: {pezzi: {"zampa/Coxa_Ponte": [0, 0, 14]}}
     vista: zampa_A
+    evidenzia:
+      - {chiave: zampa/Coxa_Ponte, lav: "foro_testa_*"}
+      - {chiave: zampa/Coxa_Ponte, lav: sede_disco}
     testo:
       - "Avvita 2 viti M3 × 5 nei fori opposti della squadretta, teste in alto, senza rondella."
       - "Cala il ponte: le teste nei due fori, il disco nella sede."
@@ -257,14 +291,18 @@ passi:
 
   - id: "1.11"
     titolo: Perno nella coxa
-    formato: mezzo
+    formato: grande
     in_evidenza: [zampa/Coxa, zampa/Perno_coxa]
+    mostra: []
     esploso: {pezzi: {"zampa/Perno_coxa": [0, 0, 30]}}
-    vista: zampa_A
+    vista: zampa_sotto
+    evidenzia: [{chiave: zampa/Coxa, lav: foro_perno}]
     testo:
       - "Premi un perno Ø5 × 12 dall'alto nel foro del braccio inferiore, fino a 1,4 mm sotto il braccio [V]."
       - "Controlla che il perno non esca da solo e non sia storto."
       - "Misura e annota: bastato il pollice, o servita la morsa."
+    extra:
+      - {nome: "perno Ø5 × 12", qta: 1, bom: D2}
     avvisi:
       - {tipo: attenzione, testo: "Solo morsa a ganasce morbide: niente martello."}
       - {tipo: prova, testo: "Atteso: forzato, tiene senza ritegno (D-049); entra con la morsa [C]. Parametro: perno_foro (5,0)."}
@@ -274,8 +312,13 @@ passi:
   - id: "1.12"
     titolo: Tasche della lama A, stampa
     formato: grande
-    in_evidenza: [zampa/Cover_Femore_A]
-    vista: {direzione: [0.3, -1.0, 0.45], su: [0, 0, 1]}
+    in_evidenza: [attrezzo/Provino_Tasche_Base, attrezzo/Provino_Tasche_Lama]
+    mostra: []
+    esploso: {pezzi: {"attrezzo/Provino_Tasche_Lama": [0, 20, 0]}}
+    vista: {direzione: [0.3, -0.9, 0.6], su: [0, 0, 1]}
+    etichette:
+      - {testo: BASE, punto: [0, -4, 8]}
+      - {testo: LAMINA, punto: [0, 20, 4]}
     testo:
       - "Stampa la base in PETG-CF nero e avvita nel foro pilota Ø2,5 una vite M3 × 6: la testa resta in piedi."
       - "Stampa la lamina in PLA bianco con le tasche sul piatto, come la lama A."
@@ -291,7 +334,7 @@ passi:
         - ["6", "Ø6,0, stringe a 5,4", "con tre costole"]
     avvisi:
       - {tipo: nota, testo: "La lamina è spessa 4,0 come la lama A; le tasche sono profonde 3,2 [V]. La testa ISO 4762 va da Ø5,32 a 5,5 e alta 3,0 [V]."}
-      - {tipo: nota, testo: "Nell'immagine: la lama A vera, vista dal lato interno."}
+      - {tipo: nota, testo: "Nell'immagine: base e lamina come si stampano. Le tasche stanno sotto la lamina, sul piatto; i puntini sono sulla faccia in alto."}
     extra:
       - {nome: "base di prova, PETG-CF", qta: 1, bom: E1}
       - {nome: "lamina di prova, PLA bianco", qta: 1, bom: E2}
@@ -302,7 +345,16 @@ passi:
   - id: "1.13"
     titolo: Tasche della lama A, prova
     formato: grande
-    immagine: false
+    in_evidenza: [attrezzo/Provino_Tasche_Lama]
+    mostra: []
+    vista: {direzione: [0.0, -0.45, -1.0], su: [0, 1, 0]}
+    etichette:
+      - {testo: "1", punto: [-25, 0, 0]}
+      - {testo: "2", punto: [-15, 0, 0]}
+      - {testo: "3", punto: [-5, 0, 0]}
+      - {testo: "4", punto: [5, 0, 0]}
+      - {testo: "5", punto: [15, 0, 0]}
+      - {testo: "6", punto: [25, 0, 0]}
     testo:
       - "Premi la tasca 1 sulla testa della vite, a mano."
       - "Stacca la lamina con le dita."
@@ -321,6 +373,7 @@ passi:
         - ["6, costole a 5,4", "", ""]
     avvisi:
       - {tipo: prova, testo: "Atteso: la lamina sta sulla testa senza cadere e si toglie con due dita [C]."}
+      - {tipo: nota, testo: "Nell'immagine: la lamina vista dal basso, con il numero di ogni tasca; premi sulla testa della vite la tasca che provi."}
       - {tipo: nota, testo: "Una tasca liscia dà una stretta che dipende dalla stampante: le costole la rendono meno sensibile (D-072)."}
     fonti: [D-072, "CLAUDE.md, aperto 4"]
 
@@ -328,7 +381,11 @@ passi:
     titolo: Piedino, stampa
     formato: grande
     in_evidenza: [zampa/Piedino]
+    mostra: []
     vista: {direzione: [0.4, 0.25, 1.0], su: [0, 0, 1]}
+    evidenzia: [{chiave: zampa/Piedino, lav: tacca_fili}]
+    etichette:
+      - {testo: PIATTO, punto: [121.8, 0, -94.5]}
     testo:
       - "Stampa Piedino.stl in TPU 95A arancio: bocca sul piatto, punta in alto."
       - "Stampa le varianti con la stretta di −0,2 e −0,4 mm, se ci sono [C]."
@@ -351,10 +408,17 @@ passi:
     titolo: Piedino, prova con l'FSR
     formato: grande
     in_evidenza: [zampa/Tibia, zampa/Piedino, zampa/FSR_piede]
-    esploso: {pezzi: {"zampa/Piedino": [0, 0, -38], "zampa/FSR_piede": [0, 0, -20]}}
+    mostra: []
+    esploso: {pezzi: {"zampa/Piedino": [0, 0, -50], "zampa/FSR_piede": [0, 0, -14]}}
     vista: tibia_capovolta
     nascondi: [zampa/Cuscinetto_ginocchio]
-    evidenzia: [{chiave: zampa/Tibia, lav: tasca_fsr}, {chiave: zampa/Piedino, lav: tacca_fili}]
+    evidenzia:
+      - {chiave: zampa/Tibia, lav: tasca_fsr}
+      - {chiave: zampa/Tibia, lav: "gola_fsr_*"}
+      - {chiave: zampa/Piedino, lav: tacca_fili}
+    etichette:
+      - {testo: FSR, chiave: zampa/FSR_piede}
+      - {testo: doppino, punto: [134, 10, -62]}
     testo:
       - "Salda in pochi secondi il doppino 28 AWG alle linguette dell'FSR, a bassa temperatura [C]."
       - "Posa l'FSR sulla punta della tibia di prova, piega la coda e posa le linguette nella tasca."
@@ -373,14 +437,20 @@ passi:
       - {tipo: nota, testo: "Un piede porta fino a 12 N, circa 1,2 kg [V]; solo 28 AWG (D-073)."}
     extra:
       - {nome: "FSR 400 Short", qta: 1, bom: X5}
-      - {nome: "doppino 28 AWG siliconico, rosso e nero", qta: 1, bom: X5}
+      - {nome: "doppino 28 AWG siliconico", qta: 1, bom: X5}
     attrezzi: [saldatore, spelafili, multimetro, pesi_noti]
     fonti: [D-066, D-064, D-073, "docs/predisposizioni.md X5 e 'Verifiche'", "docs/piano-elettronica-software.md fase P1", "guida/problemi/zampa.yaml (dati dell'FSR)"]
 
   - id: "1.16"
     titolo: Luce, stampa
     formato: grande
-    immagine: false
+    in_evidenza: [attrezzo/Provino_Luce_Nero, attrezzo/Provino_Luce_Bianco]
+    mostra: []
+    esploso: {pezzi: {"attrezzo/Provino_Luce_Bianco": [0, 0, 22]}}
+    vista: {direzione: [0.3, -0.7, 0.9], su: [0, 0, 1]}
+    etichette:
+      - {testo: NERO, punto: [-5, -34, 3]}
+      - {testo: BIANCO, punto: [0, 10, 31]}
     testo:
       - "Stampa le due parti insieme, in due colori: PLA nero e PLA bianco."
       - "Posa il fondo sul piatto, con il bianco in alto."
@@ -398,7 +468,12 @@ passi:
   - id: "1.17"
     titolo: Luce, prova
     formato: grande
-    immagine: false
+    in_evidenza: [attrezzo/Provino_Luce_Nero, attrezzo/Provino_Luce_Bianco]
+    mostra: []
+    vista: {direzione: [0.2, -0.6, 1.0], su: [0, 1, 0]}
+    etichette:
+      - {testo: "RIGA 1", punto: [0, 12, 9.2]}
+      - {testo: "RIGA 2", punto: [0, -20, 9.2]}
     testo:
       - "Collega la striscia: 5 V, massa e dato dal GPIO48, come in docs/cablaggio.md (X9)."
       - "Accendi 3 pixel in bianco."

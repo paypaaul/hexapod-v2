@@ -98,7 +98,12 @@ passi:
   - id: "11.02"
     titolo: Schiuma sulla testa del pacco
     formato: grande
-    immagine: false
+    vista: {direzione: [0.8, -0.5, 0.45], su: [0, 0, 1]}
+    mostra: []
+    in_evidenza: [corpo/Batteria]
+    etichette:
+      - {testo: "schiuma qui: faccia senza cavi", punto: [79, 0, -26.7]}
+      - {testo: "cavi: verso la coda", punto: [-60, 0, -14]}
     testo:
       - "Calcola lo spessore della schiuma: 148 mm meno la lunghezza del pacco [S]."
       - "Taglia tasselli di schiuma EVA larghi quanto la faccia del pacco senza cavi."
@@ -123,16 +128,21 @@ passi:
     formato: grande
     nuovi: [corpo/Batteria]
     esploso: {asse: [-1, 0, 0], distanza: 150}
-    vista: {direzione: [-0.75, 0.5, 0.42], su: [0, 0, 1]}
+    vista: {direzione: [-0.6, 0.4, 0.7], su: [0, 0, 1]}
     mostra:
       - corpo/Corpo_Base
       - corpo/Corpo_Chiglia
       - corpo/Portafusibile_F1
       - corpo/Tplug
       - "corpo/Servo_Coxa_P*"
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: interno_tunnel}
+      - {chiave: corpo/Corpo_Base, lav: "fessura_cavi_*"}
     etichette:
       - {testo: "F1", chiave: corpo/Portafusibile_F1}
       - {testo: "T-plug", chiave: corpo/Tplug}
+      - {testo: "fessura", punto: [-77, 22.7, -10.4]}
+      - {testo: "fessura", punto: [-77, -22.7, -10.4]}
     testo:
       - "Controlla che il T-plug del robot sia staccato e che F1 sia vuoto."
       - "Infila il pacco nel tunnel dal retro, con la schiuma davanti e i cavi verso la coda."
@@ -147,8 +157,18 @@ passi:
 
   - id: "11.04"
     titolo: Prolunga di bilanciamento
-    formato: mezzo
-    immagine: false
+    formato: grande
+    vista: {direzione: [-0.6, 0.4, 0.7], su: [0, 0, 1]}
+    mostra:
+      - corpo/Corpo_Base
+      - corpo/Corpo_Chiglia
+      - corpo/Batteria
+      - corpo/Portafusibile_F1
+      - corpo/Tplug
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "fessura_cavi_*"}
+    etichette:
+      - {testo: "capo della prolunga: qui, sopra F1", punto: [-78, 0, 18]}
     testo:
       - "Salda i due codini JST-XH filo per filo, stesso colore con stesso colore; chiudi con il termorestringente [S]."
       - "Collega la prolunga di bilanciamento alla presa JST-XH del pacco."
@@ -167,15 +187,20 @@ passi:
     formato: grande
     nuovi: [corpo/Corpo_Sportello]
     giunzioni: [sportello]
-    esploso: {asse: [-1, 0, 0], distanza: 45}
-    vista: {direzione: [-0.75, 0.5, 0.42], su: [0, 0, 1]}
+    esploso: {asse: [-1, 0, 0], distanza: 70}
+    evidenzia:
+      - {chiave: corpo/Corpo_Sportello, lav: "rebbio_*"}
+      - {chiave: corpo/Corpo_Sportello, lav: linguetta}
+    etichette:
+      - {testo: "rebbi: nel tunnel", punto: [-147, 12, -22]}
+      - {testo: "linguetta: sotto il tetto", punto: [-152.4, 0, -12.4]}
+    vista: {direzione: [-0.55, 0.7, 0.45], su: [0, 0, 1]}
     mostra:
       - corpo/Corpo_Base
       - corpo/Corpo_Chiglia
       - corpo/Batteria
       - corpo/Portafusibile_F1
       - corpo/Tplug
-      - "corpo/Servo_Coxa_P*"
     testo:
       - "Controlla i due inserti M3 nei blocchetti della chiglia: a filo e dritti."
       - "Infila lo sportello lungo il tunnel: rebbi dentro, linguetta sotto il tetto."

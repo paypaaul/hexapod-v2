@@ -81,3 +81,21 @@
     - "Correggere la frase del BOM in 28 nel corpo (docs, 2.1.7)."
     - "Lasciare la frase e fidarsi del totale 94."
   consiglio: Correggere la frase del BOM in "28 nel corpo".
+
+- titolo: Gli inserti della chiglia (dal basso) non si vedono nelle immagini della base dall'alto
+  gravita: minore
+  dove: "3.10, 3.11 e 3.22"
+  cosa: >-
+    I 4 inserti M3 della chiglia (chi_ins_a davanti, chi_ins_p dietro; z da -31,9 a -25,2) entrano dal fondo della
+    base. Nelle immagini dall'alto dei passi 3.10 e 3.11 erano coperti dalla base stessa (controllo "poco visibile",
+    inserto6 e inserto7 a 0 px) e nella vista bassa che li mostrava gli altri inserti (gondole, colonnine, slitta)
+    sparivano dietro le pareti. Il testo diceva "capovolgi la base" dentro un passo con l'immagine dall'alto.
+  prove:
+    - "build/guida/img/inserti/3.10.png (prima: vista [0,7, 0,65, 0,16], 9 inserti su 11 visibili) e 3.22.png (vista da sotto)"
+    - "guida/dati/fori.json: chi_ins_a [84, +-15, -31,9 / -25,2], chi_ins_p [-52, +-31, -31,9 / -25,2]"
+  opzioni:
+    - "Passo separato da sotto per i 4 inserti della chiglia (fatto: 3.22, il vecchio 3.22 e' ora 3.23)."
+    - "Lasciare gli inserti nei passi 3.10 e 3.11 con l'immagine incompleta."
+  consiglio: >-
+    Tenere il passo 3.22 (base capovolta, 4 inserti per il fondo). Gli altri 22 M3 della base restano in 3.10, 3.11
+    e 3.12. I numeri 3.14-3.20 citati dalle altre sezioni non cambiano; 3.22 non era citato altrove.

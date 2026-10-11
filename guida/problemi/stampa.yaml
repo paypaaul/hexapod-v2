@@ -125,3 +125,98 @@
     - "Lasciare allo slicer, come ora."
     - "Registrare nei documenti i valori che l'utente usa, dopo i provini."
   consiglio: Lasciare allo slicer; dopo i provini scrivere nel README i valori e le tolleranze che funzionano.
+
+# --- Passata di qualita' F3c (immagini con zone, etichette e attrezzi stampati) ---
+
+- titolo: "La dima di posa 2 non si vede sulla zampa in posa"
+  gravita: minore
+  dove: "2.27"
+  cosa: >-
+    La dima 2 fissa imbardata 30, femore 45, ginocchio 135. Con posa: {alfa: 45, gamma: 135, coxa: 30} la zampa si
+    muove ma la dima resta dov'e' (gli attrezzi stanno nella loro terna e non seguono la posa), quindi i denti non
+    toccano coxa e tibia. La posa corretta e' relativa al femore: la dima sta sui perni del femore e la coxa e la tibia
+    si muovono rispetto a lui. In 2.26 la dima 1 (posa come costruita) combacia: i denti toccano coxa e tibia. In 2.27
+    ho tolto la posa e mostrato la dima 2 con il solo femore B e i perni.
+  prove:
+    - "build/guida/img/stampa/2.26.png (dima 1 con coxa, femore B, perni e tibia: combacia)"
+    - "guida/lib/dati.py: matrice() restituisce o['T'] per gli attrezzi, senza la posa"
+    - "bbox di Dima_Posa_2 nel manifest: x 24,9...134, y -33,5...-20, z -32,1...38,8 (stessa piastra sui perni)"
+  opzioni:
+    - "Una posa con riferimento al femore, cosi' la dima segue il femore e coxa e tibia ruotano."
+    - "Lasciare la dima 2 con i soli perni."
+  consiglio: Lasciare com'e' per ora; la posa serve alla sezione 12 (12.11, 12.12), dove la dima e' sul robot.
+
+- titolo: "Il tetto del tunnel misura 164 mm nel CAD, il testo dice 162"
+  gravita: minore
+  dove: "2.13"
+  cosa: >-
+    La zona interno_tunnel della base misura x da -85,4 a 79,0 (164,4 mm), y +-25 (50 mm), z da -31,9 a -11,4. Il testo
+    di 2.13 (da D-056) dice "un ponte di 50 mm lungo 162". Se la zona include i raccordi alle testate, il ponte
+    sospeso e' piu' corto; se no, la lunghezza e' 164. Il valore non cambia l'azione (supporti sotto il tetto).
+  prove:
+    - "build/guida/cad/zone/Corpo_Base__interno_tunnel.ply, bbox nella terna del robot"
+    - "docs/decisioni.md D-056 (tetto del tunnel: ponte di 50 mm lungo 162)"
+  opzioni:
+    - "Verificare in Fusion la luce libera del tetto."
+    - "Lasciare il testo di D-056."
+  consiglio: Lasciare il testo; verificare quando si stampa la base.
+
+- titolo: "Le bugne dei servo di coxa della base si vedono solo dall'alto, il tetto del tunnel solo dal basso"
+  gravita: minore
+  dove: "2.13"
+  cosa: >-
+    Un passo ha una sola vista. 2.13 mostra la base come si stampa, dall'alto, con i dodici fori pilota delle bugne in
+    giallo (zona pilota_*: e' il foro, non l'intera bugna); il tetto del tunnel, che e' aperto sul fondo, si vede solo da
+    sotto e ha l'etichetta TUNNEL (SOTTO) al suo posto. Non ci sono zone per la faccia inferiore delle bugne, dove
+    vanno i supporti.
+  prove:
+    - "build/guida/cad/zone/Corpo_Base__pilota_*.ply: z da -5,1 a 1,7; le bugne sono a 25,6 mm dal piatto (z -6,35)"
+    - "zone.yaml: Corpo_Base ha interno_tunnel e pilota_*, nessuna zona per la faccia inferiore delle bugne"
+  opzioni:
+    - "Aggiungere in zone.yaml bugna_servo_* (faccia inferiore) ed esportarle."
+    - "Un secondo passo con la vista da sotto."
+  consiglio: Aggiungere la zona bugna_servo_* nella prossima esportazione.
+
+- titolo: "I supporti a cuneo e i supporti piccoli non sono nel CAD: le etichette SUPPORTO sono a stima"
+  gravita: minore
+  dove: "2.04"
+  cosa: >-
+    Il cuneo sotto lo stinco della tibia (circa 17 mm dal piatto) e i supporti piccoli del guscio non sono pezzi ne'
+    zone. L'etichetta SUPPORTO di 2.04 sta nel punto [120, -22, -75] della terna della zampa, sotto lo stinco dal lato B:
+    e' una stima per mostrare dove cade, non una posizione del CAD. In 2.10 i supporti sotto i tappi a rombo e il bossolo
+    sono solo nel testo.
+  prove:
+    - "cad/stl/README.md 'Tibia.stl' (cuneo, fino a circa 17 mm) e 'Cover_Tibia.stl' (supporti piccoli)"
+    - "build/guida/cad/zone/indice.json: nessuna zona per i supporti"
+  opzioni:
+    - "Lasciare l'etichetta a stima."
+    - "Togliere l'etichetta e lasciare il testo."
+  consiglio: Lasciare l'etichetta; lo slicer decide i supporti (CLAUDE.md, decisioni dell'utente).
+
+- titolo: "Mancano zone per i controlli di 2.07, 2.10, 2.14, 2.18 e 2.19"
+  gravita: minore
+  dove: "2.07, 2.10, 2.14, 2.18, 2.19, 2.24"
+  cosa: >-
+    Femore A (12 fori passanti M3, 2 fori di accesso Ø6,0, sedi delle squadrette), guscio della tibia (tappi a rombo,
+    bossolo della vite), chiglia (4 fori M3 da 3,4), vassoio (4 inserti M2 e 4 fori passanti M3; le zone esistenti sono
+    asola_bus, sede_tof, mensola, torretta), sportello (2 fori passanti M3), gonna del fondo dell'anello e camera nera
+    della fascia non hanno zone che coincidano con quello che il testo dice di controllare. Le immagini mostrano il
+    pezzo con il piatto e, dove c'e' la zona, i fori in giallo.
+  prove:
+    - "guida/catalogo/zone.yaml: Femore_A, Cover_Tibia, Corpo_Chiglia assenti; Corpo_Vassoio senza gli inserti"
+  opzioni:
+    - "Aggiungere le zone alla prossima esportazione (esporta_guida.py zone)."
+  consiglio: Aggiungere le zone; sono 5 pezzi.
+
+- titolo: "La sezione 2 ha due passi in piu' per dima 2 e cavalletto"
+  gravita: minore
+  dove: "2.26, 2.27, 2.28"
+  cosa: >-
+    Per mostrare gli attrezzi stampati con la loro terna ho diviso gli attrezzi da banco: 2.26 ha la dima 1 sulla zampa,
+    2.27 la dima 2, 2.28 il cavalletto con la base e la chiglia del robot appoggiate. La tabella resta in 2.26 con i tre
+    attrezzi. Nessun altro passo e' stato rinumerato: i riferimenti da altre sezioni (12.11, 12.12) non cambiano.
+  prove:
+    - "guida/passi/02-stampa.yaml 2.26-2.28"
+  opzioni:
+    - "Tornare a un solo passo con la tabella e un'immagine."
+  consiglio: Lasciare com'e'.

@@ -109,9 +109,12 @@ passi:
     titolo: Tibia
     formato: mezzo
     in_evidenza: [zampa/Tibia]
+    mostra: []
     vista: {direzione: [0.5, -0.8, 0.45], su: [0, 0, 1]}
+    evidenzia: [{chiave: zampa/Tibia, lav: "ponte_fili_*"}]
     etichette:
       - {testo: PIATTO, punto: [120, -24.15, -12]}
+      - {testo: SUPPORTO, punto: [120, -22, -75]}
     testo:
       - "Posa la tibia con il fondo della culla sul piatto e l'apertura in alto."
       - "Metti un supporto a cuneo sotto lo stinco: si stacca dal piatto fino a circa 17 mm [V]."
@@ -125,8 +128,12 @@ passi:
     titolo: Coxa e ponte
     formato: mezzo
     in_evidenza: [zampa/Coxa, zampa/Coxa_Ponte]
+    mostra: []
     esploso: {pezzi: {"zampa/Coxa_Ponte": [0, 0, 22]}}
     vista: {direzione: [0.4, 0.8, 0.8], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: zampa/Coxa, lav: foro_perno}
+      - {chiave: zampa/Coxa_Ponte, lav: sede_disco}
     etichette:
       - {testo: PIATTO, punto: [50, 9.45, -10]}
       - {testo: PIATTO, punto: [16, 0, 45.5]}
@@ -143,9 +150,11 @@ passi:
     titolo: Femore lato B
     formato: mezzo
     in_evidenza: [zampa/Femore_B]
+    mostra: []
     vista: {direzione: [0.4, -0.9, 0.5], su: [0, 0, 1]}
+    evidenzia: [{chiave: zampa/Femore_B, lav: "ins_lama_*"}]
     etichette:
-      - {testo: PIATTO, punto: [88, -30.55, 3]}
+      - {testo: PIATTO, punto: [110, -30.55, 12]}
     testo:
       - "Posa la faccia esterna della piastra dei perni sul piatto: il blocco resta in piedi."
       - "Controlla i due fori per gli inserti M2 sulla faccia esterna, per la lama B."
@@ -158,9 +167,10 @@ passi:
     titolo: Femore lato A
     formato: mezzo
     in_evidenza: [zampa/Femore_A]
+    mostra: []
     vista: {direzione: [0.4, 0.9, 0.5], su: [0, 0, 1]}
     etichette:
-      - {testo: PIATTO, punto: [88, 30.55, 3]}
+      - {testo: PIATTO, punto: [110, 30.55, 12]}
     testo:
       - "Posa la faccia esterna sul piatto, con le sedi delle squadrette verso l'alto."
       - "Stampa in PETG-CF nero, 6 volte."
@@ -173,9 +183,13 @@ passi:
     titolo: Lama A con l'intarsio
     formato: mezzo
     in_evidenza: [zampa/Cover_Femore_A, zampa/Cover_Femore_A_Feritoia]
-    vista: {direzione: [0.3, 1.0, 0.5], su: [0, 0, 1]}
+    mostra: []
+    vista: {direzione: [0.3, -1.0, 0.5], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: zampa/Cover_Femore_A, lav: "tasca_testa_*"}
+      - {chiave: zampa/Cover_Femore_A, lav: "tasca_squadretta_*"}
     etichette:
-      - {testo: "IN ALTO", punto: [58, 34.55, -6]}
+      - {testo: PIATTO, punto: [88, 30.6, 3]}
     testo:
       - "Carica nello slicer la lama e il suo intarsio insieme: sono già allineati."
       - "Assegna PLA bianco alla lama e PLA nero all'intarsio."
@@ -190,9 +204,11 @@ passi:
     titolo: Lama B con l'intarsio
     formato: mezzo
     in_evidenza: [zampa/Cover_Femore_B, zampa/Cover_Femore_B_Feritoia]
-    vista: {direzione: [0.3, -1.0, 0.5], su: [0, 0, 1]}
+    mostra: []
+    vista: {direzione: [0.3, 1.0, 0.5], su: [0, 0, 1]}
+    evidenzia: [{chiave: zampa/Cover_Femore_B, lav: "tasca_perno_*"}]
     etichette:
-      - {testo: "IN ALTO", punto: [58, -33.15, -6]}
+      - {testo: PIATTO, punto: [88, -30.6, 3]}
     testo:
       - "Carica nello slicer la lama e il suo intarsio insieme: sono già allineati."
       - "Assegna PLA bianco alla lama e PLA nero all'intarsio."
@@ -207,6 +223,7 @@ passi:
     titolo: Guscio della tibia
     formato: mezzo
     in_evidenza: [zampa/Cover_Tibia]
+    mostra: []
     vista: tibia_dietro
     etichette:
       - {testo: PIATTO, punto: [120, 0, -50]}
@@ -222,6 +239,7 @@ passi:
     titolo: Diffusore della tibia
     formato: mezzo
     in_evidenza: [zampa/Cover_Tibia_Diffusore]
+    mostra: []
     vista: tibia_dietro
     etichette:
       - {testo: PIATTO, punto: [131.8, 0, -56]}
@@ -237,7 +255,9 @@ passi:
     titolo: Piedino in TPU
     formato: grande
     in_evidenza: [zampa/Piedino]
+    mostra: []
     vista: {direzione: [0.4, 0.25, 1.0], su: [0, 0, 1]}
+    evidenzia: [{chiave: zampa/Piedino, lav: tacca_fili}]
     etichette:
       - {testo: PIATTO, punto: [121.8, 0, -94.5]}
     testo:
@@ -255,9 +275,13 @@ passi:
     formato: grande
     terna: robot
     in_evidenza: [corpo/Corpo_Base]
-    vista: corpo_sotto
+    mostra: []
+    vista: {direzione: [0.35, 0.75, 0.75], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "pilota_*"}
     etichette:
-      - {testo: PIATTO, punto: [0, 0, -31.95]}
+      - {testo: PIATTO, punto: [117.5, 0, -31.95]}
+      - {testo: "TUNNEL (SOTTO)", punto: [-19.5, 0, -11.4]}
     testo:
       - "Posa la base con il fondo sul piatto."
       - "Metti supporti con interfaccia nell'altro materiale sotto il tetto del tunnel, solo nella parte interna."
@@ -290,7 +314,10 @@ passi:
     formato: mezzo
     terna: robot
     in_evidenza: [corpo/Corpo_Sportello]
+    mostra: []
     vista: corpo_coda
+    evidenzia:
+      - {chiave: corpo/Corpo_Sportello, lav: "rebbio_*"}
     etichette:
       - {testo: PIATTO, punto: [-87.4, 0, -25]}
     testo:
@@ -306,7 +333,10 @@ passi:
     formato: mezzo
     terna: robot
     in_evidenza: [corpo/Corpo_Slitta_Regolatore_S, corpo/Corpo_Slitta_Regolatore_D]
+    mostra: []
     vista: corpo_alto
+    evidenzia:
+      - {chiave: "corpo/Corpo_Slitta_Regolatore_*", lav: "ins_*"}
     testo:
       - "Stampa due copie dello stesso STL, in PETG-CF nero."
       - "Non specchiare nessuna copia: la destra è la sinistra ruotata di 180°."
@@ -321,6 +351,7 @@ passi:
     formato: mezzo
     terna: robot
     in_evidenza: [corpo/Corpo_Supporto_INA260_S, corpo/Corpo_Supporto_INA260_D]
+    mostra: []
     vista: corpo_alto
     etichette:
       - {testo: S, chiave: corpo/Corpo_Supporto_INA260_S}
@@ -339,6 +370,7 @@ passi:
     formato: mezzo
     terna: robot
     in_evidenza: [corpo/Corpo_Vassoio]
+    mostra: []
     vista: corpo_sotto
     etichette:
       - {testo: PIATTO, punto: [60, 0, 1]}
@@ -355,9 +387,11 @@ passi:
     formato: mezzo
     terna: robot
     in_evidenza: [corpo/Corpo_Fondo_Anello]
-    vista: corpo_sotto
+    mostra: []
+    vista: corpo_alto
+    evidenzia: [{chiave: corpo/Corpo_Fondo_Anello, lav: "sede_pixel_*"}]
     etichette:
-      - {testo: PIATTO, punto: [-40, 0, 27.2]}
+      - {testo: PIATTO, punto: [-23, 0, 27.2]}
     testo:
       - "Posa il disco sul piatto: gonna e sedi dei pixel in alto."
       - "Stampa in PLA nero."
@@ -370,7 +404,15 @@ passi:
   - id: "2.20"
     titolo: Pezzi piccoli del corpo
     formato: grande
-    immagine: false
+    terna: robot
+    in_evidenza: [corpo/Corpo_Sportello_Servizio, corpo/Corpo_Tappo_ToF, corpo/Corpo_Piastrina_IMU, corpo/Corpo_Lunette_Microfoni]
+    mostra: []
+    vista: {direzione: [0.5, 0.5, 0.75], su: [0, 0, 1]}
+    etichette:
+      - {testo: SPORTELLINO, chiave: corpo/Corpo_Sportello_Servizio}
+      - {testo: "TAPPO ToF", chiave: corpo/Corpo_Tappo_ToF}
+      - {testo: "PIASTRINA IMU", chiave: corpo/Corpo_Piastrina_IMU}
+      - {testo: LUNETTE, chiave: corpo/Corpo_Lunette_Microfoni}
     testo:
       - "Stampa solo i pezzi di cui monti la predisposizione."
       - "Posa ogni pezzo come dice la tabella."
@@ -392,6 +434,7 @@ passi:
     formato: grande
     terna: robot
     in_evidenza: [corpo/Corpo_Carapace, corpo/Corpo_Fascia, corpo/Corpo_Visiera, corpo/Corpo_Gonne]
+    mostra: []
     vista: {direzione: [0.5, 0.5, 0.75], su: [0, 0, 1]}
     etichette:
       - {testo: "PIATTO (capovolto)", punto: [0, 0, 36]}
@@ -429,7 +472,31 @@ passi:
   - id: "2.23"
     titolo: Controlli, la zampa
     formato: grande
-    immagine: false
+    in_evidenza: [zampa/Coxa, zampa/Coxa_Ponte, zampa/Femore_A, zampa/Femore_B, zampa/Tibia, zampa/Cover_Femore_A, zampa/Cover_Femore_B, zampa/Piedino]
+    mostra: []
+    esploso:
+      pezzi:
+        "zampa/Coxa_Ponte": [0, 0, 30]
+        "zampa/Femore_A": [0, 45, 0]
+        "zampa/Femore_B": [0, -45, 0]
+        "zampa/Cover_Femore_A": [0, 85, 0]
+        "zampa/Cover_Femore_B": [0, -85, 0]
+        "zampa/Tibia": [60, 0, 0]
+        "zampa/Piedino": [60, 0, -45]
+    vista: zampa_A
+    evidenzia:
+      - {chiave: zampa/Tibia, lav: sede_servo}
+      - {chiave: zampa/Tibia, lav: sede_cuscinetto}
+      - {chiave: zampa/Tibia, lav: "pilota_corto_*"}
+      - {chiave: zampa/Tibia, lav: "ins_*"}
+      - {chiave: zampa/Coxa, lav: foro_perno}
+      - {chiave: zampa/Coxa, lav: "pilota_corto_*"}
+      - {chiave: zampa/Coxa, lav: "ins_*"}
+      - {chiave: zampa/Coxa_Ponte, lav: "foro_testa_*"}
+      - {chiave: zampa/Coxa_Ponte, lav: sede_disco}
+      - {chiave: zampa/Femore_B, lav: "foro_perno_*"}
+      - {chiave: zampa/Femore_B, lav: "ins_blocco_*"}
+      - {chiave: zampa/Cover_Femore_A, lav: "tasca_testa_*"}
     testo:
       - "Misura e annota con il calibro le quote della tabella, su un pezzo per tipo."
       - "Confronta con il CAD: i fori stampati vengono più stretti di 0,1–0,2 mm [S]."
@@ -437,26 +504,35 @@ passi:
     tabella:
       intestazione: ["Pezzo", "Quota", "CAD", "Misurato"]
       righe:
-        - ["Tibia", "sede del servo, lunghezza × larghezza", "41,4 × 20,9 [V]", ""]
+        - ["Tibia", "sede del servo, lung. × largh.", "41,4 × 20,9 [V]", ""]
         - ["Tibia", "sede del cuscinetto Ø", "10,0 [V]", ""]
         - ["Tibia, coxa", "foro pilota Ø", "2,5 [V]", ""]
-        - ["Tibia, coxa, femore B", "inserti M3 Ø × profondità", "4,2 × 6,7 [V]", ""]
+        - ["Tibia, coxa, femore B", "inserti M3, Ø × prof.", "4,2 × 6,7 [V]", ""]
         - ["Coxa, femore B", "foro del perno Ø", "5,0 [V]", ""]
-        - ["Ponte", "fori delle teste Ø; sede del disco Ø", "5,6; 20,4 [V]", ""]
+        - ["Ponte", "fori teste Ø; sede disco Ø", "5,6; 20,4 [V]", ""]
         - ["Femore A", "fori passanti M3 Ø", "3,4 [V]", ""]
-        - ["Lama A", "spessore; intarsio; tasche delle teste Ø", "4,0; 0,6; 5,6 [V]", ""]
+        - ["Lama A", "spessore; intarsio; tasche Ø", "4,0; 0,6; 5,6 [V]", ""]
         - ["Lama B", "spessore; intarsio", "2,6; 1,0 [V]", ""]
         - ["Piedino", "parete e suola", "1,6 [V]", ""]
     avvisi:
-      - {tipo: nota, testo: "I valori dei provini (sezione 1) valgono al posto di quelli del CAD di oggi, se sono cambiati."}
-      - {tipo: nota, testo: "Nessuna fonte dà una tolleranza accettabile oltre ai 0,1–0,2 mm di restringimento: dopo i provini la fissi tu [C]."}
+      - {tipo: nota, testo: "I valori dei provini (sezione 1) valgono al posto di quelli del CAD, se sono cambiati."}
+      - {tipo: nota, testo: "Nessuna fonte dà una tolleranza oltre ai 0,1–0,2 mm di restringimento: la fissi tu dopo i provini [C]."}
     attrezzi: [calibro]
     fonti: ["cad/script/zampa.py PARAMETRI", D-049, D-056, D-064, D-070, "guida/dati/fori.json"]
 
   - id: "2.24"
     titolo: Controlli, il corpo
     formato: grande
-    immagine: false
+    terna: robot
+    in_evidenza: [corpo/Corpo_Base]
+    mostra: []
+    vista: {direzione: [0.35, 0.75, 0.75], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "ins_*"}
+      - {chiave: corpo/Corpo_Base, lav: "*_ins"}
+      - {chiave: corpo/Corpo_Base, lav: "pilota_*"}
+      - {chiave: corpo/Corpo_Base, lav: "foro_spia_*"}
+      - {chiave: corpo/Corpo_Base, lav: "chi_ins_*"}
     testo:
       - "Misura e annota con il calibro le quote della tabella."
       - "Prova ogni sede di un pezzo su quello che ci va, a secco."
@@ -505,18 +581,55 @@ passi:
   - id: "2.26"
     titolo: Attrezzi da banco
     formato: grande
-    immagine: false
+    in_evidenza: [attrezzo/Dima_Posa_1, zampa/Coxa, zampa/Femore_B, zampa/Perno_femore, zampa/Perno_ginocchio, zampa/Tibia]
+    mostra: []
+    vista: zampa_B
     testo:
       - "Stampa le due dime e il cavalletto: servono alla taratura (sezione 12)."
+      - "Posa le dime con la piastra sul piatto e i denti in alto, il cavalletto con la base sul piatto."
       - "Stampa le dime in PLA o PETG, il cavalletto in PETG-CF."
       - "Controlla che i fori delle dime calzino i perni del femore con 0,15 mm di gioco per lato."
     tabella:
-      intestazione: ["Attrezzo", "File", "Materiale", "Orientamento"]
+      intestazione: ["Attrezzo", "File", "Materiale"]
       righe:
-        - ["Dima di posa 1 (imbardata 0, femore 0, ginocchio 90)", "attrezzi/Dima_Posa_1.stl", "PLA o PETG", "piastra sul piatto, denti in alto"]
-        - ["Dima di posa 2 (30, 45, 135)", "attrezzi/Dima_Posa_2.stl", "PLA o PETG", "piastra sul piatto, denti in alto"]
-        - ["Cavalletto, alto 137 mm", "attrezzi/Attrezzo_Cavalletto.stl", "PETG-CF", "base sul piatto"]
+        - ["Dima di posa 1 (imbardata 0, femore 0, ginocchio 90)", "Dima_Posa_1.stl", "PLA o PETG"]
+        - ["Dima di posa 2 (30, 45, 135)", "Dima_Posa_2.stl", "PLA o PETG"]
+        - ["Cavalletto, alto 137 mm", "Attrezzo_Cavalletto.stl", "PETG-CF"]
     avvisi:
+      - {tipo: nota, testo: "Le dime si infilano sui perni del femore dal lato B, con la lama B tolta (sezione 12). Gli STL stanno in cad/stl/attrezzi/."}
+    attrezzi: [calibro]
+    fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-066, "cad/script/attrezzi.py (att_gio_perno 0,15)"]
+
+  - id: "2.27"
+    titolo: Dima di posa 2
+    formato: grande
+    in_evidenza: [attrezzo/Dima_Posa_2, zampa/Femore_B, zampa/Perno_femore, zampa/Perno_ginocchio]
+    mostra: []
+    vista: zampa_B
+    posa: {alfa: 45, gamma: 135, coxa: 30}
+    testo:
+      - "Stampa la dima di posa 2 in PLA o PETG, con la piastra sul piatto e i denti in alto."
+      - "Controlla che i fori calzino i perni del femore con 0,15 mm di gioco per lato."
+    avvisi:
+      - {tipo: nota, testo: "La dima 2 fissa imbardata 30, femore 45 e ginocchio 135 (sezione 12)."}
       - {tipo: nota, testo: "Le dime si infilano sui perni del femore dal lato B, con la lama B tolta (sezione 12)."}
     attrezzi: [calibro]
     fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-066, "cad/script/attrezzi.py (att_gio_perno 0,15)"]
+
+  - id: "2.28"
+    titolo: Cavalletto
+    formato: grande
+    terna: robot
+    in_evidenza: [attrezzo/Cavalletto, corpo/Corpo_Chiglia, corpo/Corpo_Base]
+    mostra: []
+    vista: {direzione: [0.55, 0.5, 0.45], su: [0, 0, 1]}
+    etichette:
+      - {testo: PIATTO, punto: [80, 0, -170]}
+    testo:
+      - "Posa il cavalletto con la base sul piatto."
+      - "Stampa in PETG-CF."
+      - "Controlla con il calibro che sia alto 137 mm."
+    avvisi:
+      - {tipo: nota, testo: "Il cavalletto serve alla taratura (sezione 12). Nell'immagine regge la base e la chiglia del robot."}
+    attrezzi: [calibro]
+    fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-066]

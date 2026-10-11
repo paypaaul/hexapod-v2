@@ -2,8 +2,9 @@
 # dall'utente. F3: coxa (6.09-6.12), Femore_B e perni (6.13-6.15), calettamento (6.16-6.17), Femore_A con le rondelle di
 # registro (6.18-6.19), alette strette per ultime (6.20-6.21), guscio e diffusore (6.22-6.23, prima in `rinviati`), cavi
 # (6.24-6.25), lama A con l'intarsio (6.26). Lama B, ponte, squadretta e perno della coxa: sezioni 9 e 12.
-# Le immagini sono nella posa come costruita (femore 0, ginocchio 90): le pose di calettamento e delle alette stanno nel
-# testo e nelle tabelle. Accessi, inserimento di Femore_B e angoli delle alette: raggi sulle mesh di build/guida/cad/mesh
+# Le immagini sono nella posa come costruita (femore 0, ginocchio 90), salvo i passi con `posa` (F3c): calettamento
+# (6.16-6.19, alfa 20, gamma 100), alette (6.20-6.21, alfa -25, gamma 60), prova dei cavi (6.25, alfa 20, gamma 45: 8
+# gradi sopra il minimo di 37 della tabella di progetto-meccanico.md). Accessi, inserimento di Femore_B e angoli delle alette: raggi sulle mesh di build/guida/cad/mesh
 # con le trasformate del manifest, femore ruotato attorno all'anca (X 55, Z 0) e tibia attorno al ginocchio (X 120, Z 0);
 # i numeri e i casi di controllo sono in guida/problemi/zampa.yaml.
 # Inserti a caldo: si mettono tutti nella sezione 3 (pezzo per pezzo, prima di qualsiasi montaggio); qui si controllano
@@ -54,6 +55,11 @@ passi:
     formato: mezzo
     nuovi: [zampa/Tibia]
     vista: zampa_A
+    evidenzia:
+      - {chiave: zampa/Tibia, lav: "ins_*"}
+      - {chiave: zampa/Tibia, lav: fessura_cavo}
+      - {chiave: zampa/Tibia, lav: finestra_cavo}
+      - {chiave: zampa/Tibia, lav: "ponte_fili_*"}
     testo:
       - "Controlla i tre inserti M3 a filo: due nelle bugne lato coda, uno sul fronte dello stinco."
       - "Controlla che fessura e finestra del cavo nella testata siano pulite."
@@ -70,6 +76,7 @@ passi:
     nuovi: [zampa/Cuscinetto_ginocchio]
     esploso: {asse: [0, -1, 0], distanza: 30}
     vista: zampa_B
+    evidenzia: [{chiave: zampa/Tibia, lav: sede_cuscinetto}]
     testo:
       - "Premi il cuscinetto nella sede dal lato B, prima del servo, flangia verso fuori."
       - "Premi fino a quando la flangia appoggia sulla faccia della tibia."
@@ -113,6 +120,9 @@ passi:
     mostra: [zampa/Tibia, zampa/Servo_ginocchio]
     vista: zampa_fronte
     evidenzia: [{chiave: zampa/Tibia, lav: sede_luce}]
+    etichette:
+      - {testo: "capo dei fili", punto: [132, 0, -35]}
+      - {testo: "verso il piede", punto: [132, 0, -78]}
     testo:
       - "Taglia 6 pixel di striscia sulle linee di taglio: 50 mm [S]."
       - "Salda 3 fili 30 AWG al capo d'ingresso: massa, +5 V e dato."
@@ -136,6 +146,9 @@ passi:
     esploso: {asse: [0, 0, -1], distanza: 22}
     vista: tibia_capovolta
     evidenzia: [{chiave: zampa/Tibia, lav: tasca_fsr}, {chiave: zampa/Tibia, lav: "gola_fsr_*"}]
+    etichette:
+      - {testo: tasca, punto: [127, 0, -101]}
+      - {testo: "gola dello stinco", punto: [127, 0, -60]}
     nascondi: [zampa/Cuscinetto_ginocchio]
     testo:
       - "Salda il doppino 28 AWG, rosso e nero, alle due linguette dell'FSR."
@@ -158,6 +171,8 @@ passi:
     nuovi: [zampa/Piedino]
     esploso: {asse: [0, 0, -1], distanza: 35}
     vista: tibia_capovolta
+    evidenzia: [{chiave: zampa/Piedino, lav: tacca_fili}]
+    etichette: [{testo: tacca, punto: [131, 16, -128]}]
     nascondi: [zampa/Cuscinetto_ginocchio]
     testo:
       - "Cala il piedino sulla punta, con la tacca sul fronte."
@@ -174,6 +189,9 @@ passi:
     mostra: [zampa/Tibia, zampa/Piedino, zampa/Servo_ginocchio]
     vista: zampa_fronte
     evidenzia: [{chiave: zampa/Tibia, lav: gola_fili}, {chiave: zampa/Tibia, lav: "sotto_ponte_*"}]
+    etichette:
+      - {testo: "coda della culla", punto: [132, 6.5, -33]}
+      - {testo: testata, punto: [132, 6.5, 12]}
     testo:
       - "Infila i fili sotto i tre ponticelli, dalla coda della culla alla testata."
       - "Controlla che stiano affiancati nella gola, senza incrociarsi."
@@ -190,9 +208,13 @@ passi:
     nuovi: [zampa/Coxa]
     mostra: []
     vista: zampa_A
+    evidenzia:
+      - {chiave: zampa/Coxa, lav: "ins_*"}
+      - {chiave: zampa/Coxa, lav: fessura_cavo}
+      - {chiave: zampa/Coxa, lav: finestra_cavo}
     etichette:
-      - {testo: "2 × M3", punto: [55, 9.45, -34.65]}
-      - {testo: "2 × M3 del ponte", punto: [38.6, 0, 19.6]}
+      - {testo: "2 × M3", punto: [55, 9.45, -46]}
+      - {testo: "2 × M3 del ponte", punto: [38.6, 0, 31]}
     testo:
       - "Controlla i quattro inserti M3 a filo: due nelle bugne lato coda della culla, due in cima all'anima."
       - "Controlla che fessura e finestra del cavo nella testata siano pulite."
@@ -209,6 +231,7 @@ passi:
     mostra: [zampa/Coxa]
     esploso: {asse: [0, -1, 0], distanza: 30}
     vista: zampa_B
+    evidenzia: [{chiave: zampa/Coxa, lav: sede_cuscinetto}]
     testo:
       - "Premi il cuscinetto nella sede della culla dal lato B, prima del servo, flangia verso fuori."
       - "Premi fino a quando la flangia appoggia sulla faccia della coxa."
@@ -224,6 +247,7 @@ passi:
     mostra: [zampa/Coxa, zampa/Cuscinetto_femore]
     esploso: {asse: [0, 1, 0], distanza: 45}
     vista: zampa_A
+    evidenzia: [{chiave: zampa/Coxa, lav: fessura_cavo}, {chiave: zampa/Coxa, lav: finestra_cavo}]
     testo:
       - "Controlla che le alette siano senza gommini (sezione 5)."
       - "Annota il numero del servo nella scheda della zampa."
@@ -253,6 +277,9 @@ passi:
     nuovi: [zampa/Femore_B]
     mostra: []
     vista: zampa_A
+    evidenzia:
+      - {chiave: zampa/Femore_B, lav: "ins_blocco_*"}
+      - {chiave: zampa/Femore_B, lav: "foro_perno_*"}
     etichette:
       - {testo: "4 × M3", punto: [88, 27.15, 9.5]}
     testo:
@@ -270,6 +297,7 @@ passi:
     mostra: [zampa/Femore_B]
     esploso: {asse: [0, -1, 0], distanza: 25}
     vista: zampa_B
+    evidenzia: [{chiave: zampa/Femore_B, lav: "foro_perno_*"}]
     testo:
       - "Infila i due perni nei fori dal lato esterno della piastra."
       - "Premi ogni perno con la morsa finché fuori ne restano 1,4 mm [V]."
@@ -299,8 +327,12 @@ passi:
   # ------------------------------------------------------------------------------------------------- calettamento
   - id: "6.16"
     titolo: Posa del calettamento
-    formato: mezzo
-    immagine: false
+    formato: grande
+    posa: {alfa: 20, gamma: 100, coxa: 0}
+    vista: {direzione: [0.25, -0.93, 0.27], su: [0, 0, 1]}
+    etichette:
+      - {testo: "femore +20°", punto: [75, -31, 32]}
+      - {testo: "ginocchio 100°", punto: [140, -20, -10]}
     testo:
       - "Controlla che i due servo siano ancora a metà corsa; se hai girato un albero, riportalo a 1500 µs con il banco della sezione 5."
       - "Ruota il femore sulla coxa fino a +20°: ginocchio in alto, 20° sopra la squadra con la culla [V]."
@@ -321,8 +353,9 @@ passi:
     titolo: Squadrette sugli alberi
     formato: grande
     nuovi: [zampa/Squadretta_femore, zampa/Squadretta_ginocchio]
+    posa: {alfa: 20, gamma: 100, coxa: 0}
     esploso: {asse: [0, 1, 0], distanza: 30}
-    vista: zampa_A
+    vista: {direzione: [0.3, 0.78, 0.5], su: [0, 0, 1]}
     testo:
       - "Infila la squadretta sull'albero del femore, al dente che mette due fori opposti sulla linea anca–ginocchio."
       - "Infila allo stesso modo la squadretta sull'albero del ginocchio."
@@ -339,8 +372,9 @@ passi:
     formato: grande
     nuovi: [zampa/Femore_A]
     giunzioni: [femore_a_blocco]
+    posa: {alfa: 20, gamma: 100, coxa: 0}
     esploso: {asse: [0, 1, 0], distanza: 35}
-    vista: zampa_A
+    vista: {direzione: [0.3, 0.78, 0.5], su: [0, 0, 1]}
     testo:
       - "Infila quattro viti M3 × 8 nei fori del blocco di Femore A, da fuori."
       - "Infila due rondelle su ogni vite, dal lato interno."
@@ -356,7 +390,8 @@ passi:
     titolo: Viti delle squadrette
     formato: mezzo
     giunzioni: [femore_a_squadrette, {id: femore_a_blocco, stringi: true}]
-    vista: zampa_A
+    posa: {alfa: 20, gamma: 100, coxa: 0}
+    vista: {direzione: [0.3, 0.78, 0.5], su: [0, 0, 1]}
     testo:
       - "Accosta le otto viti M3 × 6 nei fori filettati delle due squadrette."
       - "Stringi le otto viti delle squadrette, a croce."
@@ -368,8 +403,12 @@ passi:
   # --------------------------------------------------------------------------------------- alette strette per ultime
   - id: "6.20"
     titolo: Posa per stringere le alette
-    formato: mezzo
-    immagine: false
+    formato: grande
+    posa: {alfa: -25, gamma: 60, coxa: 0}
+    vista: {direzione: [0.25, -0.93, 0.27], su: [0, 0, 1]}
+    etichette:
+      - {testo: "femore −25°", punto: [80, -31, 5]}
+      - {testo: "ginocchio 60°", punto: [105, -20, -55]}
     testo:
       - "Collega il servo del femore al banco della sezione 5."
       - "Porta il femore verso il basso, a circa −25°, a passi di 100 µs [S]."
@@ -395,14 +434,14 @@ passi:
       - {id: alette_femore_albero, stringi: true}
       - {id: alette_ginocchio_coda, stringi: true}
       - {id: alette_ginocchio_albero, stringi: true}
-    nascondi: [zampa/Femore_A, zampa/Squadretta_femore, zampa/Squadretta_ginocchio]
-    vista: zampa_A
+    posa: {alfa: -25, gamma: 60, coxa: 0}
+    vista: {direzione: [0.2, 0.95, 0.25], su: [0, 0, 1]}
     testo:
       - "Stringi le quattro viti delle alette del femore, dal lato A."
       - "Stringi le quattro viti delle alette del ginocchio, dal lato A."
       - "Usa il cacciavite a brugola dritto: la chiave a L urta Femore A."
     avvisi:
-      - {tipo: nota, testo: "Femore A e squadrette sono nascosti nell'immagine, per vedere le viti."}
+      - {tipo: nota, testo: "Nella posa di 6.20 le otto teste si vedono dal lato A, anche con Femore A montato."}
       - {tipo: prova, testo: "Riporta i due servo a 1500 µs, uno alla volta: femore a circa +20° e ginocchio a circa 100°, entro ±7° [C]. Il giunto si muove senza punti duri."}
     attrezzi: [cacciavite_brugola_2_5, tester_servo]
     fonti: ["D-049: alette strette per ultime, a femore montato", "guida/problemi/zampa.yaml (alette, esito approvato)", "docs/software.md 6.7 (B4: residuo entro ±7,2°)"]
@@ -443,9 +482,13 @@ passi:
     titolo: Cavo del ginocchio nel blocco
     formato: grande
     vista: {direzione: [0.35, 0.45, 0.82], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: zampa/Femore_B, lav: "feritoia_femore_*"}
+      - {chiave: zampa/Femore_B, lav: tunnel_fascetta}
+      - {chiave: zampa/Tibia, lav: fessura_cavo}
     etichette:
-      - {testo: "fascetta", punto: [79.5, 0, 20]}
-      - {testo: "uscita del cavo", punto: [120, 5, 18]}
+      - {testo: "fascetta", punto: [79.5, -18, 20]}
+      - {testo: "uscita del cavo", punto: [120, -14, 18]}
     testo:
       - "Raccogli il cavo del servo del ginocchio con i fili di FSR e luci, se ci sono."
       - "Misura 60 mm di cavo dall'uscita della testata della tibia [C]."
@@ -461,8 +504,16 @@ passi:
 
   - id: "6.25"
     titolo: Prova dei cavi
-    formato: mezzo
-    immagine: false
+    formato: grande
+    posa: {alfa: 20, gamma: 45, coxa: 0}
+    vista: {direzione: [0.25, 0.9, 0.35], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: zampa/Femore_B, lav: tunnel_fascetta}
+      - {chiave: zampa/Tibia, lav: fessura_cavo}
+    etichette:
+      - {testo: "fascetta", punto: [73.6, 0, 34]}
+      - {testo: "uscita del cavo", punto: [122, 4, 50]}
+      - {testo: "ansa", punto: [98, 4, 46]}
     testo:
       - "Collega il servo del ginocchio al banco della sezione 5."
       - "Apri e chiudi piano il ginocchio, a passi di 100 µs, fino a poco prima che la tibia tocchi la coxa."
@@ -477,7 +528,7 @@ passi:
   # ------------------------------------------------------------------------------------------------- lama A
   - id: "6.26"
     titolo: Lama A
-    formato: mezzo
+    formato: grande
     nuovi: [zampa/Cover_Femore_A, zampa/Cover_Femore_A_Feritoia]
     esploso: {asse: [0, 1, 0], distanza: 30}
     vista: zampa_A

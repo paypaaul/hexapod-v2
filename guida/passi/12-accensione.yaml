@@ -3,7 +3,9 @@
 # le misure (software.md 6.7, B3), dime 1 e 2 della taratura (D-066 blocco C, software.md 2.7), poi lame B e F1 da 30 A.
 # La lama B non e' mai stata montata (sezione 6: "la lama B dopo la taratura"): qui si monta per la prima volta.
 # La posa del manifest (imbardata 0, femore 0, ginocchio 90) e' la posa della Dima_Posa_1: l'immagine di 12.11 la
-# mostra. Le dime e il cavalletto non sono nel manifest (attrezzi): i passi che li usano sono solo testo o etichette.
+# mostra con la dima. Dime e cavalletto sono nel manifest (attrezzo/*) nella loro terna: il cavalletto in quella del
+# robot (12.02), le dime in quella della zampa come costruita, legate al femore (cad/script/attrezzi.py). Gli attrezzi
+# non seguono la posa: in 12.12 il femore resta fermo, la tibia va a 135 gradi e la coxa non si disegna.
 # Comandi della console e stato CALIBRAZIONE vengono da software.md 2.6, 2.7 e 2.9: il firmware S2 non c'e' ancora,
 # per questo sono marcati [C] (guida/problemi/accensione.yaml).
 sezione:
@@ -100,8 +102,12 @@ passi:
 
   - id: "12.02"
     titolo: Robot sul cavalletto
-    formato: mezzo
-    immagine: false
+    formato: grande
+    vista: {direzione: [-0.95, -0.35, 0.2], su: [0, 0, 1]}
+    in_evidenza: [attrezzo/Cavalletto]
+    etichette:
+      - {testo: "culla e labbri: sotto la chiglia", punto: [0, -39, -47]}
+      - {testo: "sportello libero", punto: [-86, 0, -6]}
     testo:
       - "Posa il cavalletto sul tavolo, lontano dal bordo."
       - "Cala il robot sul cavalletto: chiglia nella culla, fra i due labbri."
@@ -136,7 +142,20 @@ passi:
   - id: "12.04"
     titolo: Cicalino di sottotensione
     formato: grande
-    immagine: false
+    vista: {direzione: [-0.8, 0.35, 0.5], su: [0, 0, 1]}
+    mostra:
+      - corpo/Corpo_Base
+      - corpo/Corpo_Chiglia
+      - corpo/Corpo_Sportello
+      - corpo/Batteria
+      - corpo/Portafusibile_F1
+      - "corpo/Servo_Coxa_P*"
+    in_evidenza: [corpo/Tplug]
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "fessura_cavi_*"}
+    etichette:
+      - {testo: "cicalino: qui, sopra il T-plug", punto: [-74, 0, 22]}
+      - {testo: "T-plug", chiave: corpo/Tplug}
     testo:
       - "Guarda sul cicalino quale pin è il polo −."
       - "Collega il cicalino alla prolunga di bilanciamento, nero sul polo −."
@@ -154,17 +173,18 @@ passi:
   - id: "12.05"
     titolo: Fusibile F1 da 15 A
     formato: grande
-    vista: {direzione: [-0.75, 0.5, 0.42], su: [0, 0, 1]}
+    vista: {direzione: [-0.55, 0.15, 0.82], su: [0, 0, 1]}
     mostra:
       - corpo/Corpo_Base
       - corpo/Corpo_Chiglia
       - corpo/Corpo_Sportello
-      - corpo/SSC32
       - "corpo/Wago_*"
       - "corpo/Servo_Coxa_P*"
     in_evidenza: [corpo/Portafusibile_F1]
     etichette:
       - {testo: "F1: 15 A", chiave: corpo/Portafusibile_F1}
+      - {testo: "Wago +", chiave: corpo/Wago_piu}
+      - {testo: "Wago −", chiave: corpo/Wago_meno}
     testo:
       - "Controlla che il T-plug sia staccato."
       - "Premi il fusibile da 15 A nel portafusibile F1 e chiudi il tappo."
@@ -204,25 +224,38 @@ passi:
   - id: "12.07"
     titolo: Logica accesa, rail spento
     formato: grande
-    immagine: false
+    vista: corpo_alto
+    mostra:
+      - corpo/Corpo_Vassoio
+      - corpo/Basetta
+      - corpo/ESP32
+      - corpo/SSC32
+      - corpo/Interruttore
+      - corpo/Portafusibile_F1
+      - corpo/Tplug
+    evidenzia:
+      - {chiave: corpo/ESP32, lav: "corpo:usb_c"}
+    etichette:
+      - {testo: "USB-C marcata TTL", punto: [16, 0, 20]}
+      - {testo: "2813: pulsantino", chiave: corpo/Interruttore}
+      - {testo: "SSC-32", chiave: corpo/SSC32}
     testo:
       - "Premi il pulsantino della 2813: l'ESP32 si accende."
-      - "Collega al computer la USB-C della CH340 dell'ESP32 e apri la console [C]."
+      - "Collega al computer la USB-C dell'ESP32 marcata TTL (CH340) e apri la console [C]."
       - "Misura e annota le tensioni della tabella."
-      - "Controlla con la console che la SSC-32 risponda (comando ssc) [C]."
-      - "Controlla con la console la tensione della batteria (comando stato) [C]."
+      - "Controlla con la console che la SSC-32 risponda (comando ssc) e la tensione della batteria (comando stato) [C]."
     tabella:
       intestazione: [Punto, Atteso, Misurato]
       righe:
-        - ["Uscita del regolatore 5 V (basetta)", "5,0 V [V]", ""]
+        - ["Regolatore 5 V (basetta)", "5,0 V [V]", ""]
         - ["VL della SSC-32", "come il pacco [V]", ""]
-        - ["Partitore della batteria (GPIO1)", "2,69 V con il pacco a 8,4 V; 2,37 V a 7,4 V [V]", ""]
+        - ["Partitore (GPIO1)", "2,69 V con il pacco a 8,4 V; 2,37 V a 7,4 V [V]", ""]
         - ["Abilitazione dei regolatori", "0 V: GPIO42 basso [V]", ""]
         - ["Fila VS1 e VS2", "0 V [V]", ""]
-        - ["Batteria letta dalla console", "come sul multimetro [C]", ""]
+        - ["Batteria nella console", "come sul multimetro [C]", ""]
     avvisi:
       - {tipo: nota, testo: "Il pulsante del carapace arriva nella sezione 13: è in parallelo al pulsantino della 2813 (BOM B3b)."}
-      - {tipo: nota, testo: "Il partitore è 100 kΩ e 47 kΩ: GPIO1 legge il pacco × 47/147 (BOM B10). Il ramo logica prende circa 0,5 A (piano-elettronica-software.md 3.3) [S]."}
+      - {tipo: nota, testo: "Il partitore è 100 kΩ e 47 kΩ: GPIO1 legge il pacco × 47/147 (BOM B10). Il ramo logica prende circa 0,5 A [S]."}
       - {tipo: attenzione, testo: "Se il regolatore 5 V scalda o il 5 V è lontano da 5,0 V, spegni con il pulsantino e stacca il T-plug."}
     attrezzi: [multimetro, computer_usb]
     fonti: ["docs/software.md 2.6 (accensione, punto 1), 2.9 (console), 6.7 (B0, B1, B3)", docs/BOM.md B2 B3 B3b B10 B11, "docs/piano-elettronica-software.md 3.3"]
@@ -255,6 +288,8 @@ passi:
     titolo: Lato sinistro, 9 servo
     formato: grande
     vista: corpo_alto
+    evidenzia:
+      - {chiave: corpo/SSC32, lav: "corpo:header_servo"}
     etichette:
       - {testo: AS, chiave: "zampa/Femore_A@AS"}
       - {testo: MS, chiave: "zampa/Femore_A@MS"}
@@ -299,7 +334,9 @@ passi:
     titolo: Taratura, dima di posa 1
     formato: grande
     volte: 6
-    vista: {direzione: [0.5, -0.87, 0.35], su: [0, 0, 1]}
+    terna: zampa
+    posa: {alfa: 0, gamma: 90, coxa: 0}
+    vista: zampa_B
     mostra:
       - "zampa/Coxa@AS"
       - "zampa/Coxa_Ponte@AS"
@@ -308,34 +345,55 @@ passi:
       - "zampa/Perno_*@AS"
       - "zampa/Cuscinetto_*@AS"
       - "zampa/Servo_*@AS"
+      - "zampa/Squadretta_*@AS"
       - "zampa/Tibia@AS"
       - "zampa/Piedino@AS"
       - "zampa/Cover_Tibia@AS"
       - "zampa/Cover_Femore_A@AS"
-      - corpo/Servo_Coxa_AS
+    in_evidenza: [attrezzo/Dima_Posa_1]
     etichette:
-      - {testo: "perno", chiave: "zampa/Perno_femore@AS"}
-      - {testo: "perno", chiave: "zampa/Perno_ginocchio@AS"}
-      - {testo: "dente: coxa", chiave: "zampa/Coxa@AS"}
-      - {testo: "dente: tibia", chiave: "zampa/Tibia@AS"}
-      - {testo: "braccio: servo di coxa", chiave: corpo/Servo_Coxa_AS}
+      - {testo: "dima 1 sui perni del femore", punto: [87.5, -33.5, 8]}
+      - {testo: "dente: coxa", punto: [69.5, -27, -26]}
+      - {testo: "dente: tibia", punto: [105.5, -27, -26]}
+      - {testo: "braccio: contro il servo di coxa", punto: [19, -22, 6.5]}
     testo:
       - "Porta la zampa nello stato di taratura [C], vicino alla posa 1: imbardata 0°, femore 0°, ginocchio 90°."
       - "Infila la dima di posa 1 sui due perni del femore, dal lato B."
       - "Porta il femore giù contro il suo dente, a passi di 10 µs e poi di 1 µs."
-      - "Porta il ginocchio a chiudere contro il suo dente, poi la coxa in senso antiorario contro il braccio."
+      - "Porta il ginocchio a chiudere contro il suo dente, poi gira la coxa in senso antiorario, visto dall'alto, finché il braccio tocca il servo di coxa."
       - "Annota i tre impulsi nel registro della taratura (12.13) e togli la dima."
     avvisi:
       - {tipo: attenzione, testo: "Rail acceso: dita fuori fra dente e pezzo. Avanza a passi piccoli e fermati al primo contatto."}
       - {tipo: importante, testo: "Se l'impulso trovato è lontano più di 80 µs da quello di partenza, la squadretta è calettata un dente fuori (±7,2°): rifai il calettamento (sezione 6) [S]."}
       - {tipo: nota, testo: "I denti toccano facce quasi radiali: circa 0,4 mm per grado. Precisione attesa circa ±0,5° [C] (D-066)."}
     attrezzi: [dime_posa, computer_usb]
-    fonti: ["D-066, blocco C: dime di posa", "docs/software.md 2.7 'Taratura dei servo'", cad/stl/README.md "attrezzi/Dima_Posa_1.stl", robot/robot.yaml calettamento]
+    fonti: ["D-066, blocco C: dime di posa", "docs/software.md 2.7 'Taratura dei servo'", cad/stl/README.md "attrezzi/Dima_Posa_1.stl", robot/robot.yaml calettamento, "cad/script/attrezzi.py geometria_dima (punta sul fianco -Y della cassa)"]
 
   - id: "12.12"
     titolo: Taratura, dima di posa 2
-    formato: mezzo
-    immagine: false
+    formato: grande
+    terna: zampa
+    posa: {alfa: 0, gamma: 135, coxa: 0}
+    vista: zampa_B
+    mostra:
+      - "zampa/Femore_A@AS"
+      - "zampa/Femore_B@AS"
+      - "zampa/Perno_femore@AS"
+      - "zampa/Perno_ginocchio@AS"
+      - "zampa/Squadretta_femore@AS"
+      - "zampa/Squadretta_ginocchio@AS"
+      - "zampa/Cover_Femore_A@AS"
+      - "zampa/Servo_ginocchio@AS"
+      - "zampa/Cuscinetto_ginocchio@AS"
+      - "zampa/Tibia@AS"
+      - "zampa/Piedino@AS"
+      - "zampa/Cover_Tibia@AS"
+    in_evidenza: [attrezzo/Dima_Posa_2]
+    etichette:
+      - {testo: "dima 2", punto: [87.5, -33.5, 8]}
+      - {testo: "dente: coxa", punto: [48, -27, -29]}
+      - {testo: "dente: tibia, ginocchio a 135°", punto: [127, -27, -29]}
+      - {testo: "braccio: servo di coxa", punto: [58, -34, 24]}
     testo:
       - "Porta la zampa vicino alla posa 2: imbardata +30°, femore +45°, ginocchio 135°."
       - "Infila la dima di posa 2 sui due perni del femore, dal lato B."
@@ -343,9 +401,10 @@ passi:
       - "Annota i tre impulsi e togli la dima."
       - "Ripeti 12.11 e 12.12 per le altre cinque zampe."
     avvisi:
+      - {tipo: nota, testo: "Nell'immagine il femore è fermo come nella dima: la tibia è a 135°, la coxa non è disegnata perché nella posa 2 è girata di 45° rispetto al femore."}
       - {tipo: nota, testo: "Due pose per giunto danno spostamento e guadagno del servo; se femore e ginocchio non sono lineari si aggiunge un terzo punto (software.md 2.7)."}
     attrezzi: [dime_posa, computer_usb]
-    fonti: ["D-066, blocco C", "docs/software.md 2.7", cad/stl/README.md "attrezzi/Dima_Posa_2.stl"]
+    fonti: ["D-066, blocco C", "docs/software.md 2.7", cad/stl/README.md "attrezzi/Dima_Posa_2.stl", "cad/script/attrezzi.py POSE, geometria_dima"]
 
   - id: "12.13"
     titolo: Registro e salvataggio della taratura
@@ -378,6 +437,8 @@ passi:
     nuovi: ["zampa/Cover_Femore_B@AS", "zampa/Cover_Femore_B_Feritoia@AS"]
     giunzioni: [lama_b]
     esploso: {asse: [0.5, -0.866, 0], distanza: 40}
+    evidenzia:
+      - {chiave: "zampa/Femore_B@AS", lav: "ins_lama_*"}
     vista: {direzione: [0.07, -0.83, 0.55], su: [0, 0, 1]}
     mostra:
       - "zampa/Coxa@AS"
@@ -405,7 +466,15 @@ passi:
   - id: "12.15"
     titolo: Fusibile F1 da 30 A
     formato: mezzo
-    immagine: false
+    vista: {direzione: [-0.55, 0.15, 0.82], su: [0, 0, 1]}
+    mostra:
+      - corpo/Corpo_Base
+      - corpo/Corpo_Chiglia
+      - corpo/Corpo_Sportello
+      - "corpo/Servo_Coxa_P*"
+    in_evidenza: [corpo/Portafusibile_F1]
+    etichette:
+      - {testo: "F1: 30 A", chiave: corpo/Portafusibile_F1}
     testo:
       - "Controlla che il T-plug sia staccato."
       - "Togli il fusibile da 15 A da F1."

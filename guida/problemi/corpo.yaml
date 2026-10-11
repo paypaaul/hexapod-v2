@@ -192,3 +192,59 @@
     - "Lasciare le anse libere e legarle con una fascetta lenta (D11) finche' non ci sono i pettini."
     - "Disegnare i pettini subito, con le lunghezze di calc/cavi_servo.py."
   consiglio: Anse libere e fascetta lenta fino alla prima zampa; il passo lo dice senza la fascetta, che non e' nel BOM per questo uso.
+
+- titolo: "7.05: vite20-vite23 'poco visibili' e' un falso allarme del controllo, non viti coperte dai servo"
+  gravita: minore
+  dove: "7.05, guida/blender/rendi.py visibili()"
+  cosa: >-
+    Il controllo dei pixel visibili colora ogni oggetto nuovo con uno dei 26 colori piatti
+    (livelli 0 / 0,5 / 1 per canale) e smette di assegnarli al ventisettesimo (`if i >= len(colori): break`): gli oggetti
+    oltre il 26 restano neri e risultano a 0 px. Il passo 7.05 ha 6 servo e 24 viti, cioe' 30 oggetti, quindi proprio le
+    ultime quattro (vite20-vite23: AD e AS lato coda, MD e MS lato coda) risultano "poco visibili". Nell'immagine (7.05.png) si
+    contano 24 viti, quattro per servo, tutte in vista sopra i servo esplosi: la diagnosi di riconciliazione.yaml
+    ("coperte dai servo esplosi") non regge. Nessuna vista, esploso o nascondi la cambia: lo stesso numero di oggetti da' lo
+    stesso avviso.
+  prove:
+    - "guida/blender/rendi.py:315-340 (visibili: colori = 26 combinazioni, break oltre l'ultima)"
+    - "build/guida/lotti/corpo.json, passo 7.05: 24 viti, tutte con la testa a Z 67 sopra il servo esploso di 45 mm"
+    - "build/guida/img/corpo/7.05.json, visibili: vite0-vite19 da 1216 a 1440 px, vite20-vite23 a 0"
+    - "7.05.png: 4 viti sopra ciascuno dei 6 servo, contate a occhio"
+  opzioni:
+    - "Estendere i colori del controllo (per esempio quattro livelli per canale, 63 colori) o farlo in due passate di 26 oggetti: correzione nell'impaginatore/rendi.py (F7), non nel passo."
+    - "Dividere il passo 7.05 in due (servo e viti lato albero, poi viti lato coda): cambierebbe la numerazione dei passi 7.06-7.12, citati dalle sezioni 8, 9 e dalla 7.12 stessa."
+  consiglio: "Correggere il controllo in rendi.py. Il passo resta com'e': l'avviso non va sul foglio, solo nel log del PDF."
+
+- titolo: "La zona fessura_cavi_* esportata ha facce della parete di coda: nel passo 7.11 il giallo e' piu' grande della fessura"
+  gravita: minore
+  dove: "7.11"
+  cosa: >-
+    La fessura dei cavi e' un taglio nel tetto di 13 x 4,5 x 2 mm (X da -83,4 a -70,4, |Y| da 20,5 a 25, Z da -11,4 a -9,4,
+    cad/script/corpo.py:408-410). La zona esportata (build/guida/cad/zone/Corpo_Base__fessura_cavi_s.ply) invece va da
+    X -85,4 a 79 e da Z -32 a -9,4: oltre al taglio contiene facce a X da -85,4 a -83,4 (la parete di coda, tutta
+    l'altezza) e un punto a X 79. Nell'immagine 7.11 un cuneo giallo grande sul lato destro della parete di coda
+    sembra una seconda sede; le due fessure vere sono le macchie piccole ai lati del portafusibile. Il passo
+    le nomina con due etichette "fessura" a X -77, |Y| 22,7 per non dipendere dal cuneo.
+  prove:
+    - "cad/script/corpo.py:408-410 (fessura_cavi_*: blocco alto cor_tetto_sp, lungo cor_cavi_x)"
+    - "build/guida/cad/zone/Corpo_Base__fessura_cavi_s.ply e _d.ply: estremi X -85,4 / -70,4 / 79 (ply letto con numpy)"
+    - "build/guida/img/corpo/7.11.png, cuneo giallo a destra della parete di coda"
+  opzioni:
+    - "Rifare l'esportazione della zona con le sole facce del taglio (esporta_guida.py zone, lista in guida/catalogo/zone.yaml)."
+    - "Lasciare le due etichette e ignorare il cuneo."
+  consiglio: "Rifare l'esportazione della zona; per ora il passo funziona con le etichette."
+
+- titolo: "Prese delle luci contate come 'Prese dei piedi (X5)' nell'apertura della sezione 7 e nel riquadro del passo 7.10"
+  gravita: minore
+  dove: "apertura della sezione 7, 7.10"
+  cosa: >-
+    corpo/Prese_piedi e corpo/Prese_luci sono lo stesso componente (Rif_Prese_Piedi), e guida/catalogo/pezzi.yaml ha
+    una sola voce, "Prese dei piedi", con x: X5. L'elenco dei pezzi dell'apertura e il riquadro di 7.10 mostrano quindi
+    "2x Prese dei piedi X5", senza la X31 delle luci. Il testo e le etichette dell'immagine distinguono le due file.
+  prove:
+    - "guida/dati/manifest.json: corpo/Prese_luci -> Rif_Prese_Piedi"
+    - "guida/catalogo/pezzi.yaml:56"
+    - "build/guida/sezioni/corpo/anteprima/p003.png e p012.png"
+  opzioni:
+    - "Una voce di catalogo per occorrenza, oppure il riquadro con 'Prese dei piedi X5 1x, Prese delle luci X31 1x'."
+    - "Lasciare cosi'."
+  consiglio: "Lasciare cosi' finche' il catalogo comune non conosce le occorrenze (F7)."

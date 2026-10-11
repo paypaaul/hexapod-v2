@@ -126,3 +126,22 @@
     - "Stampare subito un secondo carapace, una tibia e un femore di scorta."
   consiglio: "Ristampare quando serve; tenere in casa PETG-CF, PLA e TPU per un ricambio."
   domanda: "Vuoi una scorta di pezzi stampati (un carapace, una tibia, un femore, i piedini) o ristampi quando serve?"
+
+- titolo: "15.11 toglie la zampa dal corpo e poi fa ruotare la coxa sul perno: le due cose non stanno insieme"
+  gravita: importante
+  dove: "15.11, 15.01"
+  cosa: >-
+    La prima riga di 15.11 dice "Togli il carapace e la zampa dal corpo (15.03, 15.09)" e la tabella di 15.01 mette il
+    servo di coxa dopo "carapace e zampa dal corpo". La terza riga dice "con il ponte tolto la coxa gira libera sul perno:
+    portala a circa 33 gradi per scoprire le viti lato coda" e la tabella delle viti dice "dall'alto, con la coxa a +30 o
+    -30 gradi". Una coxa che gira sul perno e' ancora sul corpo: con la zampa tolta il perno e' vuoto e le viti lato coda,
+    prima coperte dalla testa dell'anima, sono scoperte. Il testo viene dalla proposta della ricerca (corpo v0), che lascia
+    la zampa sul corpo e toglie solo il ponte, mescolata con la sequenza di 15.09 che toglie tutta la zampa.
+  prove:
+    - "guida/passi/15-smontaggio.yaml 15.01 (tabella), 15.09, 15.11"
+    - "docs/ricerca/corpo-v0-revisione.json: 'si toglie il coperchio, si stacca la spina, si toglie il ponte, si ruota la coxa a mano di circa 33 gradi, si tolgono le quattro viti e si sfila il servo verso l'alto'"
+    - "guida/passi/09-zampa-corpo.yaml 9.04-9.08 (la coxa si monta sul perno e le viti lato coda si stringono con la zampa sotto la gondola)"
+  opzioni:
+    - "Zampa tolta (15.09): le viti sono scoperte e la coxa a 33 gradi non serve (immagine di 15.11)."
+    - "Zampa sul corpo con il solo ponte tolto: coxa a circa 33 gradi, da provare sul primo servo."
+  consiglio: "Il testo dice le due vie: a zampa tolta le viti sono scoperte, con la zampa sul corpo si toglie il ponte e si porta la coxa a circa 33 gradi [C]. L'immagine mostra la via a zampa tolta, che usa la sequenza gia' verificata di 15.09."

@@ -44,6 +44,15 @@ passi:
     formato: grande
     nuovi: [corpo/Corpo_Base]
     vista: corpo_alto
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "finestra_*"}
+      - {chiave: corpo/Corpo_Base, lav: "fessura_ang"}
+      - {chiave: corpo/Corpo_Base, lav: "fessura_med"}
+      - {chiave: corpo/Corpo_Base, lav: "gola_*"}
+      - {chiave: corpo/Corpo_Base, lav: "passaggio_perno_*"}
+    etichette:
+      - {testo: "finestra e fessura", punto: [70.1, 38.3, -13.1]}
+      - {testo: "sede (sotto)", punto: [80.0, 44.0, -28.2]}
     testo:
       - "Controlla le sei sedi dei cuscinetti sul fondo delle gondole: Ø 10 mm nominale [C], senza bave."
       - "Controlla finestre e fessure dei cavi, verso il centro di ogni gondola: la spina JR deve passare."
@@ -62,7 +71,16 @@ passi:
     formato: grande
     in_evidenza: [corpo/Corpo_Base]
     vista: corpo_alto
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "ins_coda_*"}
+      - {chiave: corpo/Corpo_Base, lav: "colonnina_*_ins"}
+      - {chiave: corpo/Corpo_Base, lav: slitta_ins}
+      - {chiave: corpo/Corpo_Base, lav: "vas_bugna_*_ins"}
+      - {chiave: corpo/Corpo_Base, lav: "ssc_bugna_*_ins"}
+      - {chiave: corpo/Corpo_Base, lav: "ins_ads_*"}
+      - {chiave: corpo/Corpo_Base, lav: "ins_imu_*"}
     etichette:
+      - {testo: "senza inserto", punto: [-70.9, 32.3, 1.6]}
       - {testo: A, punto: [112.5, 57.0, 1.6]}
       - {testo: C, punto: [40.0, 22.5, 28.4]}
       - {testo: D, punto: [35.6, 48.0, 6.0]}
@@ -76,7 +94,7 @@ passi:
       intestazione: ["Gruppo", "Inserti e dove", "Si usano"]
       righe:
         - ["A", "12 M3, bugne delle gondole, lato coda, aperti in alto", "sezione 9"]
-        - ["B", "4 M3, fondo della base, aperti in basso", "passo 7.04"]
+        - ["B", "4 M3, fondo della base, aperti in basso (si vedono girando la base)", "passo 7.04"]
         - ["C", "4 M3, colonnine del tetto", "sezione 13"]
         - ["D", "2 M3, pareti delle baie anteriori", "sezione 8"]
         - ["E", "4 M3, bugne del vassoio", "sezione 8"]
@@ -104,12 +122,17 @@ passi:
     nuovi: [corpo/Cuscinetto_Coxa_*]
     esploso: {asse: [0, 0, -30], distanza: 30}
     vista: corpo_sotto
-    volte: 6
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "sede_cuscinetto_*"}
+    etichette:
+      - {testo: listello, punto: [0.0, 26.0, -34.0]}
+      - {testo: listello, punto: [0.0, -26.0, -34.0]}
     testo:
       - "Posa la base su due listelli sotto le pareti del tunnel, con le sei gondole libere [C]."
       - "Premi un cuscinetto nella sede dal fondo della gondola, flangia verso fuori."
       - "Premi fino a quando la flangia appoggia sul fondo della gondola."
       - "Controlla che l'anello interno giri libero con un dito."
+      - "Ripeti per le altre cinque gondole."
     avvisi:
       - {tipo: attenzione, testo: "Spingi solo sulla flangia, mai sull'anello interno: col pollice, o con un tubetto Ø esterno ≤ 11,5 mm e interno ≥ 8 mm [C]."}
       - {tipo: importante, testo: "Prima della chiglia: dopo, fra la flangia e il piano d'appoggio restano 8,65 mm [V] e il cuscinetto non si preme più."}
@@ -132,6 +155,11 @@ passi:
     giunzioni: [chiglia_ant, chiglia_post]
     esploso: {asse: [0, 0, -45], distanza: 45}
     vista: corpo_sotto
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "chi_ins_*"}
+    etichette:
+      - {testo: avanti, punto: [100.0, 0.0, -81.0]}
+      - {testo: dietro, punto: [-100.0, 0.0, -81.0]}
     testo:
       - "Gira la base con il fondo verso l'alto, su un panno [C]."
       - "Posa la chiglia sul fondo: le due orecchie lunghe davanti, le due corte dietro."
@@ -157,7 +185,10 @@ passi:
     giunzioni: [alette_coxa_albero, alette_coxa_coda]
     esploso: {asse: [0, 0, 45], distanza: 45}
     vista: corpo_alto
-    volte: 6
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "finestra_*"}
+      - {chiave: corpo/Corpo_Base, lav: "fessura_ang"}
+      - {chiave: corpo/Corpo_Base, lav: "fessura_med"}
     etichette:
       - {testo: AS, chiave: corpo/Servo_Coxa_AS}
       - {testo: MS, chiave: corpo/Servo_Coxa_MS}
@@ -187,19 +218,27 @@ passi:
   - id: "7.06"
     titolo: Scheda dei servo di coxa
     formato: grande
-    immagine: false
+    in_evidenza: ["corpo/Servo_Coxa_*"]
+    vista: {direzione: [0.02, 0.0, 1.0], su: [1, 0, 0]}
+    etichette:
+      - {testo: "AS +30°", chiave: corpo/Servo_Coxa_AS}
+      - {testo: "MS +90°", chiave: corpo/Servo_Coxa_MS}
+      - {testo: "PS +150°", chiave: corpo/Servo_Coxa_PS}
+      - {testo: "AD −30°", chiave: corpo/Servo_Coxa_AD}
+      - {testo: "MD −90°", chiave: corpo/Servo_Coxa_MD}
+      - {testo: "PD −150°", chiave: corpo/Servo_Coxa_PD}
     testo:
       - "Annota nella tabella il numero scritto su ogni servo, della sezione 5."
       - "Controlla che l'angolo della coda sia quello della gondola."
     tabella:
-      intestazione: ["Zampa", "Coda verso", "Cavo [S]", "Canale SSC-32 [C]", "Servo n."]
+      intestazione: ["Zampa", "Coda verso", "Cavo, mm [S]", "Canale SSC-32 [C]", "Servo n."]
       righe:
-        - ["AS", "+30°, avanti a sinistra", "129 mm", "0", ""]
-        - ["MS", "+90°, a sinistra", "70 mm", "6", ""]
-        - ["PS", "+150°, dietro a sinistra", "112 mm", "13", ""]
-        - ["AD", "−30°, avanti a destra", "129 mm", "16", ""]
-        - ["MD", "−90°, a destra", "70 mm", "22", ""]
-        - ["PD", "−150°, dietro a destra", "112 mm", "29", ""]
+        - ["AS", "+30°, avanti a sinistra", "129", "0", ""]
+        - ["MS", "+90°, a sinistra", "70", "6", ""]
+        - ["PS", "+150°, dietro a sinistra", "112", "13", ""]
+        - ["AD", "−30°, avanti a destra", "129", "16", ""]
+        - ["MD", "−90°, a destra", "70", "22", ""]
+        - ["PD", "−150°, dietro a destra", "112", "29", ""]
     avvisi:
       - {tipo: nota, testo: "Gli angoli sono dall'avanti, in senso antiorario [V]. I canali sono la proposta di robot.yaml: si controllano al banco, con la SSC-32 montata [C]."}
       - {tipo: nota, testo: "Il cavo è il percorso fino alla spina sulla SSC-32, su 300 mm utili: il margine è 57–77 % [S]."}
@@ -217,7 +256,8 @@ passi:
     nascondi: ["corpo/Servo_Coxa_*"]
     esploso: {asse: [0, 0, 25], distanza: 25}
     vista: {direzione: [-0.55, 0.0, 0.84], su: [0, 0, 1]}
-    volte: 2
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "wago_spalla_*"}
     etichette:
       - {testo: "+", chiave: corpo/Wago_piu}
       - {testo: "−", chiave: corpo/Wago_meno}
@@ -243,6 +283,9 @@ passi:
     nascondi: ["corpo/Servo_Coxa_*"]
     esploso: {asse: [0, 0, 25], distanza: 25}
     vista: corpo_coda
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "guida_2813_*"}
+      - {chiave: corpo/Corpo_Base, lav: "scanalatura_2813_*"}
     testo:
       - "Cala la 2813 dall'alto fra le due guide, dietro il posto della SSC-32."
       - "Infila i bordi del circuito nelle scanalature, fino in fondo."
@@ -260,10 +303,12 @@ passi:
 
   - id: "7.09"
     titolo: Spie dei rail
-    formato: mezzo
+    formato: grande
     nascondi: ["corpo/Servo_Coxa_*"]
-    vista: {direzione: [-0.9, 0.25, 0.4], su: [0, 0, 1]}
-    volte: 2
+    vista: {direzione: [0.7, 0.2, 0.69], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "linguetta_spia_*"}
+      - {chiave: corpo/Corpo_Base, lav: "foro_spia_*"}
     etichette:
       - {testo: LED, punto: [-85.4, 19.0, 0.0]}
       - {testo: LED, punto: [-85.4, -19.0, 0.0]}
@@ -271,6 +316,7 @@ passi:
       - "Infila il LED giallo Ø 3 mm nel foro della linguetta, dal lato del portafusibile [C]."
       - "Gira la lente verso la coda: si vede dalla porta di servizio."
       - "Lascia i reofori lunghi: resistenza e fili si saldano nella sezione 8."
+      - "Ripeti per l'altra linguetta."
     avvisi:
       - {tipo: opzionale, x: X13, quando: meglio_ora, testo: "Prima del portafusibile: dopo restano 0,6 mm [V] davanti alla linguetta e il LED non si infila più. Senza spie salta questo passo."}
     extra:
@@ -286,17 +332,22 @@ passi:
 
   - id: "7.10"
     titolo: Prese dei piedi e delle luci
-    formato: mezzo
+    formato: grande
     nuovi: [corpo/Prese_piedi, corpo/Prese_luci]
     nascondi: ["corpo/Servo_Coxa_*"]
     esploso: {asse: [0, 0, 20], distanza: 20}
     vista: corpo_alto
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: sede_prese}
+      - {chiave: corpo/Corpo_Base, lav: scanalatura_prese}
+      - {chiave: corpo/Corpo_Base, lav: sede_prese_luci}
+      - {chiave: corpo/Corpo_Base, lav: scanalatura_prese_luci}
     etichette:
       - {testo: piedi, chiave: corpo/Prese_piedi}
       - {testo: luci, chiave: corpo/Prese_luci}
     testo:
       - "Posa la fila di sei spine nella scanalatura del tetto, spine in alto."
-      - "Metti la fila dei piedi a sinistra e quella delle luci a destra."
+      - "Metti la fila dei piedi a sinistra e quella delle luci a destra, guardando avanti."
       - "Non fissarle: come si tengono e come si collegano non è deciso [C]."
     avvisi:
       - {tipo: opzionale, x: "X5 X31", quando: anche_dopo, testo: "Prese dei piedi a sinistra, delle luci a destra: si montano anche a carapace tolto. Senza FSR o senza luci salta la fila."}
@@ -315,7 +366,14 @@ passi:
     nuovi: [corpo/Portafusibile_F1]
     nascondi: ["corpo/Servo_Coxa_*"]
     esploso: {asse: [0, 0, 30], distanza: 30}
-    vista: {direzione: [-0.9, 0.25, 0.4], su: [0, 0, 1]}
+    vista: {direzione: [-0.75, 0.2, 0.62], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "costola_f1_*"}
+      - {chiave: corpo/Corpo_Base, lav: "fessura_cavi_*"}
+    etichette:
+      - {testo: fessura, punto: [-77.0, 22.7, -10.4]}
+      - {testo: fessura, punto: [-77.0, -22.7, -10.4]}
+      - {testo: costola, punto: [-60.6, 0.0, -6.4]}
     testo:
       - "Togli il fusibile dal portafusibile, se c'è: si mette nella sezione 12."
       - "Prova il portafusibile a secco fra le due costole del tetto, di traverso."
@@ -340,6 +398,12 @@ passi:
     titolo: Cavi dei servo di coxa
     formato: grande
     vista: corpo_alto
+    nascondi: ["corpo/Servo_Coxa_*"]
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "finestra_*"}
+      - {chiave: corpo/Corpo_Base, lav: "fessura_ang"}
+      - {chiave: corpo/Corpo_Base, lav: "fessura_med"}
+      - {chiave: corpo/Corpo_Base, lav: "gola_*"}
     etichette:
       - {testo: "AS 0", punto: [66.8, 36.4, 12.0]}
       - {testo: "MS 6", punto: [0.0, 32.8, 12.0]}
@@ -347,6 +411,9 @@ passi:
       - {testo: "AD 16", punto: [66.8, -36.4, 12.0]}
       - {testo: "MD 22", punto: [0.0, -32.8, 12.0]}
       - {testo: "PD 29", punto: [-66.8, -36.4, 12.0]}
+      - {testo: ansa, punto: [-31.0, 31.6, -8.0]}
+      - {testo: ansa, punto: [-31.0, -31.6, -8.0]}
+      - {testo: "SSC-32", punto: [-14.0, 0.0, 4.0]}
     testo:
       - "Porta ogni cavo fuori dalla finestra, verso il centro, e fallo salire lungo la parete della gondola."
       - "Dirigi il cavo verso la fila di spine della SSC-32 dello stesso lato, spina in alto."

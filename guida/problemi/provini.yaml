@@ -235,3 +235,70 @@
     - "Ricavarla dal provino 1."
     - "Cercare la scheda del produttore degli inserti del kit (Temu: probabilmente senza dati)."
   consiglio: Ricavarla dal provino 1.
+
+# --- Passata di qualita' F3c (immagini con zone, etichette e attrezzi stampati) ---
+
+- titolo: "Il provino delle tasche e quello della luce non hanno zone: camere, canali e puntini si leggono solo dal testo"
+  gravita: minore
+  dove: "1.12, 1.13, 1.16, 1.17"
+  cosa: >-
+    I due provini sono nel manifest (attrezzo/Provino_Tasche_Base e _Lama, attrezzo/Provino_Luce_Nero e _Bianco) e si
+    vedono con in_evidenza, ma guida/catalogo/zone.yaml non ha zone per gli attrezzi. In 1.13 le sei tasche sono
+    numerate con etichette a punto (x da -25 a 25 ogni 10 mm, lette dalla mesh: centri a -25, -15, -5, 5, 15, 25); in
+    1.17 le due righe sono marcate RIGA 1 e RIGA 2. Le tre camere nere (2, 4 e 6 mm), le quattro strisce di bianco, i
+    canali da 4,6 mm sotto la camera e i puntini accanto a ogni tasca non sono evidenziati.
+  prove:
+    - "guida/catalogo/zone.yaml (nessuna voce Attrezzo_*)"
+    - "build/guida/cad/mesh/Attrezzo_Provino_Tasche_Lama.ply: pozzetti con il soffitto a z 3,2, centri a x -25 ... 25, y 0"
+    - "build/guida/cad/mesh/Attrezzo_Provino_Luce_Nero.ply: livelli z 0, 1,6, 5,2, 7,2, 8,6, 9,2"
+  opzioni:
+    - "Aggiungere in zone.yaml le zone tasca_1 ... tasca_6, camera_* e canale_* per gli attrezzi ed esportarle da Fusion."
+    - "Lasciare le etichette a punto, che bastano per i numeri."
+  consiglio: Aggiungere le zone solo se una prova al banco mostra che i numeri non bastano.
+
+- titolo: "Nei passi di prova i pezzi esplosi non hanno la freccia (in_evidenza) e la freccia con assiemi crea una vista finale sbagliata"
+  gravita: minore
+  dove: "1.06, 1.07, 1.08, 1.10, 1.11, 1.15"
+  cosa: >-
+    Un pezzo in in_evidenza si sposta con esploso ma non riceve la freccia (scena.py: la freccia si disegna solo per i
+    pezzi nuovi che non sono in in_evidenza). Con assiemi la freccia c'e', ma il pezzo entra nei presenti della sezione
+    e il punto di controllo finale disegna cuscinetto, perno, servo, ponte e piedino sparsi nello spazio. Ho tenuto
+    in_evidenza e lasciato la distanza dell'esploso come unico segnale di direzione; i nomi dei pezzi sono nel riquadro
+    dei pezzi (extra).
+  prove:
+    - "guida/lib/scena.py: 'if nuovo and geom.norma(d) > 1 and k not in assiemi and k not in pieni'"
+    - "build/guida/img/provini/fine.png con assiemi nei passi 1.06-1.15 (prova del 12 ottobre 2026)"
+  opzioni:
+    - "Disegnare la freccia anche per i pezzi in in_evidenza che hanno un esploso."
+    - "Un campo che escluda i pezzi dei passi di prova dalla vista finale della sezione."
+  consiglio: Correggere la pipeline; le sezioni 1 e 2 non montano e non hanno bisogno della vista finale.
+
+- titolo: "In 1.08 e 1.15 la spina, le viti e il doppino non sono disegnati"
+  gravita: minore
+  dove: "1.08, 1.15"
+  cosa: >-
+    In 1.08 la spina del servo nella finestra della testata e le quattro viti M3 x 8 non sono disegnate (le viti di
+    questo passo non hanno una giunzione: la giunzione del servo della tibia e' usata nella sezione 6 e il controllo
+    giunzioni_usate non permette di riusarla). Si vedono solo le zone gialle di fessura, finestra, inserti lato coda e
+    fori pilota. In 1.15 il doppino e le linguette dell'FSR non sono nel CAD: si vedono la tasca dell'FSR e la gola
+    della coda in giallo, con le etichette FSR e doppino.
+  prove:
+    - "guida/catalogo/giunzioni.yaml, servo della tibia (usata in guida/passi/06-zampa.yaml)"
+    - "build/guida/cad/zone/indice.json: Tibia ha tasca_fsr e gola_fsr_*; Piedino ha tacca_fili"
+  opzioni:
+    - "Una giunzione di prova (stessa posizione, id diverso) per le quattro viti del servo."
+    - "Lasciare le zone gialle."
+  consiglio: Lasciare le zone gialle; la giunzione di prova e' lavoro di pipeline.
+
+- titolo: "Le immagini dei passi 1.05 e 1.08 non mostrano la sede del servo"
+  gravita: minore
+  dove: "1.05, 1.08"
+  cosa: >-
+    La zona sede_servo della tibia (e della coxa) esiste, ma evidenziata colora tutta la culla e copre le zone piu'
+    piccole (fessura, finestra, inserti lato coda, fori pilota): provata in 1.08 e in 1.09 e tolta. E' evidenziata nei
+    controlli della zampa (2.23). Il passaggio del perno e la sede del cuscinetto si vedono in 1.05 e in 1.06 dal lato B.
+  prove:
+    - "build/guida/img/provini/1.08.png e 1.09.png con sede_servo (provate e tolte)"
+  opzioni:
+    - "Dividere la zona in sede_servo_fondo e sede_servo_pareti in zone.yaml."
+  consiglio: Lasciare com'e'.

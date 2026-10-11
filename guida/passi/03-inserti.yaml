@@ -6,6 +6,7 @@
 # chiglia 2); M2 28 = lama B 2 x 6 + slitte 8 + SSC-32 4 + vassoio 4. Predisposizioni (fuori dai totali del BOM): 18 M2.
 # Il BOM scrive "30 nel corpo": non torna con il CAD (guida/problemi/inserti.yaml).
 # I fori a destra della base sono specchi: hanno lo stesso nome degli originali e si scelgono con lato: destro.
+# Chiglia della base (4 inserti dal fondo) al passo 3.22, base capovolta: dall'alto non si vedono (guida/problemi/inserti.yaml).
 sezione:
   id: inserti
   numero: 3
@@ -92,7 +93,7 @@ passi:
         - ["Tibia (3.06)", "6", "3", "–", "18", "–"]
         - ["Coxa (3.07)", "6", "4", "–", "24", "–"]
         - ["Femore lato B (3.08, 3.09)", "6", "4", "2", "24", "12"]
-        - ["Base (3.10–3.13)", "1", "26", "4", "26", "4"]
+        - ["Base (3.10–3.13, 3.22)", "1", "26", "4", "26", "4"]
         - ["Chiglia (3.14)", "1", "2", "–", "2", "–"]
         - ["Slitte dei regolatori (3.15, 3.16)", "2", "–", "4", "–", "8"]
         - ["Vassoio dell'ESP32 (3.17)", "1", "–", "4", "–", "4"]
@@ -111,15 +112,22 @@ passi:
     titolo: Fori pilota, senza inserto
     formato: grande
     terna: zampa
-    in_evidenza: [zampa/Tibia]
-    vista: zampa_A
+    in_evidenza: [zampa/Tibia, zampa/Coxa]
+    evidenzia:
+      - {chiave: zampa/Tibia, lav: "pilota_corto_*"}
+      - {chiave: zampa/Coxa, lav: "pilota_corto_*"}
+    vista: {direzione: [0.2, 1.0, 0.35], su: [0, 0, 1]}
     etichette:
-      - {testo: "NO", punto: [114.4, 9.4, 13.8]}
-      - {testo: "NO", punto: [125.6, 9.4, 13.8]}
+      - {testo: "NO", punto: [114.4, 9.4, 27.0]}
+      - {testo: "NO", punto: [125.6, 9.4, 27.0]}
+      - {testo: "NO", punto: [49.4, 9.4, 27.0]}
+      - {testo: "NO", punto: [60.6, 9.4, 27.0]}
+      - {testo: tibia, chiave: zampa/Tibia}
+      - {testo: coxa, chiave: zampa/Coxa}
     testo:
-      - "Riconosci i due fori pilota Ø2,5 sul lato albero della culla."
+      - "Riconosci i due fori pilota Ø2,5 sul lato albero della culla, in giallo, nella tibia e nella coxa."
       - "Lasciali vuoti: nessun inserto."
-      - "Ricorda lo stesso nella coxa (2 fori) e nella base (12 fori, due per gondola)."
+      - "Ricorda lo stesso nella base (12 fori, due per gondola)."
     avvisi:
       - {tipo: importante, testo: "Mai inserti nei fori pilota: le viti delle alette lato albero fanno il filetto da sole, perché la fessura del passacavo non lascia posto agli inserti. In tutto 36 fori, due per servo (D-049)."}
     fonti: [D-049, "guida/catalogo/giunzioni.yaml (alette_*_albero)", docs/progetto-meccanico.md "Modello in Fusion (zampa v0)"]
@@ -130,13 +138,14 @@ passi:
     terna: zampa
     in_evidenza: [zampa/Tibia]
     inserti: [{chiave: zampa/Tibia, lav: "ins_*"}]
+    evidenzia: [{chiave: zampa/Tibia, lav: "pilota_corto_*"}]
     vista: zampa_A
     volte: 6
     etichette:
       - {testo: servo, punto: [120.0, 9.4, -30.0]}
       - {testo: guscio, punto: [131.0, 0.0, -84.0]}
-      - {testo: "NO", punto: [114.4, 9.4, 13.8]}
-      - {testo: "NO", punto: [125.6, 9.4, 13.8]}
+      - {testo: "NO", punto: [114.4, 9.4, 27.0]}
+      - {testo: "NO", punto: [125.6, 9.4, 27.0]}
     testo:
       - "Metti due inserti M3 nelle bugne del lato coda, dal lato A."
       - "Metti un inserto M3 sul fronte dello stinco, per il guscio."
@@ -152,13 +161,14 @@ passi:
     terna: zampa
     in_evidenza: [zampa/Coxa]
     inserti: [{chiave: zampa/Coxa, lav: "ins_*"}]
+    evidenzia: [{chiave: zampa/Coxa, lav: "pilota_corto_*"}]
     vista: zampa_A
     volte: 6
     etichette:
       - {testo: servo, punto: [55.0, 9.4, -30.0]}
       - {testo: ponte, punto: [38.6, 0.0, 25.0]}
-      - {testo: "NO", punto: [49.4, 9.4, 13.8]}
-      - {testo: "NO", punto: [60.6, 9.4, 13.8]}
+      - {testo: "NO", punto: [44.0, 16.0, 14.0]}
+      - {testo: "NO", punto: [66.0, 16.0, 14.0]}
     testo:
       - "Metti due inserti M3 nelle bugne del lato coda della culla, dal lato A."
       - "Metti due inserti M3 dall'alto, nella testa dell'anima, per il ponte."
@@ -207,30 +217,30 @@ passi:
     in_evidenza: [corpo/Corpo_Base]
     inserti:
       - {chiave: corpo/Corpo_Base, lav: "ins_coda_*", lato: sinistro}
-      - {chiave: corpo/Corpo_Base, lav: "chi_ins_*", lato: sinistro}
       - {chiave: corpo/Corpo_Base, lav: "colonnina_*_ins", lato: sinistro}
       - {chiave: corpo/Corpo_Base, lav: "slitta_ins", lato: sinistro}
-    vista: {direzione: [0.7, 0.65, 0.16], su: [0, 0, 1]}
+    evidenzia: [{chiave: corpo/Corpo_Base, lav: "pilota_*"}]
+    vista: {direzione: [0.3, 0.55, 0.8], su: [0, 0, 1]}
     etichette:
       - {testo: AS, punto: [110.0, 61.4, 4.0]}
       - {testo: MS, punto: [0.0, 82.7, 4.0]}
       - {testo: PS, punto: [-110.0, 61.4, 4.0]}
       - {testo: coperchio, punto: [40.0, 22.5, 31.0]}
       - {testo: coperchio, punto: [-56.0, 22.5, 31.0]}
-      - {testo: "NO", punto: [70.9, 32.3, 3.0]}
-      - {testo: "NO", punto: [65.3, 42.0, 3.0]}
-      - {testo: "NO", punto: [5.6, 34.2, 3.0]}
-      - {testo: "NO", punto: [-5.6, 34.2, 3.0]}
-      - {testo: "NO", punto: [-65.3, 42.0, 3.0]}
-      - {testo: "NO", punto: [-70.9, 32.3, 3.0]}
+      - {testo: slitta, punto: [35.6, 60.0, 8.0]}
+      - {testo: "NO", punto: [70.9, 32.3, 14.0]}
+      - {testo: "NO", punto: [65.3, 42.0, 14.0]}
+      - {testo: "NO", punto: [5.6, 34.2, 14.0]}
+      - {testo: "NO", punto: [-5.6, 34.2, 14.0]}
+      - {testo: "NO", punto: [-65.3, 42.0, 14.0]}
+      - {testo: "NO", punto: [-70.9, 32.3, 14.0]}
     testo:
       - "Metti 6 inserti M3 dall'alto nelle gondole: due per servo di coxa AS, MS e PS."
       - "Metti 2 inserti M3 dall'alto sulle colonnine del coperchio."
       - "Metti 1 inserto M3 di fianco, nella parete della baia, per la slitta."
-      - "Capovolgi la base e metti 2 inserti M3 dal basso, per la chiglia."
     avvisi:
-      - {tipo: nota, testo: "Gondole: alette lato coda dei servo di coxa (M3 × 8). Colonnine: coperchio. Slitta: M3 × 8. Chiglia: davanti M3 × 16, dietro M3 × 8 (D-049, D-051, D-052, D-056)."}
-      - {tipo: importante, testo: "Lascia vuoti i 6 fori pilota Ø2,5 delle gondole sul lato sinistro (D-049)."}
+      - {tipo: nota, testo: "Gondole: alette lato coda dei servo di coxa (M3 × 8). Colonnine: coperchio. Slitta: M3 × 8 (D-049, D-051, D-052)."}
+      - {tipo: importante, testo: "Lascia vuoti i 6 fori pilota Ø2,5 delle gondole sul lato sinistro, in giallo con NO. Anche quelli del lato destro, in giallo sul lato opposto, restano vuoti (D-049)."}
     fonti: [D-049, D-051, D-052, D-056, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
 
   - id: "3.11"
@@ -241,30 +251,30 @@ passi:
     in_evidenza: [corpo/Corpo_Base]
     inserti:
       - {chiave: corpo/Corpo_Base, lav: "ins_coda_*", lato: destro}
-      - {chiave: corpo/Corpo_Base, lav: "chi_ins_*", lato: destro}
       - {chiave: corpo/Corpo_Base, lav: "colonnina_*_ins", lato: destro}
       - {chiave: corpo/Corpo_Base, lav: "slitta_ins", lato: destro}
-    vista: {direzione: [0.7, -0.65, 0.16], su: [0, 0, 1]}
+    evidenzia: [{chiave: corpo/Corpo_Base, lav: "pilota_*"}]
+    vista: {direzione: [0.3, -0.55, 0.8], su: [0, 0, 1]}
     etichette:
       - {testo: AD, punto: [110.0, -61.4, 4.0]}
       - {testo: MD, punto: [0.0, -82.7, 4.0]}
       - {testo: PD, punto: [-110.0, -61.4, 4.0]}
       - {testo: coperchio, punto: [40.0, -22.5, 31.0]}
       - {testo: coperchio, punto: [-56.0, -22.5, 31.0]}
-      - {testo: "NO", punto: [70.9, -32.3, 3.0]}
-      - {testo: "NO", punto: [65.3, -42.0, 3.0]}
-      - {testo: "NO", punto: [5.6, -34.2, 3.0]}
-      - {testo: "NO", punto: [-5.6, -34.2, 3.0]}
-      - {testo: "NO", punto: [-65.3, -42.0, 3.0]}
-      - {testo: "NO", punto: [-70.9, -32.3, 3.0]}
+      - {testo: slitta, punto: [35.6, -60.0, 8.0]}
+      - {testo: "NO", punto: [70.9, -32.3, 14.0]}
+      - {testo: "NO", punto: [65.3, -42.0, 14.0]}
+      - {testo: "NO", punto: [5.6, -34.2, 14.0]}
+      - {testo: "NO", punto: [-5.6, -34.2, 14.0]}
+      - {testo: "NO", punto: [-65.3, -42.0, 14.0]}
+      - {testo: "NO", punto: [-70.9, -32.3, 14.0]}
     testo:
       - "Metti 6 inserti M3 dall'alto nelle gondole: due per servo di coxa AD, MD e PD."
       - "Metti 2 inserti M3 dall'alto sulle colonnine del coperchio."
       - "Metti 1 inserto M3 di fianco, nella parete della baia, per la slitta."
-      - "Capovolgi la base e metti 2 inserti M3 dal basso, per la chiglia."
     avvisi:
       - {tipo: nota, testo: "Il lato destro è lo specchio del sinistro: stessi gruppi, stesse misure (cad/script/corpo.py)."}
-      - {tipo: importante, testo: "Lascia vuoti i 6 fori pilota Ø2,5 delle gondole sul lato destro (D-049)."}
+      - {tipo: importante, testo: "Lascia vuoti i 6 fori pilota Ø2,5 delle gondole sul lato destro, in giallo con NO. Anche quelli del lato sinistro, in giallo sul lato opposto, restano vuoti (D-049)."}
     fonti: [D-049, D-051, D-052, D-056, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
 
   - id: "3.12"
@@ -345,7 +355,7 @@ passi:
     istanza: AS
     in_evidenza: [corpo/Corpo_Vassoio]
     inserti: [{chiave: corpo/Corpo_Vassoio, lav: "bas_col_*"}]
-    vista: corpo_alto
+    vista: {direzione: [-0.5, 0.5, 0.7], su: [0, 0, 1]}
     testo:
       - "Metti 4 inserti M2 nelle colonnine del vassoio."
     avvisi:
@@ -362,10 +372,10 @@ passi:
     inserti:
       - {chiave: corpo/Corpo_Base, lav: "ins_imu_*"}
       - {chiave: corpo/Corpo_Base, lav: "ins_ads_*"}
-    vista: corpo_alto
+    vista: {direzione: [0.85, 0.3, 0.6], su: [0, 0, 1]}
     etichette:
-      - {testo: IMU, punto: [47.5, -7.5, 0.0]}
-      - {testo: ADC, punto: [54.0, 9.6, 0.0]}
+      - {testo: IMU, punto: [47.5, -17.0, 4.0]}
+      - {testo: ADC, punto: [54.0, 19.0, 4.0]}
     testo:
       - "Metti 2 inserti M2 dall'alto nelle bugne dell'IMU."
       - "Metti 2 inserti M2 dall'alto nelle bugne dell'ADC."
@@ -423,6 +433,25 @@ passi:
     fonti: [D-066, "D-066: bugne dello zaino con inserti M2 messi dall'alto", guida/catalogo/viteria.yaml "inserti_predisposizioni"]
 
   - id: "3.22"
+    titolo: Base capovolta, 4 inserti M3 della chiglia
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Base]
+    inserti: [{chiave: corpo/Corpo_Base, lav: "chi_ins_*"}]
+    vista: {direzione: [0.3, 0.55, -0.8], su: [0, 0, 1]}
+    etichette:
+      - {testo: davanti, punto: [84.0, 0.0, -36.0]}
+      - {testo: dietro, punto: [-52.0, 0.0, -36.0]}
+    testo:
+      - "Capovolgi la base: il fondo guarda in alto."
+      - "Metti 2 inserti M3 dal basso nei due blocchetti davanti, a destra e a sinistra."
+      - "Metti 2 inserti M3 dal basso nei due blocchetti dietro."
+    avvisi:
+      - {tipo: nota, testo: "Tengono la chiglia: davanti M3 × 16, dietro M3 × 8 (D-049, D-056). Sono i 4 inserti della base che si mettono dal basso: gli altri 22 M3 sono nei passi 3.10–3.12."}
+    fonti: [D-049, D-056, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
+
+  - id: "3.23"
     titolo: Conteggio e prova
     formato: mezzo
     immagine: false

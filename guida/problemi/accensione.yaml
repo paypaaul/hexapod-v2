@@ -111,6 +111,13 @@
   opzioni:
     - "Scrivere 'antiorario visto dall'alto' dopo averlo controllato con la dima nel CAD."
   consiglio: "Controllarlo nel CAD con Dima_Posa_1 e scriverlo."
+  verifica_f3c: >-
+    Controllato sulla geometria della dima (12 ottobre 2026, senza Fusion): in cad/script/attrezzi.py, geometria_dima,
+    la punta del braccio sta a x 20 sul fianco -Y della cassa del servo di coxa (b = -srv_cassa_w/2, normale verso
+    la punta), nella terna della zampa con Z in alto. La dima gira con la coxa: con l'imbardata positiva (antioraria
+    vista dall'alto) un punto a x 20, y -10 si muove verso +Y, cioe' contro il fianco. Coerente con D-066 (la cassa a
+    +2 gradi). 12.11 ora dice "in senso antiorario, visto dall'alto, finche' il braccio tocca il servo di coxa" [V
+    dalla geometria dello script]; resta da vedere sul pezzo vero.
 
 - titolo: Procedura d'emergenza per la batteria (calore, fumo, gonfiore) senza fonte
   gravita: importante
@@ -124,3 +131,23 @@
   opzioni:
     - "Pagina di sicurezza LiPo nella sezione 0 da una fonte primaria (manuale OVONIC), richiamata da 11.01 e 12.01."
   consiglio: "Pagina nella sezione 0; i passi 11.01 e 12.01 la richiamano."
+
+- titolo: "Immagine della dima 2 senza la coxa: gli attrezzi non seguono la posa della zampa"
+  gravita: minore
+  dove: "12.12"
+  cosa: >-
+    Le dime stanno nel manifest nella terna della zampa come costruita, legate al femore (cad/script/attrezzi.py,
+    verifica_dime: "terna della dima = terna della zampa ... portata con il femore"). La pipeline disegna gli
+    attrezzi sempre con la loro T (guida/lib/dati.py, matrice: "attrezzi stampati: sempre nella loro terna"), anche
+    con una posa. Nella posa 2 (imbardata +30, femore +45, ginocchio 135) il femore si muove e la dima resterebbe
+    ferma. L'immagine di 12.12 tiene quindi fermo il femore e gira solo la tibia (gamma 135, che nella terna del
+    femore e' giusta); la coxa, che rispetto al femore e' girata di -45 gradi attorno all'anca, e il servo di coxa
+    del corpo non si possono disegnare e sono tolti. Una nota del passo lo dice.
+  prove:
+    - "cad/script/attrezzi.py:57 (POSE), :113-137 (geometria_dima: coxa ruotata di -alfa nella terna del femore), :305-309"
+    - "guida/lib/dati.py, matrice (ramo assieme == 'attrezzo'); guida/lib/scena.py, lavoro (posa)"
+    - "build/guida/img/accensione/12.12.png"
+  opzioni:
+    - "Pipeline: un attrezzo con un segmento (le dime: femore) segue la posa del suo segmento; allora 12.12 mostra tutta la zampa in posa 2."
+    - "Lasciare l'immagine com'e', con la nota."
+  consiglio: "Far seguire alle dime la posa del femore nella pipeline e rifare 12.12 con la zampa intera."

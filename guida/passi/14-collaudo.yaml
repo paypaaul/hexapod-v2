@@ -92,11 +92,20 @@ sezione:
     - "Sensori, luci e audio rispondono; temperature sotto le soglie; l'assetto scelto è annotato."
   vista_finale: {direzione: [0.55, -0.6, 0.55], su: [0, 0, 1]}
 
+# F3c: le pose delle immagini vengono da calc/statica_tripode.py ik_piano (Lf 65, Lt 110): 100/45 = alfa 7,3 e gamma 72,5;
+# 130/25 = alfa -23,2 e gamma 94,8 (piede a 100 e 130 mm sotto l'asse dei femori, verificato sulla mesh). Nei passi sul
+# cavalletto (14.04) coxa +30 e' il limite del firmware e alfa 20 / gamma 100 il calettamento di robot.yaml. La posa vale per le sei zampe.
+# Le tabelle lunghe stanno nella colonna di 72 mm accanto all'immagine: le celle sono scritte corte per non debordare.
+
 passi:
   - id: "14.01"
     titolo: Prima di cominciare
     formato: grande
-    immagine: false
+    vista: {direzione: [-0.75, 0.5, 0.4], su: [0, 0, 1]}
+    in_evidenza: [corpo/Pulsante, corpo/Tplug]
+    etichette:
+      - {testo: pulsante, chiave: corpo/Pulsante}
+      - {testo: T-plug, chiave: corpo/Tplug}
     testo:
       - "Libera il tavolo e il pavimento attorno al robot: niente cavi o oggetti sul passo delle zampe."
       - "Controlla che il pacco sia carico: 8,4 V, cioè 4,2 V per cella [V]."
@@ -112,12 +121,13 @@ passi:
   - id: "14.02"
     titolo: Robot spento
     formato: grande
-    vista: {direzione: [-0.45, 0.6, 0.65], su: [0, 0, 1]}
+    vista: {direzione: [-0.9, 0.25, 0.5], su: [0, 0, 1]}
+    in_evidenza: [corpo/Cicalino, corpo/Tplug, corpo/Pulsante]
     etichette:
-      - {testo: pulsante, punto: [-40.0, 0.0, 36.0]}
-      - {testo: display, punto: [-74.5, 0.0, 36.0]}
-      - {testo: sportellino, punto: [4.0, 0.0, 36.0]}
-      - {testo: T-plug, punto: [-72.0, 0.0, 9.0]}
+      - {testo: pulsante, chiave: corpo/Pulsante}
+      - {testo: display, punto: [-74.5, 0.0, 34.0]}
+      - {testo: sportellino, chiave: corpo/Corpo_Sportello_Servizio}
+      - {testo: T-plug, punto: [-72.4, 0.0, 2.0]}
     testo:
       - "Pesa il robot completo, con la batteria, su una bilancia da 5 kg."
       - "Controlla a vista ogni riga della tabella."
@@ -140,33 +150,48 @@ passi:
   - id: "14.03"
     titolo: Accensione e rail
     formato: grande
-    immagine: false
+    vista: {direzione: [0.8, -0.55, 0.55], su: [0, 0, 1]}
+    nascondi: &guscio [corpo/Corpo_Carapace, corpo/Corpo_Fascia, corpo/Corpo_Visiera, corpo/Corpo_Gonne, corpo/Corpo_Fondo_Anello, corpo/Pulsante, corpo/Scheda_carapace, corpo/Ampli, corpo/Altoparlante, corpo/Microfono_S, corpo/Microfono_D, corpo/Corpo_Lunette_Microfoni, corpo/ToF_posteriore, corpo/Corpo_Sportello_Servizio]
+    mostra: ["corpo/*"]
+    in_evidenza: [corpo/Wago_piu, corpo/Wago_meno, corpo/Basetta, corpo/SSC32, corpo/ESP32, corpo/Cicalino]
+    evidenzia: [{chiave: corpo/SSC32, lav: "corpo:morsettiera"}]
+    etichette:
+      - {testo: Wago, chiave: corpo/Wago_meno}
+      - {testo: basetta, punto: [50.0, 0.0, -2.0]}
+      - {testo: ESP32, punto: [47.0, 0.0, 22.0]}
+      - {testo: VS1 VS2, chiave: corpo/SSC32}
+      - {testo: cicalino, chiave: corpo/Cicalino}
     testo:
-      - "Collega il T-plug e accendi la logica con il pulsante del carapace."
+      - "Collega il T-plug e accendi con il pulsante del carapace."
       - "Con la console accendi il rail dei servo [C]."
       - "Misura e annota ogni riga della tabella."
-      - "Se una tensione è lontana dal valore, spegni e torna alla sezione 12."
+      - "Se una tensione non torna, spegni e torna alla sezione 12."
     tabella:
       intestazione: [Punto, Atteso, Misurato]
       righe:
         - ["Batteria, ai Wago", "da 7,4 a 8,4 V [V]", ""]
         - ["Uscita 5 V della basetta", "5,0 V [V, da confermare con la tolleranza Pololu]", ""]
-        - ["GPIO1, con la batteria a 8,4 V", "2,69 V [V]", ""]
+        - ["GPIO1, batteria a 8,4 V", "2,69 V [V]", ""]
         - ["VS1 e VS2, rail spento", "0 V [V]", ""]
-        - ["VS1 e VS2, rail acceso", "6,0 V [V, tolleranza da leggere sul foglio dati Pololu C]", ""]
-        - ["Spie dei rail (X13), se montate", "accese solo con il rail acceso [V]", ""]
-        - ["Display del cicalino", "mostra le due celle; la somma è la tensione del pacco [S]", ""]
+        - ["VS1 e VS2, rail acceso", "6,0 V [V; tolleranza: foglio dati Pololu C]", ""]
+        - ["Spie dei rail (X13)", "se montate: accese solo con il rail acceso [V]", ""]
+        - ["Display del cicalino", "due celle; la somma è la tensione del pacco [S]", ""]
         - ["Console: stato", "taratura valida, nessun guasto [C]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Dal comando di rail le zampe sono sotto tensione: tieni le mani fuori dal loro giro e una mano sul T-plug."}
-      - {tipo: nota, testo: "A fine carica, con il pacco sotto 7 V e corrente alta, i regolatori possono uscire di regolazione e il rail scendere un po' sotto 6 V; i servo funzionano fino a 4,8 V con meno coppia (docs/studio-componenti.md 'Batteria')."}
+      - {tipo: attenzione, testo: "Dal comando di rail le zampe sono sotto tensione: mani fuori dal loro giro, una mano sul T-plug."}
+      - {tipo: nota, testo: "A fine carica (pacco sotto 7 V, corrente alta) il rail può scendere sotto 6 V; i servo vanno fino a 4,8 V con meno coppia (studio-componenti.md 'Batteria')."}
     attrezzi: [multimetro, computer_usb]
     fonti: ["docs/BOM.md B1, B2, B10, 'Schema di alimentazione'", "docs/studio-componenti.md 'Batteria'", "docs/predisposizioni.md X13", "docs/software.md 2.6", "guida/passi/12-accensione.yaml 12.06-12.10", guida/problemi/collaudo.yaml]
 
   - id: "14.04"
     titolo: Cavalletto, escursioni
     formato: grande
-    immagine: false
+    vista: {direzione: [0.75, -0.6, 0.35], su: [0, 0, 1]}
+    in_evidenza: [attrezzo/Cavalletto]
+    posa: {alfa: 20, gamma: 100, coxa: 30}
+    etichette:
+      - {testo: cavalletto, punto: [0.0, -55.0, -168.0]}
+      - {testo: "coxa +30°", chiave: zampa/Femore_B@AS}
     testo:
       - "Posa il robot sul cavalletto, come in 12.02: nessun piede tocca il tavolo."
       - "Passa al modo LABORATORIO [C]."
@@ -175,23 +200,27 @@ passi:
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
-        - ["Coxa, da −30° a +30°", "libera; il fine corsa meccanico è a ±35° [V]", ""]
+        - ["Coxa, da −30° a +30°", "libera; fine corsa meccanico a ±35° [V]", ""]
         - ["Femore, da −45° a +82°", "libero; campo libero da −49° a +85° [V]", ""]
         - ["Ginocchio, da γmin(α) + 3° a 177°", "libero fino alla tabella del ginocchio minimo [V]", ""]
-        - ["Due zampe vicine, una verso l'altra", "libere fino a 30,5°, a contatto a 31° ciascuna [V]; somma limitata a 56° dal firmware [C]", ""]
-        - ["Carapace contro le zampe", "nessun contatto: 3,96 mm dalle zampe medie a +35°, 7,1 mm dalle altre [V]", ""]
+        - ["Due zampe vicine, una verso l'altra", "libere fino a 30,5°, a contatto a 31° ciascuna [V]", ""]
+        - ["Carapace contro le zampe", "nessun contatto: 3,96 mm dalle medie a +35°, 7,1 mm dalle altre [V]", ""]
         - ["Cavi con la coxa a ±30°", "nessun cavo teso o schiacciato [C]", ""]
-        - ["Corrente dei due rail, zampe ferme", "annota: è il riferimento delle prove dopo [C]", ""]
+        - ["Corrente dei rail, zampe ferme", "annota: riferimento per le prove dopo [C]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Un giunto alla volta, con la mano sul T-plug: un servo senza taratura giusta può sbattere contro il fine corsa."}
-      - {tipo: nota, testo: "Il firmware limita la coxa a ±30° e la somma fra vicine a 56°: 56° è ancora una proposta da approvare, D-050 e D-061 dicono 60° (CLAUDE.md, software.md 2.5) [C]."}
+      - {tipo: attenzione, testo: "Un giunto alla volta, mano sul T-plug: senza taratura giusta un servo può sbattere sul fine corsa."}
+      - {tipo: nota, testo: "Il firmware limita la coxa a ±30° e la somma fra vicine a 56°, ancora una proposta: D-050 e D-061 dicono 60° (software.md 2.5) [C]."}
     attrezzi: [cavalletto, computer_usb]
     fonti: ["robot/robot.yaml guardia", "docs/software.md 2.5 e 6.7 (B5, B6)", "D-066: escursioni verificate", "D-070 e D-074: contatto fra vicine e distanza dal carapace", "guida/passi/12-accensione.yaml 12.02", guida/problemi/collaudo.yaml]
 
   - id: "14.05"
     titolo: Cavalletto, andatura in aria
     formato: grande
-    immagine: false
+    vista: {direzione: [0.75, -0.6, 0.35], su: [0, 0, 1]}
+    in_evidenza: [attrezzo/Cavalletto]
+    posa: {alfa: 7.3, gamma: 72.5, coxa: 0}
+    etichette:
+      - {testo: cavalletto, punto: [0.0, -55.0, -168.0]}
     testo:
       - "Avvia il tripode a 100/45, passo 60 mm, alzata 30 mm, a bassa velocità [C]."
       - "Sali di velocità a gradini, fino a quella normale."
@@ -203,23 +232,29 @@ passi:
         - ["Tripode a 100/45, un minuto", "nessun urto; fotogrammi rifiutati dalla guardia: 0 [V, sul PC; S sul robot]", ""]
         - ["Rotazione sul posto, 30° a passo", "nessun urto [V]", ""]
         - ["Velocità dei giunti", "sotto 250°/s, il limite della guardia [C]", ""]
-        - ["Durata massima del ciclo di controllo", "meno di 20 ms, il periodo a 50 Hz [S]", ""]
-        - ["Servo che ronzano fermi, scaldano o saltano", "nessuno [S]", ""]
+        - ["Durata massima del ciclo", "meno di 20 ms, il periodo a 50 Hz [S]", ""]
+        - ["Servo che ronzano, scaldano o saltano", "nessuno [S]", ""]
         - ["Corrente dei due rail", "annota e confronta con 14.04 [C]", ""]
     avvisi:
       - {tipo: attenzione, testo: "Se un servo ronza fermo o un piede urta il cavalletto, spegni subito con il pulsante."}
-      - {tipo: nota, testo: "Il log del firmware scrive ogni secondo cicli, rifiutati e durata massima del ciclo (firmware/README.md). Il ciclo a 100/45 passa tutti i limiti nel CAD e nel nucleo sul PC."}
+      - {tipo: nota, testo: "Il log del firmware scrive ogni secondo cicli, rifiutati e durata massima (firmware/README.md). Il ciclo a 100/45 passa tutti i limiti nel CAD e nel nucleo sul PC."}
     attrezzi: [cavalletto, computer_usb]
     fonti: ["robot/robot.yaml andatura e guardia", "firmware/README.md 'Cosa è uno scheletro' e tabella delle prove", "docs/software.md 2.2, 2.5, 4.2, 6.7 (B6)", "D-066: cicli verificati nel CAD", guida/problemi/collaudo.yaml]
 
   - id: "14.06"
     titolo: Prove di sicurezza, sul cavalletto
     formato: grande
-    immagine: false
+    vista: {direzione: [-0.8, 0.6, 0.15], su: [0, 0, 1]}
+    in_evidenza: [attrezzo/Cavalletto, corpo/Pulsante, corpo/Tplug, corpo/Cicalino]
+    etichette:
+      - {testo: pulsante, chiave: corpo/Pulsante}
+      - {testo: T-plug, chiave: corpo/Tplug}
+      - {testo: cicalino, chiave: corpo/Cicalino}
+      - {testo: cavalletto, punto: [0.0, -55.0, -168.0]}
     testo:
-      - "Fai queste prove solo sul cavalletto, con le zampe in aria."
-      - "Con il tripode in moto, provale una alla volta, nell'ordine della tabella."
-      - "Dopo ognuna rimetti il robot in RIPOSO prima di continuare [C]."
+      - "Fai le prove solo sul cavalletto, zampe in aria."
+      - "Con il tripode in moto, provale una alla volta, in ordine."
+      - "Dopo ognuna rimetti il robot in RIPOSO [C]."
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
@@ -228,62 +263,74 @@ passi:
         - ["Togli il comando per un secondo", "dopo 300 ms si ferma in piedi [C]", ""]
         - ["Togli il comando per 30 s", "si siede, poi il rail si spegne [C]", ""]
         - ["Stacca il filo TX della SSC-32", "dopo 3 interrogazioni senza risposta: GUASTO e rail spento [C]", ""]
-        - ["Alimentatore regolabile al posto del pacco, tensione che cala", "sotto 3,6 V a cella avviso; sotto 3,5 V per 5 s seduta; sotto 3,3 V spegnimento [C]", ""]
+        - ["Alimentatore al posto del pacco, tensione che cala", "sotto 3,6 V a cella avviso; sotto 3,5 V per 5 s seduta; sotto 3,3 V spegnimento [C]", ""]
         - ["Cicalino", "suona sotto la soglia impostata (12.04) [S]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "A terra queste prove fanno cadere il robot sulla chiglia. Mai sul pavimento."}
-      - {tipo: importante, testo: "Le soglie del firmware sono proposte da tarare: se scattano diversamente, annota il valore e non cambiare il firmware qui (software.md 2.6) [C]."}
-      - {tipo: nota, testo: "Il pulsante è anche l'arresto d'emergenza e il T-plug il sezionamento dei servo (software.md 2.6, BOM)."}
+      - {tipo: attenzione, testo: "A terra queste prove fanno cadere il robot: mai sul pavimento."}
+      - {tipo: importante, testo: "Soglie del firmware da tarare: se scattano diversamente annota il valore, non cambiare il firmware qui (software.md 2.6) [C]."}
+      - {tipo: nota, testo: "Pulsante: arresto d'emergenza. T-plug: sezionamento dei servo (software.md 2.6)."}
     attrezzi: [cavalletto, computer_usb, alimentatore_limitato]
     fonti: ["docs/software.md 2.6 'Sicurezza e macchina a stati'", "docs/BOM.md 'Schema di alimentazione', B9", "docs/piano-elettronica-software.md 4 (P3: rail spento in ogni guasto provato)", "guida/passi/12-accensione.yaml 12.01, 12.04", guida/problemi/collaudo.yaml]
 
   - id: "14.07"
     titolo: A terra, alzarsi e sedersi
     formato: grande
-    immagine: false
+    vista: {direzione: [0.55, -0.85, 0.3], su: [0, 0, 1]}
+    posa: {alfa: 7.3, gamma: 72.5, coxa: 0}
+    etichette:
+      - {testo: asse dei femori, chiave: zampa/Perno_femore@AD}
+      - {testo: piede a terra, chiave: zampa/Piedino@AD}
     testo:
-      - "Togli il robot dal cavalletto e posalo seduto sulla chiglia, su un piano liscio e non scivoloso."
+      - "Togli il robot dal cavalletto e posalo seduto sulla chiglia, su un piano liscio."
       - "Comanda 'in piedi' a 100/45, lenta [C]."
-      - "Misura e annota la tabella; poi comanda 'seduto'."
+      - "Misura e annota; poi comanda 'seduto'."
       - "Ripeti due volte."
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
-        - ["Sequenza di accensione", "impulsi di parcheggio, poi rail, poi controllo del calo di tensione, poi alzata lenta [C]", ""]
+        - ["Sequenza di accensione", "parcheggio, rail, controllo del calo di tensione, alzata lenta [C]", ""]
         - ["Altezza dell'asse dei femori da terra", "100 mm [V]; in simulazione fra 97,7 e 99,2 mm [S]", ""]
         - ["Inclinazione del corpo", "vicina a 0°; in simulazione 0,2° [S]", ""]
         - ["Piedi a terra", "tutti e sei [S]", ""]
-        - ["Coppia stimata del femore", "53 % dello stallo, 5,84 kgf·cm; avviso oltre il 55 % [V]", ""]
+        - ["Coppia stimata del femore", "53 % dello stallo (5,84 kgf·cm), avviso oltre 55 % [V]", ""]
         - ["Corrente in piedi fermo", "circa 6 A a 6 V, circa 42 W [S]", ""]
         - ["Seduto", "appoggia sulla chiglia, rail spento a fine seduta [C]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Se un servo non spinge o la zampa cede, spegni con il pulsante e tieni il corpo con le mani: a terra cade sulla chiglia."}
+      - {tipo: attenzione, testo: "Se un servo non spinge o la zampa cede, spegni con il pulsante e tieni il corpo: a terra cade sulla chiglia."}
       - {tipo: nota, testo: "Il margine di stabilità a 100/45 è 59 mm [V, calcolo] (robot.yaml regressione_statica)."}
-      - {tipo: importante, testo: "'Assetto basso' di B6 non dice quale: la bozza usa 100/45, il punto di progetto [C] (guida/problemi/collaudo.yaml)."}
+      - {tipo: importante, testo: "B6 non dice quale 'assetto basso': la bozza usa 100/45 [C] (problemi/collaudo.yaml)."}
     attrezzi: [computer_usb]
     fonti: ["docs/software.md 2.6 (accensione, spegnimento), 6.7 (B6)", "robot/robot.yaml andatura e regressione_statica", "docs/studio-componenti.md 'Batteria' (fermo in piedi)", "D-074: 3045 g, 53 %", "docs/software.md 'Stato di S0' (simulazione)", guida/problemi/collaudo.yaml]
 
   - id: "14.08"
     titolo: A terra, camminare
     formato: grande
-    immagine: false
+    vista: {direzione: [0.55, -0.6, 0.55], su: [0, 0, 1]}
+    posa: {alfa: 7.3, gamma: 72.5, coxa: 0}
+    etichette:
+      - {testo: T1, chiave: zampa/Piedino@AS}
+      - {testo: T1, chiave: zampa/Piedino@PS}
+      - {testo: T1, chiave: zampa/Piedino@MD}
+      - {testo: T2, chiave: zampa/Piedino@AD}
+      - {testo: T2, chiave: zampa/Piedino@PD}
+      - {testo: T2, chiave: zampa/Piedino@MS}
     testo:
       - "Comanda l'andatura a coppie a 100/45, lenta, poi più veloce [C]."
-      - "Poi il tripode, sempre a 100/45."
-      - "Cammina per un minuto in linea retta e annota ogni riga della tabella."
+      - "Poi il tripode, sempre a 100/45 (T1 e T2: i due gruppi di piedi)."
+      - "Cammina un minuto in linea retta e annota la tabella."
       - "Fermati e siediti."
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
-        - ["Coppia, andatura a coppie a 100/45", "41 % dello stallo con 2945 g [S, da rifare con 3045 g]", ""]
+        - ["Coppia, a coppie a 100/45", "41 % dello stallo con 2945 g [S, da rifare con 3045 g]", ""]
         - ["Coppia, tripode a 100/45", "53 % con 3045 g [V]; avviso oltre il 55 %", ""]
         - ["Velocità in tripode", "circa 105–115 mm/s con il limite di 250°/s [S]", ""]
-        - ["Corrente dei rail in marcia classica", "10–12 A a 6 V, cioè 60–72 W [S]", ""]
-        - ["Piedi in appoggio che scivolano", "al più qualche millimetro all'atterraggio; in simulazione 0,5 mm [S]", ""]
-        - ["Fotogrammi rifiutati dalla guardia", "0 in un minuto [S]", ""]
-        - ["Urti contro il carapace o fra zampe", "nessuno [V, CAD]", ""]
+        - ["Corrente dei rail, marcia classica", "10–12 A a 6 V, cioè 60–72 W [S]", ""]
+        - ["Piedi d'appoggio che scivolano", "al più qualche millimetro all'atterraggio; in simulazione 0,5 mm [S]", ""]
+        - ["Fotogrammi rifiutati", "0 in un minuto, dalla guardia [S]", ""]
+        - ["Urti con carapace o zampe", "nessuno [V, CAD]", ""]
     avvisi:
-      - {tipo: nota, testo: "L'andatura a coppie è quella di base: a 100/45 ha la coppia più bassa. Il tripode serve per andare veloci (software.md 4.2)."}
+      - {tipo: nota, testo: "L'andatura a coppie è la base: a 100/45 ha la coppia più bassa; il tripode serve per andare veloci (software.md 4.2)."}
       - {tipo: importante, testo: "A 70/70 il tripode porta il femore al 75 % dello stallo, oltre il rifiuto al 70 %: lì serve un'andatura con più piedi a terra (software.md 'Stato di S0')."}
     attrezzi: [computer_usb]
     fonti: ["docs/software.md 4.2 (tabella delle coppie, velocità)", "docs/studio-componenti.md 'Batteria' (marcia classica)", "docs/software.md 'Stato di S0' (scivolamento 0,5 mm)", "robot/robot.yaml", "firmware/README.md (70/70)", guida/problemi/collaudo.yaml]
@@ -291,7 +338,13 @@ passi:
   - id: "14.09"
     titolo: Dopo la marcia, calore e batteria
     formato: grande
-    immagine: false
+    vista: {direzione: [0.6, -0.75, 0.4], su: [0, 0, 1]}
+    posa: {alfa: 7.3, gamma: 72.5, coxa: 0}
+    etichette:
+      - {testo: carapace, punto: [35.6, -39.1, 28.0]}
+      - {testo: servo del femore, chiave: zampa/Servo_femore@AD}
+      - {testo: servo del ginocchio, chiave: zampa/Servo_ginocchio@AD}
+      - {testo: pacco, punto: [-77.9, 0.0, -25.0]}
     testo:
       - "Cammina per 10 minuti in marcia classica, poi fermati [S]."
       - "Misura subito le temperature della tabella."
@@ -314,7 +367,18 @@ passi:
   - id: "14.10"
     titolo: Sensori
     formato: grande
-    immagine: false
+    vista: {direzione: [0.6, -0.75, 0.55], su: [0, 0, 1]}
+    nascondi: [corpo/Corpo_Carapace, corpo/Corpo_Fascia, corpo/Corpo_Visiera, corpo/Corpo_Gonne, corpo/Corpo_Fondo_Anello, corpo/Pulsante, corpo/Scheda_carapace, corpo/Ampli, corpo/Altoparlante, corpo/Microfono_S, corpo/Microfono_D, corpo/Corpo_Lunette_Microfoni, corpo/Corpo_Sportello_Servizio]
+    mostra: ["corpo/*", "zampa/*@AD"]
+    posa: {alfa: 7.3, gamma: 72.5, coxa: 0}
+    in_evidenza: [corpo/IMU, corpo/ToF_frontale, corpo/ToF_posteriore, "corpo/INA260_*", "zampa/FSR_piede@AD"]
+    etichette:
+      - {testo: IMU, chiave: corpo/IMU}
+      - {testo: ToF frontale, chiave: corpo/ToF_frontale}
+      - {testo: ToF posteriore, chiave: corpo/ToF_posteriore}
+      - {testo: INA260, chiave: corpo/INA260_D}
+      - {testo: INA260, chiave: corpo/INA260_S}
+      - {testo: FSR, chiave: zampa/FSR_piede@AD}
     testo:
       - "Con il robot fermo, in piedi e orizzontale, leggi i sensori dalla console o dall'app [C]."
       - "Premi a mano un piede alla volta e guarda il suo canale."
@@ -337,34 +401,45 @@ passi:
   - id: "14.11"
     titolo: Luci e audio
     formato: grande
-    immagine: false
+    vista: {direzione: [0.6, -0.75, 0.45], su: [0, 0, 1]}
+    posa: {alfa: 7.3, gamma: 72.5, coxa: 0}
+    in_evidenza: ["zampa/Cover_Tibia_Diffusore@*", corpo/Corpo_Lunette_Microfoni]
+    etichette:
+      - {testo: anello, chiave: corpo/Corpo_Fondo_Anello}
+      - {testo: lobi, punto: [0.0, -57.0, 28.0]}
+      - {testo: tibie, chiave: zampa/Cover_Tibia_Diffusore@AD}
+      - {testo: microfoni, chiave: corpo/Corpo_Lunette_Microfoni}
+      - {testo: altoparlante, chiave: corpo/Altoparlante}
     testo:
-      - "Guarda l'anello e le luci mentre il robot cambia modo e andatura [C]."
+      - "Guarda anello e luci al cambio di modo e di andatura [C]."
       - "Parla a circa un metro dai microfoni e fai suonare un tono di prova [C]."
-      - "Allontanati con il telefono e annota dove la connessione si perde."
+      - "Allontanati con il telefono: annota dove la connessione si perde."
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
         - ["LED all'accensione e durante un reset", "spenti, non a caso [S]", ""]
-        - ["Anello di stato (X11)", "cambia con il modo: avvio, rete, rail acceso, batteria bassa, errore [C]", ""]
-        - ["Luci dei lobi (X12)", "una per zampa: tripode visibile in marcia, zampa in errore in rosso [S]", ""]
-        - ["Luci delle tibie (X31)", "si accendono come da firmware [C]", ""]
-        - ["5 V con i LED al tetto di 600 mA", "stabile, l'ESP32 non si riavvia [S]", ""]
+        - ["Anello di stato (X11)", "segue il modo: avvio, rete, rail, batteria bassa, errore [C]", ""]
+        - ["Luci dei lobi (X12)", "una per zampa: tripode in marcia, rossa in errore [S]", ""]
+        - ["Luci delle tibie (X31)", "accese come da firmware [C]", ""]
+        - ["5 V con i LED al tetto di 600 mA", "stabile; l'ESP32 non si riavvia [S]", ""]
         - ["Microfoni (X16)", "il robot riconosce un comando in inglese [C]", ""]
-        - ["Altoparlante (X17)", "suona un tono di prova a volume limitato, senza distorsione [C]", ""]
-        - ["Wi-Fi a carapace montato", "app connessa nella stanza di prova; annota la distanza massima [C]", ""]
+        - ["Altoparlante (X17)", "tono di prova, volume limitato, nessuna distorsione [C]", ""]
+        - ["Wi-Fi a carapace montato", "connessa; annota la distanza massima [C]", ""]
     avvisi:
-      - {tipo: nota, testo: "Il tetto di corrente dei LED è di 600 mA nel firmware. Se la portata del Wi-Fi non basta a guscio montato, l'antenna esterna è la voce C8 (docs/BOM.md)."}
+      - {tipo: nota, testo: "Tetto di corrente dei LED nel firmware: 600 mA. Se il Wi-Fi non basta a guscio montato, l'antenna esterna è la voce C8 (BOM.md)."}
       - {tipo: opzionale, x: "X9 X11 X12 X16 X17 X31", quando: anche_dopo, testo: "Salta le righe delle predisposizioni che non hai montato."}
     fonti: ["docs/predisposizioni.md 2.4, X9, X11, X12, X16, X17", "docs/piano-elettronica-software.md 4 (P4: LED spenti all'accensione, 5 V stabile; P6: audio)", "docs/BOM.md C8", "docs/software.md 3.3", guida/problemi/collaudo.yaml]
 
   - id: "14.12"
     titolo: Scelta dell'assetto
     formato: grande
-    immagine: false
+    vista: {direzione: [0.6, -0.75, 0.3], su: [0, 0, 1]}
+    posa: {alfa: -23.2, gamma: 94.8, coxa: 0}
+    etichette:
+      - {testo: "130/25", chiave: zampa/Piedino@AD}
     testo:
       - "Guarda i numeri della tabella: sono calcolati, non misurati."
-      - "Prova a terra gli assetti che il firmware accetta, uno alla volta."
+      - "Prova a terra gli assetti che il firmware accetta, uno alla volta (nell'immagine: 130/25)."
       - "Annota l'assetto scelto e il perché nel registro."
     tabella:
       intestazione: ["Assetto (altezza/distanza, mm)", Tripode, A coppie, A onda, "Giunto più caricato (2945 g)"]

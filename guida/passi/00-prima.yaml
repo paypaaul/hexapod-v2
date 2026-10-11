@@ -44,6 +44,8 @@ passi:
         - ["Freccia blu larga", "Il pezzo nuovo va da dove parte la freccia a dove arriva."]
         - ["Freccia blu stretta", "Una vite o un inserto: dalla punta della freccia al foro."]
         - ["Giallo", "La sede o il percorso da guardare: dove va quello che il modello non ha (fili, striscia luminosa)."]
+        - ["Nome nero sull'immagine", "Il nome di un pezzo o di un verso. PIATTO è il piano della stampante: il pezzo si posa con quella faccia in basso."]
+        - ["Pezzo a colori pieni, senza freccia", "Sezioni 1 e 2: un pezzo da stampare, provare o misurare, non da montare."]
         - ["Colore ottone", "Un inserto a caldo."]
         - ["Riquadro grigio con miniature", "I pezzi del passo, con le viti a grandezza vera (1:1)."]
         - ["Riquadro 2×", "Il passo si fa due volte uguale, per esempio sui due lati."]
@@ -304,12 +306,16 @@ passi:
     formato: grande
     terna: robot
     istanza: AS
-    in_evidenza: [corpo/Corpo_Base, corpo/Corpo_Chiglia, corpo/Corpo_Carapace]
+    in_evidenza: [corpo/Corpo_Base, corpo/Corpo_Chiglia, corpo/Corpo_Carapace, "zampa/*@AS"]
+    nascondi: ["zampa/Cover_*"]
+    posa: {alfa: 20, gamma: 100, coxa: 0}
     vista: {direzione: [0.55, 0.5, 0.67], su: [0.0, 0.0, 1.0]}
     etichette:
       - {testo: "AVANTI X", punto: [150, 0, 0]}
       - {testo: "SINISTRA Y", punto: [0, 100, 0]}
       - {testo: "ALTO Z", punto: [0, 0, 60]}
+      - {testo: "FEMORE +20°", chiave: "zampa/Femore_B@AS"}
+      - {testo: "GINOCCHIO 100°", chiave: "zampa/Tibia@AS"}
     tabella:
       intestazione: [Terna o angolo, Verso]
       righe:
@@ -321,6 +327,7 @@ passi:
     testo:
       - "Leggi i versi nel disegno: X avanti, Y a sinistra, Z in alto."
       - "Nei passi della zampa leggi X verso l'esterno e Y verso il lato A."
+      - "Guarda la zampa AS: femore α +20°, ginocchio γ 100°, come nel calettamento proposto [C]."
     avvisi:
       - {tipo: nota, testo: "Il calettamento proposto per le squadrette è α +20°, γ 100°, imbardata 0° [C]: si verifica al banco (sezione 12, registro delle misure)."}
     fonti: [robot/robot.yaml intestazione e calettamento, docs/progetto-meccanico.md "Architettura", D-050]

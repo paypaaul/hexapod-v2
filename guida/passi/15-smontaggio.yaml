@@ -78,7 +78,7 @@ sezione:
     - "Tester dei servo o SSC-32 dal Mac, per portare un giunto in posa a servo alimentato."
   tempo: "dipende dal pezzo: carapace 10 minuti, sportello e pacco 10, una zampa 30 [S]"
   stato_elettrico: "Spento: T-plug staccato. Il rail si accende solo per portare un giunto in posa (15.10)."
-  note: "Lame, guscio e sportellino non sono strutturali: si tolgono per accedere alle viti."
+  note: "Lame, guscio e sportellino non sono strutturali: si tolgono per accedere alle viti. Frecce = rimontaggio: smonta al contrario."
   fonti: [D-049, D-054, D-056, D-061, D-065, D-070, D-072, D-075, "docs/cablaggio.md 4", "docs/predisposizioni.md 2.3", "docs/BOM.md", guida/problemi/smontaggio.yaml]
   attrezzi: [cavalletto]
   controllo:
@@ -88,21 +88,32 @@ sezione:
     - "Il registro dei controlli e la lista dei ricambi sono a portata di mano."
   vista_finale: {direzione: [0.55, -0.6, 0.55], su: [0, 0, 1]}
 
+# F3c: 15.10 mostra la posa di 6.20 (alfa -25, gamma 60: dentro 45-75) con Femore A e squadrette nascosti, come in 6.21;
+# 15.09 mostra la coxa girata di 40 gradi (9.04). Le giunzioni con stringi: true non si usano: con le sei zampe presenti il
+# controllo le conta tutte (6 viti per 1, 12 per 2) e, con -s, chiede anche la sezione che le ha messe. Le viti si indicano
+# con le etichette.
+
 passi:
   - id: "15.01"
     titolo: Prima di smontare
     formato: grande
-    immagine: false
+    vista: {direzione: [-0.8, 0.6, 0.15], su: [0, 0, 1]}
+    in_evidenza: [attrezzo/Cavalletto, corpo/Pulsante, corpo/Tplug, corpo/Cicalino]
+    etichette:
+      - {testo: pulsante, chiave: corpo/Pulsante}
+      - {testo: cicalino, chiave: corpo/Cicalino}
+      - {testo: T-plug, chiave: corpo/Tplug}
+      - {testo: cavalletto, punto: [0.0, -55.0, -168.0]}
     testo:
       - "Spegni con il pulsante e stacca il T-plug."
       - "Stacca la prolunga di bilanciamento dal cicalino."
       - "Posa il robot sul cavalletto, con la chiglia nella culla."
-      - "Segui l'ordine della tabella: ogni parte si toglie dopo quelle sopra di lei."
+      - "Segui la tabella: ogni parte si toglie dopo quelle sopra."
     tabella:
       intestazione: [Parte, Si toglie dopo, Passo]
       righe:
-        - ["Sportellino, spina IDC, carapace", "T-plug staccato", "15.02, 15.03"]
-        - ["Sportello e pacco della batteria", "T-plug e prolunga staccati", "15.04, 15.05"]
+        - ["Sportellino, spina IDC, carapace", "T-plug staccato", "15.02–03"]
+        - ["Sportello e pacco della batteria", "T-plug e prolunga staccati", "15.04–05"]
         - ["Lama B", "niente", "15.06"]
         - ["Lama A", "niente", "15.07"]
         - ["Guscio e diffusore della tibia", "niente", "15.08"]
@@ -111,10 +122,8 @@ passi:
         - ["Servo di coxa", "carapace e zampa dal corpo", "15.11"]
         - ["Vassoio, SSC-32, slitte, chiglia", "carapace", "15.12"]
     avvisi:
-      - {tipo: attenzione, testo: "Il T-plug è il sezionamento dei servo: finché non lo stacchi, un servo può muoversi. Non smontare mai con il rail acceso."}
+      - {tipo: attenzione, testo: "Il T-plug è il sezionamento dei servo: finché è collegato, un servo può muoversi. Mai smontare con il rail acceso."}
       - {tipo: importante, testo: "Il cicalino assorbe sempre: a fine uso staccalo dalla prolunga, o scarica il pacco (BOM B9)."}
-      - {tipo: nota, testo: "Nelle immagini la freccia mostra il rimontaggio, dal pezzo fuori posto al suo posto: per smontare vai nel verso opposto."}
-      - {tipo: nota, testo: "Prima di staccare un gruppo di spine segna dove stanno: i canali della SSC-32 sono nel registro (appendici) [C]."}
     fonti: ["docs/BOM.md 'Schema di alimentazione' e B9", "docs/cablaggio.md 4", D-054]
 
   - id: "15.02"
@@ -123,9 +132,10 @@ passi:
     assiemi:
       - {chiavi: corpo/Corpo_Sportello_Servizio, nome: Sportellino di servizio}
     esploso: {asse: [0, 0, 1], distanza: 32}
+    in_evidenza: [corpo/Scheda_carapace]
     vista: {direzione: [0.2, 0.6, 0.8], su: [0, 0, 1]}
     etichette:
-      - {testo: tacca, punto: [30.5, 0.0, 36.0]}
+      - {testo: tacca, punto: [30.5, 0.0, 68.0]}
       - {testo: spina IDC, punto: [39.5, 0.0, 22.0]}
     testo:
       - "Solleva lo sportellino con l'unghia dalla tacca, dalla parte del viso."
@@ -203,7 +213,8 @@ passi:
       - corpo/Tplug
       - "corpo/Servo_Coxa_P*"
     etichette:
-      - {testo: "2 viti M3 × 8", punto: [-81.0, 28.5, -36.7]}
+      - {testo: "2 viti M3 × 8", punto: [-131.0, 28.5, -45.0]}
+      - {testo: T-plug, chiave: corpo/Tplug}
     testo:
       - "Controlla che T-plug e prolunga di bilanciamento siano staccati."
       - "Svita le due viti M3 × 8 dai blocchetti della chiglia."
@@ -226,6 +237,8 @@ passi:
       - corpo/Portafusibile_F1
       - corpo/Tplug
       - "corpo/Servo_Coxa_P*"
+    etichette:
+      - {testo: T-plug, chiave: corpo/Tplug}
     testo:
       - "Controlla che il T-plug del pacco sia staccato da quello del robot."
       - "Sfila il pacco dal tunnel, verso la coda, con i suoi cavi."
@@ -247,7 +260,7 @@ passi:
     esploso: {asse: [0, -1, 0], distanza: 35}
     vista: zampa_B
     etichette:
-      - {testo: "2 viti M2 × 5", punto: [85.0, -34.0, 1.5]}
+      - {testo: "2 viti M2 × 5", punto: [85.0, -67.0, -16.0]}
     testo:
       - "Svita le due viti M2 × 5 svasate con la brugola da 1,3 mm."
       - "Tira la lama dal lato B, dritta, lungo Y."
@@ -266,8 +279,10 @@ passi:
     assiemi:
       - {chiavi: "zampa/Cover_Femore_A@AS", nome: Lama A}
       - {chiavi: "zampa/Cover_Femore_A_Feritoia@AS", nome: Intarsio della lama A}
-    esploso: {asse: [0, 1, 0], distanza: 35}
-    vista: zampa_A
+    esploso: {asse: [0, 1, 0], distanza: 60}
+    vista: {direzione: [0.45, -0.55, 0.7], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: zampa/Cover_Femore_A@AS, lav: "tasca_testa_*"}
     testo:
       - "Tieni la lama con le dita sui bordi, lontano dalle viti delle alette."
       - "Tira la lama dritta, lungo Y verso l'esterno."
@@ -289,7 +304,7 @@ passi:
     esploso: {asse: [1, 0, 0], distanza: 40}
     vista: tibia_guscio
     etichette:
-      - {testo: "1 vite M3 × 10", punto: [133.0, 0.0, -88.0]}
+      - {testo: "1 vite M3 × 10", punto: [172.0, 0.0, -104.0]}
     testo:
       - "Svita la vite M3 × 10 dal fronte della tibia, piano."
       - "Tira il guscio lungo +X: i due tappi a rombo escono dalle finestre della culla."
@@ -308,11 +323,19 @@ passi:
       - chiavi: "zampa/*@AS"
         esclusi: [zampa/Squadretta_coxa@AS, zampa/Perno_coxa@AS, zampa/Coxa_Ponte@AS, zampa/Cover_Femore_B@AS, zampa/Cover_Femore_B_Feritoia@AS, zampa/Ingombro_Teste_A@AS]
         nome: Zampa (sezione 6)
-    esploso: {asse: [0, 0, -1], distanza: 30}
+    esploso: {pezzi: {"zampa/Coxa_Ponte@AS": [0, 0, 40], "zampa/*": [0, 0, -30]}}
+    posa: {coxa: 40}
+    mostra: ["corpo/*", "zampa/*@AS"]
+    in_evidenza: [zampa/Coxa_Ponte@AS, corpo/Prese_piedi, corpo/Prese_luci]
+    evidenzia:
+      - {chiave: corpo/SSC32, lav: "corpo:zona_spine_servo"}
+    etichette:
+      - {testo: spine dei servo, chiave: corpo/SSC32}
+      - {testo: "ponte: 2 viti M3 × 10, fascetta", chiave: zampa/Coxa_Ponte@AS}
     vista: {direzione: [0.2, 0.95, 0.25], su: [0, 0, 1]}
     nascondi: [corpo/Corpo_Carapace, corpo/Corpo_Fascia, corpo/Corpo_Visiera, corpo/Corpo_Gonne, corpo/Corpo_Fondo_Anello, corpo/Pulsante, corpo/Cicalino, corpo/Scheda_carapace, corpo/Ampli, corpo/Altoparlante, corpo/Microfono_S, corpo/Microfono_D, corpo/Corpo_Lunette_Microfoni, corpo/ToF_posteriore, corpo/Corpo_Sportello_Servizio]
     testo:
-      - "Stacca dalla SSC-32 le tre spine dei servo; con FSR e luci, stacca le spine dalle loro prese."
+      - "Controlla i canali nel registro (appendici) [C], poi stacca dalla SSC-32 le tre spine dei servo; con FSR e luci, stacca le spine dalle loro prese."
       - "Taglia la fascetta sul ponte della coxa."
       - "Svita le due viti M3 × 10 e togli il ponte."
       - "Ruota la zampa di circa 40°, abbassala di 6 mm e sfilala dal perno."
@@ -326,39 +349,62 @@ passi:
   - id: "15.10"
     titolo: Servo di femore e ginocchio
     formato: grande
-    immagine: false
+    terna: zampa
+    mostra: ["zampa/*@AS"]
+    nascondi: [zampa/Cover_Femore_A@AS, zampa/Cover_Femore_A_Feritoia@AS, zampa/Cover_Femore_B@AS, zampa/Cover_Femore_B_Feritoia@AS, zampa/Cover_Tibia@AS, zampa/Cover_Tibia_Diffusore@AS, zampa/Femore_A@AS, zampa/Squadretta_femore@AS, zampa/Squadretta_ginocchio@AS]
+    assiemi:
+      - {chiavi: "zampa/Servo_femore@AS", nome: Servo del femore}
+      - {chiavi: "zampa/Servo_ginocchio@AS", nome: Servo del ginocchio}
+    esploso: {asse: [0, 1, 0], distanza: 50}
+    posa: {alfa: -25, gamma: 60}
+    vista: zampa_A
+    etichette:
+      - {testo: "Femore A e squadrette: nascosti", chiave: zampa/Femore_A@AS}
+    evidenzia:
+      - {chiave: zampa/Coxa@AS, lav: "ins_coda_*"}
+      - {chiave: zampa/Coxa@AS, lav: "pilota_corto_*"}
+      - {chiave: zampa/Tibia@AS, lav: "ins_coda_*"}
+      - {chiave: zampa/Tibia@AS, lav: "pilota_corto_*"}
     testo:
-      - "Togli lame, guscio e la zampa dal corpo (15.06–15.09)."
-      - "Porta il giunto in posa con il tester dei servo o con la SSC-32: il ginocchio a 45–75°, la lama A già tolta."
-      - "Svita le quattro viti M3 × 8 delle alette con il cacciavite a brugola dritto."
-      - "Sfila il servo dalla culla, dal lato A, con il passacavo nella fessura; la spina esce dalla finestra della testata."
+      - "Togli lame, guscio e zampa (15.06–15.09)."
+      - "Porta il giunto in posa (6.20) con tester o SSC-32: femore a circa −25°, ginocchio a 45–75°."
+      - "Svita le quattro viti M3 × 8 delle alette con il cacciavite dritto."
+      - "Sfila il servo dal lato A, con il passacavo nella fessura: la spina esce dalla finestra."
     tabella:
       intestazione: [Servo, Culla, Viti da togliere]
       righe:
-        - ["Femore", "coxa", "2 M3 × 8 lato coda negli inserti, 2 M3 × 8 lato albero nei fori pilota [V]"]
-        - ["Ginocchio", "tibia", "2 M3 × 8 lato coda negli inserti, 2 M3 × 8 lato albero nei fori pilota [V]"]
+        - ["Femore", "coxa", "2 M3 × 8 lato coda (inserti), 2 lato albero (fori pilota) [V]"]
+        - ["Ginocchio", "tibia", "2 M3 × 8 lato coda (inserti), 2 lato albero (fori pilota) [V]"]
     avvisi:
-      - {tipo: attenzione, testo: "Non girare l'albero a mano: trascini il riduttore. Porta il giunto in posa con il servo alimentato, tester o SSC-32 (guida/problemi/zampa.yaml)."}
-      - {tipo: importante, testo: "Prima di staccare il servo dal femore bisogna separare tibia e femore: la sequenza non è scritta nei documenti. Ripercorri al contrario la sezione 6, dal femore alle squadrette [C]."}
-      - {tipo: nota, testo: "Le viti lato albero fanno il filetto da sole nei fori pilota: a ogni rimontaggio lo consumano un poco. Se una vite non prende, ristampa il pezzo [S]."}
-      - {tipo: importante, testo: "Dopo il rimontaggio rifai la taratura con le due dime (12.11): taratura ripetibile entro 1° [S]."}
+      - {tipo: attenzione, testo: "Non girare l'albero a mano: trascini il riduttore. Porta il giunto in posa solo a servo alimentato."}
+      - {tipo: importante, testo: "La sequenza per separare tibia e femore non è nei documenti: ripercorri al contrario la sezione 6, dal femore alle squadrette [C]."}
+      - {tipo: nota, testo: "Le viti lato albero fanno il filetto nei fori pilota e a ogni rimontaggio lo consumano: se una non prende, ristampa il pezzo [S]."}
+      - {tipo: importante, testo: "Dopo il rimontaggio rifai la taratura con le dime (12.11): ripetibile entro 1° [S]."}
     attrezzi: [brugola_dritta_2_5, tester_servo]
     fonti: ["D-047, D-049", "guida/problemi/zampa.yaml (viti delle alette, esiti approvati l'11 ottobre 2026)", "docs/software.md 2.7 e 2.8", "guida/problemi/smontaggio.yaml"]
 
   - id: "15.11"
     titolo: Servo di coxa
     formato: grande
-    immagine: false
+    mostra: ["corpo/*"]
+    nascondi: &guscio [corpo/Corpo_Carapace, corpo/Corpo_Fascia, corpo/Corpo_Visiera, corpo/Corpo_Gonne, corpo/Corpo_Fondo_Anello, corpo/Pulsante, corpo/Scheda_carapace, corpo/Ampli, corpo/Altoparlante, corpo/Microfono_S, corpo/Microfono_D, corpo/Corpo_Lunette_Microfoni, corpo/ToF_posteriore, corpo/Corpo_Sportello_Servizio]
+    assiemi:
+      - {chiavi: "corpo/Servo_Coxa_AS", nome: Servo di coxa}
+    esploso: {asse: [0, 0, 1], distanza: 50}
+    vista: {direzione: [0.55, -0.5, 0.65], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "ins_coda_*_ang"}
+      - {chiave: corpo/Corpo_Base, lav: "pilota_*_ang"}
     testo:
       - "Togli il carapace e la zampa dal corpo (15.03, 15.09)."
       - "Stacca la spina del servo dalla SSC-32."
-      - "Con il ponte tolto la coxa gira libera sul perno: portala a circa 33° per scoprire le viti lato coda [C]."
+      - "Con la zampa tolta le viti lato coda sono scoperte; se la lasci sul corpo, togli il ponte e porta la coxa a circa 33° [C]."
       - "Svita le quattro viti M3 × 8 e sfila il servo verso l'alto, con il passacavo nella fessura."
     tabella:
       intestazione: [Viti del servo di coxa, "Dove stanno", "Come si raggiungono"]
       righe:
         - ["2 M3 × 8 lato albero, in fori pilota", "gondola, verso l'albero", "dall'alto, a coxa diritta [C]"]
-        - ["2 M3 × 8 lato coda, in inserti", "gondola, sotto la testa dell'anima", "dall'alto, con la coxa a +30° o −30° [C]"]
+        - ["2 M3 × 8 lato coda, in inserti", "gondola, sotto la testa dell'anima", "dall'alto, a zampa tolta; con la zampa sul corpo, coxa a +30° o −30° [C]"]
     avvisi:
       - {tipo: importante, testo: "La procedura di sostituzione del servo di coxa sta solo nella ricerca (docs/ricerca/corpo-v0-revisione.json) e non è provata sul modello attuale [C] (guida/problemi/smontaggio.yaml)."}
       - {tipo: attenzione, testo: "Non girare l'albero a mano. Se la coxa non gira libera, il ponte è ancora montato."}
@@ -369,7 +415,17 @@ passi:
   - id: "15.12"
     titolo: Altre parti del corpo
     formato: grande
-    immagine: false
+    mostra: ["corpo/*"]
+    nascondi: *guscio
+    in_evidenza: [corpo/Corpo_Vassoio, corpo/Basetta, corpo/ESP32, corpo/SSC32, "corpo/Regolatore_*", "corpo/Corpo_Slitta_Regolatore_*", corpo/Corpo_Chiglia, corpo/Portafusibile_F1, "corpo/Wago_*"]
+    vista: {direzione: [0.8, -0.55, 0.5], su: [0, 0, 1]}
+    etichette:
+      - {testo: vassoio, chiave: corpo/Corpo_Vassoio}
+      - {testo: SSC-32, chiave: corpo/SSC32}
+      - {testo: regolatore, punto: [35.6, -45.5, -10.0]}
+      - {testo: chiglia, punto: [-10.0, -28.0, -60.0]}
+      - {testo: F1, chiave: corpo/Portafusibile_F1}
+      - {testo: Wago, chiave: corpo/Wago_meno}
     testo:
       - "Togli il carapace prima di ogni parte della tabella."
       - "Stacca le spine di ogni parte prima delle viti, e segna dove andavano."

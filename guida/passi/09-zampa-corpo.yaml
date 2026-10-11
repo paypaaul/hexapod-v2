@@ -70,11 +70,12 @@ passi:
     titolo: Squadretta sul servo di coxa
     formato: grande
     nuovi: [zampa/Squadretta_coxa@AS]
-    esploso: {asse: [0, 0, 1], distanza: 30}
-    vista: {direzione: [0.28, 0.51, 0.8], su: [0, 0, 1]}
-    nascondi: [corpo/Corpo_Base, corpo/Corpo_Chiglia]
-    mostra: [corpo/Corpo_Base, corpo/Corpo_Chiglia, corpo/Servo_Coxa_AS, corpo/Cuscinetto_Coxa_AS]
-    etichette: [{testo: AS, chiave: corpo/Servo_Coxa_AS}]
+    # il cavalletto e' un attrezzo (in_evidenza): l'esploso va dato per pezzo, se no salirebbe anche lui
+    esploso: {pezzi: {"zampa/Squadretta_coxa@AS": [0, 0, 45]}}
+    in_evidenza: [attrezzo/Cavalletto]
+    vista: {direzione: [0.35, 0.6, 0.72], su: [0, 0, 1]}
+    mostra: [corpo/Corpo_Base, corpo/Corpo_Chiglia, "corpo/Servo_Coxa_*", "corpo/Cuscinetto_Coxa_*"]
+    etichette: [{testo: AS, chiave: corpo/Servo_Coxa_AS}, {testo: cavalletto, chiave: attrezzo/Cavalletto}]
     testo:
       - "Posa il corpo sul cavalletto, con la chiglia in appoggio."
       - "Controlla che il servo AS sia ancora a metà corsa (sezione 5) [C]."
@@ -111,6 +112,7 @@ passi:
     mostra: [zampa/Coxa@AS]
     esploso: {asse: [0, 0, 1], distanza: 35}
     vista: zampa_A
+    evidenzia: [{chiave: zampa/Coxa@AS, lav: foro_perno}]
     testo:
       - "Infila il perno nel foro del braccio, dal lato del rialzo."
       - "Premi il perno finché sotto il braccio ne sporgono 1,4 mm [V]."
@@ -128,9 +130,15 @@ passi:
         esclusi: [zampa/Squadretta_coxa@AS, zampa/Perno_coxa@AS, zampa/Coxa_Ponte@AS, zampa/Cover_Femore_B@AS,
                   zampa/Cover_Femore_B_Feritoia@AS, zampa/Ingombro_Teste_A@AS]
         nome: Zampa montata (sezione 6)
-    nascondi: [zampa/Perno_coxa@AS]
-    esploso: {asse: [0, 0, -1], distanza: 30}
-    vista: {direzione: [0.2, 0.95, 0.25], su: [0, 0, 1]}
+    # coxa a -40: la zampa AS (a +30 nel robot) punta a -10, di traverso alla vista dal lato sinistro. Il perno, montato
+    # in 9.03, va in in_evidenza perche' segua l'esploso della zampa; l'esploso e' lungo l'asse della zampa ruotata
+    # (cos -10, sin -10) e in basso, esagerato rispetto ai 6 mm del testo perche' si veda.
+    posa: {coxa: -40}
+    in_evidenza: [zampa/Perno_coxa@AS]
+    mostra: [corpo/Corpo_Base, corpo/Corpo_Chiglia, "corpo/Servo_Coxa_*", "corpo/Cuscinetto_Coxa_*", zampa/Squadretta_coxa@AS]
+    esploso: {asse: [0.985, -0.174, -0.45], distanza: 50}
+    vista: {direzione: [0.15, 0.6, 0.79], su: [0, 0, 1]}
+    etichette: [{testo: cuscinetto, chiave: corpo/Cuscinetto_Coxa_AS}, {testo: perno, chiave: zampa/Perno_coxa@AS}]
     testo:
       - "Ruota la zampa di circa 40° [V] rispetto alla gondola, da una parte o dall'altra."
       - "Tienila 6 mm [V] più in basso e spingila verso il corpo lungo il suo asse."
@@ -149,6 +157,10 @@ passi:
     esploso: {asse: [0, 0, 1], distanza: 30}
     mostra: [corpo/Servo_Coxa_AS, zampa/Coxa@AS, zampa/Squadretta_coxa@AS, zampa/Servo_femore@AS]
     vista: {direzione: [0.28, 0.51, 0.8], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: zampa/Coxa@AS, lav: "ins_ponte_*"}
+      - {chiave: zampa/Coxa@AS, lav: sede_linguetta}
+      - {chiave: zampa/Coxa_Ponte@AS, lav: "foro_testa_*"}
     testo:
       - "Controlla i due inserti a filo nella testa dell'anima (sezione 3)."
       - "Cala il ponte: linguetta nella sede, teste delle viti-spina nei fori, disco nella sede."
@@ -165,6 +177,9 @@ passi:
     formato: grande
     mostra: [corpo/Servo_Coxa_AS, zampa/Coxa@AS, zampa/Coxa_Ponte@AS, zampa/Squadretta_coxa@AS, zampa/Servo_femore@AS]
     vista: {direzione: [0.28, 0.51, 0.8], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: zampa/Coxa_Ponte@AS, lav: "feritoia_fascetta_*"}
+      - {chiave: zampa/Coxa_Ponte@AS, lav: gola_fascetta}
     etichette: [{testo: fascetta, punto: [100.8, 56.0, 23.5]}]
     testo:
       - "Posa i cavi di femore e ginocchio sul braccio del ponte, verso l'asse della coxa."
@@ -181,7 +196,12 @@ passi:
   - id: "9.07"
     titolo: Spine sulla SSC-32
     formato: grande
-    immagine: false
+    # la prolunga e i cavi non sono nel CAD: in giallo le file delle spine dei servo, dove arrivano
+    mostra: [corpo/Corpo_Base, corpo/SSC32, corpo/Servo_Coxa_AS, zampa/Coxa@AS, zampa/Coxa_Ponte@AS, zampa/Servo_femore@AS,
+             zampa/Squadretta_coxa@AS]
+    evidenzia: [{chiave: corpo/SSC32, lav: "corpo:zona_spine_servo"}]
+    vista: {direzione: [0.25, 0.2, 0.95], su: [1, 0, 0]}
+    etichette: [{testo: SSC-32, chiave: corpo/SSC32}, {testo: AS, chiave: zampa/Coxa_Ponte@AS}]
     testo:
       - "Infila la prolunga da 15 cm sulla spina del ginocchio; chiudi la giunzione con il termorestringente."
       - "Collega le spine ai canali della tabella, filo marrone verso il bordo della scheda [S]."
@@ -204,9 +224,14 @@ passi:
     formato: grande
     giunzioni: [{id: alette_coxa_coda, stringi: true}, {id: alette_coxa_albero, stringi: true}]
     # solo il servo AS: con tutto il corpo la giunzione disegna le viti di tutte e sei le gondole
-    mostra: [corpo/Corpo_Base, corpo/Servo_Coxa_AS, corpo/Cuscinetto_Coxa_AS, zampa/Squadretta_coxa@AS]
+    # coxa a -30 (posa): la testa dell'anima si sposta e scopre le teste lato coda
+    posa: {coxa: -30}
+    mostra: [corpo/Corpo_Base, corpo/Servo_Coxa_AS, corpo/Cuscinetto_Coxa_AS, zampa/Squadretta_coxa@AS, zampa/Coxa@AS,
+             zampa/Coxa_Ponte@AS, zampa/Servo_femore@AS]
     nascondi: [corpo/Corpo_Base]
-    vista: {direzione: [0.28, 0.51, 0.8], su: [0, 0, 1]}
+    # quasi dall'alto, come la chiave: le viti lato albero stanno 2,6 mm fuori dal disco del ponte e di sbieco si coprono
+    vista: {direzione: [0.15, 0.25, 0.95], su: [0, 0, 1]}
+    etichette: [{testo: coxa a 30°, chiave: zampa/Coxa_Ponte@AS}]
     testo:
       - "Stacca la spina della coxa dalla SSC-32 e collegala al tester dei servo [C]."
       - "Porta la coxa a 30° con il tester, da una parte o dall'altra: le teste lato coda si scoprono."
@@ -224,9 +249,11 @@ passi:
     titolo: Fili di FSR e luci alle prese
     formato: grande
     in_evidenza: [corpo/Prese_piedi, corpo/Prese_luci]
-    mostra: [corpo/Corpo_Base, corpo/SSC32, corpo/Corpo_Vassoio, corpo/Wago_*, corpo/Tplug, corpo/Portafusibile_F1, corpo/Interruttore]
+    mostra: [corpo/Corpo_Base, corpo/SSC32, corpo/Corpo_Vassoio, corpo/Wago_*, corpo/Tplug, corpo/Portafusibile_F1, corpo/Interruttore,
+             zampa/Coxa@AS, zampa/Coxa_Ponte@AS, zampa/Servo_femore@AS]
+    evidenzia: [{chiave: zampa/Coxa_Ponte@AS, lav: "feritoia_fascetta_*"}]
     vista: {direzione: [0.25, 0.2, 0.95], su: [1, 0, 0]}
-    etichette: [{testo: piedi, chiave: corpo/Prese_piedi}, {testo: luci, chiave: corpo/Prese_luci}]
+    etichette: [{testo: piedi, chiave: corpo/Prese_piedi}, {testo: luci, chiave: corpo/Prese_luci}, {testo: AS, chiave: zampa/Coxa_Ponte@AS}]
     testo:
       - "Porta doppino e fili delle luci lungo il cavo del ginocchio fino alle prese sul tetto del tunnel."
       - "Taglia i fili lasciando l'ansa che basta con la coxa a ±30° [C]."

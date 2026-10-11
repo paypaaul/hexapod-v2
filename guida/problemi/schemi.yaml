@@ -1,0 +1,346 @@
+# Problemi trovati disegnando gli schemi della basetta e della scheda del carapace (fase F3b, D-075; formato in
+# guida/schema.md "Problemi"). Disegni e reti in guida/schemi/ (schemi.md, basetta*.svg, scheda_carapace*.svg).
+# Fori: colonna-riga (R-11). Quote in mm nella terna del robot. Campi in piu' rispetto allo schema: id (S-nn, citato in
+# schemi.md), domanda (cosa chiedere all'utente), tipo: allocazione (cambia un passo gia' scritto).
+
+- id: S-01
+  titolo: La testata 2 x 8 con la spina IDC non sta sotto la scheda del carapace
+  gravita: bloccante
+  dove: "4.06, 13.16, 13.17; guida/schemi/scheda_carapace.svg"
+  cosa: >-
+    La scheda del carapace sta a x 29,5-49,5, |y| <= 15, con la faccia alta a z 30,9 sulle bugne; sotto c'e' l'ESP32
+    (circuito a circa z 17,6, connettore FPC fino a circa 19,6, modulo fino a 20,8). Restano circa 10 mm. La testata
+    dritta del BOM (X2) e' alta circa 9 mm e con la spina innestata si arriva a 16-18 mm (predisposizioni.md: "circa
+    9 + 9 mm"); il CAD le da' 9 mm in tutto (sch_sp, S). Una testata a 90 gradi con la spina verso l'ottagono non
+    risolve: la scatola e' lunga 27,9 mm lungo Y e copre le due viti di coda (32; +-12,5), oppure, messa fra le viti, la
+    spina che esce verso -X ci passa sopra; e in ogni caso scatola e spina coprono quasi tutta la scheda (20 x 30), dove
+    devono stare anche il 470 uF e 17 piazzole. Lo schema disegnato vale per i collegamenti (piedinatura, reti,
+    prove); la posizione della testata no.
+  prove:
+    - "cad/script/rif_componenti.py:184-186 (sch_l 30, sch_w 20, sch_sp 9 con la spina: S)"
+    - "docs/predisposizioni.md:72 (testata con la spina IDC circa 9 + 9 mm, S; 470 uF Ø 6,3-8)"
+    - "docs/predisposizioni.md:130 (sotto il dorso circa 13,6 sopra l'ESP32, modulo fino a z 20,8)"
+    - "guida/dati/fori.json: Corpo_Carapace ins_sch_a-d a (32; +-12,5), (47; +-12,5), z 30,9"
+    - "cad/script/rif_componenti.py:470-476 (ESP32: connettore FPC alto 2 al centro; pin header 8,5)"
+    - "guida/problemi/carapace.yaml, primo problema (lato saldature e verso della testata non definiti)"
+  opzioni:
+    - "CAD 2.1.7: spostare la scheda fuori dall'ingombro dell'ESP32 o abbassare le cose sotto, in modo da avere 18 mm sotto la scheda (la piu' semplice per la guida)."
+    - "CAD 2.1.7: testata a 90 gradi con chiave (da comprare al posto della dritta) sul bordo verso l'ottagono, con le viti di coda spostate fuori dall'ingombro della spina (|y| >= 15) e la scheda allargata verso la testa di quanto serve a 17 piazzole e al 470 uF."
+    - "Testata senza scatola fatta piegando la strip maschio in casa, con la chiave ottenuta togliendo il pin 14 (riserva) e tappando il foro 14 della spina: costa zero ma protegge solo da una parte degli errori di verso."
+  consiglio: >-
+    Prima opzione o seconda, decise con il CAD prima di stampare il carapace. Fino ad allora la guida non fa saldare
+    la testata (4.06) e dice che la disposizione dei fili sulla scheda (scheda_carapace.svg) resta valida.
+  domanda: "Preferisci spostare la scheda del carapace (piu' spazio sotto) o passare a una testata a 90 gradi da comprare?"
+
+- id: S-02
+  titolo: "Interasse delle due file di pin dell'ESP32: 24,7 nel CAD, 25,4 sulla millefori"
+  gravita: bloccante
+  dove: "4.04; guida/schemi/basetta.svg (righe 2 e 12)"
+  cosa: >-
+    Sulla millefori le due strip femmina possono stare solo a un multiplo di 2,54: lo schema le mette a 10 passi,
+    25,4 mm (righe 2 e 12). Il CAD usa 24,7 (esp_file, C), letto come "probabile interasse" su una quota del disegno del
+    venditore; lo standard DevKitC e' 25,4. Se la scheda vera e' a 24,7 non entra in due strip saldate sulla griglia
+    (0,7 mm di troppo), e lo schema della basetta va rifatto (strip montate su un adattatore, o pin piegati). Anche il
+    passo 4.04 dice "file a 24,7 mm [C]".
+  prove:
+    - "docs/dimensioni-componenti.md:62 (quota 24,7: probabile interasse, da confermare; DevKitC 25,4)"
+    - "cad/script/rif_componenti.py:99 (esp_file 24,7 mm, C)"
+    - "docs/decisioni.md D-053 (file dei pin a |y| 12,35)"
+    - "guida/passi/04-banco.yaml, passo 4.04"
+  opzioni:
+    - "Misurare con il calibro la distanza fra i centri delle due file (sui pin), prima di tagliare la basetta."
+    - "Se e' 25,4: schema valido; il CAD (esp_file) passa a 25,4 nella 2.1.7 e D-053 va corretta (|y| 12,7)."
+    - "Se e' 24,7: strip femmina su due striscioline separate, incollate alla distanza giusta e collegate con fili; schema da rifare."
+  consiglio: Misurare per prima cosa; e' la quota da cui dipende tutta la basetta.
+  domanda: "Con il calibro, quanto misura la distanza fra le due file di pin dell'ESP32 (da centro a centro)?"
+
+- id: S-03
+  titolo: Ordine dei pin del D24V22F5 (e del D24V5F3) non letto
+  gravita: importante
+  dove: "4.04; basetta.svg, U2 in riga 4"
+  cosa: >-
+    La pagina Pololu del D24V22F5 (2858, letta il 12 ottobre 2026) elenca PG, EN, VIN, GND, VOUT e una seconda massa
+    fuori fila, ma non dice l'ordine fisico. Lo schema li mette in N-4 PG, O-4 EN, P-4 VIN, Q-4 GND, R-4 VOUT [C]. Un
+    ordine sbagliato porta la batteria (fino a 8,4 V) sull'uscita a 5 V e da li' all'ESP32. Lo stesso per il D24V5F3
+    (X3), che pero' non sta sulla basetta (S-12). Il pin EN del D24V22F5 ha 270 kOhm interni verso VIN: si lascia
+    libero (regolatore sempre acceso dopo la 2813).
+  prove:
+    - "pololu.com/product/2858 (letta il 12 ottobre 2026): pin PG, EN, VIN, GND, VOUT; EN con 270 kOhm verso VIN; due fori M2 a 13,21"
+    - "docs/dimensioni-componenti.md:148 (17,8 x 17,8 x 8) e :170 (STEP Pololu)"
+  opzioni:
+    - "Leggere la serigrafia sul regolatore prima di saldarlo e correggere schemi.md e basetta.svg se l'ordine e' diverso (i fili 1, 2, 6 e 30 cambiano capo)."
+    - "Leggerlo dallo STEP Pololu in cad/modelli/ (ha le piazzole) e dal disegno quotato della pagina."
+  consiglio: Leggere lo STEP o la serigrafia e fissare l'ordine nello schema prima della guida finale.
+
+- id: S-04
+  titolo: Piedinatura e passo fra le file del traslatore KAmod (C1) non noti
+  gravita: importante
+  dove: "4.04; basetta.svg, U4 in righe 4 e 7"
+  cosa: >-
+    Il BOM compra il KAmod Level Shift x4 di Kamami (MOSFET non dichiarato). La pagina (letta il 12 ottobre 2026) da'
+    solo 15,7 x 10,7 mm e "due strip da 6 pin a passo 2,54": niente sigle, ordine ne' distanza fra le file. Lo schema
+    assume per ogni lato l'ordine V, 1, 2, 3, 4, GND e le file a 7,62 mm (righe 4 e 7), lato 5 V (HV) in riga 4. Se
+    le file sono a un'altra distanza o le sigle in un altro ordine, il modulo non entra nei fori disegnati o i fili del
+    lato saldature vanno spostati. Non e' noto nemmeno se il modulo ha le resistenze di pull-up da 10 kOhm su tutti e
+    due i lati (le misure 2 e 4 di schemi.md 1.5 dipendono da questo).
+  prove:
+    - "kamami.pl, KAmod Level Shift x4 (letta il 12 ottobre 2026): 15,7 x 10,7 mm, 2 strip da 6 pin"
+    - "docs/BOM.md:69 (C1: tipo Adafruit 757, MOSFET non dichiarato, C)"
+  opzioni:
+    - "Fotografare il modulo dai due lati con le sigle leggibili e correggere lo schema."
+    - "Usare l'Adafruit 757 (BOM, alternativa da DigiKey) e leggere la sua piedinatura dal produttore."
+  consiglio: Foto del modulo all'arrivo, prima di saldare la basetta.
+  domanda: "Quando arriva il traslatore KAmod, puoi fotografarlo dai due lati con le scritte dei pin leggibili?"
+
+- id: S-05
+  titolo: "Pin EN dei D42V110F6: con 1 MOhm interno verso VIN per regolatore, i due in parallelo alzano l'EN a 0,72 V"
+  gravita: importante
+  dove: "4.12, 8.19, 12; basetta.svg R3"
+  cosa: >-
+    La pagina Pololu del D42V110F6 (5673, letta il 12 ottobre 2026) dice che ENA e' tirato verso VIN con 1 MOhm e che
+    per accendere va portato fra 2 e 5 V; la soglia bassa non c'e'. Con i due regolatori in parallelo le due 1 MOhm fanno
+    500 kOhm: con R3 da 47 kOhm l'EN sta a 8,4 x 47 / 547 = 0,72 V a batteria piena (0,38 V con un regolatore solo, come
+    nella prova 4.12). Con 22 kOhm sarebbe 0,35 V. Con GPIO42 alto l'EN sta a 3,3 - 0,7 = 2,6 V, sopra i 2 V chiesti,
+    con qualunque delle due resistenze. Il rischio e' il rail acceso con GPIO42 flottante, contro "rail spento di
+    default".
+  prove:
+    - "pololu.com/product/5673 (letta il 12 ottobre 2026): ENA pulled up to VIN through 1 MOhm; drive high between 2 V and 5 V"
+    - "docs/BOM.md:53 (B11: 47 kOhm e 22 kOhm di riserva, soglia non pubblicata)"
+    - "guida/passi/04-banco.yaml, passo 4.12 (un regolatore alla volta)"
+    - "guida/problemi/banco.yaml, problema sul pin di abilitazione"
+  opzioni:
+    - "Rifare la prova 4.12 con i due regolatori collegati insieme all'EN e a R3, a batteria carica (8,4 V)."
+    - "Montare 22 kOhm (0,35 V) da subito: il GPIO42 regge 150 uA senza problemi."
+  consiglio: >-
+    Prova 4.12 con i due regolatori insieme; se l'uscita non e' 0 V con 47 kOhm, 22 kOhm. Lo schema tiene R3 con
+    tutti e due i valori possibili (stessi fori).
+
+- id: S-06
+  titolo: Il PTC MF-R075 regge 0,75 A a 23 gradi, il ramo 5 V dopo il PTC arriva a circa 0,86 A
+  gravita: importante
+  dove: "4.05, 13; basetta.svg PTC1"
+  cosa: >-
+    Dopo il PTC (poli 1-2 e tibie) ci sono: LED al tetto del firmware 600 mA, LED spenti 16-58 mA (fino a 94 con le
+    voci basse) e l'amplificatore fino a circa 200 mA, che prende il 5 V dai poli 1-2. In tutto fino a circa 0,86 A
+    contro 0,75 A di tenuta a 23 gradi; sotto il carapace, vicino al regolatore chiuso sotto l'ESP32, la tenuta cala
+    (Bourns da' la riduzione con la temperatura, non riletta: C). Il PTC potrebbe intervenire con i LED al tetto e
+    l'audio forte insieme: i LED si spengono, l'ESP32 no. In piu' cablaggio.md e' ambiguo: nello schema 2 l'ampli e'
+    un ramo a parte del D24V22F5 ma "(poli 1-2)", che stanno dopo il PTC. Lo schema mette l'ampli dopo il PTC, come la
+    piedinatura del connettore.
+  prove:
+    - "docs/cablaggio.md:27-30 (PTC - LED: poli 1-2; amplificatore (poli 1-2)) e :77"
+    - "docs/predisposizioni.md:104 (tenuta di almeno circa 0,7 A: 600 mA piu' 38-94 mA, senza l'ampli)"
+    - "docs/predisposizioni.md 4.3 (amplificatore picco circa 200 mA)"
+    - "docs/BOM.md, sezione X (PTC Bourns MF-R075 x 2)"
+  opzioni:
+    - "Tetto dei LED nel firmware a 450 mA quando l'audio e' acceso (nessun pezzo in piu')."
+    - "Un PTC piu' grosso (MF-R090, 0,9 A; intervento 1,8 A: con l'ESP32 si sta ancora sotto 2,5 A)."
+    - "Ampli prima del PTC con un filo suo: cambia la piedinatura del cavo (un polo in piu') e non c'e' un polo libero oltre il 14."
+  consiglio: Prima opzione, da scrivere in software.md; si misura in P4 con LED e audio al massimo.
+
+- id: S-07
+  titolo: "Diodo 1N5819 fra il 5 V del regolatore e il pin 5V dell'ESP32 (scelta dello schema)"
+  gravita: importante
+  dove: "4.04, 4.08; basetta.svg D1"
+  cosa: >-
+    Non si sa se la UICPAL ha un diodo fra la USB e il pin 5V (banco.yaml). Senza diodo, con la sola USB collegata
+    (al banco e per il flash) la USB alimenterebbe all'indietro il 5 V della basetta: buffer, traslatore, PTC e LED, e
+    attraverso il regolatore forse anche il ramo della batteria. Lo schema mette sempre il 1N5819 del BOM C3 (catodo
+    verso l'ESP32). Costo: 0,3-0,45 V di caduta; il pin 5V riceve 4,55-4,7 V. Il regolatore della scheda (non
+    documentato) deve dare 3,3 V anche cosi', con Wi-Fi, camera e, senza X3, i sensori.
+  prove:
+    - "docs/BOM.md:71 (C3: diodo Schottky, solo se la scheda non si accende dal pin 5V)"
+    - "guida/problemi/banco.yaml, problema 'ESP32 su USB e sul pin 5V insieme'"
+    - "docs/piano-elettronica-software.md 3.1 (prova del 3V3 della scheda con ToF e Wi-Fi accesi: non sotto 3,0 V)"
+  opzioni:
+    - "Tenere D1 e misurare il 3V3 sotto carico in P2; se cala sotto 3,0 V, X3 per i sensori."
+    - "Se la misura del passo 4.03 (pin 5V con la sola USB) da' 0 V, la scheda ha gia' il diodo: D1 si sostituisce con un ponticello."
+  consiglio: Tenere D1 finche' la misura del passo 4.03 non dice il contrario.
+
+- id: S-08
+  titolo: Sotto l'ESP32 la basetta e' piena; PTC sopra il buffer a 8,1 mm su 8,5
+  gravita: importante
+  dove: "4.04, 4.05; basetta.svg"
+  cosa: >-
+    Fra le due file di pin restano 9 righe per 20 colonne, con quattro zone sotto le viti e il regolatore da 17,8 x 17,8.
+    Per farci stare buffer, traslatore, PTC, due diodi e sette resistenze lo schema: mette D2 e R3 sotto il
+    traslatore rialzato sulle sue strip (2,5 mm di luce contro 1,9 e 2,3); sdraia il PTC sopra il buffer (5,1 + 3,0 =
+    8,1 mm, con 8,5 mm all'ESP32); usa un solo canale del buffer; sposta fuori la 100 kOhm di GPIO41 (S-11) e il
+    D24V5F3 (S-12). Il lato inferiore dell'ESP32 e' modellato solo con la sede della microSD: se ha altri componenti
+    (condensatori, LED) sopra il PTC o il regolatore, l'ESP32 non entra fino in fondo.
+  prove:
+    - "docs/decisioni.md D-053 (8,5 mm d'altezza, 6,6 sotto la microSD)"
+    - "cad/script/rif_componenti.py:470-476 (ESP32: solo slot_tf sotto il circuito)"
+    - "docs/predisposizioni.md:126 (basetta piena per meta' prima di buffer, PTC e cavo piatto)"
+  opzioni:
+    - "Guardare il lato inferiore dell'ESP32 e provare a secco con i componenti appoggiati prima di saldare."
+    - "Se il PTC non sta: PTC in linea sul filo del 5 V LED appena fuori dalla basetta, nella guaina."
+  consiglio: Prova a secco al banco; se l'ESP32 non va in fondo, PTC in linea.
+  domanda: "Sotto l'ESP32 (lato senza modulo) ci sono componenti oltre alla sede della microSD? Una foto basta."
+
+- id: S-09
+  titolo: Piazzole a 5 V accanto ai pin dell'ESP32
+  gravita: importante
+  dove: "4.04, 4.05; schemi.md 1.5, prova 5"
+  cosa: >-
+    Le righe 1 e 13 sono le sole fuori dall'ESP32 e confinano con le strip: nella riga 13 il cavo piatto porta il +5 V
+    dei LED (C-13, D-13) e il dato a 5 V (F-13, T-13) accanto a GPIO20, GPIO21, GPIO48 e GPIO43; il VCC del buffer (E-11)
+    confina con GPIO47. Un ponte di stagno porterebbe 5 V su un GPIO dell'ESP32-S3, che non lo regge. Non c'e' un
+    ordine dei poli che eviti tutte le vicinanze: la riga 12 ha solo pin dell'ESP32.
+  prove:
+    - "guida/schemi/schemi.md 1.2 (verifiche) e 1.5 (prova 5)"
+    - "docs/cablaggio.md:132-143 (piedinatura del cavo piatto)"
+  opzioni:
+    - "Prova 5 obbligatoria con l'ESP32 fuori, foro per foro (scelta dello schema)."
+    - "Nastro isolante sulle piazzole libere della riga 12 dal lato saldature."
+  consiglio: Prova 5 nella guida come passo con tabella, prima di inserire l'ESP32.
+
+- id: S-10
+  titolo: Tensione dei pin A e B della 2813 sconosciuta
+  gravita: importante
+  dove: "8.23, 13.16; scheda_carapace.svg A-4, B-4"
+  cosa: >-
+    Il pulsante del carapace va ai pin A e B della 2813 attraverso i poli 15-16. La pagina Pololu dice solo che A si
+    collega a B (o a massa) con un pulsante; la tensione a cui stanno i due pin non e' scritta e potrebbe essere vicina a
+    quella della batteria. Per questo lo schema non fa passare i poli 15-16 sulla basetta (si giuntano ai fili della
+    2813), ma sulla scheda del carapace le piazzole A-4 e B-4 confinano con SDA e SCL, e nella testata il polo 15 sta
+    accanto al 13 (dati dell'ampli) per la piedinatura documentata.
+  prove:
+    - "pololu.com/product/2813 (letta il 12 ottobre 2026): A e B per il pulsante esterno; nessuna tensione indicata"
+    - "docs/cablaggio.md:80 e :143 (poli 15-16)"
+  opzioni:
+    - "Misurare A e B contro massa con la 2813 accesa e spenta, al banco (passo 4.08)."
+    - "Se superano 3,6 V: spostare il pulsante sui fori A-10, B-11 (vicini alla vite) con le loro piazzole nastrate."
+  consiglio: Misurare al passo 4.08 e scrivere il valore in cablaggio.md.
+  domanda: "Al banco, con la 2813 accesa, quanti volt ci sono fra il pin A e la massa, e fra il B e la massa?"
+
+- id: S-11
+  titolo: La 100 kOhm di GPIO41 si salda sulla 2813, sempre
+  tipo: allocazione
+  gravita: minore
+  dove: "4.04, 8.19"
+  cosa: >-
+    cablaggio.md la mette "se scatta da sola" e il passo 4.04 sulla basetta. Sulla basetta non c'e' posto, e il pin OFF
+    della 2813 spegne sopra 1 V (Pololu): con GPIO41 flottante durante il reset un disturbo spegnerebbe il robot. Lo
+    schema la mette sempre, fra OFF e massa della 2813 (stesso circuito, all'altro capo del filo).
+  prove:
+    - "docs/cablaggio.md:79; docs/software.md:262 (eventuale 100 kOhm, C)"
+    - "pololu.com/product/2813 (letta il 12 ottobre 2026): OFF, impulso alto sopra 1 V spegne"
+  opzioni:
+    - "Passo 8.19: saldare la 100 kOhm fra OFF e massa della 2813."
+  consiglio: Come lo schema.
+
+- id: S-12
+  titolo: Il regolatore 3,3 V dei sensori (X3) non sta sulla basetta
+  gravita: minore
+  dove: "4.05; basetta.svg J1"
+  cosa: >-
+    Il D24V5F3 (13 x 10) non trova posto sotto l'ESP32. Lo schema prepara la scelta con il ponticello J1 (T-3 - S-3):
+    chiuso, i sensori prendono il 3,3 V dell'ESP32; con X3, J1 si toglie e il D24V5F3, montato nel vano sotto il vassoio
+    o in linea nella guaina, prende VIN da B-9 (secondo filo), massa da E-1 (insieme al ramo 4) e porta l'uscita in S-3.
+    Mai J1 e X3 insieme: due regolatori sulla stessa linea.
+  prove:
+    - "docs/predisposizioni.md:108 e :164 (X3 sulla basetta o nel vano sotto il vassoio)"
+    - "docs/piano-elettronica-software.md:77 (senza X3, 3,3 V dal regolatore della scheda)"
+  opzioni:
+    - "X3 solo se la prova del 3,3 V fallisce, come deciso; posto nel vano da trovare allora."
+  consiglio: Come lo schema; X3 non si compra finche' la prova non lo chiede.
+
+- id: S-13
+  titolo: Pull-up del bus a 4,7 kOhm sulla basetta, con i pull-up dei moduli non tutti noti
+  gravita: importante
+  dove: "4.05, 8.28; basetta.svg R4, R5"
+  cosa: >-
+    Obiettivo 1,0-1,4 kOhm in tutto, minimo 0,97. Tre schede Adafruit (ADS7830, due INA260) danno 3,3 kOhm; GY-6500 e
+    ToF Pololu hanno pull-up propri di valore non noto (se 10 kOhm, 2,0 kOhm in tutto); con 4,7 kOhm sulla basetta circa
+    1,4 kOhm, con anche il ToF posteriore circa 1,2. L'espansore SparkFun TCA9534 (X20) ha di solito pull-up da 2,2
+    kOhm attivi (non letto): con quelli si scende a circa 0,8 kOhm, sotto il minimo. Il GY-6500 ha i pull-up dopo il suo
+    regolatore: la misura con il multimetro fra SDA e 3,3 V (passo 8.28) non li vede tutti.
+  prove:
+    - "docs/piano-elettronica-software.md:133-138 (pull-up: obiettivo, schede Adafruit, regola per le voci basse)"
+    - "docs/cablaggio.md:42 (pull-up sulla basetta)"
+    - "docs/BOM.md, sezione X (SparkFun Qwiic GPIO DEV-17047)"
+  opzioni:
+    - "Tenere 4,7 kOhm; con l'espansore tagliare il suo ponticello dei pull-up; misurare il tempo di salita se c'e' un oscilloscopio."
+    - "Lasciare R4 e R5 non montate e decidere dopo la misura con i moduli collegati."
+  consiglio: >-
+    4,7 kOhm; al passo 8.28 il valore atteso diventa "circa 1,2-1,6 kOhm, mai sotto 0,97"; ponticello dei pull-up
+    dell'espansore tagliato (da guardare sul pezzo).
+
+- id: S-14
+  titolo: robot.yaml non contiene i pin dell'ESP32
+  gravita: minore
+  dove: "schemi.md 1.2"
+  cosa: >-
+    Il compito cita robot/robot.yaml fra le fonti dei pin, ma il file ha solo canali dei servo, guardia, andatura e
+    massa. Le assegnazioni dei GPIO stanno in piano-elettronica-software.md 2.3 e, per GPIO42, in firmware/main/main.cpp.
+    Quando il firmware avra' i driver, i pin dovrebbero stare in un solo posto (robot.yaml e header generato).
+  prove:
+    - "robot/robot.yaml (85 righe, nessun GPIO)"
+    - "docs/piano-elettronica-software.md:83-102; firmware/main/main.cpp:14"
+  opzioni:
+    - "Aggiungere una sezione pin a robot.yaml e generarla nell'header (lavoro del software, S1)."
+  consiglio: Nella fase S1, non nella guida.
+
+- id: S-15
+  titolo: Piedinatura dell'ESP32 presa dall'immagine dell'inserzione
+  gravita: importante
+  dove: "4.04; basetta.svg righe 2 e 12"
+  cosa: >-
+    L'ordine dei 40 pin viene dall'immagine "Pin definitions" del venditore, con l'antenna in alto, e non e' scritto da
+    quale lato e' vista. Lo schema la legge dal lato dei componenti: con l'antenna verso la testa, 3V3...5V a sinistra
+    (+Y, riga 2) e GPIO43...GND a destra (riga 12). Se fosse vista dal retro, le due file si scambierebbero e il 5 V
+    finirebbe su GPIO19.
+  prove:
+    - "docs/dimensioni-componenti.md:70-93 (pinout dall'immagine dell'inserzione, S)"
+  opzioni:
+    - "Leggere la serigrafia accanto ai pin (5V, GND, 3V3 di solito sono scritti) prima di saldare le strip."
+  consiglio: Controllo con la serigrafia al passo 4.03, insieme alla sigla RE1.3.
+
+- id: S-16
+  titolo: Collegamenti diversi dai passi scritti (connettore di prova, fili al banco, poli 15-16)
+  tipo: allocazione
+  gravita: importante
+  dove: "4.04, 4.05, 4.06, 4.12, 8.18-8.25, 8.28, 13.16"
+  cosa: >-
+    Lo schema cambia dove si salda una parte dei fili, per altezza e per sicurezza: fili verso 2813, regolatori e
+    SSC-32 saldati sulla basetta al banco e usciti dal bordo di coda; seriale con tre fili e Dupont invece del
+    "connettore di prova"; poli 15-16 separati dal cavo piatto e giuntati ai fili della 2813; fili delle tibie saldati
+    al banco; bus in riga 1 con un ramo per foro; microfoni uniti fra loro e cavo Qwiic tagliato sulla scheda del
+    carapace. La tabella e' in schemi.md, sezione 3.
+  prove:
+    - "guida/schemi/schemi.md, sezione 3"
+  opzioni:
+    - "Riportare le modifiche nei passi in F3c, con le figure."
+  consiglio: Farlo in F3c insieme alle figure.
+
+- id: S-17
+  titolo: Presa Qwiic ed espansore TCA9534 senza posto sulla scheda del carapace
+  gravita: minore
+  dove: "13.16; scheda_carapace.svg A-2...B-3"
+  cosa: >-
+    predisposizioni.md mette sulla scheda la presa Qwiic e l'espansore (X20). Il connettore JST SH a passo 1 mm e' SMD e
+    non si salda sulla millefori; la SparkFun DEV-17047 e' un modulo a se'. Lo schema usa un cavo Qwiic tagliato (X1) con
+    i fili sulla scheda e la spina libera; l'espansore si innesta li' e il ToF posteriore porta l'XSHUT direttamente a
+    un suo I/O. Dove appoggiare l'espansore sotto il dorso non e' deciso.
+  prove:
+    - "docs/predisposizioni.md:66 e :75 (presa Qwiic ed espansore sulla scheda)"
+    - "docs/cablaggio.md:153-154"
+  opzioni:
+    - "Espansore fissato con biadesivo sotto il dorso accanto alla scheda; posto nel CAD 2.1.7."
+  consiglio: Insieme a S-01.
+
+- id: S-18
+  titolo: Diametro del 470 uF e resistenza da 100 kOhm sul lato saldature
+  gravita: minore
+  dove: "4.06; scheda_carapace.svg CE1, R8"
+  cosa: >-
+    CE1 sdraiato occupa le colonne A e B fra le righe 5 e 9: ci sta con Ø 6,3, non con Ø 8 (predisposizioni.md: 6,3-8).
+    La 100 kOhm dei microfoni (D-074) non trova tre passi liberi sul lato componenti e sta sdraiata sul lato saldature, con
+    la guaina, sotto 3,5 mm di dorso.
+  prove:
+    - "docs/predisposizioni.md:72 (470 uF Ø 6,3-8, S); docs/BOM.md, sezione X (X2: 470 uF 10 V)"
+    - "docs/decisioni.md:639 (D-074: pull-down da 100 kOhm sulla linea dati)"
+  opzioni:
+    - "Ordinare il 470 uF 10 V in Ø 6,3 (per esempio 6,3 x 11)."
+  consiglio: Ø 6,3 all'ordine di X2.
