@@ -6,73 +6,99 @@
 
 - titolo: Il guscio della tibia copre una vite delle alette, che D-049 vuole stretta per ultima
   gravita: importante
-  dove: "6.04, 6.10"
+  dove: "6.04, rinviati 6.R1 e 6.R2"
   cosa: >-
     Il fianco +Y del guscio (Y 24,55-26,15, da X 120 al fronte, da Z -16 in giu') sta sopra la vite d'aletta lato coda
-    verso il fronte (X 125, Z -34,25): un fascio di raggi Ø2,8 lungo +Y dalla testa della vite lo incontra a 9,6 mm.
-    Con il guscio montato la vite non si avvita ne' si stringe con una chiave dritta. D-049 dice di stringere le
-    quattro viti delle alette per ultime, a femore montato; il piano della guida (sezione 6) mette il guscio nella
-    tibia, prima della coxa e del femore. Le altre tre viti non sono coperte dal guscio. Il guscio invece si monta
-    anche a femore montato: lungo -X la sua corsa e' libera da femori, lame, squadretta e perno (posa di riferimento).
+    verso il fronte: asse a X 125, Z -34,65 (ins_coda, spostato di 0,4 lungo l'asola; -34,25 e' il foro dell'aletta).
+    Un fascio di raggi Ø2,8 lungo +Y dalla testa della vite incontra il fianco a 9,6 mm: con il guscio montato la vite
+    non si avvita ne' si stringe con una chiave dritta. D-049 dice di stringere le quattro viti delle alette per
+    ultime, a femore montato; il piano della guida (sezione 6) mette il guscio nella tibia, prima della coxa e del
+    femore. Le altre tre viti non sono coperte dal guscio. Il guscio si monta anche a femore montato: lungo -X la sua
+    corsa e' libera da femori, lame, squadretta e perno (posa di riferimento).
   prove:
     - "docs/decisioni.md D-049 (alette strette per ultime), docs/progetto-meccanico.md 'Modello in Fusion (zampa v0)'"
     - "docs/piano-guida.md, sezione 6: tibia (... guscio, piedino) -> coxa -> ... -> alette strette per ultime"
     - "cad/script/zampa.py fai_cover_tibia: y1 = -(zy_fondo_est - cov_tib_gio - cov_tib_sp) = 26,15; via_fianco_piu toglie il fianco solo sopra Z -16"
-    - "guida/dati/fori.json: alette del Servo_ginocchio a X 115/125, Z -34,25 e 13,75"
+    - "guida/dati/fori.json: Tibia ins_coda_b a X 125, Z -34,65; aletta del Servo_ginocchio a X 125, Z -34,25"
   opzioni:
-    - "Guscio dopo le alette strette, in fondo alla sezione 6 (nessun cambio al CAD; e' quello che fa la bozza: 6.10 va spostato dalla F3)."
+    - "Guscio dopo le alette strette (nessun cambio al CAD): la bozza lo tiene in `rinviati` con il diffusore, la F3 lo mette dopo il passo delle alette."
     - "Foro d'accesso Ø3 nel fianco +Y del guscio, in asse con la vite (si vede sul fianco)."
     - "Stringere le alette prima di montare il femore (contro D-049: il servo non si allinea al cuscinetto)."
-  consiglio: Guscio dopo le alette; il diffusore (6.09) si prepara quando si vuole. Nessun cambio al CAD.
+  consiglio: Guscio dopo le alette; il diffusore si mette nel guscio sciolto quando si vuole. Nessun cambio al CAD.
 
-- titolo: Le viti delle alette lato albero del ginocchio si raggiungono solo con la lama A tolta e il ginocchio ruotato
+- titolo: Le viti delle alette del ginocchio si raggiungono solo con la lama A tolta, il ginocchio fra 45 e 75 gradi e un cacciavite a brugola dritto
   gravita: importante
   dove: "6.04 e il passo delle alette strette (F3)"
   cosa: >-
-    Nella posa di riferimento (gamma 90) la chiave lungo +Y sulla vite lato albero verso la coxa (X 114,4, Z 13,75)
-    incontra Femore_A a 13,3 mm e la lama A a 15,7; quella verso il fronte (X 125,6) incontra la lama A. Ruotando il
-    femore attorno all'asse del ginocchio a passi di 15 gradi, Femore_A libera le due viti lato albero da gamma 75 in
-    giu' (femore ripiegato verso la tibia), mentre le viti lato coda restano libere fino a gamma 45: con gamma fra 45
-    e 75 le quattro viti si raggiungono, a lama A tolta. La lama A le copre a ogni angolo. Il passo delle alette
-    strette deve dire l'angolo del ginocchio, e la lama A va dopo (il piano la mette gia' in fondo).
+    Chiave lungo +Y sulle quattro viti, ruotando il femore attorno all'asse del ginocchio a passi di 15 gradi
+    (gamma da 0 a 150): lato albero X 114,4 coperta da Femore_A per gamma >= 90; lato albero X 125,6 coperta da
+    Femore_A per gamma >= 135; lato coda X 115 coperta per gamma <= 30, lato coda X 125 per gamma <= 15. La lama A le
+    copre a ogni angolo. Le quattro viti sono libere fra gamma 45 e 75, con la lama A tolta; le viti lato coda sono
+    libere per gamma >= 45. Il ginocchio va portato a 45-75 alimentando il servo (tester o SSC-32 della sezione 5),
+    non trascinando il riduttore a mano. La chiave a L da 2,5 ha il braccio corto di circa 18 mm [S, ISO 2936 a
+    memoria]: ruotando urta Femore_A e le teste del lato A. Serve un cacciavite a brugola dritto da 2,5.
   prove:
     - "Raggi su Femore_A, Cover_Femore_A, Femore_B, Squadretta_ginocchio, Ingombro_Teste_A ruotati attorno a X 120, Z 0"
+    - "Verificatore dell'ordine (F2): stessi intervalli, chiave a L e verso del servo"
     - "docs/piano-guida.md 'Candidati problema': vite d'aletta del servo del femore sotto Femore_A (stesso tipo, all'anca)"
   opzioni:
-    - "Nel passo delle alette strette: ginocchio fra 45 e 75 gradi (gamma minimo 43 con il femore a 0, tabella di progetto-meccanico.md), lama A non ancora montata."
+    - "Nel passo delle alette strette: servo alimentato e portato a gamma 45-75 (gamma minimo 43 con il femore a 0, tabella di progetto-meccanico.md), lama A non ancora montata, cacciavite a brugola dritto da 2,5 nel catalogo degli attrezzi."
     - "Accesso con una chiave a testa sferica inclinata (da provare sul pezzo)."
-  consiglio: La F3 verifichi l'angolo nel CAD con i giunti veri e lo scriva nel passo; lama A dopo le alette.
+  consiglio: La F3 verifichi l'angolo nel CAD con i giunti veri e lo scriva nel passo; lama A dopo le alette; aggiungere il cacciavite dritto.
 
-- titolo: La testa della vite del guscio appoggia su una faccia curva, e l'avviso dei 0,03 mm oltre il fondo e' falsato
+- titolo: Come si preme il cuscinetto del ginocchio
   gravita: importante
-  dove: "6.10"
+  dove: "6.02"
   cosa: >-
-    La vite M3 x 10 del guscio entra dal fronte (X circa 133) verso -X. Sotto la testa Ø5,5 la faccia esterna del
-    guscio e' il fronte convesso R 288: va da X 133,37 (Z -85,25) a 132,14 (Z -90,75), 1,23 mm di dislivello, senza
-    una lamatura piana. La testa tocca solo sul bordo alto. Il controllo 'lunghezze' prende come appoggio l'estremo
-    piu' basso del foro passante (X 132,39) e trova la punta 0,03 mm oltre il fondo del foro dell'inserto (X 122,42).
-    Con l'appoggio sul bordo alto la punta resta circa 0,95 mm sopra il fondo, ma il PLA sotto il bordo della testa
-    si segna e la vite puo' allentarsi; se il PLA cede di 1 mm la vite tocca il fondo.
+    Il cuscinetto entra forzato dal lato B nella sede del fondo della culla (forzamento da provino, cus_sede_d).
+    Una morsa piana non va: sul lato A la culla e' aperta (orlo a Y 9,45) e la ganascia toccherebbe solo lo stinco, a
+    circa 40 mm dall'asse; sul lato B premerebbe insieme flangia e anello interno, che sono a filo, e rovinerebbe il
+    cuscinetto. Se il provino da' un forzamento leggero basta il pollice; altrimenti serve un tubetto sulla sola
+    flangia (Ø esterno <= 11,5, interno >= circa 8) e un distanziale dal lato A lungo almeno 45 mm, appoggiato sul
+    fondo interno della culla attorno al foro da 7,2 [C]. Va fatto prima del servo, che chiude la culla.
+  prove:
+    - "cad/script/zampa.py _sede (sede_cuscinetto, passaggio_perno 7,2), zy_orlo 9,45; rif_componenti.py cus_flangia_d 11,6"
+    - "guida/stile.md 'Premi' (pollice o morsa a ganasce morbide)"
+    - "Verificatore dell'ordine (F2)"
+  opzioni:
+    - "Attrezzo stampato nella 2.1.7: bussola sulla flangia e distanziale per il fondo della culla, da usare in morsa."
+    - "Tubetto e distanziale di recupero, con le misure del passo [C]."
+    - "Sede tarata sul provino perche' il cuscinetto entri col pollice."
+  consiglio: Tarare la sede sul provino per il pollice; se non basta, attrezzo stampato nella 2.1.7.
+
+- titolo: La testa della vite del guscio appoggia su una faccia inclinata di circa 12,6°, e l'avviso dei 0,03 mm oltre il fondo e' falsato
+  gravita: importante
+  dove: "rinviati 6.R2"
+  cosa: >-
+    La vite M3 x 10 del guscio entra dal fronte (X circa 133) verso -X. Sotto la testa Ø5,5 il fronte del guscio e'
+    inclinato di circa 12,6° (pendenza 0,22-0,23): va da X 133,37 (Z -85,25) a 132,14 (Z -90,75), 1,23 mm di
+    dislivello; la curvatura R 288 conta per circa 0,013 mm su 5,5. Non c'e' una lamatura piana: la testa tocca solo
+    sul bordo alto. Il controllo 'lunghezze' prende come appoggio l'estremo piu' basso del foro passante (X 132,39) e
+    trova la punta 0,03 mm oltre il fondo del foro dell'inserto (X 122,42). Con l'appoggio sul bordo alto la punta
+    resta circa 0,95 mm sopra il fondo; se il PLA cede di 1 mm la vite tocca il fondo. Il foro da 6,7 e' fatto per un
+    inserto da 5,7 nominale (rif_componenti.py ins_m3_l, '5,7 + 1'). La vite e' l'unico ritegno lungo +X: i tappi a
+    rombo escono lungo +X.
   prove:
     - "costruisci controlla: 'zampa/guscio_tibia: la vite arriva a -0.03 mm dal fondo del foro'"
     - "Raggi -X sul guscio a Y 0: X 133,37 a Z -85,25; 132,77 a Z -88; 132,14 a Z -90,75"
-    - "guida/dati/fori.json: Cover_Tibia foro_vite X 129,366-132,388; Tibia ins_guscio X 129,123-122,423 (6,7 di foro, inserto da 5)"
+    - "guida/dati/fori.json: Cover_Tibia foro_vite X 129,366-132,388; Tibia ins_guscio X 129,123-122,423"
     - "cad/script/zampa.py fai_cover_tibia: bossolo_vite e foro_vite, nessuna lamatura"
   opzioni:
     - "Lamatura piana Ø6 sul fronte, profonda quanto serve a togliere il dislivello (cambia la faccia in vista)."
-    - "Vite M3 x 8: presa di 4,7 mm nell'inserto da 5 (cambia il BOM: M3 x 8 da 106 a 112, M3 x 10 da 18 a 12)."
+    - "Vite M3 x 8: presa di circa 4,7 mm (cambia il BOM: M3 x 8 da 106 a 112, M3 x 10 da 18 a 12)."
     - "Testa svasata o rondella sagomata (pezzo in piu')."
-  consiglio: Lamatura piana nella 2.1.7; fino ad allora 'stringi piano' con il dato C, come nella bozza.
+  consiglio: Lamatura piana nella 2.1.7; fino ad allora 'stringi piano', con l'inclinazione marcata V.
 
 - titolo: La striscia delle luci (6 pixel, 50 mm) e' piu' lunga della sua sede (47,5 mm)
   gravita: minore
   dove: "6.05"
   cosa: >-
-    D-068 porta le tibie a 6 pixel a 120 LED/m, 50 mm. La sede piana sul fronte va da Z -33,0 (fondo della culla) a
-    -80,5: 47,5 mm, misurata sulla mesh e uguale ai parametri (luc_tib_z0 = cul_coda 32,95; luc_tib_z1 =
-    cov_tib_fin_z1 80, piu' 0,5). Con il capo dei fili in alto a Z -33 (docs/cablaggio.md 3.3) il capo basso esce di
-    2,5 mm dalla sede e appoggia 0,5 piu' in alto. Sul pezzo che esce restano da 0,8 a 1,2 mm fino al diffusore
-    (striscia spessa 1-1,4); i sei LED stanno tutti nella finestra (da Z -37,2 a -78,8).
+    D-068 porta le tibie a 6 pixel a 120 LED/m, 50 mm (S: predisposizioni.md X9 dice 'S striscia'). La sede piana sul
+    fronte va da Z -33,0 (coda della culla) a -80,5: 47,5 mm, misurata sulla mesh e uguale ai parametri
+    (luc_tib_z0 = cul_coda 32,95; luc_tib_z1 = cov_tib_fin_z1 80, piu' 0,5). Con il capo dei fili in alto a Z -33
+    (docs/cablaggio.md 3.3) il capo basso esce di 2,5 mm dalla sede e appoggia 0,5 piu' in alto. Sul pezzo che esce
+    restano da 0,8 a 1,2 mm fino al diffusore (striscia spessa 1-1,4); i sei LED stanno tutti nella finestra
+    (da Z -37,2 a -78,8).
   prove:
     - "D-066 (sede pensata per 3 pixel a 60 LED/m, 50 mm), D-068 (6 pixel a 120 LED/m, 'le sedi del CAD non cambiano')"
     - "Raggi -X sulla tibia a Y 0 e Y -4: sede da Z -33,0 a -80,5"
@@ -81,16 +107,28 @@
     - "Allungare la sede di 3 mm verso il piede (luc_tib_z1 = cov_tib_fin_z1 + 3) nella 2.1.7."
     - "Lasciare cosi': il capo basso sporge 2,5 mm, c'e' aria."
     - "5 pixel (41,7 mm): il ramo delle tibie ne ripete 6, il firmware andrebbe cambiato."
-  consiglio: Allungare la sede nella 2.1.7; nella bozza l'avviso [C].
+  consiglio: Allungare la sede nella 2.1.7; nella bozza una NOTA con il dato V.
+
+- titolo: D-066 dice sede delle luci fino a Z -80, il taglio arriva a -80,5
+  gravita: minore
+  dove: "6.05"
+  cosa: >-
+    D-066 descrive la sede piana della striscia 'dal fondo della culla a Z -80'. Nel CAD il taglio (_taglio_faccia
+    sede_luce) e' allungato di 0,5 oltre luc_tib_z1 (est1 '0.5 mm') e arriva a -80,5, misurato sulla mesh.
+  prove:
+    - "D-066 'Blocco A'; cad/script/zampa.py fai_tibia (sede_luce, est1 0,5); raggi sulla mesh"
+  opzioni:
+    - "Correggere il testo di D-066 o progetto-meccanico.md con la 2.1.7 (insieme al problema della lunghezza)."
+  consiglio: Correggere il testo quando si allunga la sede.
 
 - titolo: Nella gola del fermo i fili stanno a filo (3,3-4,05 mm in 4)
   gravita: minore
   dove: "6.08"
   cosa: >-
-    La gola del fermo sulla parete +X della culla e' larga 4,0 e sotto i tre ponticelli ha 1,1 mm di luce: i fili
-    stanno in un solo strato. Il doppino dell'FSR (2 x 28 AWG, Ø0,9 S) e i tre fili delle luci (30 AWG, Ø0,5-0,75)
-    occupano 3,3-4,05 mm affiancati (commento di tib_fermo_w). Con i 30 AWG piu' grossi non entrano. La tacca del
-    piedino (2 x 2) e la gola dello stinco (2 x 2) portano il solo doppino: 1,8 su 2.
+    La gola del fermo sulla parete della culla dal lato del fronte e' larga 4,0 e sotto i tre ponticelli ha 1,1 mm di
+    luce: i fili stanno in un solo strato. Il doppino dell'FSR (2 x 28 AWG, Ø0,9 S) e i tre fili delle luci (30 AWG,
+    Ø0,5-0,75) occupano 3,3-4,05 mm affiancati (commento di tib_fermo_w). Con i 30 AWG piu' grossi non entrano. La
+    tacca del piedino (2 x 2) e la gola dello stinco (2 x 2) portano il solo doppino: 1,8 su 2.
   prove:
     - "cad/script/zampa.py: tib_fermo_w 4, tib_ponte_luce 0,3 + 0,8 di gola, pied_tacca 2, tib_gola_w 2"
     - "D-067 (fermo dei fili), D-073 (il 26 AWG non va)"
@@ -103,11 +141,13 @@
   gravita: minore
   dove: "6.05, 6.06"
   cosa: >-
-    Le fonti dicono dove vanno FSR e striscia, non come si fissano ne' come si saldano. L'FSR 400 Short ha le
-    linguette su una pellicola di poliestere: temperatura e tempo di saldatura non sono scritti. La coda si piega
-    sul raccordo R 1 della punta: il raggio minimo di piega non e' noto (predisposizioni X5: 'C piega della coda').
-    Non e' scritto se l'FSR e la striscia hanno l'adesivo sul retro: la bozza dice 'posa' per l'FSR (lo tiene il
-    piedino) e 'incolla con il suo adesivo [C]' per la striscia. Le lunghezze dei fili (0,5 m) sono S.
+    Le fonti dicono dove vanno FSR e striscia, non come si saldano ne' come si fissano. Per l'FSR 400 Short non sono
+    scritti temperatura e tempo di saldatura delle linguette; la bozza dice 'salda in pochi secondi con la punta a
+    bassa temperatura [C]'. La coda si piega sul raccordo R 1 della punta: il raggio minimo di piega non e' noto
+    (predisposizioni X5: 'C piega della coda'). Non e' scritto se FSR e striscia hanno l'adesivo sul retro: la bozza
+    dice 'posa' per l'FSR (lo tiene il piedino) e 'incolla con il suo adesivo [C]' per la striscia. Le lunghezze dei
+    fili (0,4-0,5 m, cablaggio.md 3.3) sono S. I colori dei tre fili delle luci non stanno in nessuna fonte: la bozza
+    propone nero massa, rosso +5 V, il terzo dato [S].
   prove:
     - "docs/predisposizioni.md X5 e X31; docs/cablaggio.md 3.3; D-066 'Blocco A'"
   opzioni:
@@ -115,9 +155,50 @@
   consiglio: Provino del piedino con un FSR vero prima delle sei tibie.
   domanda: "La striscia e gli FSR che hai (o comprerai) hanno l'adesivo sul retro?"
 
+- titolo: Le linguette dell'FSR finirebbero sopra la tasca e fuori dal piedino
+  gravita: minore
+  dove: "6.06, 6.07"
+  cosa: >-
+    Con la coda da 16 mm della libreria (rif_componenti: FSR Ø7,6 × 0,3 con coda da 16), misurata dal bordo della
+    testa, la coda piegata sul fronte porta le linguette a Z circa -93: sopra la tasca (Z -106,1…-97,1) e sopra il
+    bordo del piedino (-94,5), quindi fuori dal piedino e sotto il guscio. La tasca accoglierebbe solo la coda.
+  prove:
+    - "docs/predisposizioni.md 'Libreria Fusion' (FSR con coda da 16); cad/script/zampa.py tib_tasca_z0, tib_tasca_h, tib_piede_z0"
+    - "Verificatore dell'ordine (F2)"
+  opzioni:
+    - "Guardare la coda sull'FSR vero o sul provino del piedino; se serve, tasca piu' alta o coda accorciata (se il sensore lo permette)."
+  consiglio: Provino del piedino con un FSR vero.
+
+- titolo: La tasca dell'FSR ha quote diverse fra documenti e CAD
+  gravita: minore
+  dove: "6.06"
+  cosa: >-
+    predisposizioni.md e piano-elettronica-software.md mettono la tasca 6 × 9 × 1,2 a Z -94,5…-110 (tutta l'altezza
+    dentro il piedino). Nel CAD sta a Z -97,1…-106,1: tib_tasca_z0 = tib_punta_z - 1,5 (punta a 107,6), alta 9.
+  prove:
+    - "docs/predisposizioni.md:327; docs/piano-elettronica-software.md:321; cad/script/zampa.py tib_tasca_z0, tib_tasca_h"
+  opzioni:
+    - "Correggere i documenti con le quote del CAD (o allungare la tasca, se la coda vera lo chiede: problema precedente)."
+  consiglio: Decidere con il provino del piedino, poi allineare documenti e CAD.
+
+- titolo: Le immagini della striscia e dei fili non mostrano striscia e fili
+  gravita: minore
+  dove: "6.05, 6.06, 6.08"
+  cosa: >-
+    Striscia LED, doppino e fili non sono nel CAD: le immagini di 6.05 e 6.08 non hanno un pezzo nuovo ne' frecce, e
+    in 6.06 non si vede il percorso del doppino. Per farli vedere servirebbe evidenziare queste zone del CAD:
+    Tibia sede_luce (sede della striscia); gola_fili, ponte_fili_0..2 e sotto_ponte_0..2 (gola del fermo e
+    ponticelli); tasca_fsr, gola_fsr_0..2 e gola_fsr_zoccolo (tasca e gola del doppino); finestra_cavo e fessura_cavo
+    (uscita del cavo del servo nella testata); Piedino tacca_fili.
+  prove:
+    - "cad/script/zampa.py fai_tibia, _fermo_fili, _sede, fai_piedino (nomi delle lavorazioni)"
+  opzioni:
+    - "Lavoro sulla pipeline (lo prende il coordinatore): evidenziare lavorazioni con nome, o disegnare percorsi semplici."
+  consiglio: Pipeline.
+
 - titolo: predisposizioni.md descrive ancora la finestra del guscio chiusa da 0,6 di bianco
   gravita: minore
-  dove: "6.09"
+  dove: "rinviati 6.R1"
   cosa: >-
     Nella tabella delle predisposizioni, X31 dice 'finestra chiusa da 0,6 di bianco, sede sullo stinco: da decidere
     prima di stampare i gusci. Cambia il guscio approvato in D-061: domanda 5'. D-066 ha scelto il diffusore
@@ -144,11 +225,11 @@
 
 - titolo: Luci nelle tibie e colore del diffusore non ancora decisi
   gravita: minore
-  dove: "6.05, 6.08, 6.09"
+  dove: "6.05, 6.08, rinviati 6.R1"
   cosa: >-
     X31 e' approvata come predisposizione (D-069) ma l'utente non ha deciso se montare le luci, ne' il colore del
-    diffusore (PLA bianco o PETG traslucido fume', D-066, provino X10). La bozza li tratta come opzionali 'solo ora':
-    dopo il guscio, piedino e fascette, aggiungerli vuol dire smontare.
+    diffusore (PLA bianco o PETG traslucido fume', D-066, provino X10). La bozza li tratta come opzionali 'meglio ora'
+    (striscia e fili: dopo costa togliere guscio e fascette) e 'anche dopo' (diffusore: il guscio si toglie con una vite).
   prove:
     - "CLAUDE.md, 'Aperti e prossimi passi' punto 1; D-066; D-069"
   opzioni:

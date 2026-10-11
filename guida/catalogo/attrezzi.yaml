@@ -10,6 +10,3 @@ multimetro:        {nome: "Multimetro", icona: multimetro, uso: "tensioni dei ra
 tronchesino:       {nome: "Tronchesino", icona: tronchesino, uso: "fascette, reofori, bave di stampa"}
 spelafili:         {nome: "Spelafili", icona: spelafili, uso: "cavi 14 e 26 AWG"}
 termorestringente: {nome: "Pistola ad aria calda o accendino", icona: fiamma, uso: "guaina termorestringente (B19)"}
-# Aggiunti nella F2 (zampa, tibia). Fonte: guida/stile.md ("Premi": con il pollice o con una morsa a ganasce morbide),
-# cad/stl/README.md (provino della culla: cuscinetto forzato nella sede); icona generica finche' non c'e' un pittogramma.
-morsa:             {nome: "Morsa con ganasce morbide", icona: morsa, uso: "cuscinetti e piedini forzati (Premi)"}

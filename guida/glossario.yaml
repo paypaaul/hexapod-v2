@@ -1,0 +1,40 @@
+# Glossario della guida (D-075): termini usati nei passi e mai definiti nel testo. Serve alla sezione 0 e
+# all'appendice. Formato: termine: {definizione, fonte}. Le parole della zampa seguono la terna del CAD
+# (docs/progetto-meccanico.md "Architettura": X verso l'esterno, Y lungo l'asse del femore verso le squadrette, Z in alto).
+
+culla:
+  definizione: "Scatola stampata che tiene un servo: pareti, fondo e bugne con i fori per le viti delle alette. C'è nella coxa (servo del femore) e nella tibia (servo del ginocchio)."
+  fonte: "docs/progetto-meccanico.md 'Architettura'; cad/script/zampa.py _culla"
+testata:
+  definizione: "Parete corta della culla dal lato dell'albero del servo; ha la finestra e la fessura da cui esce il cavo."
+  fonte: "D-049; cad/script/zampa.py _sede (finestra_cavo, fessura_cavo)"
+coda della culla:
+  definizione: "Estremo della culla opposto alla testata, dove sta la coda del servo; nella tibia è verso il piede, sopra lo zoccolo da cui parte lo stinco."
+  fonte: "D-047 (servo del ginocchio con la coda verso il piede); cad/script/zampa.py _culla (zoccolo)"
+stinco:
+  definizione: "Parte lunga della tibia, dalla culla fino alla punta piana dove va il piedino."
+  fonte: "D-061 'B3', D-065; cad/script/zampa.py _stinco"
+fronte:
+  definizione: "Faccia della tibia rivolta verso l'esterno del robot (+X nel CAD): ci sono la sede delle luci, la gola dei fili e l'inserto del guscio; il guscio la copre."
+  fonte: "D-061 'B3' (guscio dal centro dello stinco al fronte); D-066 'Blocco A'"
+gola:
+  definizione: "Scanalatura poco profonda in cui corrono i fili: sullo stinco (2 × 2, fili dell'FSR) e sulla parete della culla dal lato del fronte (gola del fermo, larga 4, sotto i ponticelli)."
+  fonte: "D-066 'Blocco A'; D-067 'Fermo dei fili della tibia'"
+tasca:
+  definizione: "Incavo 6 × 9 × 1,2 sul fronte della punta dello stinco, dentro il piedino, per linguette e saldature dell'FSR."
+  fonte: "D-066 'Blocco A'; cad/script/zampa.py tasca_fsr"
+ponticelli:
+  definizione: "Tre listelli stampati sopra la gola del fermo, staccati 0,3 dalla parete: sotto restano 1,1 mm in cui si infilano i fili."
+  fonte: "D-067 'Fermo dei fili della tibia'"
+lato A:
+  definizione: "Lato della zampa con Femore_A, le squadrette e l'albero dei servo (+Y nel CAD)."
+  fonte: "guida/stile.md 'Numeri e nomi'; docs/progetto-meccanico.md 'Architettura'"
+lato B:
+  definizione: "Lato della zampa con Femore_B, i perni e i cuscinetti (−Y nel CAD)."
+  fonte: "guida/stile.md 'Numeri e nomi'; docs/progetto-meccanico.md 'Architettura'"
+passacavo:
+  definizione: "Tappo rigido da cui il cavo esce dalla cassa dell'MG996R; sporge circa 5 mm e scende nella fessura della testata."
+  fonte: "D-049"
+flangia:
+  definizione: "Bordo sporgente dell'anello esterno del cuscinetto LF-1050ZZ (Ø11,6 × 0,8): appoggia sulla faccia del pezzo e ferma il cuscinetto nella sede."
+  fonte: "cad/script/rif_componenti.py cus_flangia_d, cus_flangia_sp; docs/BOM.md D1"

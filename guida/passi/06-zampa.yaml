@@ -1,8 +1,8 @@
-# Sezione 6, la zampa pilota (D-075, docs/piano-guida.md). F2: solo la tibia (6.01-6.10). Coxa, femori, calettamento,
-# alette strette e lame arrivano nella F3, che rinumera.
-# 6.10 (guscio) va DOPO le viti delle alette strette a femore montato: il fianco +Y del guscio copre la vite lato coda
-# verso il fronte (guida/problemi/zampa.yaml, primo problema). Sta in fondo alla tibia perche' la pagina si possa
-# rivedere; la F3 lo sposta dopo il passo delle alette. Il diffusore (6.09) si mette nel guscio sciolto, quando si vuole.
+# Sezione 6, la zampa pilota (D-075, docs/piano-guida.md). F2: solo la tibia (6.01-6.08), fino alla tibia pronta per
+# il femore. Coxa, femori, calettamento, alette strette e lame arrivano nella F3, che rinumera.
+# Diffusore e guscio stanno in `rinviati`: vanno dopo il passo delle alette strette a femore montato (F3), perche' il
+# fianco del guscio dal lato A copre la vite d'aletta lato coda verso il fronte (guida/problemi/zampa.yaml, primo
+# problema).
 sezione:
   id: zampa
   numero: 6
@@ -20,24 +20,23 @@ sezione:
     - "Provini della culla, del piedino e degli inserti fatti, valori riportati nel CAD (sezione 1)."
     - "Pezzi della zampa stampati e controllati (sezione 2)."
     - "Inserti a caldo messi: 3 nella tibia, quelli di coxa e femore B (sezione 3)."
-    - "Servo provati, numerati e a metà corsa (sezione 5)."
-    - "Scelto se montare il sensore del piede (X5) e le luci della tibia (X31): vanno messi durante la tibia."
+    - "Servo provati, numerati, a metà corsa e senza gommini (sezione 5)."
+    - "Scelto se montare il sensore del piede (X5) e le luci della tibia (X31): conviene metterli durante la tibia."
   tempo: "circa 40 minuti per la tibia, la prima volta; 15 in più con FSR e luci [S]"
-  stato_elettrico: "nessuno: la zampa non è collegata. Il saldatore serve solo per FSR e luci."
+  stato_elettrico: "nessuno: la zampa non è collegata. Saldatore e multimetro servono solo per FSR e luci."
   fonti: [D-075, docs/piano-guida.md "Struttura della guida"]
   controllo:
-    - "Il cuscinetto gira libero e la flangia tocca il fondo della culla."
+    - "Il cuscinetto gira libero e la flangia appoggia sulla faccia della tibia."
     - "Il servo sta in culla con il passacavo nella fessura; la spina esce dalla testata."
     - "Le quattro viti delle alette sono accostate, non strette."
     - "Con le luci: striscia incollata, capo dei fili in alto, freccia verso il piede."
     - "Con l'FSR: il doppino esce dalla tacca del piedino; i fili passano sotto i tre ponticelli."
-    - "Il piedino è in fondo e dritto."
+    - "Il piedino è in fondo e dritto. La tibia è pronta per il femore; il guscio si monta dopo le alette."
   scheda:
     - "Servo del ginocchio (numero)"
     - "Cuscinetto e viti accostate"
     - "FSR (X5) e luci (X31)"
     - "Piedino"
-    - "Guscio (dopo le alette)"
   vista_finale: zampa_A
 
 passi:
@@ -48,7 +47,8 @@ passi:
     vista: zampa_A
     testo:
       - "Controlla i tre inserti M3 a filo: due nelle bugne lato coda, uno sul fronte dello stinco."
-      - "Controlla che fessura e finestra del cavo nella testata siano pulite, senza bave."
+      - "Controlla che fessura e finestra del cavo nella testata siano pulite."
+      - "Togli le bave di stampa da fessura e finestra."
       - "Controlla che i tre ponticelli sul fronte della culla siano interi."
     avvisi:
       - {tipo: nota, testo: "Sedi e fori hanno le misure del provino della culla (sezione 1)."}
@@ -62,13 +62,15 @@ passi:
     esploso: {asse: [0, -1, 0], distanza: 30}
     vista: zampa_B
     testo:
-      - "Premi il cuscinetto nella sede dal lato B, flangia verso fuori, fino a quando la flangia tocca il fondo."
+      - "Premi il cuscinetto nella sede dal lato B, prima del servo, flangia verso fuori."
+      - "Premi fino a quando la flangia appoggia sulla faccia della tibia."
       - "Controlla che l'anello interno giri libero con un dito."
     avvisi:
-      - {tipo: attenzione, testo: "Spingi solo sulla flangia, mai sullo schermo. Forzamento dal provino della culla [C]."}
-    attrezzi: [morsa]
+      - {tipo: attenzione, testo: "Spingi solo sulla flangia: col pollice, o con un tubetto Ø 8–11,5 e dal lato A un distanziale ≥ 45 mm attorno al foro da 7,2 [C]."}
     fonti: ["D-049: foro dietro la sede da 7,2", docs/progetto-meccanico.md "Architettura", cad/script/zampa.py _sede, cad/stl/README.md "Provino della culla"]
 
+  # I gommini si tolgono a tutti i servo nella sezione 5 (docs/dimensioni-componenti.md, docs/studio-componenti.md,
+  # cad/stl/README.md): quando la sezione 5 ci sara', la prima riga di 6.03 diventa un controllo.
   - id: "6.03"
     titolo: Servo del ginocchio nella culla
     formato: mezzo
@@ -76,11 +78,11 @@ passi:
     esploso: {asse: [0, 1, 0], distanza: 45}
     vista: zampa_A
     testo:
-      - "Controlla che sulle alette non ci siano gommini."
+      - "Togli i gommini dalle alette, se ci sono."
       - "Annota il numero del servo nella scheda della zampa."
       - "Infila la spina del cavo nella finestra della testata, da dentro la culla."
-      - "Cala il servo con l'albero verso il lato A e il passacavo nella fessura."
-    fonti: ["D-047: servo del ginocchio nella tibia, coda verso il piede", D-049, cad/stl/README.md "Provino della culla", docs/cablaggio.md 3.2]
+      - "Infila il servo nella culla dal lato A, coda verso il piede e passacavo nella fessura."
+    fonti: ["D-047: servo del ginocchio nella tibia, coda verso il piede", D-049, cad/stl/README.md "Provino della culla" punto 1, docs/dimensioni-componenti.md "MG996R" (gommini)]
 
   - id: "6.04"
     titolo: Viti delle alette, accostate
@@ -89,10 +91,10 @@ passi:
     vista: zampa_A
     testo:
       - "Accosta le due viti M3 × 8 lato coda, negli inserti."
-      - "Accosta le due viti M3 × 8 lato albero, nei fori pilota: si fanno il filetto."
-      - "Controlla che il servo si muova appena nella sede."
+      - "Accosta le due viti M3 × 8 lato albero, nei fori pilota."
     avvisi:
       - {tipo: importante, testo: "Non stringere: si stringono per ultime, a femore montato (D-049)."}
+      - {tipo: nota, testo: "Nei fori pilota Ø2,5 la vite si fa il filetto: niente inserti da quel lato (D-049)."}
     fonti: [D-049, docs/progetto-meccanico.md "Modello in Fusion (zampa v0)", guida/catalogo/giunzioni.yaml]
 
   - id: "6.05"
@@ -101,55 +103,58 @@ passi:
     mostra: [zampa/Tibia, zampa/Servo_ginocchio]
     vista: zampa_fronte
     testo:
-      - "Taglia 6 pixel di striscia sulle linee di taglio: 50 mm."
+      - "Taglia 6 pixel di striscia sulle linee di taglio: 50 mm [S]."
       - "Salda 3 fili 30 AWG al capo d'ingresso: massa, +5 V e dato."
-      - "Incolla la striscia nella sede piana del fronte, LED verso fuori [C]."
-      - "Controlla che il capo dei fili stia in alto, contro la culla, e che la freccia punti verso il piede."
+      - "Incolla la striscia nella sede piana del fronte con il suo adesivo [C], LED verso fuori."
+      - "Controlla che il capo dei fili stia in alto, contro la culla."
+      - "Controlla che la freccia della striscia punti verso il piede."
     avvisi:
-      - {tipo: opzionale, x: X31, quando: solo_ora, testo: "Dopo bisogna togliere guscio e fascette della zampa. Senza luci salta questo passo."}
-      - {tipo: importante, testo: "La sede è lunga 47,5 mm, la striscia 50: il capo basso esce di 2,5 mm dalla sede [C]."}
-      - {tipo: nota, testo: "Solo 30 AWG: sotto i ponticelli restano 1,1 mm (D-067, D-073)."}
+      - {tipo: opzionale, x: X31, quando: meglio_ora, testo: "Dopo costa togliere guscio e fascette della zampa. Senza luci salta questo passo."}
+      - {tipo: nota, testo: "La sede è lunga 47,5 mm [V], la striscia 50: il capo basso ne esce di 2,5 mm."}
+      - {tipo: nota, testo: "Colori proposti: nero massa, rosso +5 V, il terzo dato [S]. Solo 30 AWG: sotto i ponticelli restano 1,1 mm (D-067, D-073)."}
     extra:
       - {nome: "striscia WS2812B-2020 a 120 LED/m, 6 pixel", qta: 1, bom: X9}
-      - {nome: "fili siliconici 30 AWG, 3 colori, da circa 0,5 m", qta: 3, bom: X31}
+      - {nome: "fili siliconici 30 AWG, 3 colori, da 0,4–0,5 m", qta: 3, bom: X31}
     attrezzi: [saldatore, spelafili, tronchesino]
-    fonti: ["D-066, blocco A: luci nelle tibie", "D-068: 6 pixel, 50 mm", D-069, docs/cablaggio.md 3.3, docs/predisposizioni.md X31, cad/script/zampa.py sede_luce]
+    fonti: ["D-066, blocco A: luci nelle tibie", "D-068: 6 pixel, 50 mm", D-069, docs/cablaggio.md 3.3, docs/predisposizioni.md X9 e X31, cad/script/zampa.py sede_luce]
 
   - id: "6.06"
     titolo: Sensore del piede
     formato: grande
     nuovi: [zampa/FSR_piede]
     esploso: {asse: [0, 0, -1], distanza: 22}
-    vista: tibia_piede
+    vista: tibia_capovolta
     nascondi: [zampa/Cuscinetto_ginocchio]
     testo:
       - "Salda il doppino 28 AWG, rosso e nero, alle due linguette dell'FSR."
-      - "Posa la testa dell'FSR al centro della punta piana dello stinco."
+      - "Ruota la tibia con la punta in alto."
+      - "Posa la testa dell'FSR al centro della punta piana."
       - "Piega la coda sullo spigolo arrotondato del fronte."
-      - "Posa linguette e saldature nella tasca sul fronte della punta."
+      - "Posa linguette e saldature nella tasca sul fronte."
       - "Infila il doppino nella gola dello stinco, fino alla coda della culla."
     avvisi:
-      - {tipo: opzionale, x: X5, quando: solo_ora, testo: "Dopo bisogna togliere piedino, guscio e fascette della zampa. Senza FSR salta questo passo."}
-      - {tipo: attenzione, testo: "Le linguette stanno su una pellicola di plastica: saldatura breve, stagno a bassa temperatura [C]."}
-      - {tipo: nota, testo: "Solo 28 AWG: il 26 AWG non passa sotto i ponticelli (D-073). Lascia libero l'altro capo, lungo circa 0,5 m [S]: la spina si fa sul corpo."}
-    extra: [{nome: "doppino 28 AWG siliconico rosso e nero, da circa 0,5 m", qta: 1, bom: X5}]
+      - {tipo: opzionale, x: X5, quando: meglio_ora, testo: "Dopo costa togliere piedino, guscio e fascette della zampa. Senza FSR salta questo passo."}
+      - {tipo: attenzione, testo: "Salda in pochi secondi con la punta a bassa temperatura: le linguette dell'FSR non reggono il calore a lungo [C]."}
+      - {tipo: nota, testo: "Solo 28 AWG: il 26 AWG non passa sotto i ponticelli (D-073). Lascia libero l'altro capo, lungo 0,4–0,5 m [S]: la spina si fa sul corpo."}
+    extra: [{nome: "doppino 28 AWG siliconico rosso e nero, da 0,4–0,5 m", qta: 1, bom: X5}]
     attrezzi: [saldatore, spelafili]
-    fonti: ["D-066, blocco A", D-073, docs/cablaggio.md 3.3, docs/predisposizioni.md X5, cad/script/zampa.py fai_tibia]
+    fonti: ["D-066, blocco A", D-073, docs/cablaggio.md 3.3, docs/predisposizioni.md X5, cad/script/zampa.py fai_tibia, guida/problemi/zampa.yaml (dati dell'FSR)]
 
   - id: "6.07"
     titolo: Piedino
     formato: mezzo
     nuovi: [zampa/Piedino]
     esploso: {asse: [0, 0, -1], distanza: 35}
-    vista: tibia_piede
+    vista: tibia_capovolta
     nascondi: [zampa/Cuscinetto_ginocchio]
     testo:
-      - "Premi il piedino sulla punta dello stinco, con la tacca sul fronte."
-      - "Controlla che sia in fondo e dritto."
+      - "Cala il piedino sulla punta, con la tacca sul fronte."
+      - "Premi il piedino fino in fondo, dritto."
       - "Controlla che il doppino dell'FSR esca dalla tacca senza essere schiacciato."
     avvisi:
-      - {tipo: nota, testo: "Stretta dal provino del piedino: 0, −0,2 o −0,4 mm (D-064) [C]."}
-    fonti: [D-064, "D-066, blocco A: pistoncino e tacca", cad/stl/README.md "Piedino.stl"]
+      - {tipo: prova, testo: "Con l'FSR: premendo il piedino, la resistenza sul doppino cala da oltre 1 MΩ a pochi kΩ [C]."}
+    attrezzi: [multimetro]
+    fonti: [D-064, "D-066, blocco A: pistoncino e tacca", cad/stl/README.md "Piedino.stl", docs/predisposizioni.md X5]
 
   - id: "6.08"
     titolo: Fili nel fermo della culla
@@ -161,10 +166,13 @@ passi:
       - "Controlla che stiano affiancati nella gola, senza incrociarsi."
       - "Posa i fili accanto al cavo del servo, sopra la testata."
     avvisi:
-      - {tipo: opzionale, x: X5 X31, quando: solo_ora, testo: "Le spine all'altro capo si mettono dopo: sotto i ponticelli passano solo i fili."}
+      - {tipo: opzionale, x: X5 X31, quando: meglio_ora, testo: "Senza FSR e luci salta questo passo. Le spine all'altro capo si mettono dopo: sotto i ponticelli passano solo i fili."}
     fonti: [D-067, D-058, docs/cablaggio.md 3.3 "Gola del fermo"]
 
-  - id: "6.09"
+# Passi gia' scritti che vanno DOPO il passo delle alette strette a femore montato (F3): il guscio copre una vite
+# d'aletta lato coda (guida/problemi/zampa.yaml, primo problema). Il diffusore si mette nel guscio sciolto.
+rinviati:
+  - id: "6.R1"
     titolo: Diffusore nel guscio
     formato: mezzo
     nuovi: [zampa/Cover_Tibia_Diffusore]
@@ -175,10 +183,10 @@ passi:
       - "Premi il bordino del diffusore nella finestra del guscio, da dentro."
       - "Controlla che il bordino resti sotto il fronte, senza sporgere."
     avvisi:
-      - {tipo: opzionale, x: X31, quando: solo_ora, testo: "Solo con le luci. Bianco o PETG fumé: si decide con il provino di luce, X10 [C]."}
+      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Solo con le luci: il guscio si toglie con una vite. Bianco o PETG fumé: si decide con il provino di luce, X10 [C]."}
     fonti: ["D-066, blocco A: diffusore", D-069, cad/stl/README.md "Cover_Tibia_Diffusore.stl", cad/script/zampa.py fai_cover_tibia_diffusore]
 
-  - id: "6.10"
+  - id: "6.R2"
     titolo: Guscio della tibia
     formato: mezzo
     nuovi: [zampa/Cover_Tibia]
@@ -189,7 +197,7 @@ passi:
     testo:
       - "Posa il guscio sul fronte: i due tappi a rombo nelle finestre della culla."
       - "Controlla che nessun filo resti schiacciato sotto i bordi."
-      - "Stringi piano la vite M3 × 10 nell'inserto: la testa appoggia su una faccia curva [C]."
+      - "Stringi piano la vite M3 × 10 nell'inserto dello stinco."
     avvisi:
-      - {tipo: importante, testo: "Solo dopo aver stretto le viti delle alette: il guscio ne copre una [C]."}
+      - {tipo: attenzione, testo: "La testa appoggia su una faccia inclinata di circa 12° [V]: stringi piano, il PLA si segna."}
     fonti: ["D-061, B3: guscio lungo, tappi, vite", D-065, "D-066, inserto del guscio", D-049, cad/script/zampa.py fai_cover_tibia]

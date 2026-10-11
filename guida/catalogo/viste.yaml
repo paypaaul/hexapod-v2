@@ -10,5 +10,5 @@ corpo_coda:   {direzione: [-0.8, 0.35, 0.48], su: [0, 0, 1]}
 parte:        {direzione: [0.7, 0.55, 0.45], su: [0, 0, 1]}      # miniature dei pezzi
 # Aggiunte nella F2 (zampa, tibia): direzioni scelte guardando le immagini della pipeline.
 tibia_dietro: {direzione: [-0.8, 0.35, 0.5], su: [0, 0, 1]}      # dal retro aperto del guscio (-X): il diffusore entra da dentro
-tibia_piede:  {direzione: [0.85, 0.3, -0.45], su: [0, 0, 1]}     # dal fronte (+X) e da sotto: tasca, gola, punta e piedino
+tibia_capovolta: {direzione: [0.8, 0.35, -0.5], su: [0, 0, -1]}  # tibia capovolta, punta in alto: FSR posato e piedino calato dall'alto
 tibia_guscio: {direzione: [0.45, 0.8, 0.4], su: [0, 0, 1]}       # dal lato A: il guscio arriva di fianco lungo +X
