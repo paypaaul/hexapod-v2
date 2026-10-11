@@ -81,3 +81,13 @@ def test_passi_chiavi_e_decisioni_inesistenti(dati):
     d = _con_sezioni(dati, s)
     assert len(C.chiavi_esistenti(d)) == 3
     assert C.decisioni(d) == ['1.01: D-099 non esiste in docs/decisioni.md']
+
+
+def test_passi_viti_strette_dopo(dati):
+    """Viti accostate in un passo e strette in un altro: ammesso; strette senza essere state messe: errore."""
+    s = _sez('tibia', BUONA['passi'] + [{'id': '1.03', 'titolo': 'stringi',
+                                          'giunzioni': [{'id': 'alette_ginocchio_coda', 'stringi': True}]}])
+    assert C.giunzioni_usate(_con_sezioni(dati, s)) == []
+    prima = _sez('tibia', [BUONA['passi'][0], {'id': '1.02', 'titolo': 'stringi', 'nuovi': ['zampa/Servo_ginocchio'],
+                                               'giunzioni': [{'id': 'alette_ginocchio_coda', 'stringi': True}]}])
+    assert C.giunzioni_usate(_con_sezioni(dati, prima)) != []

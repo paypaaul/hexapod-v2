@@ -38,6 +38,8 @@ passi: [...]
   assiemi:                  # sottoassiemi già fatti che entrano interi (non contano come pezzi montati)
     - {chiavi: "zampa/*@AS", esclusi: ["zampa/Coxa_Ponte@AS"], nome: Zampa montata (sezione 6)}
   giunzioni: [alette_ginocchio_coda]              # nomi di guida/catalogo/giunzioni.yaml; oppure {id: ..., esploso: 12}
+  # viti messe (accostate) in un passo prima e strette ora: {id: alette_ginocchio_coda, stringi: true}; si disegnano
+  # al loro posto e non si contano di nuovo
   inserti: [{chiave: zampa/Tibia, lav: "ins_*"}]  # inserti a caldo da mettere in questo passo (fori del CAD)
   esploso: {asse: [0, -1, 0], distanza: 30}       # spostamento dei pezzi nuovi, nella terna della sezione (mm)
   # oppure per pezzo: esploso: {pezzi: {"zampa/Perno_*": [0, 0, -25], "zampa/Femore_B": [0, -40, 0]}}

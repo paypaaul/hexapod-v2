@@ -30,11 +30,13 @@ def passo(dati, sez, p, presenti):
         nome = gj['id'] if isinstance(gj, dict) else gj
         assieme = 'zampa' if nome in dati.giunzioni['zampa'] else 'corpo'
         for v in F.piazza(dati, nome, dati.giunzioni[assieme][nome], tutti, terna, istanza):
+            attrezzi.append(_attrezzo_vite(dati, v['vite']))
+            if isinstance(gj, dict) and gj.get('stringi'):      # viti gia' contate dove sono state messe
+                continue
             viti[v['vite']] += 1
             rondelle.update({'R_M3': len(v['rondelle'])} if v['rondelle'] else {})
             if v.get('distanziale'):
                 distanziali[v['distanziale']['tipo']] += 1
-            attrezzi.append(_attrezzo_vite(dati, v['vite']))
     for sel in p.get('inserti', []):
         for k in dati.chiavi(sel['chiave']):
             for f in F.fori_di(dati, k, terna, istanza):

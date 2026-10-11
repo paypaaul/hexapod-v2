@@ -198,7 +198,10 @@ def giunzioni_usate(dati):
                 assieme, g = _giunzione(dati, nome)
                 if g is None:
                     continue
-                if s['id'] not in SEZIONI_DI_PROVA:
+                stringi = isinstance(gj, dict) and gj.get('stringi')
+                if stringi and s['id'] not in SEZIONI_DI_PROVA and nome not in dove:
+                    errori.append('%s: giunzione %s stretta prima di essere messa' % (p['id'], nome))
+                elif not stringi and s['id'] not in SEZIONI_DI_PROVA:
                     if nome in dove:
                         errori.append('%s: giunzione %s gia\' usata al passo %s' % (p['id'], nome, dove[nome]))
                     dove.setdefault(nome, p['id'])

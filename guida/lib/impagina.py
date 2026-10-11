@@ -261,7 +261,8 @@ class Impaginatore:
                     'pezzi': [voce(img=self._miniatura(c), qta=q, tot=q * per if per > 1 else None, nome=self._pezzo(c)['nome'],
                                    bom=self._pezzo(c).get('bom', ''), x=self._pezzo(c).get('x')) for c, q in tot['pezzi'].items()],
                     'viteria': self._voci_viteria(tot, per), 'extra': [voce(qta=x.get('qta', 1), nome=x['nome'], bom=x.get('bom', ''))
-                                                                       for x in tot['extra']], 'fonti': s.get('fonti', [])}
+                                                                       for x in tot['extra']],
+                    'fonti': sorted(set(re.findall(r'\bD-0\d\d[a-z]?\b', str(s.get('fonti', [])))))}
         pagine = [apertura]
         passi = [self.passo(sez, i + 1, p, el) for i, ((p, _), el) in enumerate(zip(stati, per_passo))]
         i = 0
@@ -272,7 +273,8 @@ class Impaginatore:
             else:
                 gruppo = [e]
             i += len(gruppo)
-            fonti = list(dict.fromkeys(f for g in gruppo for f in g['fonti']))
+            # a pie' di pagina solo le decisioni: i file e le sezioni citate restano nel YAML per chi verifica
+            fonti = list(dict.fromkeys(d for g in gruppo for f in g['fonti'] for d in re.findall(r'\bD-0\d\d[a-z]?\b', str(f))))
             pagine.append({'tipo': 'passi', 'sezione': s, 'passi': gruppo, 'fonti': fonti})
         if os.path.exists(os.path.join(self.build, 'img', s['id'], 'fine.png')):
             pagine.append({'tipo': 'controllo', 'sezione': s, 'img': self._img('%s/fine.png' % s['id']),

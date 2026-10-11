@@ -21,8 +21,8 @@
 <div class="box" data-controlla="pezzi {{ e.id }}">
   {%- for v in e.voci %}
   <div class="voce{% if v.svg %} vite{% endif %}">
-    {%- if v.img %}<img src="{{ v.img }}" alt="">{% else %}{{ v.svg | safe }}{% endif %}
-    <span class="q">{{ v.qta }}×</span><span class="n">{{ v.nome }}</span>{% if v.x %}<span class="x">{{ v.x }}</span>{% endif %}
+    {%- if v.img %}<img src="{{ v.img }}" alt="">{% elif v.svg %}{{ v.svg | safe }}{% endif %}
+    <span class="q">{{ v.qta }}{% if v.qta is number %}×{% endif %}</span><span class="n">{{ v.nome }}</span>{% if v.x %}<span class="x">{{ v.x }}</span>{% endif %}
   </div>
   {%- endfor %}
 </div>
@@ -53,7 +53,7 @@
 
 {%- for p in pagine %}
 {%- set s = p.sezione %}
-<section class="pagina {{ p.tipo }}" data-numero="{{ p.numero }}" {% if s %}style="--sez: {{ s.colore }}"{% endif %} id="p{{ p.numero }}">
+<section class="pagina {{ p.tipo }}{% if p.tipo == 'controllo' and p.zampe %} con-scheda{% endif %}" data-numero="{{ p.numero }}" {% if s %}style="--sez: {{ s.colore }}"{% endif %} id="p{{ p.numero }}">
 
 {%- if p.tipo == 'copertina' %}
   {%- if p.img %}<div class="figura"><img src="{{ p.img }}" alt=""></div>{% endif %}
@@ -85,7 +85,7 @@
     <div class="viteria">{% for v in p.viteria %}<div class="voce">{{ v.svg | safe }}<span><span class="q">{{ v.qta }}×</span>{% if v.tot %} ({{ v.tot }}){% endif %} {{ v.nome }}</span></div>{% endfor %}</div></div>
     {%- endif %}
     {%- if p.extra %}
-    <div><div class="etichetta">Altro</div><table class="elenco">{% for v in p.extra %}<tr><td class="q">{{ v.qta }}</td><td>{{ v.nome }}{% if v.bom %} <span class="rif">{{ v.bom }}</span>{% endif %}</td></tr>{% endfor %}</table></div>
+    <div><div class="etichetta">Altro</div><table class="elenco">{% for v in p.extra %}<tr><td class="q">{{ v.qta }}{% if v.qta is number %}×{% endif %}</td><td>{{ v.nome }}{% if v.bom %} <span class="rif">{{ v.bom }}</span>{% endif %}</td></tr>{% endfor %}</table></div>
     {%- endif %}
   </div>
   {{ piede(p) }}
@@ -122,8 +122,8 @@
   </div>
   <div class="figura"><img src="{{ p.img }}" alt=""></div>
   {%- if p.zampe %}
-  <table class="zampe"><tr><th></th>{% for z in p.zampe %}<th>{{ z }}</th>{% endfor %}</tr>
-  {%- for r in p.tabella %}<tr><td>{{ r }}</td>{% for z in p.zampe %}<td></td>{% endfor %}</tr>{% endfor %}</table>
+  <div class="scheda" data-controlla="scheda {{ s.id }}"><table class="zampe"><tr><th></th>{% for z in p.zampe %}<th>{{ z }}</th>{% endfor %}</tr>
+  {%- for r in p.tabella %}<tr><td>{{ r }}</td>{% for z in p.zampe %}<td></td>{% endfor %}</tr>{% endfor %}</table></div>
   {%- endif %}
   {{ piede(p) }}
 {%- endif %}

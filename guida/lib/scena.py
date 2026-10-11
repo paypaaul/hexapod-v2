@@ -115,9 +115,12 @@ def lavoro(dati, sez, passo, presenti, uscita):
     for gj in passo.get('giunzioni', []):
         nome = gj['id'] if isinstance(gj, dict) else gj
         assieme = 'zampa' if nome in dati.giunzioni['zampa'] else 'corpo'
+        stringi = isinstance(gj, dict) and gj.get('stringi')
         for v in F.piazza(dati, nome, dati.giunzioni[assieme][nome], tutti, terna, istanza):
             spec = dati.viteria['viti'][v['vite']]
             dist = (gj.get('esploso', 1.5 * spec['l'] + 6) if isinstance(gj, dict) else 1.5 * spec['l'] + 6)
+            if stringi:                             # viti gia' messe in un passo prima: al loro posto, senza freccia
+                dist = 0
             spost = geom.scala(v['asse'], -dist)
             if v['chiave_testa'] in nuovi:          # la vite segue il pezzo esploso su cui sta la testa
                 spost = geom.add(spost, _esploso(passo, v['chiave_testa']))
@@ -127,7 +130,8 @@ def lavoro(dati, sez, passo, presenti, uscita):
                                       for r in v['rondelle']]})
             arrivo = geom.add(v['testa'], _esploso(passo, v['chiave_testa'])) if v['chiave_testa'] in nuovi else v['testa']
             punta = geom.add(geom.add(v['testa'], spost), geom.scala(v['asse'], spec['l']))
-            frecce.append({'da': punta, 'a': arrivo, 'tipo': 'vite'})
+            if not stringi:
+                frecce.append({'da': punta, 'a': arrivo, 'tipo': 'vite'})
     inserti = []
     for sel in passo.get('inserti', []):
         for k in dati.chiavi(sel['chiave']):
