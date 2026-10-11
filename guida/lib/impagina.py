@@ -164,6 +164,10 @@ def verifica(png, info, nuovi, bordo=3):
         if not k.startswith(('vite', 'inserto')) or n >= 40:
             continue
         out.append('%s poco visibile (%d px)' % (k, n))
+    for e in info.get('etichette', []):
+        x, y = e['xy']
+        if not (0 <= x <= w and 0 <= y <= h):
+            out.append('etichetta %s fuori dall\'immagine' % e['testo'])
     for f in info.get('frecce', []):
         # sotto il 40 % lo spostamento e' quasi lungo la vista: la freccia non dice dove va il pezzo
         if f.get('scorcio', 1) < 0.4:
@@ -256,6 +260,7 @@ class Impaginatore:
                 'voci': voci, 'righe': [testo(r) for r in p.get('testo', [])], 'avvisi': [avviso(a) for a in p.get('avvisi', [])],
                 'attrezzi': self._attrezzi(el['attrezzi']), 'img': img, 'da_file': 'figura' in p,
                 'larghezza': info['larghezza'], 'altezza': info['altezza'], 'frecce': frecce, 'volte': p.get('volte'),
+                'etichette': info.get('etichette', []),
                 'tabella': _tabella(p.get('tabella')), 'fonti': p.get('fonti', [])}
 
     def sezione(self, sez):
@@ -297,8 +302,9 @@ class Impaginatore:
             # a pie' di pagina solo le decisioni: i file e le sezioni citate restano nel YAML per chi verifica
             fonti = list(dict.fromkeys(d for g in gruppo for f in g['fonti'] for d in re.findall(r'\bD-0\d\d[a-z]?\b', str(f))))
             pagine.append({'tipo': 'passi', 'sezione': s, 'passi': gruppo, 'fonti': fonti})
-        if os.path.exists(os.path.join(self.build, 'img', s['id'], 'fine.png')):
-            pagine.append({'tipo': 'controllo', 'sezione': s, 'img': self._img('%s/fine.png' % s['id']),
+        fine = os.path.exists(os.path.join(self.build, 'img', s['id'], 'fine.png')) and any(S.ha_render(p) for p, _ in stati)
+        if fine or s.get('controllo'):
+            pagine.append({'tipo': 'controllo', 'sezione': s, 'img': self._img('%s/fine.png' % s['id']) if fine else None,
                            'spunte': [testo(x, verbo=False) for x in s.get('controllo', [])],
                            'zampe': list(self.dati.manifest['istanze']['zampe']) if s.get('scheda') else [],
                            'tabella': s.get('scheda', []), 'fonti': []})

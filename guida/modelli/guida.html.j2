@@ -49,6 +49,7 @@
   <img src="{{ e.img }}" alt="">
   <svg class="frecce" viewBox="0 0 {{ e.larghezza }} {{ e.altezza }}" preserveAspectRatio="xMidYMid meet">
     {%- for f in e.frecce %}<path class="{{ f.tipo }}" d="{{ f.d }}" stroke-width="{{ f.bordo }}"/>{% endfor %}
+    {%- for t in e.etichette %}<text class="etichetta" x="{{ '%.1f' % t.xy[0] }}" y="{{ '%.1f' % t.xy[1] }}">{{ t.testo }}</text>{% endfor %}
   </svg>
   {%- if e.volte %}<div class="ripeti">{{ e.volte }}×</div>{% endif %}
 </div>
@@ -126,7 +127,7 @@
     <h2>Punto di controllo</h2>
     <ol class="spunte">{% for r in p.spunte %}<li><span>{{ r | safe }}</span></li>{% endfor %}</ol>
   </div>
-  <div class="figura"><img src="{{ p.img }}" alt=""></div>
+  {%- if p.img %}<div class="figura"><img src="{{ p.img }}" alt=""></div>{% endif %}
   {%- if p.zampe %}
   <div class="scheda" data-controlla="scheda {{ s.id }}"><table class="zampe"><tr><th></th>{% for z in p.zampe %}<th>{{ z }}</th>{% endfor %}</tr>
   {%- for r in p.tabella %}<tr><td>{{ r }}</td>{% for z in p.zampe %}<td></td>{% endfor %}</tr>{% endfor %}</table></div>

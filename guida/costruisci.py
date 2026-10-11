@@ -69,7 +69,8 @@ def scene(dati, solo=None, forza=False):
                 lavori.append(S.lavoro(dati, sez, p, presenti, os.path.join(cartella, p['id'] + '.png')))
             componenti.update(dati.occ[c]['componente'] for k in p.get('nuovi', []) for c in dati.chiavi(k))
         tutti = list(presenti) + [c for c in sum(S.entrano(dati, sez['passi'][-1]), []) if c not in presenti]
-        lavori.append(S.finale(dati, sez, tutti, os.path.join(cartella, 'fine.png')))
+        if tutti:                                   # sezioni senza pezzi montati (procedure): niente vista finale
+            lavori.append(S.finale(dati, sez, tutti, os.path.join(cartella, 'fine.png')))
         lotti[sid] = lavori
     cartella = os.path.join(BUILD, 'img', 'miniature')
     os.makedirs(cartella, exist_ok=True)

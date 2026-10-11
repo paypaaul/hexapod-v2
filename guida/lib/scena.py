@@ -6,6 +6,7 @@ terna della sezione ('zampa' come costruita, oppure 'robot').
 import fnmatch
 import json
 import os
+import sys
 
 import yaml
 
@@ -142,9 +143,9 @@ def lavoro(dati, sez, passo, presenti, uscita):
                                     'matrice': geom.componi(geom.traslazione(d), dati.matrice(k, terna, istanza)),
                                     'ruolo': 'zona', 'colore': stile['evidenzia']})
                     trovate += 1
-        if not trovate:
-            raise ValueError('%s: evidenzia %s %s non trova zone (guida/catalogo/zone.yaml, esporta_guida.py zone)'
-                             % (passo['id'], z['chiave'], z['lav']))
+        if not trovate:                             # la zona si aggiunge in zone.yaml e si esporta da Fusion
+            print('avviso: %s: evidenzia %s %s non trova zone esportate (guida/catalogo/zone.yaml, esporta_guida.py '
+                  'zone)' % (passo['id'], z['chiave'], z['lav']), file=sys.stderr)
     viti = []
     tutti = list(dict.fromkeys(visibili))
     for gj in passo.get('giunzioni', []):
@@ -178,9 +179,20 @@ def lavoro(dati, sez, passo, presenti, uscita):
                     via = spec['l'] + 8
                     inserti.append({'centro': geom.add(ingresso, geom.scala(asse, -via)), 'asse': asse, 'd': spec['d'], 'l': spec['l']})
                     frecce.append({'da': geom.add(ingresso, geom.scala(asse, spec['l'] - via)), 'a': ingresso, 'tipo': 'inserto'})
+    etichette = []
+    for e in passo.get('etichette', []):            # nomi sull'immagine: su un punto o al centro di un pezzo
+        if 'punto' in e:
+            etichette.append({'testo': str(e['testo']), 'punto': e['punto']})
+        else:
+            for k in dati.chiavi(e['chiave']):
+                c = _centro(dati, k, terna, istanza)
+                if k in nuovi:
+                    c = geom.add(c, _esploso(passo, k))
+                etichette.append({'testo': str(e['testo']), 'punto': c})
     vista = passo.get('vista', 'zampa_A' if terna == 'zampa' else 'corpo_alto')
     vista = viste[vista] if isinstance(vista, str) else vista
     return {'id': passo['id'], 'uscita': uscita, 'risoluzione': risoluzione(passo.get('formato', 'grande')),
+            'etichette': etichette,
             'oggetti': oggetti, 'viti': viti, 'inserti': inserti, 'frecce': frecce, 'camera': vista,
             'colori': {k: stile[k] for k in ('viti', 'inserti', 'rondelle', 'distanziali')}, 'attenuato': stile['attenuato']}
 

@@ -246,6 +246,8 @@ def pulisci(coll):
 def inquadra(sc, cam, oggetti, direzione, su, margine=1.05):
     d = Vector(direzione).normalized()
     pts = [o.matrix_world @ Vector(v) for o in oggetti for v in o.bound_box]
+    if not pts:
+        raise ValueError('niente da inquadrare: il lavoro non ha oggetti')
     centro = sum(pts, Vector()) / len(pts)
     cam.location = centro + d * 3000
     # terna della camera: X a destra, Y in alto (il "su" della vista proiettato), Z verso l'occhio
@@ -389,9 +391,10 @@ def rendi(sc, cam, sole, coll, lav):
     frecce = [x for x in (freccia(sc, cam, f, per_nome) for f in lav['frecce']) if x]
     vis = visibili(sc, gruppi, os.path.splitext(lav['uscita'])[0] + '_id.png') if lav.get('verifica', True) else {}
     W, H = lav['risoluzione']
+    etichette = [{'testo': e['testo'], 'xy': _pixel(sc, cam, Vector(e['punto']))} for e in lav.get('etichette', [])]
     with open(os.path.splitext(lav['uscita'])[0] + '.json', 'w', encoding='utf-8') as fp:
         json.dump({'id': lav['id'], 'larghezza': W, 'altezza': H, 'mm_per_pixel': scala / W, 'frecce': frecce,
-                   'visibili': vis}, fp)
+                   'etichette': etichette, 'visibili': vis}, fp)
 
 
 sc, cam, sole, coll = scena()

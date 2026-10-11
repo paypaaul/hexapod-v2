@@ -30,6 +30,12 @@ class Dati:
         self.giunzioni = _yaml(os.path.join(cat, 'giunzioni.yaml'))
         self.pezzi = _yaml(os.path.join(cat, 'pezzi.yaml')) if os.path.exists(os.path.join(cat, 'pezzi.yaml')) else {}
         self.attrezzi = _yaml(os.path.join(cat, 'attrezzi.yaml')) if os.path.exists(os.path.join(cat, 'attrezzi.yaml')) else {}
+        # aggiunte per sezione (catalogo/attrezzi.d/<sezione>.yaml): chi scrive una sezione non tocca il file comune
+        for p in sorted(glob.glob(os.path.join(cat, 'attrezzi.d', '*.yaml'))):
+            try:
+                self.attrezzi.update(_yaml(p) or {})
+            except yaml.YAMLError:
+                continue
         self.occ = {o['chiave']: o for o in self.manifest['occorrenze']}
         self.basi = list(self.occ)
         # Nelle sezioni nella terna del robot i pezzi della zampa si citano con l'istanza: 'zampa/Coxa@AS'

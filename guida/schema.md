@@ -50,6 +50,7 @@ rinviati: [...]             # passi gia' scritti che vanno piu' avanti (stesso f
   evidenzia: [{chiave: zampa/Tibia, lav: sede_luce}]   # facce di lavorazioni in giallo (guida/catalogo/zone.yaml):
                             # dove va quello che il CAD non ha (striscia, fili); si esportano con esporta_guida.py zone
   volte: 2                  # riquadro "2×" nell'immagine: il passo si fa due volte uguale (es. i due lati)
+  etichette: [{testo: AS, chiave: corpo/Servo_Coxa_AS}, {testo: F1, punto: [x, y, z]}]   # nomi sull'immagine
   in_evidenza: [corpo/Corpo_Base]   # pezzi disegnati a colori pieni senza montarli (es. gli inserti a caldo, pezzo per pezzo)
   terna: robot              # la terna del passo, se diversa da quella della sezione (con istanza: AS per la zampa)
   immagine: false           # passo senza immagine del CAD (procedure, prove, misure): il testo prende tutta la pagina
