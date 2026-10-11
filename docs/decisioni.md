@@ -511,7 +511,7 @@ Verifiche nel CAD (design "Hexapod v2.1.0"):
   - modellato 2700,6 g, atteso **3060,6 g**, prima 2990; aggiornato in `calc/statica_tripode.py` e `robot.yaml`;
   - al punto di progetto 100/45 il femore sale dal 51 % al **53 % dello stallo** (5,87 kgf·cm), la tibia al 49 %;
   - regressioni di Python e del nucleo aggiornate; nella simulazione il contatto fra vicine è a 31°, come nel CAD.
-- **Se servisse togliere peso**: con viti a testa bombata ISO 7380 (testa alta 1,65) sulle squadrette e sul blocco la lama A scenderebbe a circa 2,7 mm. Il contatto tornerebbe come prima, ma cambiano 72 viti del BOM: va approvato dall'utente.
+- **Se servisse togliere peso** (corretto l'11 ottobre 2026): la testa bombata ISO 7380 non va, perché la lama A si incastra sui fianchi cilindrici delle teste del blocco e una testa a cupola non la terrebbe. La testa svasata non va sulle viti del blocco, perché passano la piastra di Femore_A da 2,4 e la svasatura (1,86) lascerebbe 0,5 mm. Va la **testa cilindrica bassa DIN 7984** (alta 2,0, Ø5,5 come la ISO 4762) sulle 12 viti per zampa sotto la lama A: la lama scende a 3,0, il contatto tra vicine torna verso 31,25°, la massa cala di pochi grammi. Cambiano 72 viti del BOM: va approvato dall'utente.
 
 ## D-071 — Versione 2.1.4: lame del femore con la sagoma del femore, feritoia al centro (2026-10-11)
 
