@@ -1,0 +1,26 @@
+# Sezione di prova della pipeline (F1): si sostituisce con i passi veri del pilota (F2).
+sezione:
+  id: prova
+  numero: 99
+  titolo: Prova della pipeline
+  colore: "#ff6a13"
+  ripeti: 6
+  terna: zampa
+  presenti_iniziali: [zampa/Tibia]
+passi:
+  - id: "99.01"
+    titolo: Cuscinetto nella culla della tibia
+    nuovi: [zampa/Cuscinetto_ginocchio]
+    esploso: {asse: [0, -1, 0], distanza: 30}
+    vista: zampa_B
+  - id: "99.02"
+    titolo: Servo del ginocchio nella culla
+    nuovi: [zampa/Servo_ginocchio]
+    giunzioni: [alette_ginocchio_coda, alette_ginocchio_albero]
+    esploso: {asse: [0, 1, 0], distanza: 50}
+  - id: "99.03"
+    titolo: Guscio della tibia
+    nuovi: [zampa/Cover_Tibia]
+    giunzioni: [guscio_tibia]
+    esploso: {asse: [1, 0, 0], distanza: 35}
+    vista: zampa_fronte

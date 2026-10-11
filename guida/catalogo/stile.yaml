@@ -1,0 +1,14 @@
+# Colori della guida (D-075), per nome dell'aspetto del CAD (colori.py). Il PETG-CF nero si schiarisce: nero su nero
+# con i contorni neri non si legge. I pezzi gia' montati si mescolano verso il grigio chiaro (attenuato).
+colori:
+  "Esa PETG-CF nero": [70, 74, 82]
+  "Esa PLA nero": [52, 54, 60]
+  "Esa PLA placche": [244, 244, 240]
+  "Esa TPU arancio": [255, 120, 30]
+predefinito: [150, 155, 162]
+attenuato: {verso: [242, 243, 245], quanto: 0.62}
+viti: [150, 156, 166]
+inserti: [205, 160, 60]
+rondelle: [175, 180, 188]
+distanziali: [205, 160, 60]
+frecce: "#1c7ed6"

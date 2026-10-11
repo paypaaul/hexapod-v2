@@ -1,0 +1,10 @@
+# Inquadrature della guida (D-075): direzione dell'occhio (verso la camera) nella terna della sezione e alto della
+# vista. Le direzioni vengono dalle viste di cad/script/viste.py (esploso_zampa) e dagli assi di montaggio.
+zampa_A:      {direzione: [0.72, 0.58, 0.36], su: [0, 0, 1]}     # dal lato A (+Y), da sopra
+zampa_B:      {direzione: [0.62, -0.68, 0.38], su: [0, 0, 1]}    # dal lato B (-Y)
+zampa_sotto:  {direzione: [0.55, 0.55, -0.62], su: [0, 0, 1]}    # da sotto, per perno di coxa e piedino
+zampa_fronte: {direzione: [1.0, 0.25, 0.2], su: [0, 0, 1]}       # dalla punta, per guscio e diffusore
+corpo_alto:   {direzione: [0.55, 0.5, 0.67], su: [0, 0, 1]}
+corpo_sotto:  {direzione: [0.5, 0.55, -0.67], su: [0, 0, 1]}
+corpo_coda:   {direzione: [-0.8, 0.35, 0.48], su: [0, 0, 1]}
+parte:        {direzione: [0.7, 0.55, 0.45], su: [0, 0, 1]}      # miniature dei pezzi

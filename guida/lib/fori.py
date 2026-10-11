@@ -112,6 +112,7 @@ def piazza(dati, nome_g, g, presenti, terna='zampa', istanza='AS'):
                 fondo, ingresso = (p['p1'], p['p0']) if d0 < d1 else (p['p0'], p['p1'])
             asse = geom.unit(geom.sub(fondo, ingresso))
             testa = min((vic['p0'], vic['p1']), key=lambda e: geom.dot(geom.sub(e, fondo), asse))
+            chiave_testa = vic['chiave']
             vicino = max((vic['p0'], vic['p1']), key=lambda e: geom.dot(geom.sub(e, fondo), asse))
         else:
             if passante:                            # la testa sta dalla parte del pezzo sopra (o dell'ingresso)
@@ -122,6 +123,7 @@ def piazza(dati, nome_g, g, presenti, terna='zampa', istanza='AS'):
                     if geom.norma(geom.sub(c, p['p1'])) < geom.norma(geom.sub(c, p['p0'])):
                         fondo, ingresso = p['p0'], p['p1']
             asse = geom.unit(geom.sub(fondo, ingresso))
+            chiave_testa = p['chiave'] if g['testa'].get('sulla_punta') else g['testa']['sopra']
             if g['testa'].get('sulla_punta'):
                 testa = ingresso
             else:
@@ -138,7 +140,7 @@ def piazza(dati, nome_g, g, presenti, terna='zampa', istanza='AS'):
         distanziale = None
         if 'distanziale' in g:
             distanziale = {'tipo': g['distanziale'], 'da': ingresso, 'a': vicino}
-        out.append({'giunzione': nome_g, 'vite': g['vite'], 'testa': testa, 'asse': asse, 'punta': p['chiave'],
+        out.append({'giunzione': nome_g, 'vite': g['vite'], 'testa': testa, 'asse': asse, 'punta': p['chiave'], 'chiave_testa': chiave_testa,
                     'presa': round(presa, 2), 'fondo_libero': fondo_libero, 'rondelle': rondelle,
                     'distanziale': distanziale})
     return out
