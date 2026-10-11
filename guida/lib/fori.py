@@ -117,6 +117,13 @@ def piazza(dati, nome_g, g, presenti, terna='zampa', istanza='AS'):
         else:
             if passante:                            # la testa sta dalla parte del pezzo sopra (o dell'ingresso)
                 fondo, ingresso = p['p1'], p['p0']
+                coassiali_p = [c for c in vincoli if coassiali(p, c)]
+                if g['testa'].get('sulla_punta') and coassiali_p:
+                    # testa che fa da spina: esce dalla parte del pezzo in cui entra (coassiale_con), non dall'altra
+                    c = coassiali_p[0]
+                    m = geom.scala(geom.add(c['p0'], c['p1']), 0.5)
+                    if geom.norma(geom.sub(p['p1'], m)) < geom.norma(geom.sub(p['p0'], m)):
+                        fondo, ingresso = p['p0'], p['p1']
                 if 'sopra' in g['testa']:
                     lo, hi = dati.componente(g['testa']['sopra'])['bbox']
                     c = geom.punto(dati.matrice(g['testa']['sopra'], terna, istanza), [(lo[i] + hi[i]) / 2 for i in range(3)])

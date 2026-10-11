@@ -138,3 +138,17 @@ def test_posa_della_zampa(dati):
         assert geom.punto(d.matrice('zampa/Servo_ginocchio'), [0, 0, 0])[1] > g0[1] + 20
     finally:
         d.posa = None
+
+
+def test_viti_spina_verso_il_ponte(dati):
+    """Viti-spina della squadretta di coxa (filettato passante, testa sull'ingresso): la testa esce verso il ponte
+    (coassiale_con), non dentro il servo. Prima della correzione la testa era sulla faccia di sotto con l'asse in su."""
+    from guida.lib import fori as F
+    from guida.lib import geom
+    presenti = [k for k in dati.basi if k.startswith('zampa/')]
+    g = dati.giunzioni['zampa']['squadretta_coxa_spine']
+    lo, hi = dati.componente('zampa/Coxa_Ponte')['bbox']
+    zp = sorted(geom.punto(dati.matrice('zampa/Coxa_Ponte'), [0, 0, z])[2] for z in (lo[2], hi[2]))
+    for v in F.piazza(dati, 'squadretta_coxa_spine', g, presenti, 'zampa'):
+        assert v['asse'][2] < -0.99
+        assert zp[0] <= v['testa'][2] <= zp[1]
