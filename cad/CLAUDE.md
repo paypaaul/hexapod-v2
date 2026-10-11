@@ -42,6 +42,7 @@ Si carica quando si lavora in `cad/`. Il `CLAUDE.md` della radice rimanda qui: v
   - `esporta_robot.py` (`geometria`, `mesh`, `pose`), poi `python3 tools/descrizione.py --aggiorna-hash` e tutti i generatori: `genera_header.py`, `genera_vettori.py`, `genera_modelli.py` (la CI `sim` li controlla).
   - Test locali con `.venv/bin/ruff check .`, `.venv/bin/python -m pytest tests sim/tests -q`, il nucleo con cmake e ctest su `firmware/test_host`, e `npm test` in `app/`.
   - Se cambia la massa: `calc/statica_tripode.py` → `CONFIG['massa_g']` e `robot.yaml` → `massa.attesa_g` (devono coincidere), con la regressione `robot.yaml` → `regressione_statica`.
+  - Guida di montaggio (D-075): `esporta_guida.py` (`manifest`, `mesh`, `fori`, `controllo`, in sola lettura), poi `.venv/bin/python -m guida.costruisci controlla`; formato dei passi in `guida/schema.md`.
 - **Chiusura di una versione**:
   - aggiornare a mano `VERSIONE` in `cad/script/versione.py` e `versione` in `robot/robot.yaml`;
   - salvare in Fusion con `doc.save(descrizione)` e aspettare che il nome del documento passi alla versione nuova;
