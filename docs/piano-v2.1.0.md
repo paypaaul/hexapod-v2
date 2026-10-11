@@ -239,3 +239,23 @@ Sullo stesso design "Hexapod v2.1.0", tag `v2.1.4`, decisione D-071.
 - assieme: coxe a ±35, vicine a 30, 30,5 e 31°, carapace, cicli e rotazione;
 - colori, STL, esportazione del robot e generatori, mesh del renderer, render delle zampe;
 - documenti, salvataggio in Fusion, tag `v2.1.4`, CI.
+
+## Seguito: versione 2.1.5 — provino delle tasche della lama A e render notturno (richiesta dell'utente dell'11 ottobre 2026)
+
+Sullo stesso design "Hexapod v2.1.0", tag `v2.1.5`, decisione D-072. Il modello del robot non cambia.
+
+1. **Provino delle tasche** (`attrezzi.py` → `provino_tasche`), da stampare con gli altri provini prima dei pezzi.
+   - Serve a tarare l'incastro della lama A sulle teste M3 del blocco (`cov_testa_d`, oggi 5,6, D-063).
+   - **Base** in PETG-CF: blocchetto con un foro passante per una vite M3 × 6 ISO 4762 e la trappola del dado sotto; viti e dadi dal kit D6/D7.
+   - **Lamina** in PLA bianco, spessa come la lama A (4,0), stampata come la lama con le tasche sul piatto:
+     - sei tasche profonde 3,2;
+     - quattro lisce da Ø5,4, 5,5, 5,6 e 5,7;
+     - due da Ø6,0 con tre costole di schiacciamento, che stringono a Ø5,3 e 5,4;
+     - da 1 a 6 puntini accanto a ogni tasca per riconoscerla.
+   - Si preme ogni tasca sulla testa e si sceglie quella che tiene senza forzare troppo. Il valore va in `cov_testa_d`, oppure si passa alle costole.
+   - STL in `cad/stl/attrezzi/`.
+2. **Render notturno** (`viste.py` → scena `notte`), accanto ai render normali.
+   - Ambiente scuro, luci accese con aspetti emissivi messi solo per il render e tolti da `ripristina`: anello del pulsante, luci dei lobi, diffusori delle tibie, spie dei rail.
+   - Una o due inquadrature in `docs/immagini/render-notte-*.png`.
+   - Il colore delle luci è uno solo per ora: si può cambiare.
+3. **Documenti e chiusura**: D-072, `versioni.md`, `CLAUDE.md` (provini da stampare), `cad/stl/README.md`; salvataggio in Fusion, tag, CI.
