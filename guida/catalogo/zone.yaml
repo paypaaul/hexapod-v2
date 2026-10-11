@@ -1,5 +1,20 @@
-# Zone da evidenziare nelle immagini della guida (D-075): lavorazioni con il nome dato in cad/script/*.py, per
-# componente. esporta_guida.py -> 'zone' ne scrive le facce in build/guida/cad/zone/; i passi le citano con
-# evidenzia: [{chiave: zampa/Tibia, lav: "ponte_fili_*"}]. Servono per quello che il CAD non ha (striscia, fili).
-Tibia: [sede_luce, gola_fili, "ponte_fili_*", "sotto_ponte_*", tasca_fsr, "gola_fsr_*", finestra_cavo, fessura_cavo]
+# Zone da evidenziare nelle immagini della guida (D-075): lavorazioni con il nome dato in cad/script/*.py (le copie
+# specchiate hanno il nome d'origine), oppure corpi dei componenti comprati con "corpo:<nome>". esporta_guida.py -> zone
+# ne scrive le facce in build/guida/cad/zone/; i passi le citano con evidenzia: [{chiave: zampa/Tibia, lav: sede_luce}].
+# Le richieste vengono dagli estrattori della F3 (rapporti del workflow, 11 ottobre 2026).
+Tibia: [sede_luce, gola_fili, "ponte_fili_*", "sotto_ponte_*", tasca_fsr, "gola_fsr_*", finestra_cavo, fessura_cavo, sede_cuscinetto, passaggio_perno, sede_servo, "pilota_corto_*", "ins_coda_*", ins_guscio]
 Piedino: [tacca_fili]
+Coxa: [finestra_cavo, fessura_cavo, foro_perno, "ins_ponte_*", "ins_coda_*", "pilota_corto_*", sede_linguetta, sede_cuscinetto, passaggio_perno, sede_servo]
+Coxa_Ponte: [sede_disco, "foro_testa_*", foro_centrale, "feritoia_fascetta_*", gola_fascetta]
+Cover_Femore_A: ["tasca_testa_*", "tasca_squadretta_*"]
+Cover_Femore_B: ["tasca_perno_*"]
+Femore_B: ["ins_lama_*", "foro_perno_*", "feritoia_femore_*", tunnel_fascetta, "ins_blocco_*"]
+Corpo_Base: ["pilota_*", "ins_coda_*", "finestra_ang", "finestra_med", "fessura_ang", "fessura_med", "gola_ang", "gola_med", "sede_cuscinetto_*", "passaggio_perno_*", "linguetta_spia_*", "foro_spia_*", "costola_f1_*", "fessura_cavi_*", "wago_spalla_*", "guida_2813_*", "scanalatura_2813_*", sede_prese, scanalatura_prese, sede_prese_luci, scanalatura_prese_luci, interno_tunnel, "ins_ads_*", "ins_imu_*", "ssc_bugna_*", "vas_bugna_*", "chi_ins_*", "colonnina_*", slitta_ins]
+Corpo_Vassoio: [asola_bus, sede_tof, mensola, torretta]
+Corpo_Slitta_Regolatore: [piastra, "ins_*"]
+Corpo_Sportello: ["rebbio_*", linguetta]
+Corpo_Carapace: ["luce_lobo_*", "gancio_lobo_*", "labbro_lobo_*", "gancio_cavo_*", "collare_*", finestra_cicalino, "bugna_sch_*", "bugna_amp_*", "guida_altoparlante_*", fermo_altoparlante, piano_tof_posteriore, "mic_foro_*", "mic_anello_*", "mic_sede_*", battuta, tacca]
+Corpo_Fascia: [camera_nera, camera_nera_tacca, "foro_pulsante*"]
+Corpo_Fondo_Anello: ["sede_pixel_*"]
+Rif_SSC32_V25: ["corpo:micro_usb", "corpo:morsettiera", "corpo:header_servo", "corpo:header_seriale", "corpo:zona_spine_servo", "corpo:zona_barre_retro"]
+Rif_ESP32_S3_CAM: ["corpo:usb_c", "corpo:pin_header", "corpo:connettore_fpc", "corpo:slot_tf"]

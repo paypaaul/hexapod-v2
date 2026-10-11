@@ -148,7 +148,7 @@ def _lavoro(dati, sez, passo, presenti, uscita):
             for lav in sorted((_zone(dati).get(comp) or {})):
                 if fnmatch.fnmatchcase(lav, z['lav']):
                     d = _esploso(passo, k) if k in nuovi else [0.0, 0.0, 0.0]
-                    oggetti.append({'chiave': '%s:%s' % (k, lav), 'mesh': '../zone/%s__%s.ply' % (comp, lav),
+                    oggetti.append({'chiave': '%s:%s' % (k, lav), 'mesh': '../zone/%s__%s.ply' % (comp, lav.replace(':', '-')),
                                     'matrice': geom.componi(geom.traslazione(d), dati.matrice(k, terna, istanza)),
                                     'ruolo': 'zona', 'colore': stile['evidenzia']})
                     trovate += 1

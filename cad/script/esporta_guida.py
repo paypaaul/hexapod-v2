@@ -511,10 +511,15 @@ def zone(des, root):
     trova(root)
     indice, mancano = {}, []
     for nome, modelli in _zone_richieste().items():
-        trovate = _facce_lavorazioni(comp[nome], modelli)
+        lav = [m for m in modelli if not m.startswith('corpo:')]
+        corpi = [m[6:] for m in modelli if m.startswith('corpo:')]
+        trovate = _facce_lavorazioni(comp[nome], lav) if lav else {}
+        for b in comp[nome].bRepBodies:             # componenti comprati: zone fatte di corpi interi
+            if any(fnmatch.fnmatchcase(b.name, m) for m in corpi):
+                trovate.setdefault('corpo:' + b.name, []).extend(list(b.faces))
         mancano += ['%s/%s' % (nome, m) for m in modelli if not any(fnmatch.fnmatchcase(k, m) for k in trovate)]
         for lav, facce in sorted(trovate.items()):
-            n = _ply_facce(os.path.join(cartella, '%s__%s.ply' % (nome, lav)), facce)
+            n = _ply_facce(os.path.join(cartella, '%s__%s.ply' % (nome, lav.replace(':', '-'))), facce)
             indice.setdefault(nome, {})[lav] = n
     with open(os.path.join(cartella, 'indice.json'), 'w', encoding='utf-8') as f:
         json.dump(indice, f, indent=1, sort_keys=True)
