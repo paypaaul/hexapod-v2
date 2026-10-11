@@ -33,7 +33,9 @@ DATI = os.path.join(RADICE, 'guida', 'dati')
 CACHE = os.path.join(RADICE, 'build', 'guida', 'cad')
 SALTA = ('flat', 'linguetta', 'zona_spine_servo', 'zona_barre_retro', 'uscita_cavi')   # ingombri non rigidi o sovrapposti
 CORTI = {'Rif_Servo_MG996R': 'Servo', 'Rif_Squadretta_25T': 'Squadretta', 'Rif_Cuscinetto_LF1050ZZ': 'Cuscinetto',
-         'Rif_Perno_5': 'Perno', 'Rif_FSR_400': 'FSR'}
+         'Rif_Perno_5': 'Perno'}
+# pezzi comprati che nella zampa ci sono una volta sola, lontani dai giunti
+SINGOLI = {'Rif_FSR_400': 'FSR_piede'}
 # qualita' delle mesh: le parti stampate fini (i fori da 2,4 restano tondi), le comprate dagli STEP grossolane
 TOLLERANZA_CM, DEVIAZIONE_RAD = 0.003, math.radians(15)
 
@@ -112,6 +114,8 @@ def _chiavi_corpo(des, corpo):
 def _chiave_zampa(des, o):
     """Pezzo della zampa piu' il giunto, dalla posizione su x nella terna della zampa come costruita."""
     n = o.component.name
+    if n in SINGOLI:
+        return SINGOLI[n]
     if n not in CORTI:
         return n
     lc, lf = _mm(des, 'zam_Lc'), _mm(des, 'zam_Lf')

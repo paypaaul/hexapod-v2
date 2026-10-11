@@ -3229,7 +3229,7 @@
    ]
   },
   {
-   "chiave": "zampa/FSR_ginocchio",
+   "chiave": "zampa/FSR_piede",
    "componente": "Rif_FSR_400",
    "assieme": "zampa",
    "segmento": "tibia",
