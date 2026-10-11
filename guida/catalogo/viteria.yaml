@@ -1,0 +1,42 @@
+# Viteria, rondelle, inserti e distanziali della guida (D-075). Quote ISO per i disegni 1:1 e le viti 3D.
+# lunghezza: sotto la testa per le teste cilindriche e tonde, totale per le svasate (ISO 10642).
+# bom: voce di docs/BOM.md da cui arriva il pezzo. attrezzo: chiave di attrezzi.yaml.
+
+viti:
+  M3x5:  {norma: ISO 4762, testa: cilindrica, d: 3, l: 5,  testa_d: 5.5, testa_k: 3.0, attrezzo: brugola_2_5, bom: D6}
+  M3x6:  {norma: ISO 4762, testa: cilindrica, d: 3, l: 6,  testa_d: 5.5, testa_k: 3.0, attrezzo: brugola_2_5, bom: D6}
+  M3x8:  {norma: ISO 4762, testa: cilindrica, d: 3, l: 8,  testa_d: 5.5, testa_k: 3.0, attrezzo: brugola_2_5, bom: D6}
+  M3x10: {norma: ISO 4762, testa: cilindrica, d: 3, l: 10, testa_d: 5.5, testa_k: 3.0, attrezzo: brugola_2_5, bom: D6}
+  M3x16: {norma: ISO 4762, testa: cilindrica, d: 3, l: 16, testa_d: 5.5, testa_k: 3.0, attrezzo: brugola_2_5, bom: D6}
+  # D8 (D-073): viti M2 x 5 a testa tonda con impronta a croce dal kit degli inserti dell'utente
+  M2x5:  {norma: ISO 7045, testa: tonda, d: 2, l: 5, testa_d: 4.0, testa_k: 1.6, attrezzo: croce_ph0, bom: D8}
+  M2x6:  {norma: ISO 7045, testa: tonda, d: 2, l: 6, testa_d: 4.0, testa_k: 1.6, attrezzo: croce_ph0, bom: D8}
+  # D8b (D-073): M2 x 5 svasate a esagono incassato, acciaio 10.9 nero
+  M2x5S: {norma: ISO 10642, testa: svasata, d: 2, l: 5, testa_d: 4.0, testa_k: 1.2, attrezzo: brugola_1_3, bom: D8b}
+  # vite centrale della squadretta: in dotazione con la squadretta D3 (misura C)
+  VSQ:   {norma: in dotazione, testa: cilindrica, d: 3, l: 6, testa_d: 5.5, testa_k: 3.0, attrezzo: brugola_2_5, bom: D3}
+
+rondelle:
+  R_M3: {norma: DIN 125, d_int: 3.2, d_est: 7.0, sp: 0.5, bom: D7}
+
+inserti:
+  INS_M3: {d: 4.2, l: 5.0, filetto: M3, bom: D4, attrezzo: saldatore_inserti}
+  INS_M2: {d: 3.2, l: 3.0, filetto: M2, bom: D5, attrezzo: saldatore_inserti}
+
+distanziali:
+  DIST_M3_5: {tipo: maschio-femmina, d: 5.5, l: 5, filetto: M3, bom: B18}
+
+# Totali del BOM (riga "Totale viti" di docs/BOM.md): il controllo viti_bom li confronta con i passi
+totali_bom:
+  viti: {M3x5: 12, M3x6: 52, M3x8: 106, M3x10: 18, M3x16: 2, M2x5: 16, M2x5S: 12}
+  rondelle: {R_M3: 48}
+  inserti: {INS_M3: 94, INS_M2: 28}
+
+# Inserti delle predisposizioni: fuori dai totali del BOM (BOM.md, "Viteria in piu' se si montano tutte")
+inserti_predisposizioni:
+  - {chiave: corpo/Corpo_Base, lav: "ins_imu_*", x: X4}
+  - {chiave: corpo/Corpo_Base, lav: "ins_ads_*", x: X6}
+  - {chiave: "corpo/Corpo_Supporto_INA260_*", lav: "ins_*", x: X7}
+  - {chiave: corpo/Corpo_Carapace, lav: "ins_amp_*", x: X17}
+  - {chiave: corpo/Corpo_Carapace, lav: "ins_sch_*", x: X2}
+  - {chiave: corpo/Corpo_Carapace, lav: "zaino_ins_*", x: zaino}

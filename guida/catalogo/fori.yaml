@@ -1,0 +1,23 @@
+# Classificazione dei fori di guida/dati/fori.json (D-075). Vince la prima regola che corrisponde.
+# Campi: componente (glob), lav (glob sul nome della lavorazione, anche quella d'origine degli specchi), d (mm, +-0.05),
+# cieco (un estremo e' 'fondo'). Il diametro da solo non basta: 3,4 vale per il passante M3 e per l'inserto M2,
+# 4,2 per l'inserto M3 e per le alette del servo.
+regole:
+  - {componente: "Rif_Servo_MG996R", d: 4.2, tipo: aletta}
+  - {componente: "Rif_Servo_MG996R", d: 2.5, tipo: albero}
+  - {componente: "Rif_Squadretta_25T", d: 3.0, tipo: filettato_m3}
+  - {componente: "Rif_Squadretta_25T", d: 3.2, tipo: centro_squadretta}
+  - {componente: "Rif_Reg_Servo_D42V110F6", tipo: foro_pcb}
+  - {componente: "Rif_SSC32_V25", tipo: foro_pcb}
+  - {componente: "Rif_*", tipo: ignora}
+  - {d: 4.2, cieco: true, tipo: inserto_m3}
+  - {d: 3.4, cieco: true, tipo: inserto_m2}
+  - {d: 3.4, tipo: passante_m3}
+  - {d: 2.5, tipo: pilota_m3}
+  - {d: 2.4, tipo: passante_m2}
+  - {d: 1.7, tipo: pilota_m2}
+  - {d: 5.0, lav: "foro_perno*", tipo: sede_perno}
+  - {d: 3.1, lav: "foro_spia_*", tipo: foro_led}
+  - {d: 6.0, lav: "foro_centrale*", tipo: accesso}
+  - {d: 5.6, lav: "foro_testa_*", tipo: sede_testa}
+  - {tipo: ignora}

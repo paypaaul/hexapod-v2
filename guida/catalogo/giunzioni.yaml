@@ -1,0 +1,180 @@
+# Giunzioni a vite della guida (D-075): una voce per riga della tabella "Viteria e inserti contati dal modello" di
+# docs/BOM.md. I fori si cercano fra i pezzi presenti nel passo che usa la giunzione.
+#   punta: il foro dove la vite fa presa (inserto, pilota, filettato); chiave = occorrenza del manifest (glob ammesso)
+#   testa: il foro coassiale dove sta la testa (il piu' lontano dal fondo della punta), oppure
+#          {sopra: chiave} la testa appoggia sulla faccia lontana di quel pezzo (comprati senza fori modellati), oppure
+#          {sulla_punta: true} la testa resta sull'ingresso della punta (teste che fanno da spine)
+#   attesi: viti per assieme (per zampa nelle giunzioni "zampa", per robot in quelle "corpo")
+#   rondelle / distanziale: tra la testa e la punta
+# decisione: dove si trova il perche'.
+
+zampa:
+  alette_femore_coda:
+    descrizione: servo del femore nella coxa, alette lato coda in inserti
+    vite: M3x8
+    punta: {chiave: zampa/Coxa, tipo: inserto_m3, lav: "ins_coda_*"}
+    testa: {chiave: zampa/Servo_femore, tipo: aletta}
+    attesi: 2
+    decisione: D-049
+  alette_femore_albero:
+    descrizione: servo del femore nella coxa, alette lato albero in fori pilota
+    vite: M3x8
+    punta: {chiave: zampa/Coxa, tipo: pilota_m3}
+    testa: {chiave: zampa/Servo_femore, tipo: aletta}
+    attesi: 2
+    decisione: D-049
+  alette_ginocchio_coda:
+    descrizione: servo del ginocchio nella tibia, alette lato coda in inserti
+    vite: M3x8
+    punta: {chiave: zampa/Tibia, tipo: inserto_m3, lav: "ins_coda_*"}
+    testa: {chiave: zampa/Servo_ginocchio, tipo: aletta}
+    attesi: 2
+    decisione: D-049
+  alette_ginocchio_albero:
+    descrizione: servo del ginocchio nella tibia, alette lato albero in fori pilota
+    vite: M3x8
+    punta: {chiave: zampa/Tibia, tipo: pilota_m3}
+    testa: {chiave: zampa/Servo_ginocchio, tipo: aletta}
+    attesi: 2
+    decisione: D-049
+  guscio_tibia:
+    descrizione: guscio della tibia sullo stinco
+    vite: M3x10
+    punta: {chiave: zampa/Tibia, tipo: inserto_m3, lav: "ins_guscio"}
+    testa: {chiave: zampa/Cover_Tibia, tipo: passante_m3}
+    attesi: 1
+    decisione: D-061
+  ponte_coxa:
+    descrizione: ponte sull'anima della coxa
+    vite: M3x10
+    punta: {chiave: zampa/Coxa, tipo: inserto_m3, lav: "ins_ponte_*"}
+    testa: {chiave: zampa/Coxa_Ponte, tipo: passante_m3}
+    attesi: 2
+    decisione: D-048
+  squadretta_coxa_spine:
+    descrizione: squadretta di coxa, viti le cui teste fanno da spine nei fori del ponte
+    vite: M3x5
+    punta: {chiave: zampa/Squadretta_coxa, tipo: filettato_m3}
+    coassiale_con: {chiave: zampa/Coxa_Ponte, tipo: sede_testa}
+    testa: {sulla_punta: true}
+    attesi: 2
+    decisione: D-049
+  femore_a_squadrette:
+    descrizione: Femore_A sulle squadrette di femore e ginocchio
+    vite: M3x6
+    punta: {chiave: "zampa/Squadretta_[fg]*", tipo: filettato_m3}
+    testa: {chiave: zampa/Femore_A, tipo: passante_m3, lav: "foro_sq_*"}
+    attesi: 8
+    decisione: D-061
+  femore_a_blocco:
+    descrizione: Femore_A sul blocco di Femore_B, con due rondelle di registro per vite
+    vite: M3x8
+    punta: {chiave: zampa/Femore_B, tipo: inserto_m3, lav: "ins_blocco_*"}
+    testa: {chiave: zampa/Femore_A, tipo: passante_m3, lav: "foro_blocco_*"}
+    rondelle: {tipo: R_M3, n: 2}
+    attesi: 4
+    decisione: D-061
+  lama_b:
+    descrizione: lama B su Femore_B, viti svasate a filo nell'intarsio nero
+    vite: M2x5S
+    punta: {chiave: zampa/Femore_B, tipo: inserto_m2, lav: "ins_lama_*"}
+    testa: {chiave: zampa/Cover_Femore_B_Feritoia, tipo: passante_m2}
+    attesi: 2
+    decisione: D-073
+
+corpo:
+  alette_coxa_coda:
+    descrizione: servo di coxa nella gondola, alette lato coda in inserti
+    vite: M3x8
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m3}
+    testa: {chiave: "corpo/Servo_Coxa_*", tipo: aletta}
+    attesi: 12
+    decisione: D-049
+  alette_coxa_albero:
+    descrizione: servo di coxa nella gondola, alette lato albero in fori pilota
+    vite: M3x8
+    punta: {chiave: corpo/Corpo_Base, tipo: pilota_m3}
+    testa: {chiave: "corpo/Servo_Coxa_*", tipo: aletta}
+    attesi: 12
+    decisione: D-049
+  chiglia_ant:
+    descrizione: chiglia sulla base, davanti (orecchie a tutta altezza)
+    vite: M3x16
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m3}
+    testa: {chiave: corpo/Corpo_Chiglia, tipo: passante_m3, lav: "foro_orecchia_a*"}
+    attesi: 2
+    decisione: D-056
+  chiglia_post:
+    descrizione: chiglia sulla base, dietro
+    vite: M3x8
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m3}
+    testa: {chiave: corpo/Corpo_Chiglia, tipo: passante_m3, lav: "foro_orecchia_p*"}
+    attesi: 2
+    decisione: D-056
+  slitte:
+    descrizione: slitte dei regolatori sulla parete della baia
+    vite: M3x8
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m3}
+    testa: {chiave: "corpo/Corpo_Slitta_Regolatore_*", tipo: passante_m3}
+    attesi: 2
+    decisione: D-051
+  regolatori:
+    descrizione: regolatori Pololu sulle slitte
+    vite: M2x5
+    punta: {chiave: "corpo/Corpo_Slitta_Regolatore_*", tipo: inserto_m2}
+    testa: {chiave: "corpo/Regolatore_*", tipo: foro_pcb}
+    attesi: 8
+    decisione: D-051
+  ssc32:
+    descrizione: SSC-32 sulle bugne del tetto
+    vite: M2x5
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m2, lav: "ssc_bugna_*"}
+    testa: {chiave: corpo/SSC32, tipo: foro_pcb}
+    attesi: 4
+    decisione: D-051
+  vassoio:
+    descrizione: vassoio sui quattro distanziali maschio-femmina
+    vite: M3x6
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m3, lav: "vas_bugna_*"}
+    testa: {chiave: corpo/Corpo_Vassoio, tipo: passante_m3}
+    distanziale: DIST_M3_5
+    attesi: 4
+    decisione: D-051
+  basetta:
+    descrizione: basetta sulle colonnine del vassoio
+    vite: M2x5
+    punta: {chiave: corpo/Corpo_Vassoio, tipo: inserto_m2}
+    testa: {sopra: corpo/Basetta}
+    attesi: 4
+    decisione: D-053
+  carapace:
+    descrizione: carapace sulle colonnine del tetto
+    vite: M3x8
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m3}
+    testa: {chiave: corpo/Corpo_Carapace, tipo: passante_m3}
+    attesi: 4
+    decisione: D-052
+  sportello:
+    descrizione: sportello della batteria sui blocchetti della chiglia
+    vite: M3x8
+    punta: {chiave: corpo/Corpo_Chiglia, tipo: inserto_m3}
+    testa: {chiave: corpo/Corpo_Sportello, tipo: passante_m3}
+    attesi: 2
+    decisione: D-054
+  # predisposizioni: fuori dai totali del BOM (BOM.md, "Viteria in piu' se si montano tutte")
+  piastrina_imu:
+    descrizione: piastrina della GY-6500 sulle bugne della Pololu
+    vite: M2x5S
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m2, lav: "ins_imu_*"}
+    testa: {chiave: corpo/Corpo_Piastrina_IMU, tipo: passante_m2}
+    attesi: 2
+    predisposizione: X4
+    decisione: D-074
+  imu:
+    descrizione: GY-6500 sulla piastrina
+    vite: M2x6
+    punta: {chiave: corpo/Corpo_Piastrina_IMU, tipo: pilota_m2}
+    testa: {sopra: corpo/IMU}
+    attesi: 2
+    predisposizione: X4
+    decisione: D-074

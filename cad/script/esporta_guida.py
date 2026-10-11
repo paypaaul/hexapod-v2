@@ -131,11 +131,21 @@ def manifest(des, root):
             return
         corpi = _corpi(comp, adsk.core.Matrix3D.create())
         aspetti = {}
-        for b, _ in corpi:
+        lo, hi = [1e9] * 3, [-1e9] * 3
+        for b, mb in corpi:
             nome, rgb = _colore(b)
             aspetti.setdefault(nome, rgb)
+            bb = b.boundingBox
+            for x in (bb.minPoint.x, bb.maxPoint.x):
+                for y in (bb.minPoint.y, bb.maxPoint.y):
+                    for z in (bb.minPoint.z, bb.maxPoint.z):
+                        p = adsk.core.Point3D.create(x, y, z)
+                        p.transformBy(mb)
+                        for k, v in enumerate((p.x, p.y, p.z)):
+                            lo[k], hi[k] = min(lo[k], v * 10), max(hi[k], v * 10)
         componenti[comp.name] = {'tipo': _tipo(comp.name), 'revisione': comp.revisionId, 'mesh': comp.name + '.ply',
-                                 'aspetti': [[k, v] for k, v in sorted(aspetti.items())], 'corpi': len(corpi)}
+                                 'aspetti': [[k, v] for k, v in sorted(aspetti.items())], 'corpi': len(corpi),
+                                 'bbox': [[round(v, 3) for v in lo], [round(v, 3) for v in hi]]}
 
     chiavi = _chiavi_corpo(des, corpo)
     for o in corpo.component.occurrences:
