@@ -5,7 +5,7 @@ La guida si legge con le mani occupate: poche parole, sempre le stesse, una cosa
 ## Frasi
 
 - Imperativo con il tu, verbo all'inizio: "Premi il cuscinetto nella sede".
-- Un'azione per riga, da tre a sei righe per passo. Se ne servono di più, il passo va diviso.
+- Un'azione per riga, da due a sei righe per passo. Se ne servono di più, il passo va diviso.
 - Niente "ora", "quindi", "a questo punto": l'ordine lo danno i numeri.
 - Niente spiegazioni nel testo. Il perché, quando serve, va in un avviso NOTA con il riferimento (D-0xx).
 - Italiano: "vite", "foro", "sede", non "screw" o "slot". Sigle solo quelle del BOM e della scheda (SSC-32, ESP32, T-plug).
@@ -25,6 +25,8 @@ La guida si legge con le mani occupate: poche parole, sempre le stesse, una cosa
 | Salda | saldatura a stagno |
 | Controlla | verifica senza attrezzi; se non va, fermati |
 | Misura e annota | misura con l'attrezzo e scrivi il valore nel registro delle misure (appendice) |
+| Annota | scrivi un dato (numero del servo, scelta fatta) nella scheda della sezione |
+| Togli | stacca o rimuovi un pezzo o una parte (gommini, pellicole, un pezzo da rimontare dopo) |
 
 ## Numeri e nomi
 
@@ -38,5 +40,5 @@ La guida si legge con le mani occupate: poche parole, sempre le stesse, una cosa
 - ATTENZIONE: pericolo per le persone o danno a un pezzo (batteria, saldatore, servo sotto carico, polarità).
 - IMPORTANTE: errore facile che costringe a smontare.
 - NOTA: il perché, un trucco, un riferimento.
-- OPZIONALE Xn — solo ora / anche dopo: una predisposizione; "solo ora" se dopo non si può più.
+- OPZIONALE Xn — solo ora / meglio ora / anche dopo: una predisposizione; "solo ora" se dopo non si può più, "meglio ora" se dopo costa smontare qualcosa.
 - PROVA: una prova da fare prima di andare avanti, con il risultato atteso.

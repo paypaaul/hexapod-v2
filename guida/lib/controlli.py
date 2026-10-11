@@ -164,6 +164,8 @@ def chiavi_esistenti(dati):
                     errori.append('%s: avviso di tipo %s' % (pid, a.get('tipo')))
                 elif a['tipo'] == 'opzionale' and not a.get('x'):
                     errori.append('%s: avviso opzionale senza la predisposizione (x)' % pid)
+                elif a.get('quando') not in (None, 'solo_ora', 'meglio_ora', 'anche_dopo'):
+                    errori.append('%s: quando = %s' % (pid, a['quando']))
     return errori
 
 

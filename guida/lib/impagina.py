@@ -17,7 +17,7 @@ from . import elenchi as E
 from . import scena as S
 
 ETICHETTE = {'attenzione': 'Attenzione', 'importante': 'Importante', 'nota': 'Nota', 'opzionale': 'Opzionale', 'prova': 'Prova'}
-QUANDO = {'solo_ora': 'solo ora', 'anche_dopo': 'anche dopo'}
+QUANDO = {'solo_ora': 'solo ora', 'meglio_ora': 'meglio ora', 'anche_dopo': 'anche dopo'}
 # Frecce in pixel del render (9 px/mm, scena.PX_MM): pezzi 1,6 mm, viti e inserti 0,9 mm, bordo bianco 0,5 mm.
 LARGHEZZA_FRECCIA = {'pezzo': 14, 'vite': 8, 'inserto': 8}
 BORDO_FRECCIA = 4.5

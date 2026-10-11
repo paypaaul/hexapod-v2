@@ -26,6 +26,7 @@ sezione:
   scheda: [..., ...]        # solo con ripeti: righe della tabella a spunta per le sei zampe
   vista_finale: zampa_A
 passi: [...]
+rinviati: [...]             # passi gia' scritti che vanno piu' avanti (stesso formato); la pipeline li ignora
 ```
 
 ## Passo
@@ -53,7 +54,7 @@ passi: [...]
     - {tipo: attenzione, testo: ...}              # pericolo o danno
     - {tipo: importante, testo: ...}              # errore facile che costa smontare
     - {tipo: nota, testo: ...}
-    - {tipo: opzionale, x: X31, quando: solo_ora, testo: ...}   # quando: solo_ora | anche_dopo
+    - {tipo: opzionale, x: X31, quando: solo_ora, testo: ...}   # quando: solo_ora | meglio_ora | anche_dopo
     - {tipo: prova, testo: ...}                   # prova da fare prima di andare avanti
   attrezzi: [calibro]       # chiavi di guida/catalogo/attrezzi.yaml (quelli delle viti e degli inserti si aggiungono da soli)
   extra: [{nome: "fascetta 2,5 × 100", qta: 2, bom: D11}]   # cose che non sono nel CAD
