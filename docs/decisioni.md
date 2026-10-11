@@ -547,3 +547,31 @@ Verifiche nel CAD:
   - femore 63,3 g a segmento: 66,2 nella 2.1.3, 54,4 con le lame bombate;
   - atteso **3043,5 g**;
   - femore al 53 % dello stallo a 100/45 (5,84 kgf·cm).
+
+## D-072 — Versione 2.1.5: provino delle tasche della lama A e render notturno (2026-10-11)
+
+Richieste dell'utente:
+- un provino per tarare l'incastro della lama A sulle teste delle viti, da stampare con gli altri provini prima dei pezzi;
+- un render "più cinematografico, al buio, con le luci accese".
+
+Il modello del robot non cambia.
+
+- **Provino delle tasche** (`attrezzi.py` → `provino_tasche`, componenti `Attrezzo_Provino_Tasche_Base` e `_Lama` nella zona libreria):
+  - **base** in PETG-CF, 24 × 16 × 8, con una vite M3 × 6 ISO 4762 in un foro pilota Ø2,5 come le alette lato albero (D-049). Così non servono dadi né inserti ancora da tarare;
+  - **lamina** in PLA bianco spessa come la lama A (4,0), stampata come lei con le tasche sul piatto, sei tasche profonde 3,2:
+    - lisce da Ø5,4, 5,5, 5,6 e 5,7 (`cov_testa_d` oggi è 5,6; la testa va da 5,32 a 5,5);
+    - due da Ø6,0 con tre costole di schiacciamento che stringono a 5,3 e 5,4: danno una stretta che dipende meno dalla stampante.
+  - Da 1 a 6 puntini sulla faccia in alto per riconoscere le tasche.
+  - Verificato sul modello: un corpo per pezzo, 4 tasche lisce e 2 con le costole, 21 puntini; volume della lamina 2,867 cm³ contro 2,876 dal calcolo a mano.
+  - STL in `cad/stl/attrezzi/`.
+- **Render notturno** (`viste.py`: viste `notte_ant` e `notte_alto`, `avvia(..., notte=True)`):
+  - ambiente "Evidenziazioni del bordo" quasi spento (luminosità 10 invece di 1000), esposizione 6 EV, sfondo nero, suolo lucido con i riflessi;
+  - solo durante il render, il PLA bianco (`Esa PLA placche`) diventa traslucido, così la luce passa attraverso il carapace e i gusci come nel pezzo vero.
+  - Le luci sono aspetti emissivi copiati da "LED (blu)" della libreria di Fusion, color ciano. Le WS2812B fanno qualunque colore: per il render ne basta uno, e si cambia in `LUCE`.
+    - **Anello del pulsante**: emette la faccia sotto l'anello assottigliato.
+    - **Lobi**: due pixel provvisori sotto ogni piastrina delle luci, rivolti verso l'alto, in un componente che `ripristina` cancella. Hanno un aspetto più luminoso, perché la luce attraversa 2,2 mm di PLA.
+    - **Diffusori delle tibie**: emettono loro.
+    - Spie dei rail non accese: stanno in coda e da queste viste non si vedono.
+  - `ripristina` toglie colori delle facce, pixel e traslucenza, rimette i colori di `colori.py` e la scena di giorno. Verificato dopo ogni render: nessun colore sulle facce, PLA opaco, timeline com'era.
+  - Ogni render notturno dura 8–9 minuti, contro meno di un minuto per quelli di giorno.
+  - Immagini in `docs/immagini/render-notte-ant.png` e `render-notte-alto.png`.

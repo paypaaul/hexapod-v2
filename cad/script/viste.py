@@ -65,7 +65,17 @@ VISTE = {
     'montato_fianco': ((0.12, 1.0, 0.22), 'robot', (0, 0, -40), 46.0),
     'esploso_zampa': ((0.72, 0.58, 0.36), 'zampa', (70, 5, -75), 36.0),
     'esploso_corpo': ((1.0, 0.85, 0.5), 'robot', (0, 0, 38), 54.0),
+    # render notturni (D-072): piu' bassi e piu' stretti, con le luci accese
+    'notte_ant': ((1.0, 0.62, 0.34), 'robot', (0, 0, -40), 42.0),
+    'notte_alto': ((0.75, 0.55, 0.95), 'robot', (0, 0, -25), 36.0),
 }
+# luci del render notturno: le WS2812B fanno qualunque colore, nel render uno solo (ciano). Aspetto emissivo copiato da
+# "LED (blu)" della libreria; la luminanza e l'esposizione sono tarate a occhio sul render
+# i pixel dei lobi stanno sotto 2,2 mm di PLA (piastrina e pelle): hanno un aspetto piu' luminoso
+LUCE = {'nome': 'Esa luce notte', 'colore': (70, 210, 255), 'luminanza': 400.0, 'nome_pixel': 'Esa luce notte pixel',
+        'luminanza_pixel': 6000.0}
+NOTTE = {'ambiente': 'Evidenziazioni del bordo', 'luminosita': 10.0, 'esposizione': 6.0, 'sfondo': (4, 5, 8)}
+GIORNO = {'luminosita': 1000.0, 'esposizione': 12.0}     # valori originali della scena del design
 
 
 def _des():
@@ -162,28 +172,143 @@ def prepara(nome, zampa='AS'):
     else:
         _visibili(root, [corpo] + zampe)
     _inquadra(nome, zo)
-    print(json.dumps({'vista': nome, 'posa_pendente': des.snapshots.hasPendingSnapshot}))
+    n_luci = luci(True) if nome.startswith('notte') else 0
+    print(json.dumps({'vista': nome, 'posa_pendente': des.snapshots.hasPendingSnapshot, 'luci': n_luci}))
 
 
-def scena():
-    """Scena del render: ambiente da studio, sfondo chiaro a tinta unita, suolo con le ombre, prospettiva."""
+def scena(notte=False):
+    """Scena del render: ambiente da studio, sfondo chiaro a tinta unita, suolo con le ombre, prospettiva. Di notte
+    (D-072): ambiente quasi spento che lascia solo le luci di bordo, sfondo nero, suolo lucido che riflette le luci."""
     rm = _des().renderManager
     ss = rm.sceneSettings
-    env = [e for e in rm.renderEnvironments if e.name == 'Cabina per fototessere']
+    env = [e for e in rm.renderEnvironments if e.name == (NOTTE['ambiente'] if notte else 'Cabina per fototessere')]
     # il tipo di sfondo e' in sola lettura: lo cambia l'assegnazione dell'ambiente o del colore (l'ambiente resta
     # come illuminazione anche con lo sfondo a tinta unita)
     if env:
         ss.backgroundEnvironment = env[0]
-    ss.backgroundSolidColor = adsk.core.Color.create(244, 245, 247, 255)
+    ss.backgroundSolidColor = adsk.core.Color.create(*(NOTTE['sfondo'] if notte else (244, 245, 247)), 255)
+    ss.brightness = NOTTE['luminosita'] if notte else GIORNO['luminosita']
+    ss.cameraExposure = NOTTE['esposizione'] if notte else GIORNO['esposizione']
     ss.isGroundDisplayed = True
-    ss.isGroundReflections = False
+    ss.isGroundReflections = notte
+    if notte:                                  # la ruvidita' si imposta solo con i riflessi accesi
+        ss.groundRoughness = 0.25
     ss.cameraType = adsk.core.CameraTypes.PerspectiveCameraType
     ss.cameraFocalLength = FOCALE
 
 
-def avvia(file, qualita=75, larghezza=1800, altezza=1200):
+def _aspetto_luce(des, nome, luminanza):
+    """Aspetto emissivo del design per le luci accese (copia di "LED (blu)" con il colore di LUCE e la luminanza data)."""
+    a = des.appearances.itemByName(nome)
+    if a is None:
+        lib = [m for m in adsk.core.Application.get().materialLibraries if m.name == 'Libreria aspetti di Fusion'][0]
+        a = des.appearances.addByCopy(lib.appearances.itemByName('LED (blu)'), nome)
+    a.appearanceProperties.itemById('opaque_luminance_modifier').value = adsk.core.Color.create(*LUCE['colore'], 255)
+    a.appearanceProperties.itemById('opaque_albedo').value = adsk.core.Color.create(*LUCE['colore'], 255)
+    a.appearanceProperties.itemById('opaque_luminance').value = luminanza
+    return a
+
+
+def _facce_luci(des):
+    """Facce del carapace da cui esce la luce: sotto dell'anello del pulsante assottigliato e piastrine delle luci dei lobi."""
+    comp = [c for c in des.allComponents if c.name == 'Corpo_Carapace'][0]
+    mm = lambda e: des.unitsManager.evaluateExpression(e, 'mm') * 10
+    z_anello, z_lobi = mm('car_top - luc_bianco'), mm('car_top - car_sp - 0.6 mm')
+    xp, r1 = mm('car_puls_x'), mm('luc_anello_r1')
+    out = []
+    for b in comp.bRepBodies:
+        for fa in b.faces:
+            g = fa.geometry
+            if g.surfaceType != adsk.core.SurfaceTypes.PlaneSurfaceType or abs(abs(g.normal.z) - 1) > 1e-6:
+                continue
+            p, area = fa.pointOnFace, fa.area * 100
+            if abs(p.z * 10 - z_anello) < 0.01 and abs(p.x * 10 - xp) < r1 + 0.1 and abs(p.y * 10) < r1 + 0.1:
+                out.append(fa)
+            elif abs(p.z * 10 - z_lobi) < 0.01 and 60 < area < 160:
+                out.append(fa)
+    return out
+
+
+PIXEL = 'Luci_Notte_Provvisorie'
+
+
+def _pixel_lobi(des, led):
+    """Due pixel emissivi rivolti in alto sotto ogni piastrina delle luci dei lobi, in un componente provvisorio alla
+    radice (lo cancella luci(False)): la faccia della piastrina emette verso il basso e non illumina il bianco sopra."""
+    root = des.rootComponent
+    car = [o for o in root.allOccurrences if o.component.name == 'Corpo_Carapace'][0]
+    z_lobi = des.unitsManager.evaluateExpression('car_top - car_sp - 0.6 mm', 'mm')     # cm, terna del carapace
+    passo = 25.4 / 3 / 10                                       # due pixel a 120 LED/m, in cm
+    occ = root.occurrences.addNewComponent(adsk.core.Matrix3D.create())
+    occ.component.name = PIXEL
+    comp = occ.component
+    bf = comp.features.baseFeatures.add()
+    bf.startEdit()
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    n = 0
+    for b in car.bRepBodies:
+        for fa in b.faces:
+            g = fa.geometry
+            if g.surfaceType != adsk.core.SurfaceTypes.PlaneSurfaceType or abs(abs(g.normal.z) - 1) > 1e-6:
+                continue
+            if abs(fa.nativeObject.pointOnFace.z - z_lobi) > 0.001 or not 0.6 < fa.area < 1.6:
+                continue
+            lati = [e for e in fa.edges if e.geometry.curveType == adsk.core.Curve3DTypes.Line3DCurveType]
+            e = max(lati, key=lambda x: x.length)
+            a, z = e.startVertex.geometry, e.endVertex.geometry
+            u = adsk.core.Vector3D.create(z.x - a.x, z.y - a.y, 0)
+            u.normalize()
+            w = adsk.core.Vector3D.create(-u.y, u.x, 0)
+            bb = fa.boundingBox
+            c = [(bb.minPoint.x + bb.maxPoint.x) / 2, (bb.minPoint.y + bb.maxPoint.y) / 2, bb.minPoint.z - 0.025]
+            for k in (-0.5, 0.5):
+                centro = adsk.core.Point3D.create(c[0] + k * passo * u.x, c[1] + k * passo * u.y, c[2])
+                obb = adsk.core.OrientedBoundingBox3D.create(centro, u, w, 0.25, 0.25, 0.04)
+                comp.bRepBodies.add(tbm.createBox(obb), bf)
+                n += 1
+    bf.finishEdit()
+    for corpo in comp.bRepBodies:
+        corpo.appearance = led
+    return n
+
+
+def luci(accese):
+    """Accende o spegne le luci per il render notturno (D-072): PLA bianco traslucido, facce delle luci del carapace e
+    diffusori delle tibie emissivi. Spente: niente override sulle facce, PLA opaco, aspetti dei pezzi da colori.py."""
+    des = _des()
+    pla = des.appearances.itemByName('Esa PLA placche')
+    pla.appearanceProperties.itemById('opaque_translucency').value = bool(accese)
+    car = [c for c in des.allComponents if c.name == 'Corpo_Carapace'][0]
+    n = 0
+    if accese:
+        led = _aspetto_luce(des, LUCE['nome'], LUCE['luminanza'])
+        for fa in _facce_luci(des):
+            fa.appearance = led
+            n += 1
+        for c in [c for c in des.allComponents if c.name == 'Cover_Tibia_Diffusore']:
+            for b in c.bRepBodies:
+                b.appearance = led
+                n += 1
+        n += _pixel_lobi(des, _aspetto_luce(des, LUCE['nome_pixel'], LUCE['luminanza_pixel']))
+    else:
+        for o in [o for o in des.rootComponent.occurrences if o.component.name == PIXEL]:
+            o.deleteMe()
+        for b in car.bRepBodies:
+            for fa in b.faces:
+                if fa.appearanceSourceType in (adsk.core.AppearanceSourceTypes.FaceAppearanceSource,
+                                               adsk.core.AppearanceSourceTypes.OverrideAppearanceSource):
+                    fa.appearance = None
+                    n += 1
+        import io
+        import contextlib
+        with contextlib.redirect_stdout(io.StringIO()):
+            runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'colori.py'))['main']()
+    return n
+
+
+def avvia(file, qualita=75, larghezza=1800, altezza=1200, notte=False):
     V['controlla'](adsk.core.Application.get())
-    scena()
+    scena(notte)
     r = _des().renderManager.rendering
     r.renderQuality = qualita
     r.aspectRatio = adsk.fusion.RenderAspectRatios.CustomRenderAspectRatio
@@ -210,4 +335,6 @@ def ripristina():
     _flat(root, True)
     for c in [root] + [o.component for o in root.allOccurrences if o.component.name in ('Zampa', 'Corpo')]:
         c.isJointsFolderLightBulbOn = True
-    print(json.dumps({'posa_pendente': des.snapshots.hasPendingSnapshot}))
+    spente = luci(False)
+    scena()
+    print(json.dumps({'posa_pendente': des.snapshots.hasPendingSnapshot, 'override_tolti': spente}))

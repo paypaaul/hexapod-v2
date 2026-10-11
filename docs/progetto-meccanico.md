@@ -192,6 +192,12 @@ Render con il motore di Fusion, colori per materiale (`cad/script/colori.py`: PE
 
 Altre viste: [da dietro](immagini/render-montato-post.png), [di fianco](immagini/render-montato-fianco.png).
 
+Di notte, con le luci accese (D-072: anello del pulsante, lobi, finestre delle tibie):
+
+![Di notte, di tre quarti](immagini/render-notte-ant.png)
+
+![Di notte, dall'alto](immagini/render-notte-alto.png)
+
 ### Massa e baricentro dal modello (9 ottobre 2026, dopo la passata estetica)
 
 | Voce | Massa (g) |

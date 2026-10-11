@@ -9,7 +9,8 @@ Ogni gruppo di modifiche è una versione: un tag git e un file Fusion proprio ne
 | 2.1.1 | fatta (10 ottobre 2026) | `v2.1.1` | lo stesso "Hexapod v2.1.0" (correzioni piccole, senza copia), versione 7 | camera dell'anello Ø32 × 6 con il fondo e le sedi dei pixel, fermo dei fili sulla tibia, schema del cablaggio; striscia corretta in D-068 (2020 a 120 LED/m) (`docs/cablaggio.md`, D-067) |
 | 2.1.2 | fatta (10 ottobre 2026) | `v2.1.2` | lo stesso "Hexapod v2.1.0", versione 10 | scelta delle predisposizioni (D-069: approvate e backlog), prese delle luci delle tibie, provino di luce, presa del T-plug verificata, tocco dai sensori esistenti (`software.md` 4.3b) |
 | 2.1.3 | fatta (11 ottobre 2026) | `v2.1.3` | lo stesso "Hexapod v2.1.0", versione 11 | lame del femore come il guscio della tibia, chiuse su teste e mozzi, con la feritoia a intarsio nero; nessuna copertura superiore (D-070). Contatto fra vicine a 31°, massa attesa 3060,6 g, femore al 53 % |
-| 2.1.4 | fatta (11 ottobre 2026), design di lavoro | `v2.1.4` | lo stesso "Hexapod v2.1.0", versione 12 | lame del femore con la sagoma del femore (teste esagonali e rialzo, come D-061) e l'estetica della 2.1.3; feritoia e viti della lama B a Z 1,5 (D-071). Carapace a 4,58 mm, massa attesa 3043,5 g |
+| 2.1.4 | fatta (11 ottobre 2026) | `v2.1.4` | lo stesso "Hexapod v2.1.0", versione 12 | lame del femore con la sagoma del femore (teste esagonali e rialzo, come D-061) e l'estetica della 2.1.3; feritoia e viti della lama B a Z 1,5 (D-071). Carapace a 4,58 mm, massa attesa 3043,5 g |
+| 2.1.5 | fatta (11 ottobre 2026), design di lavoro | `v2.1.5` | lo stesso "Hexapod v2.1.0", versione 13 | provino delle tasche della lama A (attrezzi) e render notturno con le luci accese (D-072); il robot non cambia |
 
 Prima della 2.0.0: la versione progettata attorno agli MG90S, nel branch `mg90s` e nel file "Hexapod v2 - MG90S".
 

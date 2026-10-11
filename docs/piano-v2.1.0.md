@@ -242,6 +242,8 @@ Sullo stesso design "Hexapod v2.1.0", tag `v2.1.4`, decisione D-071.
 
 ## Seguito: versione 2.1.5 — provino delle tasche della lama A e render notturno (richiesta dell'utente dell'11 ottobre 2026)
 
+**Fatta l'11 ottobre 2026** (D-072, tag `v2.1.5`).
+
 Sullo stesso design "Hexapod v2.1.0", tag `v2.1.5`, decisione D-072. Il modello del robot non cambia.
 
 1. **Provino delle tasche** (`attrezzi.py` → `provino_tasche`), da stampare con gli altri provini prima dei pezzi.

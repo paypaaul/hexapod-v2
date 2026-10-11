@@ -56,10 +56,16 @@ PARAMETRI = [
 # (imbardata, femore, ginocchio) in gradi delle due pose (software.md 2.7)
 POSE = {'Dima_Posa_1': (0.0, 0.0, 90.0), 'Dima_Posa_2': (30.0, 45.0, 135.0)}
 LIBRERIA = {'Dima_Posa_1': (0, 850, 0), 'Dima_Posa_2': (100, 850, 0), 'Attrezzo_Cavalletto': (260, 850, 0),
-            'Attrezzo_Provino_Luce_Nero': (420, 850, 0), 'Attrezzo_Provino_Luce_Bianco': (420, 850, 0)}
+            'Attrezzo_Provino_Luce_Nero': (420, 850, 0), 'Attrezzo_Provino_Luce_Bianco': (420, 850, 0),
+            'Attrezzo_Provino_Tasche_Base': (520, 850, 0), 'Attrezzo_Provino_Tasche_Lama': (520, 880, 0)}
 # provino di luce (X10, D-069): profondita' delle camere sopra la striscia e spessori del bianco da provare
 PROV_CAMERE = (2.0, 4.0, 6.0)
 PROV_BIANCO = (0.4, 0.8, 1.2, 1.6)
+# provino delle tasche della lama A (D-072): diametri lisci attorno a cov_testa_d (5,6; testa ISO 4762 da 5,32 a 5,5) e
+# tasche da 6,0 con tre costole di schiacciamento che stringono al diametro dato
+PROV_TASCHE = (5.4, 5.5, 5.6, 5.7)
+PROV_COSTOLE = (5.3, 5.4)
+PROV_COSTOLA_D, PROV_FORO_COSTOLE, PROV_PASSO = 1.0, 6.0, 10.0
 
 
 def _mm(des, expr):
@@ -239,6 +245,39 @@ def fai_provino_luce(des, root):
     return nero, pn, bianco, pb
 
 
+def fai_provino_tasche(des, root):
+    """Provino delle tasche della lama A (D-072). Base in PETG-CF con una vite M3 x 6 ISO 4762 in un foro pilota (come le
+    alette lato albero, D-049): la testa sta in piedi come quelle del blocco del femore. Lamina in PLA spessa come la lama
+    A (cov_fem_sp_a) e stampata come lei, con le tasche sul piatto: quattro lisce PROV_TASCHE e due da PROV_FORO_COSTOLE
+    con tre costole che stringono a PROV_COSTOLE, profonde come nella lama (testa piu' cov_fem_tasca_gio). Accanto alla
+    tasca i-esima, sulla faccia in alto, i puntini (da 1 a 6) per riconoscerla."""
+    base, lama = _comp(root, 'Attrezzo_Provino_Tasche_Base'), _comp(root, 'Attrezzo_Provino_Tasche_Lama')
+    pb, pl = Parte(base.component), Parte(lama.component)
+    pb.blocco('z', _f(0), 'base', _f(-12), _f(-8), _f(12), _f(8), _f(8), 1, NUOVO)
+    pb.cilindro('z', _f(8), 'pilota', _f(0), _f(0), 'vite_m3_pilota', _f(7), -1, TAGLIA)
+    sp, prof = _mm(des, 'cov_fem_sp_a'), _mm(des, 'vite_m3_testa_h') + _mm(des, 'cov_fem_tasca_gio')
+    tasche = [(d, None) for d in PROV_TASCHE] + [(PROV_FORO_COSTOLE, d) for d in PROV_COSTOLE]
+    n = len(tasche)
+    x0 = -(n - 1) * PROV_PASSO / 2
+    pl.blocco('z', _f(0), 'lamina', _f(x0 - PROV_PASSO / 2), _f(-7), _f(-x0 + PROV_PASSO / 2), _f(7), _f(sp), 1, NUOVO)
+    for i, (d, stretta) in enumerate(tasche):
+        xc = x0 + i * PROV_PASSO
+        pl.cilindro('z', _f(0), 'tasca_%d' % (i + 1), _f(xc), _f(0), _f(d), _f(prof), 1, TAGLIA)
+        if stretta is not None:                    # costole: cilindri lungo la tasca, tangenti al cerchio della stretta
+            rc = stretta / 2 + PROV_COSTOLA_D / 2
+            for k in range(3):
+                a = math.radians(90 + 120 * k)
+                pl.cilindro('z', _f(0), 'costola_%d_%d' % (i + 1, k), _f(xc + rc * math.cos(a)), _f(rc * math.sin(a)),
+                            _f(PROV_COSTOLA_D), _f(prof), 1, UNISCI)
+        for k in range(i + 1):                     # puntini sulla faccia in alto, verso +Y
+            pl.cilindro('z', _f(sp), 'puntino_%d_%d' % (i + 1, k), _f(xc - 3.75 + 1.5 * k), _f(5.2), _f(1.0), _f(0.4), -1, TAGLIA)
+    for o, p in ((base, pb), (lama, pl)):
+        c = o.component.bRepBodies
+        p.info = {'corpi': c.count, 'volume_cm3': round(sum(b.volume for b in c), 3)}
+    pl.info['tasche'] = [('%.1f' % d) if s_ is None else 'costole %.1f in %.1f' % (s_, d) for d, s_ in tasche]
+    return base, pb, lama, pl
+
+
 def _chiudi(des, t0, nome, p):
     L['raggruppa'](des, t0, nome)
     return dict({'lavorazioni': p.n, 'schizzi_non_vincolati': p.non_vincolati}, **getattr(p, 'info', {}))
@@ -347,6 +386,12 @@ def main(passi, **kw):
             nero.isLightBulbOn = bianco.isLightBulbOn = False
             out['provino_luce'] = {'nero': dict(pn.info), 'bianco': dict(pb.info)}
             L['raggruppa'](des, t0, 'Attrezzo_Provino_Luce')
+        if 'provino_tasche' in passi:
+            t0 = des.timeline.count
+            base, pb, lama, pl = fai_provino_tasche(des, root)
+            base.isLightBulbOn = lama.isLightBulbOn = False
+            out['provino_tasche'] = {'base': dict(pb.info), 'lama': dict(pl.info)}
+            L['raggruppa'](des, t0, 'Attrezzo_Provino_Tasche')
         if 'verifica_dime' in passi:
             out['verifica_dime'] = verifica_dime(des, root, kw.get('zampa', 'AS'))
         if 'verifica_cavalletto' in passi:

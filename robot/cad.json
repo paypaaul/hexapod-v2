@@ -1,7 +1,7 @@
 {
- "versione": "2.1.4",
- "documento": "Hexapod v2.1.0 v12",
- "esportato": "2026-10-11T13:05:36",
+ "versione": "2.1.5",
+ "documento": "Hexapod v2.1.0 v13",
+ "esportato": "2026-10-11T15:53:41",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
