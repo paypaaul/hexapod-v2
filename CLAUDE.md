@@ -14,7 +14,7 @@ Robot esapode a 18 gradi di libertà (6 zampe × 3 servo MG996R), stampato in 3D
 | 2. BOM | v2.0 approvata; v2.1 con prezzi, link e foto (D-068) in `docs/BOM.md` |
 | 3. Modelli 3D | fatta: parametri, STEP e ingombri in libreria (`cad/script/rif_componenti.py`, D-046) |
 | 4. CAD | **versione 2.1.5** (11 ottobre 2026, D-072). Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
-| 5. BOM finale | bozza con viteria dal modello e prezzi: circa 496 € consegnati per le voci approvate, predisposizioni X a parte (D-068) |
+| 5. BOM finale | v2.2: circa 362 € consegnati per le voci approvate, tolto quello che l'utente ha già in casa (D-073); predisposizioni X a parte (D-068) |
 | 6. Verifica del movimento | da fare |
 
 Numeri di oggi:
@@ -136,8 +136,8 @@ Numeri di oggi:
 ## Aperti e prossimi passi
 
 1. **Da far decidere all'utente**:
-   - viti M2 × 6 svasate delle lame B (D8b);
-   - domande 1–4 del BOM e voci X da comprare;
+   - domanda 4 del BOM (una squadretta di prova) e voci X da comprare;
+   - predisposizioni con i pezzi già in casa (D-073): MPU-6500 al posto dell'IMU Pololu (X4), microfoni MS3625 o INMP441 (X16), MAX98357A generico e altoparlante da 15 mm (X17). Cambiano le sedi nel CAD;
    - se montare le luci nelle tibie (la sede X31 è approvata, D-069) e il colore del diffusore: bianco o PETG traslucido fumé. Lo zaino è approvato, resta l'acquisto;
    - somma fra vicine a 56° invece di 60° (proposta in `docs/software.md`);
    - eventuali viti DIN 7984 a testa bassa sotto la lama A: la lama passa da 4,0 a 3,0 mm, il contatto fra vicine sale verso 31,25° e la massa cala di pochi grammi. Cambiano 72 viti del BOM (D-070).
@@ -146,18 +146,25 @@ Numeri di oggi:
    - fori e chip dei circuiti marcati C;
    - cablaggio, sezione 5: ramo delle tibie e tetto di corrente;
    - T-plug da provare a mano sul primo carapace, con il ToF posteriore montato.
-3. **Provini da stampare prima dei pezzi**:
+3. **Da guardare sui pezzi in casa** (D-073): chiederli all'utente quando servono, non sono misure dei servo.
+   - Quale delle 4 schede ESP32-S3 CAM è la RE1.3: la sigla è stampata sulla scheda. Serve prima di stampare il vassoio.
+   - Diametro e altezza dei condensatori da 2200 µF (B7). Previsti 12,5–13 × 20–22 mm.
+   - Kit Temu da 918 viti M2–M5: tipo di testa e lunghezze delle M3. Se ci sono M3 × 6 e × 8 a testa cilindrica, D6 si riduce.
+   - Set Temu da 500 inserti in ottone: misure.
+   - Lega dello stagno "a bassa temperatura": se non è al bismuto, B19 perde anche lo stagno.
+   - Quanto resta della bobina FlashForge di PETG-CF nero: se è quasi intera, E1 scende a una bobina.
+4. **Provini da stampare prima dei pezzi**:
    - culla e giunto: passacavo, fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata;
    - luce (X10, D-069);
    - tasche della lama A (D-072): il risultato va in `cov_testa_d` o si passa alle costole;
    - inserti del kit Temu: fori M3 da 3,9 / 4,0 / 4,1 e M2 da 2,9 / 3,0 / 3,1 in PETG-CF. Poi `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` in `rif_componenti.py` e verifica completa, perché `ins_m3_d` muove anche le bugne delle culle.
    - Dopo i provini: nervature di schiacciamento delle culle e stretta del piedino.
-4. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
-5. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
+5. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
+6. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 
 **Backlog**:
 - **Pettini dei cavi dei servo** (opzione 1 dell'utente): pezzi separati, a incastro o con una vite, sulla parete del tunnel sopra i Wago.
   - Una fessura per cavo, il nome della zampa inciso, le anse del cavo in più fra un pettine e l'altro.
   - Si disegnano dopo il montaggio di una zampa, con le lunghezze misurate; non vanno nella base.
-- **Ordini già fatti**: prima di ordinare, chiedere all'utente l'accesso agli ordini Temu, Amazon e AliExpress, per togliere dal BOM quello che ha già.
+- **Ordini già fatti**: letti l'11 ottobre 2026 (Amazon, AliExpress, Temu), BOM aggiornato in D-073.
 - **Predisposizioni in backlog** (X15, X18, X21, X22, X25–X30, X32, X33): `docs/predisposizioni.md`.

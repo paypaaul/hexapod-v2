@@ -22,9 +22,9 @@ Tutti i cavi del robot nella versione 2.1.1 (D-067): da dove a dove, percorso (g
 **Potenza.** Sezioni dal BOM (B5, B6, B12, B14–B17).
 
 ```
-Batteria 2S ─12 AWG─ T-plug ─12 AWG─ F1 30 A ─12 AWG─ Wago + ─┬─14 AWG─ D42V110F6 S ─16 AWG─ INA260 S ─16 AWG─ VS1 ─ 9 servo
-   │                                  (Wago − : massa a stella) ├─14 AWG─ D42V110F6 D ─16 AWG─ INA260 D ─16 AWG─ VS2 ─ 9 servo
-   │                                                            └─18/22 AWG─ F2 2 A ─ 2813 ─┬─ D24V22F5 5 V ─┬─ ESP32, pin 5V
+Batteria 2S ─12 AWG─ T-plug ─14 AWG─ F1 30 A ─14 AWG─ Wago + ─┬─14 AWG─ D42V110F6 S ─14 AWG─ INA260 S ─14 AWG─ VS1 ─ 9 servo
+   │                                  (Wago − : massa a stella) ├─14 AWG─ D42V110F6 D ─14 AWG─ INA260 D ─14 AWG─ VS2 ─ 9 servo
+   │                                                            └─18/26 AWG─ F2 2 A ─ 2813 ─┬─ D24V22F5 5 V ─┬─ ESP32, pin 5V
    └─ bilanciamento JST-XH 3 poli ─ prolunga C7 ─ cicalino BX100                            │                ├─ PTC ─ LED: poli 1-2 del
                                                                                             │                │   connettore e ramo delle tibie
    VS1, VS2 ─ 1 kΩ ─ LED ambra ─ massa (spie, X13)                                          │                └─ amplificatore (poli 1-2)
@@ -69,16 +69,16 @@ striscia LED (6 pixel) ─ capo in alto a z −33 ──────────
 | Cavo | Da → a | Percorso | Connettore | Fili e sezione | Stato |
 |---|---|---|---|---|---|
 | Batteria | pacco → T-plug | codino della batteria, dal tunnel alla coda | T-plug (la batteria ha la femmina) | 2 × 12 AWG | C sesso del T-plug |
-| Principale | T-plug → F1 → Wago + ; T-plug → Wago − | in coda, poi lungo il fondo fino ai Wago sotto la SSC-32 | portafusibile in linea ATO con coperchio, fissato al corpo | 12 AWG siliconico, 0,5 m rosso + 0,5 m nero | S |
+| Principale | T-plug → F1 → Wago + ; T-plug → Wago − | in coda, poi lungo il fondo fino ai Wago sotto la SSC-32 | portafusibile in linea ATO con coperchio, fissato al corpo | 14 AWG siliconico, 0,5 m rosso + 0,5 m nero (D-073; anche i codini di T-plug e portafusibile sono 14 AWG) | S |
 | Ingresso dei regolatori | Wago → D42V110F6 S e D | dai Wago (x −46…−16) alle baie anteriori (x 14…57), uno per lato | saldati | 14 AWG siliconico, 0,5 + 0,5 m | S |
-| Rail servo | D42V110F6 → INA260 → file VS della SSC-32 | INA260 in serie sul positivo all'uscita di ogni regolatore; poi alla fila VS del suo lato | morsettiera dell'INA260 (C: deve reggere 13 A); barre B16 sulla SSC-32 | 16 AWG siliconico, 0,6 + 0,6 m | S, C morsettiera |
-| Ramo logica | Wago + → F2 → 2813 | in coda: F2 in linea fra i Wago e la 2813 | portafusibile MINI | codini 18 AWG del portafusibile, poi 22 AWG | S |
-| 5 V e VL | 2813 → D24V22F5 (basetta) → ESP32; 2813 → VL della SSC-32; 2813 → partitore → GPIO1 | dalla 2813 (x −56) alla basetta lungo il fianco del tunnel | saldati; VL con un Dupont (C4) | 22 AWG, più colori (circa 2 m in tutto) | S |
-| 5 V dei LED | D24V22F5 → PTC → poli 1-2 del connettore del carapace; → ramo delle tibie | sulla basetta | saldati | 22 AWG fino alla basetta | S |
-| Abilitazione del rail | GPIO42 → 1N4148 → EN dei due regolatori, 47 kΩ a massa | dalla basetta alle due baie | saldati | 22 AWG | S, valori da provare al banco |
-| Spegnimento | GPIO41 → OFF della 2813 | dalla basetta alla 2813 | saldato; 100 kΩ a massa se scatta da sola (C) | 22 AWG | S |
+| Rail servo | D42V110F6 → INA260 → file VS della SSC-32 | INA260 in serie sul positivo all'uscita di ogni regolatore; poi alla fila VS del suo lato | morsettiera dell'INA260 (C: deve reggere 13 A); barre B16 sulla SSC-32 | 14 AWG siliconico, 0,6 + 0,6 m (D-073) | S, C morsettiera: quella da 3,5 mm dell'INA260 potrebbe prendere al massimo 16 AWG, e allora l'ultimo tratto si salda |
+| Ramo logica | Wago + → F2 → 2813 | in coda: F2 in linea fra i Wago e la 2813 | portafusibile MINI | codini 18 AWG del portafusibile, poi 26 AWG (D-073: regge i 2 A di F2) | S |
+| 5 V e VL | 2813 → D24V22F5 (basetta) → ESP32; 2813 → VL della SSC-32; 2813 → partitore → GPIO1 | dalla 2813 (x −56) alla basetta lungo il fianco del tunnel | saldati; VL con un Dupont (C4) | 26 AWG, più colori (circa 2 m in tutto) | S |
+| 5 V dei LED | D24V22F5 → PTC → poli 1-2 del connettore del carapace; → ramo delle tibie | sulla basetta | saldati | 26 AWG fino alla basetta | S |
+| Abilitazione del rail | GPIO42 → 1N4148 → EN dei due regolatori, 47 kΩ a massa | dalla basetta alle due baie | saldati | 26 AWG | S, valori da provare al banco |
+| Spegnimento | GPIO41 → OFF della 2813 | dalla basetta alla 2813 | saldato; 100 kΩ a massa se scatta da sola (C) | 26 AWG | S |
 | Pulsante | pulsante (x −40) → scheda del carapace → poli 15-16 → basetta → A e B della 2813 | sotto il dorso, poi nel cavo piatto | contatti a saldare sul pulsante; spina IDC | 2 fili | S |
-| Spie dei rail (X13) | file VS1 e VS2 della SSC-32 → 1 kΩ → LED ambra → massa | dalla SSC-32 alla linguetta in coda sotto il cicalino | saldati | 2 + 2 fili, 22 AWG | S |
+| Spie dei rail (X13) | file VS1 e VS2 della SSC-32 → 1 kΩ → LED ambra → massa | dalla SSC-32 alla linguetta in coda sotto il cicalino | saldati | 2 + 2 fili, 26 AWG | S |
 | Bilanciamento | presa JST-XH del pacco → prolunga C7 → cicalino BX100 | dal tunnel alla coda | JST-XH 3 poli | 3 fili | S; si stacca a fine uso |
 
 ### 3.2 Servo

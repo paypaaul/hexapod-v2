@@ -575,3 +575,33 @@ Il modello del robot non cambia.
   - `ripristina` toglie colori delle facce, pixel e traslucenza, rimette i colori di `colori.py` e la scena di giorno. Verificato dopo ogni render: nessun colore sulle facce, PLA opaco, timeline com'era.
   - Ogni render notturno dura 8–9 minuti, contro meno di un minuto per quelli di giorno.
   - Immagini in `docs/immagini/render-notte-ant.png` e `render-notte-alto.png`.
+
+## D-073 — BOM 2.2: quello che c'è già in casa, linea principale in 14 AWG, logica in 26 AWG (2026-10-11)
+
+L'utente ha chiesto di cercare nei suoi ordini Amazon, AliExpress e Temu i pezzi che sostituiscono voci del BOM. Ha approvato le sostituzioni che non cambiano niente in pratica, comprese due sezioni di cavo più piccole ("erano comunque sovrastimate"). Il modello del robot non cambia.
+
+- **Voci tolte dagli acquisti** (stato P nel BOM):
+  - B5 portafusibile, B12 T-plug, B14 e B15 cavi di potenza;
+  - B7 condensatori da 2200 µF, B8 ceramici da 100 nF (SMD, saldati sui reofori);
+  - B17 cavo della logica, guaina di B19;
+  - C2 basetta e strip, C4 cavetti Dupont, C7 prolunga di bilanciamento (due codini JST-XH a 3 poli saldati);
+  - D8 viti M2 × 5 (a croce, dal kit degli inserti), D8b viti svasate;
+  - E2 PLA bianco, E2b PLA nero.
+- **Linea principale in 14 AWG** invece che 12: T-plug, portafusibile e cavo arrivano già in 14 AWG. Il tratto è sotto 0,5 m e F1 da 30 A protegge il siliconico da 2,08 mm². Caduta circa 0,1 V a 15 A. Anche le uscite dei regolatori passano da 16 a 14 AWG. Il codino della batteria resta il suo, da 12 AWG.
+- **Logica in 26 AWG** invece che 22: il ramo logica sta sotto 1 A, e F2 da 2 A protegge anche il 26 AWG.
+- **D8b**: viti M2 × 5 svasate invece di M2 × 6, perché sono quelle in casa. Su 2,6 mm di lama ne restano 2,4 nell'inserto da 3, invece di 3,4: basta per una lama non strutturale. Sono nere e stanno nell'intarsio nero.
+- **Risposte alle domande del BOM**: 20 MG996R (domanda 2); 4 schede ESP32-S3 N16R8 CAM e la camera OV3660 da 75 mm (domanda 1).
+- **Costo**: da 495,94 € a circa 362,13 € consegnati; circa 332,64 € se basta una bobina di PETG-CF.
+- **Non vanno**:
+  - per B2, la scheda di distribuzione NISHZHU (7,2 V minimi) e il buck Jadeshay (8 V minimi): la 2S scende sotto;
+  - per B1, il buck da 20 A: non ha il pin di abilitazione;
+  - i cuscinetti in casa: nessuno è il 5 × 10 × 4 flangiato;
+  - il 26 AWG per i fili delle tibie (X5, X31): la gola è larga 4 mm e sotto i ponticelli restano 1,1 mm.
+- **Da guardare sui pezzi** (elenco in `CLAUDE.md`, da richiedere all'utente):
+  - quale scheda è la RE1.3;
+  - diametro e altezza dei condensatori da 2200 µF;
+  - testa e lunghezze delle M3 nel kit da 918 viti;
+  - misure del set da 500 inserti;
+  - lega dello stagno "a bassa temperatura";
+  - quanto resta del PETG-CF nero FlashForge.
+- **Predisposizioni** (IMU, microfoni, amplificatore e altoparlante in casa): ancora da decidere con l'utente.
