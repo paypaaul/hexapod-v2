@@ -50,7 +50,7 @@ Numeri di oggi:
   - cover delle zampe: placche non strutturali in un altro colore, che non limitano i giunti e seguono la forma del pezzo sotto (D-071);
   - housing della camera integrato nel frontale.
 - **Corpo**: pulsante Ø12 sul coperchio, cicalino in coda sotto il coperchio (D-059); tibia simmetrica con il piede sull'asse del femore (D-065).
-- **Blender** si valuta solo dopo la fase 6.
+- **Blender** si valuta solo dopo la fase 6, salvo le immagini della guida di montaggio (D-075).
 
 ## Regole di lavoro
 
@@ -85,6 +85,7 @@ Numeri di oggi:
 | `cad/script/` | script Fusion: `lib_cad.py`, `lib_assieme.py`, `rif_componenti.py`, `zampa.py`, `corpo.py`, `assieme.py`, `attrezzi.py` (dime, cavalletto, provini), `colori.py`, `viste.py` (render, anche notturni), `esporta_stl.py`, `esporta_mesh.py`, `esporta_robot.py`, `versione.py` |
 | `cad/stl/` | STL da stampare, con orientamento e materiali nel README; `cad/modelli/`: STEP di terzi (fuori da git) |
 | `cad/render/` | render schematici con matplotlib (`render.py`) e ritaglio dei render di Fusion |
+| `guida/` | guida di montaggio illustrata (D-075, piano in `docs/piano-guida.md`): passi in YAML, catalogo, immagini con Blender, PDF con Chrome; output in `build/guida/` |
 | `docs/decisioni.md` | registro delle decisioni (D-041 e successive) |
 | `docs/versioni.md`, `docs/piano-v2.1.0.md` | storico delle versioni e piani dalla 2.1.0 alla 2.1.6 |
 | `docs/progetto-meccanico.md` | architettura, quote, verifiche, masse e render |
@@ -164,8 +165,9 @@ Numeri di oggi:
    - tasche della lama A (D-072): il risultato va in `cov_testa_d` o si passa alle costole;
    - inserti del kit Temu: fori M3 da 3,9 / 4,0 / 4,1 e M2 da 2,9 / 3,0 / 3,1 in PETG-CF. Poi `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` in `rif_componenti.py` e verifica completa, perché `ins_m3_d` muove anche le bugne delle culle.
    - Dopo i provini: nervature di schiacciamento delle culle e stretta del piedino.
-5. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
-6. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
+5. **Guida di montaggio** (D-075): in corso secondo `docs/piano-guida.md`, con quattro arresti per l'utente.
+6. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
+7. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 
 **Backlog**:
 - **Pettini dei cavi dei servo** (opzione 1 dell'utente): pezzi separati, a incastro o con una vite, sulla parete del tunnel sopra i Wago.

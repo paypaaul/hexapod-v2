@@ -654,3 +654,17 @@ Piano in `docs/piano-v2.1.0.md`, sezione 2.1.6. Prima del via sono stati control
   - X4, X16 e X17 sono in possesso;
   - le predisposizioni approvate costano circa 42 € in meno (220,26 € invece di 262,12, senza il computer di bordo);
   - il carrello DigiKey scende a 51,22 € e paga 25 € di spedizione, mentre sparisce l'ordine da pololu.com.
+
+## D-075 — Guida di montaggio illustrata: strumenti, formato e regole (2026-10-11)
+
+L'utente ha chiesto una guida di montaggio passo passo, sullo stile delle istruzioni LEGO, in PDF. Scriverla serve anche a riguardare tutto il progetto. Il piano approvato è in `docs/piano-guida.md`.
+
+- **Strumenti**: l'utente lascia libera la scelta, anche di installare.
+  - Immagini con **Blender** senza interfaccia, da mesh esportate dal CAD in sola lettura (`cad/script/esporta_guida.py`).
+  - PDF con **Chrome** senza interfaccia.
+  - La regola "Blender si valuta solo dopo la fase 6" resta valida per gli altri usi (animazioni, simulazione).
+- **Parti ripetute descritte una volta sola**: una zampa pilota segnata ×6, e per le altre cinque una scheda a spunta. Nel corpo i passi ripetuti sono uno solo, ×N.
+- **Formato**: A4 orizzontale, con l'HTML navigabile accanto.
+- **PDF**: allegato alla release del tag su GitHub. In git restano i sorgenti (`guida/`).
+- **Schemi della basetta e della scheda del carapace**: non erano mai stati progettati. Si progettano durante la guida e passano dall'utente.
+- **Problemi trovati scrivendo**: vanno in `guida/problemi.md`, si portano all'utente e diventano la versione 2.1.7. Le immagini si fanno solo sulla 2.1.7.
