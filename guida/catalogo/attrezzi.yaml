@@ -1,0 +1,12 @@
+# Attrezzi della guida (D-075). icona: pittogramma di guida/modelli/icone.html.j2. Gli estrattori aggiungono qui
+# quello che manca, con la fonte; la guida non cita attrezzi che non stanno in questo elenco (controllo chiavi_esistenti).
+brugola_2_5:       {nome: "Chiave a brugola 2,5 mm", icona: brugola, uso: "viti M3 a testa cilindrica (D6)"}
+brugola_1_3:       {nome: "Chiave a brugola 1,3 mm", icona: brugola, uso: "viti M2 svasate delle lame B (D8b)"}
+croce_ph0:         {nome: "Cacciavite a croce PH0", icona: cacciavite, uso: "viti M2 a testa tonda (D8)"}
+saldatore_inserti: {nome: "Saldatore con la punta per inserti", icona: saldatore, uso: "inserti a caldo M3 e M2 (D4, D5)"}
+saldatore:         {nome: "Saldatore, stagno e flussante", icona: saldatore, uso: "fili, header, basetta (B19)"}
+calibro:           {nome: "Calibro", icona: calibro, uso: "controllo dei pezzi stampati e dei provini"}
+multimetro:        {nome: "Multimetro", icona: multimetro, uso: "tensioni dei rail, continuita', polarita'"}
+tronchesino:       {nome: "Tronchesino", icona: tronchesino, uso: "fascette, reofori, bave di stampa"}
+spelafili:         {nome: "Spelafili", icona: spelafili, uso: "cavi 14 e 26 AWG"}
+termorestringente: {nome: "Pistola ad aria calda o accendino", icona: fiamma, uso: "guaina termorestringente (B19)"}

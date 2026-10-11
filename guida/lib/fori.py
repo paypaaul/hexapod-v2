@@ -83,15 +83,15 @@ def piazza(dati, nome_g, g, presenti, terna='zampa', istanza='AS'):
     """Viti della giunzione fra i pezzi presenti: [{vite, testa, asse, punta, presa, rondelle, distanziale}].
     asse: unitario, dalla testa verso la punta. presa: mm di vite oltre l'ingresso della punta."""
     v = dati.viteria['viti'][g['vite']]
-    punte = [f for k in presenti if any(k == c for c in dati.chiavi(g['punta']['chiave']))
+    punte = [f for k in presenti if dati.corrisponde(k, g['punta']['chiave'])
              for f in fori_di(dati, k, terna, istanza) if _sceglie(f, g['punta'])]
     teste = []
     if 'chiave' in g['testa']:
-        teste = [f for k in presenti if k in dati.chiavi(g['testa']['chiave'])
+        teste = [f for k in presenti if dati.corrisponde(k, g['testa']['chiave'])
                  for f in fori_di(dati, k, terna, istanza) if _sceglie(f, g['testa'])]
     vincoli = []
     if 'coassiale_con' in g:
-        vincoli = [f for k in presenti if k in dati.chiavi(g['coassiale_con']['chiave'])
+        vincoli = [f for k in presenti if dati.corrisponde(k, g['coassiale_con']['chiave'])
                    for f in fori_di(dati, k, terna, istanza) if _sceglie(f, g['coassiale_con'])]
     out = []
     for p in punte:

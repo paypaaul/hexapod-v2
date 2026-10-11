@@ -17,22 +17,30 @@ import bpy
 from bpy_extras.object_utils import world_to_camera_view
 from mathutils import Matrix, Vector
 
+import numpy as np
+
 LOTTO = json.load(open(sys.argv[sys.argv.index('--') + 1], encoding='utf-8'))
 MESH = LOTTO['mesh']
-W, H = LOTTO.get('risoluzione', [2000, 1400])
 MESH_CACHE, MAT_CACHE = {}, {}
+# Margini delle frecce dei pezzi, in frazioni della larghezza inquadrata: stacco dai bordi e lunghezza minima (a occhio
+# sulle prove F1: sotto il 6 % la punta si confonde con i contorni).
+STACCO, MINIMA = 0.012, 0.06
 
 
 # ------------------------------------------------------------------------------------------------ scena e stile
-def scena():
-    bpy.ops.wm.read_factory_settings(use_empty=True)
-    sc = bpy.context.scene
+def stile_eevee(sc):
     sc.render.engine = 'BLENDER_EEVEE_NEXT'
-    sc.render.resolution_x, sc.render.resolution_y = W, H
+    sc.render.resolution_percentage = 100
     sc.render.film_transparent = True
     sc.view_settings.view_transform = 'Standard'
     sc.render.use_freestyle = True
     sc.render.line_thickness_mode = 'ABSOLUTE'
+
+
+def scena():
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    sc = bpy.context.scene
+    stile_eevee(sc)
     w = bpy.data.worlds.new('mondo')
     w.use_nodes = True
     w.node_tree.nodes['Background'].inputs['Strength'].default_value = 0.0
@@ -218,7 +226,7 @@ def pulisci(coll):
             bpy.data.objects.remove(ob)
 
 
-def inquadra(sc, cam, oggetti, direzione, su, margine=1.08):
+def inquadra(sc, cam, oggetti, direzione, su, margine=1.05):
     d = Vector(direzione).normalized()
     pts = [o.matrix_world @ Vector(v) for o in oggetti for v in o.bound_box]
     centro = sum(pts, Vector()) / len(pts)
@@ -229,41 +237,132 @@ def inquadra(sc, cam, oggetti, direzione, su, margine=1.08):
     loc = [inv @ p for p in pts]
     xs, ys = [p.x for p in loc], [p.y for p in loc]
     larg, alt = max(xs) - min(xs), max(ys) - min(ys)
+    W, H = sc.render.resolution_x, sc.render.resolution_y
     cam.data.ortho_scale = max(larg, alt * W / H) * margine
     cam.data.shift_x = (max(xs) + min(xs)) / 2 / cam.data.ortho_scale
     cam.data.shift_y = (max(ys) + min(ys)) / 2 / cam.data.ortho_scale
     return cam.data.ortho_scale
 
 
+def _vertici_camera(cam, ob):
+    """Vertici dell'oggetto nella terna della camera (x, y sul piano dell'immagine, in mm)."""
+    n = len(ob.data.vertices)
+    co = np.empty(n * 3)
+    ob.data.vertices.foreach_get('co', co)
+    m = cam.matrix_world.inverted() @ ob.matrix_world
+    return co.reshape(-1, 3) @ np.array(m.to_3x3()).T + np.array(m.translation)
+
+
+def _pixel(sc, cam, p):
+    v = world_to_camera_view(sc, cam, p)
+    return [v.x * sc.render.resolution_x, (1 - v.y) * sc.render.resolution_y]
+
+
+def freccia(sc, cam, f, oggetti):
+    """Freccia in pixel. Pezzi: parte dal bordo d'attacco del pezzo esploso e arriva dove quel bordo va a finire.
+    Viti e inserti: dalla punta esplosa all'imbocco del foro. Sempre con uno stacco, mai piu' corta della minima."""
+    inv = cam.matrix_world.inverted()
+    pa, pb = inv @ Vector(f['da']), inv @ Vector(f['a'])
+    u = Vector((pb.x - pa.x, pb.y - pa.y))
+    lung = u.length
+    if lung < 1e-6:
+        return None
+    u.normalize()
+    scala = cam.data.ortho_scale
+    stacco, minima = STACCO * scala, MINIMA * scala
+    obs = [oggetti[k] for k in f.get('chiavi', []) if k in oggetti]
+    if f['tipo'] == 'pezzo' and obs:
+        xy = np.concatenate([_vertici_camera(cam, ob)[:, :2] for ob in obs])
+        avanti = float(((xy - np.array([pa.x, pa.y])) @ np.array([u.x, u.y])).max())
+        inizio = Vector((pa.x, pa.y)) + u * (avanti + stacco)
+        fine = Vector((pa.x, pa.y)) + u * (avanti + lung - stacco)
+    else:
+        inizio = Vector((pa.x, pa.y)) + u * stacco
+        fine = Vector((pb.x, pb.y)) - u * stacco
+    if (fine - inizio).length < minima:
+        fine = inizio + u * minima
+    mondo = [cam.matrix_world @ Vector((q.x, q.y, pa.z)) for q in (inizio, fine)]
+    scorcio = lung / max((Vector(f['a']) - Vector(f['da'])).length, 1e-6)
+    return {'da': _pixel(sc, cam, mondo[0]), 'a': _pixel(sc, cam, mondo[1]), 'tipo': f['tipo'], 'scorcio': round(scorcio, 3)}
+
+
+def visibili(sc, gruppi, uscita):
+    """Pixel visibili di ogni oggetto nuovo: passata Workbench senza contorni, un colore piatto per oggetto (valori
+    0 / 0,5 / 1 per canale, 26 colori) e tutto il resto nero. Torna {nome: pixel alla risoluzione piena}."""
+    livelli = (0.0, 0.5, 1.0)
+    colori = [(r, g, b) for r in livelli for g in livelli for b in livelli if (r, g, b) != (0, 0, 0)]
+    for ob in sc.objects:
+        if ob.type == 'MESH':
+            ob.color = (0, 0, 0, 1)
+    nomi = {}
+    for i, (nome, obs) in enumerate(gruppi.items()):
+        if i >= len(colori):
+            break
+        for ob in obs:
+            ob.color = (*colori[i], 1)
+        nomi[tuple(round(c * 255) for c in colori[i])] = nome
+    sc.render.engine = 'BLENDER_WORKBENCH'
+    sc.display.shading.light = 'FLAT'
+    sc.display.shading.color_type = 'OBJECT'
+    sc.display.render_aa = 'OFF'
+    sc.render.use_freestyle = False
+    sc.view_settings.view_transform = 'Raw'
+    sc.render.resolution_percentage = 25
+    sc.render.filepath = uscita
+    bpy.ops.render.render(write_still=True)
+    im = bpy.data.images.load(uscita)
+    px = np.empty(im.size[0] * im.size[1] * 4, dtype=np.float32)
+    im.pixels.foreach_get(px)
+    bpy.data.images.remove(im)
+    os.remove(uscita)
+    px = np.rint(px.reshape(-1, 4)[:, :3] * 2) * 127.5
+    conta = {n: 0 for n in gruppi}
+    chiavi, numeri = np.unique(np.rint(px).astype(int), axis=0, return_counts=True)
+    for c, n in zip(chiavi, numeri):
+        nome = nomi.get(tuple(int(round(v)) for v in c))
+        if nome:
+            conta[nome] += int(n) * 16
+    stile_eevee(sc)
+    return conta
+
+
 def rendi(sc, cam, sole, coll, lav):
     pulisci(coll)
+    sc.render.resolution_x, sc.render.resolution_y = lav['risoluzione']
     att = lav['attenuato']
-    oggetti = []
+    oggetti, per_nome, gruppi = [], {}, {}
     for o in lav['oggetti']:
         nuovo = o['ruolo'] == 'nuovo'
-        oggetti.append(oggetto(o['chiave'], mesh_ply(o['mesh']), matrice34(o['matrice']),
-                               materiale(o['colore'], None if nuovo else att), coll['NUOVI' if nuovo else 'VECCHI']))
+        ob = oggetto(o['chiave'], mesh_ply(o['mesh']), matrice34(o['matrice']),
+                     materiale(o['colore'], None if nuovo else att), coll['NUOVI' if nuovo else 'VECCHI'])
+        oggetti.append(ob)
+        per_nome[o['chiave']] = ob
+        if nuovo:
+            gruppi[o['chiave']] = [ob]
     for i, v in enumerate(lav['viti']):
-        oggetti.append(oggetto('vite%d' % i, mesh_vite(v), _base(v['asse'], v['testa']), materiale(lav['colori']['viti']), coll['VITI']))
+        ob = oggetto('vite%d' % i, mesh_vite(v), _base(v['asse'], v['testa']), materiale(lav['colori']['viti']), coll['VITI'])
+        oggetti.append(ob)
+        gruppi['vite%d' % i] = [ob]
         for j, r in enumerate(v['rondelle']):
             me = MESH_CACHE.setdefault('rondella', mesh_cava('rondella', 3.5, 1.6, 0.5))
             c = Vector(r['centro']) - Vector(r['asse']).normalized() * 0.25
             oggetti.append(oggetto('rondella%d_%d' % (i, j), me, _base(r['asse'], c), materiale(lav['colori']['rondelle']), coll['VITI']))
     for i, s in enumerate(lav['inserti']):
         me = MESH_CACHE.setdefault(('inserto', s['d'], s['l']), mesh_cava('inserto', s['d'] / 2 + 0.2, s['d'] / 2 - 0.6, s['l']))
-        oggetti.append(oggetto('inserto%d' % i, me, _base(s['asse'], s['centro']), materiale(lav['colori']['inserti']), coll['VITI']))
+        ob = oggetto('inserto%d' % i, me, _base(s['asse'], s['centro']), materiale(lav['colori']['inserti']), coll['VITI'])
+        oggetti.append(ob)
+        gruppi['inserto%d' % i] = [ob]
     d = Vector(lav['camera']['direzione']).normalized()
     sole.rotation_euler = (d + Vector((0.3, -0.4, 0.6))).normalized().to_track_quat('Z', 'Y').to_euler()
     scala = inquadra(sc, cam, oggetti, lav['camera']['direzione'], lav['camera'].get('su', [0, 0, 1]))
     sc.render.filepath = lav['uscita']
     bpy.ops.render.render(write_still=True)
-    frecce = []
-    for f in lav['frecce']:
-        a = world_to_camera_view(sc, cam, Vector(f['da']))
-        b = world_to_camera_view(sc, cam, Vector(f['a']))
-        frecce.append({'da': [a.x * W, (1 - a.y) * H], 'a': [b.x * W, (1 - b.y) * H], 'vite': f.get('vite', False)})
+    frecce = [x for x in (freccia(sc, cam, f, per_nome) for f in lav['frecce']) if x]
+    vis = visibili(sc, gruppi, os.path.splitext(lav['uscita'])[0] + '_id.png') if lav.get('verifica', True) else {}
+    W, H = lav['risoluzione']
     with open(os.path.splitext(lav['uscita'])[0] + '.json', 'w', encoding='utf-8') as fp:
-        json.dump({'id': lav['id'], 'larghezza': W, 'altezza': H, 'mm_per_pixel': scala / W, 'frecce': frecce}, fp)
+        json.dump({'id': lav['id'], 'larghezza': W, 'altezza': H, 'mm_per_pixel': scala / W, 'frecce': frecce,
+                   'visibili': vis}, fp)
 
 
 sc, cam, sole, coll = scena()

@@ -1,15 +1,20 @@
 """Controlli della guida (D-075), in Python puro perche' girino in CI. Ognuno torna una lista di errori (stringhe);
 gli avvisi sono a parte. Il caso di controllo teste_a verifica che il piazzamento delle viti sia giusto."""
 import fnmatch
+import os
+import re
+
+import yaml
 
 from . import fori as F
 from . import geom
+from . import scena as S
 
 ZAMPE = 6
 
 
 def _presenti(dati, assieme):
-    return [k for k in dati.occ if k.startswith(assieme + '/') and not dati.occ[k].get('virtuale')]
+    return [k for k in dati.basi if k.startswith(assieme + '/') and not dati.occ[k].get('virtuale')]
 
 
 def giunzioni_complete(dati):
@@ -47,7 +52,8 @@ def totali_inserti(dati):
     """Fori per inserti nei pezzi (zampa x 6), tolti quelli delle predisposizioni, contro il BOM."""
     conta = {'inserto_m3': 0, 'inserto_m2': 0}
     predisp = dati.viteria['inserti_predisposizioni']
-    for k, o in dati.occ.items():
+    for k in dati.basi:
+        o = dati.occ[k]
         if o.get('virtuale') or o.get('alternativa'):
             continue
         molt = ZAMPE if o['assieme'] == 'zampa' else 1
@@ -102,6 +108,132 @@ def lunghezze(dati):
     return sorted(set(avvisi))
 
 
+# ------------------------------------------------------------------------------------------ controlli sui passi
+TIPI_AVVISO = {'attenzione', 'importante', 'nota', 'opzionale', 'prova'}
+SEZIONI_DI_PROVA = {'prova'}          # guida/passi/99-prova.yaml: solo per la pipeline, fuori dai conteggi
+
+
+def _sezioni(dati, anche_prova=False):
+    return [z for z in dati.sezioni if anche_prova or z['sezione']['id'] not in SEZIONI_DI_PROVA]
+
+
+def _giunzione(dati, nome):
+    for assieme in ('zampa', 'corpo'):
+        if nome in dati.giunzioni[assieme]:
+            return assieme, dati.giunzioni[assieme][nome]
+    return None, None
+
+
+def chiavi_esistenti(dati):
+    """Nessun passo cita pezzi, giunzioni, attrezzi, viste o tipi di avviso che non esistono; id unici."""
+    errori, visti = [], set()
+    with open(os.path.join(dati.radice, 'catalogo', 'viste.yaml'), encoding='utf-8') as f:
+        viste = yaml.safe_load(f)
+    for z in dati.sezioni:
+        s = z['sezione']
+        for k in s.get('presenti_iniziali', []):
+            if not dati.chiavi(k):
+                errori.append('%s: presenti_iniziali %s non esiste' % (s['id'], k))
+        for p in z['passi']:
+            pid = p.get('id', '?')
+            if pid in visti:
+                errori.append('%s: id ripetuto' % pid)
+            visti.add(pid)
+            for campo in ('nuovi', 'mostra', 'nascondi'):
+                for k in p.get(campo, []):
+                    if not dati.chiavi(k):
+                        errori.append('%s: %s %s non esiste' % (pid, campo, k))
+            for a in p.get('assiemi', []):
+                if not S.chiavi_assieme(dati, a):
+                    errori.append('%s: assieme %s vuoto' % (pid, a.get('chiavi')))
+            for gj in p.get('giunzioni', []):
+                nome = gj['id'] if isinstance(gj, dict) else gj
+                if _giunzione(dati, nome)[0] is None:
+                    errori.append('%s: giunzione %s non esiste' % (pid, nome))
+            for sel in p.get('inserti', []):
+                if not dati.chiavi(sel['chiave']):
+                    errori.append('%s: inserti in %s, che non esiste' % (pid, sel['chiave']))
+            for t in p.get('attrezzi', []):
+                if t not in dati.attrezzi:
+                    errori.append('%s: attrezzo %s non e\' in attrezzi.yaml' % (pid, t))
+            v = p.get('vista')
+            if isinstance(v, str) and v not in viste:
+                errori.append('%s: vista %s non e\' in viste.yaml' % (pid, v))
+            for a in p.get('avvisi', []):
+                if a.get('tipo') not in TIPI_AVVISO:
+                    errori.append('%s: avviso di tipo %s' % (pid, a.get('tipo')))
+                elif a['tipo'] == 'opzionale' and not a.get('x'):
+                    errori.append('%s: avviso opzionale senza la predisposizione (x)' % pid)
+    return errori
+
+
+def montaggio_unico(dati):
+    """Ogni pezzo si monta una volta sola in tutta la guida (la zampa una volta, ripetuta sei: 'zampa/Coxa' e
+    'zampa/Coxa@AS' sono lo stesso pezzo) e mai se e' gia' presente nel passo."""
+    errori, dove = [], {}
+    for z in _sezioni(dati):
+        for p, presenti in S.stati(dati, z):
+            for c in S.entrano(dati, p)[0]:
+                if c in presenti:
+                    errori.append('%s: %s e\' gia\' montato' % (p['id'], c))
+                b = dati.base(c)
+                if b in dove and dove[b] != p['id']:
+                    errori.append('%s: %s montato anche al passo %s' % (p['id'], b, dove[b]))
+                dove.setdefault(b, p['id'])
+    return errori
+
+
+def giunzioni_usate(dati):
+    """Ogni giunzione si usa una volta sola, e nel passo che la usa trova tutte le viti attese: se ne mancano, un
+    pezzo della giunzione non e' ancora montato (ordine sbagliato)."""
+    errori, dove = [], {}
+    for z in _sezioni(dati, anche_prova=True):
+        s = z['sezione']
+        terna, istanza = s.get('terna', 'zampa'), s.get('istanza', 'AS')
+        for p, presenti in S.stati(dati, z):
+            nuovi, assiemi = S.entrano(dati, p)
+            tutti = list(dict.fromkeys(presenti + nuovi + assiemi))
+            for gj in p.get('giunzioni', []):
+                nome = gj['id'] if isinstance(gj, dict) else gj
+                assieme, g = _giunzione(dati, nome)
+                if g is None:
+                    continue
+                if s['id'] not in SEZIONI_DI_PROVA:
+                    if nome in dove:
+                        errori.append('%s: giunzione %s gia\' usata al passo %s' % (p['id'], nome, dove[nome]))
+                    dove.setdefault(nome, p['id'])
+                n = len(F.piazza(dati, nome, g, tutti, terna, istanza))
+                if n != g['attesi']:
+                    errori.append('%s: giunzione %s con %d viti su %d: manca un pezzo nel passo' % (p['id'], nome, n, g['attesi']))
+    return errori
+
+
+def decisioni(dati):
+    """Ogni D-0xx citato nei passi esiste in docs/decisioni.md."""
+    with open(os.path.join(os.path.dirname(dati.radice), 'docs', 'decisioni.md'), encoding='utf-8') as f:
+        esistono = set(re.findall(r'^##+ (D-0\d\d[a-z]?)\b', f.read(), re.M))
+    errori = []
+    for z in dati.sezioni:
+        for p in z['passi']:
+            citate = set(re.findall(r'\bD-0\d\d[a-z]?\b', str(p)))
+            errori += ['%s: %s non esiste in docs/decisioni.md' % (p['id'], d) for d in sorted(citate - esistono)]
+    return errori
+
+
+def mancanti(dati):
+    """Avvisi finche' la guida non e' completa: pezzi mai montati, giunzioni mai usate."""
+    montati, usate = set(), set()
+    for z in _sezioni(dati):
+        for p, _ in S.stati(dati, z):
+            montati.update(dati.base(c) for c in S.entrano(dati, p)[0])
+            usate.update(g['id'] if isinstance(g, dict) else g for g in p.get('giunzioni', []))
+    pezzi = [k for k in dati.basi if not dati.occ[k].get('virtuale') and not dati.occ[k]['componente'].startswith('Ingombro_')]
+    out = ['pezzo mai montato: %s' % k for k in pezzi if k not in montati]
+    out += ['giunzione mai usata: %s' % n for a in ('zampa', 'corpo') for n in dati.giunzioni[a] if n not in usate]
+    return out
+
+
 def tutti(dati):
     return {'giunzioni_complete': giunzioni_complete(dati), 'totali_viti': totali_viti(dati),
-            'totali_inserti': totali_inserti(dati), 'teste_a': teste_a(dati)}
+            'totali_inserti': totali_inserti(dati), 'teste_a': teste_a(dati), 'chiavi_esistenti': chiavi_esistenti(dati),
+            'montaggio_unico': montaggio_unico(dati), 'giunzioni_usate': giunzioni_usate(dati), 'decisioni': decisioni(dati)}

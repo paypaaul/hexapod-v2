@@ -1,0 +1,15 @@
+{#- Pittogrammi degli attrezzi (attrezzi.yaml, campo icona): tratto semplice su 24 x 24. -#}
+{%- macro icona(nome) -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+{%- if nome == 'brugola' %}<path d="M5 4h4.5v3H8v13H5z"/><path d="M8 4l1.5 1.5"/>
+{%- elif nome == 'cacciavite' %}<rect x="9" y="2.5" width="6" height="8" rx="2"/><path d="M12 10.5v9"/><path d="M10.5 19.5h3"/><path d="M12 19.5v2"/>
+{%- elif nome == 'saldatore' %}<path d="M3 21l5-5"/><rect x="7.5" y="9" width="6" height="5" rx="1" transform="rotate(-45 10.5 11.5)"/><path d="M13 9l6-6"/><path d="M15.5 5.5l3 3"/>
+{%- elif nome == 'calibro' %}<path d="M3 6h18v4H3z"/><path d="M6 10v9l3-3v-6"/><path d="M15 10v6"/><path d="M8 6v2M11 6v2M14 6v2M17 6v2"/>
+{%- elif nome == 'multimetro' %}<rect x="5" y="2.5" width="14" height="19" rx="2"/><rect x="8" y="5" width="8" height="4.5" rx=".5"/><circle cx="12" cy="15" r="3"/><path d="M12 15l1.8-1.8"/>
+{%- elif nome == 'tronchesino' %}<path d="M9 21l2.5-8.5L8 4"/><path d="M15 21l-2.5-8.5L16 4"/><path d="M8 4l4 3.5L16 4"/>
+{%- elif nome == 'spelafili' %}<path d="M7 21l4-10"/><path d="M17 21l-4-10"/><path d="M11 11l-2-7h6l-2 7"/><path d="M10.5 7h3"/>
+{%- elif nome == 'fiamma' %}<path d="M12 21c-3.5 0-6-2.4-6-5.6 0-3.4 3-5.4 4-9.4 2 1.5 3 3.4 3 5 1-.6 1.6-1.6 1.8-2.6C17 10 18 12.4 18 15.4 18 18.6 15.5 21 12 21z"/>
+{%- else %}<circle cx="12" cy="12" r="8"/>
+{%- endif %}
+</svg>
+{%- endmacro %}

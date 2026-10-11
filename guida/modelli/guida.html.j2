@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>{{ titolo }}</title>
+<link rel="stylesheet" href="css/guida.css">
+</head>
+<body>
+{%- from 'icone.html.j2' import icona %}
+
+{%- macro piede(p) %}
+<div class="piede"><span>{{ piede_testo }}</span><span>{{ p.fonti | join(' · ') }}</span><span class="num">{{ p.numero }}</span></div>
+{%- endmacro %}
+
+{%- macro fascia(s) %}
+<div class="fascia"><span>{{ s.numero }} · {{ s.titolo }}</span>{% if s.ripeti > 1 %}<span class="volte">{{ s.ripeti_testo }}</span>{% endif %}</div>
+{%- endmacro %}
+
+{%- macro box(e) %}
+{%- if e.voci %}
+<div class="box" data-controlla="pezzi {{ e.id }}">
+  {%- for v in e.voci %}
+  <div class="voce{% if v.svg %} vite{% endif %}">
+    {%- if v.img %}<img src="{{ v.img }}" alt="">{% else %}{{ v.svg | safe }}{% endif %}
+    <span class="q">{{ v.qta }}×</span><span class="n">{{ v.nome }}</span>{% if v.x %}<span class="x">{{ v.x }}</span>{% endif %}
+  </div>
+  {%- endfor %}
+</div>
+{%- endif %}
+{%- endmacro %}
+
+{%- macro istruzioni(e) %}
+<div class="istruzioni">
+  {%- if e.righe %}<ol>{% for r in e.righe %}<li>{{ r | safe }}</li>{% endfor %}</ol>{% endif %}
+  {%- for a in e.avvisi %}
+  <div class="avviso {{ a.tipo }}"><span class="t">{{ a.etichetta }}</span>{{ a.testo | safe }}</div>
+  {%- endfor %}
+  {%- if e.attrezzi %}<div class="attrezzi">{% for t in e.attrezzi %}<span>{{ icona(t.icona) }}{{ t.nome }}</span>{% endfor %}</div>{% endif %}
+</div>
+{%- endmacro %}
+
+{%- macro figura(e) %}
+<div class="figura">
+  <img src="{{ e.img }}" alt="">
+  <svg class="frecce" viewBox="0 0 {{ e.larghezza }} {{ e.altezza }}" preserveAspectRatio="xMidYMid meet">
+    {%- for f in e.frecce %}<path class="{{ f.tipo }}" d="{{ f.d }}" stroke-width="{{ f.bordo }}"/>{% endfor %}
+  </svg>
+  {%- if e.volte %}<div class="ripeti">{{ e.volte }}×</div>{% endif %}
+</div>
+{%- endmacro %}
+
+{%- macro numero(e) %}<div class="numero"><span class="sez">{{ e.sez }}.</span>{{ e.n }}</div>{% endmacro %}
+
+{%- for p in pagine %}
+{%- set s = p.sezione %}
+<section class="pagina {{ p.tipo }}" data-numero="{{ p.numero }}" {% if s %}style="--sez: {{ s.colore }}"{% endif %} id="p{{ p.numero }}">
+
+{%- if p.tipo == 'copertina' %}
+  {%- if p.img %}<div class="figura"><img src="{{ p.img }}" alt=""></div>{% endif %}
+  <div class="titolo">Hexapod v2<br>Guida di montaggio</div>
+  <div class="sotto">{{ p.sottotitolo }}</div>
+
+{%- elif p.tipo == 'indice' %}
+  <h1>Indice</h1>
+  <ol>{% for v in p.voci %}<li style="--c: {{ v.colore }}"><span class="n">{{ v.numero }}</span><a href="#p{{ v.pagina }}">{{ v.titolo }}</a><span class="p">{{ v.pagina }}</span></li>{% endfor %}</ol>
+  {{ piede(p) }}
+
+{%- elif p.tipo == 'apertura' %}
+  <div class="banda"><span class="grosso">{{ s.numero }}</span><h1>{{ s.titolo }}</h1>{% if s.ripeti > 1 %}<span class="volte">{{ s.ripeti }}×</span>{% endif %}</div>
+  <div class="sinistra" data-controlla="apertura sinistra">
+    {%- for blocco in p.blocchi %}
+    <div><div class="etichetta">{{ blocco.titolo }}</div>{{ blocco.html | safe }}</div>
+    {%- endfor %}
+    {%- if p.attrezzi %}
+    <div><div class="etichetta">Attrezzi</div><div class="attrezzi" style="font-size:9pt;color:inherit">{% for t in p.attrezzi %}<span>{{ icona(t.icona) }}{{ t.nome }}</span>{% endfor %}</div></div>
+    {%- endif %}
+  </div>
+  <div class="destra" data-controlla="apertura destra">
+    {%- if p.pezzi %}
+    <div><div class="etichetta">Pezzi{% if s.ripeti > 1 %} — per {{ s.unita }} (tra parentesi: per {{ s.ripeti }}){% endif %}</div>
+    <div class="griglia">{% for v in p.pezzi %}<div class="voce"><img src="{{ v.img }}" alt=""><span class="q">{{ v.qta }}×{% if v.tot %} <small>({{ v.tot }})</small>{% endif %}</span><span class="n">{{ v.nome }}</span><span class="b">{{ v.bom }}{% if v.x %} · {{ v.x }}{% endif %}</span></div>{% endfor %}</div></div>
+    {%- endif %}
+    {%- if p.viteria %}
+    <div><div class="etichetta">Viti, rondelle e inserti — scala 1:1</div>
+    <div class="viteria">{% for v in p.viteria %}<div class="voce">{{ v.svg | safe }}<span><span class="q">{{ v.qta }}×</span>{% if v.tot %} ({{ v.tot }}){% endif %} {{ v.nome }}</span></div>{% endfor %}</div></div>
+    {%- endif %}
+    {%- if p.extra %}
+    <div><div class="etichetta">Altro</div><table class="elenco">{% for v in p.extra %}<tr><td class="q">{{ v.qta }}</td><td>{{ v.nome }}{% if v.bom %} <span class="rif">{{ v.bom }}</span>{% endif %}</td></tr>{% endfor %}</table></div>
+    {%- endif %}
+  </div>
+  {{ piede(p) }}
+
+{%- elif p.tipo == 'passi' %}
+  {{ fascia(s) }}
+  {%- if p.passi | length == 1 and p.passi[0].formato == 'grande' %}
+  {%- set e = p.passi[0] %}
+  <div class="passo grande" id="passo-{{ e.id }}">
+    <div class="colonna" data-controlla="colonna {{ e.id }}">
+      <div>{{ numero(e) }}<h2>{{ e.titolo }}</h2></div>
+      {{ box(e) }}
+      {{ istruzioni(e) }}
+    </div>
+    {{ figura(e) }}
+  </div>
+  {%- else %}
+  {%- for e in p.passi %}
+  <div class="passo mezzo {{ 'primo' if loop.first else 'secondo' }}" id="passo-{{ e.id }}">
+    <div class="testa">{{ numero(e) }}<h2>{{ e.titolo }}</h2></div>
+    {{ figura(e) }}
+    <div class="sotto" data-controlla="sotto {{ e.id }}">{{ box(e) }}{{ istruzioni(e) }}</div>
+  </div>
+  {%- endfor %}
+  {%- if p.passi | length == 2 %}<div class="divisore"></div>{% endif %}
+  {%- endif %}
+  {{ piede(p) }}
+
+{%- elif p.tipo == 'controllo' %}
+  {{ fascia(s) }}
+  <div class="sinistra" data-controlla="controllo {{ s.id }}">
+    <h2>Punto di controllo</h2>
+    <ol class="spunte">{% for r in p.spunte %}<li><span>{{ r | safe }}</span></li>{% endfor %}</ol>
+  </div>
+  <div class="figura"><img src="{{ p.img }}" alt=""></div>
+  {%- if p.zampe %}
+  <table class="zampe"><tr><th></th>{% for z in p.zampe %}<th>{{ z }}</th>{% endfor %}</tr>
+  {%- for r in p.tabella %}<tr><td>{{ r }}</td>{% for z in p.zampe %}<td></td>{% endfor %}</tr>{% endfor %}</table>
+  {%- endif %}
+  {{ piede(p) }}
+{%- endif %}
+</section>
+{%- endfor %}
+</body>
+</html>

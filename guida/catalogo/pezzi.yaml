@@ -1,0 +1,67 @@
+# Nomi dei pezzi nella guida (D-075), per componente del manifest. bom: voce di docs/BOM.md (E1/E2/E2b/E3 per i pezzi
+# stampati, con il materiale di D-065). x: predisposizione (docs/predisposizioni.md); i pezzi con x sono opzionali.
+# Le quantita' non si scrivono qui: vengono dalle occorrenze del manifest e dai passi.
+
+# ------------------------------------------------------------------ zampa (x 6)
+Coxa:                    {nome: Coxa, bom: E1}
+Coxa_Ponte:              {nome: Ponte della coxa, bom: E1}
+Femore_A:                {nome: Femore lato A, bom: E1}
+Femore_B:                {nome: Femore lato B, bom: E1}
+Tibia:                   {nome: Tibia, bom: E1}
+Piedino:                 {nome: Piedino, bom: E3}
+Cover_Femore_A:          {nome: Lama A del femore, bom: E2}
+Cover_Femore_A_Feritoia: {nome: Intarsio della lama A, bom: E2b}
+Cover_Femore_B:          {nome: Lama B del femore, bom: E2}
+Cover_Femore_B_Feritoia: {nome: Intarsio della lama B, bom: E2b}
+Cover_Tibia:             {nome: Guscio della tibia, bom: E2}
+Cover_Tibia_Diffusore:   {nome: Diffusore della tibia, bom: E2, x: X31}
+
+# ------------------------------------------------------------------ corpo
+Corpo_Base:              {nome: Base, bom: E1}
+Corpo_Chiglia:           {nome: Chiglia, bom: E1}
+Corpo_Slitta_Regolatore: {nome: Slitta del regolatore, bom: E1}
+Corpo_Sportello:         {nome: Sportello della batteria, bom: E1}
+Corpo_Vassoio:           {nome: Vassoio dell'ESP32, bom: E2}
+Corpo_Carapace:          {nome: Carapace, bom: E2}
+Corpo_Fascia:            {nome: Fascia, bom: E2b}
+Corpo_Visiera:           {nome: Visiera, bom: E2b}
+Corpo_Gonne:             {nome: Gonne, bom: E2b}
+Corpo_Fondo_Anello:      {nome: Fondo dell'anello del pulsante, bom: E2b}
+Corpo_Sportello_Servizio: {nome: Sportellino di servizio, bom: E2b}
+Corpo_Sportello_Servizio_Zaino: {nome: Sportellino di servizio con lo zaino, bom: E2b, x: zaino}
+Corpo_Tappo_ToF:         {nome: Tappo della finestra del ToF, bom: E2b}
+Corpo_Piastrina_IMU:     {nome: Piastrina dell'IMU, bom: E1, x: X4}
+Corpo_Lunette_Microfoni: {nome: Lunette dei microfoni, bom: E2b, x: X16}
+Corpo_Supporto_INA260_S: {nome: Supporto dell'INA260 sinistro, bom: E1, x: X7}
+Corpo_Supporto_INA260_D: {nome: Supporto dell'INA260 destro, bom: E1, x: X7}
+
+# ------------------------------------------------------------------ comprati
+Rif_Servo_MG996R:        {nome: Servo MG996R, bom: A1}
+Rif_ESP32_S3_CAM:        {nome: Scheda ESP32-S3-CAM, bom: A2}
+Rif_Camera_OV3660_75:    {nome: Camera OV3660 con flat da 75 mm, bom: A3}
+Rif_SSC32_V25:           {nome: Servo controller SSC-32, bom: A4}
+Rif_Batteria_2S5200:     {nome: Batteria 2S 5200 mAh, bom: A5}
+Rif_Reg_Servo_D42V110F6: {nome: Regolatore dei servo D42V110F6, bom: B1}
+Rif_Interruttore_Pololu_2813: {nome: Interruttore Pololu 2813, bom: B3}
+Rif_Pulsante_12:         {nome: Pulsante da 12 mm, bom: B3b}
+Rif_Portafusibile_ATO:   {nome: Portafusibile F1, bom: B5}
+Rif_Cicalino_BX100:      {nome: Allarme di sottotensione BX100, bom: B9}
+Rif_Tplug:               {nome: T-plug lato robot, bom: B12}
+Rif_Wago_221_415:        {nome: Morsetto Wago 221-415, bom: B13}
+Rif_Basetta_50x70:       {nome: Basetta millefori 50 x 70, bom: C2}
+Rif_Cuscinetto_LF1050ZZ: {nome: Cuscinetto LF-1050ZZ, bom: D1}
+Rif_Perno_5:             {nome: Perno da 5 mm, bom: D2}
+Rif_Squadretta_25T:      {nome: Squadretta 25T, bom: D3}
+Rif_FSR_400:             {nome: Sensore di pressione FSR 400, x: X5}
+Rif_Prese_Piedi:         {nome: Prese dei piedi, x: X5}
+Rif_IMU_MPU6500:         {nome: IMU GY-6500, x: X4}
+Rif_IMU:                 {nome: IMU Pololu 2798 (alternativa), x: X4}
+Rif_ADC_ADS7830:         {nome: ADC ADS7830, x: X6}
+Rif_INA260:              {nome: Misuratore INA260, x: X7}
+Rif_ToF_8x8:             {nome: Sensore ToF 8 x 8 VL53L7CX, x: X8}
+Rif_ToF_1:               {nome: Sensore ToF posteriore, x: X19}
+Rif_Scheda_Carapace:     {nome: Scheda del carapace, x: X2}
+Rif_Ampli_Generico:      {nome: Amplificatore MAX98357A, x: X17}
+Rif_Altoparlante_Tondo:  {nome: Altoparlante da 15 mm, x: X17}
+Rif_Microfono_MS3625:    {nome: Microfono MS3625, x: X16}
+Rif_Microfono_I2S:       {nome: Microfono Adafruit (alternativa), x: X16}

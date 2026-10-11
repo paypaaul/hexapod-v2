@@ -31,12 +31,28 @@ class Dati:
         self.pezzi = _yaml(os.path.join(cat, 'pezzi.yaml')) if os.path.exists(os.path.join(cat, 'pezzi.yaml')) else {}
         self.attrezzi = _yaml(os.path.join(cat, 'attrezzi.yaml')) if os.path.exists(os.path.join(cat, 'attrezzi.yaml')) else {}
         self.occ = {o['chiave']: o for o in self.manifest['occorrenze']}
+        self.basi = list(self.occ)
+        # Nelle sezioni nella terna del robot i pezzi della zampa si citano con l'istanza: 'zampa/Coxa@AS'
+        for ist in self.manifest['istanze']['zampe']:
+            for k in self.basi:
+                if self.occ[k]['assieme'] == 'zampa':
+                    self.occ['%s@%s' % (k, ist)] = dict(self.occ[k], chiave='%s@%s' % (k, ist), istanza=ist)
         self.sezioni = [_yaml(p) for p in sorted(glob.glob(os.path.join(radice, 'passi', '*.yaml')))]
 
     # -------------------------------------------------------------------------------------- occorrenze e terne
     def chiavi(self, modello):
-        """Chiavi del manifest che corrispondono al glob (es. 'corpo/Servo_Coxa_*')."""
-        return sorted(k for k in self.occ if fnmatch.fnmatchcase(k, modello))
+        """Chiavi del manifest che corrispondono al glob (es. 'corpo/Servo_Coxa_*', 'zampa/*@AS'). Le chiavi con
+        l'istanza escono solo se il glob ha la '@'."""
+        con = '@' in modello
+        return sorted(k for k in self.occ if ('@' in k) == con and fnmatch.fnmatchcase(k, modello))
+
+    def corrisponde(self, chiave, modello):
+        """La chiave (con o senza istanza) e' del glob scritto senza istanza, come nel catalogo delle giunzioni."""
+        return fnmatch.fnmatchcase(chiave.split('@')[0], modello.split('@')[0])
+
+    @staticmethod
+    def base(chiave):
+        return chiave.split('@')[0]
 
     def componente(self, chiave):
         return self.manifest['componenti'][self.occ[chiave]['componente']]
@@ -44,6 +60,7 @@ class Dati:
     def matrice(self, chiave, terna='zampa', istanza='AS'):
         """Trasformata dell'occorrenza nella terna richiesta: 'zampa' (zampa come costruita) o 'robot'."""
         o = self.occ[chiave]
+        istanza = o.get('istanza', istanza)
         if o['assieme'] == 'zampa':
             return o['T'] if terna == 'zampa' else geom.componi(self.manifest['istanze']['zampe'][istanza], o['T'])
         if terna == 'zampa':

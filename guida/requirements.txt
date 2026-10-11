@@ -1,0 +1,6 @@
+# Dipendenze della guida di montaggio (D-075), oltre a tests/requirements.txt. Blender 4.5 e Chrome sono a parte.
+# Versioni pubblicate da almeno due settimane all'11 ottobre 2026.
+Jinja2==3.1.6
+playwright==1.63.0
+Pillow
+numpy

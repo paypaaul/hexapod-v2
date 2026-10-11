@@ -1,0 +1,147 @@
+/* Guida di montaggio (D-075): pagine fisse A4 orizzontali, stampate da Chrome. Misure in mm. */
+@font-face { font-family: Barlow; src: url(../font/Barlow-Regular.ttf); font-weight: 400 }
+@font-face { font-family: Barlow; src: url(../font/Barlow-Italic.ttf); font-weight: 400; font-style: italic }
+@font-face { font-family: Barlow; src: url(../font/Barlow-Medium.ttf); font-weight: 500 }
+@font-face { font-family: Barlow; src: url(../font/Barlow-SemiBold.ttf); font-weight: 600 }
+@font-face { font-family: Barlow; src: url(../font/Barlow-Bold.ttf); font-weight: 700 }
+@font-face { font-family: "Barlow Condensed"; src: url(../font/BarlowCondensed-SemiBold.ttf); font-weight: 600 }
+@font-face { font-family: "Barlow Condensed"; src: url(../font/BarlowCondensed-Bold.ttf); font-weight: 700 }
+@font-face { font-family: "Barlow Condensed"; src: url(../font/BarlowCondensed-ExtraBold.ttf); font-weight: 800 }
+
+@page { size: 297mm 210mm; margin: 0 }
+:root {
+  --inchiostro: #1d2026; --tenue: #687080; --filo: #c9ced6; --fondo-box: #f2f4f7; --carta: #ffffff;
+  --attenzione: #d9480f; --importante: #e8a400; --nota: #1c7ed6; --opzionale: #7048e8; --prova: #2f9e44;
+  --freccia: #1c7ed6; --sez: #ff6a13;
+}
+* { box-sizing: border-box }
+html, body { margin: 0; background: #8a8f98 }
+body { font-family: Barlow, "Helvetica Neue", Arial, sans-serif; color: var(--inchiostro); font-size: 10pt; line-height: 1.32;
+       -webkit-print-color-adjust: exact; print-color-adjust: exact }
+@media screen { .pagina { margin: 6mm auto; box-shadow: 0 1mm 4mm rgba(0,0,0,.25) } }
+@media print { html, body { background: none } }
+
+.pagina { width: 297mm; height: 210mm; position: relative; overflow: hidden; break-after: page; background: var(--carta) }
+.fascia { position: absolute; left: 0; top: 0; width: 297mm; height: 9mm; background: var(--sez); color: #fff;
+          display: flex; align-items: center; justify-content: space-between; padding: 0 12mm;
+          font: 600 9pt "Barlow Condensed", sans-serif; letter-spacing: .08em; text-transform: uppercase }
+.fascia .volte { background: #fff; color: var(--inchiostro); border-radius: 1.2mm; padding: .2mm 2mm; letter-spacing: .02em }
+.piede { position: absolute; left: 12mm; right: 12mm; bottom: 5mm; display: flex; justify-content: space-between; gap: 6mm;
+         font-size: 7pt; color: var(--tenue) }
+.piede .num { font: 700 9pt "Barlow Condensed", sans-serif; color: var(--inchiostro) }
+
+/* ------------------------------------------------------------------ passo */
+.passo { position: absolute }
+.passo.grande { left: 12mm; top: 13mm; width: 273mm; height: 183mm }
+.passo.mezzo.primo { left: 12mm; top: 13mm; width: 134mm; height: 183mm }
+.passo.mezzo.secondo { left: 151mm; top: 13mm; width: 134mm; height: 183mm }
+.divisore { position: absolute; left: 148.5mm; top: 16mm; bottom: 16mm; border-left: .25mm solid var(--filo) }
+
+.numero { font: 800 34pt/1 "Barlow Condensed", sans-serif; letter-spacing: -.01em; display: flex; align-items: baseline; gap: 1mm }
+.numero .sez { font-size: 18pt; color: var(--tenue) }
+.passo h2 { font: 600 12.5pt/1.15 Barlow, sans-serif; margin: 1mm 0 0; text-wrap: balance }
+
+.grande .colonna { position: absolute; left: 0; top: 0; width: 72mm; height: 183mm; display: flex; flex-direction: column;
+                   gap: 3mm; overflow: hidden }
+.grande .figura { position: absolute; left: 77mm; top: 1mm; width: 196mm; height: 172mm }
+.mezzo .testa { position: absolute; left: 0; top: 0; width: 134mm; height: 16mm; display: flex; gap: 3mm; align-items: flex-start }
+.mezzo .testa h2 { margin-top: 1.5mm }
+.mezzo .figura { position: absolute; left: 1.5mm; top: 17mm; width: 131mm; height: 104mm }
+.mezzo .sotto { position: absolute; left: 0; top: 123mm; width: 134mm; height: 60mm; display: flex; gap: 3mm; overflow: hidden;
+               align-items: flex-start }
+.mezzo .sotto .box { width: 58mm; flex: none }
+.mezzo .sotto .istruzioni { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2mm }
+
+.figura img, .figura svg { position: absolute; inset: 0; width: 100%; height: 100% }
+.figura .ripeti { position: absolute; right: 0; bottom: 0; font: 800 26pt/1 "Barlow Condensed", sans-serif;
+                  border: .7mm solid var(--inchiostro); border-radius: 2.5mm; padding: 1mm 3mm; background: #fff }
+
+/* riquadro dei pezzi necessari */
+.box { background: var(--fondo-box); border: .35mm solid var(--inchiostro); border-radius: 2.5mm; padding: 2.2mm 2.5mm;
+       display: flex; flex-wrap: wrap; gap: 1.5mm 3mm; align-items: flex-end }
+.box .voce { display: flex; flex-direction: column; align-items: center; gap: .6mm; max-width: 30mm }
+.box .voce img { height: 15mm; width: auto; max-width: 28mm; object-fit: contain }
+.box .voce .q { font: 700 10.5pt/1 "Barlow Condensed", sans-serif }
+.box .voce .n { font-size: 7pt; line-height: 1.15; color: var(--tenue); text-align: center }
+.box .voce.vite { justify-content: flex-end }
+.box .voce .x { font: 700 6.5pt/1 Barlow, sans-serif; color: #fff; background: var(--opzionale); border-radius: .8mm; padding: .3mm .8mm }
+
+.istruzioni ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1.3mm }
+.istruzioni li { padding-left: 4mm; position: relative }
+.istruzioni li::before { content: ""; position: absolute; left: .6mm; top: 1.9mm; width: 1.4mm; height: 1.4mm; background: var(--sez);
+                          border-radius: .3mm }
+.istruzioni b.verbo { font-weight: 700 }
+.dato { font: 700 6pt/1 Barlow, sans-serif; border-radius: .6mm; padding: .2mm .6mm; vertical-align: .25em; margin-left: .4mm }
+.dato.V { background: #d3f9d8; color: #2b8a3e } .dato.S { background: #fff3bf; color: #a07400 } .dato.C { background: #ffe3e3; color: #c92a2a }
+.rif { color: var(--tenue); font-size: 8pt }
+
+.avviso { border-left: 1.6mm solid var(--c); background: color-mix(in srgb, var(--c) 9%, white); padding: 1.6mm 2.4mm;
+          font-size: 9pt; border-radius: 0 1.5mm 1.5mm 0 }
+.avviso .t { font: 700 8pt Barlow, sans-serif; letter-spacing: .07em; text-transform: uppercase; color: var(--c); margin-right: 1mm }
+.avviso.attenzione { --c: var(--attenzione) } .avviso.importante { --c: var(--importante) } .avviso.nota { --c: var(--nota) }
+.avviso.opzionale { --c: var(--opzionale) } .avviso.prova { --c: var(--prova) }
+.attrezzi { display: flex; flex-wrap: wrap; gap: 1mm 3mm; font-size: 8pt; color: var(--tenue) }
+.attrezzi span { display: inline-flex; align-items: center; gap: 1mm }
+.attrezzi svg { width: 5mm; height: 5mm }
+
+/* frecce */
+.frecce .pezzo, .frecce .vite, .frecce .inserto { fill: var(--freccia); stroke: #fff; paint-order: stroke; stroke-linejoin: round }
+
+/* viti 1:1 */
+svg.v11 .testa { fill: #9aa0a8; stroke: var(--inchiostro); stroke-width: .12 }
+svg.v11 .gambo { fill: #c3c8ce; stroke: var(--inchiostro); stroke-width: .12 }
+svg.v11 .filetto line { stroke: #4b5058; stroke-width: .07 }
+svg.v11 .ottone { fill: #d9b45a; stroke: var(--inchiostro); stroke-width: .12 }
+svg.v11 .impronta { stroke: var(--inchiostro); stroke-width: .25; fill: none }
+
+/* ------------------------------------------------------------------ apertura di sezione */
+.apertura .banda { position: absolute; left: 0; top: 0; width: 297mm; height: 38mm; background: var(--sez); color: #fff;
+                   padding: 8mm 12mm 0; display: flex; align-items: flex-end; gap: 6mm }
+.apertura .banda .grosso { font: 800 64pt/0.8 "Barlow Condensed", sans-serif }
+.apertura .banda h1 { font: 700 28pt/1 "Barlow Condensed", sans-serif; margin: 0 0 1mm; letter-spacing: .01em }
+.apertura .banda .volte { margin-left: auto; margin-bottom: 2mm; background: #fff; color: var(--inchiostro); border-radius: 2mm;
+                          padding: 1mm 4mm; font: 800 20pt/1 "Barlow Condensed", sans-serif }
+.apertura .sinistra { position: absolute; left: 12mm; top: 46mm; width: 96mm; bottom: 16mm; display: flex; flex-direction: column;
+                      gap: 3.5mm; overflow: hidden }
+.apertura .destra { position: absolute; left: 116mm; top: 46mm; right: 12mm; bottom: 16mm; display: flex; flex-direction: column;
+                    gap: 3mm; overflow: hidden }
+.etichetta { font: 700 8pt Barlow, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--tenue); margin-bottom: 1mm }
+.griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(27mm, 1fr)); gap: 2mm }
+.griglia .voce { display: grid; grid-template-rows: 17mm auto auto; justify-items: center; text-align: center; gap: .5mm;
+                 border: .25mm solid var(--filo); border-radius: 2mm; padding: 1.5mm 1mm }
+.griglia .voce img { height: 17mm; max-width: 25mm; object-fit: contain }
+.griglia .q { font: 700 11pt/1 "Barlow Condensed", sans-serif }
+.griglia .q small { font-weight: 600; color: var(--tenue) }
+.griglia .n { font-size: 7.2pt; line-height: 1.15 }
+.griglia .b { font-size: 6.5pt; color: var(--tenue) }
+.viteria { display: flex; flex-wrap: wrap; gap: 2mm 6mm; align-items: flex-end }
+.viteria .voce { display: flex; flex-direction: column; align-items: flex-start; gap: .5mm; font-size: 8pt }
+.viteria .q { font: 700 11pt/1 "Barlow Condensed", sans-serif }
+table.elenco { border-collapse: collapse; font-size: 8.5pt; width: 100% }
+table.elenco td { border-top: .2mm solid var(--filo); padding: .8mm 1mm; vertical-align: top }
+table.elenco td.q { font: 700 10pt "Barlow Condensed", sans-serif; white-space: nowrap; width: 12mm }
+
+/* ------------------------------------------------------------------ punto di controllo */
+.controllo .figura { position: absolute; left: 89mm; top: 14mm; width: 196mm; height: 150mm }
+.controllo .sinistra { position: absolute; left: 12mm; top: 14mm; width: 72mm; bottom: 14mm; display: flex; flex-direction: column;
+                       gap: 3mm; overflow: hidden }
+.controllo h2 { font: 800 22pt/1 "Barlow Condensed", sans-serif; margin: 0 }
+.spunte { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.6mm }
+.spunte li { display: flex; gap: 2mm } .spunte li::before { content: ""; flex: none; width: 3.6mm; height: 3.6mm;
+             border: .35mm solid var(--inchiostro); border-radius: .6mm; margin-top: .4mm }
+table.zampe { border-collapse: collapse; font-size: 8pt; position: absolute; left: 89mm; top: 168mm; width: 196mm }
+table.zampe th, table.zampe td { border: .25mm solid var(--filo); padding: .8mm 1.2mm; text-align: center }
+table.zampe td:first-child { text-align: left }
+
+/* ------------------------------------------------------------------ copertina e indice */
+.copertina { background: var(--inchiostro); color: #fff }
+.copertina .titolo { position: absolute; left: 16mm; bottom: 34mm; font: 800 54pt/0.9 "Barlow Condensed", sans-serif }
+.copertina .sotto { position: absolute; left: 16mm; bottom: 20mm; font-size: 12pt; color: #c9ced6 }
+.copertina .figura { position: absolute; right: 10mm; top: 14mm; width: 180mm; height: 150mm }
+.indice h1 { position: absolute; left: 12mm; top: 16mm; margin: 0; font: 800 26pt "Barlow Condensed", sans-serif }
+.indice ol { position: absolute; left: 12mm; top: 34mm; right: 12mm; columns: 2; column-gap: 14mm; list-style: none; margin: 0; padding: 0 }
+.indice li { display: flex; gap: 3mm; align-items: baseline; padding: 1.3mm 0; border-bottom: .2mm solid var(--filo); break-inside: avoid;
+             font-size: 11pt }
+.indice li .n { font: 800 13pt "Barlow Condensed", sans-serif; width: 9mm; color: var(--c) }
+.indice li .p { margin-left: auto; font: 700 11pt "Barlow Condensed", sans-serif }
+.indice a { color: inherit; text-decoration: none }
