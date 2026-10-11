@@ -1,0 +1,2696 @@
+{
+ "versione": "2.1.6",
+ "documento": "Hexapod v2.1.0 v14",
+ "unita": "mm",
+ "parametri": {
+  "zam_Lc": 55.0,
+  "zam_Lf": 65.0,
+  "zam_Lt": 110.0
+ },
+ "istanze": {
+  "corpo": [
+   1.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   1.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   1.0,
+   0.0
+  ],
+  "zampe": {
+   "AD": [
+    0.866025404,
+    0.5,
+    0.0,
+    80.0,
+    -0.5,
+    0.866025404,
+    0.0,
+    -44.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "AS": [
+    0.866025404,
+    -0.5,
+    0.0,
+    80.0,
+    0.5,
+    0.866025404,
+    0.0,
+    44.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "MD": [
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    -48.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "MS": [
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    48.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "PD": [
+    -0.866025404,
+    0.5,
+    0.0,
+    -80.0,
+    -0.5,
+    -0.866025404,
+    0.0,
+    -44.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "PS": [
+    -0.866025404,
+    -0.5,
+    0.0,
+    -80.0,
+    0.5,
+    -0.866025404,
+    0.0,
+    44.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  }
+ },
+ "componenti": {
+  "Corpo_Base": {
+   "tipo": "stampato",
+   "revisione": "70bdf338-f740-4a33-b85e-05ec802bd70c",
+   "mesh": "Corpo_Base.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Carapace": {
+   "tipo": "stampato",
+   "revisione": "e87fd09a-bbd3-49e2-822f-828c8a6e776f",
+   "mesh": "Corpo_Carapace.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Chiglia": {
+   "tipo": "stampato",
+   "revisione": "268d46ca-60ad-4a20-b10a-53681d4c89c7",
+   "mesh": "Corpo_Chiglia.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Fascia": {
+   "tipo": "stampato",
+   "revisione": "cfd396db-a6b0-41a0-8327-edad3ba147d9",
+   "mesh": "Corpo_Fascia.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 3
+  },
+  "Corpo_Fondo_Anello": {
+   "tipo": "stampato",
+   "revisione": "7ed9c902-daac-44d1-b9ff-0717928ba9ad",
+   "mesh": "Corpo_Fondo_Anello.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Gonne": {
+   "tipo": "stampato",
+   "revisione": "f452d74b-0aa4-4d04-ac11-f2863e5237da",
+   "mesh": "Corpo_Gonne.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 4
+  },
+  "Corpo_Lunette_Microfoni": {
+   "tipo": "stampato",
+   "revisione": "6869d8ee-8cb2-4496-a2fb-c5f3a56d89fc",
+   "mesh": "Corpo_Lunette_Microfoni.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 4
+  },
+  "Corpo_Piastrina_IMU": {
+   "tipo": "stampato",
+   "revisione": "a9b612a5-5a66-41fa-a5d4-8be214303adb",
+   "mesh": "Corpo_Piastrina_IMU.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Slitta_Regolatore": {
+   "tipo": "stampato",
+   "revisione": "29993fd5-add3-44ea-836f-76ae38acd0ad",
+   "mesh": "Corpo_Slitta_Regolatore.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Sportello": {
+   "tipo": "stampato",
+   "revisione": "42aec5e0-b88a-4196-aa7a-3d00c31c4791",
+   "mesh": "Corpo_Sportello.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Sportello_Servizio": {
+   "tipo": "stampato",
+   "revisione": "0460b26d-83f0-4e16-a8be-91a4de97e12a",
+   "mesh": "Corpo_Sportello_Servizio.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Sportello_Servizio_Zaino": {
+   "tipo": "stampato",
+   "revisione": "3f64be49-474b-4cbe-a370-a028639302b1",
+   "mesh": "Corpo_Sportello_Servizio_Zaino.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Supporto_INA260_D": {
+   "tipo": "stampato",
+   "revisione": "ec680e75-6d9e-43a6-b067-bd7df6a70faf",
+   "mesh": "Corpo_Supporto_INA260_D.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Supporto_INA260_S": {
+   "tipo": "stampato",
+   "revisione": "29693865-81f5-44fa-847b-a05ecb17b8b3",
+   "mesh": "Corpo_Supporto_INA260_S.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Tappo_ToF": {
+   "tipo": "stampato",
+   "revisione": "6b1e1417-e07b-4d9b-80cf-f9c18741c413",
+   "mesh": "Corpo_Tappo_ToF.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Vassoio": {
+   "tipo": "stampato",
+   "revisione": "f21c0f50-784c-4cf5-ab29-c5aba57f1454",
+   "mesh": "Corpo_Vassoio.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Corpo_Visiera": {
+   "tipo": "stampato",
+   "revisione": "5ed711b9-d4a3-4dfc-8a0d-8baad9568e23",
+   "mesh": "Corpo_Visiera.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Cover_Femore_A": {
+   "tipo": "stampato",
+   "revisione": "1361b872-c27a-4911-a6fc-e6f65c70d751",
+   "mesh": "Cover_Femore_A.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Cover_Femore_A_Feritoia": {
+   "tipo": "stampato",
+   "revisione": "36d1fe5d-3f01-4e4a-8663-4f58375d65ef",
+   "mesh": "Cover_Femore_A_Feritoia.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Cover_Femore_B": {
+   "tipo": "stampato",
+   "revisione": "6d2b6704-dbc7-4fa7-933b-ea4c3329ef05",
+   "mesh": "Cover_Femore_B.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Cover_Femore_B_Feritoia": {
+   "tipo": "stampato",
+   "revisione": "b2a5a333-8694-4731-ac23-91385e095426",
+   "mesh": "Cover_Femore_B_Feritoia.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Cover_Tibia": {
+   "tipo": "stampato",
+   "revisione": "836d3588-15ee-49a1-a012-fb819f96c7fa",
+   "mesh": "Cover_Tibia.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Cover_Tibia_Diffusore": {
+   "tipo": "stampato",
+   "revisione": "a49278db-9151-45c9-8309-313882b59d09",
+   "mesh": "Cover_Tibia_Diffusore.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Coxa": {
+   "tipo": "stampato",
+   "revisione": "0dd14999-1280-4cd9-b0ea-95b5d19abadd",
+   "mesh": "Coxa.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Coxa_Ponte": {
+   "tipo": "stampato",
+   "revisione": "601bf3d2-86aa-4597-afc8-9109460d89ca",
+   "mesh": "Coxa_Ponte.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Femore_A": {
+   "tipo": "stampato",
+   "revisione": "1a8052ed-6368-4448-911c-ec319bacda15",
+   "mesh": "Femore_A.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Femore_B": {
+   "tipo": "stampato",
+   "revisione": "f799ebe4-afe3-4207-9bf8-a9c6389413de",
+   "mesh": "Femore_B.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Ingombro_Teste_A": {
+   "tipo": "ingombro",
+   "revisione": "e3c66f12-c1d1-42f3-9b7d-c4d1217f4eed",
+   "mesh": "Ingombro_Teste_A.ply",
+   "aspetti": [
+    [
+     "Esa acciaio",
+     [
+      203,
+      203,
+      203
+     ]
+    ]
+   ],
+   "corpi": 12
+  },
+  "Piedino": {
+   "tipo": "stampato",
+   "revisione": "ac724dfc-ae09-4222-b469-6113b6e944e8",
+   "mesh": "Piedino.ply",
+   "aspetti": [
+    [
+     "Esa TPU arancio",
+     [
+      255,
+      98,
+      16
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_ADC_ADS7830": {
+   "tipo": "comprato",
+   "revisione": "16ff3c14-f8e2-4a3a-aa9b-b09d229d73a6",
+   "mesh": "Rif_ADC_ADS7830.ply",
+   "aspetti": [
+    [
+     "Esa scheda blu",
+     [
+      26,
+      56,
+      132
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Altoparlante_Tondo": {
+   "tipo": "comprato",
+   "revisione": "a4b598af-7a7c-4dde-ae8a-71375acf9838",
+   "mesh": "Rif_Altoparlante_Tondo.ply",
+   "aspetti": [
+    [
+     "Esa plastica nera",
+     [
+      30,
+      30,
+      32
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Ampli_Generico": {
+   "tipo": "comprato",
+   "revisione": "38f8cffe-522d-4758-a169-3be8ad7d5347",
+   "mesh": "Rif_Ampli_Generico.ply",
+   "aspetti": [
+    [
+     "Esa scheda blu",
+     [
+      26,
+      56,
+      132
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Basetta_50x70": {
+   "tipo": "comprato",
+   "revisione": "64199861-62d3-43f4-a9ae-cb54bd2d1295",
+   "mesh": "Rif_Basetta_50x70.ply",
+   "aspetti": [
+    [
+     "Esa scheda verde",
+     [
+      24,
+      92,
+      48
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Batteria_2S5200": {
+   "tipo": "comprato",
+   "revisione": "79a6d2a5-d01e-4686-b6f5-26054994363d",
+   "mesh": "Rif_Batteria_2S5200.ply",
+   "aspetti": [
+    [
+     "Esa batteria",
+     [
+      52,
+      54,
+      60
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Camera_OV3660_75": {
+   "tipo": "comprato",
+   "revisione": "cadb51d4-fa34-4e83-880f-0abbe922c03b",
+   "mesh": "Rif_Camera_OV3660_75.ply",
+   "aspetti": [
+    [
+     "Esa plastica nera",
+     [
+      30,
+      30,
+      32
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Cicalino_BX100": {
+   "tipo": "comprato",
+   "revisione": "0715fd87-2c70-45ab-a79e-2d512e878442",
+   "mesh": "Rif_Cicalino_BX100.ply",
+   "aspetti": [
+    [
+     "Esa plastica nera",
+     [
+      30,
+      30,
+      32
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Cuscinetto_LF1050ZZ": {
+   "tipo": "comprato",
+   "revisione": "a9a6b3b1-e871-4be1-8c5d-75a6df7f5218",
+   "mesh": "Rif_Cuscinetto_LF1050ZZ.ply",
+   "aspetti": [
+    [
+     "Esa acciaio",
+     [
+      203,
+      203,
+      203
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_ESP32_S3_CAM": {
+   "tipo": "comprato",
+   "revisione": "fce8e447-db57-429d-90b4-a160afc11955",
+   "mesh": "Rif_ESP32_S3_CAM.ply",
+   "aspetti": [
+    [
+     "Esa plastica nera",
+     [
+      30,
+      30,
+      32
+     ]
+    ]
+   ],
+   "corpi": 6
+  },
+  "Rif_FSR_400": {
+   "tipo": "comprato",
+   "revisione": "c500cfd6-285a-4799-af15-d4aa6dbf1b27",
+   "mesh": "Rif_FSR_400.ply",
+   "aspetti": [
+    [
+     "Esa grigio chiaro",
+     [
+      192,
+      194,
+      197
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_IMU": {
+   "tipo": "comprato",
+   "revisione": "38fa4d12-3758-4ad3-93b9-b827472c893b",
+   "mesh": "Rif_IMU.ply",
+   "aspetti": [
+    [
+     "Esa scheda blu",
+     [
+      26,
+      56,
+      132
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_IMU_MPU6500": {
+   "tipo": "comprato",
+   "revisione": "23ffbb9a-f8f1-4b2e-b201-128ce892c9eb",
+   "mesh": "Rif_IMU_MPU6500.ply",
+   "aspetti": [
+    [
+     "Esa scheda blu",
+     [
+      26,
+      56,
+      132
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_INA260": {
+   "tipo": "comprato",
+   "revisione": "3a1788ea-a716-415c-9d8a-be7187ccde9b",
+   "mesh": "Rif_INA260.ply",
+   "aspetti": [
+    [
+     "Esa scheda blu",
+     [
+      26,
+      56,
+      132
+     ]
+    ]
+   ],
+   "corpi": 2
+  },
+  "Rif_Interruttore_Pololu_2813": {
+   "tipo": "comprato",
+   "revisione": "17aa57b6-12e4-47d8-a4d3-4cc3eba87fe0",
+   "mesh": "Rif_Interruttore_Pololu_2813.ply",
+   "aspetti": [
+    [
+     "Esa scheda verde",
+     [
+      24,
+      92,
+      48
+     ]
+    ]
+   ],
+   "corpi": 2
+  },
+  "Rif_Microfono_I2S": {
+   "tipo": "comprato",
+   "revisione": "36c0859a-a39d-4217-b25f-916db8ade8b1",
+   "mesh": "Rif_Microfono_I2S.ply",
+   "aspetti": [
+    [
+     "Esa scheda blu",
+     [
+      26,
+      56,
+      132
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Microfono_MS3625": {
+   "tipo": "comprato",
+   "revisione": "cd1cca19-6d10-45b6-99d2-88231f168aca",
+   "mesh": "Rif_Microfono_MS3625.ply",
+   "aspetti": [
+    [
+     "Esa plastica nera",
+     [
+      30,
+      30,
+      32
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Perno_5": {
+   "tipo": "comprato",
+   "revisione": "4cf4e271-4b47-4859-9281-e2b3b2ddc909",
+   "mesh": "Rif_Perno_5.ply",
+   "aspetti": [
+    [
+     "Esa acciaio",
+     [
+      203,
+      203,
+      203
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Portafusibile_ATO": {
+   "tipo": "comprato",
+   "revisione": "82f1118e-04ff-437b-b37f-c4a7dd246d38",
+   "mesh": "Rif_Portafusibile_ATO.ply",
+   "aspetti": [
+    [
+     "Esa plastica nera",
+     [
+      30,
+      30,
+      32
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Prese_Piedi": {
+   "tipo": "comprato",
+   "revisione": "0471f58e-07ba-4b1d-97c6-3b363f2c440b",
+   "mesh": "Rif_Prese_Piedi.ply",
+   "aspetti": [
+    [
+     "Esa plastica nera",
+     [
+      30,
+      30,
+      32
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Pulsante_12": {
+   "tipo": "comprato",
+   "revisione": "e09110cf-1272-484c-b20a-3778e3ce50cf",
+   "mesh": "Rif_Pulsante_12.ply",
+   "aspetti": [
+    [
+     "Esa acciaio",
+     [
+      203,
+      203,
+      203
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Reg_Servo_D42V110F6": {
+   "tipo": "comprato",
+   "revisione": "050e21b8-2b4c-4ca8-a3f5-56ccac787623",
+   "mesh": "Rif_Reg_Servo_D42V110F6.ply",
+   "aspetti": [
+    [
+     "Opaque(202,209,238)",
+     [
+      202,
+      209,
+      238
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_SSC32_V25": {
+   "tipo": "comprato",
+   "revisione": "2493b378-0dca-4188-a89e-fb4fba5c8e6e",
+   "mesh": "Rif_SSC32_V25.ply",
+   "aspetti": [
+    [
+     "Esa scheda blu",
+     [
+      26,
+      56,
+      132
+     ]
+    ]
+   ],
+   "corpi": 7
+  },
+  "Rif_Scheda_Carapace": {
+   "tipo": "comprato",
+   "revisione": "ce96c2c4-324d-4e8e-80d4-e2774fbdf0df",
+   "mesh": "Rif_Scheda_Carapace.ply",
+   "aspetti": [
+    [
+     "Esa scheda verde",
+     [
+      24,
+      92,
+      48
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Servo_MG996R": {
+   "tipo": "comprato",
+   "revisione": "0dba62ee-a97e-42a2-9ff4-88fd98919887",
+   "mesh": "Rif_Servo_MG996R.ply",
+   "aspetti": [
+    [
+     "Opaque(64,64,64)",
+     [
+      64,
+      64,
+      64
+     ]
+    ]
+   ],
+   "corpi": 4
+  },
+  "Rif_Squadretta_25T": {
+   "tipo": "comprato",
+   "revisione": "23574c70-41c8-41b1-b09a-a37e9fe1c23d",
+   "mesh": "Rif_Squadretta_25T.ply",
+   "aspetti": [
+    [
+     "Esa alluminio",
+     [
+      245,
+      245,
+      246
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_ToF_1": {
+   "tipo": "comprato",
+   "revisione": "e4367f72-a7e4-4d26-aa2f-b8ddbc722ba9",
+   "mesh": "Rif_ToF_1.ply",
+   "aspetti": [
+    [
+     "Esa scheda verde",
+     [
+      24,
+      92,
+      48
+     ]
+    ]
+   ],
+   "corpi": 2
+  },
+  "Rif_ToF_8x8": {
+   "tipo": "comprato",
+   "revisione": "e215d9df-5e7b-4d07-b4c7-c5df90c8d5a9",
+   "mesh": "Rif_ToF_8x8.ply",
+   "aspetti": [
+    [
+     "Esa scheda verde",
+     [
+      24,
+      92,
+      48
+     ]
+    ]
+   ],
+   "corpi": 2
+  },
+  "Rif_Tplug": {
+   "tipo": "comprato",
+   "revisione": "0b36f38e-5146-48be-8e75-e1dd79191b1b",
+   "mesh": "Rif_Tplug.ply",
+   "aspetti": [
+    [
+     "Esa rosso",
+     [
+      196,
+      30,
+      30
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Rif_Wago_221_415": {
+   "tipo": "comprato",
+   "revisione": "1e7ecfba-eab4-4558-8bb6-d0e05246aa0a",
+   "mesh": "Rif_Wago_221_415.ply",
+   "aspetti": [
+    [
+     "Esa grigio chiaro",
+     [
+      192,
+      194,
+      197
+     ]
+    ]
+   ],
+   "corpi": 1
+  },
+  "Tibia": {
+   "tipo": "stampato",
+   "revisione": "d3c003bf-adba-47b6-a897-d832f836a11d",
+   "mesh": "Tibia.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1
+  }
+ },
+ "occorrenze": [
+  {
+   "chiave": "corpo/Corpo_Slitta_Regolatore_S",
+   "componente": "Corpo_Slitta_Regolatore",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Chiglia",
+   "componente": "Corpo_Chiglia",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Base",
+   "componente": "Corpo_Base",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Sportello",
+   "componente": "Corpo_Sportello",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Sportello_Servizio",
+   "componente": "Corpo_Sportello_Servizio",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Gonne",
+   "componente": "Corpo_Gonne",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Servo_Coxa_AS",
+   "componente": "Rif_Servo_MG996R",
+   "assieme": "corpo",
+   "T": [
+    0.866025404,
+    -0.5,
+    0.0,
+    80.0,
+    0.5,
+    0.866025404,
+    0.0,
+    44.0,
+    0.0,
+    0.0,
+    1.0,
+    1.65
+   ]
+  },
+  {
+   "chiave": "corpo/Cuscinetto_Coxa_AS",
+   "componente": "Rif_Cuscinetto_LF1050ZZ",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    80.0,
+    0.0,
+    1.0,
+    0.0,
+    44.0,
+    0.0,
+    0.0,
+    1.0,
+    -32.75
+   ]
+  },
+  {
+   "chiave": "corpo/Servo_Coxa_MS",
+   "componente": "Rif_Servo_MG996R",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    48.0,
+    0.0,
+    0.0,
+    1.0,
+    1.65
+   ]
+  },
+  {
+   "chiave": "corpo/Cuscinetto_Coxa_MS",
+   "componente": "Rif_Cuscinetto_LF1050ZZ",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    48.0,
+    0.0,
+    0.0,
+    1.0,
+    -32.75
+   ]
+  },
+  {
+   "chiave": "corpo/Servo_Coxa_PS",
+   "componente": "Rif_Servo_MG996R",
+   "assieme": "corpo",
+   "T": [
+    -0.866025404,
+    -0.5,
+    0.0,
+    -80.0,
+    0.5,
+    -0.866025404,
+    0.0,
+    44.0,
+    0.0,
+    0.0,
+    1.0,
+    1.65
+   ]
+  },
+  {
+   "chiave": "corpo/Cuscinetto_Coxa_PS",
+   "componente": "Rif_Cuscinetto_LF1050ZZ",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    -80.0,
+    0.0,
+    1.0,
+    0.0,
+    44.0,
+    0.0,
+    0.0,
+    1.0,
+    -32.75
+   ]
+  },
+  {
+   "chiave": "corpo/Servo_Coxa_AD",
+   "componente": "Rif_Servo_MG996R",
+   "assieme": "corpo",
+   "T": [
+    0.866025404,
+    0.5,
+    0.0,
+    80.0,
+    -0.5,
+    0.866025404,
+    0.0,
+    -44.0,
+    0.0,
+    0.0,
+    1.0,
+    1.65
+   ]
+  },
+  {
+   "chiave": "corpo/Cuscinetto_Coxa_AD",
+   "componente": "Rif_Cuscinetto_LF1050ZZ",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    80.0,
+    0.0,
+    1.0,
+    0.0,
+    -44.0,
+    0.0,
+    0.0,
+    1.0,
+    -32.75
+   ]
+  },
+  {
+   "chiave": "corpo/Servo_Coxa_MD",
+   "componente": "Rif_Servo_MG996R",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    -48.0,
+    0.0,
+    0.0,
+    1.0,
+    1.65
+   ]
+  },
+  {
+   "chiave": "corpo/Cuscinetto_Coxa_MD",
+   "componente": "Rif_Cuscinetto_LF1050ZZ",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    -48.0,
+    0.0,
+    0.0,
+    1.0,
+    -32.75
+   ]
+  },
+  {
+   "chiave": "corpo/Servo_Coxa_PD",
+   "componente": "Rif_Servo_MG996R",
+   "assieme": "corpo",
+   "T": [
+    -0.866025404,
+    0.5,
+    0.0,
+    -80.0,
+    -0.5,
+    -0.866025404,
+    0.0,
+    -44.0,
+    0.0,
+    0.0,
+    1.0,
+    1.65
+   ]
+  },
+  {
+   "chiave": "corpo/Cuscinetto_Coxa_PD",
+   "componente": "Rif_Cuscinetto_LF1050ZZ",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    -80.0,
+    0.0,
+    1.0,
+    0.0,
+    -44.0,
+    0.0,
+    0.0,
+    1.0,
+    -32.75
+   ]
+  },
+  {
+   "chiave": "corpo/Batteria",
+   "componente": "Rif_Batteria_2S5200",
+   "assieme": "corpo",
+   "T": [
+    -1.0,
+    -0.0,
+    0.0,
+    9.5,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    -39.4
+   ]
+  },
+  {
+   "chiave": "corpo/SSC32",
+   "componente": "Rif_SSC32_V25",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    -14.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    -1.4
+   ]
+  },
+  {
+   "chiave": "corpo/Basetta",
+   "componente": "Rif_Basetta_50x70",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    50.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    5.9
+   ]
+  },
+  {
+   "chiave": "corpo/ESP32",
+   "componente": "Rif_ESP32_S3_CAM",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    45.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    16.0
+   ]
+  },
+  {
+   "chiave": "corpo/Camera",
+   "componente": "Rif_Camera_OV3660_75",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    0.0,
+    1.0,
+    92.5,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    22.5
+   ]
+  },
+  {
+   "chiave": "corpo/Portafusibile_F1",
+   "componente": "Rif_Portafusibile_ATO",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    -1.0,
+    0.0,
+    -72.4,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    -9.4
+   ]
+  },
+  {
+   "chiave": "corpo/Tplug",
+   "componente": "Rif_Tplug",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    -1.0,
+    0.0,
+    -72.4,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    5.6
+   ]
+  },
+  {
+   "chiave": "corpo/Wago_piu",
+   "componente": "Rif_Wago_221_415",
+   "assieme": "corpo",
+   "T": [
+    -1.0,
+    0.0,
+    0.0,
+    -31.0,
+    0.0,
+    0.0,
+    1.0,
+    27.5,
+    0.0,
+    1.0,
+    0.0,
+    -20.65
+   ]
+  },
+  {
+   "chiave": "corpo/Wago_meno",
+   "componente": "Rif_Wago_221_415",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    -31.0,
+    0.0,
+    0.0,
+    -1.0,
+    -27.5,
+    0.0,
+    1.0,
+    0.0,
+    -20.65
+   ]
+  },
+  {
+   "chiave": "corpo/Regolatore_S",
+   "componente": "Rif_Reg_Servo_D42V110F6",
+   "assieme": "corpo",
+   "T": [
+    -1.0,
+    0.0,
+    0.0,
+    57.18,
+    0.0,
+    0.0,
+    -1.0,
+    43.0,
+    0.0,
+    -1.0,
+    0.0,
+    2.5
+   ]
+  },
+  {
+   "chiave": "corpo/Regolatore_D",
+   "componente": "Rif_Reg_Servo_D42V110F6",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    14.0,
+    0.0,
+    0.0,
+    1.0,
+    -43.0,
+    0.0,
+    -1.0,
+    0.0,
+    2.5
+   ]
+  },
+  {
+   "chiave": "corpo/Cicalino",
+   "componente": "Rif_Cicalino_BX100",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    -1.0,
+    0.0,
+    -74.5,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    17.4
+   ]
+  },
+  {
+   "chiave": "corpo/Pulsante",
+   "componente": "Rif_Pulsante_12",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    -40.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    36.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Slitta_Regolatore_D",
+   "componente": "Corpo_Slitta_Regolatore",
+   "assieme": "corpo",
+   "T": [
+    -1.0,
+    -0.0,
+    0.0,
+    71.18,
+    0.0,
+    -1.0,
+    0.0,
+    -0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Visiera",
+   "componente": "Corpo_Visiera",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Tappo_ToF",
+   "componente": "Corpo_Tappo_ToF",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Supporto_INA260_S",
+   "componente": "Corpo_Supporto_INA260_S",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Supporto_INA260_D",
+   "componente": "Corpo_Supporto_INA260_D",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Sportello_Servizio_Zaino",
+   "componente": "Corpo_Sportello_Servizio_Zaino",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "alternativa": true
+  },
+  {
+   "chiave": "corpo/Corpo_Vassoio",
+   "componente": "Corpo_Vassoio",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Prese_piedi",
+   "componente": "Rif_Prese_Piedi",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    56.0,
+    0.0,
+    1.0,
+    0.0,
+    23.4,
+    0.0,
+    0.0,
+    1.0,
+    -8.9
+   ]
+  },
+  {
+   "chiave": "corpo/ToF_frontale",
+   "componente": "Rif_ToF_8x8",
+   "assieme": "corpo",
+   "T": [
+    0.342020143,
+    0.0,
+    0.939692621,
+    94.4,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.939692621,
+    0.0,
+    -0.342020143,
+    9.5
+   ]
+  },
+  {
+   "chiave": "corpo/INA260_S",
+   "componente": "Rif_INA260",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    25.6,
+    0.0,
+    0.0,
+    -1.0,
+    40.2,
+    0.0,
+    1.0,
+    0.0,
+    20.0
+   ]
+  },
+  {
+   "chiave": "corpo/INA260_D",
+   "componente": "Rif_INA260",
+   "assieme": "corpo",
+   "T": [
+    -1.0,
+    0.0,
+    0.0,
+    25.6,
+    0.0,
+    0.0,
+    1.0,
+    -40.2,
+    0.0,
+    1.0,
+    0.0,
+    20.0
+   ]
+  },
+  {
+   "chiave": "corpo/Scheda_carapace",
+   "componente": "Rif_Scheda_Carapace",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    -1.0,
+    0.0,
+    39.5,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    21.9
+   ]
+  },
+  {
+   "chiave": "corpo/Interruttore",
+   "componente": "Rif_Interruttore_Pololu_2813",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    0.0,
+    1.0,
+    -58.4,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    5.75
+   ]
+  },
+  {
+   "chiave": "corpo/ADC",
+   "componente": "Rif_ADC_ADS7830",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    54.25,
+    0.0,
+    1.0,
+    0.0,
+    9.6,
+    0.0,
+    0.0,
+    1.0,
+    -5.4
+   ]
+  },
+  {
+   "chiave": "corpo/ToF_posteriore",
+   "componente": "Rif_ToF_1",
+   "assieme": "corpo",
+   "T": [
+    -0.573576436,
+    0.0,
+    -0.819152044,
+    -93.5,
+    0.0,
+    1.0,
+    0.0,
+    18.4,
+    0.819152044,
+    0.0,
+    -0.573576436,
+    19.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Fascia",
+   "componente": "Corpo_Fascia",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Fondo_Anello",
+   "componente": "Corpo_Fondo_Anello",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Prese_luci",
+   "componente": "Rif_Prese_Piedi",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    56.0,
+    0.0,
+    1.0,
+    0.0,
+    -23.4,
+    0.0,
+    0.0,
+    1.0,
+    -8.9
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Piastrina_IMU",
+   "componente": "Corpo_Piastrina_IMU",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Carapace",
+   "componente": "Corpo_Carapace",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/IMU",
+   "componente": "Rif_IMU_MPU6500",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    47.5,
+    0.0,
+    1.0,
+    0.0,
+    -7.6,
+    0.0,
+    0.0,
+    1.0,
+    -2.9
+   ]
+  },
+  {
+   "chiave": "corpo/Altoparlante",
+   "componente": "Rif_Altoparlante_Tondo",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    1.0,
+    0.0,
+    -96.3,
+    0.0,
+    0.0,
+    1.0,
+    -25.4,
+    1.0,
+    0.0,
+    0.0,
+    12.0
+   ]
+  },
+  {
+   "chiave": "corpo/Ampli",
+   "componente": "Rif_Ampli_Generico",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    1.0,
+    0.0,
+    60.7,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    27.9
+   ]
+  },
+  {
+   "chiave": "corpo/Microfono_S",
+   "componente": "Rif_Microfono_MS3625",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    1.0,
+    0.0,
+    89.3,
+    1.0,
+    0.0,
+    0.0,
+    11.0,
+    0.0,
+    0.0,
+    -1.0,
+    33.8
+   ]
+  },
+  {
+   "chiave": "corpo/Microfono_D",
+   "componente": "Rif_Microfono_MS3625",
+   "assieme": "corpo",
+   "T": [
+    0.0,
+    1.0,
+    0.0,
+    89.3,
+    1.0,
+    0.0,
+    0.0,
+    -11.0,
+    0.0,
+    0.0,
+    -1.0,
+    33.8
+   ]
+  },
+  {
+   "chiave": "corpo/Corpo_Lunette_Microfoni",
+   "componente": "Corpo_Lunette_Microfoni",
+   "assieme": "corpo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Servo_femore",
+   "componente": "Rif_Servo_MG996R",
+   "assieme": "zampa",
+   "segmento": "coxa",
+   "T": [
+    0.0,
+    -1.0,
+    0.0,
+    55.0,
+    0.0,
+    0.0,
+    1.0,
+    9.45,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Servo_ginocchio",
+   "componente": "Rif_Servo_MG996R",
+   "assieme": "zampa",
+   "segmento": "tibia",
+   "T": [
+    0.0,
+    -1.0,
+    0.0,
+    120.0,
+    0.0,
+    0.0,
+    1.0,
+    9.45,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Squadretta_femore",
+   "componente": "Rif_Squadretta_25T",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    55.0,
+    0.0,
+    0.0,
+    1.0,
+    27.35,
+    0.0,
+    -1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Squadretta_ginocchio",
+   "componente": "Rif_Squadretta_25T",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    120.0,
+    0.0,
+    0.0,
+    1.0,
+    27.35,
+    0.0,
+    -1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Squadretta_coxa",
+   "componente": "Rif_Squadretta_25T",
+   "assieme": "zampa",
+   "segmento": "coxa",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    19.55
+   ]
+  },
+  {
+   "chiave": "zampa/Cuscinetto_femore",
+   "componente": "Rif_Cuscinetto_LF1050ZZ",
+   "assieme": "zampa",
+   "segmento": "coxa",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    55.0,
+    0.0,
+    0.0,
+    1.0,
+    -24.95,
+    0.0,
+    -1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Cuscinetto_ginocchio",
+   "componente": "Rif_Cuscinetto_LF1050ZZ",
+   "assieme": "zampa",
+   "segmento": "tibia",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    120.0,
+    0.0,
+    0.0,
+    1.0,
+    -24.95,
+    0.0,
+    -1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Perno_femore",
+   "componente": "Rif_Perno_5",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    55.0,
+    0.0,
+    0.0,
+    1.0,
+    -31.95,
+    0.0,
+    -1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Perno_ginocchio",
+   "componente": "Rif_Perno_5",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    120.0,
+    0.0,
+    0.0,
+    1.0,
+    -31.95,
+    0.0,
+    -1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Perno_coxa",
+   "componente": "Rif_Perno_5",
+   "assieme": "zampa",
+   "segmento": "coxa",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    -39.75
+   ]
+  },
+  {
+   "chiave": "zampa/Coxa",
+   "componente": "Coxa",
+   "assieme": "zampa",
+   "segmento": "coxa",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Coxa_Ponte",
+   "componente": "Coxa_Ponte",
+   "assieme": "zampa",
+   "segmento": "coxa",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Femore_A",
+   "componente": "Femore_A",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Ingombro_Teste_A",
+   "componente": "Ingombro_Teste_A",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Cover_Tibia",
+   "componente": "Cover_Tibia",
+   "assieme": "zampa",
+   "segmento": "tibia",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Femore_B",
+   "componente": "Femore_B",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Cover_Tibia_Diffusore",
+   "componente": "Cover_Tibia_Diffusore",
+   "assieme": "zampa",
+   "segmento": "tibia",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Piedino",
+   "componente": "Piedino",
+   "assieme": "zampa",
+   "segmento": "tibia",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Tibia",
+   "componente": "Tibia",
+   "assieme": "zampa",
+   "segmento": "tibia",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/FSR_ginocchio",
+   "componente": "Rif_FSR_400",
+   "assieme": "zampa",
+   "segmento": "tibia",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    120.2,
+    0.0,
+    1.0,
+    0.0,
+    -0.0,
+    0.0,
+    0.0,
+    1.0,
+    -107.9
+   ]
+  },
+  {
+   "chiave": "zampa/Cover_Femore_A_Feritoia",
+   "componente": "Cover_Femore_A_Feritoia",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Cover_Femore_A",
+   "componente": "Cover_Femore_A",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Cover_Femore_B",
+   "componente": "Cover_Femore_B",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "zampa/Cover_Femore_B_Feritoia",
+   "componente": "Cover_Femore_B_Feritoia",
+   "assieme": "zampa",
+   "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "corpo/IMU_Pololu",
+   "componente": "Rif_IMU",
+   "assieme": "corpo",
+   "virtuale": true,
+   "sostituisce": [
+    "Corpo_Piastrina_IMU",
+    "Rif_IMU_MPU6500"
+   ],
+   "T": [
+    1.0,
+    -0.0,
+    0.0,
+    47.5,
+    0.0,
+    1.0,
+    0.0,
+    -7.5,
+    0.0,
+    0.0,
+    1.0,
+    -5.4
+   ]
+  },
+  {
+   "chiave": "corpo/Microfono_Adafruit_S",
+   "componente": "Rif_Microfono_I2S",
+   "assieme": "corpo",
+   "virtuale": true,
+   "sostituisce": [
+    "Corpo_Lunette_Microfoni",
+    "Rif_Microfono_MS3625"
+   ],
+   "T": [
+    0.0,
+    1.0,
+    0.0,
+    89.3,
+    1.0,
+    0.0,
+    0.0,
+    11.0,
+    0.0,
+    0.0,
+    -1.0,
+    33.8
+   ]
+  },
+  {
+   "chiave": "corpo/Microfono_Adafruit_D",
+   "componente": "Rif_Microfono_I2S",
+   "assieme": "corpo",
+   "virtuale": true,
+   "sostituisce": [
+    "Corpo_Lunette_Microfoni",
+    "Rif_Microfono_MS3625"
+   ],
+   "T": [
+    0.0,
+    1.0,
+    0.0,
+    89.3,
+    1.0,
+    0.0,
+    0.0,
+    -11.0,
+    0.0,
+    0.0,
+    -1.0,
+    33.8
+   ]
+  }
+ ]
+}
