@@ -45,7 +45,7 @@ ZA = runpy.run_path(os.path.join(QUI, 'zampa.py'))
 # densita' PETG-CF 1,3, PLA 1,24, TPU 1,21 g/cm3 (piedino pieno). Materiali per parte da colori.py (D-065).
 RHO = {'PETG-CF': 1.3, 'PLA': 1.24, 'TPU': 1.21}
 GUSCIO_CM, RIEMPIMENTO = 0.12, 0.25
-PLA = ('Corpo_Carapace', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Tibia', 'Cover_Tibia_Diffusore', 'Corpo_Vassoio', 'Corpo_Fascia',
+PLA = ('Corpo_Carapace', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Femore_A_Feritoia', 'Cover_Femore_B_Feritoia', 'Cover_Tibia', 'Cover_Tibia_Diffusore', 'Corpo_Vassoio', 'Corpo_Fascia',
        'Corpo_Tappo_ToF', 'Corpo_Sportello_Servizio_Zaino', 'Corpo_Fondo_Anello',
        'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
 TPU = ('Piedino',)

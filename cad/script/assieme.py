@@ -317,7 +317,8 @@ def scansione_coxe(des, root, zampe, angoli):
 
 
 # ----------------------------------------------------------------------------------- ciclo a tripode
-SEGUONO_FEMORE = ('Femore_B', 'Femore_A', 'Ingombro_Teste_A', 'Cover_Femore_A', 'Cover_Femore_B')   # piu' le copie con origine sul femore (squadrette, perni)
+SEGUONO_FEMORE = ('Femore_B', 'Femore_A', 'Ingombro_Teste_A', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Femore_A_Feritoia',
+                  'Cover_Femore_B_Feritoia')   # piu' le copie con origine sul femore (squadrette, perni)
 SEGUONO_TIBIA = ('Tibia', 'Cover_Tibia', 'Piedino', 'Cover_Tibia_Diffusore', 'Rif_FSR_400')
 
 
@@ -446,7 +447,7 @@ def carapace_zampe(des, root, zampe, imbardate, pose):
                 urti = sorted(set('%s/%s' % (x[0].split('+')[-1], x[1].split('+')[-1]) for x in r))
                 dmin = None
                 for o in zo.childOccurrences:
-                    if o.component.name in ('Femore_A', 'Femore_B', 'Cover_Femore_A', 'Cover_Femore_B', 'Ingombro_Teste_A'):
+                    if o.component.name in SEGUONO_FEMORE:
                         for b in o.bRepBodies:
                             for cb in guscio:
                                 d = mm.measureMinimumDistance(b, cb).value * 10

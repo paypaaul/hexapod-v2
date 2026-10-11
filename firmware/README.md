@@ -74,7 +74,7 @@ Cosa controllano (criteri di `docs/software.md` 6.3) e cosa si è misurato il 9 
 | Pose dei 6 cicli verificati nel CAD | nessun limite geometrico violato | nessuno; a 70/70 rifiuto per la coppia (sotto) |
 | Casi d'urto: femore a −60°, vicine a 40° una verso l'altra, ginocchio sotto la tabella | rifiutati | rifiutati con il motivo giusto |
 | Statica contro `calc/statica_tripode.py`, riga per riga | carichi ≤ 1e-4 kgf, coppie ≤ 1e-3 kgf·cm | 5e-7 kgf, 5e-6 kgf·cm |
-| Regressione a 100/45 | femore al 51 % ± 1, margine 59 mm | 51,38 % (5,651 kgf·cm), 59,21 mm |
+| Regressione a 100/45 | femore al 53 % ± 1, margine 59 mm | 53,39 % (5,873 kgf·cm), 59,21 mm (D-070: massa 3060,6 g) |
 | Andatura a 50 Hz, ciclo da 1,2 s, tre cicli per assetto | nessun salto oltre 250°/s; piedi in appoggio fermi ≤ 0,5 mm | salto massimo 4,06° a fotogramma (203°/s); piedi fermi entro 0,0002 mm |
 | Partenza, rotazione e arresto con la rampa dei parametri | ogni fotogramma accettato dalla guardia | 360 fotogrammi accettati, salto massimo 3,8° |
 

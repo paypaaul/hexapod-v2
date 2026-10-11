@@ -148,6 +148,8 @@ Lavori:
 
 ## Seguito: versione 2.1.3 — lame del femore come la tibia (scelta dell'utente dell'11 ottobre 2026)
 
+**Fatta l'11 ottobre 2026** (D-070, tag `v2.1.3`). Verificato in CAD: contatto fra vicine a 31° (libere a 30,5°, gioco a 30° di 3,58 mm), carapace a 3,96 mm. Massa attesa 3060,6 g, con il femore al 53 % dello stallo.
+
 Sullo stesso design "Hexapod v2.1.0", tag `v2.1.3`, decisione D-070. Concept e verifiche sulle mesh in `docs/ricerca/estetica/8-placca-femore/` (`concept3.py`, `concept4.py`, `confronto_strisce.png`).
 
 Scelte dell'utente:

@@ -453,3 +453,62 @@ Modifiche al CAD (stesso design "Hexapod v2.1.0", versione 10 del file, tag `v2.
 - **Cablaggio**: chiusi gli aperti 1 (prese delle luci) e 6 (Wago positivo a sinistra, negativo a destra).
 - **Masse**: corpo 1067,9 g a segmento; modellato 2630 g, atteso circa 2990.
 
+
+## D-070 — Versione 2.1.3: lame del femore come il guscio della tibia (2026-10-11)
+
+L'utente voleva una cover anche sopra il femore (backlog del 9 ottobre). Le prove sono in `docs/ricerca/estetica/8-placca-femore/`:
+- tre concept: finestra larga, feritoia come la tibia, due cappucci;
+- la finestra larga rifinita;
+- lame come la tibia con strisce strette da lama a lama.
+
+Alla fine ha scelto così:
+- **lame laterali nello stile del guscio della tibia, con la feritoia, chiuse anche sulle teste dei bulloni**;
+- **nessuna copertura superiore**.
+
+Le strisce hanno vincoli che le verifiche sulle mesh hanno mostrato (`concept4.py`):
+- sopra l'anca una striscia da lama a lama urta il ponte della coxa fino a X 78;
+- da X 86 in avanti si può fare, ma non copre più l'uscita del cavo;
+- una linguetta della sola lama B all'utente non piaceva.
+
+Lame (`zampa.py` → `_cover_femore`, parametri `cov_fem_*`; tolti i 15 parametri delle lame bombate di D-061):
+- **Sagoma**:
+  - da X 40 a 135,5 e da Z −14,5 a 20, con tre angoli smussati: in alto e in basso verso l'anca, in basso oltre il ginocchio;
+  - si stringe verso l'anca come la tibia verso il piede.
+  - Il bordo alto è dritto. Un bordo che sale verso il ginocchio (provato nei concept) porta la lama a 1,4 mm dal carapace con α 85 e coxa a ±35.
+- **Faccia esterna** piana con lo smusso 3 × 2 tutt'attorno (3 in pianta, 2 nello spessore). Uno smusso a 45° da 3 mm non ci stava sulla lama B senza lasciare un bordo a lama di coltello.
+- **Lama A**:
+  - spessa 4,0 mm, da \|y\| 30,55 a 34,55;
+  - tasche cieche per le 12 teste M3: teste da 3,0, gioco 0,2, pelle 0,8;
+  - resta a incastro sulle 4 teste del blocco (Ø5,6 come prima); le 8 teste delle squadrette stanno libere in tasche Ø6,2.
+- **Lama B**:
+  - spessa 2,6 come prima, fino a 33,15;
+  - tasche Ø5,6 sulle punte dei perni, che sporgono 1,4;
+  - restano le due viti M2 × 6 svasate (D-065).
+- **Feritoia**: intarsio di PLA nero (`Cover_Femore_A_Feritoia`, `_B_Feritoia`), a filo della faccia, stampato insieme alla lama come la fascia del carapace (D-063).
+  - Asola 37 × 7 con gli estremi tondi, a metà fra gli assi (X 87,5), a Z 6.
+  - Sulla lama A è profonda 0,6. Copre le tasche delle due teste basse del blocco, e sopra resta 0,2 di bianco.
+  - Sulla lama B è profonda 1,0: contiene tutta la svasatura delle due viti, che stanno nere dentro il nero.
+  - Una feritoia passante avrebbe lasciato a vista due teste.
+- **Stampa**: faccia interna sul piatto; le tasche sono fori ciechi che partono dal piatto.
+- **Dime di posa**: si usano con la lama B smontata, come prima.
+
+Verifiche nel CAD (design "Hexapod v2.1.0"):
+- **Lame**: un corpo ciascuna, smusso dalla parte giusta al primo colpo, faccia piana da X 43 a 132,5 e da Z −11,5 a 17. Volumi:
+  - lama A 10,752 cm³, lama B 7,196;
+  - intarsi 0,149 e 0,232 cm³, come il calcolo dell'asola.
+- **Sentinella**: le altre parti della zampa hanno gli stessi volumi di prima.
+- **Zampa**: nessuna interferenza; 81 pose libere su 81; 17 controlli su 20 toccano, come prima.
+- **Assieme**:
+  - nessuna interferenza; coxe libere a ±20 e ±35;
+  - **zampe vicine libere a 30,5° e a contatto a 31°** su tutte e quattro le coppie laterali, lama A contro lama B; prima tra 31° e 32°;
+  - gioco a 30° di 3,58 mm, prima 4,6; anteriori e posteriori libere a 34°;
+  - il firmware resta a ±30° e a 56° di somma (`software.md`): restano 3° per zampa.
+- **Carapace** con (85, 90), (85, 29), (60, 90) a imbardata −35, 0, +35: nessun urto.
+  - Distanza minima 3,96 mm sulle zampe medie (prima 4,6), 7,1 sulle altre.
+- **Cicli**: 100/45 e 70/70 e rotazione sul posto a 30° (a 100/45 e 70/70) liberi, otto fasi ciascuno.
+- **Masse**:
+  - il femore passa da 54,4 a 66,2 g a segmento (lama A 12,0 g, B 8,9, intarsi 0,5);
+  - modellato 2700,6 g, atteso **3060,6 g**, prima 2990; aggiornato in `calc/statica_tripode.py` e `robot.yaml`;
+  - al punto di progetto 100/45 il femore sale dal 51 % al **53 % dello stallo** (5,87 kgf·cm), la tibia al 49 %;
+  - regressioni di Python e del nucleo aggiornate; nella simulazione il contatto fra vicine è a 31°, come nel CAD.
+- **Se servisse togliere peso**: con viti a testa bombata ISO 7380 (testa alta 1,65) sulle squadrette e sul blocco la lama A scenderebbe a circa 2,7 mm. Il contatto tornerebbe come prima, ma cambiano 72 viti del BOM: va approvato dall'utente.

@@ -162,10 +162,11 @@ def test_nessun_urto_nelle_pose_verificate(descrizione, modello):
 
 
 def test_contatto_fra_vicine_come_nel_cad(descrizione, modello):
-    """Nel CAD due vicine ruotate una verso l'altra si toccano fra 31 e 32 gradi ciascuna (D-061, D-063)."""
+    """Nel CAD due vicine ruotate una verso l'altra sono libere a 30,5 gradi ciascuna e si toccano a 31, lama A contro
+    lama B (D-070; con le lame bombate fra 31 e 32, D-063)."""
     d = mujoco.MjData(modello)
     neutra = {n: (0.0, 0.0, 90.0) for n in descrizione.zampe}
-    for ang, atteso in ((30.0, False), (31.0, False), (32.0, True)):
+    for ang, atteso in ((30.0, False), (30.5, False), (31.0, True)):
         _posa(modello, d, {**neutra, 'AS': (ang, 0.0, 90.0), 'MS': (-ang, 0.0, 90.0)})
         mujoco.mj_forward(modello, d)
         assert bool(_urti_interni(modello, d)) == atteso, ang

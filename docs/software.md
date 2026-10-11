@@ -20,7 +20,7 @@ Fatto e verificato sul Mac. I dettagli e le prove stanno in `firmware/README.md`
   - corpo fra 97,7 e 99,2 mm, inclinazione 0,2°;
   - nessun urto;
   - scivolamento 0,5 mm all'atterraggio;
-  - femore al 51 % dello stallo.
+  - femore al 51 % dello stallo (con 2945 g; 53 % con i 3060,6 g della 2.1.3, D-070).
 - **Gemello digitale nel browser** (`app/`, three.js): riproduce tripode e rotazione con i cursori di assetto e avvisa che le pose sono comandate, non misurate.
 - **CI su GitHub** (`ci.yml`, `sim.yml`): ruff e pytest, nucleo con gcc e clang e i sanitizer, firmware, file generati, simulazione, app.
 
@@ -213,7 +213,7 @@ Un modulo unico, attraversato da ogni sorgente (andatura, PC, politica), control
 
 | Limite | Valore nel firmware | Da dove viene |
 |---|---|---|
-| Imbardata di coxa | ±30° | fine corsa ±35°, contatto tra vicine tra 31° e 32° ciascuna (D-061, D-063) |
+| Imbardata di coxa | ±30° | fine corsa ±35°, contatto tra vicine a 31° ciascuna, libere a 30,5° (D-070; tra 31° e 32° con le lame bombate) |
 | Due vicine una verso l'altra | somma entro 56° (proposta) | D-050, D-061; a sinistra imb_A − imb_M e imb_M − imb_P, a destra il contrario. D-061 dice 60°, ma con ogni zampa entro ±30° la somma non supera mai 60°: quel limite non toglie nulla. Con 56° restano 3° per zampa, come al ginocchio; la rotazione sul posto di 30° arriva a 50° (`progetto-meccanico.md`). Se approvata, cambia D-050 e D-061: va registrata in `decisioni.md` |
 | Femore | da −45° a +82° | campo libero −49…+85 meno 3°; in basso −45, perché la tabella del ginocchio minimo parte da lì (`GAMMA_MIN` in `zampa.py`) |
 | Ginocchio | da γmin(α) + 3° a 177° | tabella del ginocchio minimo (`progetto-meccanico.md`); fra due righe vale **il massimo** dei due valori, perché la tabella non è monotona (−40 → 55, −35 → 45) |
@@ -225,7 +225,7 @@ Un modulo unico, attraversato da ogni sorgente (andatura, PC, politica), control
 - Se un fotogramma viola un limite **non si tronca il singolo giunto**, perché il piede striscerebbe: si riduce il comando (corsa, velocità, assetto) e si ricalcola. Se non basta si tiene il fotogramma precedente e si registra l'evento.
 - I limiti rigidi sono generati dalla repo e non si cambiano dalla rete. I limiti morbidi (in NVS) possono solo stringere quelli rigidi.
 - Il margine di 3° sul ginocchio vale solo se la taratura sbaglia di meno: per questo le dime sono necessarie. Lo stesso vale per le coxe: con ±30° e 60° resterebbero 1–2° per zampa prima del contatto, meno dell'errore di taratura (±2° nella randomizzazione del 4.4) e del gioco (0,5–1,5°).
-- Il contatto tra vicine a 31–32° è verificato nelle pose provate nel CAD, con le due zampe ruotate dello stesso angolo. Le coppie con angoli diversi (per esempio 30° e 26°) sono da provare con `assieme.py` prima di fissare il limite.
+- Il contatto tra vicine a 31° (D-070) è verificato nelle pose provate nel CAD, con le due zampe ruotate dello stesso angolo. Le coppie con angoli diversi (per esempio 30° e 26°) sono da provare con `assieme.py` prima di fissare il limite.
 - Se cambia una parte della zampa si rifà la scansione con `zampa.py`; il generatore riporta la nuova tabella nel firmware.
 
 ### 2.6 Sicurezza e macchina a stati
@@ -447,7 +447,7 @@ Il tocco capacitivo sul carapace (X18) è in backlog. Gran parte di quello che d
 | 2, end-to-end | MLP con due strati da 128 o GRU piccola con 0,5–1 s di storia; schema maestro-allievo (il maestro vede terreno, angoli veri e forze, l'allievo solo i sensori di bordo) | PPO in MuJoCo Playground su GPU NVIDIA in cloud | ESP32 |
 | 3, percezione | ToF frontale e, se la visione la dà, una mappa d'altezza: gradini bassi, ostacoli | GPU in cloud | ESP32 più PC |
 
-Perché si comincia dal livello 1: i servo non danno la posizione, il femore è già al 51 % e tra calcolo e movimento passano 15–50 ms (S). In queste condizioni una politica end-to-end da zero è la più difficile da portare sul robot. Le politiche che modulano un'andatura hanno già funzionato: PMTG con una politica lineare, sul Minitaur (V); Rahme et al. (2021) su OpenQuadruped, un quadrupede stampato con servo da hobby e un processore di bordo (V). Il Minitaur però ha motori brushless a presa diretta con encoder (S) e un PD sui giunti (V): per PMTG vale il metodo, non l'hardware. Un esapode da 600 $ senza retroazione dei giunti (SpiderPi di Hiwonder) ha salito le scale con lo schema maestro-allievo, ma con un Raspberry Pi a bordo, una camera di profondità Intel L515 e una camera di tracciamento T265, e la politica guardava le immagini di profondità (V): non dimostra un livello 2 che gira sull'ESP32 senza profondità. Da un robot con servo da hobby ci si aspetta più robustezza sul terreno irregolare, non più velocità.
+Perché si comincia dal livello 1: i servo non danno la posizione, il femore è già al 53 % e tra calcolo e movimento passano 15–50 ms (S). In queste condizioni una politica end-to-end da zero è la più difficile da portare sul robot. Le politiche che modulano un'andatura hanno già funzionato: PMTG con una politica lineare, sul Minitaur (V); Rahme et al. (2021) su OpenQuadruped, un quadrupede stampato con servo da hobby e un processore di bordo (V). Il Minitaur però ha motori brushless a presa diretta con encoder (S) e un PD sui giunti (V): per PMTG vale il metodo, non l'hardware. Un esapode da 600 $ senza retroazione dei giunti (SpiderPi di Hiwonder) ha salito le scale con lo schema maestro-allievo, ma con un Raspberry Pi a bordo, una camera di profondità Intel L515 e una camera di tracciamento T265, e la politica guardava le immagini di profondità (V): non dimostra un livello 2 che gira sull'ESP32 senza profondità. Da un robot con servo da hobby ci si aspetta più robustezza sul terreno irregolare, non più velocità.
 
 Osservazioni: gravità proiettata e velocità angolare dall'IMU, contatti, fase dell'andatura (seno e coseno), comando, ultime 2–3 azioni, angoli stimati dall'osservatore del servo, tensione di batteria.
 
@@ -604,7 +604,7 @@ La repo è **pubblica** su GitHub (*verificato oggi*): credenziali Wi-Fi e chiav
 3. **Pose verificate in Fusion** (ciclo a tripode 100/45, 130/25, 80/60, 70/70; rotazione sul posto di 30°): devono passare la guardia.
 4. **Casi d'urto del CAD** (femore a −60°, vicine a 40°, ginocchio sotto la tabella): la guardia li deve rifiutare.
 5. **Regole del firmware**: imbardata, somma tra vicine, ginocchio minimo più 3° con l'interpolazione prudente, velocità.
-6. **Regressione della statica**: femore al 51 % ± 1 a 100/45 (oggi 5,65 kgf·cm) e margine di stabilità 59 mm (*verificato oggi*).
+6. **Regressione della statica**: femore al 53 % ± 1 a 100/45 (5,87 kgf·cm con 3060,6 g, D-070; era 51 % con 2945 g) e margine di stabilità 59 mm.
 7. **Andature**: niente salti tra fasi e transizioni, piedi in appoggio fermi entro 0,5 mm, nucleo C++ uguale al Python entro 0,01° sugli stessi vettori.
 
 L'esportazione delle pose da Fusion si rifà a ogni cambio di zampa o corpo: è un passo in più nella procedura del CAD.
@@ -738,7 +738,7 @@ Software gratuito e libero da installare (da approvare): ESP-IDF con esp32-camer
 |---|---|---|
 | Il clone della SSC-32 non ha modo binario, `QP`, ingressi o baud diversi da 115200 | ciclo a 115200 senza margine, niente controllo dei valori | prova in S1 prima di scrivere il driver; ripiego a 25 Hz con T = 40 ms |
 | Servo senza retroazione | posa reale diversa dal comando sotto carico; politica che fallisce sul robot | guardia, osservatore del servo, contatti e IMU, identificazione, PMTG prima dell'end-to-end |
-| Margine di coppia scarso (51 %) | stalli, calore, cali del rail | andatura a coppie di base, budget di coppia e termico, niente massa in più a bordo |
+| Margine di coppia scarso (53 %) | stalli, calore, cali del rail | andatura a coppie di base, budget di coppia e termico, niente massa in più a bordo |
 | Jitter da PSRAM condivisa tra camera, ESP-DL e ciclo | passo irregolare | ciclo in RAM interna, misura in S3, inferenza rallentata o spostata |
 | Wi-Fi di casa debole sotto il carapace | video e comandi a scatti | comandi che scadono, comportamenti a bordo, antenna C8, computer di bordo come ultima strada |
 | OV3660 con il DVDD a 1,2 V | camera instabile o muta | prova in S1 prima di tutto il resto della visione |

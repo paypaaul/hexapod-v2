@@ -169,7 +169,8 @@ Parti nuove (specifica in `ricerca/estetica-specifica.md`, scelte e varianti in 
 | `Corpo_Gonne` | PLA nero | quattro pannelli sulle pareti delle baie, da z 7 a 28,4 | 3,8 cm³ |
 | `Corpo_Sportello_Servizio` | PLA nero | sportellino a filo nell'ottagono, sulla battuta, nervature di schiacciamento | 2,3 cm³ |
 | `Corpo_Sportello` | PETG-CF nero | come D-054, più smusso 1 × 45 sul contorno esterno | 5,5 cm³ |
-| `Cover_Femore_A`, `_B` | PLA bianco | lame bombate (toro) sulle due piastre del femore, finestre esagonali sui giunti; la A si incastra sulle teste M3 del blocco, la B ha due viti M2 svasate in inserti di Femore_B (D-065) | 3,8 / 4,0 cm³ |
+| `Cover_Femore_A`, `_B` | PLA bianco | dalla 2.1.3 (D-070) lame come il guscio della tibia: faccia piana con smusso 3 × 2 tutt'attorno, da X 40 a 135,5 e da Z −14,5 a 20, si stringono verso l'anca; chiuse su teste e mozzi con tasche cieche (A spessa 4,0 fino a \|y\| 34,55, a incastro sulle teste del blocco; B spessa 2,6 con le due viti M2 svasate in inserti di Femore_B). Prima: lame bombate con finestre esagonali sui giunti (D-061) | 10,8 / 7,2 cm³ |
+| `Cover_Femore_A_Feritoia`, `_B_Feritoia` | PLA nero | intarsio della feritoia (asola 37 × 7) a filo della faccia, stampato con la lama: 0,6 sulla A, 1,0 sulla B con le svasature delle viti (D-070) | 0,15 / 0,23 cm³ |
 | `Cover_Tibia` | PLA bianco | guscio lungo dal ginocchio fin quasi al piede, fronte convesso, sezione a C, finestra lunga; simmetrico sul piano della zampa, i fianchi passano fuori dalla cassa del servo del ginocchio (D-065) | 12,7 cm³ |
 | `Piedino` | TPU 95A arancio | cappuccio sulla punta dello stinco da 0,5 sotto il guscio fino al piede, parete e suola da 1,6; lo stinco finisce a 108,4 e la suola a 110 (D-064) | 1,4 cm³ |
 
@@ -177,7 +178,9 @@ Tibia (D-065): stinco simmetrico sul piano della zampa, largo in alto quanto lo 
 
 Verifiche (9 ottobre 2026, Fusion versione 24): assieme senza interferenze; coxe libere a ±35°; zampe vicine libere a 30° e 31°, contatto tra 31° e 32° su tutte le coppie laterali (a sinistra e a destra), anteriori e posteriori libere a 34°; carapace contro ogni zampa a imbardata −35, 0, +35 con (α, γ) = (85, 90), (85, 29), (60, 90): libero, distanza minima 4,6 mm (zampe medie) e 7,1 (le altre), contatto con α 100 (controllo); testa libera dalle zampe anteriori con α −49, 0, 85; sfilamento del carapace verso l'alto di 5, 10, 20 e 40 mm libero, a −2 le gonne toccano l'orlo delle baie (controllo); campo della camera (tronco da 7 × 7 sulla lente, 54,2° e 46,1°) libero, a +6° tocca le pareti dell'occhio (controllo); ciclo a tripode 100/45, 130/25, 80/60 e 70/70 (otto fasi) e rotazione sul posto di 30° a 100/45 e 70/70: nessun urto.
 
-### Render (9 ottobre 2026)
+Con le lame della 2.1.3 (D-070, 11 ottobre 2026): zampe vicine libere a 30,5° e a contatto a 31° (lama A contro lama B), gioco a 30° di 3,58 mm; carapace a 3,96 mm sulle zampe medie e 7,1 sulle altre; zampa, cicli e rotazione sul posto liberi come prima.
+
+### Render (9 ottobre 2026; zampe rifatte l'11 ottobre con le lame della 2.1.3)
 
 Render con il motore di Fusion, colori per materiale (`cad/script/colori.py`: PETG-CF nero, placche in PLA bianco, fascia e visiera in PLA nero, piedini in TPU arancio). Gli esplosi spostano i pezzi lungo i loro assi di montaggio senza toccare il design (`cad/script/viste.py`); `cad/render/ritaglia.py` uniforma i ritagli.
 
@@ -205,6 +208,8 @@ Altre viste: [da dietro](immagini/render-montato-post.png), [di fianco](immagini
 | **Totale atteso** | **circa 2945** |
 
 Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %; PETG-CF 1,3 g/cm³, PLA 1,24, TPU 1,21 pieno); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,6; 0; −13,0) mm. Con la tibia simmetrica sul piano della zampa (D-065) la massa sale di altri 40 g circa: femore sempre al **51 %** dello stallo. Rispetto alla stima prima della passata estetica (2730 g) ci sono 180 g in più: 139 di cover (le lame sono piene e il guscio della tibia è lungo, mentre la specifica ne prevedeva 49), 21 di tibie più larghe, 19 di carapace. Con 2910 g il femore arriva al **51 % dello stallo** al punto di progetto 100/45 (48 % con 2750), il ginocchio al 47 %: sopra la soglia del 50 % che ci si era dati, dentro quanto accettato dall'utente (D-063).
+
+Dalla 2.1.3 (D-070) le lame del femore pesano 12,0 g (A) e 8,9 g (B) più 0,5 g di intarsi, contro 4,7 e 5,0: il segmento del femore passa da 54,4 a 66,2 g e il totale atteso, con le predisposizioni della 2.1.0, da circa 2990 a **3060,6 g** (`robot/cad.json`). Al punto di progetto 100/45 il femore sale al **53 %** dello stallo (5,87 kgf·cm), la tibia al 49 %.
 
 ### Predisposizioni della versione 2.1.0 nel corpo (D-066)
 

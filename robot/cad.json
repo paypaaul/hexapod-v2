@@ -1,7 +1,7 @@
 {
- "versione": "2.1.2",
- "documento": "Hexapod v2.1.0 v10",
- "esportato": "2026-10-10T17:29:49",
+ "versione": "2.1.3",
+ "documento": "Hexapod v2.1.0 v11",
+ "esportato": "2026-10-11T12:14:26",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -203,12 +203,12 @@
   "segmenti_g": {
    "corpo": 1067.9,
    "coxa": 94.1,
-   "femore": 54.4,
+   "femore": 66.2,
    "tibia": 111.9
   },
-  "modellato_g": 2630.2,
+  "modellato_g": 2700.6,
   "non_modellato_g": 360.0,
-  "atteso_g": 2990.2,
+  "atteso_g": 3060.6,
   "nota": "stampate con pareti 1,2 mm e riempimento 25 %, comprate con la massa dichiarata; il non modellato (cavi, viteria) va distribuito sul corpo"
  },
  "parti": {
@@ -1832,60 +1832,6 @@
    "materiale": "PETG-CF",
    "segmento": "femore"
   },
-  "Cover_Femore_A": {
-   "massa_g": 4.7,
-   "baricentro_mm": [
-    87.485,
-    31.639,
-    1.201
-   ],
-   "inerzia_gmm2": [
-    [
-     399.7,
-     -0.0,
-     1.5
-    ],
-    [
-     -0.0,
-     2381.4,
-     -2.0
-    ],
-    [
-     1.5,
-     -2.0,
-     1985.8
-    ]
-   ],
-   "materiale": "PLA",
-   "segmento": "femore"
-  },
-  "Cover_Femore_B": {
-   "massa_g": 4.95,
-   "baricentro_mm": [
-    87.496,
-    -31.642,
-    1.616
-   ],
-   "inerzia_gmm2": [
-    [
-     420.4,
-     -0.0,
-     0.1
-    ],
-    [
-     -0.0,
-     2414.1,
-     2.1
-    ],
-    [
-     0.1,
-     2.1,
-     1998.0
-    ]
-   ],
-   "materiale": "PLA",
-   "segmento": "femore"
-  },
   "Femore_B": {
    "massa_g": 23.57,
    "baricentro_mm": [
@@ -1911,6 +1857,114 @@
     ]
    ],
    "materiale": "PETG-CF",
+   "segmento": "femore"
+  },
+  "Cover_Femore_A": {
+   "massa_g": 11.99,
+   "baricentro_mm": [
+    88.922,
+    32.479,
+    2.961
+   ],
+   "inerzia_gmm2": [
+    [
+     1142.4,
+     0.6,
+     23.0
+    ],
+    [
+     0.6,
+     9442.8,
+     1.3
+    ],
+    [
+     23.0,
+     1.3,
+     8331.5
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "femore"
+  },
+  "Cover_Femore_B": {
+   "massa_g": 8.92,
+   "baricentro_mm": [
+    88.825,
+    -31.766,
+    2.887
+   ],
+   "inerzia_gmm2": [
+    [
+     786.8,
+     0.0,
+     15.5
+    ],
+    [
+     0.0,
+     7033.5,
+     -1.1
+    ],
+    [
+     15.5,
+     -1.1,
+     6256.5
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "femore"
+  },
+  "Cover_Femore_A_Feritoia": {
+   "massa_g": 0.18,
+   "baricentro_mm": [
+    87.5,
+    34.25,
+    6.0
+   ],
+   "inerzia_gmm2": [
+    [
+     0.7,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     20.2,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     19.5
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "femore"
+  },
+  "Cover_Femore_B_Feritoia": {
+   "massa_g": 0.29,
+   "baricentro_mm": [
+    87.482,
+    -32.643,
+    6.0
+   ],
+   "inerzia_gmm2": [
+    [
+     1.2,
+     -0.0,
+     0.0
+    ],
+    [
+     -0.0,
+     32.8,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     31.6
+    ]
+   ],
+   "materiale": "PLA",
    "segmento": "femore"
   },
   "Rif_Servo_MG996R_8": {
@@ -5996,96 +6050,6 @@
    "espressione": "10 mm",
    "commento": "Femore: Z del tunnel della fascetta nel blocco"
   },
-  "cov_ap": {
-   "valore": 14.5,
-   "unita": "mm",
-   "espressione": "14.5 mm",
-   "commento": "Lame: semialtezza e apotema degli estremi esagonali (teste del femore R13)"
-  },
-  "cov_tc": {
-   "valore": 2.6,
-   "unita": "mm",
-   "espressione": "2.6 mm",
-   "commento": "Lame: spessore al colmo (1,6 ai bordi alti e bassi)"
-  },
-  "cov_Rb": {
-   "valore": 148.8,
-   "unita": "mm",
-   "espressione": "148.8 mm",
-   "commento": "Lame: raggio della bombatura trasversale (1,0 mm su 17,25)"
-  },
-  "cov_Rb2": {
-   "valore": 1920.0,
-   "unita": "mm",
-   "espressione": "1920 mm",
-   "commento": "Lame: raggio della bombatura longitudinale (0,6 mm su 48)"
-  },
-  "cov_zc": {
-   "valore": 2.75,
-   "unita": "mm",
-   "espressione": "2.75 mm",
-   "commento": "Lame: Z del colmo"
-  },
-  "cov_xc": {
-   "valore": 32.5,
-   "unita": "mm",
-   "espressione": "32.5 mm",
-   "commento": "Lame: X del colmo dall asse dell anca"
-  },
-  "cov_r": {
-   "valore": 0.8,
-   "unita": "mm",
-   "espressione": "0.8 mm",
-   "commento": "Lame: raccordo degli spigoli della faccia esterna"
-  },
-  "cov_r_estremo": {
-   "valore": 8.0,
-   "unita": "mm",
-   "espressione": "8 mm",
-   "commento": "Lame: raccordo in pianta degli estremi esagonali"
-  },
-  "cov_r_rampa": {
-   "valore": 10.0,
-   "unita": "mm",
-   "espressione": "10 mm",
-   "commento": "Lame: raccordo in pianta alla base e in cima alla rampa dell anca, alla base di quella del ginocchio"
-  },
-  "cov_r_plateau": {
-   "valore": 8.0,
-   "unita": "mm",
-   "espressione": "8 mm",
-   "commento": "Lame: raccordo in pianta della fine del plateau"
-  },
-  "cov_x_plateau0": {
-   "valore": 26.0,
-   "unita": "mm",
-   "espressione": "26 mm",
-   "commento": "Lame: inizio del plateau sopra il blocco, dall asse dell anca (X 81)"
-  },
-  "cov_x_plateau1": {
-   "valore": 41.0,
-   "unita": "mm",
-   "espressione": "41 mm",
-   "commento": "Lame: fine del plateau (X 96)"
-  },
-  "cov_gobba_z": {
-   "valore": 20.0,
-   "unita": "mm",
-   "espressione": "fem_blocco_su",
-   "commento": "Lame: cima della gobba sopra il blocco"
-  },
-  "cov_fin_ap": {
-   "valore": 11.0,
-   "unita": "mm",
-   "espressione": "11 mm",
-   "commento": "Lame: apotema delle finestre sui mozzi (teste delle squadrette fino a r 9,75)"
-  },
-  "cov_r_fin": {
-   "valore": 4.0,
-   "unita": "mm",
-   "espressione": "4 mm",
-   "commento": "Lame: raccordo degli angoli delle finestre"
-  },
   "cov_testa_d": {
    "valore": 5.6,
    "unita": "mm",
@@ -7393,6 +7357,138 @@
    "unita": "mm",
    "espressione": "0.3 mm",
    "commento": "Tibia: ponticelli staccati dalla parete sopra la gola: sotto restano 1,1 per i fili da 0,9"
+  },
+  "cov_fem_x0": {
+   "valore": 15.0,
+   "unita": "mm",
+   "espressione": "15 mm",
+   "commento": "Lame: estremo verso il corpo, dietro l asse dell anca (X 40)"
+  },
+  "cov_fem_x1": {
+   "valore": 15.5,
+   "unita": "mm",
+   "espressione": "15.5 mm",
+   "commento": "Lame: estremo oltre l asse del ginocchio (X 135,5, come le lame bombate)"
+  },
+  "cov_fem_giu": {
+   "valore": 14.5,
+   "unita": "mm",
+   "espressione": "14.5 mm",
+   "commento": "Lame: bordo basso sotto gli assi (teste del femore R13)"
+  },
+  "cov_fem_su": {
+   "valore": 20.0,
+   "unita": "mm",
+   "espressione": "fem_blocco_su",
+   "commento": "Lame: bordo alto, dritto (con alfa 85 e coxa a +-35 il carapace resta a oltre 4 mm)"
+  },
+  "cov_fem_anca_su": {
+   "valore": 8.0,
+   "unita": "mm",
+   "espressione": "8 mm",
+   "commento": "Lame: smusso a 45 gradi dell angolo alto verso l anca, lungo X e Z"
+  },
+  "cov_fem_anca_giu_x": {
+   "valore": 12.0,
+   "unita": "mm",
+   "espressione": "12 mm",
+   "commento": "Lame: smusso dell angolo basso verso l anca, lungo X"
+  },
+  "cov_fem_anca_giu_z": {
+   "valore": 11.0,
+   "unita": "mm",
+   "espressione": "11 mm",
+   "commento": "Lame: smusso dell angolo basso verso l anca, lungo Z"
+  },
+  "cov_fem_gin_giu": {
+   "valore": 6.5,
+   "unita": "mm",
+   "espressione": "6.5 mm",
+   "commento": "Lame: smusso a 45 gradi dell angolo basso oltre il ginocchio"
+  },
+  "cov_fem_sp_a": {
+   "valore": 4.0,
+   "unita": "mm",
+   "espressione": "4 mm",
+   "commento": "Lama A: spessore (teste M3 alte 3, 0,2 di gioco, pelle 0,8)"
+  },
+  "cov_fem_sp_b": {
+   "valore": 2.6,
+   "unita": "mm",
+   "espressione": "2.6 mm",
+   "commento": "Lama B: spessore (perni sporgenti 1,4, 0,3 di gioco, pelle 0,9; come la lama bombata)"
+  },
+  "cov_fem_smusso": {
+   "valore": 3.0,
+   "unita": "mm",
+   "espressione": "3 mm",
+   "commento": "Lame: smusso della faccia esterna, in pianta"
+  },
+  "cov_fem_smusso_y": {
+   "valore": 2.0,
+   "unita": "mm",
+   "espressione": "2 mm",
+   "commento": "Lame: smusso della faccia esterna, nello spessore (sulla lama B resta un bordo di 0,6)"
+  },
+  "cov_fem_tasca_gio": {
+   "valore": 0.2,
+   "unita": "mm",
+   "espressione": "0.2 mm",
+   "commento": "Lama A: gioco sopra le teste M3 nelle tasche"
+  },
+  "cov_fem_testa_lib_d": {
+   "valore": 6.2,
+   "unita": "mm",
+   "espressione": "6.2 mm",
+   "commento": "Lama A: tasche libere sulle teste delle squadrette"
+  },
+  "cov_fem_perno_d": {
+   "valore": 5.6,
+   "unita": "mm",
+   "espressione": "5.6 mm",
+   "commento": "Lama B: tasche sulle punte dei perni"
+  },
+  "cov_fem_perno_gio": {
+   "valore": 0.3,
+   "unita": "mm",
+   "espressione": "0.3 mm",
+   "commento": "Lama B: gioco oltre la punta dei perni"
+  },
+  "cov_fem_fin_l": {
+   "valore": 37.0,
+   "unita": "mm",
+   "espressione": "37 mm",
+   "commento": "Lame: lunghezza della feritoia (intarsio nero, come la finestra della tibia)"
+  },
+  "cov_fem_fin_w": {
+   "valore": 7.0,
+   "unita": "mm",
+   "espressione": "7 mm",
+   "commento": "Lame: larghezza della feritoia (come cov_tib_fin_w)"
+  },
+  "cov_fem_fin_x": {
+   "valore": 32.5,
+   "unita": "mm",
+   "espressione": "zam_Lf / 2",
+   "commento": "Lame: centro della feritoia dall asse dell anca (a meta tra gli assi)"
+  },
+  "cov_fem_fin_z": {
+   "valore": 6.0,
+   "unita": "mm",
+   "espressione": "cov_vite_b_z",
+   "commento": "Lame: Z della feritoia (le viti della lama B stanno dentro l intarsio)"
+  },
+  "cov_fem_intarsio_a": {
+   "valore": 0.6,
+   "unita": "mm",
+   "espressione": "0.6 mm",
+   "commento": "Lama A: profondita dell intarsio nero (come la fascia; sopra le tasche resta 0,2 di bianco)"
+  },
+  "cov_fem_intarsio_b": {
+   "valore": 1.0,
+   "unita": "mm",
+   "espressione": "1 mm",
+   "commento": "Lama B: profondita dell intarsio nero (contiene tutta la svasatura delle viti M2, 0,9)"
   }
  }
 }
