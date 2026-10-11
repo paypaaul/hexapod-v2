@@ -15,6 +15,7 @@ sei terne delle istanze. Le chiavi del corpo sono quelle di assieme.pose_corpo (
 del componente per le parti stampate; quelle della zampa sono il pezzo piu' il giunto (Servo_femore, Perno_coxa, ...).
 """
 import array
+import fnmatch
 import json
 import math
 import os
@@ -410,6 +411,82 @@ def fori(des, root, budget_s=25.0, forza=False):
     return {'fatti': fatti, 'restano': restano, 's': round(time.time() - t0, 1)}
 
 
+# ------------------------------------------------------------------------------------------------ zone
+def _zone_richieste():
+    """{componente: [glob delle lavorazioni]} da guida/catalogo/zone.yaml (formato semplice: una riga per componente)."""
+    out = {}
+    with open(os.path.join(RADICE, 'guida', 'catalogo', 'zone.yaml'), encoding='utf-8') as f:
+        for riga in f:
+            riga = riga.split('#')[0].strip()
+            if not riga or ':' not in riga:
+                continue
+            nome, lista = riga.split(':', 1)
+            out[nome.strip()] = [x.strip().strip('"') for x in lista.strip().strip('[]').split(',') if x.strip()]
+    return out
+
+
+def _facce_lavorazioni(comp, modelli):
+    """{lavorazione: [facce]} delle estrusioni e degli specchi il cui nome corrisponde a uno dei glob."""
+    out = {}
+    for f in comp.features.extrudeFeatures:
+        if not f.isSuppressed and any(fnmatch.fnmatchcase(f.name, m) for m in modelli):
+            out.setdefault(f.name, []).extend(list(f.faces))
+    for f in comp.features.mirrorFeatures:
+        if f.isSuppressed or not any(fnmatch.fnmatchcase(f.name, m) for m in modelli):
+            continue
+        for i in range(f.patternElements.count):
+            out.setdefault(f.name, []).extend(list(f.patternElements.item(i).faces))
+    return out
+
+
+def _ply_facce(percorso, facce):
+    """PLY binario delle facce (mm, terna del componente), senza colore."""
+    xyz, tri = array.array('f'), array.array('i')
+    base = 0
+    for fa in facce:
+        mc = fa.meshManager.createMeshCalculator()
+        mc.surfaceTolerance = TOLLERANZA_CM
+        mc.maxNormalDeviation = DEVIAZIONE_RAD
+        me = mc.calculate()
+        c, idx = me.nodeCoordinatesAsDouble, me.nodeIndices
+        xyz.extend(v * 10 for v in c)
+        tri.extend(i + base for i in idx)
+        base += len(c) // 3
+    intest = ('ply\nformat binary_little_endian 1.0\nelement vertex %d\nproperty float x\nproperty float y\nproperty float z\n'
+              'element face %d\nproperty list uchar int vertex_indices\nend_header\n' % (base, len(tri) // 3)).encode('ascii')
+    with open(percorso, 'wb') as f:
+        f.write(intest)
+        f.write(xyz.tobytes())
+        for k in range(0, len(tri), 3):
+            f.write(bytes((3,)))
+            f.write(tri[k:k + 3].tobytes())
+    return len(tri) // 3
+
+
+def zone(des, root):
+    """Facce delle lavorazioni di guida/catalogo/zone.yaml in build/guida/cad/zone/<componente>__<lavorazione>.ply,
+    con l'indice; segnala i glob che non trovano niente."""
+    cartella = os.path.join(CACHE, 'zone')
+    os.makedirs(cartella, exist_ok=True)
+    comp = {}
+
+    def trova(c):
+        comp.setdefault(c.name, c)
+        for o in c.occurrences:
+            trova(o.component)
+    trova(root)
+    indice, mancano = {}, []
+    for nome, modelli in _zone_richieste().items():
+        trovate = _facce_lavorazioni(comp[nome], modelli)
+        mancano += ['%s/%s' % (nome, m) for m in modelli if not any(fnmatch.fnmatchcase(k, m) for k in trovate)]
+        for lav, facce in sorted(trovate.items()):
+            n = _ply_facce(os.path.join(cartella, '%s__%s.ply' % (nome, lav)), facce)
+            indice.setdefault(nome, {})[lav] = n
+    with open(os.path.join(cartella, 'indice.json'), 'w', encoding='utf-8') as f:
+        json.dump(indice, f, indent=1, sort_keys=True)
+    return {'zone': sum(len(v) for v in indice.values()), 'mancano': mancano}
+
+
 # ------------------------------------------------------------------------------------------------ controllo
 def controllo(des, root):
     """Ogni componente ha mesh e fori aggiornati; i proxy delle zampe coincidono con istanza x locale (entro 1e-3 mm)."""
@@ -457,6 +534,8 @@ def main(passi, **kw):
             out['mesh'] = mesh(des, root, kw.get('budget_s', 25.0), kw.get('forza', False), kw.get('solo'))
         if 'fori' in passi:
             out['fori'] = fori(des, root, kw.get('budget_s', 25.0), kw.get('forza', False))
+        if 'zone' in passi:
+            out['zone'] = zone(des, root)
         if 'controllo' in passi:
             out['controllo'] = controllo(des, root)
     except Exception:

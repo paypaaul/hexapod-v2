@@ -77,6 +77,7 @@ passi:
     nuovi: [zampa/Servo_ginocchio]
     esploso: {asse: [0, 1, 0], distanza: 45}
     vista: zampa_A
+    evidenzia: [{chiave: zampa/Tibia, lav: fessura_cavo}, {chiave: zampa/Tibia, lav: finestra_cavo}]
     testo:
       - "Togli i gommini dalle alette, se ci sono."
       - "Annota il numero del servo nella scheda della zampa."
@@ -102,6 +103,7 @@ passi:
     formato: grande
     mostra: [zampa/Tibia, zampa/Servo_ginocchio]
     vista: zampa_fronte
+    evidenzia: [{chiave: zampa/Tibia, lav: sede_luce}]
     testo:
       - "Taglia 6 pixel di striscia sulle linee di taglio: 50 mm [S]."
       - "Salda 3 fili 30 AWG al capo d'ingresso: massa, +5 V e dato."
@@ -124,6 +126,7 @@ passi:
     nuovi: [zampa/FSR_piede]
     esploso: {asse: [0, 0, -1], distanza: 22}
     vista: tibia_capovolta
+    evidenzia: [{chiave: zampa/Tibia, lav: tasca_fsr}, {chiave: zampa/Tibia, lav: "gola_fsr_*"}]
     nascondi: [zampa/Cuscinetto_ginocchio]
     testo:
       - "Salda il doppino 28 AWG, rosso e nero, alle due linguette dell'FSR."
@@ -161,6 +164,7 @@ passi:
     formato: mezzo
     mostra: [zampa/Tibia, zampa/Piedino, zampa/Servo_ginocchio]
     vista: zampa_fronte
+    evidenzia: [{chiave: zampa/Tibia, lav: gola_fili}, {chiave: zampa/Tibia, lav: "sotto_ponte_*"}]
     testo:
       - "Infila i fili sotto i tre ponticelli, dalla coda della culla alla testata."
       - "Controlla che stiano affiancati nella gola, senza incrociarsi."

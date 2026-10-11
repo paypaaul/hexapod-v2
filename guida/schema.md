@@ -47,6 +47,8 @@ rinviati: [...]             # passi gia' scritti che vanno piu' avanti (stesso f
   vista: zampa_B            # nome di guida/catalogo/viste.yaml, oppure {direzione: [x, y, z], su: [0, 0, 1]}
   mostra: [...]             # solo questi pezzi già montati (più i nuovi); di solito non serve
   nascondi: [...]           # pezzi montati da non disegnare (coprono la vista)
+  evidenzia: [{chiave: zampa/Tibia, lav: sede_luce}]   # facce di lavorazioni in giallo (guida/catalogo/zone.yaml):
+                            # dove va quello che il CAD non ha (striscia, fili); si esportano con esporta_guida.py zone
   volte: 2                  # riquadro "2×" nell'immagine: il passo si fa due volte uguale (es. i due lati)
   testo:                    # un'azione per riga, imperativo, verbo all'inizio (guida/stile.md)
     - Premi il cuscinetto nella sede del lato B fino in battuta.

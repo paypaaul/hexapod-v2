@@ -1,0 +1,5 @@
+# Zone da evidenziare nelle immagini della guida (D-075): lavorazioni con il nome dato in cad/script/*.py, per
+# componente. esporta_guida.py -> 'zone' ne scrive le facce in build/guida/cad/zone/; i passi le citano con
+# evidenzia: [{chiave: zampa/Tibia, lav: "ponte_fili_*"}]. Servono per quello che il CAD non ha (striscia, fili).
+Tibia: [sede_luce, gola_fili, "ponte_fili_*", "sotto_ponte_*", tasca_fsr, "gola_fsr_*", finestra_cavo, fessura_cavo]
+Piedino: [tacca_fili]

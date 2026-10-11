@@ -166,6 +166,7 @@ Numeri di oggi:
    - inserti del kit Temu: fori M3 da 3,9 / 4,0 / 4,1 e M2 da 2,9 / 3,0 / 3,1 in PETG-CF. Poi `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` in `rif_componenti.py` e verifica completa, perché `ins_m3_d` muove anche le bugne delle culle.
    - Dopo i provini: nervature di schiacciamento delle culle e stretta del piedino.
 5. **Guida di montaggio** (D-075): in corso secondo `docs/piano-guida.md`, con quattro arresti per l'utente.
+   F2 fatta (tibia, `guida/passi/06-zampa.yaml`, problemi in `guida/problemi/zampa.yaml`): arresto 1, l'utente guarda le pagine campione. Poi F3.
 6. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
 7. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 

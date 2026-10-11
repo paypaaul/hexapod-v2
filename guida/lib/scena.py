@@ -4,6 +4,7 @@ Il lavoro e' un dizionario JSON senza riferimenti al catalogo: Blender non legge
 terna della sezione ('zampa' come costruita, oppure 'robot').
 """
 import fnmatch
+import json
 import os
 
 import yaml
@@ -22,6 +23,15 @@ MINIATURA = (480, 400)
 def risoluzione(formato):
     w, h = FORMATI[formato]
     return [w * PX_MM, h * PX_MM]
+
+
+def _zone(dati):
+    """Indice delle zone esportate da esporta_guida.py: {componente: {lavorazione: triangoli}}."""
+    p = os.path.join(os.path.dirname(dati.radice), 'build', 'guida', 'cad', 'zone', 'indice.json')
+    if not os.path.exists(p):
+        return {}
+    with open(p, encoding='utf-8') as f:
+        return json.load(f)
 
 
 def _viste(dati):
@@ -110,6 +120,20 @@ def lavoro(dati, sez, passo, presenti, uscita):
             centri = [_centro(dati, k, terna, istanza) for k in gruppo]
             c = geom.scala([sum(x[i] for x in centri) for i in range(3)], 1 / len(centri))
             frecce.append({'da': geom.add(c, d), 'a': c, 'tipo': 'pezzo', 'chiavi': gruppo})
+    for z in passo.get('evidenzia', []):            # sedi e percorsi di quello che il CAD non ha (striscia, fili)
+        trovate = 0
+        for k in dati.chiavi(z['chiave']):
+            comp = dati.occ[k]['componente']
+            for lav in sorted((_zone(dati).get(comp) or {})):
+                if fnmatch.fnmatchcase(lav, z['lav']):
+                    d = _esploso(passo, k) if k in nuovi else [0.0, 0.0, 0.0]
+                    oggetti.append({'chiave': '%s:%s' % (k, lav), 'mesh': '../zone/%s__%s.ply' % (comp, lav),
+                                    'matrice': geom.componi(geom.traslazione(d), dati.matrice(k, terna, istanza)),
+                                    'ruolo': 'zona', 'colore': stile['evidenzia']})
+                    trovate += 1
+        if not trovate:
+            raise ValueError('%s: evidenzia %s %s non trova zone (guida/catalogo/zone.yaml, esporta_guida.py zone)'
+                             % (passo['id'], z['chiave'], z['lav']))
     viti = []
     tutti = list(dict.fromkeys(visibili))
     for gj in passo.get('giunzioni', []):

@@ -12,3 +12,5 @@ inserti: [205, 160, 60]
 rondelle: [175, 180, 188]
 distanziali: [205, 160, 60]
 frecce: "#1c7ed6"
+# sedi e percorsi evidenziati (evidenzia: nei passi): giallo che si legge sul nero e sul bianco
+evidenzia: [255, 196, 0]

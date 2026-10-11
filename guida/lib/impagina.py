@@ -341,6 +341,10 @@ def anteprime(html_path, cartella, pagine=None, px_mm=3.0):
     """PNG di ogni pagina (come stampata) per guardarle senza aprire il PDF; pagine: numeri da 1, None per tutte."""
     from playwright.sync_api import sync_playwright
     os.makedirs(cartella, exist_ok=True)
+    if not pagine:                                  # le pagine di prima non devono restare a confondere
+        for f in os.listdir(cartella):
+            if f.startswith('p') and f.endswith('.png'):
+                os.remove(os.path.join(cartella, f))
     fatti = []
     with sync_playwright() as pw:
         browser = pw.chromium.launch(channel='chrome')

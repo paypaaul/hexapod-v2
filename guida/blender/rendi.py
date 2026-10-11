@@ -54,7 +54,7 @@ def scena():
     sc.collection.objects.link(cam)
     sc.camera = cam
     coll = {}
-    for nome in ('NUOVI', 'VECCHI', 'VITI'):
+    for nome in ('NUOVI', 'VECCHI', 'VITI', 'ZONE'):
         c = bpy.data.collections.new(nome)
         sc.collection.children.link(c)
         coll[nome] = c
@@ -104,6 +104,23 @@ def materiale(rgb, attenuato=None, scuro=False):
     nt.links.new(s2r.outputs['Color'], rampa.inputs['Fac'])
     nt.links.new(rampa.outputs['Color'], mix.inputs[7])
     nt.links.new(mix.outputs[2], emis.inputs['Color'])
+    nt.links.new(emis.outputs['Emission'], out.inputs['Surface'])
+    MAT_CACHE[chiave] = m
+    return m
+
+
+def materiale_pieno(rgb):
+    """Colore uniforme senza ombre (emissione), per le zone evidenziate."""
+    chiave = ('pieno',) + tuple(rgb)
+    if chiave in MAT_CACHE:
+        return MAT_CACHE[chiave]
+    m = bpy.data.materials.new('z%d' % len(MAT_CACHE))
+    m.use_nodes = True
+    nt = m.node_tree
+    for n in list(nt.nodes):
+        nt.nodes.remove(n)
+    out, emis = nt.nodes.new('ShaderNodeOutputMaterial'), nt.nodes.new('ShaderNodeEmission')
+    emis.inputs['Color'].default_value = (*[(v / 255) ** 2.2 for v in rgb], 1)
     nt.links.new(emis.outputs['Emission'], out.inputs['Surface'])
     MAT_CACHE[chiave] = m
     return m
@@ -231,7 +248,14 @@ def inquadra(sc, cam, oggetti, direzione, su, margine=1.05):
     pts = [o.matrix_world @ Vector(v) for o in oggetti for v in o.bound_box]
     centro = sum(pts, Vector()) / len(pts)
     cam.location = centro + d * 3000
-    cam.rotation_euler = (-d).to_track_quat('-Z', 'Y').to_euler()
+    # terna della camera: X a destra, Y in alto (il "su" della vista proiettato), Z verso l'occhio
+    alto = Vector(su).normalized()
+    destra = alto.cross(d)
+    if destra.length < 1e-6:
+        destra = Vector((0, 1, 0)).cross(d)
+    destra.normalize()
+    alto = d.cross(destra)
+    cam.rotation_euler = Matrix((destra, alto, d)).transposed().to_euler()
     bpy.context.view_layer.update()
     inv = cam.matrix_world.inverted()
     loc = [inv @ p for p in pts]
@@ -331,7 +355,13 @@ def rendi(sc, cam, sole, coll, lav):
     sc.render.resolution_x, sc.render.resolution_y = lav['risoluzione']
     att = lav['attenuato']
     oggetti, per_nome, gruppi = [], {}, {}
+    d = Vector(lav['camera']['direzione']).normalized()
     for o in lav['oggetti']:
+        if o['ruolo'] == 'zona':                    # facce di una lavorazione: colore pieno, senza contorni,
+            m = matrice34(o['matrice'])             # appena verso la camera per non mescolarsi con la faccia sotto
+            m.translation = m.translation + d * 0.15
+            oggetti.append(oggetto(o['chiave'], mesh_ply(o['mesh']), m, materiale_pieno(o['colore']), coll['ZONE']))
+            continue
         nuovo = o['ruolo'] == 'nuovo'
         ob = oggetto(o['chiave'], mesh_ply(o['mesh']), matrice34(o['matrice']),
                      materiale(o['colore'], None if nuovo else att), coll['NUOVI' if nuovo else 'VECCHI'])
@@ -352,7 +382,6 @@ def rendi(sc, cam, sole, coll, lav):
         ob = oggetto('inserto%d' % i, me, _base(s['asse'], s['centro']), materiale(lav['colori']['inserti']), coll['VITI'])
         oggetti.append(ob)
         gruppi['inserto%d' % i] = [ob]
-    d = Vector(lav['camera']['direzione']).normalized()
     sole.rotation_euler = (d + Vector((0.3, -0.4, 0.6))).normalized().to_track_quat('Z', 'Y').to_euler()
     scala = inquadra(sc, cam, oggetti, lav['camera']['direzione'], lav['camera'].get('su', [0, 0, 1]))
     sc.render.filepath = lav['uscita']
