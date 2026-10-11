@@ -366,7 +366,9 @@ class Impaginatore:
             # a pie' di pagina solo le decisioni: i file e le sezioni citate restano nel YAML per chi verifica
             fonti = list(dict.fromkeys(d for g in gruppo for f in g['fonti'] for d in re.findall(r'\bD-0\d\d[a-z]?\b', str(f))))
             pagine.append({'tipo': 'passi', 'sezione': s, 'passi': gruppo, 'fonti': fonti})
-        fine = os.path.exists(os.path.join(self.build, 'img', s['id'], 'fine.png')) and any(S.ha_render(p) for p, _ in stati)
+        # la vista finale solo se la sezione ha pezzi montati: una fine.png rimasta da prove vecchie non conta
+        monta = s.get('presenti_iniziali') or any(sum(S.entrano(self.dati, p), []) for p, _ in stati)
+        fine = os.path.exists(os.path.join(self.build, 'img', s['id'], 'fine.png')) and bool(monta)
         if fine or s.get('controllo'):
             pagine.append({'tipo': 'controllo', 'sezione': s, 'img': self._img('%s/fine.png' % s['id']) if fine else None,
                            'spunte': [testo(x, verbo=False) for x in s.get('controllo', [])],
@@ -422,7 +424,10 @@ def pdf(html_path, pdf_path):
         pagina.emulate_media(media='print')
         deborda = pagina.evaluate("""() => [...document.querySelectorAll('[data-controlla]')]
             .filter(e => e.scrollHeight > e.clientHeight + 1 || e.scrollWidth > e.clientWidth + 1)
-            .map(e => 'pagina ' + e.closest('.pagina').dataset.numero + ': ' + e.dataset.controlla)""")
+            .map(e => 'pagina ' + e.closest('.pagina').dataset.numero + ': ' + e.dataset.controlla)
+            .concat([...document.querySelectorAll('.pagina table')]
+            .filter(t => t.getBoundingClientRect().right > t.closest('[data-controlla], .pagina').getBoundingClientRect().right + 1)
+            .map(t => 'pagina ' + t.closest('.pagina').dataset.numero + ": tabella piu' larga della colonna"))""")
         pagina.pdf(path=pdf_path, prefer_css_page_size=True, print_background=True, outline=True, tagged=True)
         browser.close()
     return deborda

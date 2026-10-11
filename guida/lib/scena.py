@@ -131,7 +131,7 @@ def _lavoro(dati, sez, passo, presenti, uscita):
         m = dati.matrice(k, terna, istanza)
         oggetti.append({'chiave': k, 'mesh': dati.componente(k)['mesh'], 'matrice': geom.componi(geom.traslazione(d), m),
                         'ruolo': 'nuovo' if nuovo else 'vecchio', 'colore': _colore(dati, stile, k)})
-        if nuovo and geom.norma(d) > 1 and k not in assiemi and k not in pieni:
+        if nuovo and geom.norma(d) > 1 and k not in assiemi:
             c = _centro(dati, k, terna, istanza)
             frecce.append({'da': geom.add(c, d), 'a': c, 'tipo': 'pezzo', 'chiavi': [k]})
     for a in passo.get('assiemi', []):                 # una freccia sola per sottoassieme
@@ -150,7 +150,7 @@ def _lavoro(dati, sez, passo, presenti, uscita):
                     d = _esploso(passo, k) if k in nuovi else [0.0, 0.0, 0.0]
                     oggetti.append({'chiave': '%s:%s' % (k, lav), 'mesh': '../zone/%s__%s.ply' % (comp, lav.replace(':', '-')),
                                     'matrice': geom.componi(geom.traslazione(d), dati.matrice(k, terna, istanza)),
-                                    'ruolo': 'zona', 'colore': stile['evidenzia']})
+                                    'ruolo': 'zona', 'colore': stile['evidenzia'], 'lato': z.get('lato')})
                     trovate += 1
         if not trovate:                             # la zona si aggiunge in zone.yaml e si esporta da Fusion
             print('avviso: %s: evidenzia %s %s non trova zone esportate (guida/catalogo/zone.yaml, esporta_guida.py '

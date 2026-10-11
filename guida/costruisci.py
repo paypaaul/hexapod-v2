@@ -73,6 +73,8 @@ def scene(dati, solo=None, forza=False):
         tutti = list(presenti) + [c for c in sum(S.entrano(dati, sez['passi'][-1]), []) if c not in presenti]
         if tutti:                                   # sezioni senza pezzi montati (procedure): niente vista finale
             lavori.append(S.finale(dati, sez, tutti, os.path.join(cartella, 'fine.png')))
+        elif os.path.exists(os.path.join(cartella, 'fine.png')):
+            os.remove(os.path.join(cartella, 'fine.png'))   # rimasta da una versione della sezione che montava pezzi
         lotti[sid] = lavori
     cartella = os.path.join(BUILD, 'img', 'miniature')
     os.makedirs(cartella, exist_ok=True)

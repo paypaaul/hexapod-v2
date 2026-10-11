@@ -219,7 +219,7 @@ passi:
       - {chiave: corpo/Corpo_Base, lav: "ins_coda_*", lato: sinistro}
       - {chiave: corpo/Corpo_Base, lav: "colonnina_*_ins", lato: sinistro}
       - {chiave: corpo/Corpo_Base, lav: "slitta_ins", lato: sinistro}
-    evidenzia: [{chiave: corpo/Corpo_Base, lav: "pilota_*"}]
+    evidenzia: [{chiave: corpo/Corpo_Base, lav: "pilota_*", lato: sinistro}]
     vista: {direzione: [0.3, 0.55, 0.8], su: [0, 0, 1]}
     etichette:
       - {testo: AS, punto: [110.0, 61.4, 4.0]}
@@ -253,7 +253,7 @@ passi:
       - {chiave: corpo/Corpo_Base, lav: "ins_coda_*", lato: destro}
       - {chiave: corpo/Corpo_Base, lav: "colonnina_*_ins", lato: destro}
       - {chiave: corpo/Corpo_Base, lav: "slitta_ins", lato: destro}
-    evidenzia: [{chiave: corpo/Corpo_Base, lav: "pilota_*"}]
+    evidenzia: [{chiave: corpo/Corpo_Base, lav: "pilota_*", lato: destro}]
     vista: {direzione: [0.3, -0.55, 0.8], su: [0, 0, 1]}
     etichette:
       - {testo: AD, punto: [110.0, -61.4, 4.0]}

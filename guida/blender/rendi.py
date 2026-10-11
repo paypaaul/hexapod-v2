@@ -314,8 +314,9 @@ def freccia(sc, cam, f, oggetti):
 
 def visibili(sc, gruppi, uscita):
     """Pixel visibili di ogni oggetto nuovo: passata Workbench senza contorni, un colore piatto per oggetto (valori
-    0 / 0,5 / 1 per canale, 26 colori) e tutto il resto nero. Torna {nome: pixel alla risoluzione piena}."""
-    livelli = (0.0, 0.5, 1.0)
+    0 / 0,25 / 0,5 / 0,75 / 1 per canale, 124 colori) e tutto il resto nero. Torna {nome: pixel alla risoluzione
+    piena}; gli oggetti oltre il 124esimo non si contano (non danno falsi allarmi)."""
+    livelli = (0.0, 0.25, 0.5, 0.75, 1.0)
     colori = [(r, g, b) for r in livelli for g in livelli for b in livelli if (r, g, b) != (0, 0, 0)]
     for ob in sc.objects:
         if ob.type == 'MESH':
@@ -341,8 +342,8 @@ def visibili(sc, gruppi, uscita):
     im.pixels.foreach_get(px)
     bpy.data.images.remove(im)
     os.remove(uscita)
-    px = np.rint(px.reshape(-1, 4)[:, :3] * 2) * 127.5
-    conta = {n: 0 for n in gruppi}
+    px = np.rint(px.reshape(-1, 4)[:, :3] * 4) * 63.75
+    conta = {n: 0 for n in list(gruppi)[:len(colori)]}
     chiavi, numeri = np.unique(np.rint(px).astype(int), axis=0, return_counts=True)
     for c, n in zip(chiavi, numeri):
         nome = nomi.get(tuple(int(round(v)) for v in c))
@@ -362,7 +363,16 @@ def rendi(sc, cam, sole, coll, lav):
         if o['ruolo'] == 'zona':                    # facce di una lavorazione: colore pieno, senza contorni,
             m = matrice34(o['matrice'])             # appena verso la camera per non mescolarsi con la faccia sotto
             m.translation = m.translation + d * 0.15
-            oggetti.append(oggetto(o['chiave'], mesh_ply(o['mesh']), m, materiale_pieno(o['colore']), coll['ZONE']))
+            me = mesh_ply(o['mesh'])
+            if o.get('lato'):                       # solo le facce del lato chiesto (y > 0 a sinistra nel robot)
+                me = me.copy()
+                bm = bmesh.new()
+                bm.from_mesh(me)
+                via = [f for f in bm.faces if ((m @ f.calc_center_median()).y > 0) != (o['lato'] == 'sinistro')]
+                bmesh.ops.delete(bm, geom=via, context='FACES')
+                bm.to_mesh(me)
+                bm.free()
+            oggetti.append(oggetto(o['chiave'], me, m, materiale_pieno(o['colore']), coll['ZONE']))
             continue
         nuovo = o['ruolo'] == 'nuovo'
         ob = oggetto(o['chiave'], mesh_ply(o['mesh']), matrice34(o['matrice']),
