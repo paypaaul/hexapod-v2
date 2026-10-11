@@ -1,0 +1,238 @@
+# Sezione 5, servo (D-075, docs/piano-guida.md "Struttura della guida"; fase B2 di docs/software.md 6.7). F3, estrattore
+# delle sezioni 4 e 5.
+# Nessun pezzo si monta: i servo (BOM A1) vanno nella zampa (sezione 6) e nel corpo (sezione 7). Le immagini mostrano un
+# servo a colori pieni (in_evidenza zampa/Servo_femore, solo come figura: il pezzo e' identico per i 18). Il CAD non ha
+# gommini, cavi ne' fili: restano etichette e testo.
+# I passi 5.03-5.08 si fanno per ogni servo, uno alla volta (B2: "un servo alla volta, senza carico").
+sezione:
+  id: servo
+  numero: 5
+  titolo: Servo
+  colore: "#7048e8"
+  terna: zampa
+  presenti_iniziali: []
+  obiettivo: >-
+    Provare, numerare e portare a metà corsa i 18 servo MG996R, più 2 di scorta, prima di metterli in una culla: un
+    servo alla volta, senza carico, a 6,0 V con un fusibile da 3 A. Si tolgono i gommini, si scrive il numero sul cavo,
+    si prova centro, verso ed escursione, si scartano i difettosi. Gli esiti vanno nel registro (sezioni 6, 7 e 12).
+  prima:
+    - "Sezione 4 fatta: SSC-32 configurata, regolatore sinistro con i fili e provato a 6,0 V."
+    - "20 servo MG996R AZDelivery; i 4 MG995 dello stesso ingombro non vanno sul robot."
+    - "Nastro di carta e pennarello per i numeri."
+  tempo: "circa 5 minuti per servo, dopo il primo [S]"
+  stato_elettrico: >-
+    Rail a 6,0 V da un regolatore, con F1 da 3 A. Si accende dopo l'impulso di centro e si spegne prima di toccare una
+    spina. Un servo alla volta, albero libero.
+  fonti: [D-045, D-049, "docs/software.md 6.7 (B2) e 2.7", docs/dimensioni-componenti.md, "robot/robot.yaml (servo)"]
+  attrezzi: [nastro_pennarello]
+  controllo:
+    - "I 20 servo non hanno più i gommini; i fori delle alette sono nudi."
+    - "Ogni servo ha il suo numero, da 1 a 20, scritto sul cavo."
+    - "Ogni servo va al centro a 1500 µs, si muove di circa 9° a 1400 e 1600 µs e arriva a 700 e 2300 µs, senza ronzio e senza scatti."
+    - "Il verso (antiorario o orario) è annotato per ogni servo, e il verso è lo stesso per tutti."
+    - "Almeno 18 servo buoni; i difettosi sono scartati e annotati."
+    - "Tutti i servo sono lasciati a 1500 µs e riposti con il numero sul cavo; il registro è compilato."
+
+passi:
+  - id: "5.01"
+    titolo: Banco di prova dei servo
+    formato: grande
+    immagine: false
+    testo:
+      - "Posa la SSC-32 su un foglio di cartone: le barre sul retro non devono toccare il metallo."
+      - "Collega la micro-USB e la logica come nel passo 4.09."
+      - "Collega il regolatore sinistro ai morsetti VS1+ e VS1− della SSC-32, con F1 da 3 A sul suo ingresso."
+      - "Collega EN con i 47 kΩ a massa e il diodo come nel passo 4.12: il filo del diodo resta libero."
+      - "Collega l'ESP32 alla USB, non al pin 5V: il suo pin 3V3 accende il rail."
+      - "Controlla in continuità che VS1+ non tocchi VL+."
+    tabella:
+      intestazione: [Punto, Atteso, Misurato]
+      righe:
+        - ["VS1 con il filo del diodo libero", "0 V: rail spento [C]", ""]
+        - ["VS1 con il filo sul 3V3", "6,0 V [V]", ""]
+        - ["VL", "come il pacco [V]", ""]
+    avvisi:
+      - {tipo: attenzione, testo: "Con il rail a 6,0 V ogni servo può prendere fino a 2,5 A di stallo [V]. Il fusibile da 3 A in ingresso al regolatore protegge il filo, non il servo: scollega subito il filo del diodo se il servo scalda o non gira."}
+      - {tipo: importante, testo: "Non infilare né togliere la spina del servo con il rail acceso."}
+      - {tipo: nota, testo: "Qui la potenza passa dal morsetto della SSC-32, che regge 8–10 A [S]: per un servo basta. Nel robot passa dalle barre (sezione 8)."}
+      - {tipo: nota, testo: "In alternativa al regolatore: alimentatore da banco a 6,0 V, limitato a 1 A (docs/software.md 6.7, B2)."}
+    attrezzi: [multimetro, mac_seriale, cacciavite_piatto]
+    fonti:
+      - "docs/software.md 6.7 (B2: rail a 6 V con fusibile da 3 A o alimentatore limitato a 1 A)"
+      - "docs/dimensioni-componenti.md, 'Servo controller SSC32-V2.5' (morsettiera)"
+      - "docs/studio-componenti.md ('Distribuzione: potenza dal retro della SSC-32', 'Accensione e protezioni')"
+      - "docs/BOM.md A1 (stallo 2,5 A a 6 V), B1, B4, B11"
+      - "guida/passi/04-banco.yaml 4.09 e 4.12"
+
+  - id: "5.02"
+    titolo: Gommini tolti
+    formato: grande
+    in_evidenza: [zampa/Servo_femore]
+    vista: {direzione: [0.3, 0.85, 0.4], su: [0, 0, 1]}
+    volte: 20
+    etichette:
+      - {testo: Gommino, punto: [50, 12, 13.8]}
+      - {testo: Gommino, punto: [60, 12, 13.8]}
+      - {testo: Gommino, punto: [50, 12, -34.2]}
+      - {testo: Gommino, punto: [60, 12, -34.2]}
+    testo:
+      - "Togli i gommini dalle quattro alette del servo."
+      - "Togli anche i collari di ottone, se ci sono [C]."
+      - "Controlla che i quattro fori delle alette siano nudi, Ø 4,2 mm [S]."
+      - "Ripeti per tutti i servo: 18 più 2 di scorta."
+    avvisi:
+      - {tipo: importante, testo: "Il servo si avvita rigido sulle alette: con i gommini il giunto avrebbe gioco e le viti non starebbero a filo (docs/dimensioni-componenti.md, docs/studio-componenti.md)."}
+      - {tipo: nota, testo: "Non sappiamo se i gommini sono già montati sui servo AZDelivery o stanno nel sacchetto: se ci sono, si tolgono; se mancano, il passo è fatto [C]."}
+      - {tipo: nota, testo: "La figura mostra il servo del femore: i 18 sono uguali. Nella culla le alette poggiano sul pezzo (docs/dimensioni-componenti.md)."}
+    extra: [{nome: "servo MG996R AZDelivery, 18 più 2 di scorta", qta: 20, bom: A1}]
+    fonti:
+      - "docs/dimensioni-componenti.md, 'Servo MG996R' (gommini si tolgono; fori 4 × Ø 4,2: S)"
+      - "docs/studio-componenti.md ('Fissaggio': i gommini si tolgono e il servo si avvita rigido)"
+      - "cad/stl/README.md ('Provino della culla': provare con un MG996R vero, senza gommini)"
+      - "guida/passi/06-zampa.yaml 6.03 (gommini)"
+
+  - id: "5.03"
+    titolo: Numero sul cavo
+    formato: mezzo
+    in_evidenza: [zampa/Servo_femore]
+    vista: parte
+    volte: 20
+    etichette:
+      - {testo: "Numero sul cavo", punto: [55, -14, 17]}
+    testo:
+      - "Scrivi il numero del servo, da 1 a 20, su un pezzo di nastro."
+      - "Avvolgi il nastro attorno al cavo, vicino alla spina."
+      - "Annota il numero nella prima colonna del registro (passo 5.08)."
+    avvisi:
+      - {tipo: nota, testo: "Il numero sta sul cavo, non sulla cassa: la cassa è coperta dalla culla. Dal 19 al 20 sono le scorte (BOM A1)."}
+      - {tipo: nota, testo: "Il numero si ritrova nella scheda della zampa (sezione 6) e nel registro; la zampa e il giunto in cui finisce il servo si scrivono lì."}
+    attrezzi: [nastro_pennarello]
+    fonti: ["docs/software.md 6.7 (B2: servo etichettati)", "guida/passi/06-zampa.yaml 6.03 e scheda", "docs/BOM.md A1 (18 + 2 di scorta)"]
+
+  - id: "5.04"
+    titolo: Primo comando e rail
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Infila la spina del servo sul canale 0 del lato VS1, filo marrone verso il bordo della scheda [S]."
+      - "Apri il terminale e scrivi #0P1500T1000 con il rail spento: la SSC-32 manda l'impulso di centro."
+      - "Tocca con il filo del diodo il pin 3V3 dell'ESP32: il rail si accende."
+      - "Controlla che il servo vada al centro e si fermi, senza ronzio."
+      - "Stacca il filo dal pin 3V3 se il servo ronza o scalda."
+    avvisi:
+      - {tipo: importante, testo: "Prima l'impulso, poi il rail: così il servo non parte a scatti, come nel robot (docs/studio-componenti.md, 'Accensione e protezioni')."}
+      - {tipo: nota, testo: "Colori del cavo: marrone massa, rosso +, arancio segnale [V]. Sulla scheda, dal bordo verso l'interno, le file sono massa, VS, segnale."}
+      - {tipo: prova, testo: "Un servo fermo e libero prende poche decine di mA e non scalda [S]."}
+    attrezzi: [mac_seriale]
+    fonti:
+      - "docs/dimensioni-componenti.md ('Servo MG996R': colori dei fili, 500–900 mA in moto; 'Servo controller': file massa, VS, segnale)"
+      - "docs/software.md 2.4 (comando #cP<µs>…T<ms>), 6.7 (B2)"
+      - "docs/studio-componenti.md ('Accensione e protezioni': rail dopo gli impulsi)"
+
+  - id: "5.05"
+    titolo: Verso e centro
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Scrivi #0P1400T1000 e guarda l'albero dal lato della squadretta."
+      - "Scrivi #0P1600T1000 e guarda il verso: antiorario o orario?"
+      - "Scrivi #0P1500T1000 e controlla che torni dov'era."
+      - "Annota il verso e l'esito nel registro."
+    tabella:
+      intestazione: [Comando, Atteso, Esito]
+      righe:
+        - ["#0P1400T1000", "circa 9° da un lato [S]", ""]
+        - ["#0P1600T1000", "circa 9° dall'altro, senza scatti [S]", ""]
+        - ["#0P1500T1000", "torna al centro [S]", ""]
+        - ["Verso con l'impulso che cresce", "antiorario guardando l'albero (ipotesi del firmware) [C]", ""]
+    avvisi:
+      - {tipo: nota, testo: "Il firmware presume che il servo giri in senso antiorario quando l'impulso cresce, uguale per tutti: la prova lo conferma o lo cambia in robot/robot.yaml (servo.verso) [C]."}
+      - {tipo: nota, testo: "100 µs sono circa 9° con 11,1 µs per grado, un valore stimato: il guadagno vero si misura con la taratura (docs/software.md 2.7) [S]."}
+    attrezzi: [mac_seriale]
+    fonti:
+      - "docs/software.md 6.7 (B2: verso, escursione da 1500 ± 100 µs) e 2.7 (11 µs/°)"
+      - "robot/robot.yaml (servo.verso, centro_us 1500, us_per_grado 11,1)"
+
+  - id: "5.06"
+    titolo: Escursione più ampia
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Scrivi #0P1000T1000 e poi #0P2000T1000: circa ±45° dal centro [S]."
+      - "Scrivi #0P700T1000 e poi #0P2300T1000: circa ±72° [S]."
+      - "Ad ogni comando controlla che il servo arrivi, si fermi e non ronzi."
+      - "Scrivi #0P1500T1000, spegni il rail e annota l'esito."
+    tabella:
+      intestazione: [Comando, Atteso, Esito]
+      righe:
+        - ["#0P1000T1000 e #0P2000T1000", "arriva e si ferma [S]", ""]
+        - ["#0P700T1000 e #0P2300T1000", "arriva e si ferma, senza ronzio [S]", ""]
+        - ["Corrente a vuoto", "500–900 mA in moto [V]", ""]
+    avvisi:
+      - {tipo: attenzione, testo: "Non andare oltre 700 e 2300 µs: oltre si cerca il fermo meccanico, e un servo contro il fermo si rovina. Se il servo ronza o si ferma prima, scartalo."}
+      - {tipo: nota, testo: "Il firmware userà ±80° (±888 µs, robot.yaml, corsa_servo): gli ultimi gradi si provano con la taratura, sezione 12 [C]."}
+      - {tipo: nota, testo: "Il servo si scarta se non va al centro, scatta, ronza fermo, scalda subito o ha l'albero con gioco [S]. Ne servono 18 buoni su 20."}
+    attrezzi: [mac_seriale, multimetro]
+    fonti:
+      - "docs/software.md 6.7 (B2: escursione da 1500 ± 100 µs poi più ampia, mai contro il fermo; difettosi scartati)"
+      - "docs/dimensioni-componenti.md ('Servo MG996R': 500–900 mA in movimento; corsa circa 180°)"
+      - "robot/robot.yaml (corsa_gradi 160, corsa_servo 80)"
+
+  - id: "5.07"
+    titolo: Metà corsa
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Scrivi #0P1500T1000 e aspetta che il servo si fermi."
+      - "Spegni il rail: stacca il filo del diodo dal pin 3V3."
+      - "Stacca la spina dalla SSC-32."
+      - "Riponi il servo con il suo numero sul cavo, senza girare l'albero."
+    avvisi:
+      - {tipo: importante, testo: "Da qui in poi non girare l'albero a mano: il servo resta dove si è fermato, mentre il riduttore trascinato a mano soffre e il centro si perde [S]."}
+      - {tipo: importante, testo: "Tieni il banco montato: prima di calettare la squadretta (sezione 6) riporta il servo a 1500 µs con lo stesso comando [S]. Il centro è quello che il progetto assume per α +20° e γ 100° (docs/progetto-meccanico.md)."}
+      - {tipo: nota, testo: "Servo a metà corsa è la condizione di partenza del calettamento: dente più vicino all'angolo di progetto, residuo entro ±7,2° (docs/software.md 6.7, B4)."}
+    attrezzi: [mac_seriale]
+    fonti:
+      - "docs/piano-guida.md, sezione 5 (metà corsa)"
+      - "docs/progetto-meccanico.md ('calettamento delle squadrette proposto: servo a metà corsa')"
+      - "docs/software.md 2.7, 6.7 (B4)"
+      - "guida/problemi/servo.yaml (il centro si perde fra il banco e il calettamento)"
+
+  - id: "5.08"
+    titolo: Registro dei numeri
+    formato: grande
+    immagine: false
+    testo:
+      - "Compila una riga per ogni servo mentre lo provi."
+      - "Scrivi OK se i comandi hanno dato l'esito atteso, scarto se no."
+      - "Scrivi A o O per il verso."
+      - "Le ultime due colonne si compilano nelle sezioni 6 e 7."
+    tabella:
+      intestazione: [N°, Esito, Verso, Note, Zampa e giunto]
+      righe:
+        - ["1", "", "", "", ""]
+        - ["2", "", "", "", ""]
+        - ["3", "", "", "", ""]
+        - ["4", "", "", "", ""]
+        - ["5", "", "", "", ""]
+        - ["6", "", "", "", ""]
+        - ["7", "", "", "", ""]
+        - ["8", "", "", "", ""]
+        - ["9", "", "", "", ""]
+        - ["10", "", "", "", ""]
+        - ["11", "", "", "", ""]
+        - ["12", "", "", "", ""]
+        - ["13", "", "", "", ""]
+        - ["14", "", "", "", ""]
+        - ["15", "", "", "", ""]
+        - ["16", "", "", "", ""]
+        - ["17", "", "", "", ""]
+        - ["18", "", "", "", ""]
+        - ["19 scorta", "", "", "", ""]
+        - ["20 scorta", "", "", "", ""]
+    avvisi:
+      - {tipo: nota, testo: "Le due scorte restano a portata di mano: un servo che si rompe nella taratura si cambia senza ricominciare."}
+    fonti:
+      - "docs/piano-guida.md ('Registro delle misure' in appendice; sezione 5: numerazione)"
+      - "docs/software.md 6.7 (B2: servo etichettati, difettosi scartati)"
+      - "docs/BOM.md A1 (18 + 2 di scorta)"

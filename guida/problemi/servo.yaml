@@ -1,0 +1,117 @@
+# Problemi trovati scrivendo la sezione 5, servo (D-075, formato in guida/schema.md "Problemi"). Campo in piu' rispetto
+# allo schema: domanda (cosa chiedere all'utente, quando serve). Le domande sono cose da guardare sul pezzo, non misure
+# dei servo (CLAUDE.md: l'utente non puo' misurare i servo).
+
+- titolo: Il centro del servo si perde fra il banco e il calettamento della squadretta
+  gravita: importante
+  dove: "5.07 e sezione 6 (prima del calettamento), sezione 9"
+  cosa: >-
+    Il progetto assume la squadretta calettata con il servo "a meta' corsa" (alpha +20 gradi, gamma 100 gradi, imbardata
+    0 a 1500 us) e la sezione 6 mette fra i prerequisiti "servo provati, numerati, a meta' corsa e senza gommini
+    (sezione 5)". Ma il servo, spento, non sa dove e': l'albero resta dove e' finche' nessuno lo gira, e il riduttore
+    trascinato a mano si sfasa. Fra il banco della sezione 5 e il montaggio della squadretta nella culla passano ore (o
+    giorni), con il servo maneggiato, infilato nella culla e premuto contro il cuscinetto. Nessun documento dice come si
+    riporta il servo a 1500 us subito prima della squadretta: la guida dice "tieni il banco montato e ripeti
+    #canale P1500". Il B4 chiede "dente piu' vicino all'angolo di progetto, residuo entro +-7,2 gradi" ma non dice a
+    quale impulso e' il servo in quel momento.
+  prove:
+    - "docs/progetto-meccanico.md 76 (calettamento proposto: servo a meta' corsa con alpha +20 e gamma 100)"
+    - "docs/software.md 2.7 e 6.7 (B4: servo a meta' corsa, dente piu' vicino, residuo +-7,2 gradi)"
+    - "guida/passi/06-zampa.yaml 'prima' (servo a meta' corsa nella sezione 5)"
+    - "guida/problemi/zampa.yaml, secondo problema (il ginocchio va portato alimentando il servo, non trascinando il riduttore)"
+  opzioni:
+    - "Tenere il banco della sezione 4-5 montato e riportare ogni servo a 1500 us subito prima di calettare la squadretta (nella bozza)."
+    - "Una dima di centro stampata (albero e cassa) che rende il centro visibile senza alimentare."
+    - "Calettare dopo la taratura (B4), con il robot acceso: il centro lo da' il firmware."
+  consiglio: >-
+    Banco tenuto montato e P1500 prima della squadretta (nella bozza); la scelta fra le tre la fa chi scrive la sezione 6.
+    Nessun cambio al CAD.
+
+- titolo: Il verso del servo e' un'ipotesi del firmware, e la prova decide il segno di tutta la zampa
+  gravita: minore
+  dove: "5.05"
+  cosa: >-
+    robot.yaml presume che il servo giri in senso antiorario attorno al proprio albero quando l'impulso cresce, uguale
+    per tutti i servo, e ne ricava il segno di ogni giunto (coxa +1, femore -1, ginocchio +1). La guida chiede di provare a
+    1400 e 1600 us e di annotare il verso nel registro. Se il verso trovato e' l'opposto, vanno cambiati i tre segni in
+    robot/robot.yaml, la regressione e il simulatore; se due servo sono opposti, e' un servo diverso (scartarlo).
+  prove:
+    - "robot/robot.yaml 43-47 (verso: ipotesi C da provare al passo B2)"
+    - "docs/software.md 2.7 (le sei zampe sono la stessa zampa ruotata, non specchiata) e 6.7 (B2: verso)"
+  opzioni:
+    - "Annotare il verso e correggere robot.yaml dopo la prova (nella bozza)."
+  consiglio: Come nella bozza.
+
+- titolo: L'escursione provata (700-2300 us, +-72 gradi) e' piu' stretta di quella usata dal firmware (+-80 gradi, 612-2388 us)
+  gravita: minore
+  dove: "5.06"
+  cosa: >-
+    B2 dice "escursione da 1500 +-100 us poi piu' ampia, mai contro il fermo". robot.yaml usa corsa_servo +-80 gradi
+    con 11,1 us per grado (S): +-888 us, cioe' da 612 a 2388 us. La guida si ferma a 700 e 2300 us (+-72 gradi) per non
+    cercare il fermo meccanico: il produttore dichiara circa 180 gradi su 500-2500 us (S), ma il valore vero del
+    clone o del servo non e' mai stato misurato. Gli ultimi 8 gradi per lato restano non provati fino alla taratura con
+    le dime (sezione 12), cioe' a servo gia' nella zampa.
+  prove:
+    - "robot/robot.yaml 36-47 (centro 1500, us_per_grado 11,1, corsa_gradi 160, corsa_servo 80)"
+    - "docs/software.md 6.7 (B2)"
+    - "docs/dimensioni-componenti.md ('Servo MG996R': corsa circa 180 gradi, pagina AZDelivery)"
+  opzioni:
+    - "Provare fino a 612 e 2388 us al banco, un servo alla volta, ascoltando se ronza (rischio: cercare il fermo)."
+    - "Fermarsi a 700-2300 us e rimandare gli ultimi gradi alla taratura (nella bozza)."
+  consiglio: Come nella bozza; il limite vero si trova con la taratura e la guardia lo contiene.
+
+- titolo: Non sappiamo se i servo AZDelivery hanno i gommini montati ne' se ci sono i collari di ottone
+  gravita: minore
+  dove: "5.02, 6.03"
+  cosa: >-
+    Il progetto dice "i gommini si tolgono: il servo si avvita rigido" e il passo 6.03 della zampa dice "togli i gommini
+    dalle alette, se ci sono". Nessun documento dice se sulle alette dei MG996R AZDelivery (cinque per confezione, 20
+    servo) ci sono gommini gia' montati, ne' se nel foro restano collari di ottone che farebbero passare un M3 con un
+    gioco diverso dal foro nudo di 4,2 mm. Il modello STEP non ha i gommini.
+  prove:
+    - "docs/dimensioni-componenti.md 35 ('I gommini si tolgono: il servo si avvita rigido')"
+    - "docs/studio-componenti.md 25 (Fissaggio)"
+    - "guida/passi/06-zampa.yaml 6.03"
+  opzioni:
+    - "L'utente guarda un servo e lo scrive (gommini montati? collari di ottone? foro libero?)."
+    - "Nella bozza: 'se ci sono' e [C]."
+  consiglio: Come nella bozza fino a quando l'utente ha guardato un servo.
+  domanda: >-
+    Guardando un MG996R di AZDelivery appena aperto: i gommini sono gia' nelle alette o stanno nel sacchetto? Dentro i
+    gommini ci sono dei tubetti di ottone (collari)? (E' una cosa da guardare, non una misura.)
+
+- titolo: Per provare un servo serve il pin EN dei regolatori comandato a mano, e non e' descritto nel progetto
+  gravita: minore
+  dove: "5.01, 5.04"
+  cosa: >-
+    B2 chiede "rail a 6 V con fusibile da 3 A o alimentatore limitato a 1 A", e il progetto vuole l'impulso prima del
+    rail. Al banco il rail dei servo e' il regolatore sinistro con EN a massa (47 kOhm) come sulla basetta: per accenderlo
+    la guida tocca con il filo del diodo il pin 3V3 dell'ESP32 alimentata dalla USB. E' una soluzione dell'estrattore,
+    non e' scritta in nessun documento. Un alimentatore da banco limitato a 1 A, citato da B2, e' "utile ma non
+    indispensabile" e l'utente non dice di averlo.
+  prove:
+    - "docs/software.md 6.7 (B2)"
+    - "docs/BOM.md 'Attrezzi necessari' (alimentatore regolabile utile ma non indispensabile) e B11"
+    - "guida/passi/04-banco.yaml 4.12 e guida/passi/05-servo.yaml 5.01"
+  opzioni:
+    - "Come nella bozza: EN a massa con 47 kOhm e filo del diodo sul 3V3."
+    - "EN libero (se la prova 4.12 dice che con EN libero il regolatore e' acceso) e la logica sul T-plug: il rail si accende insieme alla batteria, senza l'ordine impulso-prima-del-rail."
+    - "Alimentatore da banco a 6,0 V e 1 A, se l'utente ce l'ha."
+  consiglio: Come nella bozza; la prova 4.12 conferma o cambia il comportamento di EN.
+  domanda: >-
+    Hai un alimentatore da banco regolabile con limite di corrente? (Se si', il banco dei servo e' piu' semplice.)
+
+- titolo: Gli MG995 in piu' hanno lo stesso ingombro del MG996R ma non vanno sul robot
+  gravita: minore
+  dove: "5.01 (prima), 5.08"
+  cosa: >-
+    Il BOM dice 18 + 2 MG996R e 4 MG995 "dello stesso ingombro" (non sono il servo del
+    progetto). Nel registro hanno solo 20 righe: gli MG995 non si numerano. Chi li confonde con i MG996R monta un servo
+    diverso sul robot (nessuna differenza visibile nella culla).
+  prove:
+    - "docs/BOM.md A1 (4 MG995 dello stesso ingombro)"
+    - "docs/software.md 2.7 (MG996R: stallo 11 kgf*cm a 6 V)"
+  opzioni:
+    - "Tenerli separati e senza numero (nella bozza)."
+    - "Usarli solo per prove del banco."
+  consiglio: Come nella bozza.

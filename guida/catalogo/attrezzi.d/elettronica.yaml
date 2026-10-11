@@ -1,0 +1,4 @@
+# Attrezzi in piu' della sezione 8, elettronica nel corpo e cablaggio (D-075).
+# pinzetta: flat della camera, largo 6 mm e spesso 0,15 (docs/dimensioni-componenti.md, 'Camera UICPAL OV3660-75MM'),
+#   e fili 28-30 AWG delle predisposizioni (docs/BOM.md X5, X31). Nessuna voce del BOM: si presume in casa.
+pinzetta: {nome: "Pinzetta a punte fini", icona: tronchesino, uso: "flat della camera e fili sottili (BOM X5, X31; flat 6 mm × 0,15)"}

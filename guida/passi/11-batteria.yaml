@@ -1,0 +1,188 @@
+# Sezione 11, batteria e sportello (D-075, docs/piano-guida.md "Struttura della guida"). F3.
+# Il pacco entra dal retro nel tunnel, cavi verso la coda (D-050, D-051); lo sportello si infila lungo X, rebbi nel
+# tunnel e linguetta sotto il tetto, e si ferma con due viti M3 x 8 negli inserti dei blocchetti della chiglia (D-054).
+# Il T-plug resta staccato e F1 resta vuoto: il fusibile da 15 A, il cicalino e la prima accensione sono nella
+# sezione 12. Problemi in guida/problemi/batteria.yaml (il primo e' bloccante: le spine del pacco e le fessure del tetto).
+sezione:
+  id: batteria
+  numero: 11
+  titolo: Batteria e sportello
+  colore: "#c92a2a"
+  terna: robot
+  istanza: AS
+  presenti_iniziali:
+    - corpo/Corpo_Base
+    - corpo/Corpo_Chiglia
+    - "corpo/Corpo_Slitta_Regolatore_*"
+    - "corpo/Servo_Coxa_*"
+    - "corpo/Cuscinetto_Coxa_*"
+    - corpo/SSC32
+    - corpo/Basetta
+    - corpo/ESP32
+    - corpo/Camera
+    - corpo/Portafusibile_F1
+    - corpo/Tplug
+    - "corpo/Wago_*"
+    - "corpo/Regolatore_*"
+    - "corpo/Corpo_Supporto_INA260_*"
+    - "corpo/INA260_*"
+    - corpo/Corpo_Vassoio
+    - corpo/Prese_piedi
+    - corpo/Prese_luci
+    - corpo/ToF_frontale
+    - corpo/Interruttore
+    - corpo/ADC
+    - corpo/Corpo_Piastrina_IMU
+    - corpo/IMU
+    - "zampa/Coxa@*"
+    - "zampa/Coxa_Ponte@*"
+    - "zampa/Cuscinetto_*@*"
+    - "zampa/Perno_*@*"
+    - "zampa/Squadretta_*@*"
+    - "zampa/Servo_*@*"
+    - "zampa/Femore_A@*"
+    - "zampa/Femore_B@*"
+    - "zampa/Tibia@*"
+    - "zampa/Piedino@*"
+    - "zampa/FSR_piede@*"
+    - "zampa/Cover_Tibia@*"
+    - "zampa/Cover_Tibia_Diffusore@*"
+    - "zampa/Cover_Femore_A@*"
+    - "zampa/Cover_Femore_A_Feritoia@*"
+  obiettivo: >-
+    Caricare e controllare la batteria, infilarla nel tunnel dal retro e chiuderla con lo sportello. Alla fine il
+    pacco è fermo nel tunnel, i suoi cavi arrivano in coda accanto al T-plug del robot e il T-plug resta staccato.
+  prima:
+    - "Corpo montato, con F1, T-plug e Wago al loro posto (sezioni 7 e 8)."
+    - "Le sei zampe sul corpo (sezioni 9 e 10), senza le lame B: vanno dopo la taratura (sezione 12)."
+    - "Inserti M3 nei due blocchetti della chiglia (sezione 3, passo 3.14)."
+  tempo: "circa 30 minuti, più la carica della batteria [S]"
+  stato_elettrico: "T-plug staccato e F1 senza fusibile per tutta la sezione."
+  note: >-
+    La batteria è la OVONIC 2S 5200 mAh hardcase della v1 (D-045): niente acquisti. Si toglie e si rimette allo
+    stesso modo per ogni carica: due viti, si sfila lo sportello, si sfila il pacco (D-054).
+  fonti: [D-045, D-050, D-051, D-054, D-055, docs/piano-guida.md "Struttura della guida", docs/BOM.md A5 C7 D10]
+  attrezzi: [calibro, multimetro]
+  controllo:
+    - "Il pacco tocca la battuta anteriore e non si muove scuotendo piano il robot."
+    - "I cavi del pacco e la prolunga di bilanciamento escono in coda, accanto a F1; nessun filo è schiacciato."
+    - "Lo sportello è a filo, la linguetta sta sotto il tetto, le due viti M3 × 8 sono strette."
+    - "Il T-plug è staccato e F1 è vuoto."
+  vista_finale: {direzione: [-0.9, 0.3, 0.3], su: [0, 0, 1]}
+
+passi:
+  - id: "11.01"
+    titolo: Carica e controllo della batteria
+    formato: grande
+    immagine: false
+    testo:
+      - "Controlla il pacco: niente gonfiori, crepe nel guscio o cavi spellati. Se è gonfio, non usarlo."
+      - "Carica il pacco come nel passo 0.06: LiPo 2S, carica bilanciata, fino a 8,4 V [V]."
+      - "Misura e annota la tensione delle due celle sulla presa di bilanciamento e del pacco sul T-plug."
+      - "Misura e annota lunghezza, larghezza e altezza del pacco."
+    tabella:
+      intestazione: [Misura, Atteso, Misurato]
+      righe:
+        - ["Cella 1 (nero – centrale)", "4,20 V a fine carica [S]", ""]
+        - ["Cella 2 (centrale – rosso)", "4,20 V a fine carica [S]", ""]
+        - ["Pacco, sul T-plug", "8,4 V a fine carica [V]", ""]
+        - ["Differenza fra le celle", "pochi centesimi di volt [S]", ""]
+        - ["Lunghezza × larghezza × altezza", "137–139 × 46–47,3 × 24–25,4 mm [V]", ""]
+    avvisi:
+      - {tipo: attenzione, testo: "Carica su una superficie che non brucia e non lasciare il caricatore da solo: le regole sono nel passo 0.06 [S]."}
+      - {tipo: attenzione, testo: "Se il pacco scalda, si gonfia o fa odore durante la carica, stacca il caricatore e fai come nel passo 0.07 [S]."}
+      - {tipo: nota, testo: "Il tunnel è largo 50 mm dentro: con il pacco da 47,3 restano 1,3 mm per lato (D-056). Il vano è disegnato sull'ingombro massimo dichiarato."}
+    attrezzi: [caricatore_lipo, multimetro, calibro]
+    fonti: ["docs/BOM.md A5", "docs/dimensioni-componenti.md 'Batteria OVONIC 2S 5200 mAh'", "docs/studio-componenti.md 'Batteria' (8,4 V a piena carica)", D-056, guida/problemi/batteria.yaml]
+
+  - id: "11.02"
+    titolo: Schiuma sulla testa del pacco
+    formato: grande
+    immagine: false
+    testo:
+      - "Calcola lo spessore della schiuma: 148 mm meno la lunghezza del pacco [S]."
+      - "Taglia tasselli di schiuma EVA larghi quanto la faccia del pacco senza cavi."
+      - "Incolla i tasselli su quella faccia, uno sull'altro, fino allo spessore calcolato [C]."
+      - "Controlla che nessun tassello sporga dai bordi del pacco."
+    tabella:
+      intestazione: [Lunghezza del pacco, Schiuma, Strati da 3 mm]
+      righe:
+        - ["137 mm", "11 mm", "4 [S]"]
+        - ["138 mm", "10 mm", "3 [S]"]
+        - ["139 mm", "9 mm", "3 [S]"]
+    avvisi:
+      - {tipo: nota, testo: "Fra la battuta anteriore del tunnel e la punta dei rebbi dello sportello ci sono 147,4 mm [V]: la schiuma riempie il resto, schiacciata di circa 1 mm [S]. Lo sportello preme il pacco con i rebbi e la schiuma (D-051)."}
+      - {tipo: nota, testo: "Sulla faccia senza cavi la schiuma sta contro la battuta e non schiaccia i cavi; i rebbi premono sull'altra faccia [C]."}
+    attrezzi: [calibro, forbici]
+    extra:
+      - {nome: "schiuma EVA adesiva da 3 mm", qta: 1, bom: D10}
+    fonti: [D-051, D-054, docs/BOM.md D10, "cad/script/corpo.py cor_tun_x1, cor_parete, cor_tun_x0, cor_sport_rebbio", guida/problemi/batteria.yaml]
+
+  - id: "11.03"
+    titolo: Pacco nel tunnel
+    formato: grande
+    nuovi: [corpo/Batteria]
+    esploso: {asse: [-1, 0, 0], distanza: 150}
+    vista: {direzione: [-0.75, 0.5, 0.42], su: [0, 0, 1]}
+    mostra:
+      - corpo/Corpo_Base
+      - corpo/Corpo_Chiglia
+      - corpo/Portafusibile_F1
+      - corpo/Tplug
+      - "corpo/Servo_Coxa_P*"
+    etichette:
+      - {testo: "F1", chiave: corpo/Portafusibile_F1}
+      - {testo: "T-plug", chiave: corpo/Tplug}
+    testo:
+      - "Controlla che il T-plug del robot sia staccato e che F1 sia vuoto."
+      - "Infila il pacco nel tunnel dal retro, con la schiuma davanti e i cavi verso la coda."
+      - "Infila il pacco fino a quando la schiuma tocca la battuta anteriore."
+      - "Infila i cavi del T-plug e di bilanciamento del pacco nelle due fessure del tetto ai lati di F1 [C]."
+      - "Posa le spine del pacco sopra F1, accanto al T-plug del robot, senza collegarle."
+    avvisi:
+      - {tipo: importante, testo: "Prova prima a secco: le fessure del tetto sono larghe 4,5 mm e lunghe 13 [V]. Se la spina del T-plug o quella di bilanciamento non passa, fermati: è il primo problema di questa sezione."}
+      - {tipo: attenzione, testo: "Tieni le spine del pacco lontane da F1 e dalle parti metalliche: i due poli non devono toccarsi."}
+      - {tipo: nota, testo: "Il pacco ha 1,3 mm d'aria per lato: se si impunta, non forzare; controlla che non ci siano bave nel tunnel (D-056)."}
+    fonti: [D-050, "D-051 (fessure nel tetto, batteria sfilabile dal retro)", D-055, D-056, docs/cablaggio.md 3.1, "cad/script/corpo.py fessura_cavi_s, fessura_cavi_d", docs/progetto-meccanico.md "Dentro Corpo"]
+
+  - id: "11.04"
+    titolo: Prolunga di bilanciamento
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Salda i due codini JST-XH filo per filo, stesso colore con stesso colore; chiudi con il termorestringente [S]."
+      - "Collega la prolunga di bilanciamento alla presa JST-XH del pacco."
+      - "Porta l'altro capo della prolunga in coda, sopra F1."
+      - "Misura e annota la tensione fra i poli esterni della prolunga: è quella del pacco."
+    avvisi:
+      - {tipo: importante, testo: "La spina JST-XH entra in un verso solo: non forzarla al contrario."}
+      - {tipo: nota, testo: "La prolunga porta la presa di bilanciamento dove si raggiunge senza togliere il pacco: lì si collega il cicalino (sezione 12, BOM C7 e B9)."}
+    extra:
+      - {nome: "prolunga di bilanciamento JST-XH a 3 poli", qta: 1, bom: C7}
+    attrezzi: [multimetro, saldatore, termorestringente]
+    fonti: [docs/BOM.md C7 B9, docs/cablaggio.md 3.1 "Bilanciamento", "docs/BOM.md 'Schema di alimentazione'"]
+
+  - id: "11.05"
+    titolo: Sportello della batteria
+    formato: grande
+    nuovi: [corpo/Corpo_Sportello]
+    giunzioni: [sportello]
+    esploso: {asse: [-1, 0, 0], distanza: 45}
+    vista: {direzione: [-0.75, 0.5, 0.42], su: [0, 0, 1]}
+    mostra:
+      - corpo/Corpo_Base
+      - corpo/Corpo_Chiglia
+      - corpo/Batteria
+      - corpo/Portafusibile_F1
+      - corpo/Tplug
+      - "corpo/Servo_Coxa_P*"
+    testo:
+      - "Controlla i due inserti M3 nei blocchetti della chiglia: a filo e dritti."
+      - "Infila lo sportello lungo il tunnel: rebbi dentro, linguetta sotto il tetto."
+      - "Controlla che nessun cavo resti schiacciato fra rebbi, pacco e tetto."
+      - "Stringi le due viti M3 × 8 negli inserti della chiglia."
+    avvisi:
+      - {tipo: nota, testo: "Lo sportello si infila e si sfila solo lungo il tunnel: i rebbi entrano per 17 mm dietro il pacco (D-054)."}
+      - {tipo: prova, testo: "Scuoti piano il robot: il pacco non si muove. Se si muove, aggiungi uno strato di schiuma (11.02) [C]."}
+      - {tipo: importante, testo: "Se lo sportello posa storto o una vite non prende, controlla l'inserto (sezione 3, passo 3.14) prima di forzare."}
+    fonti: [D-054, D-056, guida/catalogo/giunzioni.yaml sportello, "cad/script/corpo.py fai_sportello", cad/stl/README.md "Corpo_Sportello.stl"]

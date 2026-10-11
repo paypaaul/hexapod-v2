@@ -1,0 +1,194 @@
+# Problemi trovati scrivendo la sezione 7, il corpo (D-075, formato in guida/schema.md "Problemi").
+# Terna del robot (mm): X avanti, Y a sinistra, Z in alto, origine al centro del corpo all'altezza degli assi dei femori.
+# Misure sulle quote di cad/script/corpo.py, sui fori esportati (guida/dati/fori.json) e sugli ingombri di
+# guida/dati/manifest.json. Campi in piu' rispetto allo schema: tipo (allocazione), domanda (cosa chiedere all'utente).
+
+- titolo: "Viti lato coda del servo di coxa: alette_coxa_coda va accostata nella sezione 7 e stretta nella 9"
+  tipo: allocazione
+  gravita: importante
+  dove: "7.05, sezione 9"
+  cosa: >-
+    Il piano mette le 12 viti lato coda dei servo di coxa (alette_coxa_coda, M3 x 8 in inserti, D-049) nella sezione 9,
+    "viti lato coda", dopo la coxa. Con la coxa montata le copre la testa dell'anima: Z da +8,05 (cz_mensola, 1 mm sopra
+    le teste a +7,05) e raggio 34-44,55 dall'asse della coxa. Una prova nel CAD sulla zampa MS (un cilindro verticale
+    Ø5,8 sopra le viti) le trova coperte a 0° e a 10°; a +20° se ne libera una, l'altra resta coperta fino a +30°; da
+    +30° sono libere tutte e due. Nello stesso CAD la coxa si monta sul perno alzandola di 5 mm e il controllo che
+    lascia 1,0 mm sopra le teste (Z 7,05) suppone le viti gia' al loro posto, accostate. Il servo e' tenuto solo dalle
+    due viti lato albero (pilota Ø2,5), se le coda non ci sono: i giochi della sede sono 0,2 mm per lato. La coxa gira
+    solo se si muove il servo (con il ponte montato l'albero non si trascina a mano attraverso il riduttore), quindi
+    per la prima messa delle viti coda serve l'elettronica gia' montata (sezioni 8 e 9).
+  prove:
+    - "docs/piano-guida.md:124, sezione 9: 'vite centrale della squadretta, viti-spina, coxa, ponte, viti lato coda; prova B5'"
+    - "guida/catalogo/giunzioni.yaml:86 alette_coxa_coda (attesi 12), D-049 (viti delle alette strette per ultime)"
+    - "docs/ricerca/corpo-v0-revisione.json:46-50 (copertura a 0, 10, 20, 30 gradi; coxa che gira solo con il servo)"
+    - "docs/ricerca/corpo-v0-revisione.json:90 (lato albero raggiungibile a coxa diritta, a ponte montato, con 1,35 mm dal mozzo) e :91 (lato coda raggiungibile con la coxa a +-20 una per volta, o a 30 tutte e due)"
+    - "docs/ricerca/zampa-v0-revisione.json:78 (mensola a Z 8,05 contro teste a Z 7,05: 1,0 mm)"
+    - "cad/script/zampa.py:124-126 cox_gondola_luce e cz_mensola, :372 testa_anima_alta"
+    - "docs/ricerca/corpo-disposizioni.json:773 e :843 (procedura di sostituzione del servo di coxa che nessun documento di main scrive)"
+  opzioni:
+    - "Accostare le due viti lato coda nel passo 7.05, insieme alle lato albero (alette_coxa_coda nella 7.05), e stringerle nella sezione 9 con {id: alette_coxa_coda, stringi: true}: coxa a +20 e poi a -20 gradi, una vite per volta, servo alimentato dalla SSC-32."
+    - "Mettere tutte e quattro le viti nella sezione 9, dopo la coxa (il piano): la prima messa richiede la coxa a 20-30 gradi con il servo alimentato, e fino ad allora il servo sta fermo per i giochi."
+    - "Foro d'accesso nella testa dell'anima, in asse con le viti lato coda (cambia la coxa, 2.1.7)."
+  consiglio: >-
+    Prima opzione: nessun cambio al CAD, il servo e' tenuto da quattro viti accostate, la coxa si monta con 1,0 mm di
+    luce, e la sezione 9 ha solo il serraggio, con la procedura della revisione (lato albero a coxa diritta, lato
+    coda a +-20 gradi). La sezione 7 per ora dice che le viti coda vanno con la zampa, marcato [C].
+
+- titolo: Come si tiene la base per premere i cuscinetti e avvitare la chiglia
+  gravita: importante
+  dove: "7.03, 7.04"
+  cosa: >-
+    Il cuscinetto LF-1050ZZ si preme da sotto nella sede del fondo di ogni gondola (sede Ø10 nominale, profonda 3,2;
+    la flangia Ø11,6 sporge 0,8 sotto il fondo, a Z -32,75). Il fondo della base sta a Z -31,95 sia sotto le gondole sia
+    sotto le pareti del tunnel: sul piano la base poggia sulle sei flange, e prima della chiglia (fondo a -41,4) non c'e'
+    un modo scritto per tenerla sollevata. Dopo la chiglia sotto la flangia restano 8,65 mm (41,4 - 32,75) e il cuscinetto non si
+    preme piu'. Nessuna fonte dice come si tiene la base: il piano propone 'due listelli sotto le pareti del tunnel', che e'
+    una mia ipotesi. Stesso problema per le quattro viti della chiglia, che entrano da sotto: la base va girata, e
+    capovolta poggia su colonnine del tetto alte 37,8 mm sopra il tetto (28,4 sopra l'asse dei femori, tetto a -9,4), con
+    la SSC-32 e il vassoio ancora da montare. Il forzamento e' lo stesso della tibia (cus_sede_d dal provino della culla):
+    se il provino dice 'col pollice' basta il pollice; altrimenti serve un tubetto sulla sola flangia (Ø esterno <= 11,5,
+    interno >= circa 8) e un appoggio sopra, dentro la gondola, che e' aperta in alto (orlo a +7 sopra l'asse, fondo
+    interno a -27,55).
+  prove:
+    - "cad/script/corpo.py:326-327 gondola: sede_cuscinetto e passaggio_perno tagliate dal fondo (-(cor_fondo)) verso l'alto"
+    - "cad/script/assieme.py:56 z_cus = -cor_fondo - cus_flangia_sp; guida/dati/manifest.json: Cuscinetto_Coxa_* da Z -32,8 a -28,8, Corpo_Chiglia da -41,4 a -31,9"
+    - "docs/ricerca/corpo-disposizioni.json:203, punto 2: 'Cuscinetti premuti da sotto nel fondo delle gondole. Chiglia avvitata da sotto'"
+    - "guida/problemi/zampa.yaml, 'Come si preme il cuscinetto del ginocchio' (esito approvato: tarare la sede sul provino per il pollice, altrimenti attrezzo stampato nella 2.1.7)"
+    - "D-056 (base stampata con il fondo sul piatto)"
+  opzioni:
+    - "Pollice, con la base sollevata su due listelli alti circa 20 mm sotto le pareti del tunnel (come nel passo)."
+    - "Tubetto sulla flangia e appoggio dentro la gondola, base in morsa a ganasce morbide, come per il ginocchio."
+    - "Attrezzo stampato nella 2.1.7 (una bussola sulla flangia e un distanziale per il fondo interno), lo stesso della tibia."
+    - "Per la chiglia: base capovolta su un panno, sulle colonnine del tetto."
+  consiglio: >-
+    Quello del ginocchio: tarare la sede sul provino per il pollice; se non basta, l'attrezzo stampato nella 2.1.7, che
+    serve a tibie e corpo. Il passo dice listelli e panno, marcato [C], e non dice nulla di piu'.
+
+- titolo: Sedi di Wago e portafusibile costruite su misure stimate, con 0,2 mm di gioco
+  gravita: importante
+  dove: "7.07, 7.11"
+  cosa: >-
+    Le due sedi dei Wago (spalle e labbri, gioco 0,2 per lato) e le due costole del portafusibile (luce 22,4 mm = fus_w
+    22 + 2 x 0,2) sono tagliate sulle misure dei parametri: Wago 221-415 29,9 x 18,6 x 8,3 mm (S, da una scheda
+    parametrica di terzi) e portafusibile ATO in linea 40 x 22 x 15 mm (S, 'stima'). Il pezzo in casa e' un
+    portafusibile impermeabile 30 A con cavo 14 AWG di circa 26 cm (D-073, BOM B5), un oggetto di cui non c'e' nessuna
+    misura; i Wago non sono ancora comprati. Se il portafusibile vero e' piu' largo di 22,4 mm lungo X non entra tra le
+    costole; se e' piu' lungo di 40 nel verso Y finisce sulle fessure dei cavi e sulle linguette delle spie (|y| 16-25);
+    se i fili escono da un'altra parte la fascetta di D-055 passa altrove. Nei Wago, una leva piu' lunga di 29,9 non entra
+    fra le spalle. Il portafusibile non e' fra i pezzi in casa da guardare in CLAUDE.md.
+  prove:
+    - "cad/script/rif_componenti.py:117-122 fus_l, fus_w, fus_h, wago_l, wago_w, wago_h (tutti S)"
+    - "docs/dimensioni-componenti.md:186-187 (Wago 'S', portafusibile 'stima')"
+    - "docs/BOM.md:47 B5: 'Neuftech portafusibile impermeabile 30 A (cavo 14 AWG, circa 26 cm, con un fusibile da 30 A)', stato P"
+    - "cad/script/corpo.py:379-383 wago_spalla, :412-413 costola_f1_a e costola_f1_p (gioco cor_sede_gio 0,2)"
+    - "guida/dati/manifest.json: Portafusibile_F1 da X -83,4 a -61,4, Y +-20, Z -9,4 a 5,6; Wago_piu da X -46 a -16,1, Y 27,5 a 35,8"
+  opzioni:
+    - "Misurare il portafusibile in casa (lunghezza, larghezza, altezza, dove escono i fili) e un Wago 221-415 quando c'e', prima di stampare la base; correggere i parametri se serve."
+    - "Provare le sedi su un provino della sola zona, stampato prima della base."
+    - "Fissare il portafusibile solo con la fascetta, senza costole, se la misura non torna."
+  consiglio: Misurare prima di stampare la base (la sezione 2 la stampa prima di questo passo). Nel passo c'e' una PROVA a secco con il calibro.
+  domanda: "Puoi misurare con il calibro il portafusibile impermeabile che hai in casa (lunghezza, larghezza, altezza) e dirmi da quali lati escono i cavi?"
+
+- titolo: "Prese dei piedi e delle luci, file da sei spine JR: forma, fissaggio e collegamenti non sono definiti"
+  gravita: importante
+  dove: "7.10"
+  cosa: >-
+    Nel CAD sono due file 'di sei spine JR a 3 poli piegate, passo 2,54' (Rif_Prese_Piedi, 15,5 x 2,6 x 8,5 mm, S) in una
+    scanalatura sul tetto, a x 48-64 e y +-22-25: sei posizioni a passo 2,54 (15,24 mm) con tre contatti uno sopra
+    l'altro (7,62 + 0,9 = 8,5). Ma una spina JR e' spessa 2,75 mm (cav_fin_w nel CAD della tibia), cioe' piu' del passo di
+    2,54: sei spine affiancate non ci stanno in 15,5 mm. Non c'e' un pezzo nel BOM: X5 elenca 'spine JR dalle prolunghe C5
+    avanzate' (sono le spine volanti, femmina), non la fila maschio; la basetta C2 ha strip maschio 1 x 40 (in casa), ma
+    nessun documento dice se la fila e' un pettine 6 x 3 saldato su una millefori o altro. Non c'e' scritto come la fila
+    si tiene nella scanalatura (la sede e' una tasca alta 3 con una scanalatura profonda 2,5 mm), ne' come i suoi
+    contatti vanno ai partitori e all'ADS7830 sotto il vassoio (cablaggio 3.3: 'dalle prese al vano sotto il vassoio') ne'
+    ai 5 V dei LED. Per l'FSR servono 2 contatti su 3 (segnale e massa), per le luci 3 (massa, +5 V, dato): 12 e 18
+    contatti in tutto.
+  prove:
+    - "cad/script/rif_componenti.py:187-189 pre_l 15,5, pre_w 2,6, pre_h 8,5 (S)"
+    - "cad/script/corpo.py:960-965 _prese (sede_prese alta 3, scanalatura_prese profonda 2,5)"
+    - "cad/script/zampa.py:71 cav_fin_w: 'passa la spina JR 7,9 x 2,75'"
+    - "docs/cablaggio.md:107-108 (spina JR femmina 2 poli su 3; spina JR a 3 poli: massa, +5 V, dato), :172 (aperto 1)"
+    - "docs/BOM.md:70 C2 (strip maschio 1 x 40 in casa), :144 X5, :149 X31"
+    - "docs/decisioni.md D-066 'Prese dei piedi (X5): fila di sei spine piegate in piedi', D-069 'Prese delle luci'"
+  opzioni:
+    - "Disegnare le prese come un pezzo: una striscia di millefori con un pettine 6 x 3 e i fili per partitori e ADS7830, da progettare con gli schemi della sezione 4."
+    - "Spine JR sciolte a vista sul tetto, senza fila, finche' le zampe non sono montate."
+    - "Togliere le prese dal CAD e portare i fili degli FSR direttamente alla basetta con un connettore piccolo."
+  consiglio: >-
+    Progettare le prese insieme agli schemi della basetta (sezione 4, F3b), con la misura vera della spina JR. Fino ad
+    allora il passo 7.10 le fa posare senza fissarle ed e' un opzionale 'anche dopo'.
+  domanda: "Come vuoi fare le prese dei piedi e delle luci: con un pettine a 3 poli per ogni zampa, o con un connettore diverso? Hai gia' qualcosa in casa?"
+
+- titolo: Fili e pulsantino della 2813 con la scheda in piedi nelle guide
+  gravita: minore
+  dove: "7.08"
+  cosa: >-
+    La 2813 sta in piedi fra due guide con le scanalature a +-12,7 mm da Y 0, componenti verso +X (la SSC-32, a 3,5 mm), 5 mm
+    liberi sotto il bordo inferiore per i fili. La posizione dei fori e delle piazzole della 2813 non e' pubblicata (C,
+    docs/dimensioni-componenti.md). I fili (VIN, massa, uscita, OFF, A e B del pulsante: cablaggio 3.1) vanno saldati
+    sulle piazzole: non si sa se sono sul bordo basso, dove con la scheda in sede ci sono 5 mm e le guide, o altrove, e quindi
+    se si saldano prima o dopo la posa. Inoltre la sezione 12 accende il robot con il pulsantino della 2813, che sta
+    sulla faccia dei componenti, nel vano da 3,5 mm davanti alla SSC-32: la posizione del pulsantino sulla scheda non e' nel CAD.
+  prove:
+    - "cad/script/corpo.py:990-995 guida_2813 e scanalatura_2813 (cor_int_guida 1,2), cad/script/assieme.py:89"
+    - "guida/dati/manifest.json: Interruttore da X -58,4 a -54,3, Y +-12,7, Z -4,4 a 15,9; SSC32 da X -50,8"
+    - "docs/dimensioni-componenti.md:185 (2813 20,3 x 25,4 x 4,1 V, fori C)"
+    - "docs/cablaggio.md:75-80 (fili della 2813), guida/passi/12-accensione.yaml (pulsantino della 2813 per la prima accensione)"
+  opzioni:
+    - "Saldare i fili prima di calare la 2813 nelle guide: i fili escono dai 5 mm sotto."
+    - "Saldare in sede, con un saldatore sottile, se le piazzole sono sul bordo alto."
+    - "Se il pulsantino e' coperto, accendere con un cacciavite da orologiaio o spostare la 2813 di 5 mm indietro (2.1.7)."
+  consiglio: Guardare la 2813 quando arriva (A, ordine ancora da fare) e scrivere l'ordine nel passo; per ora il passo la posa senza fili [C].
+
+- titolo: "Spie dei rail: vanno prima del portafusibile, LED giallo nel BOM e ambra nel cablaggio"
+  gravita: minore
+  dove: "7.09, 7.11"
+  cosa: >-
+    Le due linguette delle spie (|y| 16-22, Z da -9,4 a +4, da X -85,4 a -84,0) hanno il foro Ø3,1 a Y +-19, Z 0, e il
+    portafusibile (X da -83,4) sta a 0,6 mm davanti alla linguetta e occupa |y| fino a 20: un LED Ø3 si infila dal
+    lato anteriore, con la lente verso la coda, e dopo F1 non c'e' spazio. L'ordine 'F1, poi le spie' del piano non si
+    puo' fare. In piu' il BOM X13 compra LED 'giallo 590 nm' (WP710A10SYD, perche' l'ambra non e' a magazzino, D-068) e il
+    cablaggio dice 'LED ambra': e' lo stesso LED. Il posto delle linguette e' |y| 19 nel CAD, mentre predisposizioni.md
+    scrive ancora |y| circa 10 e 'posto da trovare': vale il CAD (D-066).
+  prove:
+    - "guida/dati/fori.json: Corpo_Base foro_spia_s e foro_spia_d, p0 X -85,4 p1 X -84,0, Ø3,1"
+    - "cad/script/corpo.py:1008-1011 linguetta_spia (blocco da X -85,4, spessore 1,4) e foro_spia"
+    - "guida/dati/manifest.json: Portafusibile_F1 da X -83,4"
+    - "docs/BOM.md:170 e :204, docs/cablaggio.md:81, docs/predisposizioni.md:380"
+  opzioni:
+    - "Spie prima del portafusibile (come nella sezione 7: 7.09 e poi 7.11)."
+    - "Spostare le linguette 6 mm in avanti nel CAD (2.1.7)."
+  consiglio: Spie prima del portafusibile; nessun cambio al CAD. Chi scrive la sezione 8 (cablaggio) deve sapere che i LED sono gia' in sede.
+
+- titolo: Il BOM conta 30 inserti M3 nel corpo, il CAD ne ha 28
+  gravita: minore
+  dove: "7.02"
+  cosa: >-
+    BOM.md dice 'M3: 94 (30 nel corpo, nelle gondole e nella chiglia, 24 nelle coxe, 18 nelle tibie, 24 nei femori)': la
+    somma fa 96, non 94. Nel CAD ci sono 26 M3 nella base e 2 nella chiglia, quindi 28 nel corpo, e 94 in tutto: il
+    totale e' giusto, la voce 'nel corpo' no. Stessa incongruenza segnalata dalla sezione 3.
+  prove:
+    - "docs/BOM.md:120"
+    - "guida/dati/fori.json: Corpo_Base 26 inserto_m3, Corpo_Chiglia 2; costruisci controlla: totali_inserti ok (94 e 28)"
+  opzioni:
+    - "Correggere il testo del BOM in 28 (2.1.7)."
+  consiglio: Correggere il testo del BOM; il passo 7.02 usa i numeri del CAD.
+
+- titolo: "Anse dei cavi di coxa: restano libere nelle baie posteriori fino ai pettini"
+  gravita: minore
+  dove: "7.12"
+  cosa: >-
+    I cavi dei servo di coxa hanno 57-77 % di margine su 300 mm utili e il resto va in anse 'nelle baie posteriori sopra i
+    Wago' (cablaggio 3.2, D-050). I pettini che le terrebbero sono in backlog e vanno disegnati dopo il montaggio di una
+    zampa. Fino ad allora le anse sono libere sopra i Wago, dove i fili di potenza entrano dall'alto e le leve vogliono
+    12 mm d'aria. Nessun documento dice dove si lasciano le anse delle altre zampe nel frattempo, ne' come si evita che
+    cadano sugli ingressi dei Wago o sul camino d'aria delle baie anteriori.
+  prove:
+    - "docs/cablaggio.md:101 e :176 (pettini in backlog), :168 (anse), D-050 (baie anteriori libere come camino d'aria)"
+    - "CLAUDE.md:174 (Pettini dei cavi dei servo, backlog)"
+    - "docs/predisposizioni.md:128 (28 cm3 per lato, 5 usati dalle anse)"
+    - "calc/cavi_servo.py (percorsi 70, 112, 129 mm per la coxa)"
+  opzioni:
+    - "Lasciare le anse libere e legarle con una fascetta lenta (D11) finche' non ci sono i pettini."
+    - "Disegnare i pettini subito, con le lunghezze di calc/cavi_servo.py."
+  consiglio: Anse libere e fascetta lenta fino alla prima zampa; il passo lo dice senza la fascetta, che non e' nel BOM per questo uso.

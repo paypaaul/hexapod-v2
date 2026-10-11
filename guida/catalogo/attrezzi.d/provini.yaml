@@ -1,0 +1,8 @@
+# Attrezzi nuovi delle sezioni 1 e 2 (D-075). La fonte di ognuno e' nel commento.
+# Pennarello: numeri dei provini e lati S/D dei pezzi (richiesta della sezione 2: "pezzi destri e sinistri marcati").
+pennarello:     {nome: "Pennarello indelebile", icona: matita, uso: "numeri dei provini, lati S e D dei pezzi stampati"}
+# Pesi noti: provino del piedino con l'FSR, fino a circa 1,2 kg = 12 N, il piede piu' carico al punto di progetto
+# (docs/predisposizioni.md X5; docs/piano-elettronica-software.md fase P1: "resistenza con pesi noti al multimetro").
+pesi_noti:      {nome: "Pesi noti da 100 g a 1,2 kg", icona: peso, uso: "provino del piedino con l'FSR (X5)"}
+# Morsa a ganasce morbide: forzamento di perni e cuscinetti, verbo "Premi" di guida/stile.md.
+morsa_morbida:  {nome: "Morsa a ganasce morbide", icona: morsa, uso: "forzamento dei perni (provino del giunto)"}

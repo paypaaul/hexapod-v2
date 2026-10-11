@@ -1,0 +1,244 @@
+# Problemi trovati scrivendo la sezione 8, elettronica nel corpo e cablaggio (D-075, formato in guida/schema.md "Problemi").
+# Terna del robot (mm): X avanti, Y a sinistra, Z in alto. Le misure sulle mesh sono raggi lanciati su
+# build/guida/cad/mesh/*.ply con le trasformate di guida/dati/manifest.json (posa di riferimento).
+# Campi in piu' rispetto allo schema: domanda (cosa chiedere all'utente), tipo: allocazione (un pezzo o una giunzione che
+# secondo le fonti sta in un'altra sezione).
+
+- titolo: Gli schemi della basetta, della striscia dei partitori e della scheda del carapace non esistono
+  gravita: bloccante
+  dove: "8.09, 8.11, 8.18-8.25, 8.28"
+  cosa: >-
+    Nessun passo puo' dire dove si salda un filo sulla millefori: `guida/schemi/` e' vuota e il passo F3b del piano
+    (disposizione di basetta 56 x 35 e scheda del carapace su griglia da 2,54) non ha prodotto niente. La sezione 8 dice
+    quali segnali arrivano alla basetta (tabelle di collegamento con GPIO, polarita' e verso, tutte [C]) ma non il posto
+    di ogni punto: i fili dell'IMU, dell'ADC, degli INA260, del ToF, della seriale, del cavo piatto a 16 vie, dell'EN dei
+    regolatori e della 2813 si saldano su punti che oggi non sono definiti. Manca anche la striscia dei partitori dei
+    sei FSR e delle due NTC (predisposizioni X5: "su una striscia di millefori"), che nel CAD non ha un posto. Il valore
+    equivalente dei pull-up (1,0-1,4 kOhm, minimo 0,97) dipende da come sono montate le schede e dai pull-up del
+    GY-6500 e del ToF, che non sono noti.
+  prove:
+    - "docs/piano-guida.md:41 (la disposizione si progetta durante la guida) e :150 (F3b)"
+    - "guida/schemi/ vuota; guida/problemi/banco.yaml e guida/problemi/schemi.yaml non esistono"
+    - "docs/predisposizioni.md:66 e :73 (scheda del carapace, cavo piatto saldato sulla basetta)"
+    - "docs/cablaggio.md:132 (piedinatura 2 x 8) e 3.4 (rami del bus)"
+    - "guida/passi/04-banco.yaml, passi 4.04 e 4.05 (stesso arresto: non saldare finche' lo schema non e' approvato)"
+    - "docs/piano-elettronica-software.md 2.4 (pull-up)"
+  opzioni:
+    - "Fare F3b prima di stampare la guida: schemi SVG verificati, poi i passi 8.18-8.25 citano i punti."
+    - "Montare la basetta e la scheda al banco con le tabelle e fissare i punti sul primo esemplare, poi disegnare lo schema da quello costruito."
+  consiglio: Fare F3b prima. Fino ad allora la guida dice di non saldare sui punti non definiti e riporta i collegamenti come tabelle [C].
+  domanda: >-
+    Vuoi approvare gli schemi di basetta, striscia dei partitori e scheda del carapace prima di costruire, come nel
+    piano (docs/piano-guida.md:41)?
+
+- titolo: Vite delle slitte con il supporto dell'INA260, lunghezza e accesso
+  gravita: importante
+  dove: "8.01, 8.03"
+  cosa: >-
+    Con il supporto la testa della M3 sta sulla faccia del supporto (Y 43,2) e non nella sede della slitta (Y 45,6):
+    sono 2,4 mm in piu'. Calcolato sul CAD con la testa a Y 43,2 e il fondo del foro a Y 54,7: M3 x 8 ha presa 3,2 mm,
+    M3 x 10 ha presa 5,2 e punta a 1,5 mm dal fondo; senza supporto M3 x 8 ha presa 5,6 e fondo libero 1,1. Il catalogo
+    delle giunzioni disegna sempre la M3 x 8 con la testa a 45,6 e il BOM conta 2 M3 x 8 (M3 x 10: 18, senza queste).
+    La sezione 4 (4.13) rimanda la scelta alla sezione 8. In piu', con l'INA260 avvitato sul supporto la vite non si
+    raggiunge con un cacciavite dritto [S]: dalla testa (35,6; 43,2; 6,0) verso il tunnel il fascio di raggi lungo -Y
+    resta libero da regolatore, INA260 e supporto (calcolo sulle mesh), ma e' stretto: la fessura fra il regolatore
+    (Z 2,5) e la scheda dell'INA260 (Z 8,6) e' alta 6,1 mm, un manico da cacciavite (Ø 15-20 mm [S]) non ci sta, e la
+    parte libera si ferma contro la Base: 19,9 mm per un fascio di Ø 1,6 (Y 23,3), 18,8 mm per Ø 2,5.
+  prove:
+    - "guida/dati/fori.json via guida.lib.fori: Corpo_Slitta_Regolatore foro_vite Y 45,6-48, Corpo_Supporto_INA260 foro_vite Y 43,2-45,6, Corpo_Base slitta_ins Y 48-54,7 (profondo 6,7)"
+    - "guida/catalogo/giunzioni.yaml (slitte: M3x8, testa solo sulla slitta, attesi 2) e docs/BOM.md:110 e :208 (viti M3 piu' lunghe di 2,4 mm con i supporti)"
+    - "guida/passi/04-banco.yaml, passo 4.13 (avviso: M3 x 10 [S], si sceglie nella sezione 8)"
+    - "raggi su Regolatore_S, INA260_S, Corpo_Supporto_INA260_S, Corpo_Slitta_Regolatore_S e Corpo_Base lanciati lungo -Y dalla testa (35,59; 43,2; 6,0)"
+    - "docs/predisposizioni.md, Corpo_Slitta_Regolatore (X7): INA260 sulla faccia verso il tunnel, morsettiera in alto"
+  opzioni:
+    - "Avvitare la M3 (x 10 con il supporto) prima di mettere l'INA260 sul supporto: il supporto si posa sulla slitta, si stringe la vite, poi l'INA260 si avvita al supporto con le due M2 (che stanno a Z 28,9, in alto)."
+    - "Un cacciavite a brugola corto con il manico inclinato, da provare sul pezzo."
+    - "Cambiare il CAD: una seconda vite o un foro d'accesso dall'alto nel supporto (2.1.7)."
+  consiglio: >-
+    Prima opzione: la guida dice di non avvitare l'INA260 al supporto finche' la M3 non e' stretta (nel 4.13 si ferma
+    a "posa il supporto"), con M3 x 10 con il supporto e M3 x 8 senza [C]. Il catalogo va aggiornato (giunzione con
+    supporto) e il BOM conta 2 M3 x 10 in piu'.
+  domanda: Preferisci che il passo 4.13 si fermi prima di avvitare l'INA260 al supporto?
+
+- titolo: Percorso e ordine dei cavi di potenza intorno alla SSC-32
+  gravita: importante
+  dove: "8.02, 8.03, 8.04, 8.05"
+  cosa: >-
+    Il Wago + sta a sinistra (+Y) e il Wago - a destra: un filo per rail di ogni regolatore deve attraversare il tunnel
+    per arrivare dall'altra parte, e le fonti dicono solo che i cavi di potenza passano "sotto la SSC-32 dal lato
+    posteriore" (D-050) e che sotto la scheda restano 8 mm (distanziali) con 6 mm "per le barre di potenza e i cavi 16 AWG
+    saldati". Nessun documento dice se i fili si saldano alle barre prima o dopo aver avvitato la SSC-32. Il piano della guida
+    mette la SSC-32 (sezione 8) prima del cablaggio. Con la scheda gia' sulle bugne il 14 AWG (circa 3,3 mm con la
+    guaina [S]) si infila solo di fianco, sotto una scheda lunga 72 mm con quattro bugne agli angoli, e le barre sono
+    sul retro, raggiungibili con il saldatore solo di lato. Le uscite dei regolatori sono lunghe 0,6 m, il che suggerisce di saldarle con la scheda fuori dal robot.
+  prove:
+    - "docs/decisioni.md D-050 (12 AWG sotto la SSC-32 dal lato posteriore)"
+    - "cad/script/rif_componenti.py:92-93 (ssc_retro_h 6 mm S, ssc_dist 8 mm)"
+    - "docs/cablaggio.md:72-76 (Principale, Ingresso dei regolatori, Rail servo: 0,5 + 0,5 m e 0,6 + 0,6 m) e :177 (Wago + a sinistra)"
+    - "docs/piano-guida.md:123 (ordine della sezione 8: slitte, SSC-32, ..., poi cablaggio)"
+    - "guida/passi/04-banco.yaml, passo 4.02 (barre sul retro; i fili dei regolatori vanno sulle barre nella sezione 8)"
+  opzioni:
+    - "Stendere i fili d'ingresso e saldare le barre con la SSC-32 fuori dal robot, poi avvitarla (la guida lo scrive: 8.02-8.05)."
+    - "Avvitare la SSC-32 e saldare le barre dal fianco: non verificato nel CAD."
+    - "Cambiare il CAD: due fessure nel tetto o un canale per i cavi attraverso il tunnel (2.1.7)."
+  consiglio: "Prima opzione. Va confermata con la prima prova al banco: se il 14 AWG sotto la scheda non passa, passare alla terza."
+  domanda: Hai gia' il filo 14 AWG siliconico in casa per misurarne il diametro con il calibro (previsto circa 3,3 mm con la guaina)?
+
+- titolo: La morsettiera dell'INA260 potrebbe non prendere il 14 AWG
+  gravita: importante
+  dove: "8.03"
+  cosa: >-
+    Il rail porta fino a 13 A e il BOM e il cablaggio hanno portato i fili d'uscita dei regolatori a 14 AWG (D-073).
+    La morsettiera da 3,5 mm dell'INA260 potrebbe accettare al massimo 16 AWG: in quel caso l'ultimo tratto si salda
+    (cablaggio.md). La guida dice di provare il filo prima di stringere e di saldare se non entra [C]. Nessuno ha il pezzo.
+  prove:
+    - "docs/cablaggio.md:74 (C morsettiera: massimo 16 AWG, allora l'ultimo tratto si salda)"
+    - "docs/BOM.md:57 (B15: con l'INA260 la morsettiera potrebbe non prendere il 14 AWG)"
+    - "docs/predisposizioni.md X7 (C morsettiera per 13 A)"
+  opzioni:
+    - "Provare il filo sulla morsettiera appena arriva l'INA260 e scrivere il risultato nel passo."
+    - "Saldare sempre i fili sui pad dell'INA260 (ma il pad regge davvero 13 A? da misurare)."
+  consiglio: Provare il filo all'arrivo dell'INA260; la guida dice cosa fare nei due casi.
+  domanda: Quando arriva l'INA260, il 14 AWG entra nella morsettiera? E' una misura sul pezzo, non sui servo.
+
+- titolo: L'ADC non ha giunzione, viti ne' posto per la striscia dei partitori
+  gravita: importante
+  dove: "8.08, 8.09, 8.24"
+  cosa: >-
+    Nella base ci sono due bugne con inserti M2 per l'ADS7830 (ins_ads_a e ins_ads_b), ma il catalogo delle giunzioni
+    non ha una giunzione per l'ADC e il BOM conta "viti M2 corte" per l'ADC senza lunghezza. I fori dell'ADS7830 sono
+    C (predisposizioni X6). Il passo 8.08 dice due M2 x 5 [C]. La striscia dei partitori non ha un posto nel CAD: nel vano
+    sotto il vassoio (37 x 32 x 10,4, predisposizioni.md 2.8) il volume e' contato per IMU e ADS7830 e basta. Nell'immagine 8.08 l'ADC e' disegnato senza viti.
+  prove:
+    - "guida/catalogo/giunzioni.yaml (nessuna voce adc) e guida/dati/fori.json: Corpo_Base ins_ads_a e ins_ads_b inserto_m2"
+    - "docs/BOM.md:208 (viti M2 corte per le stesse) e docs/predisposizioni.md:377 (X6: due bugne con inserti M2, fori C, posto per la striscia dei partitori)"
+    - "docs/predisposizioni.md X5 (partitori su una striscia di millefori)"
+  opzioni:
+    - "Aggiungere una giunzione `adc` al catalogo (viti M2 x 5 negli inserti, predisposizione X6) quando i fori sono noti."
+    - "Fare i partitori in una sede nel vassoio o sul bordo della basetta: da disegnare nel CAD (2.1.7)."
+  consiglio: Aspettare il pezzo (fori e quote), poi la giunzione. La striscia resta libera e senza posto fino allo schema.
+  domanda: Hai gia' l'ADS7830? Servono le quote dei due fori di fissaggio e dell'altezza dei pin.
+
+- titolo: ToF e camera senza ritegno modellato, e ordine ToF prima della camera
+  gravita: importante
+  dove: "8.13, 8.14"
+  cosa: >-
+    Il ToF sta in una sede inclinata della mensola con 0,2 mm di gioco (cor_tof_gio): nel CAD non ci sono perni ne'
+    viti, e la predisposizione dice "due perni Ø 1,9 o due inserti M2 sui fori della scheda (C)". La testa della camera e'
+    solo posata fra torretta e mensola; davanti la ferma la visiera del carapace, a 0,9 mm dalla lente. La cima del ToF
+    passa a 0,2 mm sotto la testa della camera (cor_tof_z): la guida monta il ToF prima della camera, anche se il
+    piano nomina camera e ToF in quest'ordine.
+  prove:
+    - "cad/script/corpo.py:183-190 (cor_tof_gio 0,2, cor_tof_z: cima 0,2 sotto la testa della camera) e fai_vassoio (sede_tof, mensola, torretta)"
+    - "docs/predisposizioni.md:371 (Corpo_Vassoio: mensola, sede inclinata di 20 gradi, due perni Ø 1,9 o due inserti M2 (C))"
+    - "docs/software.md:694 (testa della camera bloccata nella torretta)"
+    - "docs/decisioni.md D-057 (finestra della camera: davanti alla lente restano 0,9 mm)"
+  opzioni:
+    - "Tenerli come nel CAD: posati nella sede; ToF e testa si muovono se il robot cade o si scuote."
+    - "Una goccia di colla a caldo dalla parte non ottica (D-055 la propone per i Wago)."
+    - "Perni o inserti M2 nella mensola (2.1.7), con i fori del Pololu."
+  consiglio: Provare a secco sul primo vassoio stampato; se balla, colla a caldo. La guida scrive "come si ferma si vede sul pezzo [C]".
+  domanda: Come sono i fori del Pololu VL53L7CX (diametro e posizione)? Servono per decidere perni o inserti.
+
+- titolo: Seriale della SSC-32, tre o quattro fili, e dove va VL
+  gravita: importante
+  dove: "8.18, 8.20"
+  cosa: >-
+    cablaggio.md 3.6 dice "4: TX, RX, massa, VL" con Dupont femmina, e 3.1 dice "VL con un Dupont (C4)" per il tratto
+    dalla 2813 alla SSC-32. VL e' l'alimentazione della logica, a 6-8,4 V, e non puo' viaggiare su un pin di segnale. Il
+    disegno del venditore da' sulla SSC-32 tre pin RX, TX e GND vicino alla morsettiera e i morsetti VL+ e VL- (S, C).
+    Il traslatore a 4 canali con BSS138 ha bisogno anche del 5 V sul lato alto: nelle fonti non c'e' scritto da dove arriva.
+    La guida scrive tre fili sui pin e VL ai morsetti [C].
+  prove:
+    - "docs/cablaggio.md:160 (Seriale della SSC-32: 4 fili: TX, RX, massa, VL) e :76 (VL con un Dupont)"
+    - "docs/dimensioni-componenti.md 'Servo controller SSC32-V2.5' (tre pin RX, TX, GND; morsettiera VS1-, VS1+, VL-, VL+, VS2-, VS2+: S, C)"
+    - "docs/studio-componenti.md 'Controllo' (traslatore a BSS138) e docs/BOM.md C1"
+    - "guida/passi/04-banco.yaml, passo 4.04 (traslatore con 3,3 V da una parte e 5 V dall'altra)"
+  opzioni:
+    - "Leggere le sigle sul clone e confermare tre pin + morsetti VL (scelta della guida)."
+    - "Se il clone ha un pin per il 5 V, prendere da li' il lato alto del traslatore."
+  consiglio: Verificare le sigle sul clone al banco (sezione 4) e aggiornare cablaggio.md 3.6 a tre fili.
+  domanda: Cosa e' stampato sui pin accanto alla morsettiera del tuo clone SSC-32 (foto)?
+
+- titolo: Fra T-plug e F1 non c'e' un connettore, e F2 non ha una sede
+  gravita: importante
+  dove: "8.15, 8.17"
+  cosa: >-
+    cablaggio.md dice "T-plug -> F1 -> Wago +" con 14 AWG e non dice come si uniscono T-plug e portafusibile (i codini
+    sono saldati: T-plug e portafusibile sono entrambi con codino 14 AWG, D-073). La guida scrive saldatura e
+    termorestringente [S]. F2, il portafusibile MINI, e' "in linea fra i Wago e la 2813" e non ha una sede nel CAD:
+    resta appeso ai suoi fili. Il sesso del T-plug sul pacco e quale piolo e' il + sono C e "da guardare sul pacco"
+    (BOM B12).
+  prove:
+    - "docs/cablaggio.md:72 (Principale) e :75 (Ramo logica)"
+    - "docs/BOM.md:54 (B12: la batteria ha la femmina, da guardare sul pacco: C) e :48 (B6)"
+    - "docs/decisioni.md D-055 (la coppia di T-plug resta appoggiata sopra F1, tenuta dai suoi cavi)"
+  opzioni:
+    - "Saldatura e termorestringente tra il codino del T-plug e quello di F1 (scelta della guida)."
+    - "Un connettore fra T-plug e F1 (non previsto dal BOM)."
+    - "Una fascetta per F2 sul fianco del tunnel (fascette gia' nel BOM D11)."
+  consiglio: Saldatura per T-plug e F1, fascetta per F2; leggere sesso e polarita' del T-plug sul pacco prima di saldare.
+  domanda: Sul pacco OVONIC il T-plug ha la femmina? Quale lato e' il +? (guarda la batteria)
+
+- titolo: Verso del flat e connettore FPC dell'ESP32 non documentati
+  gravita: minore
+  dove: "8.14"
+  cosa: >-
+    Le fonti dicono solo che l'ESP32 ha un connettore FPC a 24 pin al centro della scheda e che il flat esce verso il lato
+    dell'antenna; non dicono se il connettore ha una levetta ne' se i contatti del flat guardano in alto o in basso. La
+    guida dice di controllare sul pezzo [C].
+  prove:
+    - "docs/dimensioni-componenti.md:66 e :95 (connettore FPC al centro della scheda, flat verso il lato dell'antenna)"
+    - "docs/decisioni.md D-051 (camera girata di 180 gradi, flat dall'alto della testa)"
+  opzioni:
+    - "Guardare il connettore sulla scheda vera prima di stampare il vassoio."
+  consiglio: Guardare il pezzo; non e' una misura sui servo.
+  domanda: Il connettore FPC della tua ESP32-S3-CAM ha la levetta? Come sono messi i contatti del flat (foto)?
+
+- titolo: Le NTC dei regolatori si incollano al banco, non nel corpo
+  tipo: allocazione
+  gravita: minore
+  dove: "8.26"
+  cosa: >-
+    L'NTC sta sulla bobina di ogni regolatore (X14, ADS7830 canali 6 e 7). Nel corpo la bobina e' sotto l'INA260 e
+    il camino d'aria e il lato dei componenti guarda il tunnel con 4,8 mm d'aria: il posto e' stretto. Al banco, sezione 4,
+    il regolatore e' libero e i fili 28 AWG si possono saldare prima di avvitare la slitta. Il passo 8.26 le incolla nel
+    corpo [C].
+  prove:
+    - "docs/cablaggio.md 3.4 (NTC dei regolatori: sulla bobina, partitore, canali 6 e 7)"
+    - "docs/decisioni.md D-051 (componenti verso il tunnel, 4,8 mm d'aria) e D-052 (camino d'aria)"
+    - "guida/passi/04-banco.yaml, passi 4.09-4.10 (nessun passo per la NTC)"
+  opzioni:
+    - "Incollare e saldare la NTC al banco, in 4.10, poi in 8.26 solo i fili sul canale."
+    - "Lasciare 8.26 com'e'."
+  consiglio: Spostare l'incollaggio e la saldatura nella sezione 4; in 8.26 restano i fili e il canale.
+
+- titolo: Le spine dei servo di coxa sulla SSC-32, di chi sono
+  tipo: allocazione
+  gravita: minore
+  dove: "8.05"
+  cosa: >-
+    Il passo 7.12 dice di portare i cavi dei servo di coxa verso le spine della SSC-32 e di non collegarli "perche' la
+    SSC-32 non c'e' ancora". La sezione 12 (prima accensione) parte con "spine dei 18 servo sui loro canali (sezioni 9 e
+    10)". La sezione 8 monta la SSC-32 e non collega niente: nessuna sezione dice dove si infilano le sei spine di coxa.
+  prove:
+    - "guida/passi/07-corpo.yaml:338 (7.12) e :186 (7.06, tabella dei canali)"
+    - "guida/passi/12-accensione.yaml:63 (prima: spine dei 18 servo sui loro canali, sezioni 9 e 10)"
+  opzioni:
+    - "Spine di coxa nella sezione 9, con la zampa."
+    - "Spine di coxa in un passo nuovo della sezione 8 dopo la SSC-32."
+  consiglio: Sezione 9, insieme ai canali delle altre due spine di ogni zampa.
+
+- titolo: D-012 non ha una voce in decisioni.md
+  gravita: minore
+  dove: "8.20"
+  cosa: >-
+    cablaggio.md e piano-elettronica-software.md citano "D-012" per la seriale della SSC-32 (115200 baud, GPIO21 e 14), ma
+    il registro delle decisioni comincia da D-041 e D-012 compare solo in una riga di riepilogo, non come voce. Il
+    controllo `decisioni` della guida non lo accetta: i passi citano studio-componenti.md.
+  prove:
+    - "docs/cablaggio.md:160 e docs/piano-elettronica-software.md:91 e :93"
+    - "docs/decisioni.md:10 (riga di riepilogo con la seriale)"
+  opzioni:
+    - "Aggiungere una voce D-012 (o D-0xx) per la seriale in decisioni.md."
+  consiglio: Una voce nuova nel registro; nei passi nessun cambio.

@@ -1,0 +1,57 @@
+# Problemi trovati scrivendo le appendici (D-075, formato in guida/schema.md "Problemi").
+# Campo in piu' rispetto allo schema: domanda (cosa chiedere all'utente, quando serve).
+
+- titolo: Due proposte diverse per la lunghezza dei 94 inserti M3, e il CAD li conta tutti da 5 mm
+  gravita: importante
+  dove: "A.12, A.13 e sezione 3 (3.01, 3.04)"
+  cosa: >-
+    Il kit ha 50 inserti per lunghezza (BOM D4, D5): per 94 M3 servono due lunghezze. Il catalogo (viteria.yaml,
+    INS_M3 l 5,0) e il CAD (fori da 6,7 mm) ne assumono una sola, da 5. La sezione 3 (guida/problemi/inserti.yaml) propone
+    M3 x 6 per alette e ponte (36 + 12 = 48) e M3 x 5 per gli altri (46). Dal calcolo della presa nel modello (punta della
+    vite sotto l'imbocco, con F.piazza sulle giunzioni) viene un'altra divisione: i gruppi con presa da 6 mm in su
+    (guscio 6,7, chiglia davanti 6,55, colonnine 6,4, ponte 6,1, sportello 6,0) e il blocco del femore B, che porta la
+    coppia, in M3 x 6 (50), e gli altri in M3 x 5 (44: alette 36, chiglia dietro 2, slitte 2, vassoio 4). Le due
+    non coincidono e nessuna e' in una fonte. Le appendici A.12 e A.13 non scelgono: danno i gruppi con la presa e dicono
+    "decidi dopo il provino [C]".
+  prove:
+    - "docs/BOM.md righe 87-88 (50 per misura) e riga 258 (domanda 8); guida/catalogo/viteria.yaml:23 (INS_M3 l 5,0)"
+    - "guida/problemi/inserti.yaml (secondo problema, opzione 1)"
+    - "presa per giunzione (mm, nel CAD): alette coda 5,6; ponte 6,1; blocco femore 4,6; guscio 6,7; chiglia davanti 6,55 e dietro 5,0; colonnine 6,4; slitte 5,6; vassoio 4,4; sportello 6,0 (guida.lib.fori.piazza, giunzioni zampa e corpo)"
+  opzioni:
+    - "Divisione della sezione 3: M3 x 6 a alette e ponte (48), M3 x 5 agli altri (46)."
+    - "Divisione per presa: M3 x 6 a guscio, ponte, chiglia davanti, colonnine, sportello e blocco del femore B (50), M3 x 5 agli altri (44)."
+    - "Un solo tipo di inserto, comprando altri M3 (contro 'niente acquisti in piu'')."
+  consiglio: "Decidere dopo il provino 1.03 e scrivere la divisione una volta sola, in 3.01; le appendici A.12 e A.13 la copiano."
+  domanda: "Quanti inserti M3 ha ogni lunghezza del kit? (stessa domanda di guida/problemi/inserti.yaml)"
+
+- titolo: I canali della SSC-32 e il lato delle file VS1 e VS2 sono una proposta, e l'ordine delle prese dei piedi non e' scritto
+  gravita: minore
+  dove: "A.01, A.02"
+  cosa: >-
+    robot.yaml dice che i canali sono "C, proposta": lato sinistro 0-15, destro 16-31, zampe anteriori sui canali verso
+    la morsettiera, e che il lato dei canali 0-15 sulla scheda montata va controllato sull'ingombro e al banco (B1). Che
+    VS1 alimenti i canali 0-15 e VS2 i 16-31 viene dal disegno del venditore [S] (dimensioni-componenti.md). Per i sei
+    FSR il cablaggio propone i canali 0-5 dell'ADS7830 nell'ordine AS, MS, PS, AD, MD, PD [C], e per le luci non da' un
+    ordine delle sei prese sul tetto del tunnel. La guida scrive i canali di robot.yaml, marcati [C].
+  prove:
+    - "robot/robot.yaml, blocco canali (commento 'C, proposta') e calc/cavi_servo.py ASSEGNA"
+    - "docs/dimensioni-componenti.md righe 106-118 (header, VS1 per 0-15 e VS2 per 16-31, S)"
+    - "docs/cablaggio.md 3.2 (canali per zampa) e 3.3 (prese dei piedi e delle luci)"
+  opzioni:
+    - "Provare al banco (B1, B2) un servo alla volta e correggere robot.yaml e la tabella."
+    - "Fissare l'ordine delle prese dei piedi e delle luci nel CAD (posizioni numerate)."
+  consiglio: "Provare al banco; la tabella A.01 si aggiorna con i canali veri."
+
+- titolo: Il registro delle misure e' una copia delle tabelle dei passi
+  gravita: minore
+  dove: "A.03, A.04, A.05"
+  cosa: >-
+    Le tabelle dei passi (1.18, 4.07, 4.11, 12.03-12.10, 11.01) hanno gia' le colonne Misurato. Le appendici A.03 (provini), A.04
+    (forzamenti) e A.05 (tensioni) le riassumono su un foglio solo. Se un passo cambia un valore atteso, il registro
+    resta indietro: non c'e' un'unica fonte.
+  prove:
+    - "guida/passi/01-provini.yaml 1.18; guida/passi/04-banco.yaml 4.07 e 4.11; guida/passi/12-accensione.yaml; guida/passi/11-batteria.yaml 11.01"
+  opzioni:
+    - "Generare il registro dalle tabelle dei passi con un comando dell'impaginatore."
+    - "Tenere la copia a mano e farla rivedere dalla riconciliazione."
+  consiglio: "La prima opzione, o almeno una revisione della copia alla riconciliazione."

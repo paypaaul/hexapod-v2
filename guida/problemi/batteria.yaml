@@ -1,0 +1,101 @@
+# Problemi trovati scrivendo la sezione 11, batteria e sportello (D-075, formato in guida/schema.md "Problemi").
+# Coordinate nella terna del robot (mm): X avanti, Y a sinistra, Z in alto, origine al centro del corpo all'altezza
+# degli assi dei femori. Misure: bbox delle occorrenze di guida/dati/manifest.json e raggi lanciati sulle mesh di
+# build/guida/cad/mesh/*.ply (Corpo_Base) con le trasformate del manifest.
+# Campi in piu' rispetto allo schema: tipo (allocazione, quando un pezzo o un passo sta in un'altra sezione), domanda.
+
+- titolo: Le spine del pacco non passano dalle fessure del tetto, e il pacco non si toglie per la carica
+  gravita: bloccante
+  dove: "11.03, 11.04; ogni cambio della batteria"
+  cosa: >-
+    Il T-plug del robot sta sopra F1, sopra il tetto del tunnel (Tplug da Z 5,6 a 14,1; tetto da Z -11,4 a -9,4). I
+    cavi del pacco salgono dal tunnel a lui solo dalle due fessure del tetto ai lati di F1: X da -83,4 a -70,4,
+    |Y| da 20,5 a 25, cioe' 13 × 4,5 mm, chiuse verso la coda da un ponte di tetto largo 2 mm (X -85,4…-83,4). La
+    spina T-plug del pacco (la coppia e' 30 × 16 × 8,5, S) e la spina JST-XH di bilanciamento (circa 10 × 5,8, S)
+    non passano da 4,5 mm. Quindi non si puo' ne' far salire la spina del pacco fino al T-plug del robot, ne' sfilare
+    il pacco per caricarlo come dice D-054 ("due viti, si sfila lo sportello, si sfila il pacco"). Il CAD non ha i
+    cavi: la verifica di D-051 ("pacco fatto scorrere fino a 160 mm fuori: nessun urto") riguarda solo la scatola.
+    Sotto i rebbi (da Z -29 in giu') c'e' posto per far girare i cavi verso le fessure.
+  prove:
+    - "cad/script/corpo.py:91-92 (cor_cavi_x 13, cor_cavi_y0 20,5) e :408-410 (fessura_cavi_s/d da -(cor_tun_x0 - cor_parete) per cor_cavi_x)"
+    - "Raggi verticali su Corpo_Base a Y 22,7: tetto pieno a X -85 e -84,4 (Z -11,4…-9,4); libero a X -83, -80, -75, -71; pieno a -69"
+    - "guida/dati/manifest.json: corpo/Tplug Z 5,6…14,1; corpo/Portafusibile_F1 Z -9,4…5,6; corpo/Batteria X -60…79"
+    - "D-051 (fessure nel tetto accanto ai capi di F1; T-plug sopra F1), D-054 (cambio della batteria), D-055 (fascetta di F1 nelle stesse fessure)"
+    - "docs/dimensioni-componenti.md:178 (coppia di T-plug 30 × 16 × 8,5 S); docs/BOM.md A5 (bilanciamento JST-XH 3 poli)"
+  opzioni:
+    - "Fessure aperte verso la coda (togliere il ponte di 2 mm): a sportello tolto i cavi entrano di lato e la spina resta sopra. Da verificare con la fascetta di F1 (D-055) e la rigidezza del tetto."
+    - "Una fessura allargata quanto la spina T-plug (circa 17 × 9, S) accanto a F1, se c'e' posto fra F1 e la parete."
+    - "Caricare il pacco dentro il robot dalla coda (T-plug e prolunga raggiungibili): niente modifiche, ma si carica dentro un corpo stampato e il pacco non si sostituisce."
+    - "Prolunga di bilanciamento infilata nella fessura prima di saldare i codini (C7): risolve solo il bilanciamento."
+  consiglio: >-
+    Fessure aperte verso la coda nella 2.1.7, con la prova della spina vera. Nella bozza 11.03 dice di provare a secco e
+    di fermarsi se la spina non passa.
+  domanda: "Con la v1 caricavi il pacco fuori dal robot, ogni volta?"
+
+- titolo: La schiuma dello sportello non basta a premere il pacco, e le fonti non dicono dove va
+  gravita: importante
+  dove: "11.02, 11.05"
+  cosa: >-
+    Fra la battuta anteriore del tunnel (X 79) e la punta dei rebbi dello sportello (X -68,4) ci sono 147,4 mm. Il pacco
+    e' lungo 137–139 mm (V, piu' o meno 5 mm dichiarati): restano 8,4–10,4 mm. Il BOM prevede schiuma EVA adesiva da
+    3–5 mm (D10, il link e' a fogli da 3 mm): con uno strato il pacco scorre di 5–7 mm. D-051 e corpo.py dicono che i
+    rebbi premono il pacco "con la schiuma" contro la battuta, ma non dove va la schiuma ne' quanti strati. La bozza
+    mette 3 o 4 strati da 3 mm sulla faccia anteriore del pacco (senza cavi), contro la battuta [C].
+  prove:
+    - "guida/dati/manifest.json: corpo/Batteria X -60…79 (pacco da 139 nel CAD); corpo/Corpo_Sportello fino a X -68,4"
+    - "cad/script/corpo.py:43-46 (cor_tun_x0 85,4, cor_tun_x1 81, cor_parete 2), :94 (cor_sport_rebbio 17), :490-492 (rebbi)"
+    - "cad/script/rif_componenti.py:77-80 (bat_l 139, tolleranza 5); docs/dimensioni-componenti.md 'Batteria'"
+    - "docs/BOM.md D10 (schiuma EVA adesiva 3–5 mm, fogli da 3 mm); D-051 'BOM'"
+  opzioni:
+    - "Strati di schiuma sulla faccia anteriore del pacco, quanti ne servono (bozza): nessun cambio al CAD."
+    - "Rebbi piu' lunghi nella 2.1.7 (cor_sport_rebbio da 17 a circa 22), calcolati sul pacco misurato, per un solo strato da 3 mm."
+    - "Schiuma sulle punte dei rebbi: tasselli di 4 × 13,6 mm alti 9–11, poco stabili."
+  consiglio: "Misurare il pacco e allungare i rebbi nella 2.1.7; fino ad allora gli strati sulla faccia anteriore."
+  domanda: "Quanto è lungo il tuo pacco OVONIC, misurato con il calibro?"
+
+- titolo: Nessuna fonte del progetto dice come si carica la batteria
+  gravita: importante
+  dove: "11.01; sezione 0 (sicurezza LiPo)"
+  cosa: >-
+    Il BOM non ha un caricatore (la batteria e' quella della v1, D-045) e nessun documento da' corrente di carica,
+    tensione di conservazione, temperatura o la procedura in caso di pacco gonfio o caldo. La bozza scrive le regole
+    generali delle LiPo marcate [S]: carica bilanciata fino a 8,4 V (questo V, studio-componenti), 4,20 V per cella,
+    superficie non infiammabile, mai incustodita, pacco gonfio da non usare. L'unico dato del pacco e' 50C di scarica.
+  prove:
+    - "docs/BOM.md A5 (solo dati di scarica e connettori); docs/dimensioni-componenti.md 'Batteria' (nessun dato di carica)"
+    - "docs/studio-componenti.md 'Batteria' (6,0–8,4 V); docs/software.md 2.6 (soglie 3,6 / 3,5 / 3,3 V per cella)"
+  opzioni:
+    - "Leggere il manuale OVONIC (corrente di carica massima, conservazione) e scriverlo in dimensioni-componenti.md e nella sezione 0."
+    - "Aggiungere al BOM un sacchetto ignifugo per LiPo (voce nuova, da approvare)."
+  consiglio: "Leggere il manuale OVONIC e scrivere una pagina di sicurezza LiPo nella sezione 0; la sezione 11 la richiama."
+  domanda: "Che caricatore usavi con la v1? Ha la carica bilanciata 2S e la modalità di conservazione (storage)?"
+
+- titolo: La prolunga di bilanciamento non ha una sezione che la prepari
+  gravita: minore
+  tipo: allocazione
+  dove: "11.04"
+  cosa: >-
+    La prolunga C7 (due codini JST-XH a 3 poli saldati, D-073) porta la presa di bilanciamento in coda, dove va il
+    cicalino. Nel piano della guida nessuna sezione la cita; la bozza la collega al pacco in 11.04 e la chiede pronta
+    nei prerequisiti (sezione 4 o 8). Se le fessure del tetto restano chiuse (primo problema), i codini vanno saldati
+    dopo averli infilati nella fessura, quindi nella sezione 8 con il corpo.
+  prove:
+    - "docs/BOM.md C7; docs/cablaggio.md 3.1 'Bilanciamento'; docs/piano-guida.md 'Struttura della guida' (sezioni 4, 8, 11)"
+  opzioni:
+    - "Saldatura della prolunga nella sezione 4 (banco), collegamento al pacco nella 11 (bozza)."
+    - "Saldatura nella sezione 8, infilata nella fessura del tetto, se le fessure restano chiuse."
+  consiglio: "Sezione 4, se le fessure si aprono verso la coda; altrimenti sezione 8."
+
+- titolo: progetto-meccanico.md descrive ancora il T-plug dietro il pacco, sotto i rebbi
+  gravita: minore
+  dove: "11.03"
+  cosa: >-
+    Nella tabella delle parti del corpo lo sportello "preme il pacco... sotto i rebbi passa la coppia di T-plug" e il
+    vano di coda ha la "coppia di T-plug nella zona dei cavi dietro il pacco, raggiungibile aprendo lo sportello".
+    D-051, D-054 e D-055 (e il CAD) mettono il T-plug sopra F1, raggiungibile dal retro senza aprire nulla. Il documento
+    avverte che le righe della v0.2 non aggiornate valgono come D-051; la bozza segue D-051 e il CAD.
+  prove:
+    - "docs/progetto-meccanico.md:116 e :121; D-051 'F1 copriva la fessura dei cavi'; D-054 'Cambio della batteria'"
+  opzioni:
+    - "Aggiornare le due righe con la 2.1.7."
+  consiglio: "Aggiornarle con la 2.1.7, insieme al primo problema."

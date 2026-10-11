@@ -1,0 +1,127 @@
+# Problemi trovati scrivendo la sezione 2, stampa e controllo dei pezzi (D-075, formato in guida/schema.md "Problemi").
+# Campo in piu' rispetto allo schema: domanda (cosa chiedere all'utente), esito (risposta trovata nelle fonti).
+# Le quote vengono da guida/dati/manifest.json e fori.json (CAD 2.1.6) e da cad/script/*.py.
+
+- titolo: "Il vassoio dell'ESP32 e' in PETG per un documento e in PLA per gli altri"
+  gravita: minore
+  dove: "2.03, 2.18"
+  cosa: >-
+    docs/progetto-meccanico.md lo descrive "in PETG". Il README degli STL, D-065, la riga E2 del BOM e il colore del
+    componente nel CAD ("Esa PLA placche") lo danno in PLA bianco, "perche' sta sotto l'antenna: niente carbonio". D-065
+    segna la scelta del PLA per il vassoio fra le "proposte mie", cioe' non confermata dall'utente. La bozza scrive PLA
+    [S].
+  prove:
+    - "docs/progetto-meccanico.md:117 (Corpo_Vassoio in PETG)"
+    - "cad/stl/README.md:31 (Corpo_Vassoio.stl: PLA, sta sotto l'antenna: niente carbonio)"
+    - "docs/decisioni.md D-065 (vassoio in PLA, proposta) e docs/BOM.md E2 (vassoio nel PLA colorato)"
+    - "guida/dati/manifest.json: Corpo_Vassoio aspetto 'Esa PLA placche'"
+  opzioni:
+    - "PLA bianco, come BOM, README e CAD (antenna senza carbonio, come D-065)."
+    - "PETG-CF nero, come progetto-meccanico.md: ma sotto l'antenna dell'ESP32 il carbonio puo' schermare."
+    - "PETG senza carbonio: un altro materiale in casa."
+  consiglio: PLA bianco; correggere progetto-meccanico.md nella 2.1.7.
+  domanda: "Il vassoio dell'ESP32 va in PLA bianco (BOM E2) o in PETG? D-065 lo dava come proposta."
+
+- titolo: "Slitte e supporti degli INA260: l'orientamento sul piatto non e' dato dalle fonti"
+  gravita: minore
+  dove: "2.16, 2.17"
+  cosa: >-
+    Il README scrive per le slitte solo "due copie" e per i supporti degli INA260 "piastra sul piatto", senza dire
+    quale faccia. La slitta e' una piastra di 44,1 × 5,0 × 38,8 con quattro bugne per gli inserti M2 su una faccia; il
+    supporto e' una piastra di 23,2 × 7,8 × 28,9. La bozza propone per le slitte la faccia piana (senza bugne) sul
+    piatto e le bugne in alto [C], e per i supporti "piastra sul piatto" come da README.
+  prove:
+    - "cad/stl/README.md:32-33"
+    - "guida/dati/manifest.json: bbox Corpo_Slitta_Regolatore [13,559; 43,0; -29,75]-[57,621; 48,0; 9,0]"
+    - "guida/dati/fori.json: Corpo_Slitta_Regolatore ins_a..ins_d (4 inserti M2) e foro_vite (M3)"
+  opzioni:
+    - "Piano sul piatto e bugne in alto, come la bozza."
+    - "Bugne sul piatto con supporti (peggio: sbalzi su fori per inserti)."
+  consiglio: Faccia piana sul piatto; l'utente la conferma nello slicer.
+
+- titolo: "La slitta destra e' la stessa della sinistra, non uno specchio"
+  gravita: minore
+  dove: "2.02, 2.16, 2.22"
+  cosa: >-
+    Il piano della guida segnava fra i candidati problema "slitta destra: specchiata o la stessa". Nel manifest la
+    trasformata della slitta D e' una rotazione di 180° attorno a Z (matrice con determinante +1, X -> 71,18 - X,
+    Y -> -Y), non uno specchio; gli inserti M2 e il foro M3 della D coincidono con quelli della S ruotati. Anche i
+    regolatori e gli INA260 sono posati ruotati, non specchiati. Per questo la guida stampa due copie dello stesso STL
+    e non marca le slitte. I supporti degli INA260 sono invece l'uno lo specchio dell'altro: i 3544 vertici del D
+    coincidono con quelli dell'S specchiato rispetto a Y (confronto arrotondato a 0,01 mm).
+  prove:
+    - "guida/dati/manifest.json: occorrenze corpo/Corpo_Slitta_Regolatore_S (identita') e _D (-1 0 0 71,18 / 0 -1 0 0 / 0 0 1 0)"
+    - "guida/dati/fori.json via guida.lib.fori: foro_vite S a (35,6; 48; 6) e D a (35,6; -48; 6)"
+    - "build/guida/cad/mesh/Corpo_Supporto_INA260_S.ply e _D.ply: Y specchiato, 3544 vertici su 3544 uguali"
+    - "docs/piano-guida.md, 'Candidati problema'"
+  opzioni:
+    - "Due copie dello stesso STL, ruotate, come nella bozza."
+    - "Specchiare la seconda copia nello slicer: sbagliato, il pezzo e' simmetrico per rotazione e non va specchiato."
+  consiglio: Nessuna azione, salvo scrivere nel README degli STL che le slitte sono due copie dello stesso pezzo, la destra ruotata.
+  esito: "risolto con il manifest: stesso pezzo, nessuno specchio"
+
+- titolo: "Gli inserti M3 del corpo sono 28 nel CAD e 30 nel BOM, e la somma del BOM fa 96"
+  gravita: minore
+  dove: "2.25"
+  cosa: >-
+    La riga "Inserti a caldo" del BOM dice 94 M3 ("30 nel corpo, nelle gondole e nella chiglia, 24 nelle coxe, 18 nelle
+    tibie, 24 nei femori"): 30 + 24 + 18 + 24 = 96. Dai fori del CAD: Base 26, chiglia 2 (28 nel corpo), coxe 4 × 6,
+    tibie 3 × 6, femori B 4 × 6: 94, come il totale del BOM e come il controllo totali_inserti della guida. Anche M2:
+    28 dal CAD senza le predisposizioni, come il BOM.
+  prove:
+    - "docs/BOM.md:120"
+    - "guida.lib.fori su guida/dati/fori.json: Corpo_Base inserto_m3 26, Corpo_Chiglia 2, Coxa 4, Tibia 3, Femore_B 4"
+    - ".venv/bin/python -m guida.costruisci controlla: totali_inserti ok"
+  opzioni:
+    - "Correggere il testo del BOM in '28 nel corpo' nella 2.1.7."
+  consiglio: "Correggere il BOM: i 94 vengono dal CAD."
+  esito: "il totale 94 e' giusto; il '30 nel corpo' del BOM e' un errore di testo"
+
+- titolo: "Il README dice un pixel nelle sedi del fondo dell'anello, D-068 ne mette due"
+  gravita: minore
+  dove: "2.19"
+  cosa: >-
+    cad/stl/README.md (Corpo_Fondo_Anello.stl) scrive "nelle due sedi va un pixel di striscia ciascuna". D-068 porta la
+    striscia a 120 LED/m e dice che una sede da 16,7 mm porta 2 pixel: l'anello ne ha 4, come docs/predisposizioni.md
+    (X11). Il README e' del 10 ottobre, precedente a D-068.
+  prove:
+    - "cad/stl/README.md:35"
+    - "docs/decisioni.md D-068 (sede da 16,7 mm = 2 pixel)"
+    - "docs/predisposizioni.md, riga X11 (4 pixel di X9, 2 per sede)"
+  opzioni:
+    - "Correggere il README nella 2.1.7."
+  consiglio: Correggere il README; la guida dice 2 pixel per sede.
+
+- titolo: "Il colore delle lunette dei microfoni non e' dato"
+  gravita: minore
+  dove: "2.03, 2.20"
+  cosa: >-
+    Il README scrive solo "PLA" per Corpo_Lunette_Microfoni, il BOM non le cita fra i pezzi in E2b (nero), il componente
+    nel CAD ha l'aspetto "Esa PLA nero". La bozza scrive PLA nero [S].
+  prove:
+    - "cad/stl/README.md:38"
+    - "docs/BOM.md E2b (fascia, visiera, gonne, sportellino, intarsi)"
+    - "guida/dati/manifest.json: Corpo_Lunette_Microfoni aspetto 'Esa PLA nero'"
+  opzioni:
+    - "PLA nero, come l'aspetto nel CAD."
+    - "PLA bianco: stanno sotto il carapace e non si vedono."
+  consiglio: PLA nero; aggiungere le lunette alla riga E2b del BOM.
+  domanda: "Le lunette dei microfoni vanno in PLA nero o bianco? Stanno sotto il carapace."
+
+- titolo: "Parametri di stampa dati solo per il PETG-CF e il piedino"
+  gravita: minore
+  dove: "2.01, 2.23"
+  cosa: >-
+    Il README dice 3 perimetri, 4-5 strati sopra e sotto e riempimento 25 % per il PETG-CF, e D-064 4 perimetri per il
+    piedino. Per il PLA, per il PETG fumé del diffusore e per il TPU (velocita', temperature, riempimento) non ci sono
+    valori. Le tolleranze accettabili sui pezzi stampati non sono date: c'e' solo il restringimento dei fori di
+    0,1-0,2 mm (D-056, scritto per lo sportellino). La bozza lascia la scelta allo slicer, come CLAUDE.md ("stampa e
+    supporti li controlla l'utente") e marca [C] le tolleranze.
+  prove:
+    - "cad/stl/README.md:40 (parti in PETG-CF: 3 perimetri, 4-5 strati, 25 %)"
+    - "docs/decisioni.md D-064 (piedino: parete e suola da 1,6, quattro perimetri), D-056 (fori piu' stretti di 0,1-0,2)"
+    - "CLAUDE.md, 'Produzione': stampa e supporti li controlla l'utente nello slicer"
+  opzioni:
+    - "Lasciare allo slicer, come ora."
+    - "Registrare nei documenti i valori che l'utente usa, dopo i provini."
+  consiglio: Lasciare allo slicer; dopo i provini scrivere nel README i valori e le tolleranze che funzionano.

@@ -1,0 +1,368 @@
+# Sezione 7, il corpo (D-075, docs/piano-guida.md "Struttura della guida", F3). Terna del robot, zampa di riferimento AS.
+# Pezzi: Corpo_Base, Corpo_Chiglia, 6 Cuscinetto_Coxa, 6 Servo_Coxa, 2 Wago, Portafusibile_F1, Interruttore, Prese_piedi
+# e Prese_luci. Giunzioni: chiglia_ant, chiglia_post, alette_coxa_albero e alette_coxa_coda (accostate; si stringono
+# nella sezione 9, passo 9.08: guida/problemi/riconciliazione.yaml, prima allocazione).
+# Ordine: i cuscinetti si premono dal fondo delle gondole PRIMA della chiglia (la flangia sporge sotto il fondo e dopo la
+# chiglia sotto restano 8,65 mm), la chiglia prima dei servo (la base si gira), le sedi dopo. Le spie dei rail (X13) vanno
+# PRIMA del portafusibile (7.09 prima di 7.11): la linguetta resta a 0,6 mm dal suo fianco. Inserti a caldo: si mettono nella sezione 3 (passi
+# 3.10-3.14, la guida li dice pezzo per pezzo e quando); qui si controllano soltanto (passo 7.02).
+sezione:
+  id: corpo
+  numero: 7
+  titolo: Il corpo
+  colore: "#7048e8"
+  terna: robot
+  istanza: AS
+  presenti_iniziali: []
+  obiettivo: >-
+    Montare lo scafo: sei cuscinetti nel fondo delle gondole, la chiglia sotto il tunnel, i sei servo di coxa nelle
+    gondole, poi le sedi in coda e sul tetto: due Wago, spie dei rail, interruttore 2813, portafusibile F1 e le file
+    di prese dei piedi e delle luci. Le zampe, l'elettronica e la batteria vengono dopo.
+  prima:
+    - "Provini della culla e degli inserti fatti, valori riportati nel CAD (sezione 1)."
+    - "Base, chiglia e le altre parti stampate controllate (sezione 2)."
+    - "Inserti a caldo messi: 26 M3 e 8 M2 nella base, 2 M3 nella chiglia (sezione 3)."
+    - "Sei servo provati, numerati, a metà corsa e senza gommini (sezione 5)."
+    - "Scelto se montare spie dei rail (X13), prese dei piedi (X5) e prese delle luci (X31): conviene farlo durante il corpo."
+  tempo: "circa 2 ore la prima volta [S]; 20 minuti in più con spie e prese"
+  stato_elettrico: "nessuno: niente è collegato. Il portafusibile resta senza fusibile fino alla sezione 12."
+  fonti: [D-075, docs/piano-guida.md "Struttura della guida"]
+  attrezzi: [calibro]
+  controllo:
+    - "I sei cuscinetti girano liberi e la flangia appoggia sul fondo di ogni gondola."
+    - "La chiglia è a filo del tunnel, senza gradini, con le quattro viti strette."
+    - "I sei servo sono nelle gondole, albero in alto, coda verso l'esterno; le quattro viti delle alette sono accostate, non strette."
+    - "I numeri dei sei servo sono nella tabella del passo 7.06."
+    - "I due Wago, la 2813 e il portafusibile stanno fermi nelle loro sedi."
+    - "Con le spie: due LED nelle linguette di coda. Con le prese: due file di sei spine nelle scanalature del tetto."
+    - "Le spine dei cavi di coxa sono libere sopra le baie, non collegate."
+  vista_finale: corpo_alto
+
+passi:
+  - id: "7.01"
+    titolo: Base
+    formato: grande
+    nuovi: [corpo/Corpo_Base]
+    vista: corpo_alto
+    testo:
+      - "Controlla le sei sedi dei cuscinetti sul fondo delle gondole: Ø 10 mm nominale [C], senza bave."
+      - "Controlla finestre e fessure dei cavi, verso il centro di ogni gondola: la spina JR deve passare."
+      - "Togli le bave di stampa da sedi, fessure e finestre."
+    avvisi:
+      - {tipo: nota, testo: "Le sedi hanno le misure del provino della culla (sezione 1); la base si stampa con il fondo sul piatto (D-056)."}
+    attrezzi: [tronchesino]
+    fonti:
+      - "D-049"
+      - "D-056"
+      - "cad/stl/README.md, Corpo_Base.stl e Provino della culla"
+      - "cad/script/corpo.py gondola"
+
+  - id: "7.02"
+    titolo: Controllo degli inserti
+    formato: grande
+    in_evidenza: [corpo/Corpo_Base]
+    vista: corpo_alto
+    etichette:
+      - {testo: A, punto: [112.5, 57.0, 1.6]}
+      - {testo: C, punto: [40.0, 22.5, 28.4]}
+      - {testo: D, punto: [35.6, 48.0, 6.0]}
+      - {testo: E, punto: [75.0, 12.5, -4.0]}
+      - {testo: F, punto: [18.8, 24.2, -1.4]}
+      - {testo: G, punto: [38.5, -7.5, -5.4]}
+    testo:
+      - "Controlla gli inserti della tabella: a filo, dritti, con il filetto pulito."
+      - "Controlla che i 12 fori lato albero delle gondole siano senza inserto, Ø 2,5 mm [V]."
+    tabella:
+      intestazione: ["Gruppo", "Inserti e dove", "Si usano"]
+      righe:
+        - ["A", "12 M3, bugne delle gondole, lato coda, aperti in alto", "sezione 9"]
+        - ["B", "4 M3, fondo della base, aperti in basso", "passo 7.04"]
+        - ["C", "4 M3, colonnine del tetto", "sezione 13"]
+        - ["D", "2 M3, pareti delle baie anteriori", "sezione 8"]
+        - ["E", "4 M3, bugne del vassoio", "sezione 8"]
+        - ["F", "4 M2, bugne della SSC-32", "sezione 8"]
+        - ["G", "4 M2, sotto il vassoio, per IMU e ADC", "sezione 8, X4 e X6"]
+    avvisi:
+      - {tipo: importante, testo: "A e B si mettono prima dei passi 7.04 e 7.05: dopo li coprono la chiglia e le alette dei servo (sezione 3)."}
+      - {tipo: nota, testo: "Nei fori pilota lato albero la vite si fa il filetto: niente inserti (D-049). I 2 M3 dello sportello stanno nella chiglia (sezione 11)."}
+    fonti:
+      - "D-049"
+      - "D-051"
+      - "D-052"
+      - "D-053"
+      - "D-054"
+      - "D-066"
+      - "D-074"
+      - "docs/BOM.md, Viteria e inserti contati dal modello"
+      - "cad/script/corpo.py fai_base e fai_base_predisposizioni"
+      - "guida/dati/fori.json, Corpo_Base e Corpo_Chiglia"
+      - "guida/passi/03-inserti.yaml, passi 3.10-3.14"
+
+  - id: "7.03"
+    titolo: Cuscinetti delle coxe
+    formato: grande
+    nuovi: [corpo/Cuscinetto_Coxa_*]
+    esploso: {asse: [0, 0, -30], distanza: 30}
+    vista: corpo_sotto
+    volte: 6
+    testo:
+      - "Posa la base su due listelli sotto le pareti del tunnel, con le sei gondole libere [C]."
+      - "Premi un cuscinetto nella sede dal fondo della gondola, flangia verso fuori."
+      - "Premi fino a quando la flangia appoggia sul fondo della gondola."
+      - "Controlla che l'anello interno giri libero con un dito."
+    avvisi:
+      - {tipo: attenzione, testo: "Spingi solo sulla flangia, mai sull'anello interno: col pollice, o con un tubetto Ø esterno ≤ 11,5 mm e interno ≥ 8 mm [C]."}
+      - {tipo: importante, testo: "Prima della chiglia: dopo, fra la flangia e il piano d'appoggio restano 8,65 mm [V] e il cuscinetto non si preme più."}
+      - {tipo: nota, testo: "Dietro il cuscinetto il foro è Ø 7,2 mm [V]. Il perno entra dopo, con la coxa (sezione 9)."}
+    attrezzi: [tubetto_cuscinetti]
+    fonti:
+      - "D-047"
+      - "D-049"
+      - "docs/progetto-meccanico.md, Vincoli che la zampa pone al corpo"
+      - "docs/ricerca/corpo-disposizioni.json, accesso_e_montaggio, punto 2"
+      - "cad/script/corpo.py gondola, sede_cuscinetto"
+      - "cad/script/assieme.py pose_corpo"
+      - "guida/problemi/corpo.yaml, Come si tiene la base"
+      - "guida/problemi/zampa.yaml, Come si preme il cuscinetto del ginocchio"
+
+  - id: "7.04"
+    titolo: Chiglia
+    formato: grande
+    nuovi: [corpo/Corpo_Chiglia]
+    giunzioni: [chiglia_ant, chiglia_post]
+    esploso: {asse: [0, 0, -45], distanza: 45}
+    vista: corpo_sotto
+    testo:
+      - "Gira la base con il fondo verso l'alto, su un panno [C]."
+      - "Posa la chiglia sul fondo: le due orecchie lunghe davanti, le due corte dietro."
+      - "Accosta le due viti M3 × 16 davanti, nelle orecchie lunghe."
+      - "Accosta le due viti M3 × 8 dietro, nelle orecchie corte."
+      - "Controlla che il bordo interno del tunnel sia a filo con la chiglia, senza gradini."
+      - "Stringi le quattro viti."
+    avvisi:
+      - {tipo: importante, testo: "Nel tunnel il pacco ha 1,3 mm d'aria per lato: un gradino fra base e chiglia blocca la batteria (D-056)."}
+      - {tipo: nota, testo: "Niente labbro di centraggio: la chiglia si centra con le quattro viti nei fori da 3,4 mm, entro ±0,2 mm (D-056)."}
+    fonti:
+      - "D-051"
+      - "D-054"
+      - "D-056"
+      - "docs/BOM.md, Viteria e inserti contati dal modello"
+      - "cad/script/corpo.py fai_chiglia"
+      - "guida/catalogo/giunzioni.yaml"
+
+  - id: "7.05"
+    titolo: Servo di coxa
+    formato: grande
+    nuovi: [corpo/Servo_Coxa_*]
+    giunzioni: [alette_coxa_albero, alette_coxa_coda]
+    esploso: {asse: [0, 0, 45], distanza: 45}
+    vista: corpo_alto
+    volte: 6
+    etichette:
+      - {testo: AS, chiave: corpo/Servo_Coxa_AS}
+      - {testo: MS, chiave: corpo/Servo_Coxa_MS}
+      - {testo: PS, chiave: corpo/Servo_Coxa_PS}
+      - {testo: AD, chiave: corpo/Servo_Coxa_AD}
+      - {testo: MD, chiave: corpo/Servo_Coxa_MD}
+      - {testo: PD, chiave: corpo/Servo_Coxa_PD}
+    testo:
+      - "Infila la spina del cavo nella finestra della gondola, da dentro, verso il centro."
+      - "Cala il servo dall'alto: albero in alto, coda verso l'esterno, passacavo nella fessura."
+      - "Controlla che le alette appoggino sulle bugne, senza gioco."
+      - "Accosta le due viti M3 × 8 lato albero, nei fori pilota."
+      - "Accosta le due viti M3 × 8 lato coda, negli inserti."
+    avvisi:
+      - {tipo: importante, testo: "La spina passa nella finestra prima di calare il servo: dopo il passacavo la blocca (D-049)."}
+      - {tipo: importante, testo: "Non stringere: le viti delle alette si stringono per ultime, a zampa montata (D-049)."}
+      - {tipo: nota, testo: "Il servo è lo stesso a destra e a sinistra, ruotato come la gondola. Dopo la coxa le viti lato coda si raggiungono solo con la coxa a 30°: si stringono nel passo 9.08."}
+    fonti:
+      - "D-047"
+      - "D-049"
+      - "D-050"
+      - "cad/script/assieme.py coxe e pose_corpo"
+      - "cad/stl/README.md, Provino della culla, punto 1"
+      - "robot/robot.yaml, intestazione sulle zampe come stessa zampa ruotata"
+      - "guida/problemi/corpo.yaml, Viti lato coda del servo di coxa"
+
+  - id: "7.06"
+    titolo: Scheda dei servo di coxa
+    formato: grande
+    immagine: false
+    testo:
+      - "Annota nella tabella il numero scritto su ogni servo, della sezione 5."
+      - "Controlla che l'angolo della coda sia quello della gondola."
+    tabella:
+      intestazione: ["Zampa", "Coda verso", "Cavo [S]", "Canale SSC-32 [C]", "Servo n."]
+      righe:
+        - ["AS", "+30°, avanti a sinistra", "129 mm", "0", ""]
+        - ["MS", "+90°, a sinistra", "70 mm", "6", ""]
+        - ["PS", "+150°, dietro a sinistra", "112 mm", "13", ""]
+        - ["AD", "−30°, avanti a destra", "129 mm", "16", ""]
+        - ["MD", "−90°, a destra", "70 mm", "22", ""]
+        - ["PD", "−150°, dietro a destra", "112 mm", "29", ""]
+    avvisi:
+      - {tipo: nota, testo: "Gli angoli sono dall'avanti, in senso antiorario [V]. I canali sono la proposta di robot.yaml: si controllano al banco, con la SSC-32 montata [C]."}
+      - {tipo: nota, testo: "Il cavo è il percorso fino alla spina sulla SSC-32, su 300 mm utili: il margine è 57–77 % [S]."}
+    fonti:
+      - "D-050"
+      - "robot/robot.yaml, canali"
+      - "docs/cablaggio.md 3.2"
+      - "calc/cavi_servo.py"
+      - "cad/script/assieme.py coxe"
+
+  - id: "7.07"
+    titolo: Wago
+    formato: mezzo
+    nuovi: [corpo/Wago_piu, corpo/Wago_meno]
+    nascondi: ["corpo/Servo_Coxa_*"]
+    esploso: {asse: [0, 0, 25], distanza: 25}
+    vista: {direzione: [-0.55, 0.0, 0.84], su: [0, 0, 1]}
+    volte: 2
+    etichette:
+      - {testo: "+", chiave: corpo/Wago_piu}
+      - {testo: "−", chiave: corpo/Wago_meno}
+    testo:
+      - "Cala il Wago dall'alto nella sede della baia posteriore, ingressi dei fili in alto."
+      - "Appoggia il dorso al fianco del tunnel, leve verso la parete della baia."
+      - "Metti il Wago + a sinistra e il Wago − a destra."
+    avvisi:
+      - {tipo: prova, testo: "Il Wago vero entra nella sede senza forzare: gioco 0,2 mm per lato [V], misure del CAD stimate [S]."}
+      - {tipo: nota, testo: "Il negativo è la massa a stella dei rami. Se balla: colla a caldo (D-055)."}
+    fonti:
+      - "D-050"
+      - "D-055"
+      - "docs/cablaggio.md 5, punto 6"
+      - "cad/script/corpo.py fai_base, wago_spalla"
+      - "cad/script/assieme.py pose_corpo"
+      - "guida/problemi/corpo.yaml, Sedi di Wago e portafusibile"
+
+  - id: "7.08"
+    titolo: Interruttore 2813
+    formato: mezzo
+    nuovi: [corpo/Interruttore]
+    nascondi: ["corpo/Servo_Coxa_*"]
+    esploso: {asse: [0, 0, 25], distanza: 25}
+    vista: corpo_coda
+    testo:
+      - "Cala la 2813 dall'alto fra le due guide, dietro il posto della SSC-32."
+      - "Infila i bordi del circuito nelle scanalature, fino in fondo."
+      - "Controlla che i componenti guardino avanti, verso la SSC-32."
+      - "Controlla che sotto il circuito restino 5 mm liberi per i fili."
+    avvisi:
+      - {tipo: nota, testo: "Si regge con i bordi nelle scanalature, senza viti: i fori della 2813 non sono pubblicati [C]. I fili si saldano nella sezione 8."}
+    fonti:
+      - "D-059"
+      - "D-066"
+      - "docs/progetto-meccanico.md, Predisposizioni della versione 2.1.0 nel corpo"
+      - "cad/script/corpo.py fai_base_predisposizioni, guida_2813"
+      - "cad/script/assieme.py pose_corpo"
+      - "guida/problemi/corpo.yaml, Fili e pulsantino della 2813"
+
+  - id: "7.09"
+    titolo: Spie dei rail
+    formato: mezzo
+    nascondi: ["corpo/Servo_Coxa_*"]
+    vista: {direzione: [-0.9, 0.25, 0.4], su: [0, 0, 1]}
+    volte: 2
+    etichette:
+      - {testo: LED, punto: [-85.4, 19.0, 0.0]}
+      - {testo: LED, punto: [-85.4, -19.0, 0.0]}
+    testo:
+      - "Infila il LED giallo Ø 3 mm nel foro della linguetta, dal lato del portafusibile [C]."
+      - "Gira la lente verso la coda: si vede dalla porta di servizio."
+      - "Lascia i reofori lunghi: resistenza e fili si saldano nella sezione 8."
+    avvisi:
+      - {tipo: opzionale, x: X13, quando: meglio_ora, testo: "Prima del portafusibile: dopo restano 0,6 mm [V] davanti alla linguetta e il LED non si infila più. Senza spie salta questo passo."}
+    extra:
+      - {nome: "LED giallo Ø 3 mm, 590 nm", qta: 2, bom: X13}
+    fonti:
+      - "D-066"
+      - "D-068"
+      - "D-069"
+      - "docs/predisposizioni.md, X13"
+      - "docs/cablaggio.md 3.1, Spie dei rail"
+      - "cad/script/corpo.py fai_base_predisposizioni, linguetta_spia"
+      - "guida/problemi/corpo.yaml, Spie dei rail"
+
+  - id: "7.10"
+    titolo: Prese dei piedi e delle luci
+    formato: mezzo
+    nuovi: [corpo/Prese_piedi, corpo/Prese_luci]
+    nascondi: ["corpo/Servo_Coxa_*"]
+    esploso: {asse: [0, 0, 20], distanza: 20}
+    vista: corpo_alto
+    etichette:
+      - {testo: piedi, chiave: corpo/Prese_piedi}
+      - {testo: luci, chiave: corpo/Prese_luci}
+    testo:
+      - "Posa la fila di sei spine nella scanalatura del tetto, spine in alto."
+      - "Metti la fila dei piedi a sinistra e quella delle luci a destra."
+      - "Non fissarle: come si tengono e come si collegano non è deciso [C]."
+    avvisi:
+      - {tipo: opzionale, x: "X5 X31", quando: anche_dopo, testo: "Prese dei piedi a sinistra, delle luci a destra: si montano anche a carapace tolto. Senza FSR o senza luci salta la fila."}
+    fonti:
+      - "D-066"
+      - "D-069"
+      - "docs/cablaggio.md 3.3 e 5, punto 1"
+      - "docs/predisposizioni.md, X5"
+      - "cad/script/corpo.py _prese"
+      - "cad/script/rif_componenti.py, pre_l"
+      - "guida/problemi/corpo.yaml, Prese dei piedi e delle luci"
+
+  - id: "7.11"
+    titolo: Portafusibile F1
+    formato: grande
+    nuovi: [corpo/Portafusibile_F1]
+    nascondi: ["corpo/Servo_Coxa_*"]
+    esploso: {asse: [0, 0, 30], distanza: 30}
+    vista: {direzione: [-0.9, 0.25, 0.4], su: [0, 0, 1]}
+    testo:
+      - "Togli il fusibile dal portafusibile, se c'è: si mette nella sezione 12."
+      - "Prova il portafusibile a secco fra le due costole del tetto, di traverso."
+      - "Posa il portafusibile in sede, con le uscite dei fili verso le due fessure del tetto."
+      - "Infila la fascetta nelle due fessure, a x ≈ −76 mm [V], sopra il portafusibile."
+      - "Stringi la fascetta senza schiacciare i fili, poi taglia il codolo."
+    avvisi:
+      - {tipo: prova, testo: "Fra le costole c'è luce di 22,4 mm [V] contro 22 mm stimati per il portafusibile [S]: deve entrare senza forzare. Controlla con il calibro."}
+      - {tipo: nota, testo: "Il T-plug si appoggia sopra F1, tenuto dai suoi cavi: non fissarlo ora (D-055). F1 parte da 15 A, poi 30 A (BOM B4)."}
+    extra:
+      - {nome: "fascetta 2,5 mm", qta: 1, bom: D11}
+    attrezzi: [calibro, tronchesino]
+    fonti:
+      - "D-051"
+      - "D-055"
+      - "docs/BOM.md, B4 e B5"
+      - "cad/script/corpo.py fai_base, costola_f1 e fessura_cavi"
+      - "cad/script/assieme.py pose_corpo"
+      - "guida/problemi/corpo.yaml, Sedi di Wago e portafusibile"
+
+  - id: "7.12"
+    titolo: Cavi dei servo di coxa
+    formato: grande
+    vista: corpo_alto
+    etichette:
+      - {testo: "AS 0", punto: [66.8, 36.4, 12.0]}
+      - {testo: "MS 6", punto: [0.0, 32.8, 12.0]}
+      - {testo: "PS 13", punto: [-66.8, 36.4, 12.0]}
+      - {testo: "AD 16", punto: [66.8, -36.4, 12.0]}
+      - {testo: "MD 22", punto: [0.0, -32.8, 12.0]}
+      - {testo: "PD 29", punto: [-66.8, -36.4, 12.0]}
+    testo:
+      - "Porta ogni cavo fuori dalla finestra, verso il centro, e fallo salire lungo la parete della gondola."
+      - "Dirigi il cavo verso la fila di spine della SSC-32 dello stesso lato, spina in alto."
+      - "Raccogli la scorta in un'ansa nella baia posteriore dello stesso lato, sopra il Wago, senza stringerla [S]."
+      - "Lascia vuote le baie anteriori: sono il camino d'aria dei regolatori."
+    avvisi:
+      - {tipo: importante, testo: "Le spine non si collegano ora: la SSC-32 non c'è ancora. Accanto a ogni servo c'è il suo canale [C], come nella tabella del passo 7.06."}
+      - {tipo: nota, testo: "Il cavo di coxa non attraversa giunti. I pettini per le anse sono in backlog: fino ad allora le anse restano libere (cablaggio.md 3.2)."}
+    fonti:
+      - "D-050"
+      - "D-058"
+      - "docs/cablaggio.md 3.2"
+      - "docs/progetto-meccanico.md, Cavi dei servo"
+      - "docs/ricerca/corpo-v0-revisione.json, riga 92 (cavo di coxa: finestra, fessura, lato verso il centro)"
+      - "calc/cavi_servo.py"
+      - "robot/robot.yaml, canali"
+      - "guida/problemi/corpo.yaml, Anse dei cavi di coxa"
+
+rinviati: []

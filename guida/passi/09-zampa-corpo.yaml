@@ -1,0 +1,287 @@
+# Sezione 9, la zampa pilota sul corpo (D-075, docs/piano-guida.md "Struttura della guida"). F3.
+# Terna del robot, zampa AS: asse della coxa in (80; 44), zampa ruotata di +30 gradi. Le misure di accesso e di
+# percorso sono raggi e prove di contenimento sulle mesh di build/guida/cad/mesh/ con le trasformate di
+# guida/dati/manifest.json (posa di riferimento): guida/problemi/zampa_corpo.yaml le riporta con i numeri.
+# Imbardata positiva = antioraria vista dall'alto, attorno all'asse della coxa.
+sezione:
+  id: zampa_corpo
+  numero: 9
+  titolo: La zampa sul corpo
+  colore: "#e8590c"
+  terna: robot
+  istanza: AS
+  ripeti: 6
+  unita: una zampa
+  ripeti_testo: "6× — la prima qui, le altre cinque con la sezione 10"
+  presenti_iniziali:
+    - corpo/Corpo_Base
+    - corpo/Corpo_Chiglia
+    - "corpo/Servo_Coxa_*"
+    - "corpo/Cuscinetto_Coxa_*"
+    - "corpo/Corpo_Slitta_Regolatore_*"
+    - "corpo/Regolatore_*"
+    - corpo/SSC32
+    - corpo/Corpo_Vassoio
+    - corpo/Basetta
+    - corpo/ESP32
+    - corpo/Camera
+    - corpo/Portafusibile_F1
+    - corpo/Tplug
+    - "corpo/Wago_*"
+    - corpo/Interruttore
+    - corpo/Prese_piedi
+    - corpo/Prese_luci
+    - corpo/ToF_frontale
+    - corpo/IMU
+    - corpo/Corpo_Piastrina_IMU
+    - corpo/ADC
+    - "corpo/INA260_*"
+    - "corpo/Corpo_Supporto_INA260_*"
+  obiettivo: >-
+    Montare sul corpo la zampa della sezione 6: squadretta, coxa sul cuscinetto della gondola, ponte, cavi, viti
+    delle alette di coxa strette per ultime. Poi fili di FSR e luci e misure dei cavi.
+  prima:
+    - "Zampa montata, lama B non montata (sezione 6)."
+    - "Servo di coxa nelle gondole, quattro viti delle alette accostate (sezione 7, passo 7.05)."
+    - "Prove a freddo dell'elettronica fatte (sezione 8, passo 8.28)."
+    - "Inserti a caldo: 2 nella testa dell'anima, 2 lato coda in ogni gondola (sezione 3)."
+    - "Cavalletto stampato (sezione 2)."
+    - "Tester dei servo, alimentato a 6 V (passo 9.08)."
+  tempo: "circa 45 minuti la prima volta [S]"
+  stato_elettrico: "T-plug staccato. Nel passo 9.08 il servo di coxa si muove con il tester, non con il rail."
+  fonti: [D-075, docs/piano-guida.md "Struttura della guida"]
+  controllo:
+    - "La coxa sta in linea con la gondola, il perno nel cuscinetto e il ponte stretto sulla testa dell'anima."
+    - "Le teste delle viti-spina entrano nei fori del ponte; la coxa ha appena 0,3 mm di gioco verticale."
+    - "Le quattro viti delle alette del servo di coxa sono strette."
+    - "I cavi passano nella fascetta del ponte e arrivano alla SSC-32 senza tirare con la coxa a ±30°."
+  scheda:
+    - "Servo di coxa (numero) e dente della squadretta"
+    - "Perno: 1,4 mm sotto il braccio"
+    - "Ponte stretto, gioco verticale"
+    - "Prolunga sul ginocchio (solo zampe d'angolo)"
+    - "Spine sui canali della SSC-32"
+    - "Alette di coxa strette a 30°"
+    - "FSR e luci collegati (X5, X31)"
+  vista_finale: {direzione: [0.3, 0.75, 0.6], su: [0, 0, 1]}
+
+passi:
+  - id: "9.01"
+    titolo: Squadretta sul servo di coxa
+    formato: grande
+    nuovi: [zampa/Squadretta_coxa@AS]
+    esploso: {asse: [0, 0, 1], distanza: 30}
+    vista: {direzione: [0.28, 0.51, 0.8], su: [0, 0, 1]}
+    nascondi: [corpo/Corpo_Base, corpo/Corpo_Chiglia]
+    mostra: [corpo/Corpo_Base, corpo/Corpo_Chiglia, corpo/Servo_Coxa_AS, corpo/Cuscinetto_Coxa_AS]
+    etichette: [{testo: AS, chiave: corpo/Servo_Coxa_AS}]
+    testo:
+      - "Posa il corpo sul cavalletto, con la chiglia in appoggio."
+      - "Controlla che il servo AS sia ancora a metà corsa (sezione 5) [C]."
+      - "Infila la squadretta sull'albero, con due fori opposti di traverso al servo."
+      - "Stringi la vite centrale in dotazione [C]."
+    avvisi:
+      - {tipo: importante, testo: "Non girare l'albero mentre infili la squadretta: un dente di scarto storta la zampa di 14,4° [V]."}
+      - {tipo: nota, testo: "Con 25 denti e 4 fori a 90°, cambiando dente o coppia di fori si trova una posizione entro circa 2° dal traverso [S]."}
+    extra: [{nome: "vite centrale in dotazione con la squadretta", qta: 1, bom: D3}]
+    attrezzi: [cavalletto]
+    fonti: ["docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 3", "docs/software.md 6.7 (B4)", "cad/script/zampa.py ISTANZE (Squadretta_Coxa, fori a Y ±7)", "docs/BOM.md D3 e 'Viti centrali delle squadrette'", "cad/stl/README.md 'Attrezzi da banco'"]
+
+  - id: "9.02"
+    titolo: Viti-spina nella squadretta
+    formato: mezzo
+    giunzioni: [squadretta_coxa_spine]
+    # il ponte serve solo a scegliere i due fori della squadretta coassiali con i suoi (coassiale_con): non si disegna
+    in_evidenza: [zampa/Coxa_Ponte@AS]
+    nascondi: [zampa/Coxa_Ponte@AS, corpo/Corpo_Base, corpo/Corpo_Chiglia]
+    mostra: [corpo/Corpo_Base, corpo/Corpo_Chiglia, corpo/Servo_Coxa_AS, corpo/Cuscinetto_Coxa_AS, zampa/Squadretta_coxa@AS]
+    vista: {direzione: [0.28, 0.51, 0.8], su: [0, 0, 1]}
+    testo:
+      - "Stringi due viti M3 × 5 nei fori di traverso, senza rondella."
+      - "Controlla che le due teste sporgano uguali: sono le spine del ponte."
+    avvisi:
+      - {tipo: importante, testo: "Niente rondella, niente vite più lunga: con M3 × 6 la punta arriva a 0,1 mm dalla torretta del servo (D-049)."}
+    fonti: [D-048, "D-049: niente rondella, viti M3 × 5", "docs/BOM.md 'Squadretta di coxa'", guida/catalogo/giunzioni.yaml]
+
+  - id: "9.03"
+    titolo: Perno nel braccio della coxa
+    formato: mezzo
+    terna: zampa
+    nuovi: [zampa/Perno_coxa@AS]
+    mostra: [zampa/Coxa@AS]
+    esploso: {asse: [0, 0, 1], distanza: 35}
+    vista: zampa_A
+    testo:
+      - "Infila il perno nel foro del braccio, dal lato del rialzo."
+      - "Premi il perno finché sotto il braccio ne sporgono 1,4 mm [V]."
+      - "Misura e annota quanto sporge sopra il rialzo: 5 mm [V]."
+    avvisi:
+      - {tipo: attenzione, testo: "In morsa appoggia il braccio vicino al foro, non la nervatura. Forzamento dal provino del giunto (sezione 1) [C]."}
+    attrezzi: [morsa_morbida, calibro]
+    fonti: ["D-047: perni Ø5 × 12", "D-049 (perni forzati senza ritegno assiale)", "docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 1 (1,4 mm sporgenti)", "cad/script/zampa.py ISTANZE (Perno_Coxa) e fai_coxa (foro_perno)", "guida/dati/fori.json Coxa foro_perno da Z -38,35 a -32,75"]
+
+  - id: "9.04"
+    titolo: Zampa sotto la gondola
+    formato: grande
+    assiemi:
+      - chiavi: "zampa/*@AS"
+        esclusi: [zampa/Squadretta_coxa@AS, zampa/Perno_coxa@AS, zampa/Coxa_Ponte@AS, zampa/Cover_Femore_B@AS,
+                  zampa/Cover_Femore_B_Feritoia@AS, zampa/Ingombro_Teste_A@AS]
+        nome: Zampa montata (sezione 6)
+    nascondi: [zampa/Perno_coxa@AS]
+    esploso: {asse: [0, 0, -1], distanza: 30}
+    vista: {direzione: [0.2, 0.95, 0.25], su: [0, 0, 1]}
+    testo:
+      - "Ruota la zampa di circa 40° [V] rispetto alla gondola, da una parte o dall'altra."
+      - "Tienila 6 mm [V] più in basso e spingila verso il corpo lungo il suo asse."
+      - "Alza la zampa quando il perno è sotto il cuscinetto: il perno entra nel cuscinetto."
+      - "Ruota la zampa in linea con la gondola: la testa dell'anima passa sopra le alette del servo."
+    avvisi:
+      - {tipo: importante, testo: "Non avvicinarla già in linea: a 0° la testa dell'anima tocca le alette appena la zampa scende di 4 mm, e il perno chiede 5 mm [V]."}
+      - {tipo: nota, testo: "A 40° e 6 mm più in basso la zampa non tocca base, servo, cuscinetto e zampe vicine [V, mesh del CAD; C sul pezzo]."}
+    fonti: ["D-048 e D-049: testa dell'anima 1 mm sopra le teste lato coda", "docs/ricerca/zampa-v0-revisione.json 'Montaggio della coxa sul perno' (superato)", "guida/problemi/zampa_corpo.yaml (prove sulle mesh)"]
+
+  - id: "9.05"
+    titolo: Ponte della coxa
+    formato: grande
+    nuovi: [zampa/Coxa_Ponte@AS]
+    giunzioni: [ponte_coxa]
+    esploso: {asse: [0, 0, 1], distanza: 30}
+    mostra: [corpo/Servo_Coxa_AS, zampa/Coxa@AS, zampa/Squadretta_coxa@AS, zampa/Servo_femore@AS]
+    vista: {direzione: [0.28, 0.51, 0.8], su: [0, 0, 1]}
+    testo:
+      - "Controlla i due inserti a filo nella testa dell'anima (sezione 3)."
+      - "Cala il ponte: linguetta nella sede, teste delle viti-spina nei fori, disco nella sede."
+      - "Stringi le due viti M3 × 10 negli inserti."
+      - "Controlla il gioco verticale della coxa: si sente appena, circa 0,3 mm [C]."
+    avvisi:
+      - {tipo: importante, testo: "Se il ponte appoggia sul disco e non sulla testa dell'anima, metti una rondella M3 sotto il ponte su ogni vite [C] (D-048)."}
+      - {tipo: nota, testo: "Il ponte non si avvita alla squadretta: la coppia passa dalle teste delle viti-spina, il peso dal cuscinetto (D-048)."}
+    extra: [{nome: "rondella M3 DIN 125, solo se serve", qta: 2, bom: D7}]
+    fonti: [D-048, "D-049: inserti del ponte a profondità piena", "cad/script/zampa.py fai_ponte e fai_coxa (ins_ponte, sede_linguetta, cox_disco_luce)", guida/catalogo/giunzioni.yaml]
+
+  - id: "9.06"
+    titolo: Cavi sul ponte
+    formato: grande
+    mostra: [corpo/Servo_Coxa_AS, zampa/Coxa@AS, zampa/Coxa_Ponte@AS, zampa/Squadretta_coxa@AS, zampa/Servo_femore@AS]
+    vista: {direzione: [0.28, 0.51, 0.8], su: [0, 0, 1]}
+    etichette: [{testo: fascetta, punto: [100.8, 56.0, 23.5]}]
+    testo:
+      - "Posa i cavi di femore e ginocchio sul braccio del ponte, verso l'asse della coxa."
+      - "Infila una fascetta da 2,5 mm nelle due feritoie del ponte, sopra i cavi."
+      - "Stringi la fascetta con la testa di fianco al braccio; taglia la coda."
+      - "Porta i cavi sopra l'asse della coxa e dentro il corpo, verso la SSC-32."
+    avvisi:
+      - {tipo: opzionale, x: X5 X31, quando: meglio_ora, testo: "Doppino dell'FSR e fili delle luci nella stessa fascetta, insieme al cavo del ginocchio."}
+      - {tipo: nota, testo: "La fascetta sta a X 24 dall'asse della coxa (D-061), non a 28 come dice cablaggio.md."}
+    extra: [{nome: "fascetta 2,5 × 150", qta: 1, bom: D11}]
+    attrezzi: [tronchesino]
+    fonti: ["D-058: fascetta del ponte e gola sotto il braccio", "D-061: fascetta da X 28 a 24, testa di fianco al braccio", "docs/cablaggio.md 3.2 'Femore' e 'Ginocchio'", "cad/script/zampa.py fai_ponte (feritoia_fascetta_a/b, gola_fascetta)"]
+
+  - id: "9.07"
+    titolo: Spine sulla SSC-32
+    formato: grande
+    immagine: false
+    testo:
+      - "Infila la prolunga da 15 cm sulla spina del ginocchio; chiudi la giunzione con il termorestringente."
+      - "Collega le spine ai canali della tabella, filo marrone verso il bordo della scheda [S]."
+      - "Controlla che le spine stiano in alto nei loro gruppi e non tocchino il vassoio."
+    tabella:
+      intestazione: [Servo, "Canale AS [C]", Prolunga]
+      righe:
+        - [Coxa, "0", "no"]
+        - [Femore, "1", "no"]
+        - [Ginocchio, "2", "sì, solo zampe d'angolo"]
+    avvisi:
+      - {tipo: importante, testo: "La prolunga va solo sulle zampe d'angolo AS, PS, AD, PD: sulle medie il cavo basta (docs/cablaggio.md 3.2)."}
+      - {tipo: nota, testo: "Fili del servo: marrone massa, rosso +, arancio segnale [V]. File della SSC-32 dal bordo: massa, VS, segnale [S]."}
+    extra: [{nome: "prolunga JR maschio-femmina 15 cm (solo zampe d'angolo, 4 in tutto)", qta: 1, bom: C5}, {nome: "termorestringente per la giunzione", qta: 1, bom: B19}]
+    attrezzi: [termorestringente]
+    fonti: [robot/robot.yaml canali, "docs/cablaggio.md 3.2 (prolunghe C5, giunzioni con il termorestringente)", "docs/dimensioni-componenti.md 'Servo controller' e 'MG996R' (colori dei fili)", "docs/BOM.md C5, C6"]
+
+  - id: "9.08"
+    titolo: Viti delle alette di coxa, strette
+    formato: grande
+    giunzioni: [{id: alette_coxa_coda, stringi: true}, {id: alette_coxa_albero, stringi: true}]
+    # solo il servo AS: con tutto il corpo la giunzione disegna le viti di tutte e sei le gondole
+    mostra: [corpo/Corpo_Base, corpo/Servo_Coxa_AS, corpo/Cuscinetto_Coxa_AS, zampa/Squadretta_coxa@AS]
+    nascondi: [corpo/Corpo_Base]
+    vista: {direzione: [0.28, 0.51, 0.8], su: [0, 0, 1]}
+    testo:
+      - "Stacca la spina della coxa dalla SSC-32 e collegala al tester dei servo [C]."
+      - "Porta la coxa a 30° con il tester, da una parte o dall'altra: le teste lato coda si scoprono."
+      - "Stringi le due viti M3 × 8 lato coda, accostate nel passo 7.05."
+      - "Stringi le due viti lato albero, accostate nel passo 7.05."
+      - "Riporta la coxa a 1500 µs, stacca il tester e rimetti la spina sul suo canale (9.07)."
+    avvisi:
+      - {tipo: importante, testo: "Non girare la coxa a mano: trascineresti il riduttore. Con la coxa a 0° la testa dell'anima copre le viti lato coda [V]."}
+      - {tipo: attenzione, testo: "Con il tester acceso tieni le dita fuori dalla zampa."}
+      - {tipo: nota, testo: "Strette per ultime, a zampa montata: il servo si allinea al cuscinetto (D-049). A 30° tutte e due le teste sono libere; da 15–20° una sola [V]."}
+    attrezzi: [brugola_dritta_2_5, tester_servo]
+    fonti: ["D-049: viti delle alette strette per ultime", "docs/ricerca/corpo-v0-revisione.json (viti lato coda sotto la testa dell'anima, coxa a ±20–30°)", "docs/ricerca/corpo-disposizioni.json (procedura del servo di coxa)", guida/catalogo/giunzioni.yaml, "guida/problemi/zampa_corpo.yaml (accessi misurati)"]
+
+  - id: "9.09"
+    titolo: Fili di FSR e luci alle prese
+    formato: grande
+    in_evidenza: [corpo/Prese_piedi, corpo/Prese_luci]
+    mostra: [corpo/Corpo_Base, corpo/SSC32, corpo/Corpo_Vassoio, corpo/Wago_*, corpo/Tplug, corpo/Portafusibile_F1, corpo/Interruttore]
+    vista: {direzione: [0.25, 0.2, 0.95], su: [1, 0, 0]}
+    etichette: [{testo: piedi, chiave: corpo/Prese_piedi}, {testo: luci, chiave: corpo/Prese_luci}]
+    testo:
+      - "Porta doppino e fili delle luci lungo il cavo del ginocchio fino alle prese sul tetto del tunnel."
+      - "Taglia i fili lasciando l'ansa che basta con la coxa a ±30° [C]."
+      - "Salda al doppino un capo femmina di prolunga avanzata: segnale e massa, filo centrale isolato [C]."
+      - "Salda ai fili delle luci un altro capo femmina: massa, +5 V, dato [C]."
+      - "Chiudi le giunzioni con il termorestringente."
+      - "Collega l'FSR alla presa AS dei piedi e le luci alla presa AS delle luci [C]."
+    avvisi:
+      - {tipo: opzionale, x: X5 X31, quando: meglio_ora, testo: "Dopo bisogna togliere il carapace. Senza FSR e luci salta questo passo."}
+      - {tipo: attenzione, testo: "Sul doppino dell'FSR solo segnale e massa, mai il 3,3 V (cablaggio.md 3.3)."}
+      - {tipo: nota, testo: "Misura e annota la lunghezza dei fili tagliati: vale per le altre cinque zampe (cablaggio.md 5, punto 4)."}
+    extra: [{nome: "capo femmina di una prolunga C5 avanzata", qta: 2, bom: C5}]
+    attrezzi: [saldatore, spelafili, tronchesino, termorestringente]
+    fonti: ["docs/cablaggio.md 3.3 e 5 (punti 1 e 4)", D-069, "docs/predisposizioni.md X5 e X31", "robot/robot.yaml zampe (ordine AS…PD)"]
+
+  - id: "9.10"
+    titolo: Misure dei cavi per i pettini
+    formato: grande
+    immagine: false
+    testo:
+      - "Porta la coxa a 0°."
+      - "Misura e annota per ogni cavo la lunghezza dall'ingresso nel corpo alla spina [C]."
+      - "Misura e annota quanto cavo avanza con la spina inserita: è l'ansa che il pettine deve tenere [C]."
+    tabella:
+      intestazione: [Cavo AS, "Percorso dal CAD [S]", Misurato]
+      righe:
+        - [Coxa, "129 mm", ""]
+        - [Femore, "180 mm", ""]
+        - [Ginocchio, "295 mm più la prolunga", ""]
+    avvisi:
+      - {tipo: nota, testo: "Servono per disegnare i pettini sulla parete del tunnel sopra i Wago, dopo questa zampa (CLAUDE.md, backlog)."}
+    attrezzi: [calibro]
+    fonti: ["CLAUDE.md, Backlog 'Pettini dei cavi dei servo'", "docs/cablaggio.md 3.2 (percorsi da calc/cavi_servo.py) e 5 (punto 5)"]
+
+# Riconciliazione F3 (guida/problemi/riconciliazione.yaml): la prova B5 con il rail acceso non si fa qui. In questa
+# sezione la batteria non c'e' (sezione 11) e la prima accensione del corpo e' la 12, che fa la taratura con le dime
+# per tutte le zampe (12.11, 12.12). Il passo resta qui com'era, fuori dalla guida.
+rinviati:
+  - id: "9.09"
+    titolo: Prova B5 della zampa
+    formato: grande
+    immagine: false
+    testo:
+      - "Controlla che la lama B non sia montata: le dime si infilano sui perni del femore dal lato B."
+      - "Accendi con F1 da 15 A, come nella sezione 8 [C]."
+      - "Fai la prova B5 con tools/hexa banco [C]: limiti dei giunti, tabella del ginocchio, taratura con le dime 1 e 2."
+      - "Annota gli scarti della taratura nella scheda della zampa."
+      - "Spegni e stacca il T-plug."
+    tabella:
+      intestazione: [Dima, Imbardata, Femore, Ginocchio]
+      righe:
+        - ["Posa 1", "0°", "0°", "90°"]
+        - ["Posa 2", "30°", "45°", "135°"]
+    avvisi:
+      - {tipo: attenzione, testo: "Servo sotto carico: mani fuori dalla zampa mentre si muove; T-plug a portata."}
+      - {tipo: prova, testo: "La zampa raggiunge le due pose senza urti e senza servo che ronzano fermi; prima della taratura lo scarto sta entro ±7,2° [C]."}
+    attrezzi: [cavalletto, dime_posa]
+    fonti: ["docs/software.md 6.7 (B4, B5)", "cad/stl/README.md 'Attrezzi da banco' (Dima_Posa_1/2, cavalletto)", docs/piano-guida.md "Struttura della guida", "guida/problemi/zampa_corpo.yaml (B5 prima della sezione 12)"]

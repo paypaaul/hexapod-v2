@@ -1,4 +1,5 @@
-# Problemi trovati scrivendo la sezione 6, la zampa (D-075, formato in guida/schema.md "Problemi"). F2: tibia.
+# Problemi trovati scrivendo la sezione 6, la zampa (D-075, formato in guida/schema.md "Problemi"). F2: tibia; F3: coxa,
+# femore, calettamento, alette, cavi e lama A (in fondo, dopo quelli della F2). Numeri dei passi dopo la F3 (6.01-6.26).
 # Coordinate nella terna della zampa (mm): X verso l'esterno (il fronte della tibia), Y lungo l'asse del femore verso
 # il lato A, Z in alto; asse del ginocchio in X 120, Z 0. Le misure sulle mesh sono raggi lanciati su
 # build/guida/cad/mesh/*.ply con le trasformate di guida/dati/manifest.json (posa di riferimento, gamma 90).
@@ -6,7 +7,7 @@
 
 - titolo: Il guscio della tibia copre una vite delle alette, che D-049 vuole stretta per ultima
   gravita: importante
-  dove: "6.04, rinviati 6.R1 e 6.R2"
+  dove: "6.04, 6.21, 6.22, 6.23"
   cosa: >-
     Il fianco +Y del guscio (Y 24,55-26,15, da X 120 al fronte, da Z -16 in giu') sta sopra la vite d'aletta lato coda
     verso il fronte: asse a X 125, Z -34,65 (ins_coda, spostato di 0,4 lungo l'asola; -34,25 e' il foro dell'aletta).
@@ -29,7 +30,7 @@
 
 - titolo: Le viti delle alette del ginocchio si raggiungono solo con la lama A tolta, il ginocchio fra 45 e 75 gradi e un cacciavite a brugola dritto
   gravita: importante
-  dove: "6.04 e il passo delle alette strette (F3)"
+  dove: "6.04, 6.20, 6.21"
   cosa: >-
     Chiave lungo +Y sulle quattro viti, ruotando il femore attorno all'asse del ginocchio a passi di 15 gradi
     (gamma da 0 a 150): lato albero X 114,4 coperta da Femore_A per gamma >= 90; lato albero X 125,6 coperta da
@@ -71,7 +72,7 @@
 
 - titolo: La testa della vite del guscio appoggia su una faccia inclinata di circa 12,6°, e l'avviso dei 0,03 mm oltre il fondo e' falsato
   gravita: importante
-  dove: "rinviati 6.R2"
+  dove: "6.23"
   cosa: >-
     La vite M3 x 10 del guscio entra dal fronte (X circa 133) verso -X. Sotto la testa Ø5,5 il fronte del guscio e'
     inclinato di circa 12,6° (pendenza 0,22-0,23): va da X 133,37 (Z -85,25) a 132,14 (Z -90,75), 1,23 mm di
@@ -209,7 +210,7 @@
 
 - titolo: predisposizioni.md descrive ancora la finestra del guscio chiusa da 0,6 di bianco
   gravita: minore
-  dove: "rinviati 6.R1"
+  dove: "6.22"
   cosa: >-
     Nella tabella delle predisposizioni, X31 dice 'finestra chiusa da 0,6 di bianco, sede sullo stinco: da decidere
     prima di stampare i gusci. Cambia il guscio approvato in D-061: domanda 5'. D-066 ha scelto il diffusore
@@ -224,7 +225,7 @@
 
 - titolo: Fascette dei cavi della zampa con quote e riferimenti diversi fra cablaggio.md e D-061
   gravita: minore
-  dove: "passi dei cavi della zampa (F3)"
+  dove: "6.24"
   cosa: >-
     docs/cablaggio.md 3.2 dice che la fascetta del ponte sta nelle feritoie a X 28 (D-058) e cita D-060 per la
     fascetta dentro il blocco del femore. D-061 ha spostato la fascetta del ponte a X 24 (cox_fascetta_x 24 in
@@ -238,7 +239,7 @@
 
 - titolo: Luci nelle tibie e colore del diffusore non ancora decisi
   gravita: minore
-  dove: "6.05, 6.08, rinviati 6.R1"
+  dove: "6.05, 6.08, 6.22"
   cosa: >-
     X31 e' approvata come predisposizione (D-069) ma l'utente non ha deciso se montare le luci, ne' il colore del
     diffusore (PLA bianco o PETG traslucido fume', D-066, provino X10). La bozza li tratta come opzionali 'meglio ora'
@@ -250,3 +251,133 @@
   consiglio: Decidere prima della sezione 6; il provino di luce (X10) dice il colore.
   esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
   domanda: "Monti le luci nelle tibie? Se si', diffusore bianco o fume' (dopo il provino di luce)?"
+
+# ------------------------------------------------------------------------------------------------------------ F3
+# Raggi della F3: script in Python con numpy sulle mesh di build/guida/cad/mesh (Moller-Trumbore), femore ruotato
+# attorno all'anca (X 55, Z 0) di +alfa (alfa positivo: ginocchio in alto), tibia ruotata attorno al ginocchio
+# (X 120, Z 0) di gamma - 90 rispetto al femore. Chiave: fascio di 13 raggi su Ø2,8 lungo +Y dalla testa della vite
+# (Y 15). Caso di controllo: gli intervalli del ginocchio della F2 escono identici (lato albero X 114,4 coperta per
+# gamma >= 90, X 125,6 per gamma >= 135; lato coda X 115 coperta per gamma <= 30, X 125 per gamma <= 15).
+
+- titolo: Le viti delle alette del servo del femore si raggiungono solo con il femore fra −8° e −49°
+  gravita: importante
+  dove: "6.20, 6.21"
+  cosa: >-
+    Con Femore_A montato la vite lato albero a X 60,6 (Z 13,75) e' coperta da Femore_A (raggio fermo a Y 28,2) per
+    alfa da −7° in su, quindi anche nella posa come costruita (0°) e in quella del calettamento (+20°); quella a X 49,4
+    e' coperta da +40° in su. Le due viti lato coda (X 50 e 60, Z −34,65) sono libere a ogni alfa. La lama A le copre
+    tutte. A passi di 1° con gamma 60 le quattro viti sono libere per alfa da −49° a −8°. Con alfa −25° le quattro viti
+    del ginocchio sono libere per gamma da 40° a 82°; il ginocchio minimo a −25° e' 46° (+3 di margine). Nella posa
+    alfa −25°, gamma 60° le otto viti si raggiungono tutte con una chiave dritta lungo +Y, a lama A e guscio non
+    montati; con il guscio la vite lato coda del ginocchio a X 125 torna coperta, come nel primo problema. Era il
+    candidato "vite d'aletta del servo del femore sotto Femore_A" di docs/piano-guida.md.
+  prove:
+    - "guida/dati/fori.json: Servo_femore alette a X 50/60, Z 13,75 e −34,25; Coxa pilota_corto_a/b X 49,4 e 60,6, ins_coda_a/b Z −34,65"
+    - "raggi della F3 (metodo in testa a questa parte): alfa da −45 a +85 a passi di 5 con gamma 90 e 135, poi a passi di 1 da −49 a −4 con gamma 60; gamma da 40 a 90 a passi di 2 con alfa −25"
+    - "docs/progetto-meccanico.md, tabella del ginocchio minimo (alfa −25: 46)"
+    - "docs/piano-guida.md 'Candidati problema'"
+  opzioni:
+    - "Posa per le alette in 6.20 (alfa circa −25°, gamma circa 60°) portata con il banco dei servo: nessun cambio al CAD."
+    - "Foro d'accesso Ø3 in Femore_A sopra la vite lato albero a X 60,6 (cambia il pezzo e la lama A lo copre comunque)."
+  consiglio: Posa di 6.20, come per il ginocchio; nessun cambio al CAD.
+
+- titolo: Il calettamento a α +20° e γ 100° non ha un riferimento sul pezzo
+  gravita: importante
+  dove: "6.16, 6.17"
+  cosa: >-
+    Le fonti fissano il calettamento (servo a 1500 µs con alfa +20° e gamma 100°) ma non dicono come si riconoscono gli
+    angoli: la coxa e' sciolta e la guida li fa tenere a occhio [C]. Con 25 denti la linea dei fori resta entro ±7,2°
+    se la posa e' giusta; se l'angolo tenuto sbaglia di piu' di qualche grado si puo' scegliere il dente accanto e lo
+    scarto arriva a circa ±12°. La corsa di ±80° attorno al calettamento copre alfa da −60 a +100 (campo libero da −49
+    a +85: 11° e 15° di margine) e gamma da 20 a 180 (campo libero da 29 a 180: 9° e 0°). Gia' con lo scarto massimo
+    di −7,2° sul ginocchio la corsa arriva a 172,8°, sotto i 177° del limite del firmware.
+  prove:
+    - "robot/robot.yaml:48 (calettamento alpha 20, gamma 100) e :61 (corsa_servo 80)"
+    - "docs/progetto-meccanico.md:76; docs/software.md:220, 2.7 (25 denti, ±7,2°) e :652 (B4)"
+    - "firmware/README.md:102 (ginocchio fino a 177°, corsa ±80° attorno al calettamento)"
+    - "docs/piano-guida.md 'Candidati problema': calettamento senza riferimento"
+  opzioni:
+    - "Dima del calettamento stampata nella 2.1.7: come Dima_Posa_1, infilata sui perni di Femore_B dal lato B, con i denti a alfa +20° e gamma 100° (attrezzi.py)."
+    - "Goniometro di carta 1:1 in appendice, da posare sul lato B della zampa."
+    - "Calettare con Dima_Posa_1 (alfa 0°, gamma 90°) e cambiare il calettamento in robot.yaml (cambia firmware e software)."
+  consiglio: Dima del calettamento nella 2.1.7; intanto a occhio [C]. Guardare anche il margine del ginocchio a 180°.
+
+- titolo: L'ansa del cavo del ginocchio di D-058 vale per la fascetta di prima, non per quella nel blocco
+  gravita: importante
+  dove: "6.24, 6.25"
+  cosa: >-
+    D-058 da' 22–40 mm di cavo fra la culla della tibia e la fascetta attorno al femore vicino all'anca; D-061 ha
+    portato la fascetta nel blocco, a X 79,5 (24,5 dall'anca) in cima al blocco. docs/cablaggio.md 3.2 ripete 22–40 mm
+    con il riferimento D-060. Distanza in linea retta fra l'uscita del cavo (cima della fessura della tibia, X 120,
+    Z 18 nella terna della tibia) e la fascetta (X 79,5, Z 20): 57,4 mm a gamma 29, 52,4 a 50, 40,5 a 90, 31,8 a 120,
+    27,2 a 150, 30,1 a 180 [S: senza il giro sul mozzo]. Nessuna fonte dice quanto cavo lasciare; la guida dice 60 mm
+    [C] e una prova con il banco dei servo (6.25). La stessa misura serve ai pettini dei cavi (backlog).
+  prove:
+    - "docs/decisioni.md:186 (D-058, anse) e :215 (D-061, fascetta nel blocco)"
+    - "docs/cablaggio.md:99 (22–40 mm, D-060)"
+    - "cad/script/zampa.py:142-143 (fem_fascetta_u 24,5, fem_fascetta_fondo 10); zone Tibia fessura_cavo da Z 11,45 a 18,05"
+  opzioni:
+    - "Misurare l'ansa sulla prima zampa con la prova di 6.25 e scrivere il valore nella guida e in cablaggio.md."
+    - "Rifare il percorso con calc/cavi_servo.py con la fascetta nel blocco."
+  consiglio: Entrambe nella 2.1.7; la prima zampa da' il numero vero.
+
+- titolo: I perni si premono a 1,4 mm dalla faccia senza un attrezzo
+  gravita: minore
+  dove: "6.14"
+  cosa: >-
+    Ogni perno Ø5 × 12 sta 5,2 nella piastra di Femore_B, 0,4 nel rialzo, 4 nel cuscinetto, 1 nel fondo della culla e
+    sporge 1,4 fuori. Premendolo in morsa dal lato esterno esce di 5,0 dal lato del blocco: serve un appoggio forato
+    alto piu' di 5 mm e la sporgenza va misurata. Le fonti dicono solo "premuti al banco". La sezione 9 fa lo stesso
+    con il perno della coxa.
+  prove:
+    - "cad/script/rif_componenti.py:75 (perno_l e ripartizione), cad/script/zampa.py:86 (perno_sporge 1,4)"
+    - "docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 1"
+  opzioni:
+    - "Bussola di battuta stampata nella 2.1.7: foro cieco Ø5,5 profondo 5,0; il perno si preme fino al fondo e fuori restano 1,4 mm."
+    - "Distanziale di recupero e calibro, come nella bozza [C]."
+  consiglio: Bussola stampata, insieme all'attrezzo del cuscinetto (terzo problema).
+
+- titolo: Il numero di rondelle di registro dipende dalla squadretta vera
+  gravita: minore
+  dove: "6.18"
+  cosa: >-
+    Fra il blocco di Femore_B e la piastra di Femore_A il CAD lascia 1,0 mm, due rondelle DIN 125 da 0,5 per vite: 8
+    per zampa, 48 nel BOM. Femore_A appoggia sui dischi delle squadrette, di spessore stimato
+    (sq_sp 2,5, "rivenditori, discordanti", C): se il disco vero e' diverso la luce cambia della stessa quantita', e
+    con rondelle da 0,5 si registra a passi di 0,5. Il BOM non ha rondelle di scorta oltre le 48, ma il kit D6/D7 ne
+    ha 330.
+  prove:
+    - "cad/script/zampa.py:99 (fem_luce_A), :441; cad/script/rif_componenti.py sq_sp, sq_h (C)"
+    - "D-047 (registro con rondelle), docs/BOM.md D7"
+  opzioni:
+    - "Misurare la luce sul provino del giunto con la squadretta vera (sezione 1) e scrivere il numero di rondelle nel passo."
+  consiglio: Provino del giunto; nella bozza il controllo "senza luce" e il numero annotato nella scheda.
+
+- titolo: La testa della vite centrale della squadretta non e' nota e sta nel foro Ø6 di Femore_A
+  gravita: minore
+  dove: "6.17, 6.18"
+  cosa: >-
+    La vite centrale in dotazione con la squadretta (BOM D3) ha misure non note: il catalogo della guida la stima M3 con
+    testa Ø5,5 alta 3. La testa resta dentro il foro centrale Ø6 di Femore_A (Y 27,35-30,55): con una testa piu' larga
+    di circa 6 mm la piastra non appoggia sulla squadretta e la vite non si raggiunge piu' dal foro.
+  prove:
+    - "guida/dati/fori.json: Femore_A foro_centrale_anca e foro_centrale_ginocchio Ø6; guida/catalogo/viteria.yaml VSQ (misura C)"
+    - "docs/BOM.md D3 (diametro e fori non dichiarati)"
+  opzioni:
+    - "Guardare la vite sulla squadretta di prova (BOM, domanda 4) e, se serve, allargare il foro centrale nella 2.1.7."
+  consiglio: Squadretta di prova prima di stampare i Femore_A.
+
+- titolo: Il tester dei servo non e' nel BOM
+  gravita: minore
+  dove: "6.16, 6.20, 6.21, 6.25"
+  cosa: >-
+    L'esito approvato del secondo problema dice di portare il ginocchio con il tester o con la SSC-32 della sezione 5.
+    Il BOM non ha un tester; la sezione 5 usa il banco della SSC-32 comandato dal Mac. La bozza scrive "banco della
+    sezione 5" con passi di 100 µs [S] e mette l'attrezzo "tester dei servo (o SSC-32 dal Mac)".
+  prove:
+    - "guida/problemi/zampa.yaml, secondo problema (esito); guida/passi/05-servo.yaml (banco, #0P1500T1000)"
+  opzioni:
+    - "Banco della sezione 5 per tutta la sezione 6."
+    - "Un tester a manopola (pochi euro), piu' comodo con la zampa in mano."
+  consiglio: Banco della sezione 5, che c'e' gia'.
+  domanda: "Hai un tester per servo a manopola, o usi il banco della sezione 5 con il Mac anche per la zampa?"

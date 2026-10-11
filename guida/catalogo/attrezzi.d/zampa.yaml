@@ -1,0 +1,8 @@
+# Attrezzi in piu' della sezione 6, la zampa (D-075), aggiunti qui per non toccare il catalogo comune.
+# tester_servo: guida/problemi/zampa.yaml, esito approvato dall'utente l'11 ottobre 2026 ("ginocchio portato con il
+#   tester o con la SSC-32 della sezione 5, non trascinando il riduttore a mano"); serve anche per calettamento e cavi.
+#   Non e' una voce del BOM: domanda nel problema "Tester dei servo".
+# cacciavite_brugola_2_5: stesso esito ("cacciavite a brugola dritto da 2,5"): la chiave a L ha il braccio corto di
+#   circa 18 mm (ISO 2936, S) e ruotando urta Femore_A e le teste del lato A.
+tester_servo:           {nome: "Tester dei servo con la sua alimentazione (o SSC-32 dal Mac, sezione 5)", icona: multimetro, uso: "metà corsa, calettamento, posa per le alette, prova dei cavi"}
+cacciavite_brugola_2_5: {nome: "Cacciavite a brugola dritto 2,5 mm", icona: cacciavite, uso: "viti delle alette a femore montato: la chiave a L urta Femore A"}

@@ -1,0 +1,112 @@
+# Problemi trovati scrivendo la sezione 0, prima di cominciare (D-075, formato in guida/schema.md "Problemi").
+# Campo in piu' rispetto allo schema: domanda (cosa chiedere all'utente, quando serve).
+
+- titolo: La pagina di sicurezza della batteria non ha una fonte primaria (carica, conservazione, calore e gonfiore)
+  gravita: importante
+  dove: "0.05, 0.06, 0.07; richiamata da 11.01 e 12.01"
+  cosa: >-
+    Il BOM descrive la batteria OVONIC solo per la scarica (50C, 260 A continui) e per i connettori. Non c'e' un
+    caricabatterie nel BOM, nessuna corrente di carica, nessuna tensione di conservazione, nessuna procedura se il
+    pacco scalda, fuma o si gonfia. Le sezioni 11 e 12 rimandano alla sezione 0. La bozza scrive 8,4 V e 4,20 V per
+    cella (8,4 V e' [V], studio-componenti), le altre regole generali sulle LiPo marcate [S] (superficie che non brucia,
+    mai incustodita, pacco gonfio da non usare, soccorsi se c'e' fuoco) e rimanda al manuale OVONIC per la corrente di
+    carica [C]. Non scrive niente su come spegnere un incendio: nessuna fonte, e le indicazioni generali non sono
+    concordi.
+  prove:
+    - "docs/BOM.md A5 (solo scarica e connettori) e 'Schema di alimentazione'; nessun caricabatterie fra le voci B/C/D"
+    - "docs/studio-componenti.md 'Batteria' (6,0-8,4 V); docs/software.md 2.6 (soglie per cella)"
+    - "guida/problemi/batteria.yaml (terzo problema) e guida/problemi/accensione.yaml (ultimo): stessa mancanza, trovata dalle sezioni 11 e 12"
+  opzioni:
+    - "Leggere il manuale OVONIC e scrivere corrente di carica e conservazione in docs/dimensioni-componenti.md; la guida le copia nella pagina."
+    - "Aggiungere al BOM un sacchetto ignifugo per LiPo (voce nuova, da approvare)."
+    - "Lasciare le regole generali [S] cosi' come sono, senza fonte."
+  consiglio: "Il manuale OVONIC prima della guida 2.1.7; la pagina 0.06 e 0.07 si riscrive con quei dati."
+  domanda: "Che caricabatterie usavi con la v1? Ha la carica bilanciata 2S e la modalita' di conservazione (storage)? Hai un sacchetto o un contenitore per LiPo?"
+
+- titolo: F2 da 2 A, ma con il computer di bordo a zaino il piano chiede 3 A, e il cavo della logica e' da 26 AWG
+  gravita: importante
+  dove: "0.08"
+  cosa: >-
+    Il BOM (B6) e il cablaggio fissano F2 a 2 A, e D-073 porta il ramo logica a 26 AWG perche' sotto 1 A ("F2 da 2 A
+    protegge anche il 26 AWG"). Il piano elettronico calcola, al caso peggiore, 1,35 A con le voci alte e medie (67 % di
+    F2), 1,81 A con tutto (90 %) e 2,04 A con le voci alte e medie piu' la Radxa ZERO 3W da 4 W: oltre i 2 A. Per quel
+    caso il piano scrive "F2 da 3 A (da approvare)". Lo zaino e' approvato come predisposizione (D-069) e il suo
+    regolatore 5 V da 3 A e' nel BOM fra le voci X. Un fusibile da 3 A sul 26 AWG non protegge il cavo. Nessun documento
+    dice da dove prende la corrente il regolatore dello zaino. La guida scrive F2 da 2 A, marca [C] e dice di non
+    cambiarlo da soli.
+  prove:
+    - "docs/piano-elettronica-software.md 3.3: tabella (riga 'Alta e media piu' Radxa': 2,04 A, oltre F2 da 2 A) e riga 217 ('F2 passa a 3 A: voce B6 da riapprovare'); riga 70 (computer di bordo sul ramo dopo la 2813) e riga 292"
+    - "docs/BOM.md B6 (portafusibile MINI e fusibile da 2 A), B17 (26 AWG), X 'Radxa' e 'Reg 5 V' (approvate nella tabella dei prezzi)"
+    - "docs/cablaggio.md 3.1, riga 'Ramo logica': 'poi 26 AWG (D-073: regge i 2 A di F2)'"
+    - "docs/decisioni.md D-073 (cavo logica in 26 AWG) e D-069 (computer di bordo a zaino approvato)"
+  opzioni:
+    - "Alimentare lo zaino con un ramo proprio dai Wago, con il suo fusibile e il suo cavo, fuori da F2: F2 resta da 2 A e 26 AWG."
+    - "F2 da 3 A e il tratto della logica da 22 AWG: la voce B6 e B17 si riapprovano e il cavo a 26 AWG non basta piu'."
+    - "Non montare lo zaino: F2 da 2 A per tutte le voci approvate, e il problema non c'e'."
+  consiglio: "F2 da 2 A finche' lo zaino non si compra. Se si compra, il ramo proprio per lo zaino (prima opzione): nessun fusibile piu' grosso sul 26 AWG."
+  domanda: "Monti lo zaino con il computer di bordo? Se si', da dove lo alimenti?"
+
+- titolo: Il "quando" delle opzioni X (solo ora, meglio ora, anche dopo) non e' scritto in nessun documento
+  gravita: minore
+  dove: "0.15, 0.16 e appendice A.10, A.11"
+  cosa: >-
+    Le fonti dicono quali predisposizioni sono approvate (D-069) e dove stanno nel modello, ma non quando si possono
+    ancora aggiungere. La guida lo ricava da dove sta il pezzo e da cosa bisogna smontare per arrivarci: X4 e X6 sotto
+    il vassoio ("si raggiungono solo smontando", predisposizioni.md 2.8 e 2.9), X5 e X31 nella tibia (6.05 e 6.06: dopo
+    costa togliere guscio, piedino e fascette), le voci del carapace a carapace tolto. Le sezioni di ogni voce
+    vengono dal piano (sezione 8: IMU, ADC e bus prima del vassoio; sezione 13: carapace). Solo X10 e' 'solo ora': il
+    provino di luce decide il diffusore prima di stampare. X7 (INA260) e X8 (ToF) sono giudicati 'meglio ora' senza una
+    fonte. Le sezioni scritte in parallelo possono mettere un pezzo altrove.
+  prove:
+    - "docs/predisposizioni.md 2.8 (vano sotto il vassoio) e 2.9 (IMU e ADC si montano una volta)"
+    - "guida/passi/06-zampa.yaml 6.05, 6.06 (meglio ora per X31 e X5) e guida/passi/03-inserti.yaml 3.18-3.20 (meglio ora per X4 e X6, anche dopo per X7, X2, X17, zaino)"
+    - "docs/piano-guida.md 'Struttura della guida' (sezioni 4, 8 e 13)"
+  opzioni:
+    - "Tenere il 'quando' dedotto, marcato [S], e farlo rivedere dalla riconciliazione quando le sezioni 8 e 13 sono scritte."
+    - "Farlo decidere all'utente voce per voce."
+  consiglio: "La prima opzione; la riconciliazione allinea le sezioni (colonna Sez.) ai passi veri."
+
+- titolo: I tempi delle sezioni non sono misurati e non tornano con quelli scritti nelle sezioni
+  gravita: minore
+  dove: "0.22, 0.23"
+  cosa: >-
+    Nessun documento da' il tempo di montaggio. La tabella copia i tempi dichiarati nelle sezioni quando ci sono (sezione
+    3: 2 ore; sezione 11: 30 minuti; sezione 4: 5 ore; sezione 12: 2 ore) e stima gli altri a 5 minuti per passo, come la
+    tibia della sezione 6 (40 minuti per 8 passi). Sono tutti [S]. Il totale non e' una somma: le sezioni ripetute (6, 10) si
+    contano con le zampe.
+  prove:
+    - "guida/passi/*.yaml, campo tempo di ogni sezione; docs/piano-guida.md ('Una prima zampa in PDF arriva dopo circa 4 giorni' e la guida 1.1 dopo la zampa vera)"
+  opzioni:
+    - "Tenerli [S] fino alla prima zampa costruita davvero (guida 1.1)."
+  consiglio: "Tenerli [S]; li sostituisce la guida 1.1."
+
+- titolo: Il set di inserti del kit Temu e' da 800 o da 500 pezzi?
+  gravita: minore
+  dove: "0.17, 0.21 e appendice A.13"
+  cosa: >-
+    Il BOM descrive il kit come "brass insert nut + screw set" da 800 pezzi, con M3 Ø4,2 lunghi 3, 4, 5 e 6 mm e M2
+    Ø3,2 lunghi 2, 3, 4 e 5 mm, 50 per misura. CLAUDE.md, fra i pezzi da guardare, scrive "set Temu da 500 inserti in
+    ottone". Con 8 misure da 50 gli inserti sono 400: gli altri pezzi del kit sono viti. Il numero decide se ci sono
+    abbastanza inserti M3 per due lunghezze (94 M3 in tutto).
+  prove:
+    - "docs/BOM.md riga D4 (800 pezzi) e domanda 8; CLAUDE.md 'Da guardare sui pezzi in casa' (500 inserti)"
+  opzioni:
+    - "Contare gli inserti per misura e scriverlo nel BOM."
+  consiglio: "Contarli prima della sezione 3."
+  domanda: "Quanti inserti M3 e M2 ha ogni misura del tuo kit?"
+
+- titolo: La chiave per le viti M2 svasate e' da 1,5 mm nel BOM e da 1,3 mm nel catalogo della guida
+  gravita: minore
+  dove: "0.03, 0.17 e tutti i passi con le lame B (M2 x 5 svasate)"
+  cosa: >-
+    Il catalogo degli attrezzi (brugola_1_3) dice "chiave a brugola 1,3 mm" per le M2 svasate delle lame B (D8b). Il BOM
+    elenca chiavi a brugola da 1,5, 2 e 2,5 mm. Per una M2 con testa svasata a esagono incassato la chiave normale e'
+    da 1,5 mm (ISO 10642, a memoria [S]). La sezione 0 usa la chiave del catalogo; l'elenco degli attrezzi in apertura
+    mostra "1,3".
+  prove:
+    - "guida/catalogo/attrezzi.yaml, chiave brugola_1_3; docs/BOM.md 'Attrezzi necessari' (1,5 / 2 / 2,5) e D8b"
+  opzioni:
+    - "Correggere il catalogo a 1,5 mm."
+    - "Guardare il kit dell'utente: la chiave in dotazione con le M2 svasate."
+  consiglio: "Guardare la chiave del kit e correggere il catalogo."
+  domanda: "Che chiave a brugola serve alle tue viti M2 svasate nere?"

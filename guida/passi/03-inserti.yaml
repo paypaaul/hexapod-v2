@@ -1,0 +1,435 @@
+# Sezione 3, inserti a caldo (D-075, docs/piano-guida.md "Struttura della guida"). F3, estrattore della sezione.
+# Nessun pezzo montato: ogni passo mostra un pezzo a colori pieni (in_evidenza) con i suoi inserti (campo inserti, fori
+# del CAD classificati inserto_m3 / inserto_m2 da guida/catalogo/fori.yaml). Pezzi della zampa nella terna della zampa
+# (x6), pezzi del corpo nella terna del robot.
+# Conteggi dal CAD (controlli.totali_inserti): M3 94 = zampa 11 x 6 (tibia 3, coxa 4, Femore_B 4) + corpo 28 (base 26,
+# chiglia 2); M2 28 = lama B 2 x 6 + slitte 8 + SSC-32 4 + vassoio 4. Predisposizioni (fuori dai totali del BOM): 18 M2.
+# Il BOM scrive "30 nel corpo": non torna con il CAD (guida/problemi/inserti.yaml).
+# I fori a destra della base sono specchi e si chiamano tutti "lato_destro" in fori.json: per questo la base ha un passo
+# per lato e non per gruppo (guida/problemi/inserti.yaml, difetto della pipeline).
+sezione:
+  id: inserti
+  numero: 3
+  titolo: Inserti a caldo
+  colore: "#c9a227"
+  terna: robot
+  istanza: AS
+  obiettivo: >-
+    Mettere tutti gli inserti a caldo nei pezzi stampati, prima di qualsiasi montaggio: 94 inserti M3 e 28 inserti M2,
+    più 18 M2 se monti le predisposizioni. Ogni passo dice quale pezzo, dove vanno gli inserti e di che misura.
+  prima:
+    - "Provino degli inserti fatto (1.02 e 1.03): temperatura della punta e misura dei fori annotate, valori nel CAD (sezione 1)."
+    - "Pezzi stampati e controllati col calibro (sezione 2)."
+  tempo: "circa 2 ore per 122 inserti, pezzi già stampati [S]"
+  stato_elettrico: "nessuno. Il saldatore è l'unico pericolo: la punta è calda."
+  fonti: [D-075, D-065, docs/BOM.md "Viteria e inserti contati dal modello"]
+  note: >-
+    Nel CAD gli inserti stanno in fori Ø4,2 (M3) e Ø3,4 (M2), profondi 6,7 e 4,0 mm [V]. Le misure definitive vengono
+    dal provino della sezione 1 [C].
+  controllo:
+    - "94 inserti M3 e 28 M2 messi, tutti a filo e dritti."
+    - "Una vite M3 o M2 di prova entra a mano in ogni inserto e esce senza forzare."
+    - "I 36 fori pilota Ø2,5 delle alette (lato albero) sono vuoti, senza inserto."
+    - "Con le predisposizioni: i 18 inserti M2 in più messi nei pezzi che hai deciso di montare."
+
+passi:
+  - id: "3.01"
+    titolo: Quando e con cosa
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Controlla che tutti i pezzi siano stampati e controllati (sezione 2)."
+      - "Controlla di avere il provino degli inserti con i valori trovati (sezione 1)."
+      - "Prepara il saldatore con la punta per inserti, alla temperatura del provino [C]."
+      - "Metti gli inserti adesso, prima di qualsiasi montaggio: dopo, la maggior parte dei fori non si raggiunge."
+      - "Lavora un pezzo alla volta, appoggiato su un piano duro e piano."
+    avvisi:
+      - {tipo: importante, testo: "Mai inserti nei fori pilota Ø2,5 delle alette, lato albero dei servo: la vite si fa il filetto nella plastica. Sono 36, un'immagine più avanti li mostra (D-049)."}
+      - {tipo: nota, testo: "Gli inserti sono del kit Temu dell'utente: M3 Ø4,2 lunghi 3, 4, 5 o 6 mm (BOM D4), M2 Ø3,2 lunghi 2, 3, 4 o 5 mm (BOM D5), 50 per misura. Misure e lunghezze vanno confermate sul pezzo [C]."}
+      - {tipo: nota, testo: "I 94 M3 sono più dei 50 di una misura: servono due lunghezze, per esempio M3 × 5 e M3 × 6. Quale foro prende quale è da decidere [C]; gli M2 (28) stanno in una sola misura, M2 × 3."}
+    fonti: [D-049, D-065, "docs/BOM.md D4 e D5", "docs/BOM.md, domanda 8", "CLAUDE.md, 'Provini da stampare prima dei pezzi'"]
+
+  - id: "3.02"
+    titolo: Come si mette un inserto
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Posa l'inserto sull'imbocco del foro, dritto, con l'asse del foro."
+      - "Premi la punta sull'inserto: scende da solo quando la plastica si ammorbidisce."
+      - "Spingi piano, sempre dritto, fino a quando la bocca dell'inserto è a filo con la faccia del pezzo."
+      - "Stacca la punta tenendo l'inserto fermo."
+      - "Aspetta il tempo di raffreddamento del provino, senza toccare [C]."
+      - "Controlla con una vite di prova, a mano: entra e esce liscia."
+    avvisi:
+      - {tipo: attenzione, testo: "Appoggia il saldatore sul suo supporto fra un inserto e l'altro: la punta ustiona e fonde la plastica."}
+      - {tipo: nota, testo: "Carapace e vassoio sono in PLA, che si ammorbidisce verso 55–60 °C (D-065): usa la temperatura del provino per il PLA, più bassa di quella del PETG-CF [C]."}
+      - {tipo: nota, testo: "Il foro è più profondo dell'inserto di almeno 1 mm: sotto resta un vuoto per la plastica spostata. Non spingere l'inserto oltre il filo (docs/dimensioni-componenti.md, regole per il CAD)."}
+      - {tipo: prova, testo: "Vite di prova a mano fino in fondo: nessun gioco, nessun punto duro [S]."}
+    fonti: [D-065, "docs/dimensioni-componenti.md, 'Regole per il CAD ereditate dalla prima versione'", "docs/BOM.md D4 e D5", D-063]
+
+  - id: "3.03"
+    titolo: Se l'inserto entra storto
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Non toccare l'inserto a freddo: la plastica attorno si crepa."
+      - "Riscalda l'inserto con la punta, finché si muove."
+      - "Raddrizzalo spingendo piano sulla bocca, con l'asse del foro."
+      - "Se sporge dal pezzo, spingi ancora piano fino a filo."
+      - "Se è sprofondato o la plastica attorno è bruciata, scaldalo, toglilo con la punta e rifai il foro con un altro inserto."
+      - "Se il foro è rovinato, stampa di nuovo il pezzo."
+    avvisi:
+      - {tipo: importante, testo: "Un inserto storto o sprofondato non tiene la vite e non la lascia stringere dritta: raddrizzalo adesso, dopo costa smontare."}
+      - {tipo: nota, testo: "Procedura generale per inserti a caldo, non misurata sul provino: se il provino dice altro, vale il provino [S]."}
+    fonti: ["guida/stile.md", "procedura generale degli inserti a caldo [S], nessun documento di progetto"]
+
+  - id: "3.04"
+    titolo: Quali inserti e dove
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Pezzo (passo), Pezzi, "M3 per pezzo", "M2 per pezzo", "M3 in tutto", "M2 in tutto"]
+      righe:
+        - ["Tibia (3.06)", "6", "3", "–", "18", "–"]
+        - ["Coxa (3.07)", "6", "4", "–", "24", "–"]
+        - ["Femore lato B (3.08, 3.09)", "6", "4", "2", "24", "12"]
+        - ["Base (3.10–3.13)", "1", "26", "4", "26", "4"]
+        - ["Chiglia (3.14)", "1", "2", "–", "2", "–"]
+        - ["Slitte dei regolatori (3.15, 3.16)", "2", "–", "4", "–", "8"]
+        - ["Vassoio dell'ESP32 (3.17)", "1", "–", "4", "–", "4"]
+        - ["Totale senza predisposizioni", "", "", "", "94", "28"]
+        - ["Predisposizioni (3.18–3.21)", "", "", "", "–", "18"]
+    testo:
+      - "Conta gli inserti del kit: 94 M3 (BOM D4) e 28 M2 (BOM D5)."
+      - "Aggiungi 18 M2 se monti le predisposizioni."
+      - "Segui i passi nell'ordine: la zampa si fa sei volte, il corpo una."
+    avvisi:
+      - {tipo: nota, testo: "Totali del CAD e del BOM uguali: 94 M3 (66 nelle zampe, 28 nel corpo) e 28 M2 (BOM, viteria e inserti contati dal modello) [V]."}
+      - {tipo: nota, testo: "Predisposizioni: IMU 2 (X4), ADC 2 (X6), supporti INA260 4 (X7), amplificatore 2 (X17), scheda del carapace 4 (X2), zaino 4."}
+    fonti: [D-065, D-074, "docs/BOM.md 'Viteria e inserti contati dal modello' e 'Viteria in più se si montano tutte'", guida/catalogo/viteria.yaml]
+
+  - id: "3.05"
+    titolo: Fori pilota, senza inserto
+    formato: grande
+    terna: zampa
+    in_evidenza: [zampa/Tibia]
+    vista: zampa_A
+    etichette:
+      - {testo: "NO", punto: [114.4, 9.4, 13.8]}
+      - {testo: "NO", punto: [125.6, 9.4, 13.8]}
+    testo:
+      - "Riconosci i due fori pilota Ø2,5 sul lato albero della culla."
+      - "Lasciali vuoti: nessun inserto."
+      - "Ricorda lo stesso nella coxa (2 fori) e nella base (12 fori, due per gondola)."
+    avvisi:
+      - {tipo: importante, testo: "Mai inserti nei fori pilota: le viti delle alette lato albero fanno il filetto da sole, perché la fessura del passacavo non lascia posto agli inserti. In tutto 36 fori, due per servo (D-049)."}
+    fonti: [D-049, "guida/catalogo/giunzioni.yaml (alette_*_albero)", docs/progetto-meccanico.md "Modello in Fusion (zampa v0)"]
+
+  - id: "3.06"
+    titolo: Tibia, 3 inserti M3
+    formato: grande
+    terna: zampa
+    in_evidenza: [zampa/Tibia]
+    inserti: [{chiave: zampa/Tibia, lav: "ins_*"}]
+    vista: zampa_A
+    volte: 6
+    etichette:
+      - {testo: servo, punto: [120.0, 9.4, -30.0]}
+      - {testo: guscio, punto: [131.0, 0.0, -84.0]}
+      - {testo: "NO", punto: [114.4, 9.4, 13.8]}
+      - {testo: "NO", punto: [125.6, 9.4, 13.8]}
+    testo:
+      - "Metti due inserti M3 nelle bugne del lato coda, dal lato A."
+      - "Metti un inserto M3 sul fronte dello stinco, per il guscio."
+      - "Lascia vuoti i due fori pilota del lato albero."
+      - "Ripeti per le sei tibie."
+    avvisi:
+      - {tipo: nota, testo: "I due inserti del lato coda tengono le alette del servo del ginocchio (M3 × 8); quello del fronte tiene il guscio (M3 × 10) (D-049, D-061)."}
+    fonti: [D-049, D-061, "D-065: inserto del guscio", guida/catalogo/giunzioni.yaml, cad/script/zampa.py]
+
+  - id: "3.07"
+    titolo: Coxa, 4 inserti M3
+    formato: grande
+    terna: zampa
+    in_evidenza: [zampa/Coxa]
+    inserti: [{chiave: zampa/Coxa, lav: "ins_*"}]
+    vista: zampa_A
+    volte: 6
+    etichette:
+      - {testo: servo, punto: [55.0, 9.4, -30.0]}
+      - {testo: ponte, punto: [38.6, 0.0, 25.0]}
+      - {testo: "NO", punto: [49.4, 9.4, 13.8]}
+      - {testo: "NO", punto: [60.6, 9.4, 13.8]}
+    testo:
+      - "Metti due inserti M3 nelle bugne del lato coda della culla, dal lato A."
+      - "Metti due inserti M3 dall'alto, nella testa dell'anima, per il ponte."
+      - "Lascia vuoti i due fori pilota del lato albero."
+      - "Ripeti per le sei coxe."
+    avvisi:
+      - {tipo: attenzione, testo: "Sotto gli inserti del ponte restano 0,55 mm di plastica: spingi fino a filo e non oltre (D-049)."}
+      - {tipo: nota, testo: "Lato coda: alette del servo del femore. Testa dell'anima: due viti M3 × 10 per il ponte (D-048)."}
+    fonti: [D-048, D-049, guida/catalogo/giunzioni.yaml, cad/script/zampa.py]
+
+  - id: "3.08"
+    titolo: Femore lato B, 4 inserti M3
+    formato: grande
+    terna: zampa
+    in_evidenza: [zampa/Femore_B]
+    inserti: [{chiave: zampa/Femore_B, lav: "ins_blocco_*"}]
+    vista: zampa_A
+    volte: 6
+    testo:
+      - "Metti quattro inserti M3 nella faccia del blocco rivolta al lato A."
+      - "Ripeti per i sei femori lato B."
+    avvisi:
+      - {tipo: nota, testo: "Qui si avvita il femore lato A con quattro viti M3 × 8 e due rondelle di registro per vite (D-049, D-061)."}
+    fonti: [D-049, D-061, guida/catalogo/giunzioni.yaml, cad/script/zampa.py]
+
+  - id: "3.09"
+    titolo: Femore lato B, 2 inserti M2
+    formato: grande
+    terna: zampa
+    in_evidenza: [zampa/Femore_B]
+    inserti: [{chiave: zampa/Femore_B, lav: "ins_lama_*"}]
+    vista: {direzione: [0.62, -0.68, 0.38], su: [0, 0, 1]}
+    volte: 6
+    testo:
+      - "Metti due inserti M2 nella faccia esterna della piastra, dal lato B."
+      - "Ripeti per i sei femori lato B."
+    avvisi:
+      - {tipo: nota, testo: "Tengono la lama B con due viti M2 × 5 svasate (D-065, D-073)."}
+    fonti: [D-065, D-073, cad/stl/README.md "Femore_B.stl", guida/catalogo/giunzioni.yaml]
+
+  - id: "3.10"
+    titolo: Base, lato sinistro
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Base]
+    inserti:
+      - {chiave: corpo/Corpo_Base, lav: "ins_coda_*"}
+      - {chiave: corpo/Corpo_Base, lav: "gondola_posteriore_s"}
+      - {chiave: corpo/Corpo_Base, lav: "chi_ins_*"}
+      - {chiave: corpo/Corpo_Base, lav: "colonnina_*_ins"}
+      - {chiave: corpo/Corpo_Base, lav: "slitta_ins"}
+    vista: {direzione: [0.7, 0.65, 0.16], su: [0, 0, 1]}
+    etichette:
+      - {testo: AS, punto: [110.0, 61.4, 4.0]}
+      - {testo: MS, punto: [0.0, 82.7, 4.0]}
+      - {testo: PS, punto: [-110.0, 61.4, 4.0]}
+      - {testo: coperchio, punto: [40.0, 22.5, 31.0]}
+      - {testo: coperchio, punto: [-56.0, 22.5, 31.0]}
+      - {testo: "NO", punto: [70.9, 32.3, 3.0]}
+      - {testo: "NO", punto: [65.3, 42.0, 3.0]}
+      - {testo: "NO", punto: [5.6, 34.2, 3.0]}
+      - {testo: "NO", punto: [-5.6, 34.2, 3.0]}
+      - {testo: "NO", punto: [-65.3, 42.0, 3.0]}
+      - {testo: "NO", punto: [-70.9, 32.3, 3.0]}
+    testo:
+      - "Metti 6 inserti M3 dall'alto nelle gondole: due per servo di coxa AS, MS e PS."
+      - "Metti 2 inserti M3 dall'alto sulle colonnine del coperchio."
+      - "Metti 1 inserto M3 di fianco, nella parete della baia, per la slitta."
+      - "Capovolgi la base e metti 2 inserti M3 dal basso, per la chiglia."
+    avvisi:
+      - {tipo: nota, testo: "Gondole: alette lato coda dei servo di coxa (M3 × 8). Colonnine: coperchio. Slitta: M3 × 8. Chiglia: davanti M3 × 16, dietro M3 × 8 (D-049, D-051, D-052, D-056)."}
+      - {tipo: importante, testo: "Lascia vuoti i 6 fori pilota Ø2,5 delle gondole sul lato sinistro (D-049)."}
+    fonti: [D-049, D-051, D-052, D-056, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
+
+  - id: "3.11"
+    titolo: Base, lato destro
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Base]
+    inserti:
+      - {chiave: corpo/Corpo_Base, lav: "lato_destro"}
+    vista: {direzione: [0.7, -0.65, 0.16], su: [0, 0, 1]}
+    etichette:
+      - {testo: AD, punto: [110.0, -61.4, 4.0]}
+      - {testo: MD, punto: [0.0, -82.7, 4.0]}
+      - {testo: PD, punto: [-110.0, -61.4, 4.0]}
+      - {testo: coperchio, punto: [40.0, -22.5, 31.0]}
+      - {testo: coperchio, punto: [-56.0, -22.5, 31.0]}
+      - {testo: "NO", punto: [70.9, -32.3, 3.0]}
+      - {testo: "NO", punto: [65.3, -42.0, 3.0]}
+      - {testo: "NO", punto: [5.6, -34.2, 3.0]}
+      - {testo: "NO", punto: [-5.6, -34.2, 3.0]}
+      - {testo: "NO", punto: [-65.3, -42.0, 3.0]}
+      - {testo: "NO", punto: [-70.9, -32.3, 3.0]}
+    testo:
+      - "Metti 6 inserti M3 dall'alto nelle gondole: due per servo di coxa AD, MD e PD."
+      - "Metti 2 inserti M3 dall'alto sulle colonnine del coperchio."
+      - "Metti 1 inserto M3 di fianco, nella parete della baia, per la slitta."
+      - "Capovolgi la base e metti 2 inserti M3 dal basso, per la chiglia."
+    avvisi:
+      - {tipo: nota, testo: "Il lato destro è lo specchio del sinistro: stessi gruppi, stesse misure (cad/script/corpo.py, specchio 'lato_destro')."}
+      - {tipo: importante, testo: "Lascia vuoti i 6 fori pilota Ø2,5 delle gondole sul lato destro (D-049)."}
+    fonti: [D-049, D-051, D-052, D-056, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
+
+  - id: "3.12"
+    titolo: Base, bugne del vassoio
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Base]
+    inserti: [{chiave: corpo/Corpo_Base, lav: "vas_bugna_*"}]
+    vista: {direzione: [0.15, 0.6, 0.78], su: [0, 0, 1]}
+    testo:
+      - "Metti 4 inserti M3 dall'alto nelle bugne del tetto del tunnel."
+    avvisi:
+      - {tipo: nota, testo: "Qui si avvitano i 4 distanziali M3 maschio-femmina che reggono il vassoio (D-051)."}
+    fonti: [D-051, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
+
+  - id: "3.13"
+    titolo: Base, bugne della SSC-32
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Base]
+    inserti: [{chiave: corpo/Corpo_Base, lav: "ssc_bugna_*"}]
+    vista: corpo_alto
+    testo:
+      - "Metti 4 inserti M2 dall'alto nelle bugne del tetto del tunnel."
+    avvisi:
+      - {tipo: nota, testo: "Qui si avvita la SSC-32 con 4 viti M2 × 5: gli inserti permettono di smontarla spesso (D-051)."}
+    fonti: [D-051, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
+
+  - id: "3.14"
+    titolo: Chiglia, 2 inserti M3
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Chiglia]
+    inserti: [{chiave: corpo/Corpo_Chiglia, lav: "ins_sport_*"}]
+    vista: corpo_coda
+    testo:
+      - "Metti 2 inserti M3 nei due blocchetti della chiglia, dal lato dello sportello."
+    avvisi:
+      - {tipo: nota, testo: "Tengono lo sportello della batteria con due viti M3 × 8 (D-054)."}
+    fonti: [D-054, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
+
+  - id: "3.15"
+    titolo: Slitta sinistra, 4 inserti M2
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Slitta_Regolatore_S]
+    inserti: [{chiave: corpo/Corpo_Slitta_Regolatore_S, lav: "ins_*"}]
+    vista: {direzione: [0.45, -0.75, 0.5], su: [0, 0, 1]}
+    testo:
+      - "Metti 4 inserti M2 nella faccia della slitta che guarda il centro del robot."
+    avvisi:
+      - {tipo: importante, testo: "Gli inserti delle slitte si mettono al banco, prima di montarle: sulla parete della baia non si posano e le viti non si raggiungono (D-051)."}
+      - {tipo: nota, testo: "Tengono il regolatore Pololu sinistro con 4 viti M2 × 5 (D-051)."}
+    fonti: [D-051, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
+
+  - id: "3.16"
+    titolo: Slitta destra, 4 inserti M2
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Slitta_Regolatore_D]
+    inserti: [{chiave: corpo/Corpo_Slitta_Regolatore_D, lav: "ins_*"}]
+    vista: {direzione: [0.45, 0.75, 0.5], su: [0, 0, 1]}
+    testo:
+      - "Metti 4 inserti M2 nella faccia della slitta che guarda il centro del robot."
+    avvisi:
+      - {tipo: nota, testo: "La slitta destra è lo specchio della sinistra; tiene il regolatore destro con 4 viti M2 × 5 (D-051)."}
+    fonti: [D-051, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
+
+  - id: "3.17"
+    titolo: Vassoio, 4 inserti M2
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Vassoio]
+    inserti: [{chiave: corpo/Corpo_Vassoio, lav: "bas_col_*"}]
+    vista: corpo_alto
+    testo:
+      - "Metti 4 inserti M2 nelle colonnine del vassoio."
+    avvisi:
+      - {tipo: attenzione, testo: "Il vassoio è in PLA: usa la temperatura del provino per il PLA, più bassa di quella del PETG-CF [C]."}
+      - {tipo: nota, testo: "Qui si avvita la basetta con 4 viti M2 × 5 (D-053)."}
+    fonti: [D-053, cad/stl/README.md "Corpo_Vassoio.stl", guida/catalogo/giunzioni.yaml]
+
+  - id: "3.18"
+    titolo: Base, IMU e ADC (predisposizioni)
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Base]
+    inserti:
+      - {chiave: corpo/Corpo_Base, lav: "ins_imu_*"}
+      - {chiave: corpo/Corpo_Base, lav: "ins_ads_*"}
+    vista: corpo_alto
+    etichette:
+      - {testo: IMU, punto: [47.5, -7.5, 0.0]}
+      - {testo: ADC, punto: [54.0, 9.6, 0.0]}
+    testo:
+      - "Metti 2 inserti M2 dall'alto nelle bugne dell'IMU."
+      - "Metti 2 inserti M2 dall'alto nelle bugne dell'ADC."
+    avvisi:
+      - {tipo: opzionale, x: X4, quando: meglio_ora, testo: "IMU GY-6500: due inserti M2. Dopo si mettono togliendo il vassoio e quello che ci sta sopra."}
+      - {tipo: opzionale, x: X6, quando: meglio_ora, testo: "ADC ADS7830: due inserti M2, accanto all'IMU. Senza queste predisposizioni salta il passo."}
+    fonti: [D-066, D-074, docs/predisposizioni.md X4 e X6, guida/catalogo/viteria.yaml "inserti_predisposizioni"]
+
+  - id: "3.19"
+    titolo: Supporti dell'INA260 (predisposizione)
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: ["corpo/Corpo_Supporto_INA260_*"]
+    inserti: [{chiave: "corpo/Corpo_Supporto_INA260_*", lav: "ins_*"}]
+    vista: corpo_alto
+    testo:
+      - "Metti 2 inserti M2 in ciascun supporto, sulla faccia verso il tunnel."
+    avvisi:
+      - {tipo: opzionale, x: X7, quando: anche_dopo, testo: "Solo con gli INA260: i supporti sono pezzi staccati e si stampano solo se servono. Gli inserti si mettono quando li stampi."}
+    fonti: [D-066, docs/predisposizioni.md X7, cad/stl/README.md "Corpo_Supporto_INA260", guida/catalogo/viteria.yaml "inserti_predisposizioni"]
+
+  - id: "3.20"
+    titolo: Carapace, scheda e amplificatore (predisposizioni)
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Carapace]
+    inserti:
+      - {chiave: corpo/Corpo_Carapace, lav: "ins_sch_*"}
+      - {chiave: corpo/Corpo_Carapace, lav: "ins_amp_*"}
+    vista: corpo_sotto
+    testo:
+      - "Metti 4 inserti M2 per la scheda del carapace, dall'interno."
+      - "Metti 2 inserti M2 per l'amplificatore, dall'interno."
+    avvisi:
+      - {tipo: opzionale, x: X2, quando: meglio_ora, testo: "Scheda del carapace: se la monti nella sezione 13, metti ora gli inserti. Dopo vanno tolti i moduli (13.01)."}
+      - {tipo: opzionale, x: X17, quando: meglio_ora, testo: "Amplificatore MAX98357A: due inserti M2, come per la scheda. Senza queste predisposizioni salta il passo."}
+      - {tipo: attenzione, testo: "Il carapace è in PLA: usa la temperatura del provino per il PLA, più bassa di quella del PETG-CF [C]."}
+    fonti: [D-063, D-066, D-074, docs/predisposizioni.md X2 e X17, guida/catalogo/viteria.yaml "inserti_predisposizioni"]
+
+  - id: "3.21"
+    titolo: Carapace, zaino (predisposizione)
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Carapace]
+    inserti: [{chiave: corpo/Corpo_Carapace, lav: "zaino_ins_*"}]
+    vista: corpo_alto
+    testo:
+      - "Metti 4 inserti M2 dall'alto, sul dorso del carapace."
+    avvisi:
+      - {tipo: opzionale, x: zaino, quando: anche_dopo, testo: "Solo se monti il computer a zaino: quattro inserti M2 sul dorso, sopra l'ottagono di servizio. Senza zaino salta il passo."}
+      - {tipo: attenzione, testo: "Il carapace è in PLA: usa la temperatura del provino per il PLA, più bassa di quella del PETG-CF [C]."}
+    fonti: [D-066, "D-066: bugne dello zaino con inserti M2 messi dall'alto", guida/catalogo/viteria.yaml "inserti_predisposizioni"]
+
+  - id: "3.22"
+    titolo: Conteggio e prova
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Controlla che ogni inserto sia a filo, dritto, e che nessuno sporga."
+      - "Prova ogni inserto con una vite M3 o M2 a mano: entra e esce liscia."
+      - "Controlla che i 36 fori pilota siano vuoti."
+      - "Conta gli inserti rimasti nel kit: devono mancare 94 M3 e 28 M2, più le predisposizioni."
+    avvisi:
+      - {tipo: prova, testo: "Inserti messi: M3 94 e M2 28 senza predisposizioni; con tutte le predisposizioni M2 46 [V]."}
+    fonti: [D-065, "docs/BOM.md 'Viteria in più se si montano tutte'", guida/catalogo/viteria.yaml]

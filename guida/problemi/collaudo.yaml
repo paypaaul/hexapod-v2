@@ -1,0 +1,129 @@
+# Problemi trovati scrivendo la sezione 14, collaudo (D-075, formato in guida/schema.md "Problemi").
+# Campi in piu' rispetto allo schema: tipo (allocazione), domanda (cosa chiedere all'utente).
+
+- titolo: La sezione dipende dal firmware S2-S6, che non c'e' ancora (console, modi, andature, soglie)
+  gravita: importante
+  dove: "14.03-14.11"
+  cosa: >-
+    Le prove passano dalla console (rail, stato), dai modi (LABORATORIO, OMBRA), dalle andature (tripode, coppie), dalla
+    macchina a stati con le soglie di batteria, dal comando di 'in piedi' e 'seduto', dai LED, dall'audio e dal ToF. Il
+    firmware di oggi ha solo gli scheletri dei compiti, il nucleo e l'andatura in modo OMBRA a rail spento, ed e' stato
+    provato sul PC ma non sul chip: nessuna macchina a stati, nessun driver della SSC-32, nessun sensore, nessuna rete.
+    Tutte le righe che dipendono da lui sono marcate [C]. Il collaudo B6 di software.md ("andatura in aria, poi
+    alzarsi e sedersi") e' la fase S3, non S2.
+  prove:
+    - "firmware/README.md: 'Cosa e' uno scheletro' (ctrl in OMBRA, sens, infer, comm, cam, telem a vuoto) e 'Mancano: macchina a stati ..., driver della SSC-32, comandi e rete, sensori, telemetria, taratura in NVS, OTA'"
+    - "docs/software.md 2.6 (macchina a stati), 2.9 (console), 3.3 (modi), 7 (S2: firmware di base; S3: robot completo in guida manuale)"
+    - "guida/problemi/accensione.yaml, primo problema (stessa dipendenza per 12.07-12.13)"
+  opzioni:
+    - "Fare S2 e S3 prima del collaudo e scrivere i comandi veri nella guida, togliendo le [C]."
+    - "Tenere la sezione come lista di prove con i valori attesi, e rifarla dopo S3 (bozza)."
+  consiglio: "Il collaudo si chiude dopo S3: la guida va finita con i comandi veri. La bozza resta valida come elenco delle prove e dei valori."
+
+- titolo: Nessun documento fissa i criteri di accettazione (tolleranze, soglie delle correnti e delle temperature)
+  gravita: importante
+  dove: "14.03, 14.04, 14.05, 14.08, 14.09"
+  cosa: >-
+    Le fonti danno valori nominali (6,0 V dei rail, 5 V, 8,4 V pieno, 2,69 V sul partitore, 53 % dello stallo, 59 mm di
+    margine, 10-12 A in marcia classica) ma non dicono quanto scostamento si accetta. Mancano la tolleranza dei rail, la
+    corrente attesa a zampe ferme e in aria, la soglia di temperatura dei regolatori (le NTC dell'X14 non hanno una soglia
+    nel firmware), la temperatura massima del servo al tatto, l'inclinazione accettabile del corpo in piedi, l'errore
+    accettabile dei sensori. La bozza dice "annota" dove la soglia non c'e' e usa solo le soglie che i documenti danno: 55 %
+    d'avviso di coppia, 55-60 C del PLA, 3,6/3,5/3,3 V a cella.
+  prove:
+    - "docs/software.md 2.5 e 2.6 (soglie proposte)"
+    - "docs/BOM.md B1, B2, B10 (valori nominali); guida/problemi/accensione.yaml 'Mancano le tolleranze delle tensioni da misurare'"
+    - "docs/studio-componenti.md 'Batteria' (10-12 A, 16-18 A)"
+    - "docs/predisposizioni.md X14 (NTC senza soglia)"
+  opzioni:
+    - "Leggere i fogli dati Pololu dei due regolatori e scrivere il campo ammesso (V)."
+    - "Fissare le soglie con le prime misure sul robot, nel registro, e riportarle in guida 1.1."
+  consiglio: "Leggere i fogli dati e fissare le altre soglie dopo le prime misure; fino ad allora 'annota'."
+
+- titolo: "'Assetto basso' di B6 non dice quale assetto, ne' quale andatura per prima"
+  gravita: importante
+  dove: "14.07, 14.08, 14.12"
+  cosa: >-
+    software.md 6.7 scrive "robot sul cavalletto con le zampe in aria, poi a terra in assetto basso". Gli assetti previsti
+    sono 130/25, 110/40, 100/45, 80/60 e 70/70 (robot.yaml), il punto di progetto e' 100/45, e a 70/70 il tripode porta il
+    femore al 75 % dello stallo, oltre il rifiuto al 70 %. L'andatura "di base" e' a coppie (41 % a 100/45), il tripode
+    e' per andare veloci. La bozza usa 100/45, prima a coppie e poi in tripode, lento [C]. L'assetto definitivo lo sceglie
+    l'utente a robot costruito.
+  prove:
+    - "docs/software.md 6.7 (B6) e 4.2 (tabella delle coppie)"
+    - "robot/robot.yaml andatura: assetto {h: 100, xf0: 45}, assetti_verificati, guardia"
+    - "firmware/README.md 'Coppia a 70/70'"
+  opzioni:
+    - "100/45 a coppie, poi tripode (bozza)."
+    - "130/25, il piu' alto, per le prime prove, e poi scendere."
+  consiglio: "100/45 a coppie per la prima camminata; si cambia dopo la scelta dell'utente."
+  domanda: "Da quale assetto vuoi far partire il robot a terra: 100/45 (punto di progetto) o piu' alto?"
+
+- titolo: "Con 3045 g il femore e' al 53 % e l'avviso scatta al 55 %: bastano circa 110 g in piu' per superarlo"
+  gravita: importante
+  dove: "14.02, 14.07, 14.08"
+  cosa: >-
+    La regressione dice femore al 53 % dello stallo con 3045 g (5,84 kgf*cm su 11 kgf*cm a 6 V) a 100/45. La guardia
+    avvisa oltre il 55 %, concede tempo limitato oltre il 60 % e rifiuta oltre il 70 %. La coppia e' proporzionale
+    alla massa: 5,84 / 3045 = 0,00192 kgf*cm per grammo, quindi il 55 % (6,05 kgf*cm) arriva a circa 3150 g, cioe' 105
+    g sopra la massa attesa. I 3045 g contano "modellato + non modellato" (cavi e viteria): colla, nastro, fascette,
+    fili in piu' e le predisposizioni mal stimate li possono superare. Il margine e' sottile e non e' scritto in nessun
+    passo. La bozza fa pesare il robot in 14.02 e dice di annotare.
+  prove:
+    - "robot/robot.yaml regressione_statica: femore_frazione_stallo [0.525, 0.545], femore_kgfcm 5,84; guardia coppia_avviso 0,55"
+    - "D-074: 'massa attesa 3045,0 g; femore sempre al 53 % a 100/45 (5,84 kgf*cm)'"
+    - "docs/software.md 6.3, test 6; D-070 (53 % con 3060,6 g, 5,87 kgf*cm)"
+  opzioni:
+    - "Pesare il robot vero prima di camminare e, se supera 3150 g, togliere massa (guscio della tibia piu' sottile, circa 20 g in meno, D-063)."
+    - "Alzare la soglia d'avviso al 57 % per il primo collaudo: cambia il firmware, non lo fa la guida."
+  consiglio: "Pesare e annotare; se si supera 3150 g, decidere con l'utente se alleggerire."
+
+- titolo: Le prove sui guasti possono far cadere il robot, e quella della batteria bassa vuole un alimentatore regolabile
+  gravita: minore
+  dove: "14.06"
+  cosa: >-
+    Pulsante, T-plug, perdita del collegamento e batteria bassa si provano sul cavalletto (la bozza lo dice), ma la
+    caduta, l'inclinazione oltre 50 gradi e il capovolgimento non hanno una prova sicura: a terra il robot cade sulla
+    chiglia (59 mm a 100/45). La prova della soglia di batteria vuole un alimentatore regolabile con limite di corrente
+    al posto del pacco: il BOM lo chiama "utile ma non indispensabile". Il piano P3 chiede "rail spento in ogni
+    guasto provato (SSC-32 staccata, firmware bloccato, batteria simulata bassa)": il firmware bloccato non ha una procedura.
+  prove:
+    - "docs/software.md 2.6 (tabella degli eventi); docs/piano-elettronica-software.md 4 (P3, Si verifica)"
+    - "docs/BOM.md 'Attrezzi necessari' (alimentatore regolabile)"
+  opzioni:
+    - "Provare solo i guasti elencati, sul cavalletto, e lasciare caduta e inclinazione al simulatore (bozza)."
+    - "Comprare o prestare un alimentatore regolabile."
+  consiglio: "Bozza; l'alimentatore si presta o si compra solo se si vuole provare la soglia di batteria."
+  domanda: "Hai un alimentatore regolabile con limite di corrente, o ti basta provare le soglie di batteria in simulazione?"
+
+- titolo: Il piano chiama "B6" la fase del collaudo, ma B6 e' anche il fusibile F2 del BOM
+  gravita: minore
+  dove: "titolo della sezione 14"
+  cosa: >-
+    In docs/piano-guida.md la sezione 14 e' "Collaudo (B6)". In docs/software.md 6.7 B6 e' la procedura "robot sul cavalletto
+    con le zampe in aria, poi a terra in assetto basso"; nel BOM B6 e' il portafusibile MINI di F2 da 2 A. Stesso tipo di
+    confusione di "B4" nel piano per la sezione 12.
+  prove:
+    - "docs/piano-guida.md riga 129; docs/software.md 6.7; docs/BOM.md B6"
+    - "guida/problemi/accensione.yaml, 'Il piano dice B4'"
+  opzioni:
+    - "Scrivere 'prova B6 di software.md' nella sezione e non solo 'B6' (bozza)."
+  consiglio: "Bozza."
+
+- titolo: Attrezzi del collaudo che non sono nel BOM, e il peso atteso e' con tutte le predisposizioni
+  gravita: minore
+  dove: "14.02, 14.09"
+  cosa: >-
+    La guida chiede una bilancia da 5 kg, un termometro a infrarossi o a termocoppia e, per le soglie di batteria, un
+    alimentatore regolabile: nessuno e' una voce del BOM. Gli NTC dell'X14 misurano i regolatori ma non il carapace
+    ne' i servo. I 3045 g sono la massa attesa con tutte le predisposizioni (D-066: circa 45 g); senza alcune il robot
+    pesa meno e il confronto va fatto con la massa della sua configurazione, che il CAD non scrive.
+  prove:
+    - "docs/BOM.md 'Attrezzi necessari'; docs/predisposizioni.md X14"
+    - "D-066: 'modellato 2625 g, atteso circa 2985 con tutte le predisposizioni'"
+    - "guida/catalogo/attrezzi.d/collaudo.yaml"
+  opzioni:
+    - "Usare bilancia e termometro dell'utente se li ha."
+    - "Ricavare la massa attesa per ogni configurazione dal CAD (esporta_robot.py)."
+  consiglio: "Bozza; chiedere cosa ha in casa."
+  domanda: "Hai una bilancia da cucina con portata di almeno 5 kg e un termometro a infrarossi?"

@@ -1,0 +1,7 @@
+# Attrezzi in piu' della sezione 12, prima accensione e taratura (D-075).
+# cavalletto: D-066 blocco C, cad/stl/attrezzi/Attrezzo_Cavalletto.stl (PETG-CF, alto 137 mm).
+# dime_posa: D-066 blocco C, cad/stl/attrezzi/Dima_Posa_1.stl e Dima_Posa_2.stl (software.md 2.7).
+# computer_usb: console del firmware sulla porta dell'ESP32 (software.md 2.9) e web app della taratura (2.7).
+cavalletto:   {nome: "Cavalletto stampato", icona: "", uso: "regge il robot sotto la chiglia con le zampe libere (D-066)"}
+dime_posa:    {nome: "Dime di posa 1 e 2 stampate", icona: "", uso: "taratura dei servo con la lama B tolta (D-066)"}
+computer_usb: {nome: "Computer con cavo USB-C", icona: "", uso: "console del firmware e taratura (software.md 2.7, 2.9)"}

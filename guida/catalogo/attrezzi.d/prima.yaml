@@ -1,0 +1,4 @@
+# Attrezzi aggiunti dalla sezione 0 (prima). Fonte: docs/BOM.md, "Attrezzi necessari": un alimentatore regolabile con
+# limite di corrente per le prime accensioni al banco, "utile ma non indispensabile" (si parte con F1 da 15 A);
+# docs/software.md 6.7, B2: un servo alla volta con fusibile da 3 A oppure alimentatore limitato a 1 A.
+alimentatore_limitato: {nome: "Alimentatore regolabile con limite di corrente", icona: multimetro, uso: "prime accensioni e prova di un servo alla volta al banco (BOM, software.md B2)"}

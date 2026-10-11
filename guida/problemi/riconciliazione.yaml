@@ -1,0 +1,197 @@
+# Problemi e decisioni della riconciliazione F3 della guida (D-075, docs/piano-guida.md "Lavoro con gli agenti").
+# Dieci estrattori hanno scritto le sezioni in parallelo; qui sta come sono state fatte stare insieme. Le decisioni di
+# tipo allocazione sono gia' applicate ai passi e vanno confermate dall'utente; quelle con "opzioni" aperte no.
+# Formato in guida/schema.md "Problemi"; campi in piu': tipo (allocazione), domanda (cosa chiedere all'utente).
+
+- titolo: "Viti delle alette dei servo di coxa: tutte e quattro accostate nel passo 7.05, strette nel 9.08"
+  tipo: allocazione
+  gravita: importante
+  dove: "7.05, 9.08"
+  cosa: >-
+    Il piano metteva le viti lato coda (alette_coxa_coda, 12 M3 x 8 in inserti) nella sezione 9, dopo la coxa. Con la
+    coxa montata la testa dell'anima le copre (1,0 mm sopra le teste) e si scoprono solo con la coxa a 30 gradi. Gli
+    estrattori delle sezioni 7 e 9 chiedevano la stessa cosa: accostarle nella 7 e stringerle nella 9.
+  prove:
+    - "guida/problemi/corpo.yaml, primo problema (consiglio: prima opzione)"
+    - "guida/problemi/zampa_corpo.yaml, 'Viti lato coda del servo di coxa' e prove sulle mesh (libere a +-30 gradi)"
+    - "docs/ricerca/zampa-v0-revisione.json:78 (luce di 1,0 mm sopra le teste gia' messe)"
+  consiglio: >-
+    Applicato. 7.05 usa alette_coxa_albero e alette_coxa_coda (accostate); 9.08 usa {id: ..., stringi: true} per tutte
+    e due. Il sacchetto della sezione 9 non conta piu' 12 x 6 viti; controlla resta ok (totali_viti, giunzioni_usate).
+
+- titolo: "La prova B5 e il rail acceso tolti dalla sezione 9: il servo di coxa si muove con il tester"
+  tipo: allocazione
+  gravita: importante
+  dove: "9.08, rinviati della sezione 9, 10.01, 10.03"
+  cosa: >-
+    La sezione 9 accendeva il rail "come nella sezione 8 (B3)" per girare la coxa a 30 gradi (9.08) e per la prova B5
+    (9.09, taratura con le dime). Ma la sezione 8 fa solo prove a freddo (8.28), la batteria arriva nella 11 e la
+    prima accensione del corpo, con le misure per gradi, e' la 12, che fa anche la taratura con le dime di tutte le
+    zampe (12.11, 12.12). Accendere il corpo nella 9 saltava i controlli della 12.
+  prove:
+    - "guida/passi/08-elettronica.yaml 8.28 'Prove a freddo, ancora senza batteria'"
+    - "guida/problemi/accensione.yaml, 'Il piano mette B3 nella sezione 8 e la prova B5 nella 9'"
+    - "guida/problemi/zampa_corpo.yaml, 'La prova B5 nella sezione 9 viene prima della batteria'"
+  consiglio: >-
+    Applicato. 9.08 muove la coxa con il tester dei servo (attrezzo tester_servo della sezione 6, con la sua
+    alimentazione a 6 V), staccando la spina dalla SSC-32 e rimettendola dopo. Il vecchio 9.09 (B5) e' nei rinviati
+    della sezione 9, non cancellato; 9.10 e 9.11 sono diventati 9.09 e 9.10 (rimandi e "dove" dei problemi
+    aggiornati). Prerequisiti, stato elettrico, controllo e scheda delle sezioni 9 e 10 non citano piu' B3 e B5.
+  domanda: "Il tester dei servo non e' nel BOM (guida/problemi/zampa.yaml): ce l'hai, o compriamo un tester a manopola?"
+
+- titolo: "Le sei zampe si montano tutte nella sezione 6, prima del corpo; la sezione 10 ripete solo la 9"
+  tipo: allocazione
+  gravita: importante
+  dove: "6 (ripeti_testo), 10.01, sezione 10"
+  cosa: >-
+    La sezione 6 dice "6x, una zampa alla volta"; la 10 diceva di ripetere per ogni zampa "sezione 6, poi sezione 9",
+    cioe' dopo il corpo e l'elettronica. Ma la sezione 6 usa il banco dei servo della sezione 5 (regolatore sinistro
+    sulla slitta, SSC-32 dal Mac) per la meta' corsa, il calettamento e le alette (6.16, 6.20, 6.21, 6.25), e nella
+    sezione 8 slitte, regolatori e SSC-32 entrano nel corpo: per le zampe 2-6 il banco non c'era piu'.
+  prove:
+    - "guida/passi/06-zampa.yaml stato_elettrico e 6.16-6.25"
+    - "guida/passi/08-elettronica.yaml 8.01, 8.05"
+    - "docs/piano-guida.md 'Struttura della guida' (sezione 6 'Zampa pilota (x6)', sezione 10 'con rimando alle sezioni 6 e 9')"
+  consiglio: >-
+    Applicato: la 6 dice "tutte e sei prima della sezione 7"; la 10 parte da sei zampe fatte e ripete la sola
+    sezione 9 (tempo 45 minuti a zampa). In alternativa si tiene l'ordine di prima e la 6 usa il tester dei servo con
+    un alimentatore: lo decide l'utente.
+
+- titolo: "INA260: il supporto si posa sulla slitta al banco (4.14), l'INA260 si avvita nel corpo (8.03)"
+  tipo: allocazione
+  gravita: importante
+  dove: "4.14, 8.01, 8.03"
+  cosa: >-
+    4.14 avvitava l'INA260 al supporto e 8.03 lo avvitava di nuovo; 8.01 diceva di toglierlo se c'era. Con l'INA260
+    sopra, la vite M3 della slitta non si raggiunge (fessura di 6,1 mm sotto la scheda).
+  prove: ["guida/problemi/elettronica.yaml, vite delle slitte con il supporto dell'INA260", "guida/problemi/banco.yaml"]
+  consiglio: >-
+    Applicato: in 4.14 entrano solo i supporti (l'INA260 e' in evidenza, da tenere da parte); in 8.03 gli INA260 sono
+    pezzi nuovi, con le 4 viti M2 x 5 [C] spostate li'. La vite della slitta (M3 x 8 o x 10) resta un problema aperto
+    della sezione 8.
+
+- titolo: "NTC dei regolatori incollate al banco (4.10); nel corpo solo i fili (8.26)"
+  tipo: allocazione
+  gravita: minore
+  dove: "4.10, 8.26"
+  cosa: >-
+    La richiesta dell'estrattore della sezione 8 non era nei passi: 8.26 incollava ancora le NTC con il regolatore nel
+    corpo, dove la bobina sta sotto l'INA260 con 4,8 mm d'aria.
+  prove: ["guida/problemi/elettronica.yaml, 'Le NTC dei regolatori si incollano al banco'"]
+  consiglio: >-
+    Applicato: avviso OPZIONALE X14 in 4.10 (incolla e salda) con le due NTC fra gli extra; 8.26 le controlla e porta
+    i fili ai canali 6 e 7.
+
+- titolo: "Cavo piatto saldato sulla basetta al banco (4.05), non nel corpo (8.23)"
+  tipo: allocazione
+  gravita: importante
+  dove: "4.05, 8.23, 13 prima"
+  cosa: >-
+    4.05 e 8.23 saldavano tutte e due il cavo piatto a 16 vie sulla basetta. In 8.23 la basetta e' gia' avvitata sulle
+    colonnine da 3,3 mm con le saldature in basso (8.11): non si salda piu' dal lato giusto.
+  prove: ["guida/passi/08-elettronica.yaml 8.11 nota sulle colonnine", "guida/passi/04-banco.yaml 4.05"]
+  consiglio: "Applicato: 4.05 salda, 8.23 controlla e posa la spina IDC; l'extra del cavo resta solo in 4.05."
+
+- titolo: "Fili saldati sulla basetta gia' avvitata: 8.18 e 8.25 saldano dal lato componenti"
+  gravita: importante
+  dove: "8.11, 8.18, 8.21, 8.25"
+  cosa: >-
+    Dopo 8.11 la basetta sta sulle colonnine con le saldature in basso, a 3,3 mm dal vassoio. I passi 8.18 (uscita
+    della 2813 verso il D24V22F5 e il partitore), 8.21 (bus I2C) e 8.25 (luci) saldano fili "sulla basetta". Su una
+    millefori a fori passanti il filo si salda dal lato rame, che non si raggiunge piu'. Senza schema non si sa se ci
+    sono capicorda o pin dal lato componenti.
+  prove: ["guida/passi/08-elettronica.yaml 8.11, 8.18, 8.21, 8.25", "guida/problemi/elettronica.yaml, schemi mancanti (bloccante)"]
+  opzioni:
+    - "Nello schema della basetta, per ogni filo che arriva dal corpo, un pin a saldare o un morsetto dal lato componenti."
+    - "Saldare quei fili al banco (sezione 4) con la lunghezza presa dal CAD, e nel corpo solo posarli."
+  consiglio: "Prima opzione, da decidere con gli schemi (F3b): non cambia l'ordine dei passi."
+
+- titolo: "Prolunga di bilanciamento C7 preparata nel passo 11.04"
+  tipo: allocazione
+  gravita: minore
+  dove: "11.04, 11 prima"
+  cosa: "Nessuna sezione saldava i due codini JST-XH della prolunga; la sezione 11 la chiedeva 'pronta, sezione 4 o 8'."
+  prove: ["docs/BOM.md C7 (due codini a 3 poli saldati)", "guida/problemi/batteria.yaml, prolunga di bilanciamento"]
+  consiglio: >-
+    Applicato: 11.04 salda i due codini filo per filo con il termorestringente [S], poco prima di collegarla. Se il
+    problema bloccante delle fessure del tetto (batteria.yaml) chiede di infilarla prima, si sposta con quello.
+
+- titolo: "Carica della batteria: regole nel passo 0.06, richiamate da 4, 11.01 e 0.07"
+  tipo: allocazione
+  gravita: minore
+  dove: "0.06, 0.07, 4 prima, 11.01"
+  cosa: "Le regole di carica e del pacco caldo erano scritte due volte (0.06-0.07 e 11.01), e la sezione 4 chiedeva una batteria carica senza rimando."
+  consiglio: "Applicato: 11.01 e la sezione 4 rimandano ai passi 0.06 e 0.07; la sostanza resta in 0."
+
+- titolo: "Inserti M2 di scheda e amplificatore del carapace: 'meglio ora' anche nella sezione 3"
+  tipo: allocazione
+  gravita: minore
+  dove: "3.20, 13.01, A.14"
+  cosa: "3.20 e A.14 dicevano 'anche dopo, a carapace tolto'; 13.01 'meglio ora', perche' con i moduli montati vanno tolti."
+  consiglio: "Applicato: 3.20 e A.14 dicono meglio ora (dopo, a moduli tolti). Lo zaino resta 'anche dopo'."
+
+- titolo: "Tabelle delle opzioni X (0.15, 0.16, A.10, A.11) riallineate alle sezioni scritte"
+  tipo: allocazione
+  gravita: minore
+  dove: "0.15, 0.16, A.10, A.11"
+  cosa: >-
+    La sezione 0 era scritta prima delle 8 e 13. Colonna Sez.: X1 anche 4; X5 e X31 6-9; X8 anche 13; X13 7 e 8; X14 4
+    e 8. Quando: X3 "anche dopo, se serve" come in 4.05; X11, X12, X16, X17, X19 "meglio ora; dopo, a carapace tolto",
+    come gli avvisi della 13.
+  consiglio: "Applicato. Il 'quando' resta dedotto [S] (guida/problemi/prima.yaml)."
+
+- titolo: "Rimandi corretti fra le sezioni"
+  tipo: allocazione
+  gravita: minore
+  dove: "8.19, 11 prima, 11.05, 13 prima, 13.16"
+  cosa: >-
+    8.19 citava la prova dell'EN in 4.11 (e' 4.12); la sezione 11 citava gli inserti della chiglia in 3.15 (e' 3.14,
+    3.15 e' la slitta sinistra); la 13 citava la scheda del carapace e il pull-down in 4.05 (e' 4.06).
+  consiglio: "Applicato. Tutti gli altri rimandi 'passo N.xx' esistono e puntano al passo giusto (controllo a mano su 415 rimandi)."
+
+- titolo: "Glossario unito in guida/glossario.yaml, appendice rigenerata"
+  tipo: allocazione
+  gravita: minore
+  dove: "guida/glossario.yaml, A.15-A.24, 0.24"
+  cosa: >-
+    I 14 file di guida/glossario.d/ (124 voci) e le 14 voci di prima sono uniti in guida/glossario.yaml: 122 termini. Doppioni risolti
+    tenendo la definizione piu' chiara: calettamento, squadretta, alfa e gamma (dalla sezione 6); foro pilota,
+    forzamento, inserto a caldo, provino, registro delle misure (dalla 0); rail (dalla 12, al posto di 'rail' della 4
+    e 'rail dei servo' della 0); 'barra di rame' al posto di 'barra'; 'VS1 e VS2' e 'VL' al posto di 'VS e VL'.
+    glossario.d/ e' tolto (copia in /tmp/riconc/glossario.d.bak). L'appendice e' generata con lo script fuori dal
+    repo /tmp/guida_tools/genera_glossario.py: ora 10 passi invece di 7.
+  consiglio: "Un comando 'glossario' dell'impaginatore al posto dello script in /tmp (difetto della pipeline)."
+
+- titolo: "Gli schemi elettrici non esistono: l'appendice non ha i passi con le figure"
+  gravita: bloccante
+  dove: "appendici, 4.04-4.06, 8.11-8.25, 13.16"
+  cosa: >-
+    guida/schemi/ e' vuota: la fase F3b non ha prodotto gli SVG della basetta 56 x 35 e della scheda del carapace.
+    La riconciliazione non aggiunge passi con figura: schemi/... perche' il controllo chiavi_esistenti fallirebbe e
+    il compito non e' disegnarli. Le sezioni 4, 8 e 13 dicono di non saldare finche' lo schema non e' approvato.
+  prove: ["guida/problemi/banco.yaml e elettronica.yaml (bloccanti)", "docs/piano-guida.md F3b"]
+  consiglio: "Rifare F3b (progettista + verificatore elettrico) prima di F4; poi due passi in appendice con figura."
+
+- titolo: "Il banco dei servo (sezione 5) usa un regolatore che poi entra nel corpo; le sezioni 9 e 15 chiedono un tester"
+  gravita: minore
+  dove: "5.01, 9.08, 15 prima"
+  cosa: >-
+    Dopo la sezione 8 l'unico modo scritto per muovere un servo senza il robot acceso e' il tester dei servo, che non
+    e' nel BOM. Servono anche un alimentatore a 6 V (alimentatore_limitato della sezione 0) o un pacco a parte.
+  domanda: "Hai un tester dei servo e un alimentatore da banco regolabile?"
+  consiglio: "Aggiungere al BOM un tester a manopola, o scrivere in 0.20 che serve l'alimentatore regolabile."
+
+- titolo: "Avvisi rimasti dopo la costruzione completa: due aperture che debordano e sei viti poco visibili"
+  gravita: minore
+  dove: "apertura delle sezioni 6 e 8, 7.05, 9.02"
+  cosa: >-
+    costruisci tutto -j 3: 270 pagine, PDF da 69,2 MB (il piano chiede meno di 30). Restano: "deborda: apertura
+    destra" della sezione 6 (14 tipi di pezzi, gia' nota all'estrattore) e della 8 (con gli INA260 montati in 8.03 i
+    pezzi vanno su tre righe e la tabella ALTRO esce dal fondo); "7.05: vite20-23 poco visibile", quattro viti lato
+    coda coperte dai servo esplosi nella vista corpo_alto (non cambia con esploso 25 o 70); "9.02: vite0/vite1",
+    difetto di piazza gia' descritto dall'estrattore della sezione 9.
+  opzioni:
+    - "Seconda pagina per il sacchetto quando i pezzi non stanno (impaginatore)."
+    - "7.05 in due passi: servo e viti lato albero, poi viti lato coda con una vista piu' alta."
+    - "Immagini quantizzate (piano: 15-30 MB)."
+  consiglio: "Correggerli nell'impaginatore (F7), non nei testi."

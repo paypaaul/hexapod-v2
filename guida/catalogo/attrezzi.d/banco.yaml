@@ -1,0 +1,9 @@
+# Attrezzi in piu' delle sezioni 4 e 5, banco dell'elettronica e servo (D-075).
+# mac_seriale: il Mac dell'utente (docs/piano-elettronica-software.md, domanda 5: Mac M2 Pro) con un terminale seriale
+#   (per esempio screen, gia' in macOS) per la SSC-32 e l'ESP32 al banco; nessuna dipendenza nuova.
+# cacciavite_piatto: i morsetti della SSC-32 hanno passo 3,5 mm (docs/dimensioni-componenti.md, S) e il Wago 221 si apre
+#   con la leva, non serve; il cacciavite serve ai morsetti a vite della SSC-32 e dell'INA260 (S).
+# nastro_pennarello: numeri dei servo sui cavi (docs/software.md 6.7, B2: servo etichettati).
+mac_seriale:       {nome: "Mac con un terminale seriale", icona: "", uso: "SSC-32 e ESP32 al banco, 115200 baud (docs/software.md 6.7)"}
+cacciavite_piatto: {nome: "Cacciavite a taglio piccolo", icona: cacciavite, uso: "morsetti a vite della SSC-32 e dell'INA260 (passo 3,5 mm)"}
+nastro_pennarello: {nome: "Nastro di carta e pennarello", icona: "", uso: "numeri sui cavi dei servo (B2)"}

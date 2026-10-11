@@ -1,0 +1,570 @@
+# Sezione 0, prima di cominciare (D-075, docs/piano-guida.md "Struttura della guida"). F3, estrattore della sezione.
+# Nessun pezzo montato. Passi solo testo e tabelle (come si legge, verbi, avvisi, sicurezza, opzioni X, inventario,
+# ordine e tempi) e tre immagini con etichette (zampe, lati A e B, terne). Il foglio delle viti 1:1 e l'elenco generale
+# dei pezzi li genera l'impaginatore; gli schemi elettrici li aggiunge la riconciliazione.
+# Nelle tabelle piu' larghe del mezzo foglio (134 mm) le celle sono corte: i passi senza figura sono a mezzo foglio, due
+# per pagina. Il "quando" delle opzioni X e i tempi non sono in nessun documento: vedi guida/problemi/prima.yaml.
+sezione:
+  id: prima
+  numero: 0
+  titolo: Prima di cominciare
+  colore: "#0c8599"
+  terna: robot
+  istanza: AS
+  obiettivo: >-
+    Sapere come si legge la guida, quali regole di sicurezza valgono, come si chiamano le zampe e i lati, quali opzioni
+    montare e in che ordine fare le sezioni. Poi controllare di avere tutto prima di cominciare.
+  prima:
+    - "Guida stampata in A4 orizzontale al 100 %, senza adattare alla pagina: le viti del riquadro dei pezzi sono a grandezza vera."
+    - "docs/BOM.md, versione 2.2, a portata di mano per i codici delle voci (A1, B5, D4, X5)."
+  tempo: "circa 1 ora per leggere e controllare l'inventario [S]"
+  stato_elettrico: "nessuno: batteria e T-plug staccati, niente collegato."
+  note: >-
+    Questa sezione non monta niente. Le immagini mostrano il robot intero solo per dare i nomi delle zampe, dei lati e
+    degli assi.
+  attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, alimentatore_limitato]
+  fonti: [D-075, docs/piano-guida.md "Struttura della guida", guida/stile.md]
+  controllo:
+    - "Una vite M3 × 8 vera, appoggiata al suo disegno nella pagina di apertura della sezione 6, ne copre esattamente la lunghezza."
+    - "Sai dire quale zampa è AS e quale PD, e dove sono il lato A e il lato B."
+    - "Hai letto le regole di sicurezza: batteria, fusibili, saldatore e inserti, servo sotto tensione."
+    - "Hai segnato quali opzioni X monti, e hai capito quali si decidono adesso."
+    - "L'inventario è spuntato e i punti da guardare sono risolti o annotati."
+
+passi:
+  - id: "0.01"
+    titolo: Come si legge la guida
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Segno, Significa]
+      righe:
+        - ["Numero grande, per esempio 6.04", "Sezione 6, passo 4. I passi si fanno nell'ordine dei numeri."]
+        - ["Pezzo a colori pieni, contorno spesso", "Il pezzo che monti in questo passo. Quelli già montati sono sbiaditi."]
+        - ["Freccia blu larga", "Il pezzo nuovo va da dove parte la freccia a dove arriva."]
+        - ["Freccia blu stretta", "Una vite o un inserto: dalla punta della freccia al foro."]
+        - ["Giallo", "La sede o il percorso da guardare: dove va quello che il modello non ha (fili, striscia luminosa)."]
+        - ["Colore ottone", "Un inserto a caldo."]
+        - ["Riquadro grigio con miniature", "I pezzi del passo, con le viti a grandezza vera (1:1)."]
+        - ["Riquadro 2×", "Il passo si fa due volte uguale, per esempio sui due lati."]
+        - ["6× nella fascia in alto", "La sezione si rifà sei volte, una zampa alla volta."]
+        - ["Punto di controllo", "A fine sezione: spunta ogni frase prima di andare avanti."]
+        - ["Scheda a spunta", "Una riga per zampa: annota il servo usato e le scelte fatte."]
+    testo:
+      - "Segui i passi nell'ordine dei numeri."
+      - "Guarda prima l'immagine, poi leggi il testo."
+      - "Appoggia la vite vera sul suo disegno 1:1 per riconoscerla."
+      - "Spunta il punto di controllo di ogni sezione prima di passare alla successiva."
+    avvisi:
+      - {tipo: importante, testo: "Stampa la guida in A4 orizzontale al 100 %: con un adattamento alla pagina le viti 1:1 non hanno più la misura vera."}
+      - {tipo: nota, testo: "La guida è una bozza: la prima zampa vera la corregge, in una versione 1.1 (docs/piano-guida.md). Se un passo non torna con il pezzo che hai in mano, fermati e annota."}
+    fonti: [D-075, docs/piano-guida.md "Architettura" e "Struttura della guida", guida/css/guida.css, guida/catalogo/stile.yaml]
+
+  - id: "0.02"
+    titolo: I verbi della guida
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Verbo, Significa]
+      righe:
+        - ["Accosta", "Avvita finché la testa tocca, senza stringere."]
+        - ["Stringi", "Stringi a fondo, senza forzare la plastica."]
+        - ["Infila", "Fai scorrere un pezzo in una sede, senza forza."]
+        - ["Premi", "Forzamento: con il pollice o con una morsa a ganasce morbide."]
+        - ["Posa", "Appoggia nella posizione finale, senza fissare."]
+        - ["Cala", "Fai scendere dall'alto in una sede o in una culla."]
+        - ["Ruota", "Gira fino alla posizione indicata (angolo o riferimento)."]
+        - ["Collega", "Innesta un connettore, nel verso indicato."]
+        - ["Salda", "Saldatura a stagno."]
+        - ["Controlla", "Verifica senza attrezzi. Se non va, fermati."]
+        - ["Misura e annota", "Misura con l'attrezzo e scrivi il valore nel registro delle misure (appendice)."]
+        - ["Annota", "Scrivi un dato (numero del servo, scelta fatta) nella scheda della sezione."]
+        - ["Togli", "Stacca o rimuovi un pezzo o una parte (gommini, pellicole, un pezzo da rimontare dopo)."]
+    testo:
+      - "Leggi il verbo all'inizio di ogni riga: dice cosa fare e come."
+      - "Fai un'azione per riga, nell'ordine in cui le leggi."
+    avvisi:
+      - {tipo: nota, testo: "Ogni verbo di questa tabella vale sempre lo stesso. Gli altri (Taglia, Incolla, Metti) hanno il significato di tutti i giorni (guida/stile.md)."}
+    fonti: [D-075, guida/stile.md "Verbi con un significato fisso"]
+
+  - id: "0.03"
+    titolo: Viti, inserti e rondelle
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Pezzo, Come lo riconosci, Attrezzo]
+      righe:
+        - ["Vite M3 × 5, × 6, × 8, × 10, × 16", "Testa cilindrica con esagono incassato (ISO 4762). La lunghezza è sotto la testa.", "brugola 2,5"]
+        - ["Vite M2 × 5 a croce", "Testa tonda con croce (ISO 7045). La lunghezza è sotto la testa.", "croce PH0"]
+        - ["Vite M2 × 5 svasata", "Testa piana a cono, nera (ISO 10642). La lunghezza comprende la testa.", "brugola 1,3"]
+        - ["Rondella M3", "Piatta, Ø7 con foro da 3,2 (DIN 125).", "–"]
+        - ["Inserto M3 o M2", "Bussola di ottone, Ø4,2 o Ø3,2, filettata dentro.", "saldatore per inserti"]
+        - ["Distanziale M3", "Maschio-femmina da 5 mm.", "a mano"]
+    testo:
+      - "Appoggia la vite vera sul suo disegno 1:1: lunghezza e testa devono coincidere."
+      - "Misura la lunghezza sotto la testa; per le svasate, tutta."
+      - "Controlla il tipo di testa prima di prendere il cacciavite."
+    avvisi:
+      - {tipo: importante, testo: "Le viti M3 × 8 delle alette lato albero non vanno in un inserto: si fanno il filetto da sole nei fori pilota Ø2,5 (D-049)."}
+      - {tipo: nota, testo: "Le misure dei disegni sono quelle della norma (guida/catalogo/viteria.yaml); le viti del tuo kit possono differire di qualche decimo [C]."}
+    fonti: [guida/catalogo/viteria.yaml, docs/BOM.md D4 D5 D6 D7 D8 D8b B18, D-049, D-073]
+
+  - id: "0.04"
+    titolo: Avvisi e dati marcati
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Segno, Significa]
+      righe:
+        - ["ATTENZIONE", "Pericolo per le persone o danno a un pezzo (batteria, saldatore, servo sotto carico, polarità)."]
+        - ["IMPORTANTE", "Errore facile che costringe a smontare."]
+        - ["NOTA", "Il perché, un trucco, un riferimento (D-0xx: la decisione in docs/decisioni.md)."]
+        - ["OPZIONALE Xn", "Una predisposizione: salta il passo se non la monti."]
+        - ["solo ora", "Dopo non si può più."]
+        - ["meglio ora", "Dopo si può, ma costa smontare qualcosa."]
+        - ["anche dopo", "Si aggiunge più avanti senza smontare."]
+        - ["PROVA", "Una prova da fare prima di andare avanti, con il risultato atteso."]
+        - ["[V]", "Dato verificato su fonte primaria o nel CAD."]
+        - ["[S]", "Dato stimato o da fonte secondaria."]
+        - ["[C]", "Dato da confermare, di solito con un provino o con il pezzo vero."]
+    testo:
+      - "Leggi gli avvisi prima di fare il passo."
+      - "Ferma il lavoro davanti a un avviso ATTENZIONE finché non hai capito il rischio."
+      - "Fidati di un dato [C] solo dopo la prova indicata."
+    avvisi:
+      - {tipo: nota, testo: "I dati [C] sono quelli che il progetto non ha potuto misurare da solo: servo e schede del venditore. I servo non si misurano (CLAUDE.md, decisioni dell'utente)."}
+    fonti: [D-075, guida/stile.md "Avvisi" e "Numeri e nomi"]
+
+  - id: "0.05"
+    titolo: Sicurezza, la batteria
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Tieni il T-plug staccato in ogni sezione che non lo chiede."
+      - "Isola ogni capo scoperto prima di collegare la batteria."
+      - "Controlla la batteria prima di ogni uso: non usarla se è gonfia, ammaccata o con i cavi danneggiati."
+      - "Stacca il T-plug e la presa di bilanciamento a fine uso."
+    avvisi:
+      - {tipo: attenzione, testo: "Batteria OVONIC 2S 5200 mAh 50C: 260 A continui dichiarati [V]. Un cortocircuito fonde i cavi e può incendiare il pacco."}
+      - {tipo: attenzione, testo: "Il cicalino BX100 assorbe sempre dalla presa di bilanciamento: scollegalo a fine uso, o scarica la batteria (BOM, schema di alimentazione)."}
+      - {tipo: nota, testo: "Il T-plug è anche il sezionamento d'emergenza dei servo: sta in coda, a portata di mano (BOM B12, D-069)."}
+      - {tipo: nota, testo: "Sotto 3,5 V per cella il firmware spegne il rail dei servo; la logica resta accesa fino a 3,3 V per cella (software.md 2.6) [S]."}
+    fonti: [docs/BOM.md A5 e "Schema di alimentazione", docs/cablaggio.md 4, docs/software.md 2.6, D-069, D-045]
+
+  - id: "0.06"
+    titolo: Sicurezza, la carica
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Carica solo con un caricabatterie per LiPo 2S con bilanciamento, sulla presa JST-XH."
+      - "Imposta 2 celle: 8,4 V a fine carica [V], cioè 4,20 V per cella [S]."
+      - "Imposta la corrente di carica dal manuale OVONIC [C]."
+      - "Carica su una superficie che non brucia, e resta presente."
+      - "Stacca il pacco quando la carica è finita."
+    avvisi:
+      - {tipo: importante, testo: "Il progetto non dice come si carica il pacco: il caricabatterie non è nel BOM, e corrente di carica e conservazione vanno lette sul manuale OVONIC [C]. Le altre regole di questa pagina sono regole generali sulle LiPo [S]."}
+      - {tipo: attenzione, testo: "Non caricare un pacco gonfio, ammaccato o caldo."}
+      - {tipo: nota, testo: "Per lasciare il pacco fermo per giorni portalo a metà carica, con la modalità di conservazione del caricabatterie [S]."}
+    fonti: [docs/BOM.md A5, docs/studio-componenti.md "Batteria", D-045, guida/problemi/prima.yaml, guida/problemi/batteria.yaml]
+
+  - id: "0.07"
+    titolo: Sicurezza, pacco caldo o gonfio
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Allontanati dalle zampe e dal pacco se senti calore o il pacco si gonfia."
+      - "Stacca il T-plug solo se puoi farlo senza toccare il pacco."
+      - "Porta il robot all'aperto, su una superficie che non brucia, se è sicuro farlo."
+      - "Non usare e non caricare più un pacco che si è gonfiato."
+      - "Chiama i soccorsi se c'è fuoco o fumo denso."
+    avvisi:
+      - {tipo: attenzione, testo: "Un pacco LiPo danneggiato può prendere fuoco anche a robot spento: non tenerlo in casa se è gonfio."}
+      - {tipo: nota, testo: "Regole generali sulle LiPo [S]: nessun documento del progetto descrive cosa fare in caso di calore, fumo o gonfiore. Il manuale OVONIC va letto prima della sezione 12 [C]."}
+    fonti: [docs/BOM.md "Schema di alimentazione", guida/problemi/prima.yaml, guida/problemi/accensione.yaml]
+
+  - id: "0.08"
+    titolo: Sicurezza, i fusibili
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Fusibile, Valore, Dove, Quando]
+      righe:
+        - ["F1", "3 A", "Linea principale, un solo regolatore", "Banco: sezioni 4 e 5 [V]"]
+        - ["F1", "15 A", "Linea principale", "Prime accensioni: sezione 12, fino alla fine della taratura [V]"]
+        - ["F1", "30 A", "Linea principale", "In uso, dopo la taratura (BOM B4) [V]"]
+        - ["F2", "2 A", "Ramo logica: 2813, 5 V, VL", "Sempre. Con lo zaino vedi la nota [C]"]
+    testo:
+      - "Monta il fusibile della sezione che stai facendo: 3 A al banco, 15 A alla prima accensione."
+      - "Sostituisci un fusibile bruciato con uno uguale, mai più grosso."
+      - "Cerca la causa del guasto prima di rimetterlo."
+      - "Tieni F1 nel suo portafusibile fissato al corpo, non appeso ai cavi."
+    avvisi:
+      - {tipo: attenzione, testo: "Non ponticellare mai un fusibile, nemmeno per provare."}
+      - {tipo: importante, testo: "Il ramo logica chiede circa 1,35 A con le voci alte e medie, il 67 % di F2 [S]. Con lo zaino (computer di bordo, 4 W) chiede circa 2,04 A: il piano dice F2 da 3 A, ma il cavo della logica è da 26 AWG. Non cambiare F2 da solo: è un punto aperto del progetto [C]."}
+      - {tipo: nota, testo: "Il rail dei servo non ha un fusibile suo: i due regolatori limitano la corrente e F1 protegge il cavo da 14 AWG (D-073)."}
+    fonti: [docs/BOM.md B4 B5 B6, docs/piano-elettronica-software.md 3.3, docs/cablaggio.md 3.1, docs/software.md 6.7, guida/passi/04-banco.yaml, guida/passi/05-servo.yaml, guida/passi/12-accensione.yaml, D-073]
+
+  - id: "0.09"
+    titolo: Sicurezza, saldatore e inserti caldi
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Appoggia il saldatore sul suo supporto ogni volta che lo lasci."
+      - "Lavora in un posto arieggiato: il flussante fuma."
+      - "Salda l'FSR in pochi secondi, con la punta a bassa temperatura [C]."
+      - "Metti gli inserti con la punta e la temperatura trovate nel provino (sezione 1) [C]."
+      - "Lascia raffreddare l'inserto prima di toccarlo."
+    avvisi:
+      - {tipo: attenzione, testo: "La punta per inserti fonde la plastica e ustiona. Il PLA di carapace e vassoio ammorbidisce verso 55–60 °C [V]: per quei pezzi usa la temperatura del provino per il PLA, più bassa di quella del PETG-CF (D-065)."}
+      - {tipo: importante, testo: "Lo stagno \"a bassa temperatura\" che hai in casa va bene solo se la lega non è al bismuto: controlla prima di usarlo [C]."}
+      - {tipo: nota, testo: "Come si mette un inserto, pezzo per pezzo, è nella sezione 3. Dopo il montaggio la maggior parte dei fori non si raggiunge."}
+    attrezzi: [saldatore_inserti, saldatore]
+    fonti: [D-065, docs/BOM.md B19 e "Attrezzi necessari", guida/passi/06-zampa.yaml 6.06, CLAUDE.md "Da guardare sui pezzi in casa"]
+
+  - id: "0.10"
+    titolo: Sicurezza, i servo sotto tensione
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Tieni dita e cavi lontani dai giunti quando il rail dei servo è acceso."
+      - "Comanda un giunto con il tester o con la SSC-32 per portarlo in posizione."
+      - "Stacca il T-plug se un servo ronza contro un fermo."
+      - "Metti il rail sotto tensione solo con la zampa libera di muoversi."
+    avvisi:
+      - {tipo: attenzione, testo: "MG996R: 2,5 A di stallo a 6 V, 9,4–11 kgf·cm [V]. Un giunto in movimento schiaccia un dito, e 18 servo bloccati insieme chiedono 45 A."}
+      - {tipo: importante, testo: "Non girare a mano il riduttore di un servo e non trascinare il giunto: portalo in posizione comandandolo, con il rail acceso e il servo libero."}
+      - {tipo: nota, testo: "Il rail dei servo è spento di default: lo accende l'ESP32 quando la SSC-32 manda già gli impulsi. Senza taratura valida non si accende (BOM, software.md 2.7)."}
+    fonti: [docs/BOM.md A1 e "Schema di alimentazione", docs/studio-componenti.md, docs/software.md 2.6 e 2.7, guida/problemi/zampa.yaml]
+
+  - id: "0.11"
+    titolo: Le sei zampe
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Base, corpo/Corpo_Chiglia, "zampa/*@AS", "zampa/*@AD", "zampa/*@MS", "zampa/*@MD", "zampa/*@PS", "zampa/*@PD"]
+    nascondi: ["zampa/Cover_*"]
+    vista: {direzione: [-0.1, 0.0, 1.0], su: [1.0, 0.0, 0.0]}
+    etichette:
+      - {testo: AS, punto: [183.9, 104.0, 0]}
+      - {testo: AD, punto: [183.9, -104.0, 0]}
+      - {testo: MS, punto: [0, 168.0, 0]}
+      - {testo: MD, punto: [0, -168.0, 0]}
+      - {testo: PS, punto: [-183.9, 104.0, 0]}
+      - {testo: PD, punto: [-183.9, -104.0, 0]}
+      - {testo: AVANTI, punto: [150, 0, 0]}
+    testo:
+      - "Guarda il robot da sopra, con la testa in alto."
+      - "Leggi la prima lettera del nome: A anteriore, M media, P posteriore."
+      - "Leggi la seconda: S sinistra, D destra."
+      - "Annota il nome nella scheda di ogni zampa prima di montarla."
+    avvisi:
+      - {tipo: nota, testo: "Le sei zampe sono la stessa zampa ruotata, non specchiata: i pezzi sono uguali a destra e a sinistra (robot.yaml)."}
+      - {tipo: nota, testo: "Le zampe d'angolo guardano a 30° e 150° dall'avanti, le medie di lato (D-050)."}
+    fonti: [robot/robot.yaml "zampe", D-050, docs/progetto-meccanico.md "Corpo v0 e assieme", guida/dati/manifest.json istanze]
+
+  - id: "0.12"
+    titolo: Il lato A della zampa
+    formato: grande
+    terna: zampa
+    in_evidenza: ["zampa/*"]
+    nascondi: ["zampa/Cover_*"]
+    vista: zampa_A
+    etichette:
+      - {testo: "LATO A", chiave: zampa/Femore_A}
+      - {testo: squadretta, chiave: zampa/Squadretta_femore}
+      - {testo: squadretta, chiave: zampa/Squadretta_ginocchio}
+    testo:
+      - "Riconosci il lato A: ha il femore lato A, le squadrette e gli alberi dei servo."
+      - "Guarda il lato A prima di ogni passo che lo nomina."
+    avvisi:
+      - {tipo: importante, testo: "Il lato A e il lato B sono quelli del CAD: il lato del femore A e quello del femore B. Scambiarli costringe a smontare."}
+      - {tipo: nota, testo: "Nel CAD il lato A è +Y. I servo hanno l'albero dal lato A (D-047, progetto-meccanico.md)."}
+    fonti: [guida/stile.md "Numeri e nomi", docs/progetto-meccanico.md "Architettura", guida/glossario.yaml, D-047]
+
+  - id: "0.13"
+    titolo: Il lato B della zampa
+    formato: grande
+    terna: zampa
+    in_evidenza: ["zampa/*"]
+    nascondi: ["zampa/Cover_*"]
+    vista: zampa_B
+    etichette:
+      - {testo: "LATO B", chiave: zampa/Femore_B}
+      - {testo: perno, chiave: zampa/Perno_femore}
+      - {testo: perno, chiave: zampa/Perno_ginocchio}
+    testo:
+      - "Riconosci il lato B: ha il femore lato B, i perni e i cuscinetti."
+      - "Guarda il lato B prima di ogni passo che lo nomina."
+    avvisi:
+      - {tipo: nota, testo: "Nel CAD il lato B è −Y. Sulla zampa la lama B si avvita al femore lato B con due viti M2 svasate (D-065)."}
+    fonti: [guida/stile.md "Numeri e nomi", docs/progetto-meccanico.md "Architettura", D-065]
+
+  - id: "0.14"
+    titolo: Terne e versi
+    formato: grande
+    terna: robot
+    istanza: AS
+    in_evidenza: [corpo/Corpo_Base, corpo/Corpo_Chiglia, corpo/Corpo_Carapace]
+    vista: {direzione: [0.55, 0.5, 0.67], su: [0.0, 0.0, 1.0]}
+    etichette:
+      - {testo: "AVANTI X", punto: [150, 0, 0]}
+      - {testo: "SINISTRA Y", punto: [0, 100, 0]}
+      - {testo: "ALTO Z", punto: [0, 0, 60]}
+    tabella:
+      intestazione: [Terna o angolo, Verso]
+      righe:
+        - ["Robot", "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori [V]"]
+        - ["Zampa", "X verso l'esterno, Y verso il lato A, Z in alto; origine sull'asse della coxa [V]"]
+        - ["Imbardata", "Rotazione attorno a Z, da 0° nella direzione neutra della zampa"]
+        - ["Femore α", "0° = orizzontale, positivo verso l'alto"]
+        - ["Ginocchio γ", "90° = tibia verticale con il femore orizzontale; 180° = distesa"]
+    testo:
+      - "Leggi i versi nel disegno: X avanti, Y a sinistra, Z in alto."
+      - "Nei passi della zampa leggi X verso l'esterno e Y verso il lato A."
+    avvisi:
+      - {tipo: nota, testo: "Il calettamento proposto per le squadrette è α +20°, γ 100°, imbardata 0° [C]: si verifica al banco (sezione 12, registro delle misure)."}
+    fonti: [robot/robot.yaml intestazione e calettamento, docs/progetto-meccanico.md "Architettura", D-050]
+
+  - id: "0.15"
+    titolo: Opzioni X, nel corpo e nella zampa
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Voce, Cosa, Sez., Quando, Sì/No]
+      righe:
+        - ["X1", "Bus I2C dei sensori e presa Qwiic", "4, 8", "meglio ora", ""]
+        - ["X3", "Regolatore 3,3 V (solo se il 3,3 V della scheda non regge)", "4", "anche dopo, se serve", ""]
+        - ["X4", "IMU GY-6500 sotto il vassoio", "8", "meglio ora", ""]
+        - ["X5", "Sensore di forza FSR nel piede", "6–9", "meglio ora", ""]
+        - ["X6", "ADC ADS7830 per gli FSR e le NTC", "8", "meglio ora", ""]
+        - ["X7", "Misuratori INA260 nelle baie", "4, 8", "meglio ora (supporti: anche dopo)", ""]
+        - ["X8", "ToF frontale nella testa", "8, 13", "meglio ora", ""]
+        - ["X13", "Spie dei rail in coda", "7, 8", "meglio ora", ""]
+        - ["X14", "NTC sulle bobine dei regolatori", "4, 8", "meglio ora", ""]
+        - ["X31", "Luci nelle tibie", "6–9", "meglio ora (diffusore: anche dopo)", ""]
+    testo:
+      - "Decidi per ogni voce se la monti, e segna Sì o No."
+      - "Rileggi la colonna Quando: dice se puoi rimandare."
+    avvisi:
+      - {tipo: nota, testo: "Il Quando è dedotto da dove sta il pezzo e da cosa bisogna smontare per arrivarci [S]. X4 e X6 stanno sotto il vassoio, che si raggiunge solo smontando vassoio e basetta (predisposizioni.md 2.8)."}
+      - {tipo: nota, testo: "Predisposizione approvata (D-069) vale per il CAD: l'acquisto di ogni voce resta da approvare nel BOM. X4 è in casa (D-074)."}
+    fonti: [D-069, D-074, docs/predisposizioni.md 2.8 e 2.9, docs/BOM.md "X. Predisposizioni", guida/passi/06-zampa.yaml, guida/passi/03-inserti.yaml 3.18 e 3.19, guida/problemi/prima.yaml]
+
+  - id: "0.16"
+    titolo: Opzioni X, nel carapace e nelle luci
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Voce, Cosa, Sez., Quando, Sì/No]
+      righe:
+        - ["X2", "Scheda e connettore del carapace", "4, 13", "meglio ora (cavo piatto), anche dopo (scheda)", ""]
+        - ["X9", "Catena LED", "4, 13", "meglio ora (buffer), anche dopo (striscia)", ""]
+        - ["X10", "Provino di luce", "1", "solo ora", ""]
+        - ["X11", "Anello di stato del pulsante", "13", "meglio ora; dopo, a carapace tolto", ""]
+        - ["X12", "Luce sotto i lobi", "13", "meglio ora; dopo, a carapace tolto", ""]
+        - ["X16", "Microfoni MS3625 con le lunette", "13", "meglio ora; dopo, a carapace tolto", ""]
+        - ["X17", "Amplificatore e altoparlante", "13", "meglio ora; dopo, a carapace tolto", ""]
+        - ["X19, X20", "ToF posteriore ed espansore di I/O", "13", "meglio ora; dopo, a carapace tolto", ""]
+        - ["Zaino", "Computer di bordo sul dorso", "13", "anche dopo", ""]
+    testo:
+      - "Decidi per ogni voce se la monti, e segna Sì o No."
+      - "Stampa il provino di luce prima di stampare carapace e gusci."
+    avvisi:
+      - {tipo: nota, testo: "Senza posto nel modello e quindi non predisposte: X15, X18, X21, X22, X25–X30, X32, X33 (D-069). X23 e X24 non hanno pezzi: usano l'IMU e una riserva I2C."}
+      - {tipo: nota, testo: "X10 decide il bianco o il PETG fumé del diffusore e lo spessore del bianco: per questo è solo ora, prima di stampare (D-069)."}
+    fonti: [D-069, D-074, docs/predisposizioni.md 3.1 e 3.2, docs/BOM.md "X. Predisposizioni", guida/passi/03-inserti.yaml 3.20, guida/problemi/prima.yaml]
+
+  - id: "0.17"
+    titolo: Inventario, meccanica e viteria
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Voce, Q.tà, BOM, "✓"]
+      righe:
+        - ["Servo MG996R", "18 + 2 di scorta", "A1", ""]
+        - ["Squadretta in alluminio a 25 denti", "18 + 2", "D3", ""]
+        - ["Cuscinetto flangiato LF-1050ZZ 5 × 10 × 4", "18 + 6", "D1", ""]
+        - ["Perno Ø5 × 12", "18 + 6", "D2", ""]
+        - ["Inserti a caldo M3 Ø4,2", "94", "D4", ""]
+        - ["Inserti a caldo M2 Ø3,2", "28 (46 con le predisposizioni)", "D5", ""]
+        - ["Viti M3 ISO 4762", "× 5: 12; × 6: 52; × 8: 106; × 10: 18; × 16: 2", "D6", ""]
+        - ["Rondelle M3 DIN 125", "48", "D7", ""]
+        - ["Viti M2 × 5 a croce", "16", "D8", ""]
+        - ["Viti M2 × 5 svasate", "12 + 4", "D8b", ""]
+        - ["Distanziali M3 maschio-femmina da 5 mm", "4", "B18", ""]
+        - ["Fascette 2,5 mm e guaina spiralata", "1 conf. + 2 m", "D11", ""]
+        - ["Schiuma EVA adesiva 3 mm", "1", "D10", ""]
+    testo:
+      - "Conta ogni voce e spunta la colonna ✓."
+      - "Conta le viti per lunghezza: ne servono più di un assortimento normale."
+    avvisi:
+      - {tipo: nota, testo: "Cuscinetti e perni li procuri tu. Le quantità sono quelle del BOM 2.2 e dei totali contati dal modello (BOM, \"Viteria e inserti contati dal modello\")."}
+      - {tipo: importante, testo: "Il kit di inserti ha 50 pezzi per ogni lunghezza: per 94 M3 servono due lunghezze. Vedi l'appendice, inserti a caldo [C]."}
+    fonti: [docs/BOM.md A1 D1 D2 D3 D4 D5 D6 D7 D8 D8b D10 D11 B18, D-073, guida/catalogo/viteria.yaml totali_bom, guida/problemi/appendici.yaml]
+
+  - id: "0.18"
+    titolo: Inventario, alimentazione
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Voce, Q.tà, BOM, "✓"]
+      righe:
+        - ["Batteria 2S 5200 mAh con T-plug", "1", "A5", ""]
+        - ["Regolatore D42V110F6, 6,0 V", "2", "B1", ""]
+        - ["Regolatore D24V22F5, 5 V", "1", "B2", ""]
+        - ["Interruttore Pololu 2813", "1", "B3", ""]
+        - ["Pulsante da pannello Ø12", "1 + 1", "B3b", ""]
+        - ["Fusibili ATO da 15, 20, 25 e 30 A", "1 assortimento", "B4", ""]
+        - ["Portafusibile F1 da 14 AWG", "1", "B5", ""]
+        - ["Portafusibile MINI e fusibile F2 da 2 A", "1 + 1", "B6", ""]
+        - ["Condensatore 2200 µF 16 V", "2 + 2", "B7", ""]
+        - ["Condensatore ceramico 100 nF SMD", "3", "B8", ""]
+        - ["Cicalino di sottotensione BX100", "1", "B9", ""]
+        - ["Resistenze 100 kΩ e 47 kΩ, diodo 1N4148", "1 + 1, 1 + 1", "B10, B11", ""]
+        - ["T-plug lato robot", "1", "B12", ""]
+        - ["Morsetto Wago 221-415", "2", "B13", ""]
+        - ["Cavo 14 AWG, 26 AWG e filo di rame Ø1 mm", "0,5 + 0,5 m, 0,6 + 0,6 m; 2 m; 1 m", "B14–B17", ""]
+    testo:
+      - "Conta ogni voce e spunta la colonna ✓."
+      - "Controlla che il T-plug abbia il sesso giusto per il pacco [C]."
+    avvisi:
+      - {tipo: nota, testo: "Il T-plug della batteria è femmina e quello del robot maschio: dalle immagini del produttore, da guardare sul pacco (BOM B12)."}
+    fonti: [docs/BOM.md A5 B1-B17, D-073, docs/cablaggio.md 3.1]
+
+  - id: "0.19"
+    titolo: Inventario, controllo e cablaggio
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Voce, Q.tà, BOM, "✓"]
+      righe:
+        - ["Scheda ESP32-S3-CAM N16R8 RE1.3", "1 (ne hai 4)", "A2", ""]
+        - ["Camera OV3660 con flat da 75 mm", "1", "A3", ""]
+        - ["Servo controller SSC-32 V2.5", "1", "A4", ""]
+        - ["Traslatore di livello a 4 canali", "1", "C1", ""]
+        - ["Basetta millefori 50 × 70 e strip", "1 + 2 + 1", "C2", ""]
+        - ["Cavetti Dupont femmina", "1 conf.", "C4", ""]
+        - ["Prolunga servo JR da 15 cm", "4", "C5", ""]
+        - ["Prolunga di bilanciamento JST-XH", "1", "C7", ""]
+        - ["Stagno, flussante, termorestringente", "1 assortimento", "B19", ""]
+    testo:
+      - "Conta ogni voce e spunta la colonna ✓."
+      - "Leggi sulla scheda la sigla: serve prima di stampare il vassoio."
+    avvisi:
+      - {tipo: importante, testo: "Delle 4 schede ESP32-S3 CAM solo una è la RE1.3: la sigla è stampata sulla scheda [C]."}
+      - {tipo: nota, testo: "Le voci X che compri si contano nell'appendice, con le sezioni in cui servono (BOM, sezione X)."}
+    fonti: [docs/BOM.md A2 A3 A4 C1 C2 C4 C5 C7 B19, D-073, CLAUDE.md "Da guardare sui pezzi in casa"]
+
+  - id: "0.20"
+    titolo: Inventario, stampa e attrezzi
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Voce, Quanto, BOM, "✓"]
+      righe:
+        - ["PETG-CF nero", "circa 860 g di pezzi, più provini e scarti [S]", "E1", ""]
+        - ["PLA bianco", "circa 230 g [S]", "E2", ""]
+        - ["PLA nero", "circa 15 g [S]", "E2b", ""]
+        - ["TPU 95A arancio", "circa 10 g [S]", "E3", ""]
+        - ["Alimentatore regolabile con limite di corrente", "1, utile e non indispensabile", "Attrezzi", ""]
+    testo:
+      - "Controlla di avere i quattro filamenti."
+      - "Controlla di avere gli attrezzi in basso: servono quasi tutti."
+    avvisi:
+      - {tipo: nota, testo: "Se la bobina FlashForge di PETG-CF nero è quasi intera, ne basta una [C]. Il PLA nero è una proposta dell'estetica, non confermata (D-065)."}
+    attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, alimentatore_limitato]
+    fonti: [docs/BOM.md E1 E2 E2b E3 e "Attrezzi necessari", D-065, D-073]
+
+  - id: "0.21"
+    titolo: Da guardare prima di partire
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Cosa guardare, Perché, Prima di]
+      righe:
+        - ["Quale scheda ESP32-S3 CAM è la RE1.3", "La sigla è stampata sulla scheda", "stampare il vassoio"]
+        - ["Quanti inserti per lunghezza ci sono nel kit", "Servono 94 M3 e 28 M2 [C]", "sezione 3"]
+        - ["Misure degli inserti del kit Temu", "Fori da tarare sul provino", "sezione 1"]
+        - ["Tipo di testa e lunghezze delle M3 nel kit da 918 viti", "Con M3 × 6 e × 8 cilindriche, D6 si riduce", "sezione 6"]
+        - ["Diametro e altezza dei condensatori da 2200 µF", "Previsti 12,5–13 × 20–22 mm [S]", "montarli"]
+        - ["Lega dello stagno a bassa temperatura", "Se non è al bismuto, B19 perde lo stagno", "saldare"]
+        - ["Quanto resta della bobina FlashForge di PETG-CF", "Se è quasi intera, E1 scende a una bobina", "stampare"]
+        - ["Moduli della 2.1.6: GY-6500, MS3625, MAX98357A, altoparlante da 15", "Quote dalle foto del venditore [S]", "stampare base, piastrina, carapace"]
+        - ["Una squadretta di prova", "Provarne 1–2 prima delle altre 19 (BOM, domanda 4)", "sezione 1"]
+    testo:
+      - "Guarda ogni voce sul pezzo vero."
+      - "Scrivi il risultato accanto alla voce."
+      - "Dì al progetto quello che trovi, prima di stampare."
+    avvisi:
+      - {tipo: nota, testo: "Sono pezzi che hai in casa, non misure dei servo: i servo non si misurano e si progetta sul caso peggiore dei dati dichiarati (CLAUDE.md)."}
+    fonti: [CLAUDE.md "Da guardare sui pezzi in casa", D-073, D-074, docs/BOM.md "Aperto: serve una tua risposta"]
+
+  - id: "0.22"
+    titolo: Ordine delle sezioni, prima parte
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Sez., Cosa, "Tempo [S]", Stato elettrico]
+      righe:
+        - ["1", "Provini", "stampe in un giorno; prove circa 3 ore", "nessun rail dei servo"]
+        - ["2", "Stampa e controllo dei pezzi", "una stampa a pezzo; la zampa 6 volte", "nessuno"]
+        - ["3", "Inserti a caldo", "circa 2 ore per 122 inserti", "nessuno; punta calda"]
+        - ["4", "Banco dell'elettronica", "circa 5 ore, più le saldature", "batteria solo nelle prove, F2 da 2 A"]
+        - ["5", "Servo", "circa 5 minuti per servo", "un servo alla volta, F1 da 3 A"]
+        - ["6", "La zampa, per sei", "circa 2 ore la prima volta", "nessuno"]
+        - ["7", "Il corpo", "circa 2 ore la prima volta", "nessuno; F1 senza fusibile"]
+    testo:
+      - "Fai le sezioni nell'ordine dei numeri."
+      - "Rileggi lo stato elettrico di una sezione prima di cominciarla."
+    avvisi:
+      - {tipo: importante, testo: "Metti tutti gli inserti a caldo nella sezione 3, prima di qualsiasi montaggio: dopo, la maggior parte dei fori non si raggiunge."}
+      - {tipo: importante, testo: "Stampa il corpo e la zampa solo dopo i provini e dopo aver riportato i valori nel CAD (sezione 1): sono le misure delle sedi."}
+      - {tipo: nota, testo: "Tempi: lavoro a mani, stampe escluse; stime di chi scrive [S]. La prima zampa vera li sostituisce (docs/piano-guida.md)."}
+    fonti: [docs/piano-guida.md "Struttura della guida" e "Lavoro con gli agenti", docs/software.md 6.7, guida/passi/06-zampa.yaml, guida/passi/03-inserti.yaml, guida/problemi/prima.yaml]
+
+  - id: "0.23"
+    titolo: Ordine delle sezioni, seconda parte
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Sez., Cosa, "Tempo [S]", Stato elettrico]
+      righe:
+        - ["8", "Elettronica nel corpo e cablaggio", "circa 8 ore [S]", "prove con la corrente: vedi la sezione"]
+        - ["9", "La zampa sul corpo", "circa 45 minuti la prima volta", "T-plug staccato, salvo due prove"]
+        - ["10", "Le altre cinque zampe", "circa 2 ore a zampa", "come le sezioni 6 e 9"]
+        - ["11", "Batteria e sportello", "circa 30 minuti, più la carica", "T-plug staccato, F1 vuoto"]
+        - ["12", "Prima accensione e taratura", "circa 2 ore, metà per la taratura", "T-plug collegato, F1 da 15 A"]
+        - ["13", "Carapace", "circa 4 ore [S]", "prova al banco"]
+        - ["14", "Collaudo", "circa 2 ore [S]", "robot sul cavalletto, poi a terra"]
+        - ["15", "Smontaggio e manutenzione", "quando serve", "T-plug staccato"]
+        - ["A", "Appendici", "da consultare", "–"]
+    testo:
+      - "Fai le sezioni nell'ordine dei numeri."
+      - "Salta la 15 finché non devi smontare o riparare."
+    avvisi:
+      - {tipo: attenzione, testo: "Dalla sezione 12 il robot intero ha la corrente: tieni le zampe libere e una mano vicina al T-plug."}
+      - {tipo: nota, testo: "In tutto circa 45 ore di lavoro, stampe escluse [S]. La sezione 6 si rifà per sei zampe: la 10 conta le cinque in più."}
+    fonti: [docs/piano-guida.md "Struttura della guida", docs/software.md 6.7, guida/passi/11-batteria.yaml, guida/problemi/prima.yaml]
+
+  # --- appendici generato (inizio) ---
+  - id: "0.24"
+    titolo: Le appendici
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Dove, Cosa c'è]
+      righe:
+        - ["A.01", "Canali della SSC-32: quale servo va su quale canale"]
+        - ["A.02", "Canali dell’ADC dei piedi e prese"]
+        - ["A.03–A.09", "Registro delle misure: provini, forzamenti, tensioni, numeri dei servo, calettamento, taratura, cavi"]
+        - ["A.10–A.11", "Opzioni X: dove, quando, viteria in più"]
+        - ["A.12–A.14", "Inserti a caldo: dove, quali, quando"]
+        - ["A.15–A.24", "Glossario"]
+    testo:
+      - "Cerca nelle appendici il dato che ti serve, senza rileggere la sezione."
+      - "Compila il registro delle misure man mano che lavori."
+    avvisi:
+      - {tipo: nota, testo: "Il foglio delle viti 1:1, l'elenco generale dei pezzi, i problemi noti e gli schemi elettrici arrivano a fine guida, dall'impaginatore e dalla riconciliazione [S]."}
+    fonti: [docs/piano-guida.md "Struttura della guida", D-075]
+
+  # --- appendici generato (fine) ---

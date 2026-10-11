@@ -1,0 +1,6 @@
+# Attrezzi della sezione 7 (il corpo), aggiunti qui per non toccare il catalogo comune.
+# tubetto_cuscinetti: Ø esterno <= 11,5 e interno >= circa 8 mm, dalla flangia Ø 11,6 e dall'anello interno Ø 6,4 del
+#   LF-1050ZZ (guida/problemi/zampa.yaml "Come si preme il cuscinetto del ginocchio"; docs/BOM.md D1). Sul corpo non c'e'
+#   una misura propria: e' la stessa sede della tibia (cad/script/corpo.py gondola, sede_cuscinetto). I listelli alti
+#   circa 20 mm sono una mia ipotesi (guida/problemi/corpo.yaml "Come si tiene la base"). Stato C.
+tubetto_cuscinetti: {nome: "Tubetto e due listelli di legno", icona: morsa, uso: "premere i cuscinetti nelle gondole: tubetto Ø esterno ≤ 11,5 mm e interno ≥ 8 mm, listelli alti circa 20 mm [C]"}

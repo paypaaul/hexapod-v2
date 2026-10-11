@@ -1,0 +1,6 @@
+# Attrezzi in piu' della sezione 9, la zampa sul corpo (D-075).
+# brugola_dritta_2_5: le viti lato coda del servo di coxa si stringono dall'alto con la coxa a 30 gradi, in una colonna
+#   libera sopra la testa (guida/problemi/zampa_corpo.yaml, accessi); la chiave a L ruotando urta la testa dell'anima.
+#   Stesso attrezzo chiesto dal problema delle alette del ginocchio (guida/problemi/zampa.yaml, esito approvato).
+# Cavalletto, dime di posa e morsa a ganasce morbide sono gia' in attrezzi.d/accensione.yaml e attrezzi.d/provini.yaml.
+brugola_dritta_2_5: {nome: "Cacciavite a brugola dritto 2,5 mm", icona: brugola, uso: "viti M3 delle alette strette a zampa montata (D-049)"}

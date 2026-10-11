@@ -1,0 +1,441 @@
+# Sezione 15, smontaggio e manutenzione (D-075, docs/piano-guida.md "Struttura della guida"). F3.
+# Come si toglie ogni cosa senza rompere: sportellino e carapace, sportello e pacco della batteria, lame, guscio, zampa
+# e servo; poi cosa controllare ogni tanto e quali ricambi tenere. Le fonti per lo smontaggio sono poche (cablaggio.md 4,
+# D-054, D-056, D-065, D-070, D-072, progetto-meccanico.md, i problemi gia' approvati della zampa): quello che manca
+# e' marcato [C] e va in guida/problemi/smontaggio.yaml. Gli intervalli dei controlli sono proposte, non misure.
+# Il robot intero e' presente all'inizio; i passi con la zampa usano la terna della zampa (AS) e mostra solo i suoi
+# pezzi, gli altri la terna del robot. Nessuna giunzione disegnata: le viti si indicano con le etichette.
+sezione:
+  id: smontaggio
+  numero: 15
+  titolo: Smontaggio e manutenzione
+  colore: "#495057"
+  terna: robot
+  istanza: AS
+  presenti_iniziali:
+    - corpo/Corpo_Base
+    - corpo/Corpo_Chiglia
+    - "corpo/Corpo_Slitta_Regolatore_*"
+    - "corpo/Servo_Coxa_*"
+    - "corpo/Cuscinetto_Coxa_*"
+    - corpo/SSC32
+    - corpo/Basetta
+    - corpo/ESP32
+    - corpo/Camera
+    - corpo/Portafusibile_F1
+    - corpo/Tplug
+    - "corpo/Wago_*"
+    - "corpo/Regolatore_*"
+    - "corpo/Corpo_Supporto_INA260_*"
+    - "corpo/INA260_*"
+    - corpo/Corpo_Vassoio
+    - corpo/Prese_piedi
+    - corpo/Prese_luci
+    - corpo/ToF_frontale
+    - corpo/Interruttore
+    - corpo/ADC
+    - corpo/Corpo_Piastrina_IMU
+    - corpo/IMU
+    - corpo/Batteria
+    - corpo/Corpo_Sportello
+    - corpo/Corpo_Carapace
+    - corpo/Corpo_Fascia
+    - corpo/Corpo_Visiera
+    - corpo/Corpo_Gonne
+    - corpo/Corpo_Fondo_Anello
+    - corpo/Pulsante
+    - corpo/Cicalino
+    - corpo/Scheda_carapace
+    - corpo/Ampli
+    - corpo/Altoparlante
+    - corpo/Microfono_S
+    - corpo/Microfono_D
+    - corpo/Corpo_Lunette_Microfoni
+    - corpo/ToF_posteriore
+    - corpo/Corpo_Sportello_Servizio
+    - "zampa/Coxa@*"
+    - "zampa/Coxa_Ponte@*"
+    - "zampa/Cuscinetto_*@*"
+    - "zampa/Perno_*@*"
+    - "zampa/Squadretta_*@*"
+    - "zampa/Servo_*@*"
+    - "zampa/Femore_A@*"
+    - "zampa/Femore_B@*"
+    - "zampa/Tibia@*"
+    - "zampa/Piedino@*"
+    - "zampa/FSR_piede@*"
+    - "zampa/Cover_Tibia@*"
+    - "zampa/Cover_Tibia_Diffusore@*"
+    - "zampa/Cover_Femore_A@*"
+    - "zampa/Cover_Femore_A_Feritoia@*"
+    - "zampa/Cover_Femore_B@*"
+    - "zampa/Cover_Femore_B_Feritoia@*"
+  obiettivo: >-
+    Togliere ogni parte senza romperla, nell'ordine giusto; sapere cosa guardare ogni tanto e quali ricambi tenere.
+  prima:
+    - "Robot spento, T-plug staccato, prolunga di bilanciamento staccata dal cicalino."
+    - "Cavalletto, o un panno sul tavolo per il carapace capovolto."
+    - "Tester dei servo o SSC-32 dal Mac, per portare un giunto in posa a servo alimentato."
+  tempo: "dipende dal pezzo: carapace 10 minuti, sportello e pacco 10, una zampa 30 [S]"
+  stato_elettrico: "Spento: T-plug staccato. Il rail si accende solo per portare un giunto in posa (15.10)."
+  note: "Lame, guscio e sportellino non sono strutturali: si tolgono per accedere alle viti."
+  fonti: [D-049, D-054, D-056, D-061, D-065, D-070, D-072, D-075, "docs/cablaggio.md 4", "docs/predisposizioni.md 2.3", "docs/BOM.md", guida/problemi/smontaggio.yaml]
+  attrezzi: [cavalletto]
+  controllo:
+    - "Per ogni parte tolta sai dove sono le viti e quante sono; nessuna vite persa."
+    - "Il T-plug è rimasto staccato e il pacco fuori dal tunnel o scollegato fino al rimontaggio."
+    - "Dopo ogni rimontaggio hai rifatto la taratura o la calibrazione che la parte richiede."
+    - "Il registro dei controlli e la lista dei ricambi sono a portata di mano."
+  vista_finale: {direzione: [0.55, -0.6, 0.55], su: [0, 0, 1]}
+
+passi:
+  - id: "15.01"
+    titolo: Prima di smontare
+    formato: grande
+    immagine: false
+    testo:
+      - "Spegni con il pulsante e stacca il T-plug."
+      - "Stacca la prolunga di bilanciamento dal cicalino."
+      - "Posa il robot sul cavalletto, con la chiglia nella culla."
+      - "Segui l'ordine della tabella: ogni parte si toglie dopo quelle sopra di lei."
+    tabella:
+      intestazione: [Parte, Si toglie dopo, Passo]
+      righe:
+        - ["Sportellino, spina IDC, carapace", "T-plug staccato", "15.02, 15.03"]
+        - ["Sportello e pacco della batteria", "T-plug e prolunga staccati", "15.04, 15.05"]
+        - ["Lama B", "niente", "15.06"]
+        - ["Lama A", "niente", "15.07"]
+        - ["Guscio e diffusore della tibia", "niente", "15.08"]
+        - ["Zampa dal corpo", "carapace, lama B, spine, ponte", "15.09"]
+        - ["Servo di femore e ginocchio", "lame, guscio e zampa dal corpo", "15.10"]
+        - ["Servo di coxa", "carapace e zampa dal corpo", "15.11"]
+        - ["Vassoio, SSC-32, slitte, chiglia", "carapace", "15.12"]
+    avvisi:
+      - {tipo: attenzione, testo: "Il T-plug è il sezionamento dei servo: finché non lo stacchi, un servo può muoversi. Non smontare mai con il rail acceso."}
+      - {tipo: importante, testo: "Il cicalino assorbe sempre: a fine uso staccalo dalla prolunga, o scarica il pacco (BOM B9)."}
+      - {tipo: nota, testo: "Nelle immagini la freccia mostra il rimontaggio, dal pezzo fuori posto al suo posto: per smontare vai nel verso opposto."}
+      - {tipo: nota, testo: "Prima di staccare un gruppo di spine segna dove stanno: i canali della SSC-32 sono nel registro (appendici) [C]."}
+    fonti: ["docs/BOM.md 'Schema di alimentazione' e B9", "docs/cablaggio.md 4", D-054]
+
+  - id: "15.02"
+    titolo: Sportellino e spina IDC
+    formato: grande
+    assiemi:
+      - {chiavi: corpo/Corpo_Sportello_Servizio, nome: Sportellino di servizio}
+    esploso: {asse: [0, 0, 1], distanza: 32}
+    vista: {direzione: [0.2, 0.6, 0.8], su: [0, 0, 1]}
+    etichette:
+      - {testo: tacca, punto: [30.5, 0.0, 36.0]}
+      - {testo: spina IDC, punto: [39.5, 0.0, 22.0]}
+    testo:
+      - "Solleva lo sportellino con l'unghia dalla tacca, dalla parte del viso."
+      - "Sfila la spina IDC dalla testata della scheda, dall'ottagono."
+      - "Tira la spina dal suo corpo, non dai fili."
+    avvisi:
+      - {tipo: nota, testo: "Lo sportellino resta su per attrito, con quattro nervature, e ha la tacca nel dorso per l'unghia (D-056)."}
+      - {tipo: opzionale, x: zaino, quando: anche_dopo, testo: "Con il computer a zaino stacca prima il cavo USB-C dalla tacca dello sportellino."}
+    fonti: ["D-056: sportellino con la tacca", "docs/cablaggio.md 4 'Carapace'", "docs/predisposizioni.md 2.3 'Come si toglie il carapace'"]
+
+  - id: "15.03"
+    titolo: Carapace
+    formato: grande
+    assiemi:
+      - chiavi: "corpo/*"
+        esclusi: &esclusi_corpo
+          - corpo/Corpo_Base
+          - corpo/Corpo_Chiglia
+          - "corpo/Corpo_Slitta_Regolatore_*"
+          - "corpo/Servo_Coxa_*"
+          - "corpo/Cuscinetto_Coxa_*"
+          - corpo/SSC32
+          - corpo/Basetta
+          - corpo/ESP32
+          - corpo/Camera
+          - corpo/Portafusibile_F1
+          - corpo/Tplug
+          - "corpo/Wago_*"
+          - "corpo/Regolatore_*"
+          - "corpo/Corpo_Supporto_INA260_*"
+          - "corpo/INA260_*"
+          - corpo/Corpo_Vassoio
+          - corpo/Prese_piedi
+          - corpo/Prese_luci
+          - corpo/ToF_frontale
+          - corpo/Interruttore
+          - corpo/ADC
+          - corpo/Corpo_Piastrina_IMU
+          - corpo/IMU
+          - corpo/Batteria
+          - corpo/Corpo_Sportello
+          - corpo/IMU_Pololu
+          - "corpo/Microfono_Adafruit_*"
+          - "corpo/Corpo_Sportello_Servizio*"
+        nome: Carapace con i suoi moduli
+    nascondi: [corpo/Corpo_Sportello_Servizio]
+    esploso: {asse: [0, 0, 1], distanza: 70}
+    vista: corpo_alto
+    etichette:
+      - {testo: "4 viti M3 × 8", punto: [40.0, 22.5, 100.0]}
+      - {testo: cicalino, punto: [-74.5, 0.0, 95.0]}
+    testo:
+      - "Stacca il cicalino dalla prolunga di bilanciamento, dal retro."
+      - "Svita le quattro viti M3 × 8 nei pozzetti."
+      - "Solleva il carapace in verticale, di almeno 5 mm, poi capovolgilo su un panno."
+      - "Non tirare i fili: anello, lobi, microfoni, amplificatore, altoparlante e ToF restano sul carapace."
+    avvisi:
+      - {tipo: importante, testo: "Sfilamento in verticale: libero da +5 a +40 mm. A −2 mm le gonne e il carapace toccano la base (D-063)."}
+      - {tipo: nota, testo: "Con il carapace tolto si raggiungono le prese dei piedi e delle luci e i cavi del bus: servono per staccare una zampa (D-066, predisposizioni.md 2.9)."}
+      - {tipo: attenzione, testo: "Il PLA del carapace rammollisce verso 55–60 °C: non appoggiarlo sul regolatore ancora caldo (D-065)."}
+    fonti: ["docs/cablaggio.md 4 'Carapace'", "D-052: quattro viti M3 × 8", "D-063: sfilamento da +5 a +40 mm", "docs/predisposizioni.md 2.3", "D-066 blocco B"]
+
+  - id: "15.04"
+    titolo: Sportello della batteria
+    formato: grande
+    assiemi:
+      - {chiavi: corpo/Corpo_Sportello, nome: Sportello della batteria}
+    esploso: {asse: [-1, 0, 0], distanza: 50}
+    vista: {direzione: [-0.75, 0.5, 0.42], su: [0, 0, 1]}
+    mostra:
+      - corpo/Corpo_Base
+      - corpo/Corpo_Chiglia
+      - corpo/Batteria
+      - corpo/Portafusibile_F1
+      - corpo/Tplug
+      - "corpo/Servo_Coxa_P*"
+    etichette:
+      - {testo: "2 viti M3 × 8", punto: [-81.0, 28.5, -36.7]}
+    testo:
+      - "Controlla che T-plug e prolunga di bilanciamento siano staccati."
+      - "Svita le due viti M3 × 8 dai blocchetti della chiglia."
+      - "Sfila lo sportello lungo X, verso la coda."
+    avvisi:
+      - {tipo: importante, testo: "Lo sportello si sfila solo lungo il tunnel: i rebbi entrano per 17 mm dietro il pacco e la linguetta sta sotto il tetto (D-054). Non farlo ruotare."}
+      - {tipo: nota, testo: "T-plug e F1 restano raggiungibili dal retro anche con lo sportello montato (D-054)."}
+    fonti: ["D-054: fissaggio e cambio della batteria", "docs/cablaggio.md 3.1", "guida/passi/11-batteria.yaml 11.05"]
+
+  - id: "15.05"
+    titolo: Pacco della batteria
+    formato: grande
+    assiemi:
+      - {chiavi: corpo/Batteria, nome: Pacco 2S 5200 mAh}
+    esploso: {asse: [-1, 0, 0], distanza: 90}
+    vista: {direzione: [-0.75, 0.5, 0.42], su: [0, 0, 1]}
+    mostra:
+      - corpo/Corpo_Base
+      - corpo/Corpo_Chiglia
+      - corpo/Portafusibile_F1
+      - corpo/Tplug
+      - "corpo/Servo_Coxa_P*"
+    testo:
+      - "Controlla che il T-plug del pacco sia staccato da quello del robot."
+      - "Sfila il pacco dal tunnel, verso la coda, con i suoi cavi."
+      - "Carica il pacco fuori dal robot, con il caricatore a carica bilanciata [C]."
+    avvisi:
+      - {tipo: importante, testo: "Le spine del pacco potrebbero non passare dalle fessure del tetto (13 × 4,5 mm): se non passano, fermati e leggi il primo problema di guida/problemi/batteria.yaml [C]."}
+      - {tipo: attenzione, testo: "Un pacco gonfio, caldo o ammaccato non si carica e non si rimonta: mettilo su una superficie che non brucia e allontanati (12.01) [S]."}
+    attrezzi: [caricatore_lipo]
+    fonti: ["D-054: cambio della batteria", "docs/BOM.md A5, B9", "guida/problemi/batteria.yaml (primo problema)", "guida/passi/11-batteria.yaml 11.01 e 11.03"]
+
+  - id: "15.06"
+    titolo: Lama B
+    formato: grande
+    terna: zampa
+    mostra: ["zampa/*@AS"]
+    assiemi:
+      - {chiavi: "zampa/Cover_Femore_B@AS", nome: Lama B}
+      - {chiavi: "zampa/Cover_Femore_B_Feritoia@AS", nome: Intarsio della lama B}
+    esploso: {asse: [0, -1, 0], distanza: 35}
+    vista: zampa_B
+    etichette:
+      - {testo: "2 viti M2 × 5", punto: [85.0, -34.0, 1.5]}
+    testo:
+      - "Svita le due viti M2 × 5 svasate con la brugola da 1,3 mm."
+      - "Tira la lama dal lato B, dritta, lungo Y."
+      - "Controlla che i due perni del femore restino al loro posto."
+    avvisi:
+      - {tipo: nota, testo: "Le teste stanno a filo nell'intarsio nero: infila bene la brugola prima di girare (D-070, D-073)."}
+      - {tipo: nota, testo: "La lama B va tolta anche per infilare le dime di posa sui perni (D-066)."}
+    attrezzi: [brugola_1_3]
+    fonti: ["D-065: lama B avvitata", "D-070 e D-071: tasche dei perni", "D-073: M2 × 5 svasate", "D-066 blocco C: dime con la lama B tolta"]
+
+  - id: "15.07"
+    titolo: Lama A
+    formato: grande
+    terna: zampa
+    mostra: ["zampa/*@AS"]
+    assiemi:
+      - {chiavi: "zampa/Cover_Femore_A@AS", nome: Lama A}
+      - {chiavi: "zampa/Cover_Femore_A_Feritoia@AS", nome: Intarsio della lama A}
+    esploso: {asse: [0, 1, 0], distanza: 35}
+    vista: zampa_A
+    testo:
+      - "Tieni la lama con le dita sui bordi, lontano dalle viti delle alette."
+      - "Tira la lama dritta, lungo Y verso l'esterno."
+      - "Se resta incastrata, scuotila appena: non fare leva sul femore."
+    avvisi:
+      - {tipo: nota, testo: "La lama A non ha viti: si calza sulle 4 teste M3 del blocco e le tasche tengono per attrito. Le altre 8 teste stanno libere in tasche più larghe (D-070)."}
+      - {tipo: importante, testo: "Quanta forza serve non è misurato: le tasche si decidono con il provino (D-072). Se non viene, non forzare: segnalalo [C] (guida/problemi/smontaggio.yaml)."}
+      - {tipo: nota, testo: "Si toglie per stringere le viti delle alette: la lama A le copre a ogni angolo (guida/problemi/zampa.yaml)."}
+    fonti: ["D-070: lama A a incastro", "D-072: tasche della lama A", "docs/ricerca/estetica.json (fissaggio della lama)", "guida/problemi/zampa.yaml (alette)"]
+
+  - id: "15.08"
+    titolo: Guscio e diffusore della tibia
+    formato: grande
+    terna: zampa
+    mostra: ["zampa/*@AS"]
+    assiemi:
+      - {chiavi: "zampa/Cover_Tibia@AS", nome: Guscio della tibia}
+      - {chiavi: "zampa/Cover_Tibia_Diffusore@AS", nome: Diffusore della tibia}
+    esploso: {asse: [1, 0, 0], distanza: 40}
+    vista: tibia_guscio
+    etichette:
+      - {testo: "1 vite M3 × 10", punto: [133.0, 0.0, -88.0]}
+    testo:
+      - "Svita la vite M3 × 10 dal fronte della tibia, piano."
+      - "Tira il guscio lungo +X: i due tappi a rombo escono dalle finestre della culla."
+      - "Con le luci, premi il diffusore dall'interno verso fuori per sfilarlo."
+    avvisi:
+      - {tipo: attenzione, testo: "La testa della vite appoggia su una faccia inclinata di circa 12°: usa la brugola dritta, senza forzare, il PLA si segna [V] (guida/problemi/zampa.yaml)."}
+      - {tipo: nota, testo: "Il guscio copre una vite d'aletta lato coda: si toglie prima di tutto il resto (D-049, guida/problemi/zampa.yaml)."}
+      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Senza luci non c'è il diffusore."}
+    attrezzi: [brugola_2_5]
+    fonti: ["D-061: guscio, tappi, vite", "D-066: diffusore", "D-049", "guida/problemi/zampa.yaml (guscio e viti d'aletta)"]
+
+  - id: "15.09"
+    titolo: Zampa dal corpo
+    formato: grande
+    assiemi:
+      - chiavi: "zampa/*@AS"
+        esclusi: [zampa/Squadretta_coxa@AS, zampa/Perno_coxa@AS, zampa/Coxa_Ponte@AS, zampa/Cover_Femore_B@AS, zampa/Cover_Femore_B_Feritoia@AS, zampa/Ingombro_Teste_A@AS]
+        nome: Zampa (sezione 6)
+    esploso: {asse: [0, 0, -1], distanza: 30}
+    vista: {direzione: [0.2, 0.95, 0.25], su: [0, 0, 1]}
+    nascondi: [corpo/Corpo_Carapace, corpo/Corpo_Fascia, corpo/Corpo_Visiera, corpo/Corpo_Gonne, corpo/Corpo_Fondo_Anello, corpo/Pulsante, corpo/Cicalino, corpo/Scheda_carapace, corpo/Ampli, corpo/Altoparlante, corpo/Microfono_S, corpo/Microfono_D, corpo/Corpo_Lunette_Microfoni, corpo/ToF_posteriore, corpo/Corpo_Sportello_Servizio]
+    testo:
+      - "Stacca dalla SSC-32 le tre spine dei servo; con FSR e luci, stacca le spine dalle loro prese."
+      - "Taglia la fascetta sul ponte della coxa."
+      - "Svita le due viti M3 × 10 e togli il ponte."
+      - "Ruota la zampa di circa 40°, abbassala di 6 mm e sfilala dal perno."
+    avvisi:
+      - {tipo: importante, testo: "Squadretta e perno restano nella zampa e sul servo; la lama B si toglie prima (15.06). La zampa montata con la lama B non è provata [C] (guida/problemi/smontaggio.yaml)."}
+      - {tipo: nota, testo: "È la sequenza del montaggio al contrario: ruotata di 40° e 6 mm più in basso la zampa non tocca base, servo, cuscinetto e zampe vicine [V, mesh del CAD; C sul pezzo] (9.04)."}
+      - {tipo: nota, testo: "La fascetta del ponte si cambia a ogni smontaggio; le viti-spina restano sulla squadretta (D-048, D-061)."}
+    attrezzi: [brugola_2_5, tronchesino]
+    fonti: ["docs/cablaggio.md 4 'Zampa'", "D-048, D-049, D-061", "guida/passi/09-zampa-corpo.yaml 9.04-9.07", "D-066 blocco B: prese dei piedi e delle luci a carapace tolto"]
+
+  - id: "15.10"
+    titolo: Servo di femore e ginocchio
+    formato: grande
+    immagine: false
+    testo:
+      - "Togli lame, guscio e la zampa dal corpo (15.06–15.09)."
+      - "Porta il giunto in posa con il tester dei servo o con la SSC-32: il ginocchio a 45–75°, la lama A già tolta."
+      - "Svita le quattro viti M3 × 8 delle alette con il cacciavite a brugola dritto."
+      - "Sfila il servo dalla culla, dal lato A, con il passacavo nella fessura; la spina esce dalla finestra della testata."
+    tabella:
+      intestazione: [Servo, Culla, Viti da togliere]
+      righe:
+        - ["Femore", "coxa", "2 M3 × 8 lato coda negli inserti, 2 M3 × 8 lato albero nei fori pilota [V]"]
+        - ["Ginocchio", "tibia", "2 M3 × 8 lato coda negli inserti, 2 M3 × 8 lato albero nei fori pilota [V]"]
+    avvisi:
+      - {tipo: attenzione, testo: "Non girare l'albero a mano: trascini il riduttore. Porta il giunto in posa con il servo alimentato, tester o SSC-32 (guida/problemi/zampa.yaml)."}
+      - {tipo: importante, testo: "Prima di staccare il servo dal femore bisogna separare tibia e femore: la sequenza non è scritta nei documenti. Ripercorri al contrario la sezione 6, dal femore alle squadrette [C]."}
+      - {tipo: nota, testo: "Le viti lato albero fanno il filetto da sole nei fori pilota: a ogni rimontaggio lo consumano un poco. Se una vite non prende, ristampa il pezzo [S]."}
+      - {tipo: importante, testo: "Dopo il rimontaggio rifai la taratura con le due dime (12.11): taratura ripetibile entro 1° [S]."}
+    attrezzi: [brugola_dritta_2_5, tester_servo]
+    fonti: ["D-047, D-049", "guida/problemi/zampa.yaml (viti delle alette, esiti approvati l'11 ottobre 2026)", "docs/software.md 2.7 e 2.8", "guida/problemi/smontaggio.yaml"]
+
+  - id: "15.11"
+    titolo: Servo di coxa
+    formato: grande
+    immagine: false
+    testo:
+      - "Togli il carapace e la zampa dal corpo (15.03, 15.09)."
+      - "Stacca la spina del servo dalla SSC-32."
+      - "Con il ponte tolto la coxa gira libera sul perno: portala a circa 33° per scoprire le viti lato coda [C]."
+      - "Svita le quattro viti M3 × 8 e sfila il servo verso l'alto, con il passacavo nella fessura."
+    tabella:
+      intestazione: [Viti del servo di coxa, "Dove stanno", "Come si raggiungono"]
+      righe:
+        - ["2 M3 × 8 lato albero, in fori pilota", "gondola, verso l'albero", "dall'alto, a coxa diritta [C]"]
+        - ["2 M3 × 8 lato coda, in inserti", "gondola, sotto la testa dell'anima", "dall'alto, con la coxa a +30° o −30° [C]"]
+    avvisi:
+      - {tipo: importante, testo: "La procedura di sostituzione del servo di coxa sta solo nella ricerca (docs/ricerca/corpo-v0-revisione.json) e non è provata sul modello attuale [C] (guida/problemi/smontaggio.yaml)."}
+      - {tipo: attenzione, testo: "Non girare l'albero a mano. Se la coxa non gira libera, il ponte è ancora montato."}
+      - {tipo: nota, testo: "Il cavo del servo esce da una fessura della gondola verso il centro: la spina passa dalla finestra (D-049)."}
+    attrezzi: [brugola_dritta_2_5]
+    fonti: ["docs/ricerca/corpo-v0-revisione.json (difetto sul servo di coxa)", "guida/problemi/corpo.yaml (viti lato coda)", "guida/passi/09-zampa-corpo.yaml 9.08", "D-049"]
+
+  - id: "15.12"
+    titolo: Altre parti del corpo
+    formato: grande
+    immagine: false
+    testo:
+      - "Togli il carapace prima di ogni parte della tabella."
+      - "Stacca le spine di ogni parte prima delle viti, e segna dove andavano."
+      - "Rimonta nell'ordine inverso."
+    tabella:
+      intestazione: [Parte, Come si toglie, Viti]
+      righe:
+        - ["Vassoio con basetta, ESP32, torretta e mensola", "stacca fili e flat; sfila il vassoio", "4 M3 × 6 sui distanziali, 4 M2 × 5 per la basetta"]
+        - ["SSC-32", "stacca spine e barre; svita", "4 M2 × 5 negli inserti del tetto"]
+        - ["Regolatore con la sua slitta", "svita il regolatore; sfila la slitta dalle guide", "4 M2 × 5 per il regolatore, 1 M3 × 8 per la slitta"]
+        - ["Chiglia", "capovolgi il robot sul cavalletto", "2 M3 × 16 davanti, 2 M3 × 8 dietro"]
+        - ["F1 e Wago", "F1: taglia la fascetta; Wago: sfila dall'alto", "nessuna"]
+    avvisi:
+      - {tipo: importante, testo: "Dopo aver tolto il vassoio la calibrazione camera–IMU si rifà (software.md 5.2) [V]."}
+      - {tipo: nota, testo: "Il carapace e il vassoio non hanno parti a scatto: tutto si toglie con viti e fascette (BOM, viteria)."}
+    attrezzi: [croce_ph0, brugola_2_5]
+    fonti: ["docs/BOM.md 'Viteria e inserti contati dal modello'", D-051, D-053, D-055, "docs/predisposizioni.md 2.9", "docs/software.md 5.2"]
+
+  - id: "15.13"
+    titolo: Cosa controllare ogni tanto
+    formato: grande
+    immagine: false
+    testo:
+      - "Guarda questa tabella dopo le prime uscite e poi ogni volta che cambia qualcosa."
+      - "Annota ogni controllo e il valore nel registro."
+    tabella:
+      intestazione: [Cosa, "Quando [C]", Come]
+      righe:
+        - ["Viti delle alette e del carapace", "dopo le prime uscite, dopo ogni smontaggio", "nessuna allentata; non stringere oltre, il PLA si segna"]
+        - ["Giochi di coxa, femore e ginocchio", "dopo le prime uscite, quando senti gioco", "il gioco della coxa è circa 0,3 mm in verticale [C]; negli ingranaggi 0,5–1,5° [S]"]
+        - ["Taratura dei servo", "dopo ogni sostituzione di servo, squadretta o zampa", "rifai le due pose con le dime; ripetibile entro 1° [S]"]
+        - ["Calibrazione camera–IMU", "dopo ogni smontaggio del vassoio", "si rifà (software.md 5.2) [V]"]
+        - ["Cavi, anse e fascette", "dopo ogni uscita", "nessun cavo teso o schiacciato; spine in fondo; fili di FSR e luci nella gola"]
+        - ["Pacco della batteria", "dopo ogni uscita", "non scalda e non si gonfia; a fine uso T-plug e prolunga staccati [V]"]
+        - ["Cicalino", "a fine uso", "staccato dalla prolunga: assorbe sempre [V]"]
+        - ["Piedini in TPU e FSR", "dopo ogni uscita", "nessuna usura o taglio; la tacca dei fili libera"]
+        - ["Carapace in PLA", "dopo le prime marce lunghe", "nessuna deformazione sopra le baie anteriori: il PLA rammollisce verso 55–60 °C [V]"]
+        - ["Calore dei servo", "durante l'uso", "circa 10 minuti di sforzo continuo, poi circa 30 di riposo [S]"]
+        - ["Fusibili F1 e F2", "dopo un salto", "mai F1 oltre 30 A né F2 oltre 2 A (BOM B4, B6)"]
+    avvisi:
+      - {tipo: importante, testo: "Gli intervalli sono proposte: nessun documento fissa ore o cicli di manutenzione [C] (guida/problemi/smontaggio.yaml)."}
+      - {tipo: nota, testo: "Dopo un crash controlla la chiglia, gli inserti e le viti dei giunti: il robot cade sulla chiglia, circa 59 mm a 100/45 (software.md 2.6)."}
+    fonti: ["docs/software.md 2.5, 2.6, 2.7, 5.2", "D-065, D-049", "docs/BOM.md A5, B4, B6, B9", "guida/passi/09-zampa-corpo.yaml 9.05", guida/problemi/smontaggio.yaml]
+
+  - id: "15.14"
+    titolo: Ricambi
+    formato: grande
+    immagine: false
+    testo:
+      - "Tieni a portata di mano i ricambi della tabella."
+      - "Le parti stampate si ristampano dai file in cad/stl/, con il materiale e l'orientamento del README."
+    tabella:
+      intestazione: [Ricambio, "In scorta [V]", Voce]
+      righe:
+        - ["Servo MG996R", "2 oltre ai 18; in più 4 MG995 dello stesso ingombro", "A1"]
+        - ["Squadrette a 25 denti", "2 oltre alle 18", "D3"]
+        - ["Cuscinetti LF-1050ZZ e perni Ø 5 × 12", "6 oltre ai 18", "D1, D2"]
+        - ["Sensori FSR", "1 oltre ai 6", "X5"]
+        - ["Piedini in TPU", "2 oltre ai 6", "D9"]
+        - ["Fusibili ATO e MINI", "assortimento da 301 pezzi, con i MINI da 2 A", "B4, B6"]
+        - ["Prolunghe dei servo", "confezione da 20, 4 in uso", "C5"]
+        - ["Fascette 2,5 mm", "100 pezzi, ne servono una per ogni smontaggio del ponte", "D11"]
+        - ["Inserti M3 e M2, viti", "kit da 800 inserti e kit da 1320 viti, 50 per misura", "D4, D5, D6"]
+        - ["Regolatore dei servo", "ricambio più forte: D24V150F6, stesso ingombro", "B1"]
+        - ["Pacco di batteria", "un secondo pacco uguale è facoltativo", "A5"]
+    avvisi:
+      - {tipo: nota, testo: "Il D24V150F6 sostituisce il D42V110F6 se al banco non basta: ha lo stesso ingombro (BOM B1, D-045)."}
+      - {tipo: importante, testo: "Dopo la sostituzione di un servo o di una squadretta rifai la taratura (12.11)."}
+    fonti: ["docs/BOM.md A1, A5, B1, B4, B6, C5, D1-D6, D9, D11, X5", "D-045: regolatore di ricambio", "docs/studio-componenti.md 'Batteria'", "cad/stl/README.md"]

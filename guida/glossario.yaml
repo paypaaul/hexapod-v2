@@ -1,40 +1,372 @@
 # Glossario della guida (D-075): termini usati nei passi e mai definiti nel testo. Serve alla sezione 0 e
 # all'appendice. Formato: termine: {definizione, fonte}. Le parole della zampa seguono la terna del CAD
 # (docs/progetto-meccanico.md "Architettura": X verso l'esterno, Y lungo l'asse del femore verso le squadrette, Z in alto).
+# Riconciliazione F3: qui sono uniti i termini scritti dagli estrattori in guida/glossario.d/ (la sezione d'origine e'
+# nella fonte); fra i doppioni si e' tenuta la definizione piu' chiara. L'appendice A.15 e seguenti si genera da qui.
 
-culla:
-  definizione: "Scatola stampata che tiene un servo: pareti, fondo e bugne con i fori per le viti delle alette. C'è nella coxa (servo del femore) e nella tibia (servo del ginocchio)."
-  fonte: "docs/progetto-meccanico.md 'Architettura'; cad/script/zampa.py _culla"
-testata:
-  definizione: "Parete corta della culla dal lato dell'albero del servo; ha la finestra e la fessura da cui esce il cavo."
-  fonte: "D-049; cad/script/zampa.py _sede (finestra_cavo, fessura_cavo)"
+a filo:
+  definizione: "Con la bocca dell'inserto alla stessa quota della faccia del pezzo: ne' sotto, ne' sporgente."
+  fonte: "guida/stile.md (sezione inserti)"
+aletta:
+  definizione: "Orecchio forato della cassa del servo MG996R: le viti M3 × 8 lo fissano alla culla, lato coda in inserti e lato albero in fori pilota."
+  fonte: "D-049 (sezione prima)"
+andatura a coppie:
+  definizione: "Andatura con tre coppie di zampe, ognuna a terra per i due terzi del ciclo: a 100/45 è quella con la coppia più bassa."
+  fonte: "docs/software.md 4.2 (sezione collaudo)"
+anello di stato:
+  definizione: "Anello bianco Ø 18–22 attorno al pulsante, con quattro pixel sotto, che mostra il modo del robot."
+  fonte: "docs/predisposizioni.md X11 (sezione carapace)"
+ansa:
+  definizione: "Tratto di cavo lasciato lento fra due fermi perché un giunto possa girare senza tirarlo."
+  fonte: "D-058 (sezione zampa)"
+asola:
+  definizione: "Apertura 6 × 3 mm nel vassoio, a sinistra, da cui passano i fili di IMU e ADC."
+  fonte: "D-066 (sezione elettronica)"
+assetto:
+  definizione: "Coppia altezza/distanza in mm: altezza dell'asse dei femori da terra e distanza del piede dall'asse della coxa; 100/45 è il punto di progetto."
+  fonte: "docs/software.md 4.2, robot.yaml (sezione collaudo)"
+baia:
+  definizione: "Vano fra il tunnel e la parete esterna della base: davanti ci sono i regolatori e il camino d'aria, dietro i Wago e le scorte dei cavi."
+  fonte: "D-050, D-055 (sezione corpo)"
+barra di rame:
+  definizione: "Filo di rame Ø1 mm saldato sul retro della SSC-32 lungo una fila di 16 pin: porta la potenza di un rail ai servo, che le piste non portano."
+  fonte: "BOM B16 (sezione elettronica)"
+basetta:
+  definizione: "Striscia di millefori 56 × 35 mm con gli strip dell'ESP32 e l'elettronica di logica."
+  fonte: "D-053 (sezione banco)"
+battuta:
+  definizione: "Parete anteriore del tunnel, contro cui si ferma il pacco."
+  fonte: "D-050, cad/script/corpo.py cor_tun_x1 (sezione batteria)"
+blocco:
+  definizione: "Parte cava di Femore B fra le due culle, che unisce le due piastre del femore; ha quattro inserti M3 sul lato A e, in cima, le feritoie della fascetta dei cavi."
+  fonte: "D-047, D-061 (sezione zampa)"
+braccio della coxa:
+  definizione: "Braccio inferiore della coxa, sotto la gondola: porta il perno che entra nel cuscinetto e una nervatura sotto."
+  fonte: "D-047, D-048; cad/script/zampa.py fai_coxa (sezione zampa_corpo)"
+budget termico:
+  definizione: "Tempo di sforzo continuo che un servo regge prima del riposo: circa 10 minuti, poi circa 30 di riposo [S]."
+  fonte: "docs/software.md 2.6, indicazione Lynxmotion, S (sezione collaudo)"
+bugna:
+  definizione: "Rialzo o cilindro pieno del pezzo stampato, con il foro per un inserto in testa."
+  fonte: "cad/script/corpo.py, cad/script/zampa.py (sezione inserti)"
+calettamento:
+  definizione: "Montaggio della squadretta sull'albero del servo in una posa nota della zampa: con il servo a metà corsa il femore sta a +20° e il ginocchio a 100°."
+  fonte: "robot/robot.yaml; docs/software.md 2.7 (sezione zampa)"
+camera nera:
+  definizione: "Scatola nera Ø 32 × 6 sotto l'anello del pulsante: tiene i pixel e la chiude da sotto il fondo dell'anello."
+  fonte: "D-067 (sezione carapace)"
+catena LED:
+  definizione: "Tutti i pixel in serie su un solo filo di dato: anello e lobi nel carapace, 16 pixel in tutto; il dato esce dal buffer sulla basetta."
+  fonte: "docs/cablaggio.md 3.5, D-068 (sezione carapace)"
+chiglia:
+  definizione: "Pezzo che chiude da sotto il tunnel della batteria, avvitato alla base con quattro viti M3; il cavalletto regge il robot sotto la chiglia."
+  fonte: "D-050, D-066 (sezione corpo)"
+cicalino di sottotensione:
+  definizione: "Allarme BX100 sulla presa di bilanciamento: mostra le tensioni delle celle e suona sotto la soglia impostata."
+  fonte: "BOM B9 (sezione accensione)"
 coda della culla:
   definizione: "Estremo della culla opposto alla testata, dove sta la coda del servo; nella tibia è verso il piede, sopra lo zoccolo da cui parte lo stinco."
   fonte: "D-047 (servo del ginocchio con la coda verso il piede); cad/script/zampa.py _culla (zoccolo)"
-stinco:
-  definizione: "Parte lunga della tibia, dalla culla fino alla punta piana dove va il piedino."
-  fonte: "D-061 'B3', D-065; cad/script/zampa.py _stinco"
+collare del cicalino:
+  definizione: "Parete stampata sotto il dorso che tiene il cicalino ai lati e davanti, con quattro nervature che lo stringono."
+  fonte: "cad/script/corpo.py, D-063 (sezione carapace)"
+costola:
+  definizione: "Muretto basso sul tetto che ferma il portafusibile F1 lungo X; due, con 0,2 mm di gioco per lato."
+  fonte: "D-055 (sezione corpo)"
+costole di schiacciamento:
+  definizione: "Tre listelli dentro una tasca che stringono la testa della vite e rendono la presa meno sensibile alla stampante."
+  fonte: "D-072 (sezione provini)"
+culla:
+  definizione: "Scatola stampata che tiene un servo: pareti, fondo e bugne con i fori per le viti delle alette. C'è nella coxa (servo del femore) e nella tibia (servo del ginocchio)."
+  fonte: "docs/progetto-meccanico.md 'Architettura'; cad/script/zampa.py _culla"
+dima di posa:
+  definizione: "Piastra stampata che si infila sui due perni del femore dal lato B e ferma coxa, femore e ginocchio in una posa nota per la taratura; ce ne sono due."
+  fonte: "D-066 (sezione accensione)"
+EN:
+  definizione: "Pin di abilitazione del regolatore: porta l'uscita a 0 V o a 6,0 V; tirato a massa tiene il rail spento."
+  fonte: "docs/BOM.md B1, B11 (sezione banco)"
+ESP32:
+  definizione: "Scheda di controllo ESP32-S3-CAM: comanda la SSC-32, legge i sensori e porta la camera."
+  fonte: "BOM A2 (sezione prima)"
+flangia:
+  definizione: "Bordo sporgente dell'anello esterno del cuscinetto LF-1050ZZ (Ø11,6 × 0,8): appoggia sulla faccia del pezzo e ferma il cuscinetto nella sede."
+  fonte: "cad/script/rif_componenti.py cus_flangia_d, cus_flangia_sp; docs/BOM.md D1"
+flat:
+  definizione: "Nastro piatto largo 6 mm e spesso 0,15 che porta il segnale dalla testa della camera al connettore FPC dell'ESP32."
+  fonte: "docs/dimensioni-componenti.md (sezione elettronica)"
+fori pilota consumati:
+  definizione: "Nei fori pilota la vite si fa il filetto da sola nella plastica: a ogni rimontaggio il filetto si consuma un poco; se la vite non prende si ristampa il pezzo [S]."
+  fonte: "D-049, S (sezione smontaggio)"
+foro pilota:
+  definizione: "Foro stretto in cui la vite si fa da sola il filetto, senza inserto: Ø2,5 per le M3 delle alette lato albero, Ø1,7 per le M2 della piastrina dell'IMU."
+  fonte: "D-049, D-074 (sezione prima)"
+forzamento:
+  definizione: "Pezzo che entra nella sede per interferenza, con la pressione e senza viti: cuscinetti e perni. La misura della sede viene dal provino."
+  fonte: "D-049; BOM D2 (sezione prima)"
 fronte:
   definizione: "Faccia della tibia rivolta verso l'esterno del robot (+X nel CAD): ci sono la sede delle luci, la gola dei fili e l'inserto del guscio; il guscio la copre."
   fonte: "D-061 'B3' (guscio dal centro dello stinco al fronte); D-066 'Blocco A'"
+"gioco d'imbardata":
+  definizione: "Quanto il ponte della coxa può ruotare attorno alla squadretta: teste M3 Ø5,5 in fori Ø5,6."
+  fonte: "D-048, D-049; cad/script/zampa.py cox_testa_vite_d (sezione provini)"
 gola:
   definizione: "Scanalatura poco profonda in cui corrono i fili: sullo stinco (2 × 2, fili dell'FSR) e sulla parete della culla dal lato del fronte (gola del fermo, larga 4, sotto i ponticelli)."
   fonte: "D-066 'Blocco A'; D-067 'Fermo dei fili della tibia'"
-tasca:
-  definizione: "Incavo 6 × 9 × 1,2 sul fronte della punta dello stinco, dentro il piedino, per linguette e saldature dell'FSR."
-  fonte: "D-066 'Blocco A'; cad/script/zampa.py tasca_fsr"
-ponticelli:
-  definizione: "Tre listelli stampati sopra la gola del fermo, staccati 0,3 dalla parete: sotto restano 1,1 mm in cui si infilano i fili."
-  fonte: "D-067 'Fermo dei fili della tibia'"
+gondola:
+  definizione: "Culla del servo di coxa, ricavata nella base: uguale a quella della zampa, con l'albero in alto, la coda verso l'esterno e il cuscinetto nel fondo."
+  fonte: "D-047; cad/script/corpo.py gondola (sezione corpo)"
+guancia:
+  definizione: "Parete laterale della porta di coda: a sinistra regge il ToF posteriore, a destra l'altoparlante."
+  fonte: "D-066, D-074 (sezione carapace)"
+guardia:
+  definizione: "Controllo del firmware che accetta un fotogramma solo se rispetta tutti i limiti: imbardata, somma fra vicine, femore, ginocchio, velocità, coppia e stabilità."
+  fonte: "docs/software.md 2.5 (sezione collaudo)"
+guida della 2813:
+  definizione: "Colonnina con una scanalatura profonda 1,2 mm in cui entra il bordo del circuito dell'interruttore: ce ne sono due, a destra e a sinistra."
+  fonte: "D-066 (sezione corpo)"
+header:
+  definizione: "File di pin a foro passante della SSC-32 dove si infilano le spine dei servo: tre file per lato, dal bordo massa, VS, segnale."
+  fonte: "docs/dimensioni-componenti.md (sezione banco)"
+I2C:
+  definizione: "Bus a due fili, SDA e SCL, su cui parlano IMU, ADC, INA260 e ToF; qui è dedicato, su GPIO47 e GPIO3."
+  fonte: "docs/piano-elettronica-software.md 2.3 (sezione elettronica)"
+imbardata:
+  definizione: "Rotazione della zampa attorno all'asse verticale della coxa."
+  fonte: "robot.yaml (sezione prima)"
+inserto a caldo:
+  definizione: "Bussola di ottone filettata che si affonda nel foro di un pezzo stampato con la punta calda del saldatore: tiene le viti M3 e M2."
+  fonte: "BOM D4, D5; D-065 (sezione prima)"
+intarsio:
+  definizione: "Pezzo di PLA nero a filo della faccia bianca, stampato insieme (lame del femore 0,6 e 1,0 mm, fascia 0,6 mm)."
+  fonte: "D-063, D-070, D-071 (sezione stampa)"
+interfaccia del supporto:
+  definizione: "Strato del supporto in un altro materiale, che si stacca meglio dal pezzo: lo permette il toolchanger."
+  fonte: "D-056 (sezione stampa)"
 lato A:
   definizione: "Lato della zampa con Femore_A, le squadrette e l'albero dei servo (+Y nel CAD)."
   fonte: "guida/stile.md 'Numeri e nomi'; docs/progetto-meccanico.md 'Architettura'"
 lato B:
   definizione: "Lato della zampa con Femore_B, i perni e i cuscinetti (−Y nel CAD)."
   fonte: "guida/stile.md 'Numeri e nomi'; docs/progetto-meccanico.md 'Architettura'"
+linguetta della spia:
+  definizione: "Lamella verticale in coda, dietro il portafusibile, con il foro Ø 3,1 mm per un LED delle spie dei rail."
+  fonte: "D-066; cad/script/corpo.py fai_base_predisposizioni (sezione corpo)"
+linguetta dello sportello:
+  definizione: "Lamella in alto sullo sportello che entra sotto il tetto del tunnel e impedisce alla parte alta di aprirsi."
+  fonte: "D-054 (sezione batteria)"
+listelli:
+  definizione: "Due pezzi di legno alti circa 20 mm su cui si posa la base per premere i cuscinetti da sotto [C]."
+  fonte: "ipotesi, guida/problemi/corpo.yaml (sezione corpo)"
+lobo:
+  definizione: "Sporgenza esagonale del carapace sopra l'asse di ogni coxa: sei in tutto, uno per zampa; sotto il dorso di ciascuno c'è la piastrina per la luce."
+  fonte: "D-061, D-066 (sezione carapace)"
+lunetta:
+  definizione: "Pezzo piccolo di PLA che centra il microfono tondo MS3625 nel telaio previsto per la scheda rettangolare; ce ne sono due per microfono."
+  fonte: "D-074 (sezione carapace)"
+margine di stabilità:
+  definizione: "Distanza del baricentro dal lato più vicino del poligono d'appoggio: 59 mm a 100/45, il firmware vuole almeno 20 mm."
+  fonte: "robot.yaml, calcolo (sezione collaudo)"
+massa a stella:
+  definizione: "Un solo punto, il Wago −, a cui tornano le masse dei rami di potenza: T-plug, ingressi dei regolatori e logica."
+  fonte: "docs/cablaggio.md 5, punto 6; BOM 'Schema di alimentazione' (sezione elettronica)"
+metà corsa:
+  definizione: "Posizione centrale dell'albero del servo, con l'impulso a 1500 µs; i servo ci arrivano dalla sezione 5 e ci restano fino al calettamento."
+  fonte: "docs/software.md 6.7, B2 e B4; robot/robot.yaml centro_us (sezione zampa)"
+modo LABORATORIO:
+  definizione: "Modo del firmware con il robot sul cavalletto, in cui un PC comanda piedi e giunti: taratura, identificazione, prove."
+  fonte: "docs/software.md 3.3 (sezione collaudo)"
+numero del servo:
+  definizione: "Numero da 1 a 20 scritto sul cavo del servo dopo la prova: lo si ritrova nella scheda della zampa e nel registro."
+  fonte: "docs/software.md 6.7, B2 (sezione banco)"
+orecchie della chiglia:
+  definizione: "Piastre con i fori delle viti: due davanti, a tutta altezza, e due dietro, sottili, sotto le baie posteriori."
+  fonte: "D-051; cad/script/corpo.py fai_chiglia (sezione corpo)"
+ottagono:
+  definizione: "Apertura di servizio nel dorso del carapace, con gli angoli smussati a 45°, sopra USB-C e pulsanti dell'ESP32: la chiude lo sportellino."
+  fonte: "D-056 (sezione carapace)"
+partitore:
+  definizione: "Due resistenze in serie che portano una tensione dentro il campo di un ingresso: qui quello della batteria su GPIO1 e quello dei sensori dei piedi."
+  fonte: "BOM B10; predisposizioni X5 (sezione elettronica)"
 passacavo:
   definizione: "Tappo rigido da cui il cavo esce dalla cassa dell'MG996R; sporge circa 5 mm e scende nella fessura della testata."
   fonte: "D-049"
-flangia:
-  definizione: "Bordo sporgente dell'anello esterno del cuscinetto LF-1050ZZ (Ø11,6 × 0,8): appoggia sulla faccia del pezzo e ferma il cuscinetto nella sede."
-  fonte: "cad/script/rif_componenti.py cus_flangia_d, cus_flangia_sp; docs/BOM.md D1"
+perimetro:
+  definizione: "Giro di parete di un pezzo stampato; con l'ugello da 0,4, tre perimetri sono 1,2 mm."
+  fonte: "cad/stl/README.md (sezione stampa)"
+PETG-CF:
+  definizione: "PETG caricato con fibra di carbonio, nero: le parti funzionali."
+  fonte: "BOM E1; D-065 (sezione prima)"
+pettini dei cavi:
+  definizione: "Pezzi stampati in backlog, sulla parete del tunnel sopra i Wago, con una fessura per cavo e le anse fra un pettine e l'altro."
+  fonte: "CLAUDE.md, Backlog (sezione zampa_corpo)"
+pezzo a due colori:
+  definizione: "Più STL già allineati, caricati insieme nello slicer con un materiale per oggetto: carapace con fascia, visiera e gonne, lame con intarsio."
+  fonte: "cad/stl/README.md (sezione stampa)"
+pixel:
+  definizione: "Un LED indirizzabile della striscia WS2812B-2020; a 120 LED/m due pixel sono lunghi 16,7 mm."
+  fonte: "D-068 (sezione provini)"
+ponte della coxa:
+  definizione: "Braccio superiore della coxa, pezzo a parte: calza le teste delle viti-spina e il disco della squadretta e si avvita alla testa dell'anima con due M3 × 10."
+  fonte: "D-047, D-048 (sezione zampa_corpo)"
+ponte di stampa:
+  definizione: "Tratto di pezzo stampato sospeso senza supporto: il tetto del tunnel della base è lungo 162 mm e largo 50."
+  fonte: "D-056 (sezione stampa)"
+ponticelli:
+  definizione: "Tre listelli stampati sopra la gola del fermo, staccati 0,3 dalla parete: sotto restano 1,1 mm in cui si infilano i fili."
+  fonte: "D-067 'Fermo dei fili della tibia'"
+ponticello a saldare:
+  definizione: "Due piazzole vicine su una scheda, che si uniscono con una goccia di stagno per scegliere un'impostazione, come l'indirizzo dell'INA260."
+  fonte: "docs/predisposizioni.md, X7 (sezione banco)"
+porta di coda:
+  definizione: "Apertura in coda fra le guance del carapace, larga 50,8 mm, da cui si raggiungono T-plug, F1 e lo spinotto di bilanciamento."
+  fonte: "D-069, docs/cablaggio.md 4 (sezione carapace)"
+posa di parcheggio:
+  definizione: "Posa in cui il firmware porta le zampe prima di accendere il rail e dopo la seduta."
+  fonte: "software.md 2.6 (sezione accensione)"
+pozzetto:
+  definizione: "Foro Ø 7 nel dorso, in fondo a un tubo che arriva al tetto del corpo: ci entra la testa della vite M3 che tiene il carapace. Sono quattro, a x 40 e −56, |y| 22,5."
+  fonte: "D-052 (sezione carapace)"
+predisposizione:
+  definizione: "Sede già nel modello per un sensore o una luce opzionale, chiamata Xn: il pezzo si monta solo se lo vuoi."
+  fonte: "D-066, D-069 (sezione prima)"
+prolunga di bilanciamento:
+  definizione: "Due codini JST-XH a 3 poli saldati che portano la presa di bilanciamento del pacco in coda, dove si collega il cicalino."
+  fonte: "BOM C7, D-073 (sezione batteria)"
+provino:
+  definizione: "Pezzo di prova stampato per trovare una misura prima dei pezzi veri: culla, giunto, inserti, piedino, tasche della lama A, luce."
+  fonte: "CLAUDE.md, \"Provini da stampare prima dei pezzi\" (sezione prima)"
+pull-down:
+  definizione: "Resistenza da 100 kΩ verso massa sulla linea dati dei microfoni: la tiene a zero quando nessuno dei due la pilota."
+  fonte: "docs/predisposizioni.md 2.4, D-074 (sezione carapace)"
+pull-up:
+  definizione: "Resistenza che tiene alti SDA e SCL; quelle delle schede sono in parallelo e il valore equivalente deve stare fra 1,0 e 1,4 kΩ."
+  fonte: "docs/piano-elettronica-software.md 2.4 (sezione elettronica)"
+punto di controllo:
+  definizione: "Pagina a fine sezione con le frasi da spuntare prima di andare avanti."
+  fonte: "guida/stile.md (sezione prima)"
+Qwiic:
+  definizione: "Presa e cavetto a 4 fili (massa, 3,3 V, SDA, SCL) JST SH, per le schede I2C che l'hanno."
+  fonte: "docs/cablaggio.md 3.4 (sezione elettronica)"
+rail:
+  definizione: "Alimentazione a 6,0 V dei servo, una per lato (VS1 a sinistra, VS2 a destra), dai due regolatori D42V110F6; spenta finché l'ESP32 non la accende."
+  fonte: "BOM B1, B11 (sezione accensione)"
+rebbi:
+  definizione: "I due denti dello sportello della batteria, lunghi 17 mm, che entrano nel tunnel e premono il pacco con la schiuma."
+  fonte: "D-054, cad/script/corpo.py cor_sport_rebbio (sezione batteria)"
+registro delle misure:
+  definizione: "Tabelle delle appendici in cui scrivi i valori misurati: forzamenti, provini, tensioni, calettamenti, numeri dei servo, taratura."
+  fonte: "guida, appendici (sezione prima)"
+regolatore:
+  definizione: "Convertitore di tensione: i due D42V110F6 portano la batteria a 6,0 V per i servo, il D24V22F5 a 5 V per l'ESP32."
+  fonte: "BOM B1, B2 (sezione prima)"
+restringimento dei fori:
+  definizione: "I fori stampati vengono più stretti del CAD di 0,1–0,2 mm: per questo si provano i forzamenti prima dei pezzi veri."
+  fonte: "D-056 (sezione stampa)"
+rialzo:
+  definizione: "Dischetto Ø6,2 alto 0,4 sul braccio della coxa e sui mozzi dei femori: tocca solo l'anello interno del cuscinetto."
+  fonte: "D-047; cad/script/zampa.py cus_rialzo_d, cus_rialzo_h (sezione zampa_corpo)"
+rondelle di registro:
+  definizione: "Rondelle M3 DIN 125 da 0,5 mm fra la piastra di Femore A e il blocco di Femore B, due per vite: riempiono la luce di 1,0 mm e si cambiano se la squadretta vera è più alta o più bassa."
+  fonte: "D-047; cad/script/zampa.py fem_luce_A (sezione zampa)"
+scheda del carapace:
+  definizione: "Striscia di millefori sotto il dorso con la testata a 16 poli, la presa Qwiic e le derivazioni di luci, audio e pulsante."
+  fonte: "docs/cablaggio.md 3.5 (sezione banco)"
+sezionamento:
+  definizione: "Staccare il T-plug: toglie la corrente a tutto il robot, servo compresi."
+  fonte: "BOM 'Schema di alimentazione' (sezione accensione)"
+sfilamento:
+  definizione: "Spostamento del carapace in verticale verso l'alto per toglierlo: libero da +5 a +40 mm, a −2 mm tocca la base."
+  fonte: "D-063 (sezione smontaggio)"
+slitta:
+  definizione: "Piastra stampata che porta un regolatore e scende fra due guide sulla parete della baia; si ferma con una vite M3."
+  fonte: "D-051 (sezione banco)"
+spalle e labbri:
+  definizione: "Le due pareti a ogni estremità della sede del Wago e i due risalti da 1,6 mm che coprono le estremità della faccia delle leve, e lo tengono fermo."
+  fonte: "D-055 (sezione corpo)"
+spina IDC:
+  definizione: "Connettore a 16 vie del cavo piatto, con la chiave: si innesta nella testata 2 × 8 della scheda del carapace e si sfila dall'ottagono."
+  fonte: "docs/cablaggio.md 3.5 (sezione carapace)"
+squadretta:
+  definizione: "Disco di alluminio a 25 denti che si infila sull'albero del servo, con quattro fori M3 filettati a 7 mm dal centro e la vite centrale in dotazione."
+  fonte: "docs/BOM.md D3; cad/script/rif_componenti.py sq_* (sezione zampa)"
+SSC-32:
+  definizione: "Scheda che genera gli impulsi dei 32 canali servo; l'ESP32 la comanda per seriale."
+  fonte: "BOM A4 (sezione prima)"
+stallo:
+  definizione: "Servo bloccato che spinge al massimo: 2,5 A a 6 V per l'MG996R."
+  fonte: "BOM A1 (sezione prima)"
+stinco:
+  definizione: "Parte lunga della tibia, dalla culla fino alla punta piana dove va il piedino."
+  fonte: "D-061 'B3', D-065; cad/script/zampa.py _stinco"
+stretta del piedino:
+  definizione: "Di quanto il foro del piedino è più piccolo dello stinco: oggi zero, da provare 0, −0,2 e −0,4 mm."
+  fonte: "D-064 (sezione provini)"
+supporto a cuneo:
+  definizione: "Supporto triangolare sotto lo stinco della tibia stampata: lo stinco si stacca dal piatto fino a circa 17 mm."
+  fonte: "cad/stl/README.md 'Tibia.stl' (sezione stampa)"
+T-plug:
+  definizione: "Connettore di potenza della batteria: staccarlo toglie la corrente ai servo; è il sezionamento d'emergenza."
+  fonte: "BOM B12; cablaggio 4; D-069 (sezione prima)"
+taratura:
+  definizione: "Impulso di ogni servo in due pose note, da cui il firmware ricava spostamento e guadagno; senza taratura valida il rail non si accende."
+  fonte: "software.md 2.7 (sezione accensione)"
+tasca:
+  definizione: "Incavo 6 × 9 × 1,2 sul fronte della punta dello stinco, dentro il piedino, per linguette e saldature dell'FSR."
+  fonte: "D-066 'Blocco A'; cad/script/zampa.py tasca_fsr"
+telaio del microfono:
+  definizione: "Quattro pareti sotto il dorso attorno al foro Ø 1, con l'anello per la guarnizione: nato per la scheda Adafruit, 16,7 × 12,7 mm."
+  fonte: "D-066, D-074 (sezione carapace)"
+terna:
+  definizione: "Sistema di riferimento X, Y, Z di un disegno: quello del robot (X avanti, Y a sinistra, Z in alto) o quello della zampa."
+  fonte: "progetto-meccanico.md \"Architettura\" (sezione prima)"
+"testa dell'anima":
+  definizione: "Blocco in cima all'anima della coxa che sta sopra la gondola, 1 mm sopra le teste delle viti lato coda del servo di coxa; porta i due inserti del ponte."
+  fonte: "D-048, D-049; cad/script/zampa.py fai_coxa, testa_anima_alta (sezione zampa_corpo)"
+testata:
+  definizione: "Parete corta della culla dal lato dell'albero del servo; ha la finestra e la fessura da cui esce il cavo."
+  fonte: "D-049; cad/script/zampa.py _sede (finestra_cavo, fessura_cavo)"
+tester dei servo:
+  definizione: "Piccolo modulo con la sua alimentazione, o la SSC-32 dal Mac, per portare un servo in posa senza girare l'albero a mano."
+  fonte: "guida/problemi/zampa.yaml (sezione smontaggio)"
+toolchanger:
+  definizione: "Stampante a 4 testine (FlashForge Creator 5 Pro): permette due colori e supporti in un altro materiale."
+  fonte: "CLAUDE.md, 'Produzione' (sezione stampa)"
+torretta e mensola:
+  definizione: "Parti del vassoio davanti all'ESP32: la torretta sta dietro la testa della camera, la mensola sotto; nella mensola sta anche il ToF."
+  fonte: "docs/predisposizioni.md, 'Corpo_Vassoio' (sezione elettronica)"
+TPU:
+  definizione: "Plastica gommosa 95A arancio: i piedini."
+  fonte: "BOM E3; D-064 (sezione prima)"
+traslatore di livello:
+  definizione: "Modulo a 4 canali con BSS138 fra i 3,3 V dell'ESP32 e i 5 V della SSC-32 sulla seriale."
+  fonte: "BOM C1 (sezione elettronica)"
+tripode:
+  definizione: "Andatura con due gruppi di tre zampe: AS, PS, MD e AD, PD, MS; un gruppo è a terra mentre l'altro cammina."
+  fonte: "robot.yaml, docs/software.md 4.2 (sezione collaudo)"
+tunnel:
+  definizione: "Vano chiuso al centro della base, interno 162 × 50 × 28 mm, in cui sta la batteria; si apre solo in coda."
+  fonte: "D-050 (sezione batteria)"
+vassoio:
+  definizione: "Piano stampato sopra il tetto del tunnel, su quattro distanziali: porta la basetta, la torretta e la mensola della camera."
+  fonte: "D-051, D-053 (sezione elettronica)"
+viti-spina:
+  definizione: "Le due viti M3 × 5 avvitate nella squadretta di coxa senza rondella: le teste entrano nei fori del ponte e portano la coppia del servo."
+  fonte: "D-048, D-049 (sezione zampa_corpo)"
+VL:
+  definizione: "Alimentazione della logica della SSC-32, 6–12 V; arriva dalla batteria dopo l'interruttore 2813."
+  fonte: "docs/BOM.md A4 (sezione banco)"
+VS1 e VS2:
+  definizione: "Le due alimentazioni dei servo della SSC-32: VS1 per i canali 0–15 (lato sinistro del robot), VS2 per i 16–31 (lato destro)."
+  fonte: "docs/studio-componenti.md (sezione banco)"
+Wago:
+  definizione: "Morsetto a leva a 5 vie Wago 221-415: si apre la leva, si infila il filo spelato, si richiude; senza saldare."
+  fonte: "BOM B13 (sezione elettronica)"
+XSHUT:
+  definizione: "Pin di spegnimento del sensore ToF: il TCA9534 lo tiene basso per dare a ogni ToF il suo indirizzo."
+  fonte: "docs/predisposizioni.md X19, X20 (sezione carapace)"
+"α (femore)":
+  definizione: "Angolo del femore sulla coxa: 0° con il femore in squadra con la culla della coxa, positivo con il ginocchio che sale; libero da −49° a +85°."
+  fonte: "docs/progetto-meccanico.md 'Modello in Fusion' (sezione zampa)"
+"γ (ginocchio)":
+  definizione: "Angolo fra femore e tibia: 90° con la tibia in squadra con il femore, meno di 90° con il piede verso la coxa; libero da 29° a 180°, con un minimo che dipende da α."
+  fonte: "docs/progetto-meccanico.md, tabella del ginocchio minimo (sezione zampa)"

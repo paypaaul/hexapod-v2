@@ -1,0 +1,231 @@
+# Problemi trovati scrivendo la sezione 4, banco dell'elettronica (D-075, formato in guida/schema.md "Problemi").
+# Terna del robot (mm): X avanti, Y a sinistra, Z in alto. Campi in piu' rispetto allo schema: domanda (cosa chiedere
+# all'utente, quando serve) e tipo (allocazione: un pezzo o una giunzione va montato in un'altra sezione).
+
+- titolo: Gli schemi della basetta e della scheda del carapace non esistono
+  gravita: bloccante
+  dove: "4.04, 4.05, 4.06"
+  cosa: >-
+    Il piano della guida (docs/piano-guida.md, F3b) prevedeva che un progettista disegnasse su griglia da 2,54 la
+    disposizione della basetta (56 x 35) e della scheda del carapace, con le prove al multimetro. Il passo F3b non ha
+    prodotto niente: guida/schemi/ e' vuota e non esistono ne' guida/schemi/schemi.md ne' guida/problemi/schemi.yaml.
+    I passi 4.04-4.06 danno quindi solo l'elenco dei collegamenti, ricavato da cablaggio.md e dai documenti del
+    progetto, e dicono di non saldare. Mancano: la posizione di ogni componente, il valore dei pull-up del bus I2C
+    (obiettivo 1,0-1,4 kOhm in tutto, ma dipende da quali schede Adafruit sono sul bus), il piedino a cui va ogni filo del
+    DIP-14 del buffer, le prove al multimetro per riga. L'elenco dei collegamenti e' quello che l'estrattore ha trovato
+    scritto; non e' stato verificato contro uno schema, e la tabella del carapace ha due punti ambigui (polo 14, presa
+    Qwiic).
+  prove:
+    - "guida/schemi/: directory vuota; guida/problemi/: nessun schemi.yaml"
+    - "docs/piano-guida.md, tabella F3b e 'Schemi dell'elettronica' (si progettano durante la guida)"
+    - "docs/decisioni.md D-075 ('Schemi della basetta e della scheda del carapace: non erano mai stati progettati')"
+    - "docs/cablaggio.md 3.5 (piedinatura 2 x 8) e 2 ('Segnali'); docs/piano-elettronica-software.md 2.3 e 2.4"
+    - "docs/predisposizioni.md 2.3 (scheda del carapace: testata, Qwiic, 470 uF; posto da trovare)"
+  opzioni:
+    - "Rifare il passo F3b (progettista + verificatore elettrico) prima di dare la sezione 4 all'utente, e sostituire le due tabelle con le figure schemi/*.svg."
+    - "Lasciare le tabelle e saldare a mano, filo per filo, seguendo l'elenco, senza una disposizione: costa tempo e un errore sul 5 V puo' rovinare l'ESP32."
+    - "Montare al banco la sola parte che si puo' provare senza basetta (ramo logica con componenti sciolti e cavetti Dupont, passi 4.07-4.09) e rimandare le saldature."
+  consiglio: >-
+    Rifare F3b prima delle saldature. Nella bozza i passi sono marcati [C] e dicono di non saldare finche' lo schema non
+    e' approvato; il ramo logica e la SSC-32 si provano comunque con componenti sciolti.
+
+- titolo: Il programma di prova del banco non esiste, e lo scheletro del firmware non e' mai girato sul chip
+  gravita: importante
+  dove: "4.03, 4.08"
+  cosa: >-
+    docs/software.md 6.7 descrive B0 come "flash, LED, ADC su GPIO1 con il partitore, GPIO42 con il multimetro" e prevede
+    "script tools/hexa banco piu' una lista di controllo". Lo script non c'e' (tools/ contiene solo descrizione,
+    genera_* e riferimento) e firmware/main/main.cpp tiene soltanto GPIO42 basso: non accende il LED WS2812, non legge
+    GPIO1, non parla con la SSC-32. Il README del firmware dice "Non provato sul chip: la scheda non c'e' ancora".
+    Nella guida il LED e l'ADC non si possono provare dall'ESP32: restano le misure con il multimetro (GPIO42 a 0 V,
+    GPIO1 a 0,32 volte il pacco) e il flash dello scheletro. Il passo B1 (SSC-32 dal PC) usa un terminale seriale a mano.
+  prove:
+    - "docs/software.md 644-652 (6.7, B0-B6) e 8 ('Elettronica')"
+    - "firmware/README.md riga 52 (Non provato sul chip)"
+    - "firmware/main/main.cpp (solo GPIO42 basso); ls tools/"
+    - "docs/piano-elettronica-software.md 4, P2 ('S1 di software.md')"
+  opzioni:
+    - "Scrivere il programma di banco S1 (LED, ADC, I2C scan, comandi alla SSC-32) prima della guida finale e metterlo nei passi 4.03 e 4.08."
+    - "Lasciare le prove con il multimetro e il terminale, come nella bozza."
+  consiglio: >-
+    Prove con il multimetro e il terminale nella bozza; il programma S1 quando c'e' (e' gia' nella roadmap di
+    docs/software.md, S1). Il passo 4.03 dice che LED e ADC non si provano ancora.
+
+- titolo: "La SSC-32 clone non e' mai stata vista: ponticelli, micro-USB, retro e lato dei canali sono tutti dal disegno del venditore"
+  gravita: importante
+  dove: "4.01, 4.02, 4.09"
+  cosa: >-
+    Le posizioni dei ponticelli "VS VL" e "VS1 VS2", della micro-USB, dei morsetti e delle file massa-VS-segnale
+    vengono dal disegno quotato del venditore (marcate S). Il retro non e' fotografato: che sotto gli header non ci siano
+    componenti e' un'assunzione. Non si sa se la micro-USB alimenta la logica, se il clone risponde a VER, Q e QP, se
+    parla a 115200 o va configurato con il pulsante BAUD. robot.yaml avverte che il lato dei canali 0-15 sulla scheda
+    montata (morsettiera in avanti) "va controllato sull'ingombro Rif_SSC32_V25 e al banco (passo B1)": le etichette
+    "Canali 0-15" e "Canali 16-31" nella figura del passo 4.01 sono quelle del CAD (0-15 a sinistra) e non sono verificate.
+    I tre ponticelli potrebbero essere saldati e non a spina (nella guida: "togli").
+  prove:
+    - "docs/dimensioni-componenti.md 98-123 ('Servo controller SSC32-V2.5': S, C sulla serigrafia reale)"
+    - "docs/studio-componenti.md 59 e 124 (il retro non si vede in nessuna immagine; va guardato prima di saldare)"
+    - "robot/robot.yaml 22-24 (canali; lato da controllare al passo B1)"
+    - "docs/piano-elettronica-software.md 427 (domanda 12: scritture in EEPROM, reversibili con il pulsante BAUD) e 453"
+    - "docs/software.md 739 (il clone potrebbe non avere modo binario, QP, ingressi o baud diversi da 115200)"
+  opzioni:
+    - "L'utente fotografa la SSC-32 dal davanti e dal retro con le scritte leggibili, e la guida si corregge (etichette, ponticelli, retro)."
+    - "Guida cosi' com'e', con tutto marcato [S] e [C]: chi costruisce corregge sul pezzo."
+  consiglio: >-
+    Chiedere le foto prima di portare la sezione all'utente. Nella bozza restano marcature [S] e [C] e l'avviso
+    "annota dove sono". Se la micro-USB non alimenta la logica, si usa VL dalla 2813 (e' gia' cosi' nel passo 4.09).
+  domanda: >-
+    Puoi fotografare la SSC-32 dal lato dei componenti e dal retro, con le scritte dei ponticelli (VS VL, VS1 VS2) e dei
+    morsetti leggibili, e dire se i ponticelli sono a spina o saldati? (E' una cosa da guardare sul pezzo, non una
+    misura del servo.)
+
+- titolo: "Il pin di abilitazione dei regolatori puo' avere un pull-up interno che rende vano il \"rail spento di default\""
+  gravita: importante
+  dove: "4.04, 4.12"
+  cosa: >-
+    Il progetto tira a massa il pin EN dei due D42V110F6 con 47 kOhm e lo alza con GPIO42 attraverso un diodo 1N4148
+    (rail spento con il GPIO flottante). Il BOM dice che "la soglia bassa non e' pubblicata: valori da provare al banco"
+    e tiene un 22 kOhm di riserva. Il diodo c'e' proprio perche' il pin potrebbe avere un pull-up verso l'ingresso. Se il
+    pull-up interno e' forte (per esempio, valore solo ipotetico, 100 kOhm verso l'ingresso a 7,4 V) contro 47 kOhm a
+    massa, il pin sta a circa 2,4 V e il regolatore potrebbe restare acceso anche con GPIO42 flottante: il rail dei servo
+    sarebbe acceso all'avvio, contro "rail spento di default" di docs/software.md (2.6) e del BOM. Nessun documento dice se il D42V110F6
+    ha un pull-up, ne' di che valore (dati del produttore non riletti).
+  prove:
+    - "docs/BOM.md 53 (B11: soglia bassa non pubblicata, 22 kOhm di riserva) e 42 (B1: pin di abilitazione e power-good)"
+    - "docs/cablaggio.md 31 e 78 (GPIO42 - 1N4148 - EN, 47 kOhm a massa: S, valori da provare al banco)"
+    - "docs/software.md 6.7 (B3: abilitazione bassa = 0 V; GPIO42 alto = 6,0 V e power-good)"
+  opzioni:
+    - "Provare al banco con la tabella del passo 4.12 (EN libero, 47 kOhm, 22 kOhm, 1N4148 dal 3,3 V) prima di saldare la basetta."
+    - "Leggere la pagina Pololu del D42V110F6 e scrivere il valore del pull-up nel BOM."
+    - "Se non va: un MOSFET o un transistor che porti il pin a massa, che aggiungerebbe un componente (da chiedere all'utente)."
+  consiglio: >-
+    Fare la prova del passo 4.12 prima della basetta: decide la resistenza (47 o 22 kOhm). Nella bozza c'e' l'avviso e
+    la riga di prova.
+
+- titolo: "Con i supporti degli INA260 la vite M3 della slitta deve essere piu' lunga: la giunzione \"slitte\" ha M3 x 8"
+  gravita: importante
+  tipo: allocazione
+  dove: "4.14 e sezione 8 (giunzione slitte)"
+  cosa: >-
+    I supporti stanno sulla faccia interna della slitta e "prendono la sua vite" (D-066, cad/stl/README.md). Nel CAD la
+    vite M3 x 8 della giunzione "slitte" (testa a y 45,6, asse verso la parete, foro Ø 3,4 per 2,4 mm di slitta) ha
+    presa 5,6 mm nell'inserto da 6,7 e 1,1 mm di fondo libero. Con il supporto la testa va a y 43,2 (altri 2,4 mm di
+    passante): M3 x 8 restano 3,2 mm di presa, e il BOM dice "viti M3 delle slitte piu' lunghe di 2,4 mm con i supporti
+    degli INA260". La lunghezza non e' scelta in nessun documento: la M3 x 10 (kit D6) da' 5,2 mm di presa, la x 12 non c'e'
+    nel kit Amazon (5, 6, 8, 10, 16). Il catalogo della guida ha la giunzione slitte a M3 x 8, 2 viti, e il controllo
+    viti_bom somma M3 x 8 = 106 e M3 x 10 = 18: con X7 sarebbero M3 x 8 104 e M3 x 10 20. La giunzione e' della sezione 8:
+    qui la guida dice solo "M3 x 10 [S]".
+  prove:
+    - "guida/catalogo/giunzioni.yaml 114-120 (slitte: M3x8, attesi 2)"
+    - "guida/dati/fori.json: Corpo_Slitta_Regolatore foro_vite y 48,0-45,6; Corpo_Supporto_INA260 foro_vite y 43,2-45,6; Corpo_Base slitta_ins y 48,0-54,7"
+    - "docs/BOM.md 208 ('viti M3 delle slitte piu' lunghe di 2,4 mm con i supporti degli INA260')"
+    - "cad/stl/README.md 33 (supporti: prendono la sua vite, M3 piu' lunga di 2,4)"
+    - "docs/BOM.md, tabella 'Viteria e inserti': M3 x 8 106, M3 x 10 18"
+  opzioni:
+    - "M3 x 10 per le 2 viti delle slitte quando c'e' X7 (BOM: M3 x 8 104, M3 x 10 20); nella giunzione, vite per variante."
+    - "Tenere M3 x 8 e accettare 3,2 mm di presa nell'inserto (sotto il minimo di 3 mm del controllo lunghezze solo di poco)."
+  consiglio: >-
+    M3 x 10 con X7, M3 x 8 senza: lo decide la sezione 8, con il catalogo delle giunzioni per variante. Nella sezione 4
+    l'avviso lo dice, marcato [S].
+
+- titolo: Gli INA260 non hanno fori di fissaggio nel CAD e nessuna giunzione
+  gravita: minore
+  dove: "4.14"
+  cosa: >-
+    Il supporto ha due inserti M2 (ins_a, ins_b a x 16,7 e 34,5, z 28,9, y 40,2-44,2): 17,8 mm di interasse. Il modello
+    dell'INA260 (Rif_INA260, 22,9 x 22,8 x 2,7 piu' la morsettiera) non ha fori, quindi il catalogo non ha una giunzione
+    e la guida non disegna le viti. Quante viti, di che lunghezza e se il circuito ha fori a quell'interasse sono da
+    confermare sul pezzo (predisposizioni.md: "C fori"). Le viti M2 x 5 a croce del kit sono la scelta piu' probabile ma non
+    sono calcolate.
+  prove:
+    - "guida/dati/fori.json: Corpo_Supporto_INA260_S ins_a e ins_b; Rif_INA260 senza fori"
+    - "docs/predisposizioni.md 168 (X7: V (TI, Adafruit); C morsettiera per 13 A, fori)"
+    - "docs/BOM.md 208 (inserti M2 per INA260 4 e viti M2 corte per le stesse)"
+  opzioni:
+    - "Aggiungere i fori dell'INA260 al CAD e una giunzione 'ina260' (2.1.7)."
+    - "Provare con l'INA260 vero e scrivere le viti nel passo."
+  consiglio: Provare con il pezzo vero; la guida dice M2 x 5 [C].
+
+- titolo: La morsettiera dell'INA260 potrebbe non prendere il 14 AWG del rail dei servo
+  gravita: importante
+  dove: "4.11, 4.14 e sezione 8"
+  cosa: >-
+    Il cablaggio mette l'INA260 in serie sul positivo all'uscita di ogni regolatore, con 14 AWG da 0,6 + 0,6 m. La
+    morsettiera da 3,5 mm dell'INA260 (nel CAD) potrebbe prendere al massimo 16 AWG: allora "l'ultimo tratto si salda".
+    Il passo 4.11 salda i fili d'uscita sul regolatore per usarli subito al banco (prova a 6,0 V e prova dei servo): se poi
+    il filo deve passare dall'INA260 va tagliato e rifatto, e la lunghezza "0,6 m" (S) puo' non bastare. Non e' scelto
+    chi taglia il filo ne' dove si salda.
+  prove:
+    - "docs/cablaggio.md 74 (Rail servo: C morsettiera, 16 AWG al massimo, l'ultimo tratto si salda)"
+    - "docs/BOM.md 57 (B15: con l'INA260 la morsettiera potrebbe non prendere il 14 AWG)"
+    - "docs/predisposizioni.md 168 (X7: C morsettiera per 13 A)"
+  opzioni:
+    - "Al banco: filo d'uscita 14 AWG lungo e senza INA260; nella sezione 8, con X7, tagliare e saldare un tratto da 16 AWG sulla morsettiera."
+    - "Saldare l'INA260 in linea al banco (passo 4.14) e poi il filo verso la SSC-32."
+  consiglio: >-
+    Lasciare i fili d'uscita lunghi 0,6 m al banco e decidere nella sezione 8 dopo aver provato la morsettiera con un 14
+    AWG. Nella bozza e' un avviso importante [C].
+
+- titolo: "ESP32 su USB e sul pin 5V insieme: la scheda potrebbe non avere un diodo fra i due ingressi"
+  gravita: importante
+  dove: "4.03, 4.07, 4.08, 4.12"
+  cosa: >-
+    Il progetto alimenta l'ESP32 dal pin 5V con il D24V22F5; il C3 del BOM (diodo 1N5817 e spinotto USB-C) c'e' come
+    alternativa solo "se la scheda non si accende dal pin 5V". Non e' scritto se la UICPAL ha un diodo tra VBUS e il pin
+    5V. Senza il diodo, collegare la USB mentre il D24V22F5 alimenta il pin 5V mette in contrasto i due 5 V; con il
+    cavo USB-C tenuto al Mac durante le prove al banco con la batteria, il Mac e il D24V22F5 si spingerebbero uno contro
+    l'altro. La guida dice: "USB staccata quando l'ESP32 e' sul pin 5V" (passi 4.07, 4.08) e usa la USB da sola in 4.03 e
+    4.12. Ma la sezione 12 (12.07) collega la USB al computer con la batteria collegata.
+  prove:
+    - "docs/BOM.md C3 (ingresso del 5 V nell'ESP32: alternativa, solo se la scheda non si accende dal pin 5V)"
+    - "docs/studio-componenti.md ('Scheda UICPAL ESP32-S3-CAM': nessun dato su diodo, regolatore, fori)"
+    - "guida/passi/12-accensione.yaml 12.07 ('Collega l'ESP32 al computer con il cavo USB-C e apri la console')"
+    - "docs/piano-elettronica-software.md 2.1 ('Con l'ESP32 alimentata solo dalla USB (al banco) il bus dei sensori e' spento')"
+  opzioni:
+    - "Misurare sulla scheda vera, con la USB collegata e nient'altro: se il pin 5V e' a 5 V, c'e' un percorso da VBUS al pin e senza diodo il contrasto e' possibile; se e' a 0 V, il diodo c'e' (o non c'e' il percorso)."
+    - "Mettere un diodo Schottky (1N5819 del BOM C3) sul filo del 5 V verso il pin."
+    - "Mai la USB con la batteria collegata, e usare l'adattatore USB-seriale CH340N del BOM (voce 'USB-seriale') per la console con la batteria."
+  consiglio: >-
+    Misurare il pin 5V con la sola USB collegata (riga aggiunta alla tabella del passo 4.03), e fino ad
+    allora tenere la regola "mai USB e batteria insieme". La sezione 12 va controllata.
+  domanda: >-
+    Con l'ESP32 collegata solo alla USB, quanti volt ci sono fra il pin 5V e GND? (Misura sulla scheda, non sui servo.)
+
+- titolo: Quale delle 4 schede ESP32-S3 e' la RE1.3, la lega dello stagno e la temperatura del saldatore
+  gravita: minore
+  dove: "4.02, 4.03, 4.04-4.06, 4.11, 4.13"
+  cosa: >-
+    Da guardare sui pezzi in casa (CLAUDE.md, punto 3 degli aperti): la sigla RE1.3 e' stampata sulla scheda e serve
+    prima del vassoio; lo stagno "a bassa temperatura" (100 g) potrebbe non essere al bismuto, e allora B19 perde anche
+    lo stagno. Nessun documento da' la temperatura di saldatura: la guida non la scrive, e i passi che saldano dicono
+    "a bassa temperatura" solo dove la fonte lo dice (FSR, sezione 6). Per i fili di 14 AWG e le barre da 1 mm serve una
+    punta piu' grossa e piu' calda di quella per i fili da 30 AWG.
+  prove:
+    - "CLAUDE.md, 'Da guardare sui pezzi in casa' (RE1.3; lega dello stagno)"
+    - "docs/BOM.md 61 (B19: lega) e A2"
+    - "guida/problemi/inserti.yaml (temperatura del saldatore per gli inserti)"
+  opzioni:
+    - "L'utente legge la sigla e la lega e le scrive nel BOM."
+    - "Guida con [C]."
+  consiglio: Chiedere la sigla e la lega quando si arriva al banco.
+  domanda: >-
+    Che sigla e' stampata sulla scheda ESP32 (e' la RE1.3)? Che lega e' lo stagno "a bassa temperatura" (SnPb, SnBi, altro)?
+    Quale temperatura consigliano le istruzioni del saldatore per il filo da 14 AWG?
+
+- titolo: La slitta destra e' la sinistra ruotata; i supporti degli INA260 sono due pezzi diversi
+  gravita: minore
+  dove: "4.10, 4.14"
+  cosa: >-
+    Il piano della guida elencava "slitta destra: specchiata o la stessa" fra i candidati. Nel CAD le due slitte sono lo
+    stesso componente (Corpo_Slitta_Regolatore) con trasformate diverse: il destro e' il sinistro ruotato di 180 gradi
+    attorno a Z (x 55,0 e 16,2 si scambiano, y cambia segno). Il README conferma "due copie" di un solo STL. I supporti
+    (S e D) sono invece due STL, specchiati su y (gli inserti restano a x 16,7 e 34,5). I regolatori sono lo stesso
+    componente con la stessa trasformata ruotata.
+  prove:
+    - "guida/dati/manifest.json: occorrenze corpo/Corpo_Slitta_Regolatore_S e _D, componente Corpo_Slitta_Regolatore"
+    - "cad/stl/README.md 32-33"
+    - "docs/decisioni.md D-066 (X7: 'la slitta destra e' la sinistra ruotata')"
+  opzioni:
+    - "Nessuna: confermato dal CAD."
+  consiglio: Nessuna azione. I passi dicono "e' la stessa, ruotata".
+  esito: "confermato nel CAD; nessuna modifica"

@@ -1,0 +1,608 @@
+# Appendici (D-075, docs/piano-guida.md "Struttura della guida"). F3, estrattore della sezione.
+# Tutto a tabelle, passi senza figura a mezzo foglio (due per pagina). Canali, registro delle misure da compilare,
+# opzionali X, inserti a caldo (dove, quali, quando) e glossario. Il foglio delle viti 1:1, l'elenco dei pezzi, i problemi
+# noti e gli schemi elettrici li aggiungono l'impaginatore e la riconciliazione.
+# Il glossario e' una copia di guida/glossario.yaml e di guida/glossario.d/*.yaml fatta con uno script a fine lavoro:
+# l'impaginatore non legge il glossario (guida/problemi/appendici.yaml, difetto della pipeline).
+sezione:
+  id: appendici
+  numero: "A"
+  titolo: Appendici
+  colore: "#495057"
+  terna: robot
+  istanza: AS
+  obiettivo: >-
+    Avere sotto mano le tabelle che servono durante il montaggio: i canali della SSC-32, il registro delle misure da
+    compilare, le opzioni X con la viteria in più, gli inserti a caldo e il glossario.
+  tempo: "da consultare quando serve"
+  stato_elettrico: "nessuno: sono tabelle."
+  fonti: [D-075, docs/cablaggio.md, robot/robot.yaml, docs/BOM.md, docs/predisposizioni.md]
+
+passi:
+  - id: "A.01"
+    titolo: Canali della SSC-32
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Zampa, Coxa, Femore, Ginocchio, Fila, Prolunga]
+      righe:
+        - ["AS", "0", "1", "2", "VS1", "sul ginocchio"]
+        - ["MS", "6", "7", "8", "VS1", "no"]
+        - ["PS", "13", "14", "15", "VS1", "sul ginocchio"]
+        - ["AD", "16", "17", "18", "VS2", "sul ginocchio"]
+        - ["MD", "22", "23", "24", "VS2", "no"]
+        - ["PD", "29", "30", "31", "VS2", "sul ginocchio"]
+    testo:
+      - "Collega la spina di ogni servo al canale della tabella."
+      - "Annota il canale nel registro, accanto al numero del servo."
+      - "Ricontrolla il canale al banco, con un servo alla volta (B1, B2)."
+    avvisi:
+      - {tipo: importante, testo: "I canali sono una proposta di robot.yaml [C]: confermali al banco, con la scheda montata e la morsettiera in avanti. Se i canali 0–15 sono sul lato destro, cambiano robot.yaml, il firmware e questa tabella."}
+      - {tipo: nota, testo: "VS1 alimenta i canali 0–15 (regolatore sinistro), VS2 i canali 16–31 (regolatore destro) [S]. Canali liberi: 3–5 e 9–12 a sinistra, 19–21 e 25–28 a destra."}
+      - {tipo: nota, testo: "Il ginocchio delle zampe d'angolo ha un percorso di 267–295 mm contro circa 300 utili: serve una prolunga JR da 15 cm (BOM C5)."}
+    fonti: [robot/robot.yaml "canali", docs/cablaggio.md 3.2, docs/dimensioni-componenti.md "SSC-32", docs/BOM.md C5 e "Schema di alimentazione", D-073]
+
+  - id: "A.02"
+    titolo: ADC dei piedi e prese
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Zampa, "Canale dell'ADS7830 (FSR)"]
+      righe:
+        - ["AS", "0"]
+        - ["MS", "1"]
+        - ["PS", "2"]
+        - ["AD", "3"]
+        - ["MD", "4"]
+        - ["PD", "5"]
+        - ["NTC dei regolatori (X14)", "6 e 7"]
+    testo:
+      - "Collega il doppino dell'FSR di ogni zampa alla sua presa dei piedi."
+      - "Collega la spina delle luci di ogni zampa alla sua presa delle luci."
+      - "Annota nel registro quale presa va a quale zampa."
+    avvisi:
+      - {tipo: nota, testo: "Canali nell'ordine di robot.yaml: AS, MS, PS, AD, MD, PD [C]. L'ADS7830 sta all'indirizzo 0x48 [V]."}
+      - {tipo: nota, testo: "Le prese dei piedi (due poli) e le prese delle luci (massa, +5 V, dato) sono due file da sei spine JR sul tetto del tunnel (D-069)."}
+      - {tipo: importante, testo: "Lungo la zampa passano solo massa e segnale dell'FSR, mai il 3,3 V."}
+    fonti: [docs/cablaggio.md 3.3 e 3.4, docs/predisposizioni.md X5 e X14, D-069]
+
+  - id: "A.03"
+    titolo: Registro, provini
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Provino, Parametro, Oggi, Valore trovato]
+      righe:
+        - ["1, inserti", "ins_m3_d, ins_m3_l", "4,2 / 6,7", ""]
+        - ["1, inserti", "ins_m2_d, ins_m2_l", "3,4 / 4,0", ""]
+        - ["1, inserti", "temperatura della punta, raffreddamento", "–", ""]
+        - ["2, squadretta", "sq_d, sq_sp, sq_h", "20 / 2,5 / 5,5", ""]
+        - ["2, squadretta", "sq_mozzo_d, sq_fori_pcd, sq_fori_d", "9 / 14 / 3", ""]
+        - ["3, culla", "gio_servo, vite_m3_pilota", "0,2 / 2,5", ""]
+        - ["3, culla", "cus_sede_d, nervature", "10,0 / da disegnare", ""]
+        - ["4, giunto", "perno_foro, cox_testa_vite_d", "5,0 / 5,6", ""]
+        - ["4, giunto", "cox_disco_luce", "0,3", ""]
+        - ["5, lama A", "cov_testa_d, oppure le costole", "5,6", ""]
+        - ["6, piedino", "stretta del piedino", "0", ""]
+        - ["7, luce", "luc_bianco, luc_dif_sp, luc_camera_h", "0,8 / 0,6 / 6", ""]
+        - ["7, luce", "colore del diffusore", "bianco", ""]
+    testo:
+      - "Misura e annota ogni valore appena lo trovi."
+      - "Riporta nel CAD i valori della colonna Valore trovato, prima di stampare i pezzi veri."
+    avvisi:
+      - {tipo: nota, testo: "Le righe sono quelle del passo finale della sezione 1. I nomi sono parametri del CAD (cad/script/zampa.py, rif_componenti.py)."}
+      - {tipo: importante, testo: "ins_m3_d muove anche le bugne delle culle e sq_h le quote lungo Y di tutta la zampa: riportali nel CAD prima di stampare il resto (CLAUDE.md, aperti)."}
+    attrezzi: [calibro]
+    fonti: [guida/passi/01-provini.yaml, CLAUDE.md "Provini da stampare prima dei pezzi", D-046, cad/script/zampa.py, cad/script/rif_componenti.py]
+
+  - id: "A.04"
+    titolo: Registro, forzamenti
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Misura, Sez., Atteso, Misurato]
+      righe:
+        - ["Cuscinetto nella sede del provino della culla: basta il pollice?", "1", "da provino [C]", ""]
+        - ["Perno Ø5 nel cuscinetto: scorrevole o forzato?", "1", "forzato (BOM D2) [V]", ""]
+        - ["Perno nella coxa: pollice o morsa?", "1", "da provino [C]", ""]
+        - ["Servo nella culla: gioco con le viti strette", "1", "nessuno (D-049)", ""]
+        - ["Piedino sullo stinco: presa e attrito", "1", "valore nel CAD", ""]
+        - ["Cuscinetto del ginocchio nella tibia: basta il pollice?", "6", "da provino [C]", ""]
+        - ["Cuscinetti e perni del femore: forzati?", "6", "da provino [C]", ""]
+        - ["Cuscinetto della coxa nel corpo: basta il pollice?", "7", "da provino [C]", ""]
+    testo:
+      - "Misura e annota il forzamento appena lo fai."
+      - "Se serve la morsa, annota anche con quali ganasce."
+    avvisi:
+      - {tipo: nota, testo: "Prima si provano i forzamenti nei provini (sezione 1), poi si fanno sui pezzi veri. Un forzamento troppo duro vuol dire riportare la sede nel CAD (D-049)."}
+      - {tipo: attenzione, testo: "Premi il cuscinetto solo sulla flangia: sull'anello interno si rovina (sezione 6)."}
+    fonti: [guida/passi/01-provini.yaml 1.06 1.07 1.11, guida/passi/06-zampa.yaml 6.02, docs/BOM.md D1 D2, D-049]
+
+  - id: "A.05"
+    titolo: Registro, tensioni
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Punto, Atteso, Misurato, Sez.]
+      righe:
+        - ["Pacco sul T-plug, a fine carica", "8,4 V [V]", "", "11"]
+        - ["Ogni cella, a fine carica", "4,20 V [S]", "", "11"]
+        - ["Uscita del regolatore 5 V", "5,0 V [V]", "", "4"]
+        - ["GPIO1 con il pacco a 8,4 V", "2,69 V [V]; 2,37 V a 7,4 V", "", "4"]
+        - ["GPIO42, rail spento", "0 V [V]", "", "4"]
+        - ["Uscita di un regolatore, pin EN libero", "6,0 V [V]", "", "4"]
+        - ["Uscita di un regolatore, pin EN a massa", "0 V [C]", "", "4"]
+        - ["Corrente dopo F2, ESP32 e VL", "meno di 0,5 A [S]", "", "4"]
+        - ["VS1 e VS2, rail acceso senza servo", "6,0 V [V]", "", "12"]
+        - ["VS1 e VS2 con i 18 servo", "6,0 V [V]", "", "12"]
+    testo:
+      - "Misura e annota ogni valore con il multimetro."
+      - "Fermati se un valore esce dall'atteso: non andare avanti."
+    avvisi:
+      - {tipo: attenzione, testo: "Misura sul rail dei servo con il T-plug inserito solo se la sezione lo chiede, e con una mano vicina al T-plug."}
+      - {tipo: nota, testo: "Le tolleranze non sono scritte nei documenti: lontano dal valore atteso, fermati e controlla i collegamenti [C]. Le prove B0–B6 sono quelle di software.md 6.7."}
+    attrezzi: [multimetro]
+    fonti: [guida/passi/04-banco.yaml 4.07 e 4.11, guida/passi/12-accensione.yaml, guida/passi/11-batteria.yaml 11.01, docs/BOM.md B1 B2 B10, docs/software.md 6.7, docs/piano-elettronica-software.md 3.2]
+
+  - id: "A.06"
+    titolo: Registro, numeri dei servo
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Zampa, Servo coxa, Servo femore, Servo ginocchio]
+      righe:
+        - ["AS", "", "", ""]
+        - ["MS", "", "", ""]
+        - ["PS", "", "", ""]
+        - ["AD", "", "", ""]
+        - ["MD", "", "", ""]
+        - ["PD", "", "", ""]
+        - ["Scorta", "", "", ""]
+    testo:
+      - "Scrivi il numero del servo sul servo, prima di montarlo."
+      - "Annota il numero nella riga della zampa e del giunto."
+    avvisi:
+      - {tipo: nota, testo: "Hai 20 servo per 18 giunti: i due in più sono di scorta (BOM A1). I difettosi si scartano alla prova (software.md B2)."}
+    fonti: [docs/BOM.md A1, docs/software.md 6.7 B2, D-073]
+
+  - id: "A.07"
+    titolo: Registro, calettamento
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Zampa, Residuo coxa, Residuo femore, Residuo ginocchio]
+      righe:
+        - ["AS", "", "", ""]
+        - ["MS", "", "", ""]
+        - ["PS", "", "", ""]
+        - ["AD", "", "", ""]
+        - ["MD", "", "", ""]
+        - ["PD", "", "", ""]
+    testo:
+      - "Porta il servo a metà corsa."
+      - "Cala la squadretta sul dente più vicino all'angolo di progetto: α +20°, γ 100°, imbardata 0° [C]."
+      - "Misura il residuo in gradi e annotalo: deve stare entro ±7,2°."
+    avvisi:
+      - {tipo: nota, testo: "La squadretta a 25 denti si cala a passi di 14,4°: l'errore di montaggio arriva a ±7,2°, circa ±80 µs (software.md 2.7) [S]."}
+    fonti: [docs/software.md 2.7 e 6.7 B4, robot/robot.yaml "calettamento", docs/progetto-meccanico.md "Escursioni"]
+
+  - id: "A.08"
+    titolo: Registro, taratura con le dime
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Zampa, Giunto e pose, Impulso posa 1, Impulso posa 2]
+      righe:
+        - ["AS", "coxa 0°, +30°", "", ""]
+        - ["AS", "femore 0°, +45°", "", ""]
+        - ["AS", "ginocchio 90°, 135°", "", ""]
+        - ["MS", "coxa 0°, +30°", "", ""]
+        - ["MS", "femore 0°, +45°", "", ""]
+        - ["MS", "ginocchio 90°, 135°", "", ""]
+        - ["PS", "coxa 0°, +30°", "", ""]
+        - ["PS", "femore 0°, +45°", "", ""]
+        - ["PS", "ginocchio 90°, 135°", "", ""]
+        - ["AD", "coxa 0°, +30°", "", ""]
+        - ["AD", "femore 0°, +45°", "", ""]
+        - ["AD", "ginocchio 90°, 135°", "", ""]
+        - ["MD", "coxa 0°, +30°", "", ""]
+        - ["MD", "femore 0°, +45°", "", ""]
+        - ["MD", "ginocchio 90°, 135°", "", ""]
+        - ["PD", "coxa 0°, +30°", "", ""]
+        - ["PD", "femore 0°, +45°", "", ""]
+        - ["PD", "ginocchio 90°, 135°", "", ""]
+    testo:
+      - "Infila le dime sui perni del femore, dal lato B, con la lama B tolta."
+      - "Porta ogni giunto contro il suo dente e annota l'impulso, in microsecondi."
+    avvisi:
+      - {tipo: nota, testo: "Il guadagno dell'MG996R non è pubblicato: circa 11 µs/° su 500–2500 µs [S]. Due pose per giunto danno offset e guadagno."}
+      - {tipo: importante, testo: "Senza taratura valida il rail non si accende (software.md 2.7)."}
+    fonti: [docs/software.md 2.7, robot/robot.yaml "servo", D-066]
+
+  - id: "A.09"
+    titolo: Registro, lunghezza dei cavi dei servo
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Zampa, Servo, "Previsto (mm) [S]", Misurato]
+      righe:
+        - ["AS", "coxa, femore, ginocchio", "129, 180, 295", ""]
+        - ["MS", "coxa, femore, ginocchio", "70, 117, 231", ""]
+        - ["PS", "coxa, femore, ginocchio", "112, 158, 267", ""]
+        - ["AD", "coxa, femore, ginocchio", "129, 181, 295", ""]
+        - ["MD", "coxa, femore, ginocchio", "70, 117, 231", ""]
+        - ["PD", "coxa, femore, ginocchio", "112, 158, 267", ""]
+    testo:
+      - "Misura il percorso del cavo sulla prima zampa montata, prima di tagliare gli altri cinque."
+      - "Scrivi la lunghezza misurata accanto al previsto."
+    avvisi:
+      - {tipo: nota, testo: "Cavo del servo: 32 cm dichiarati, circa 30 utili tolta la spina. Con 295 mm il ginocchio di AS e AD ha 5 mm di margine, il 2 % (cablaggio 3.2)."}
+    fonti: [docs/cablaggio.md 3.2 e 5, calc/cavi_servo.py]
+
+  - id: "A.10"
+    titolo: Opzioni X, nel corpo e nella zampa
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Voce, Posto nel modello, Quando, Viteria in più]
+      righe:
+        - ["X1", "asola nel vassoio, clip sul tetto", "meglio ora", "–"]
+        - ["X3", "basetta o vano sotto il vassoio", "anche dopo, se serve", "–"]
+        - ["X4", "bugne sotto il vassoio, piastrina dell'IMU", "meglio ora", "2 inserti M2; 2 M2 × 5 svasate; 2 M2 × 6 a croce"]
+        - ["X5", "punta dello stinco, piedino, prese dei piedi", "meglio ora", "–"]
+        - ["X6", "bugne accanto all'IMU", "meglio ora", "2 inserti M2; 2 viti M2 corte [S]"]
+        - ["X7", "supporti sopra le slitte dei regolatori", "meglio ora; supporti anche dopo", "4 inserti M2; 4 viti M2 corte [S]; M3 delle slitte più lunghe di 2,4 mm"]
+        - ["X8", "mensola della camera, finestra della visiera, tappo", "meglio ora", "–"]
+        - ["X13", "linguette in coda, fori Ø3,1", "meglio ora", "–"]
+        - ["X14", "bobina o MOSFET di ogni regolatore", "meglio ora", "–"]
+        - ["X31", "sede nello stinco, diffusore, prese sul tetto", "meglio ora; diffusore anche dopo", "–"]
+    testo:
+      - "Conta la viteria in più solo per le voci che monti."
+      - "Aggiungila a quella dell'inventario."
+    avvisi:
+      - {tipo: nota, testo: "In casa: X4, X16 e X17 (D-074). Tutte le altre voci sono predisposte nel CAD ma da approvare per l'acquisto (BOM, sezione X)."}
+      - {tipo: nota, testo: "Il Quando è dedotto dal modello [S]. Le viti M2 corte sono una per inserto, dal kit degli inserti (BOM, \"Viteria in più\")."}
+    fonti: [docs/BOM.md "X. Predisposizioni" e "Viteria in più se si montano tutte", D-069, D-074, docs/predisposizioni.md 2.8, guida/problemi/prima.yaml]
+
+  - id: "A.11"
+    titolo: Opzioni X, nel carapace e nelle luci
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Voce, Posto nel modello, Quando, Viteria in più]
+      righe:
+        - ["X2", "sotto il dorso: scheda su 4 bugne, spina IDC", "meglio ora (cavo piatto); anche dopo (scheda)", "4 inserti M2; 4 viti M2 corte [S]"]
+        - ["X9", "striscia sotto il dorso, buffer sulla basetta", "meglio ora (buffer); anche dopo (striscia)", "–"]
+        - ["X10", "provino stampato in due colori", "solo ora", "–"]
+        - ["X11", "anello del pulsante: camera Ø32 × 6 e fondo", "meglio ora; dopo, a carapace tolto", "–"]
+        - ["X12", "sedi nei lobi, due ganci ciascuno", "meglio ora; dopo, a carapace tolto", "–"]
+        - ["X16", "fori con anello e telaio, lunette", "meglio ora; dopo, a carapace tolto", "pull-down da 100 kΩ"]
+        - ["X17", "bugne dell'amplificatore, guance di coda", "meglio ora; dopo, a carapace tolto", "2 inserti M2; 2 viti M2 corte [S]"]
+        - ["X19, X20", "piano del ToF sulla guancia, espansore sulla scheda", "meglio ora; dopo, a carapace tolto", "–"]
+        - ["Zaino", "4 bugne M2 sopra l'ottagono, sportellino", "anche dopo", "4 inserti M2; 4 viti M2 corte [S]"]
+    testo:
+      - "Conta la viteria in più solo per le voci che monti."
+      - "Stampa il provino di luce prima di stampare carapace e gusci."
+    avvisi:
+      - {tipo: nota, testo: "X11 e X12 non costano a parte: sono pezzi della stessa striscia di X9 (BOM). Lo zaino è il computer di bordo Radxa ZERO 3W con il suo regolatore 5 V e il modulo USB-seriale."}
+      - {tipo: importante, testo: "Con il ToF posteriore montato prova a mano che il T-plug si afferri: è il sezionamento d'emergenza (D-069) [C]."}
+    fonti: [docs/BOM.md "X. Predisposizioni", D-069, D-074, docs/predisposizioni.md X2 X9-X12 X16 X17 X19, docs/cablaggio.md 4]
+
+  - id: "A.12"
+    titolo: Inserti a caldo, dove e quando
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Pezzo, Inserti, Per quale vite, Quando]
+      righe:
+        - ["Tibia (6)", "3 M3, in tutto 18", "2 alette lato coda (M3 × 8); 1 guscio (M3 × 10)", "prima della sezione 6"]
+        - ["Coxa (6)", "4 M3, in tutto 24", "2 alette lato coda; 2 ponte M3 × 10", "prima della sezione 6"]
+        - ["Femore lato B (6)", "4 M3 e 2 M2, in tutto 24 e 12", "4 per il femore lato A (M3 × 8); 2 per la lama B (M2 × 5 svasate)", "prima della sezione 6"]
+        - ["Base", "26 M3 e 4 M2", "12 alette dei servo di coxa; 4 chiglia; 4 colonnine del coperchio; 2 slitte; 4 vassoio; 4 SSC-32", "prima della sezione 7"]
+        - ["Chiglia", "2 M3", "sportello della batteria M3 × 8", "prima della sezione 7"]
+        - ["Slitte dei regolatori (2)", "4 M2 ciascuna, in tutto 8", "regolatori M2 × 5", "prima della sezione 4"]
+        - ["Vassoio", "4 M2", "basetta M2 × 5", "prima della sezione 8"]
+        - ["Totale", "94 M3 e 28 M2", "", "tutti nella sezione 3"]
+        - ["Alette lato albero", "mai inserti: 36 fori pilota Ø2,5", "M3 × 8 autofilettanti", "–"]
+    testo:
+      - "Metti ogni inserto nella sezione 3, prima di montare il pezzo."
+      - "Lascia vuoti i 36 fori pilota delle alette lato albero."
+      - "Controlla il totale: 94 M3 e 28 M2."
+    avvisi:
+      - {tipo: importante, testo: "Dopo il montaggio la maggior parte dei fori non si raggiunge: gli inserti vanno messi prima."}
+      - {tipo: nota, testo: "Per zampa: 3 + 4 + 4 = 11 inserti M3, in tutto 66; nel corpo 28. Il BOM scrive 30 nel corpo, ma 30 + 24 + 18 + 24 fa 96, non 94: il CAD ne ha 28 (D-065)."}
+    fonti: [docs/BOM.md "Viteria e inserti contati dal modello", D-049, D-065, guida/passi/03-inserti.yaml, guida/lib/controlli.py totali_inserti, guida/problemi/appendici.yaml]
+
+  - id: "A.13"
+    titolo: Inserti M3, la lunghezza
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Gruppo, Inserti, Vite, Presa nel CAD]
+      righe:
+        - ["Alette lato coda (base, coxe, tibie)", "36", "M3 × 8", "5,6 mm [V]"]
+        - ["Ponte della coxa", "12", "M3 × 10", "6,1 mm [V]"]
+        - ["Blocco del femore lato B", "24", "M3 × 8", "4,6 mm [V]"]
+        - ["Guscio della tibia", "6", "M3 × 10", "6,7 mm [V]"]
+        - ["Chiglia davanti", "2", "M3 × 16", "6,55 mm [V]"]
+        - ["Chiglia dietro", "2", "M3 × 8", "5,0 mm [V]"]
+        - ["Colonnine del coperchio", "4", "M3 × 8", "6,4 mm [V]"]
+        - ["Slitte dei regolatori", "2", "M3 × 8", "5,6 mm [V]"]
+        - ["Bugne del vassoio", "4", "M3 × 6", "4,4 mm [V]"]
+        - ["Sportello della batteria", "2", "M3 × 8", "6,0 mm [V]"]
+        - ["Totale M3", "94", "", ""]
+    testo:
+      - "Conta gli inserti M3 del kit per lunghezza prima di cominciare."
+      - "Dividi i 94 in due lunghezze (× 5 e × 6), con non più di 50 per lunghezza [C]."
+      - "Dai l'inserto più lungo ai gruppi con la presa più profonda."
+      - "Tieni gli M3 × 4 e × 3 come scorta."
+    avvisi:
+      - {tipo: importante, testo: "Il kit ha 50 inserti per ogni lunghezza e i fori M3 sono profondi 6,7 mm: la divisione fra i gruppi non è scritta in nessun documento [C]. Decidila dopo il provino degli inserti (sezione 1)."}
+      - {tipo: nota, testo: "Presa = fino a dove arriva la punta della vite sotto l'imbocco del foro, calcolata dal modello. Gli inserti M2 sono tutti M2 × 3."}
+    fonti: [docs/BOM.md D4 D5 e domanda 8, guida/lib/fori.py piazza, guida/passi/03-inserti.yaml, guida/problemi/inserti.yaml, guida/problemi/appendici.yaml]
+
+  - id: "A.14"
+    titolo: Inserti a caldo, predisposizioni
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Voce, Pezzo, Inserti, Quando]
+      righe:
+        - ["X4, IMU", "Base", "2 M2", "meglio ora, prima del vassoio"]
+        - ["X6, ADC", "Base", "2 M2", "meglio ora, prima del vassoio"]
+        - ["X7, INA260", "Supporti (2)", "4 M2", "anche dopo: i supporti si stampano solo se servono"]
+        - ["X2, scheda", "Carapace", "4 M2", "meglio ora; dopo, a moduli tolti"]
+        - ["X17, amplificatore", "Carapace", "2 M2", "meglio ora; dopo, a moduli tolti"]
+        - ["Zaino", "Carapace", "4 M2", "anche dopo, a carapace tolto"]
+        - ["Totale", "", "18 M2", ""]
+    testo:
+      - "Metti questi inserti solo per le voci X che monti."
+      - "Aggiungili ai 28 M2 della tabella precedente."
+    avvisi:
+      - {tipo: nota, testo: "In tutto 46 inserti M2 con tutte le predisposizioni. Il carapace è in PLA: usa la temperatura del provino per il PLA (D-065)."}
+    fonti: [docs/BOM.md "Viteria in più se si montano tutte", guida/passi/03-inserti.yaml 3.18-3.20, guida/catalogo/viteria.yaml inserti_predisposizioni, D-065]
+
+  # --- glossario generato (inizio) ---
+  - id: "A.15"
+    titolo: "Glossario, A–B"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["a filo", "Con la bocca dell'inserto alla stessa quota della faccia del pezzo: ne' sotto, ne' sporgente."]
+        - ["aletta", "Orecchio forato della cassa del servo MG996R: le viti M3 × 8 lo fissano alla culla, lato coda in inserti e lato albero in fori pilota. (D-049)"]
+        - ["andatura a coppie", "Andatura con tre coppie di zampe, ognuna a terra per i due terzi del ciclo: a 100/45 è quella con la coppia più bassa."]
+        - ["anello di stato", "Anello bianco Ø 18–22 attorno al pulsante, con quattro pixel sotto, che mostra il modo del robot."]
+        - ["ansa", "Tratto di cavo lasciato lento fra due fermi perché un giunto possa girare senza tirarlo. (D-058)"]
+        - ["asola", "Apertura 6 × 3 mm nel vassoio, a sinistra, da cui passano i fili di IMU e ADC. (D-066)"]
+        - ["assetto", "Coppia altezza/distanza in mm: altezza dell'asse dei femori da terra e distanza del piede dall'asse della coxa; 100/45 è il punto di progetto."]
+        - ["baia", "Vano fra il tunnel e la parete esterna della base: davanti ci sono i regolatori e il camino d'aria, dietro i Wago e le scorte dei cavi. (D-050, D-055)"]
+        - ["barra di rame", "Filo di rame Ø1 mm saldato sul retro della SSC-32 lungo una fila di 16 pin: porta la potenza di un rail ai servo, che le piste non portano."]
+        - ["basetta", "Striscia di millefori 56 × 35 mm con gli strip dell'ESP32 e l'elettronica di logica. (D-053)"]
+        - ["battuta", "Parete anteriore del tunnel, contro cui si ferma il pacco. (D-050)"]
+        - ["blocco", "Parte cava di Femore B fra le due culle, che unisce le due piastre del femore; ha quattro inserti M3 sul lato A e, in cima, le feritoie della fascetta dei cavi. (D-047, D-061)"]
+        - ["braccio della coxa", "Braccio inferiore della coxa, sotto la gondola: porta il perno che entra nel cuscinetto e una nervatura sotto. (D-047, D-048)"]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  - id: "A.16"
+    titolo: "Glossario, B–D"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["budget termico", "Tempo di sforzo continuo che un servo regge prima del riposo: circa 10 minuti, poi circa 30 di riposo [S]."]
+        - ["bugna", "Rialzo o cilindro pieno del pezzo stampato, con il foro per un inserto in testa."]
+        - ["calettamento", "Montaggio della squadretta sull'albero del servo in una posa nota della zampa: con il servo a metà corsa il femore sta a +20° e il ginocchio a 100°."]
+        - ["camera nera", "Scatola nera Ø 32 × 6 sotto l'anello del pulsante: tiene i pixel e la chiude da sotto il fondo dell'anello. (D-067)"]
+        - ["catena LED", "Tutti i pixel in serie su un solo filo di dato: anello e lobi nel carapace, 16 pixel in tutto; il dato esce dal buffer sulla basetta. (D-068)"]
+        - ["chiglia", "Pezzo che chiude da sotto il tunnel della batteria, avvitato alla base con quattro viti M3; il cavalletto regge il robot sotto la chiglia. (D-050, D-066)"]
+        - ["cicalino di sottotensione", "Allarme BX100 sulla presa di bilanciamento: mostra le tensioni delle celle e suona sotto la soglia impostata."]
+        - ["coda della culla", "Estremo della culla opposto alla testata, dove sta la coda del servo; nella tibia è verso il piede, sopra lo zoccolo da cui parte lo stinco. (D-047)"]
+        - ["collare del cicalino", "Parete stampata sotto il dorso che tiene il cicalino ai lati e davanti, con quattro nervature che lo stringono. (D-063)"]
+        - ["costola", "Muretto basso sul tetto che ferma il portafusibile F1 lungo X; due, con 0,2 mm di gioco per lato. (D-055)"]
+        - ["costole di schiacciamento", "Tre listelli dentro una tasca che stringono la testa della vite e rendono la presa meno sensibile alla stampante. (D-072)"]
+        - ["culla", "Scatola stampata che tiene un servo: pareti, fondo e bugne con i fori per le viti delle alette. C'è nella coxa (servo del femore) e nella tibia (servo del ginocchio)."]
+        - ["dima di posa", "Piastra stampata che si infila sui due perni del femore dal lato B e ferma coxa, femore e ginocchio in una posa nota per la taratura; ce ne sono due. (D-066)"]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  - id: "A.17"
+    titolo: "Glossario, E–G"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["EN", "Pin di abilitazione del regolatore: porta l'uscita a 0 V o a 6,0 V; tirato a massa tiene il rail spento."]
+        - ["ESP32", "Scheda di controllo ESP32-S3-CAM: comanda la SSC-32, legge i sensori e porta la camera."]
+        - ["flangia", "Bordo sporgente dell'anello esterno del cuscinetto LF-1050ZZ (Ø11,6 × 0,8): appoggia sulla faccia del pezzo e ferma il cuscinetto nella sede."]
+        - ["flat", "Nastro piatto largo 6 mm e spesso 0,15 che porta il segnale dalla testa della camera al connettore FPC dell'ESP32."]
+        - ["fori pilota consumati", "Nei fori pilota la vite si fa il filetto da sola nella plastica: a ogni rimontaggio il filetto si consuma un poco; se la vite non prende si ristampa il pezzo [S]. (D-049)"]
+        - ["foro pilota", "Foro stretto in cui la vite si fa da sola il filetto, senza inserto: Ø2,5 per le M3 delle alette lato albero, Ø1,7 per le M2 della piastrina dell'IMU. (D-049, D-074)"]
+        - ["forzamento", "Pezzo che entra nella sede per interferenza, con la pressione e senza viti: cuscinetti e perni. La misura della sede viene dal provino. (D-049)"]
+        - ["fronte", "Faccia della tibia rivolta verso l'esterno del robot (+X nel CAD): ci sono la sede delle luci, la gola dei fili e l'inserto del guscio; il guscio la copre. (D-061, D-066)"]
+        - ["gioco d'imbardata", "Quanto il ponte della coxa può ruotare attorno alla squadretta: teste M3 Ø5,5 in fori Ø5,6. (D-048, D-049)"]
+        - ["gola", "Scanalatura poco profonda in cui corrono i fili: sullo stinco (2 × 2, fili dell'FSR) e sulla parete della culla dal lato del fronte (gola del fermo, larga 4, sotto i ponticelli). (D-066, D-067)"]
+        - ["gondola", "Culla del servo di coxa, ricavata nella base: uguale a quella della zampa, con l'albero in alto, la coda verso l'esterno e il cuscinetto nel fondo. (D-047)"]
+        - ["guancia", "Parete laterale della porta di coda: a sinistra regge il ToF posteriore, a destra l'altoparlante. (D-066, D-074)"]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  - id: "A.18"
+    titolo: "Glossario, G–L"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["guardia", "Controllo del firmware che accetta un fotogramma solo se rispetta tutti i limiti: imbardata, somma fra vicine, femore, ginocchio, velocità, coppia e stabilità."]
+        - ["guida della 2813", "Colonnina con una scanalatura profonda 1,2 mm in cui entra il bordo del circuito dell'interruttore: ce ne sono due, a destra e a sinistra. (D-066)"]
+        - ["header", "File di pin a foro passante della SSC-32 dove si infilano le spine dei servo: tre file per lato, dal bordo massa, VS, segnale."]
+        - ["I2C", "Bus a due fili, SDA e SCL, su cui parlano IMU, ADC, INA260 e ToF; qui è dedicato, su GPIO47 e GPIO3."]
+        - ["imbardata", "Rotazione della zampa attorno all'asse verticale della coxa."]
+        - ["inserto a caldo", "Bussola di ottone filettata che si affonda nel foro di un pezzo stampato con la punta calda del saldatore: tiene le viti M3 e M2. (D-065)"]
+        - ["intarsio", "Pezzo di PLA nero a filo della faccia bianca, stampato insieme (lame del femore 0,6 e 1,0 mm, fascia 0,6 mm). (D-063, D-070, D-071)"]
+        - ["interfaccia del supporto", "Strato del supporto in un altro materiale, che si stacca meglio dal pezzo: lo permette il toolchanger. (D-056)"]
+        - ["lato A", "Lato della zampa con Femore_A, le squadrette e l'albero dei servo (+Y nel CAD)."]
+        - ["lato B", "Lato della zampa con Femore_B, i perni e i cuscinetti (−Y nel CAD)."]
+        - ["linguetta della spia", "Lamella verticale in coda, dietro il portafusibile, con il foro Ø 3,1 mm per un LED delle spie dei rail. (D-066)"]
+        - ["linguetta dello sportello", "Lamella in alto sullo sportello che entra sotto il tetto del tunnel e impedisce alla parte alta di aprirsi. (D-054)"]
+        - ["listelli", "Due pezzi di legno alti circa 20 mm su cui si posa la base per premere i cuscinetti da sotto [C]."]
+        - ["lobo", "Sporgenza esagonale del carapace sopra l'asse di ogni coxa: sei in tutto, uno per zampa; sotto il dorso di ciascuno c'è la piastrina per la luce. (D-061, D-066)"]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  - id: "A.19"
+    titolo: "Glossario, L–P"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["lunetta", "Pezzo piccolo di PLA che centra il microfono tondo MS3625 nel telaio previsto per la scheda rettangolare; ce ne sono due per microfono. (D-074)"]
+        - ["margine di stabilità", "Distanza del baricentro dal lato più vicino del poligono d'appoggio: 59 mm a 100/45, il firmware vuole almeno 20 mm."]
+        - ["massa a stella", "Un solo punto, il Wago −, a cui tornano le masse dei rami di potenza: T-plug, ingressi dei regolatori e logica."]
+        - ["metà corsa", "Posizione centrale dell'albero del servo, con l'impulso a 1500 µs; i servo ci arrivano dalla sezione 5 e ci restano fino al calettamento."]
+        - ["modo LABORATORIO", "Modo del firmware con il robot sul cavalletto, in cui un PC comanda piedi e giunti: taratura, identificazione, prove."]
+        - ["numero del servo", "Numero da 1 a 20 scritto sul cavo del servo dopo la prova: lo si ritrova nella scheda della zampa e nel registro."]
+        - ["orecchie della chiglia", "Piastre con i fori delle viti: due davanti, a tutta altezza, e due dietro, sottili, sotto le baie posteriori. (D-051)"]
+        - ["ottagono", "Apertura di servizio nel dorso del carapace, con gli angoli smussati a 45°, sopra USB-C e pulsanti dell'ESP32: la chiude lo sportellino. (D-056)"]
+        - ["partitore", "Due resistenze in serie che portano una tensione dentro il campo di un ingresso: qui quello della batteria su GPIO1 e quello dei sensori dei piedi."]
+        - ["passacavo", "Tappo rigido da cui il cavo esce dalla cassa dell'MG996R; sporge circa 5 mm e scende nella fessura della testata. (D-049)"]
+        - ["perimetro", "Giro di parete di un pezzo stampato; con l'ugello da 0,4, tre perimetri sono 1,2 mm."]
+        - ["PETG-CF", "PETG caricato con fibra di carbonio, nero: le parti funzionali. (D-065)"]
+        - ["pettini dei cavi", "Pezzi stampati in backlog, sulla parete del tunnel sopra i Wago, con una fessura per cavo e le anse fra un pettine e l'altro."]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  - id: "A.20"
+    titolo: "Glossario, P"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["pezzo a due colori", "Più STL già allineati, caricati insieme nello slicer con un materiale per oggetto: carapace con fascia, visiera e gonne, lame con intarsio."]
+        - ["pixel", "Un LED indirizzabile della striscia WS2812B-2020; a 120 LED/m due pixel sono lunghi 16,7 mm. (D-068)"]
+        - ["ponte della coxa", "Braccio superiore della coxa, pezzo a parte: calza le teste delle viti-spina e il disco della squadretta e si avvita alla testa dell'anima con due M3 × 10. (D-047, D-048)"]
+        - ["ponte di stampa", "Tratto di pezzo stampato sospeso senza supporto: il tetto del tunnel della base è lungo 162 mm e largo 50. (D-056)"]
+        - ["ponticelli", "Tre listelli stampati sopra la gola del fermo, staccati 0,3 dalla parete: sotto restano 1,1 mm in cui si infilano i fili. (D-067)"]
+        - ["ponticello a saldare", "Due piazzole vicine su una scheda, che si uniscono con una goccia di stagno per scegliere un'impostazione, come l'indirizzo dell'INA260."]
+        - ["porta di coda", "Apertura in coda fra le guance del carapace, larga 50,8 mm, da cui si raggiungono T-plug, F1 e lo spinotto di bilanciamento. (D-069)"]
+        - ["posa di parcheggio", "Posa in cui il firmware porta le zampe prima di accendere il rail e dopo la seduta."]
+        - ["pozzetto", "Foro Ø 7 nel dorso, in fondo a un tubo che arriva al tetto del corpo: ci entra la testa della vite M3 che tiene il carapace. Sono quattro, a x 40 e −56, |y| 22,5. (D-052)"]
+        - ["predisposizione", "Sede già nel modello per un sensore o una luce opzionale, chiamata Xn: il pezzo si monta solo se lo vuoi. (D-066, D-069)"]
+        - ["prolunga di bilanciamento", "Due codini JST-XH a 3 poli saldati che portano la presa di bilanciamento del pacco in coda, dove si collega il cicalino. (D-073)"]
+        - ["provino", "Pezzo di prova stampato per trovare una misura prima dei pezzi veri: culla, giunto, inserti, piedino, tasche della lama A, luce."]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  - id: "A.21"
+    titolo: "Glossario, P–S"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["pull-down", "Resistenza da 100 kΩ verso massa sulla linea dati dei microfoni: la tiene a zero quando nessuno dei due la pilota. (D-074)"]
+        - ["pull-up", "Resistenza che tiene alti SDA e SCL; quelle delle schede sono in parallelo e il valore equivalente deve stare fra 1,0 e 1,4 kΩ."]
+        - ["punto di controllo", "Pagina a fine sezione con le frasi da spuntare prima di andare avanti."]
+        - ["Qwiic", "Presa e cavetto a 4 fili (massa, 3,3 V, SDA, SCL) JST SH, per le schede I2C che l'hanno."]
+        - ["rail", "Alimentazione a 6,0 V dei servo, una per lato (VS1 a sinistra, VS2 a destra), dai due regolatori D42V110F6; spenta finché l'ESP32 non la accende."]
+        - ["rebbi", "I due denti dello sportello della batteria, lunghi 17 mm, che entrano nel tunnel e premono il pacco con la schiuma. (D-054)"]
+        - ["registro delle misure", "Tabelle delle appendici in cui scrivi i valori misurati: forzamenti, provini, tensioni, calettamenti, numeri dei servo, taratura."]
+        - ["regolatore", "Convertitore di tensione: i due D42V110F6 portano la batteria a 6,0 V per i servo, il D24V22F5 a 5 V per l'ESP32."]
+        - ["restringimento dei fori", "I fori stampati vengono più stretti del CAD di 0,1–0,2 mm: per questo si provano i forzamenti prima dei pezzi veri. (D-056)"]
+        - ["rialzo", "Dischetto Ø6,2 alto 0,4 sul braccio della coxa e sui mozzi dei femori: tocca solo l'anello interno del cuscinetto. (D-047)"]
+        - ["rondelle di registro", "Rondelle M3 DIN 125 da 0,5 mm fra la piastra di Femore A e il blocco di Femore B, due per vite: riempiono la luce di 1,0 mm e si cambiano se la squadretta vera è più alta o più bassa. (D-047)"]
+        - ["scheda del carapace", "Striscia di millefori sotto il dorso con la testata a 16 poli, la presa Qwiic e le derivazioni di luci, audio e pulsante."]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  - id: "A.22"
+    titolo: "Glossario, S–T"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["sezionamento", "Staccare il T-plug: toglie la corrente a tutto il robot, servo compresi."]
+        - ["sfilamento", "Spostamento del carapace in verticale verso l'alto per toglierlo: libero da +5 a +40 mm, a −2 mm tocca la base. (D-063)"]
+        - ["slitta", "Piastra stampata che porta un regolatore e scende fra due guide sulla parete della baia; si ferma con una vite M3. (D-051)"]
+        - ["spalle e labbri", "Le due pareti a ogni estremità della sede del Wago e i due risalti da 1,6 mm che coprono le estremità della faccia delle leve, e lo tengono fermo. (D-055)"]
+        - ["spina IDC", "Connettore a 16 vie del cavo piatto, con la chiave: si innesta nella testata 2 × 8 della scheda del carapace e si sfila dall'ottagono."]
+        - ["squadretta", "Disco di alluminio a 25 denti che si infila sull'albero del servo, con quattro fori M3 filettati a 7 mm dal centro e la vite centrale in dotazione."]
+        - ["SSC-32", "Scheda che genera gli impulsi dei 32 canali servo; l'ESP32 la comanda per seriale."]
+        - ["stallo", "Servo bloccato che spinge al massimo: 2,5 A a 6 V per l'MG996R."]
+        - ["stinco", "Parte lunga della tibia, dalla culla fino alla punta piana dove va il piedino. (D-061, D-065)"]
+        - ["stretta del piedino", "Di quanto il foro del piedino è più piccolo dello stinco: oggi zero, da provare 0, −0,2 e −0,4 mm. (D-064)"]
+        - ["supporto a cuneo", "Supporto triangolare sotto lo stinco della tibia stampata: lo stinco si stacca dal piatto fino a circa 17 mm."]
+        - ["T-plug", "Connettore di potenza della batteria: staccarlo toglie la corrente ai servo; è il sezionamento d'emergenza. (D-069)"]
+        - ["taratura", "Impulso di ogni servo in due pose note, da cui il firmware ricava spostamento e guadagno; senza taratura valida il rail non si accende."]
+        - ["tasca", "Incavo 6 × 9 × 1,2 sul fronte della punta dello stinco, dentro il piedino, per linguette e saldature dell'FSR. (D-066)"]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  - id: "A.23"
+    titolo: "Glossario, T–V"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["telaio del microfono", "Quattro pareti sotto il dorso attorno al foro Ø 1, con l'anello per la guarnizione: nato per la scheda Adafruit, 16,7 × 12,7 mm. (D-066, D-074)"]
+        - ["terna", "Sistema di riferimento X, Y, Z di un disegno: quello del robot (X avanti, Y a sinistra, Z in alto) o quello della zampa."]
+        - ["testa dell'anima", "Blocco in cima all'anima della coxa che sta sopra la gondola, 1 mm sopra le teste delle viti lato coda del servo di coxa; porta i due inserti del ponte. (D-048, D-049)"]
+        - ["testata", "Parete corta della culla dal lato dell'albero del servo; ha la finestra e la fessura da cui esce il cavo. (D-049)"]
+        - ["tester dei servo", "Piccolo modulo con la sua alimentazione, o la SSC-32 dal Mac, per portare un servo in posa senza girare l'albero a mano."]
+        - ["toolchanger", "Stampante a 4 testine (FlashForge Creator 5 Pro): permette due colori e supporti in un altro materiale."]
+        - ["torretta e mensola", "Parti del vassoio davanti all'ESP32: la torretta sta dietro la testa della camera, la mensola sotto; nella mensola sta anche il ToF."]
+        - ["TPU", "Plastica gommosa 95A arancio: i piedini. (D-064)"]
+        - ["traslatore di livello", "Modulo a 4 canali con BSS138 fra i 3,3 V dell'ESP32 e i 5 V della SSC-32 sulla seriale."]
+        - ["tripode", "Andatura con due gruppi di tre zampe: AS, PS, MD e AD, PD, MS; un gruppo è a terra mentre l'altro cammina."]
+        - ["tunnel", "Vano chiuso al centro della base, interno 162 × 50 × 28 mm, in cui sta la batteria; si apre solo in coda. (D-050)"]
+        - ["vassoio", "Piano stampato sopra il tetto del tunnel, su quattro distanziali: porta la basetta, la torretta e la mensola della camera. (D-051, D-053)"]
+        - ["viti-spina", "Le due viti M3 × 5 avvitate nella squadretta di coxa senza rondella: le teste entrano nei fori del ponte e portano la coppia del servo. (D-048, D-049)"]
+        - ["VL", "Alimentazione della logica della SSC-32, 6–12 V; arriva dalla batteria dopo l'interruttore 2813."]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  - id: "A.24"
+    titolo: "Glossario, V–Γ"
+    formato: mezzo
+    immagine: false
+    tabella:
+      intestazione: [Termine, Significa]
+      righe:
+        - ["VS1 e VS2", "Le due alimentazioni dei servo della SSC-32: VS1 per i canali 0–15 (lato sinistro del robot), VS2 per i 16–31 (lato destro)."]
+        - ["Wago", "Morsetto a leva a 5 vie Wago 221-415: si apre la leva, si infila il filo spelato, si richiude; senza saldare."]
+        - ["XSHUT", "Pin di spegnimento del sensore ToF: il TCA9534 lo tiene basso per dare a ogni ToF il suo indirizzo."]
+        - ["α (femore)", "Angolo del femore sulla coxa: 0° con il femore in squadra con la culla della coxa, positivo con il ginocchio che sale; libero da −49° a +85°."]
+        - ["γ (ginocchio)", "Angolo fra femore e tibia: 90° con la tibia in squadra con il femore, meno di 90° con il piede verso la coxa; libero da 29° a 180°, con un minimo che dipende da α."]
+    testo:
+      - "Cerca il termine in ordine alfabetico."
+      - "Torna al passo che lo usa."
+    fonti: [guida/glossario.yaml, guida/glossario.d/]
+
+  # --- glossario generato (fine) ---

@@ -1,0 +1,83 @@
+# Problemi trovati scrivendo la sezione 3, inserti a caldo (D-075, formato in guida/schema.md "Problemi").
+# Conteggi dal CAD: guida/dati/fori.json classificato con guida/catalogo/fori.yaml (inserto_m3, inserto_m2); la zampa
+# conta una volta e si moltiplica per 6. Campo in piu' rispetto allo schema: domanda (cosa chiedere all'utente).
+
+- titolo: Il foro per l'inserto M3 del CAD (Ø4,2) e' grande come l'inserto del kit (Ø4,2), quello M2 (Ø3,4) piu' largo dell'inserto (Ø3,2)
+  gravita: importante
+  dove: "3.01, 3.02 e tutti i passi con inserti"
+  cosa: >-
+    I fori del CAD sono quelli degli inserti CNC Kitchen: `ins_m3_d` = 4,2 (4,0 consigliato + 0,2) profondo `ins_m3_l`
+    = 6,7 (5,7 + 1), `ins_m2_d` = 3,4 (3,2 + 0,2) profondo `ins_m2_l` = 4,0 (3 + 1). Gli inserti in casa sono quelli
+    del kit Temu: M3 Ø4,2 lunghi 3/4/5/6, M2 Ø3,2 lunghi 2/3/4/5 (BOM D4 e D5). Un foro Ø4,2 per un inserto Ø4,2 non da'
+    interferenza: l'inserto tiene solo per il filo di plastica fusa nelle zigrinature. Il provino che l'utente deve
+    ancora stampare prova fori M3 da 3,9 / 4,0 / 4,1 e M2 da 2,9 / 3,0 / 3,1, tutti piu' piccoli di quelli del CAD. I
+    valori che escono vanno in `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` e `ins_m3_d` sposta anche le bugne delle
+    culle: serve la verifica completa. Le fonti non dicono neppure quanti inserti contiene il kit: 800 pezzi (BOM D4)
+    o 500 (D-073).
+  prove:
+    - "cad/script/rif_componenti.py:126-129 (ins_m3_d 4.2, ins_m3_l 6.7, ins_m2_d 3.4, ins_m2_l 4)"
+    - "docs/BOM.md:87-88 (D4: M3 x 5 x Ø4,2 e x 6; D5: M2 x 3 x Ø3,2; 'i fori si tarano sul provino'), riga 258 (domanda 8)"
+    - "CLAUDE.md, 'Provini da stampare prima dei pezzi': fori M3 3,9/4,0/4,1 e M2 2,9/3,0/3,1 in PETG-CF"
+    - "docs/dimensioni-componenti.md:150-151 e 158 (regola: foro = diametro + 0,2, profondita' = inserto + 1)"
+    - "guida/catalogo/viteria.yaml:23-24 (INS_M3 d 4,2 l 5,0; INS_M2 d 3,2 l 3,0, usati per disegnare gli inserti)"
+    - "docs/decisioni.md D-065 (inserti in ottone) e D-073 (misure del set da 500 inserti ancora da guardare)"
+  opzioni:
+    - "Provino prima, poi i valori nel CAD (2.1.7) e la guida con le misure vere: la procedura dei passi non cambia."
+    - "Tenere i fori del CAD e vedere se gli inserti tengono (rischio: inserti che girano o escono sotto la vite)."
+  consiglio: >-
+    Provino prima di stampare i pezzi (come nel piano della guida). La guida dice "misure e temperatura dal provino
+    [C]" e non scrive il diametro del foro nei passi. I valori definitivi vanno nel CAD con la 2.1.7.
+  domanda: >-
+    Che misure hanno gli inserti del kit Temu (diametro esterno e lunghezza di ogni misura) e quanti ne contiene,
+    800 o 500? Sono misure sui pezzi in casa, non sui servo (CLAUDE.md, punto 3 degli aperti).
+
+- titolo: I 94 inserti M3 non stanno in una sola lunghezza del kit (50 per misura) e nessuna fonte dice quale foro prende quale
+  gravita: importante
+  dove: "3.01, 3.04 e tutti i passi con inserti M3"
+  cosa: >-
+    Il kit ha 50 inserti per misura (BOM D4, D5): M3 lunghi 3, 4, 5 o 6 mm, M2 lunghi 2, 3, 4 o 5 mm. Gli M3 sono 94, gli
+    M2 28. Gli M2 stanno tutti in M2 x 3 (il catalogo disegna 3 mm; D-073 conta 2,4 mm di presa su 3 per la lama B). Gli
+    M3 non possono essere tutti da 5 ne' tutti da 6: ne servono due lunghezze, 44-50 per ciascuna. I fori M3 sono
+    profondi 6,7: con un M3 da 5 restano 1,7 mm di fondo, con uno da 6 restano 0,7 (0,7 + 0,55 mm sotto gli inserti del
+    ponte, D-049). La sezione 1 (passo 1.03) prova solo M3 x 5. Nessun documento dice quale foro prende quale; i
+    gruppi di M3 sono: alette dei servo lato coda 36 (12 nella base, 12 nelle coxe, 12 nelle tibie), ponte 12, blocco del
+    femore 24, guscio della tibia 6, chiglia sulla base 4, coperchio 4, slitte 2, vassoio 4, sportello 2.
+    Nemmeno la temperatura della punta, il tempo di raffreddamento e la lunghezza compaiono in un documento di
+    progetto: la guida rimanda al provino (1.03) con [C]. Carapace e vassoio sono in PLA, che rammollisce verso
+    55-60 gradi (D-065): la temperatura per il PLA deve essere piu' bassa di quella per il PETG-CF.
+  prove:
+    - "docs/BOM.md:87-88 (D4 e D5, 50 per misura, lunghezze del kit) e riga 136 (saldatore con punta per inserti)"
+    - "guida/passi/01-provini.yaml:104 ('I 94 inserti M3 chiedono due lunghezze: il kit ne ha 50 per misura') e 1.03"
+    - "guida/catalogo/viteria.yaml:23-24 (INS_M3 l 5,0, INS_M2 l 3,0, usati solo per disegnare)"
+    - "docs/BOM.md:103-118 (gruppi di viti negli inserti) e docs/decisioni.md D-049 (fondo di 0,55 mm), D-065, D-073"
+    - "ricerca in docs/*.md, cad/stl/README.md, CLAUDE.md: nessun valore di temperatura per gli inserti"
+  opzioni:
+    - "M3 x 6 dove la presa conta (alette 36 + ponte 12 = 48) e M3 x 5 negli altri (blocco 24 + guscio 6 + corpo non alette 16 = 46): rispetta i 50 per misura. Si scrive in 3.01 e nei passi."
+    - "M3 x 5 per 50 fori e M3 x 6 per 44, senza regola per gruppo (meno chiaro per chi monta)."
+    - "Comprare altri inserti M3 e usare una sola lunghezza (contro 'niente acquisti in piu'' se evitabili)."
+  consiglio: >-
+    Prima la sezione 1: il provino 1.03 prova M3 x 5 e x 6 sul foro piu' sottile (fondo di 0,55 mm del ponte) e annota
+    temperatura (PETG-CF e PLA) e tempo di raffreddamento. Poi la prima opzione. Nei passi la guida scrive "M3" e
+    rimanda a 3.01 per la lunghezza, marcata [C].
+  domanda: >-
+    Quanti inserti M3 e M2 ha davvero ogni misura del kit (50 per misura come dal BOM)? Hai gia' un saldatore con la
+    punta per inserti, a temperatura regolabile? Il BOM lo elenca fra gli attrezzi ma non dice se e' in casa.
+
+- titolo: Il BOM scrive "30 inserti M3 nel corpo", ma il modello ne ha 28
+  gravita: minore
+  dove: "3.04 (tabella)"
+  cosa: >-
+    Il BOM dice M3 94 = 30 nel corpo + 24 coxe + 18 tibie + 24 femori, che fa 96. Nel CAD il corpo ha 28 fori M3 per
+    inserto (base 26: 12 per i servo di coxa, 4 per la chiglia, 4 per il coperchio, 2 per le slitte, 4 per il vassoio;
+    chiglia 2 per lo sportello) e le zampe 66 (11 x 6): 28 + 66 = 94, come il totale del BOM e il controllo
+    `totali_inserti`. La tabella della guida usa i numeri del CAD. E' una delle otto incongruenze note
+    (docs/piano-guida.md: "inserti M3 del corpo: 28 o 30").
+  prove:
+    - "docs/BOM.md:120 ('30 nel corpo ... 24 nelle coxe, 18 nelle tibie, 24 nei femori', totale 94)"
+    - "docs/BOM.md:103-118 (righe della tabella: alette 36 inserti nel corpo e nelle zampe, chiglia 4, slitte 2, coperchio 4, sportello 2, vassoio via distanziali 4)"
+    - "guida/dati/fori.json: Corpo_Base 26 fori inserto_m3 + Corpo_Chiglia 2; Tibia 3, Coxa 4, Femore_B 4"
+    - "docs/piano-guida.md:20"
+  opzioni:
+    - "Correggere la frase del BOM in 28 nel corpo (docs, 2.1.7)."
+    - "Lasciare la frase e fidarsi del totale 94."
+  consiglio: Correggere la frase del BOM in "28 nel corpo".

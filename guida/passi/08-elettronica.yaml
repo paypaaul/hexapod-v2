@@ -1,0 +1,826 @@
+# Sezione 8, elettronica nel corpo e cablaggio (D-075, docs/piano-guida.md "Struttura della guida", fase B3 di
+# docs/piano-elettronica-software.md). F3, estrattore della sezione 8. Terna del robot, zampa di riferimento AS.
+# Pezzi nuovi: SSC-32, piastrina dell'IMU, IMU, ADC, vassoio, basetta, ESP32, ToF frontale, camera, T-plug. Entrano come
+# assiemi (preparati nella sezione 4): slitte con regolatori, supporti e INA260. Giunzioni: slitte, ssc32,
+# piastrina_imu, imu, vassoio, basetta. Il portafusibile F1, i Wago, la 2813 e le prese sono della sezione 7.
+# Ordine dei pezzi (piano-guida): slitte, SSC-32, IMU su piastrina e ADC PRIMA del vassoio, vassoio PRIMA della basetta,
+# ESP32, ToF, camera. Due scelte di ordine fuori dal piano, per la fisica dei pezzi (guida/problemi/elettronica.yaml):
+#  - i fili d'ingresso dei regolatori e quelli dei rail vanno stesi e saldati alle barre PRIMA di avvitare la SSC-32:
+#    il Wago + sta a sinistra e il Wago - a destra, quindi un filo per rail attraversa il tetto del tunnel, dove
+#    resteranno 8 mm sotto la scheda;
+#  - il ToF va nella mensola PRIMA della camera: la cima della sua scheda passa a 0,2 mm sotto la testa della camera.
+# Dopo i pezzi viene il cablaggio: potenza (T-plug, F1, Wago, spie), logica (F2, 2813, 5 V, partitore, abilitazione),
+# bus (seriale della SSC-32, I2C, I2S nel cavo piatto), prese dei piedi e delle luci, prove a freddo.
+# Gli schemi della basetta e della scheda del carapace non esistono (guida/schemi/ e' vuota): i collegamenti sono
+# tabelle dalle fonti, marcate [C], e i posti sulla millefori non si dicono (primo problema).
+# T-plug staccato in tutta la sezione: la batteria non e' nel corpo (sezione 11) e nessun passo accende niente.
+sezione:
+  id: elettronica
+  numero: 8
+  titolo: Elettronica nel corpo e cablaggio
+  colore: "#c2255c"
+  terna: robot
+  istanza: AS
+  presenti_iniziali:
+    - corpo/Corpo_Base
+    - corpo/Corpo_Chiglia
+    - "corpo/Cuscinetto_Coxa_*"
+    - "corpo/Servo_Coxa_*"
+    - "corpo/Wago_*"
+    - corpo/Interruttore
+    - corpo/Portafusibile_F1
+    - corpo/Prese_piedi
+    - corpo/Prese_luci
+  obiettivo: >-
+    Montare nel corpo l'elettronica preparata al banco, poi collegarla: potenza, logica, bus. Niente si accende: la
+    prima accensione è nella sezione 12.
+  prima:
+    - "Banco finito: basetta, SSC-32, ESP32 e regolatori sulle slitte pronti (sezione 4)."
+    - "Corpo finito: Wago, 2813, F1 e prese montati (sezione 7); inserti a filo (sezione 3)."
+    - "Scelto se montare X4, X6, X7, X8, X13, X2, X5 e X31: sotto il vassoio non si arriva più."
+    - "Batteria fuori dal corpo (sezione 11)."
+  tempo: "circa 6 ore la prima volta, con le saldature [S]"
+  stato_elettrico: "T-plug staccato per tutta la sezione, F1 e F2 vuoti. Solo saldatore e multimetro in continuità."
+  fonti: [D-075, docs/piano-guida.md "Struttura della guida", docs/piano-elettronica-software.md "P3", docs/cablaggio.md]
+  attrezzi: [saldatore, multimetro, spelafili, tronchesino, croce_ph0, brugola_1_3, brugola_2_5, termorestringente, pinzetta]
+  controllo:
+    - "Slitte, SSC-32, vassoio e basetta avvitati, senza gioco; l'ESP32 è negli strip, antenna verso la testa."
+    - "Con IMU, ADC, ToF e camera: ognuno al suo posto, con i fili e il flat che non toccano le saldature."
+    - "Potenza: T-plug, F1 e Wago collegati; fra Wago + e Wago − non c'è un corto."
+    - "Logica: F2 e 2813 collegati; uscita della 2813 a basetta e VL della SSC-32; abilitazione e spegnimento collegati."
+    - "Bus: seriale della SSC-32, I2C di IMU, ADC, INA260 e ToF, cavo piatto del carapace."
+    - "Le prove a freddo del passo 8.28 hanno tutte il risultato atteso."
+    - "T-plug ancora staccato; F1 e F2 vuoti."
+  vista_finale: {direzione: [0.75, -0.55, 0.65], su: [0, 0, 1]}
+
+
+passi:
+  - id: "8.01"
+    titolo: Slitte con i regolatori
+    formato: grande
+    assiemi:
+      - {chiavi: "corpo/*_S", esclusi: ["corpo/Microfono_*", "corpo/INA260_*"], nome: Slitta sinistra con regolatore (sezione 4)}
+      - {chiavi: "corpo/*_D", esclusi: ["corpo/Microfono_*", "corpo/INA260_*"], nome: Slitta destra con regolatore (sezione 4)}
+    giunzioni: [slitte]
+    esploso: {asse: [0, 0, 1], distanza: 48}
+    vista: {direzione: [0.85, 0.15, 0.85], su: [0, 0, 1]}
+    testo:
+      - "Prendi la slitta con il regolatore e, se lo monti, il supporto dell'INA260."
+      - "Cala la slitta nella baia anteriore, fra le due guide della parete esterna, fino al ripiano."
+      - "Accosta la vite M3 nell'inserto della parete, sopra il circuito del regolatore."
+      - "Stringi piano la vite: la slitta non deve ballare."
+      - "Ripeti nella baia destra: è la stessa slitta, ruotata."
+    avvisi:
+      - {tipo: importante, testo: "Con il supporto la vite è più lunga: M3 × 10 [C]; senza supporto basta la M3 × 8, disegnata qui. Presa nell'inserto, dal CAD: 5,6 mm con la M3 × 8, 5,2 con la M3 × 10 [V]."}
+      - {tipo: nota, testo: "Con l'INA260 sopra, la vite non si raggiunge: la fessura sotto la scheda è alta 6,1 mm [V] (guida/problemi/elettronica.yaml). La slitta destra è la sinistra ruotata (D-051, D-066)."}
+    attrezzi: [brugola_2_5]
+    fonti:
+      - "D-051: slitte fra due guide, vite M3 orizzontale sopra il circuito"
+      - "D-066: supporti degli INA260, slitta destra uguale alla sinistra"
+      - "guida/catalogo/giunzioni.yaml, slitte (M3 × 8, 2 viti)"
+      - "docs/BOM.md, riga 'Slitte dei regolatori' e 'Viteria in più' (viti M3 più lunghe di 2,4 mm con i supporti)"
+      - "guida/passi/04-banco.yaml 4.09 e 4.13"
+      - "guida/problemi/elettronica.yaml, vite delle slitte"
+      - "cad/script/corpo.py fai_slitta"
+
+  - id: "8.02"
+    titolo: Fili d'ingresso dei regolatori nei Wago
+    formato: grande
+    vista: {direzione: [-0.35, 0.8, 0.75], su: [0, 0, 1]}
+    etichette:
+      - {testo: "Wago +", chiave: corpo/Wago_piu}
+      - {testo: "Wago −", chiave: corpo/Wago_meno}
+      - {testo: "reg. S", chiave: corpo/Regolatore_S}
+      - {testo: "reg. D", chiave: corpo/Regolatore_D}
+    testo:
+      - "Porta i fili rossi d'ingresso dei due regolatori al Wago + a sinistra."
+      - "Porta i fili neri d'ingresso dei due regolatori al Wago − a destra."
+      - "Fai passare i due fili che attraversano il tunnel sul tetto, dove andrà la SSC-32."
+      - "Apri la leva, infila il filo spelato di 11 mm [C] fino in fondo, chiudi la leva."
+    tabella:
+      intestazione: [Filo 14 AWG, Da, A, Colore]
+      righe:
+        - ["Ingresso + sinistro", "regolatore sinistro, VIN", "Wago + (sinistra)", "rosso"]
+        - ["Ingresso − sinistro", "regolatore sinistro, GND", "Wago − (destra)", "nero"]
+        - ["Ingresso + destro", "regolatore destro, VIN", "Wago + (sinistra)", "rosso"]
+        - ["Ingresso − destro", "regolatore destro, GND", "Wago − (destra)", "nero"]
+    avvisi:
+      - {tipo: attenzione, testo: "Rosso al +, nero al −. Il + sta a sinistra (+Y), il − a destra (−Y): controlla due volte prima di chiudere la leva."}
+      - {tipo: importante, testo: "Questi fili si stendono prima della SSC-32: sotto la scheda restano 8 mm [V] e dopo il 14 AWG non si infila. Vale anche per il passo 8.04."}
+    attrezzi: [spelafili]
+    fonti:
+      - "docs/cablaggio.md 3.1 'Ingresso dei regolatori' e 5, punto 6 (Wago + a sinistra, Wago − a destra, massa a stella)"
+      - "docs/BOM.md B1, B13, B15 (14 AWG, 0,5 m + 0,5 m), 'Schema di alimentazione'"
+      - "D-050: 12 AWG sotto la SSC-32 dal lato posteriore"
+      - "D-055: Wago in piedi, ingressi in alto"
+      - "cad/script/rif_componenti.py ssc_dist, ssc_retro_h"
+      - "guida/passi/04-banco.yaml 4.10"
+      - "guida/problemi/elettronica.yaml, percorso dei cavi di potenza"
+
+  - id: "8.03"
+    titolo: INA260 sul filo del rail
+    formato: grande
+    vista: {direzione: [0.85, 0.15, 0.85], su: [0, 0, 1]}
+    etichette:
+      - {testo: "INA260 S", chiave: corpo/INA260_S}
+      - {testo: "INA260 D", chiave: corpo/INA260_D}
+      - {testo: "reg. S", chiave: corpo/Regolatore_S}
+      - {testo: "reg. D", chiave: corpo/Regolatore_D}
+    nuovi: [corpo/INA260_S, corpo/INA260_D]
+    esploso: {asse: [0, 0, 1], distanza: 30}
+    testo:
+      - "Avvita l'INA260 sul supporto con le due viti M2 × 5 [C], morsettiera in basso."
+      - "Infila il filo rosso d'uscita del regolatore nel morsetto VIN+ dell'INA260 e stringi il morsetto."
+      - "Infila un filo rosso 14 AWG nel morsetto VIN−: l'altro capo andrà alla barra VS (8.04)."
+      - "Se il 14 AWG non entra, salda l'ultimo tratto [C]. Ripeti a destra."
+    tabella:
+      intestazione: [Filo 14 AWG, Da, A]
+      righe:
+        - ["Uscita + sinistra", "regolatore S, VOUT", "INA260 S, VIN+"]
+        - ["Rail + sinistro", "INA260 S, VIN−", "barra VS1 (8.04)"]
+        - ["Uscita + destra", "regolatore D, VOUT", "INA260 D, VIN+"]
+        - ["Rail + destro", "INA260 D, VIN−", "barra VS2 (8.04)"]
+    avvisi:
+      - {tipo: opzionale, x: X7, quando: meglio_ora, testo: "Senza INA260 il filo d'uscita va diretto alla barra VS (8.04)."}
+      - {tipo: importante, testo: "Morsettiera da 3,5 mm: forse solo fino a 16 AWG [C], e il rail porta fino a 13 A. Prova il filo prima."}
+    attrezzi: [saldatore, spelafili, croce_ph0]
+    fonti:
+      - "docs/cablaggio.md 3.1 'Rail servo' (INA260 in serie sul positivo all'uscita di ogni regolatore; morsettiera C)"
+      - "docs/predisposizioni.md X7"
+      - "docs/BOM.md B15 (con l'INA260 la morsettiera potrebbe non prendere il 14 AWG)"
+      - "guida/passi/04-banco.yaml 4.10 e 4.13"
+      - "guida/problemi/elettronica.yaml, morsettiera dell'INA260"
+
+  - id: "8.04"
+    titolo: Fili dei rail sulle barre della SSC-32
+    formato: grande
+    in_evidenza: [corpo/SSC32]
+    mostra: []
+    vista: {direzione: [0.35, -0.55, -0.75], su: [0, 0, 1]}
+    etichette:
+      - {testo: "VS1 e massa", punto: [-14.5, 24.7, -1.4]}
+      - {testo: "VS2 e massa", punto: [-14.5, -24.7, -1.4]}
+    testo:
+      - "Appoggia la SSC-32 capovolta accanto al robot, con le barre verso di te."
+      - "Salda il filo rosso del rail sinistro a metà della barra VS1."
+      - "Salda il filo nero d'uscita del regolatore sinistro a metà della barra di massa dello stesso lato."
+      - "Ripeti a destra con la barra VS2 e la sua massa."
+      - "Controlla in continuità che VS e massa di ogni lato non si tocchino."
+    tabella:
+      intestazione: [Filo 14 AWG, Barra, Lato della SSC-32]
+      righe:
+        - ["Rail + sinistro, rosso", "VS1, fila di mezzo", "sinistro, canali 0–15"]
+        - ["Massa d'uscita sinistra, nero", "massa, fila al bordo", "sinistro, canali 0–15"]
+        - ["Rail + destro, rosso", "VS2, fila di mezzo", "destro, canali 16–31"]
+        - ["Massa d'uscita destra, nero", "massa, fila al bordo", "destro, canali 16–31"]
+    avvisi:
+      - {tipo: attenzione, testo: "Non saldare ai morsetti né alle piste: non portano la potenza dei servo. Ogni rail va a metà fila, su 16 pin."}
+      - {tipo: nota, testo: "Dal bordo verso l'interno le file sono: massa, VS, segnale. VS1 sta a sinistra e VS2 a destra: invertirle cambia i canali di ogni lato (7.06) [C]."}
+    attrezzi: [saldatore, multimetro]
+    fonti:
+      - "docs/BOM.md 'Schema di alimentazione', B15, B16 (fili d'uscita 0,6 m)"
+      - "docs/cablaggio.md 1 (file degli header a |y| 23,5) e 3.1 'Rail servo'"
+      - "docs/dimensioni-componenti.md, 'Servo controller SSC32-V2.5' (file: massa, VS, segnale)"
+      - "guida/passi/04-banco.yaml 4.02 (barre)"
+      - "guida/problemi/elettronica.yaml, percorso dei cavi di potenza"
+
+  - id: "8.05"
+    titolo: SSC-32 sulle bugne del tetto
+    formato: grande
+    nuovi: [corpo/SSC32]
+    giunzioni: [ssc32]
+    esploso: {asse: [0, 0, 1], distanza: 40}
+    vista: corpo_alto
+    testo:
+      - "Controlla che i fili dei rail escano da sotto la scheda, uno per lato, senza schiacciarsi."
+      - "Posa la SSC-32 sulle quattro bugne del tetto: morsettiera verso la testa, canali 0–15 a sinistra [C]."
+      - "Allinea i quattro fori con gli inserti M2."
+      - "Accosta le quattro viti M2 × 5, poi stringile piano."
+    avvisi:
+      - {tipo: attenzione, testo: "Stringi piano: la testa Ø 4 appoggia su un foro da 3,0 [C] e il circuito si scheggia."}
+      - {tipo: nota, testo: "Da ora la micro-USB non si raggiunge (D-051): la scheda è già configurata (sezione 4). Le spine dei servo si collegano con le zampe (sezione 9) [C]. Fra la scheda e il vassoio restano 4 mm [V]."}
+    attrezzi: [croce_ph0]
+    fonti:
+      - "D-051: inserti M2 nelle bugne del tetto, viti M2 con testa da 3,8 sui fori da 3,0"
+      - "D-050"
+      - "guida/catalogo/giunzioni.yaml, ssc32"
+      - "docs/BOM.md, riga 'SSC-32 → bugne del tetto'"
+      - "docs/dimensioni-componenti.md, 'Servo controller SSC32-V2.5'"
+      - "cad/script/corpo.py fai_base (ssc_bugna_*)"
+
+  - id: "8.06"
+    titolo: Piastrina dell'IMU
+    formato: mezzo
+    nuovi: [corpo/Corpo_Piastrina_IMU]
+    giunzioni: [piastrina_imu]
+    mostra: [corpo/Corpo_Base]
+    esploso: {asse: [0, 0, 1], distanza: 25}
+    vista: {direzione: [0.25, -0.85, 0.7], su: [0, 0, 1]}
+    testo:
+      - "Posa la piastrina sulle due bugne del tetto, a destra, sotto il posto del vassoio."
+      - "Accosta le due viti M2 × 5 svasate, con la brugola da 1,3 mm."
+      - "Stringi piano: le teste restano a filo."
+    avvisi:
+      - {tipo: opzionale, x: X4, quando: meglio_ora, testo: "Dopo, sotto il vassoio si arriva solo smontando vassoio, basetta, ESP32 e camera. Senza IMU salta questo passo e il 8.07."}
+    attrezzi: [brugola_1_3]
+    fonti:
+      - "D-074: piastrina sulle stesse bugne, due M2 × 5 svasate (con la Pololu 2798 niente piastrina)"
+      - "D-066, blocco B: IMU sotto il vassoio"
+      - "guida/catalogo/giunzioni.yaml, piastrina_imu"
+      - "docs/predisposizioni.md X4 e 2.8"
+
+  - id: "8.07"
+    titolo: IMU sulla piastrina
+    formato: grande
+    nuovi: [corpo/IMU]
+    giunzioni: [imu]
+    mostra: [corpo/Corpo_Piastrina_IMU]
+    esploso: {asse: [0, 0, 1], distanza: 25}
+    vista: {direzione: [0.25, -0.85, 0.7], su: [0, 0, 1]}
+    testo:
+      - "Salda quattro fili sulle piazzole della GY-6500, dal lato dei pin, senza pin."
+      - "Posa la scheda sulla piastrina: fili verso sinistra (+Y), asse X del chip verso la testa."
+      - "Accosta le due viti M2 × 6 a croce nei fori pilota, poi stringile piano."
+      - "Porta i quattro fili verso sinistra, fino all'asola del vassoio."
+    tabella:
+      intestazione: ["Filo [S]", Piazzola della GY-6500, Va a]
+      righe:
+        - ["nero", "GND", "massa della basetta"]
+        - ["rosso", "VCC", "3,3 V dei sensori"]
+        - ["blu", "SDA", "GPIO47"]
+        - ["giallo", "SCL", "GPIO3"]
+    avvisi:
+      - {tipo: attenzione, testo: "Solo 3,3 V: le schede tirano SDA e SCL alla loro alimentazione e a 5 V porterebbero 5 V sull'ESP32."}
+      - {tipo: nota, testo: "NCS, AD0 e FSYNC sono già tirati sulla scheda, senza fili [S]: indirizzo 0x68. Fili di circa 15 cm [S]."}
+    attrezzi: [saldatore, spelafili, croce_ph0]
+    fonti:
+      - "D-074: GY-6500 su piastrina, due M2 × 6 in fori pilota Ø 1,7, pin verso +Y, 4 fili saldati sulle piazzole"
+      - "docs/cablaggio.md 3.4 (ramo 'vano sotto il vassoio')"
+      - "docs/predisposizioni.md X4 e 2.1"
+      - "docs/piano-elettronica-software.md 2.4 (0x68)"
+      - "guida/catalogo/giunzioni.yaml, imu"
+      - "colori dei fili: standard Qwiic, non scritti in cablaggio.md [S]"
+
+  - id: "8.08"
+    titolo: ADC sulle bugne
+    formato: grande
+    nuovi: [corpo/ADC]
+    mostra: [corpo/Corpo_Base, corpo/Corpo_Piastrina_IMU, corpo/IMU]
+    esploso: {asse: [0, 0, 1], distanza: 25}
+    vista: {direzione: [0.25, 0.85, 0.7], su: [0, 0, 1]}
+    testo:
+      - "Posa l'ADS7830 sulle due bugne a sinistra dell'IMU, ingressi verso il bordo sinistro [C]."
+      - "Avvita la scheda con due viti M2 × 5 negli inserti [C], piano."
+      - "Collega un cavetto Qwiic alla presa: i fili andranno all'asola."
+    avvisi:
+      - {tipo: opzionale, x: X6, quando: meglio_ora, testo: "Senza ADC salta questo passo e il 8.09."}
+      - {tipo: importante, testo: "Fori e viti dell'ADS7830 non sono nel CAD né nel BOM [C]: prova sul pezzo."}
+    attrezzi: [croce_ph0]
+    extra: [{nome: "cavetti Qwiic 100 mm", qta: 3, bom: X1}]
+    fonti:
+      - "D-066, blocco B: IMU e ADC sul tetto del tunnel, bugne con inserti M2"
+      - "docs/predisposizioni.md X6"
+      - "docs/BOM.md, 'Viteria in più se si montano tutte' (viti M2 corte per l'ADC), X1, X6"
+      - "docs/piano-elettronica-software.md 2.4 (0x48)"
+      - "guida/problemi/elettronica.yaml, ADC senza viti"
+
+  - id: "8.09"
+    titolo: Striscia dei partitori
+    formato: grande
+    immagine: false
+    testo:
+      - "Taglia dalla millefori avanzata una striscia di 9 colonne [C]: sei piedi, due NTC, la massa."
+      - "Salda su ogni canale 0–5 una resistenza da 10 kΩ 1 % (BOM X5) fra l'ingresso e il 3,3 V."
+      - "Salda su ogni canale 0–5 un condensatore ceramico da 100 nF (BOM B8) fra l'ingresso e la massa."
+      - "Salda sui canali 6 e 7 una resistenza da 10 kΩ 1 % fra l'ingresso e il 3,3 V."
+      - "Controlla in continuità ogni ingresso: nessun corto con il 3,3 V o con la massa."
+    tabella:
+      intestazione: [Canale ADS7830, Collegamento, Dove arriva il sensore]
+      righe:
+        - ["0, 1, 2, 3, 4, 5", "10 kΩ al 3,3 V, 100 nF a massa; l'FSR va fra l'ingresso e la massa [S]", "prese dei piedi: AS, MS, PS, AD, MD, PD [C]"]
+        - ["6, 7", "10 kΩ al 3,3 V; la NTC va fra l'ingresso e la massa [S]", "NTC dei regolatori sinistro e destro (8.26)"]
+    avvisi:
+      - {tipo: opzionale, x: X6, quando: meglio_ora, testo: "Senza ADC salta questo passo. Con l'ADC ma senza FSR (X5) servono i canali 6 e 7 per le NTC (X14)."}
+      - {tipo: importante, testo: "Non fissare la striscia: nel CAD non ha un posto e lo schema non è disegnato (guida/problemi/elettronica.yaml). Tienila accanto all'ADC [C]."}
+    attrezzi: [saldatore, tronchesino, multimetro]
+    fonti:
+      - "docs/predisposizioni.md X5 (partitori: 10 kΩ 1 % verso il 3,3 V e 100 nF a massa sulla striscia dei partitori; lettura invertita) e X6"
+      - "docs/cablaggio.md 3.3 (Sensore di forza) e 3.4 (NTC dei regolatori, canali 6 e 7)"
+      - "docs/BOM.md X5 (partitori), X14"
+      - "guida/problemi/elettronica.yaml, schemi mancanti"
+
+  - id: "8.10"
+    titolo: Vassoio sui distanziali
+    formato: grande
+    nuovi: [corpo/Corpo_Vassoio]
+    giunzioni: [vassoio]
+    mostra: [corpo/Corpo_Base, corpo/SSC32, corpo/Corpo_Piastrina_IMU, corpo/IMU, corpo/ADC]
+    esploso: {asse: [0, 0, 1], distanza: 45}
+    vista: {direzione: [0.7, -0.45, 0.8], su: [0, 0, 1]}
+    testo:
+      - "Avvita a mano i quattro distanziali maschio-femmina negli inserti delle bugne del tetto."
+      - "Passa i fili di IMU e ADC nell'asola 6 × 3 del vassoio, a sinistra."
+      - "Cala il vassoio sui distanziali: torretta della camera verso la testa."
+      - "Accosta le quattro viti M3 × 6 dall'alto, nei distanziali, poi stringile piano."
+    avvisi:
+      - {tipo: importante, testo: "Prima del vassoio: IMU e ADC avvitati, con i loro fili. Dopo, sotto il vassoio si arriva solo smontando vassoio, basetta, ESP32 e camera (predisposizioni.md 2.8)."}
+      - {tipo: nota, testo: "Fra tetto e vassoio restano 10,4 mm [V]: bugna, distanziale da 5 mm e vassoio. Dopo ogni smontaggio la calibrazione camera–IMU si rifà (predisposizioni.md 2.9)."}
+    attrezzi: [brugola_2_5]
+    fonti:
+      - "D-051: vassoio su quattro distanziali M3 maschio-femmina da 5 mm"
+      - "D-066, blocco B: asola 6 × 3 per i fili del bus"
+      - "docs/predisposizioni.md 2.8 e 2.9"
+      - "guida/catalogo/giunzioni.yaml, vassoio"
+      - "docs/BOM.md B18"
+      - "cad/script/corpo.py fai_vassoio e _vassoio_fori"
+
+  - id: "8.11"
+    titolo: Basetta sulle colonnine
+    formato: grande
+    nuovi: [corpo/Basetta]
+    giunzioni: [basetta]
+    mostra: [corpo/Corpo_Vassoio]
+    esploso: {asse: [0, 0, 1], distanza: 35}
+    vista: {direzione: [0.7, -0.45, 0.8], su: [0, 0, 1]}
+    testo:
+      - "Controlla che la basetta sia finita e provata in continuità (sezione 4)."
+      - "Posa la basetta sulle quattro colonnine del vassoio: strip e componenti in alto, saldature in basso."
+      - "Accosta le quattro viti M2 × 5 negli inserti delle colonnine."
+      - "Stringi piano le viti, in diagonale."
+    avvisi:
+      - {tipo: importante, testo: "I fili di IMU e ADC escono dall'asola sul bordo sinistro e restano fuori dalla basetta: sotto restano 1,0 mm dalla base [V]."}
+      - {tipo: nota, testo: "Le colonnine sono alte 3,3 mm: la luce copre le teste delle viti M3 e le saldature (D-053). I collegamenti ai fili si saldano nei passi dei cavi: i posti stanno nello schema, non ancora disegnato [C]."}
+    attrezzi: [croce_ph0]
+    fonti:
+      - "D-053: basetta 56 × 35 su quattro colonnine, M2 × 5 in inserti"
+      - "guida/catalogo/giunzioni.yaml, basetta"
+      - "cad/script/corpo.py fai_vassoio e _basetta_fori"
+      - "guida/problemi/elettronica.yaml, schemi mancanti"
+
+  - id: "8.12"
+    titolo: ESP32 negli strip
+    formato: grande
+    nuovi: [corpo/ESP32]
+    mostra: [corpo/Corpo_Vassoio, corpo/Basetta]
+    esploso: {asse: [0, 0, 1], distanza: 40}
+    vista: {direzione: [0.7, -0.45, 0.8], su: [0, 0, 1]}
+    testo:
+      - "Posa l'ESP32 sugli strip femmina: antenna verso la testa, USB-C verso la coda."
+      - "Allinea i pin con gli strip, poi premi con i pollici ai lati dei pin, in piano."
+      - "Controlla che la scheda sia piana e nessun pin sia fuori dallo strip."
+    avvisi:
+      - {tipo: attenzione, testo: "Non premere sull'antenna né sul modulo metallico: premi sul circuito, vicino agli strip."}
+      - {tipo: nota, testo: "Il firmware è già caricato (sezione 4). USB-C e BOOT si raggiungono dallo sportellino (D-056)."}
+    fonti:
+      - "D-050: ESP32 con l'antenna in avanti, fuori dal carbonio"
+      - "D-053: strip femmina, file dei pin a |y| 12,35"
+      - "D-056: sportellino di servizio sopra USB-C e pulsanti"
+      - "docs/dimensioni-componenti.md, ESP32-S3-CAM (nessun foro; USB-C sul lato corto opposto all'antenna)"
+
+  - id: "8.13"
+    titolo: ToF frontale nella mensola
+    formato: grande
+    nuovi: [corpo/ToF_frontale]
+    mostra: [corpo/Corpo_Vassoio, corpo/Basetta, corpo/ESP32]
+    esploso: {asse: [1, 0, 0.35], distanza: 20}
+    vista: {direzione: [0.15, -0.95, 0.3], su: [0, 0, 1]}
+    testo:
+      - "Salda quattro fili sul ToF: VDD, GND, SDA e SCL. Lascia VIN scollegato."
+      - "Infila la scheda nella sede inclinata della mensola, sensore verso la testa."
+      - "Controlla che la cima della scheda resti sotto il posto della camera: la camera viene dopo [V]."
+      - "Porta i fili lungo il canale della torretta, verso la basetta."
+    tabella:
+      intestazione: ["Filo [S]", Pin del Pololu, Va a]
+      righe:
+        - ["nero", "GND", "massa della basetta"]
+        - ["rosso", "VDD, a 3,3 V; VIN scollegato [V]", "3,3 V dei sensori"]
+        - ["blu e giallo", "SDA e SCL", "GPIO47 e GPIO3"]
+    avvisi:
+      - {tipo: opzionale, x: X8, quando: meglio_ora, testo: "Senza ToF salta questo passo: la finestra della visiera resta chiusa dal tappo nero (sezione 13)."}
+      - {tipo: attenzione, testo: "Il 3,3 V va al pin VDD, non a VIN. La scheda non ha vite né perno modellati: come si ferma nella sede si vede sul pezzo [C]."}
+    attrezzi: [saldatore, spelafili]
+    fonti:
+      - "D-066, blocco B: ToF frontale nella mensola, scheda inclinata di 20°, cima a 0,2 mm dalla testa della camera"
+      - "docs/predisposizioni.md X8 e 'Corpo_Vassoio' (sede, canale per 4 fili lungo la torretta)"
+      - "docs/cablaggio.md 3.4 (ToF frontale: VDD a 3,3 V, VIN scollegato; 0x30)"
+      - "cad/script/corpo.py fai_vassoio (sede_tof)"
+      - "guida/problemi/elettronica.yaml, ToF e camera senza ritegno"
+
+  - id: "8.14"
+    titolo: Camera e flat
+    formato: grande
+    nuovi: [corpo/Camera]
+    mostra: [corpo/Corpo_Vassoio, corpo/Basetta, corpo/ESP32, corpo/ToF_frontale]
+    esploso: {asse: [0, 0, 1], distanza: 22}
+    vista: {direzione: [0.15, -0.95, 0.3], su: [0, 0, 1]}
+    testo:
+      - "Controlla il connettore FPC al centro dell'ESP32: se ha una levetta, alzala [C]."
+      - "Infila il flat della camera nel connettore, fino in fondo, contatti contro contatti [C], e chiudi la levetta."
+      - "Posa la testa della camera sulla mensola, contro la torretta: obiettivo verso la testa, flat verso l'alto."
+      - "Piega il flat all'indietro, sopra la torretta e l'antenna, con una curva larga."
+    avvisi:
+      - {tipo: attenzione, testo: "Il flat è largo 6 mm e spesso 0,15 [S]: non piegarlo a spigolo, non tirarlo, non infilarlo storto."}
+      - {tipo: importante, testo: "La camera è girata di 180° sull'asse ottico: il flat esce dall'alto della testa (D-051). Restano 61,5 mm di flat utili [S]."}
+      - {tipo: nota, testo: "La testa è solo posata: davanti la tiene la visiera del carapace, a 0,9 mm dalla lente (D-057) [C]."}
+    attrezzi: [pinzetta]
+    fonti:
+      - "D-051: flat della camera, camera girata di 180° sull'asse ottico"
+      - "D-050, D-057"
+      - "docs/dimensioni-componenti.md, 'Camera UICPAL OV3660-75MM' (flat 6 mm × 0,15, testa 8,5 × 8,5 × 6)"
+      - "docs/studio-componenti.md ('flat da 61,5 mm utili tra testa e connettore')"
+      - "docs/predisposizioni.md 'Corpo_Vassoio' (mensola, torretta)"
+      - "guida/problemi/elettronica.yaml, ToF e camera senza ritegno; verso del flat"
+
+  - id: "8.15"
+    titolo: T-plug, F1 e Wago
+    formato: grande
+    nuovi: [corpo/Tplug]
+    vista: corpo_coda
+    esploso: {asse: [0, 0, 1], distanza: 25}
+    etichette:
+      - {testo: "T-plug", chiave: corpo/Tplug}
+      - {testo: "F1", chiave: corpo/Portafusibile_F1}
+      - {testo: "Wago +", chiave: corpo/Wago_piu}
+      - {testo: "Wago −", chiave: corpo/Wago_meno}
+    testo:
+      - "Controlla che F1 sia vuoto e che il T-plug non sia innestato nella coppia della batteria."
+      - "Salda il filo rosso del T-plug al filo d'ingresso di F1; isola con il termorestringente."
+      - "Infila il filo d'uscita di F1 nel Wago + a sinistra."
+      - "Infila il filo nero del T-plug nel Wago − a destra."
+      - "Posa il T-plug sopra F1, nella porta di coda, senza fissarlo: lo tengono i suoi cavi."
+    tabella:
+      intestazione: [Filo 14 AWG, Da, A, Polarità]
+      righe:
+        - ["rosso", "T-plug del robot", "ingresso di F1", "+ (saldato)"]
+        - ["rosso", "uscita di F1", "Wago +, a sinistra", "+ (nel Wago)"]
+        - ["nero", "T-plug del robot", "Wago −, a destra", "− (nel Wago)"]
+    avvisi:
+      - {tipo: attenzione, testo: "T-plug staccato dalla batteria: non unirlo alla coppia in questa sezione. Salda solo con il T-plug staccato e F1 vuoto. Sesso e polarità sul pacco si guardano sulla batteria [C] (BOM B12)."}
+    attrezzi: [saldatore, spelafili, termorestringente]
+    fonti:
+      - "D-055: F1 con fascetta, coppia di T-plug appoggiata sopra F1 (7 mm d'aria verso l'altoparlante, cablaggio.md 4)"
+      - "D-073: linea principale in 14 AWG, T-plug e portafusibile con codino 14 AWG"
+      - "docs/cablaggio.md 3.1 'Principale', 4 'T-plug', 5 punto 6"
+      - "docs/BOM.md B4, B5, B12, B14, B19, 'Schema di alimentazione'"
+      - "guida/passi/07-corpo.yaml 7.10 (F1)"
+      - "guida/problemi/elettronica.yaml, T-plug e F1 senza connettore"
+
+  - id: "8.16"
+    titolo: Spie dei rail
+    formato: grande
+    vista: corpo_coda
+    etichette:
+      - {testo: "VS1", punto: [-85.4, 19.0, 0.0]}
+      - {testo: "VS2", punto: [-85.4, -19.0, 0.0]}
+    testo:
+      - "Salda una resistenza da 1 kΩ (BOM X13) al reoforo lungo di ogni LED, l'anodo [S]."
+      - "Salda un filo 26 AWG dalla resistenza di ogni LED alla barra VS del suo lato."
+      - "Salda un filo 26 AWG dal reoforo corto di ogni LED alla barra di massa dello stesso lato."
+    avvisi:
+      - {tipo: opzionale, x: X13, quando: meglio_ora, testo: "Senza spie salta questo passo."}
+      - {tipo: nota, testo: "4 mA per rail a 6 V: la spia si accende solo con il rail (X13)."}
+    attrezzi: [saldatore, spelafili, termorestringente]
+    fonti:
+      - "docs/cablaggio.md 3.1 (Spie dei rail: file VS1 e VS2 → 1 kΩ → LED ambra → massa)"
+      - "docs/predisposizioni.md X13"
+      - "D-066, blocco B: linguette con due fori Ø 3,1"
+      - "guida/passi/07-corpo.yaml 7.09"
+
+  - id: "8.17"
+    titolo: F2 e 2813
+    formato: grande
+    vista: corpo_coda
+    etichette:
+      - {testo: "2813", chiave: corpo/Interruttore}
+      - {testo: "Wago +", chiave: corpo/Wago_piu}
+      - {testo: "Wago −", chiave: corpo/Wago_meno}
+    testo:
+      - "Infila nel Wago + il codino rosso di F2, il portafusibile MINI."
+      - "Salda un filo 26 AWG rosso dall'altro codino di F2 all'ingresso della 2813."
+      - "Salda un filo 26 AWG nero dalla massa della 2813 al Wago −."
+      - "Lascia F2 senza fusibile."
+    tabella:
+      intestazione: [Filo, Da, A, Polarità]
+      righe:
+        - ["codino 18 AWG rosso", "F2", "Wago +", "+"]
+        - ["26 AWG rosso", "F2", "ingresso della 2813", "+"]
+        - ["26 AWG nero", "massa della 2813", "Wago −", "−"]
+    avvisi:
+      - {tipo: attenzione, testo: "Nessun fusibile in F2 fino alla sezione 12. Poi solo da 2 A: uno più grande non protegge il 26 AWG (BOM B6)."}
+      - {tipo: importante, testo: "Leggi le sigle sulla 2813: ingresso, uscita, massa, OFF, A e B [C]. Ingresso e uscita non sono simmetrici."}
+    attrezzi: [saldatore, spelafili]
+    extra: [{nome: "portafusibile MINI con codini 18 AWG e cavo 26 AWG, rosso e nero, circa 2 m", qta: 1, bom: "B6, B17"}]
+    fonti:
+      - "docs/cablaggio.md 3.1 'Ramo logica' (Wago + → F2 → 2813; codini 18 AWG, poi 26 AWG)"
+      - "docs/BOM.md B3, B6, B17, 'Schema di alimentazione'"
+      - "docs/piano-elettronica-software.md 2.2 e 3.3"
+      - "guida/passi/04-banco.yaml 4.06 (stesso ramo al banco)"
+      - "guida/problemi/elettronica.yaml, T-plug e F1 senza connettore"
+
+  - id: "8.18"
+    titolo: Uscita della 2813 verso basetta e SSC-32
+    formato: grande
+    vista: corpo_alto
+    etichette:
+      - {testo: "2813", chiave: corpo/Interruttore}
+      - {testo: "basetta", chiave: corpo/Basetta}
+      - {testo: "VL", punto: [22, 0, 4]}
+    testo:
+      - "Salda due fili 26 AWG, rosso e nero, dall'uscita e dalla massa della 2813 alla basetta, lungo il fianco del tunnel."
+      - "Salda sulla basetta il rosso all'ingresso del D24V22F5 e al partitore, il nero alla massa."
+      - "Salda due fili 26 AWG dall'uscita e dalla massa della 2813 ai morsetti VL+ e VL− della SSC-32."
+    tabella:
+      intestazione: [Filo 26 AWG, Da, A, Polarità]
+      righe:
+        - ["rosso", "uscita della 2813", "basetta: D24V22F5 e partitore da 100 kΩ", "+, come il pacco"]
+        - ["nero", "massa della 2813", "basetta: massa", "−"]
+        - ["rosso", "uscita della 2813", "SSC-32, morsetto VL+", "+, come il pacco"]
+        - ["nero", "massa della 2813", "SSC-32, morsetto VL−", "−"]
+    avvisi:
+      - {tipo: attenzione, testo: "VL prende la tensione del pacco, 6,0–8,4 V: la SSC-32 la regge fino a 12 V (BOM A4). Mai VL ai morsetti VS1 o VS2, che reggono 7,2 V."}
+      - {tipo: importante, testo: "Morsetti, dalla parte del canale 0: VS1−, VS1+, VL−, VL+, VS2−, VS2+ [C]. Leggi le sigle sulla scheda prima di stringere."}
+    attrezzi: [saldatore, spelafili]
+    fonti:
+      - "docs/cablaggio.md 3.1 '5 V e VL' e 2 'Potenza'"
+      - "docs/BOM.md A4 (VL 6–12 V), B2, B10, B17"
+      - "docs/dimensioni-componenti.md, 'Servo controller SSC32-V2.5' (morsettiera: S, C)"
+      - "guida/passi/04-banco.yaml 4.04, 4.06"
+      - "guida/problemi/elettronica.yaml, schemi mancanti; seriale e VL"
+
+  - id: "8.19"
+    titolo: Abilitazione dei regolatori e spegnimento
+    formato: grande
+    vista: corpo_alto
+    etichette:
+      - {testo: "EN S", chiave: corpo/Regolatore_S}
+      - {testo: "EN D", chiave: corpo/Regolatore_D}
+      - {testo: "OFF", chiave: corpo/Interruttore}
+      - {testo: "basetta", chiave: corpo/Basetta}
+    testo:
+      - "Salda un filo 26 AWG dal pad EN di ogni regolatore al punto di abilitazione della basetta."
+      - "Salda un filo 26 AWG dal punto GPIO41 della basetta al pin OFF della 2813."
+      - "Controlla in continuità che i due EN siano uniti e arrivino al diodo 1N4148."
+    tabella:
+      intestazione: [Filo 26 AWG, Da, A, Verso]
+      righe:
+        - ["abilitazione", "GPIO42 → 1N4148, anodo a GPIO42", "EN dei due regolatori", "diodo → regolatori [V]"]
+        - ["pull-down", "EN dei due regolatori", "massa, con 47 kΩ sulla basetta", "—"]
+        - ["spegnimento", "GPIO41", "OFF della 2813", "basetta → 2813"]
+    avvisi:
+      - {tipo: attenzione, testo: "Con EN libero il regolatore è acceso (prova 4.12): un filo EN staccato accende il rail appena c'è la batteria. Controlla il 47 kΩ prima della sezione 12."}
+      - {tipo: importante, testo: "Il diodo ha l'anodo dal lato di GPIO42: al contrario il rail non si accende mai (BOM B11). Valori e soglia sono quelli provati al banco (4.12) [C]."}
+    attrezzi: [saldatore, spelafili, multimetro]
+    fonti:
+      - "docs/cablaggio.md 3.1 'Abilitazione del rail' e 'Spegnimento' (100 kΩ su GPIO41 solo se scatta da sola: C)"
+      - "docs/BOM.md B11, 'Schema di alimentazione'"
+      - "docs/piano-elettronica-software.md 2.3 (GPIO41, GPIO42)"
+      - "guida/passi/04-banco.yaml 4.04, 4.11"
+
+  - id: "8.20"
+    titolo: Seriale della SSC-32
+    formato: grande
+    vista: corpo_alto
+    etichette:
+      - {testo: "basetta", chiave: corpo/Basetta}
+      - {testo: "RX TX GND", punto: [20, 22, 4]}
+    testo:
+      - "Salda tre fili sul connettore di prova della basetta: TX, RX e massa, dal traslatore."
+      - "Infila le tre spine Dupont femmina (BOM C4) sui pin RX, TX e GND della SSC-32, accanto alla morsettiera."
+      - "Controlla che TX vada a RX e RX a TX."
+    tabella:
+      intestazione: [Dupont, ESP32 e traslatore, SSC-32, Livello]
+      righe:
+        - ["TX", "GPIO21, traslatore, 3,3 V → 5 V", "pin RX", "ESP32 → SSC-32"]
+        - ["RX", "GPIO14, traslatore, 5 V → 3,3 V", "pin TX", "SSC-32 → ESP32"]
+        - ["massa", "massa della basetta", "pin GND", "—"]
+    avvisi:
+      - {tipo: importante, testo: "Tre fili, non quattro: il quarto, VL, di cablaggio.md 3.6 non ha un posto sicuro. VL arriva dalla 2813 al morsetto (8.18) [C]."}
+      - {tipo: nota, testo: "115200 baud, 8N1; pin RX, TX e GND dal disegno del venditore [S]."}
+    attrezzi: [saldatore]
+    fonti:
+      - "docs/cablaggio.md 3.6 'Seriale della SSC-32' e 2 'Segnali'"
+      - "docs/studio-componenti.md 'Controllo' (GPIO21 TX, GPIO14 RX, 115200 8N1, traslatore a BSS138)"
+      - "docs/dimensioni-componenti.md, 'Servo controller SSC32-V2.5' (tre pin RX, TX, GND)"
+      - "docs/software.md 8 (connettore di prova con TX, RX e massa)"
+      - "guida/problemi/elettronica.yaml, seriale e VL"
+
+  - id: "8.21"
+    titolo: Bus I2C, IMU e ADC
+    formato: grande
+    vista: corpo_alto
+    etichette:
+      - {testo: "IMU", chiave: corpo/IMU}
+      - {testo: "ADC", chiave: corpo/ADC}
+      - {testo: "asola", punto: [50, 14.5, 1]}
+    testo:
+      - "Porta i quattro fili dell'IMU e il cavetto Qwiic dell'ADC fuori dall'asola del vassoio, a sinistra."
+      - "Salda i quattro fili dell'IMU sul ramo del bus della basetta: massa, 3,3 V, SDA e SCL."
+      - "Salda i quattro fili del cavetto Qwiic dell'ADC sullo stesso ramo."
+      - "Fissa i fili con una fascetta sul bordo della basetta, senza stringerli."
+    tabella:
+      intestazione: ["Filo [S]", Segnale, Basetta]
+      righe:
+        - ["nero", "massa", "massa"]
+        - ["rosso", "3,3 V sensori", "3,3 V, mai 5 V"]
+        - ["blu", "SDA", "GPIO47"]
+        - ["giallo", "SCL", "GPIO3"]
+    avvisi:
+      - {tipo: attenzione, testo: "Sul bus solo 3,3 V: le schede Adafruit e Pololu tirano SDA e SCL alla loro alimentazione, e il 5 V brucerebbe i pin dell'ESP32."}
+      - {tipo: nota, testo: "Bus dedicato su GPIO47 e GPIO3, 400 kHz; la camera ha il suo (GPIO4 e 5). IMU 0x68, ADC 0x48. Il posto sulla basetta sta nello schema, non ancora disegnato [C]."}
+    attrezzi: [saldatore, spelafili, tronchesino]
+    fonti:
+      - "docs/cablaggio.md 3.4 'Bus dei sensori' (ramo: vano sotto il vassoio, dall'asola)"
+      - "docs/piano-elettronica-software.md 2.3 e 2.4"
+      - "docs/predisposizioni.md 2.1, 2.2"
+      - "guida/problemi/elettronica.yaml, schemi mancanti"
+
+  - id: "8.22"
+    titolo: Bus I2C, INA260 e ToF
+    formato: grande
+    vista: corpo_alto
+    etichette:
+      - {testo: "INA260 S", chiave: corpo/INA260_S}
+      - {testo: "INA260 D", chiave: corpo/INA260_D}
+      - {testo: "ToF", chiave: corpo/ToF_frontale}
+      - {testo: "4 mm", punto: [24, 0, 2]}
+    testo:
+      - "Collega un cavetto Qwiic all'INA260 sinistro e uno al destro."
+      - "Fai passare i due cavetti fra il bordo anteriore della SSC-32 e il vassoio: ci sono 4 mm [V]."
+      - "Salda i fili dei cavetti sul ramo del bus della basetta: massa, 3,3 V, SDA e SCL."
+      - "Salda sullo stesso ramo i quattro fili del ToF, già lungo la torretta (8.13)."
+    tabella:
+      intestazione: [Ramo, Da, A, Indirizzo]
+      righe:
+        - ["INA260 sinistro", "basetta, cavetto Qwiic", "baia sinistra", "0x44 [V]"]
+        - ["INA260 destro", "basetta, cavetto Qwiic", "baia destra", "0x45 [V]"]
+        - ["ToF frontale", "basetta, 4 fili lungo la torretta", "mensola della camera", "0x30 dal firmware [S]"]
+    avvisi:
+      - {tipo: opzionale, x: X7, quando: meglio_ora, testo: "Senza INA260 salta le prime due righe; senza ToF (X8) la terza."}
+      - {tipo: importante, testo: "Tieni il bus ad almeno 10 mm dai cavi da 12–16 AWG e incrocia a 90°: i rail portano fino a 13 A. Le clip sul tetto non sono modellate [C]."}
+    attrezzi: [saldatore, spelafili]
+    fonti:
+      - "docs/cablaggio.md 3.4 (rami: baie anteriori, ToF frontale; 1,1 m, 10 mm, 90°)"
+      - "docs/predisposizioni.md 'Corpo_Base' (passaggi X1: fra il bordo della SSC-32 e il vassoio, x 22 e 26)"
+      - "docs/piano-elettronica-software.md 2.4"
+      - "guida/problemi/elettronica.yaml, schemi mancanti"
+
+  - id: "8.23"
+    titolo: Cavo piatto del carapace
+    formato: grande
+    immagine: false
+    testo:
+      - "Controlla il cavo piatto saldato sulla basetta nel passo 4.05: il filo con la striscia colorata è il polo 1 [S]."
+      - "Controlla in continuità ogni filo contro il suo punto della basetta, e che nessuno tocchi il vicino."
+      - "Posa la spina IDC sopra l'ESP32, senza fissarla: si innesta nella scheda del carapace (sezione 13)."
+    tabella:
+      intestazione: [Polo, Segnale, Polo, Segnale]
+      righe:
+        - ["1", "+5 V (LED e audio)", "2", "+5 V (LED e audio)"]
+        - ["3", "massa", "4", "dato dei LED a 5 V, dopo il buffer"]
+        - ["5", "massa", "6", "SCL"]
+        - ["7", "+3,3 V sensori", "8", "SDA"]
+        - ["9", "massa", "10", "BCLK I2S"]
+        - ["11", "WS I2S", "12", "dati dei microfoni"]
+        - ["13", "dati verso l'amplificatore", "14", "riserva (XSHUT del ToF del mento, X25)"]
+        - ["15", "pulsante A (2813)", "16", "pulsante B (2813)"]
+    avvisi:
+      - {tipo: opzionale, x: X2, quando: meglio_ora, testo: "Senza scheda del carapace salta questo passo: niente pulsante, luci del carapace né audio. Dopo costa smontare il carapace."}
+      - {tipo: attenzione, testo: "I poli 1 e 2 portano il 5 V dei LED, il 7 il 3,3 V dei sensori: non scambiarli. Nella piattina il polo n sta accanto al n + 1: non cambiare l'ordine."}
+      - {tipo: nota, testo: "I poli 10–13 sono l'I2S di microfoni e amplificatore: GPIO38, 39, 40 e 2. I poli 15 e 16 sono il pulsante, in parallelo al pulsantino della 2813 (D-059)."}
+    attrezzi: [saldatore, tronchesino, multimetro]
+    fonti:
+      - "docs/cablaggio.md 3.5 (piedinatura 2 × 8)"
+      - "docs/predisposizioni.md 2.3 (connettore del carapace)"
+      - "docs/piano-elettronica-software.md 2.3 (GPIO38, 39, 40, 2, 48)"
+      - "D-059, D-074"
+      - "guida/passi/04-banco.yaml 4.05 (scheda del carapace)"
+      - "guida/problemi/elettronica.yaml, schemi mancanti"
+
+  - id: "8.24"
+    titolo: Prese dei piedi verso l'ADC
+    formato: grande
+    vista: corpo_alto
+    etichette:
+      - {testo: "prese dei piedi", chiave: corpo/Prese_piedi}
+      - {testo: "ADC", chiave: corpo/ADC}
+    testo:
+      - "Salda un filo per ogni presa: dal polo del segnale al suo ingresso della striscia dei partitori."
+      - "Salda un filo di massa dal polo di massa di ogni presa alla massa della striscia."
+      - "Porta i fili sul tetto, fino all'asola del vassoio."
+      - "Annota nella tabella quale presa va a quale canale."
+    tabella:
+      intestazione: [Presa, "Zampa [C]", Canale ADS7830, Polarità]
+      righe:
+        - ["1", "AS", "0", "segnale e massa; il 3,3 V non esce dal corpo"]
+        - ["2", "MS", "1", "come sopra"]
+        - ["3", "PS", "2", "come sopra"]
+        - ["4", "AD", "3", "come sopra"]
+        - ["5", "MD", "4", "come sopra"]
+        - ["6", "PD", "5", "come sopra"]
+    avvisi:
+      - {tipo: opzionale, x: X5, quando: anche_dopo, testo: "Senza FSR salta questo passo. Le prese si raggiungono a carapace tolto, i fili sotto il vassoio no."}
+      - {tipo: nota, testo: "Il polo del 3,3 V di ogni presa resta vuoto: lungo la zampa passano solo massa e segnale (predisposizioni.md 2.5). Canali: AS, MS, PS, AD, MD, PD = 0…5, proposta di robot.yaml [C]."}
+    attrezzi: [saldatore, spelafili]
+    fonti:
+      - "docs/cablaggio.md 3.3 (Sensore di forza: prese dei piedi, ADS7830 canali 0–5; spina JR a 2 poli su 3)"
+      - "docs/predisposizioni.md X5 e 2.5 (masse)"
+      - "robot/robot.yaml"
+      - "guida/passi/07-corpo.yaml 7.11 (prese)"
+
+  - id: "8.25"
+    titolo: Prese delle luci
+    formato: grande
+    vista: corpo_alto
+    etichette:
+      - {testo: "prese delle luci", chiave: corpo/Prese_luci}
+      - {testo: "basetta", chiave: corpo/Basetta}
+    testo:
+      - "Unisci in parallelo i poli omonimi delle sei prese con un filo di rame nudo."
+      - "Salda un filo di massa, uno di +5 V e uno di dato dalla fila alla basetta."
+      - "Porta i tre fili sul tetto, fino alla basetta."
+    tabella:
+      intestazione: [Polo della spina JR, Segnale, Va a]
+      righe:
+        - ["come il filo marrone di un servo", "massa", "massa della basetta"]
+        - ["come il filo rosso", "+5 V, dopo il PTC", "5 V dei LED, basetta"]
+        - ["come il filo arancio", "dato, dal buffer", "uscita del buffer SN74AHCT125N, dopo il 330 Ω"]
+    avvisi:
+      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Senza luci nelle tibie salta questo passo."}
+      - {tipo: attenzione, testo: "Qui ci sono +5 V e dato a 5 V, non servo: non collegare mai un servo alle prese delle luci (D-069). Le sei tibie ripetono i primi sei pixel: ramo in parallelo (cablaggio.md 5.2)."}
+    attrezzi: [saldatore, spelafili]
+    fonti:
+      - "docs/cablaggio.md 3.3 (Luci della tibia: spina JR a 3 poli, massa, +5 V, dato) e 5 (punti 1, 2, 3)"
+      - "D-069: seconda fila di sei prese, speculare a quella dei piedi"
+      - "docs/predisposizioni.md 2.4 (protezioni, PTC) e X31"
+      - "guida/passi/07-corpo.yaml 7.11"
+
+  - id: "8.26"
+    titolo: NTC sulle bobine dei regolatori
+    formato: grande
+    vista: {direzione: [0.85, 0.15, 0.85], su: [0, 0, 1]}
+    etichette:
+      - {testo: "NTC S", chiave: corpo/Regolatore_S}
+      - {testo: "NTC D", chiave: corpo/Regolatore_D}
+    testo:
+      - "Controlla le NTC incollate sulle bobine e i loro fili, dal passo 4.10."
+      - "Porta i fili dalle baie al vano sotto il vassoio, fuori dal camino d'aria dei regolatori."
+      - "Collega la NTC sinistra al canale 6 e la destra al canale 7 della striscia dei partitori."
+    avvisi:
+      - {tipo: opzionale, x: X14, quando: meglio_ora, testo: "Senza NTC salta questo passo."}
+      - {tipo: importante, testo: "Non coprire le feritoie né il camino d'aria delle baie anteriori (D-052): sotto il carapace il PLA rammollisce verso 55–60 °C."}
+    attrezzi: [saldatore, spelafili]
+    fonti:
+      - "docs/cablaggio.md 3.4 (NTC dei regolatori: ADS7830 canali 6 e 7, fuori dal camino)"
+      - "docs/piano-elettronica-software.md P4 (temperatura, regolatori)"
+      - "D-052 (ventilazione dei regolatori)"
+      - "docs/BOM.md X14"
+
+  - id: "8.27"
+    titolo: Controllo dei fili
+    formato: mezzo
+    vista: corpo_alto
+    testo:
+      - "Controlla che nessun filo sia teso, schiacciato sotto un pezzo o a contatto con una saldatura."
+      - "Controlla che i fili dei rail e quelli del bus stiano a distanza, e si incrocino a 90°."
+      - "Controlla che le spine IDC, Dupont e Qwiic siano innestate fino in fondo."
+    avvisi:
+      - {tipo: nota, testo: "Il carapace si toglie dall'alto con le viti, la spina IDC e il cicalino (cablaggio.md 4): lascia i fili del bus liberi sopra l'ESP32."}
+    fonti:
+      - "docs/cablaggio.md 3.4 e 4"
+      - "docs/predisposizioni.md 2.2"
+
+  - id: "8.28"
+    titolo: Prove a freddo, ancora senza batteria
+    formato: grande
+    immagine: false
+    testo:
+      - "Controlla che il T-plug sia staccato e che F1 e F2 siano vuoti."
+      - "Misura ogni riga della tabella con il multimetro in continuità o in resistenza."
+      - "Annota il valore misurato."
+      - "Se una riga non torna, fermati: trova il filo sbagliato prima di andare avanti."
+    tabella:
+      intestazione: [Punto, Atteso, Misurato]
+      righe:
+        - ["T-plug rosso, ingresso di F1", "continuità [V]", ""]
+        - ["T-plug rosso, Wago +, con F1 vuoto", "aperto [V]", ""]
+        - ["T-plug nero, Wago −", "continuità [V]", ""]
+        - ["Wago + contro Wago −", "non 0 Ω; la lettura sale piano [S]", ""]
+        - ["Barra VS1 contro barra VS2", "aperto [V]", ""]
+        - ["Barra VS1 contro la sua massa", "non 0 Ω [V]", ""]
+        - ["Uscita della 2813 contro massa", "non 0 Ω [V]", ""]
+        - ["VL+ contro VL− della SSC-32", "non 0 Ω [V]", ""]
+        - ["SDA contro 3,3 V, con ESP32 fuori", "1,0–1,4 kΩ, mai sotto 0,97 kΩ [S]", ""]
+        - ["SCL contro 3,3 V, con ESP32 fuori", "1,0–1,4 kΩ, mai sotto 0,97 kΩ [S]", ""]
+        - ["EN dei regolatori contro massa", "circa 47 kΩ [S]", ""]
+        - ["GPIO1 contro massa", "circa 47 kΩ [S]", ""]
+    avvisi:
+      - {tipo: attenzione, testo: "Nessuna batteria: tutte le misure sono a freddo. La prima accensione è nella sezione 12, con F1 da 15 A."}
+      - {tipo: prova, testo: "Con il pull-up sotto 0,97 kΩ stacca per primi i pull-up dei Pololu (IMU e ToF) e misura di nuovo [S] (piano-elettronica-software.md 2.4). Se non torna, annota il valore: dipende da uno schema non ancora disegnato [C]."}
+    attrezzi: [multimetro]
+    fonti:
+      - "docs/piano-elettronica-software.md 2.4 (pull-up 1,0–1,4 kΩ, minimo 0,97 kΩ)"
+      - "docs/BOM.md B10, B11 (47 kΩ, partitore 100 kΩ e 47 kΩ)"
+      - "guida/passi/12-accensione.yaml 12.03 (stessa prova sul T-plug)"
+      - "guida/problemi/elettronica.yaml, schemi mancanti"
+
+rinviati: []

@@ -1,0 +1,237 @@
+# Problemi trovati scrivendo la sezione 1, i provini (D-075, formato in guida/schema.md "Problemi").
+# Campi in piu' rispetto allo schema: domanda (cosa chiedere all'utente), tipo (allocazione: il pezzo o il passo sta
+# meglio in un'altra sezione).
+# Parametri e quote vengono da cad/script/*.py; "oggi" vuol dire la versione 2.1.6.
+
+- titolo: Il provino degli inserti non ha un pezzo nel CAD
+  gravita: importante
+  dove: "1.02, 1.03"
+  cosa: >-
+    CLAUDE.md (aperto 4) chiede di provare gli inserti del kit in fori M3 da 3,9 / 4,0 / 4,1 e M2 da 2,9 / 3,0 / 3,1
+    in PETG-CF. In cad/stl/attrezzi/ ci sono sette file (due dime, il cavalletto, i due del provino di luce, i due delle
+    tasche) e nessuno e' il provino degli inserti; attrezzi.py non ha un passo per farlo (LIBRERIA e fai_provino_* non
+    lo citano). Il foro M3 di oggi, ins_m3_d, vale 4,2: e' il foro per gli inserti CNC Kitchen Ø4,6 (4,0 + 0,2), ma
+    l'inserto del kit e' Ø4,2 (BOM D4), quindi il foro di oggi e' largo quanto l'inserto. Lo stesso per l'M2: 3,4 per
+    un inserto Ø3,6, e il kit ha Ø3,2. Anche la lunghezza e' incerta (vedi il problema sugli inserti 5 e 6).
+  prove:
+    - "CLAUDE.md:166 (fori M3 da 3,9 / 4,0 / 4,1 e M2 da 2,9 / 3,0 / 3,1; ins_m3_d muove anche le bugne delle culle)"
+    - "cad/stl/README.md:60 (provini della passata estetica: inserti del kit nei fori ins_m3_d e ins_m2_d, cioe' con i valori di oggi)"
+    - "cad/script/rif_componenti.py:126-129 (ins_m3_d 4,2, ins_m3_l 6,7, ins_m2_d 3,4, ins_m2_l 4)"
+    - "cad/script/attrezzi.py:58 (LIBRERIA: nessun Attrezzo_Provino_Inserti)"
+    - "docs/BOM.md:87-88 (kit: M3 Ø4,2 e M2 Ø3,2) e docs/dimensioni-componenti.md:150-151 (CNC Kitchen: Ø4,6 foro 4,0; Ø3,6 foro 3,2)"
+    - "ls cad/stl/attrezzi: Attrezzo_Cavalletto, Attrezzo_Provino_Luce_*, Attrezzo_Provino_Tasche_*, Dima_Posa_*"
+  opzioni:
+    - "Disegnare il blocco nella 2.1.7 (attrezzi.py): tre fori M3 e tre M2 con i diametri di CLAUDE.md, profondi ins_m3_l e ins_m2_l, con i puntini accanto come nel provino delle tasche."
+    - "Aggiungere ai fori anche il valore di oggi (4,2 e 3,4) come campione di controllo."
+    - "Provare gli inserti direttamente nelle tibie e nelle coxe di prova: costa piu' filamento e una sola misura per stampa."
+  consiglio: Blocco nuovo nella 2.1.7 con i sei fori di CLAUDE.md piu' i due valori di oggi; la guida (1.02) e' scritta cosi'.
+
+- titolo: La squadretta di prova non e' ancora comprata, e senza le sue quote non si puo' provare il giunto ne' stampare la zampa
+  gravita: bloccante
+  dove: "1.04, 1.09, 1.10, 1.18"
+  cosa: >-
+    La squadretta metallica a 25 denti (D3) e' in stato A, da comprare: il BOM chiede se comprarne una di prova prima
+    delle altre 19 (domanda 4, ancora aperta) e CLAUDE.md dice che gli acquisti fatti sono solo servo e servo
+    controller. Le sue quote (sq_d 20, sq_sp 2,5, sq_h 5,5, sq_mozzo_d 9, sq_fori_pcd 14, sq_fori_d 3) sono tutte C,
+    prese dai rivenditori, che sono discordanti. sq_h e sq_sp entrano in zy_orlo, zy_disco e zy_A_est: spostano le
+    quote lungo Y di tutti i pezzi della zampa. La sede del disco nel ponte e in Femore_A e' sq_d + 2 gio_stampa. Il
+    provino 4 (ponte e squadretta) e la chiusura della sezione 1 aspettano questa misura.
+  prove:
+    - "docs/BOM.md:86 (D3: AliExpress da 0,42 € senza diametro e fori dichiarati; Amazon diymore 6 pz da 10,99 € con le misure del CAD) e :254 (domanda 4)"
+    - "CLAUDE.md, aperto 1 (domanda 4 del BOM) e 'Acquisti fatti'"
+    - "docs/decisioni.md D-046 (squadretta con valori tipici, tutti C: 'prima di stampare il provino si sostituiscono')"
+    - "cad/script/zampa.py:103-109 (zy_orlo, zy_disco con sq_h e sq_sp), :407 (sede_disco = sq_d + 2 gio_stampa)"
+    - "cad/stl/README.md:60 ('il provino del giunto completo aspetta la squadretta metallica comprata')"
+  opzioni:
+    - "Comprare 1-2 squadrette AliExpress da 0,42 € e misurarle: costo minimo, ma diametro e fori non sono dichiarati."
+    - "Comprare le diymore da 10,99 € (6 pezzi) con le misure dichiarate (Ø20, fori M3 a 14)."
+    - "Comprare entrambe: le prime per la prova di misura, le seconde per le zampe."
+  consiglio: Una squadretta AliExpress e una confezione diymore per confrontarle; si misura quella che arriva prima e le quote vanno nel CAD prima della zampa.
+  domanda: "Va bene comprare ora una squadretta di prova (D3, domanda 4 del BOM)? Quale: AliExpress da 0,42 € o diymore da 10,99 € con le misure del CAD?"
+
+- titolo: Il provino del giunto non ha pezzi dedicati e le fonti non dicono con quali pezzi farlo
+  gravita: importante
+  dove: "1.09, 1.10, 1.11"
+  cosa: >-
+    cad/stl/README.md parla di un "provino del giunto completo (ponte, squadretta, perni)" e CLAUDE.md lo elenca con
+    la culla ("forzamenti di cuscinetti e perni, gioco d'imbardata"), ma nessuno STL e' marcato come provino del
+    giunto. La bozza usa i pezzi veri: Coxa.stl con un perno forzato nel braccio inferiore (perno_foro) e Coxa_Ponte.stl
+    con la squadretta e due M3 × 5 (cox_testa_vite_d, cox_disco_luce). Restano fuori la sede del disco in Femore_A e i
+    perni forzati in Femore_B, che hanno gli stessi parametri (sq_d + 2 gio_stampa, perno_foro) ma non sono provati. Le
+    fonti non danno un criterio per il forzamento del perno (D-049 dice solo "forzati, senza ritegno assiale"; il
+    pollice vale per il cuscinetto): la bozza scrive "entra con la morsa, non col martello" [C]. Il verso della
+    pressione del perno nella coxa e' ricavato dal manifest: Perno_coxa parte a Z -39,8 e il braccio inferiore finisce
+    a -38,35, quindi sporge 1,45 sotto.
+  prove:
+    - "cad/stl/README.md:60"
+    - "CLAUDE.md:163 (culla e giunto: passacavo, fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata)"
+    - "docs/decisioni.md D-049 (ultimo punto: perni forzati senza ritegno assiale, h8 scorrevoli nei cuscinetti, m6 solo se provati)"
+    - "guida/dati/manifest.json: zampa/Perno_coxa T Z -39,8, bbox Z 0-12; docs/progetto-meccanico.md (braccio inferiore Z da -38,35 a -33,15)"
+    - "cad/script/zampa.py:389 (foro_perno), :409 (foro_testa), :407 (sede_disco)"
+  opzioni:
+    - "Provare con Coxa.stl e Coxa_Ponte.stl, come nella bozza."
+    - "Disegnare un attrezzo di prova piccolo con due fori Ø5,0, la sede del disco e due fori Ø5,6 (2.1.7)."
+    - "Stampare Femore_B e Femore_A come primi pezzi del lotto e provarli prima di stampare gli altri cinque."
+  consiglio: Pezzi veri come nella bozza, piu' Femore_B come primo pezzo del lotto per il forzamento dei perni; nessun nuovo attrezzo.
+
+- titolo: La stretta del piedino non ha un parametro ne' le varianti da provare
+  gravita: importante
+  dove: "1.14, 2.12"
+  cosa: >-
+    D-064 e il README dicono di tarare la stretta del piedino con 0, -0,2 e -0,4 mm. Nel CAD non c'e' un parametro
+    pied_stretta (in zampa.py c'e' solo pied_tacca) e in cad/stl/ c'e' un solo Piedino.stl, con la stretta zero. Il
+    piedino nasce dallo stinco con la stessa sequenza di lavorazioni, poi svuotato: la stretta si otterrebbe
+    scalando la cavita'. Senza varianti il provino 6 ha un solo valore.
+  prove:
+    - "docs/decisioni.md D-064 (stretta zero, da tarare con 0, -0,2 e -0,4)"
+    - "cad/stl/README.md:19 (Piedino.stl: nel modello la stretta e' zero)"
+    - "cad/script/zampa.py:183-208 e :884-907 (tib_piede_sp, pied_tacca; nessuna stretta)"
+    - "ls cad/stl: un solo Piedino.stl"
+  opzioni:
+    - "Parametro pied_stretta nella 2.1.7 e tre STL di prova (0, -0,2, -0,4)."
+    - "Stampare solo Piedino.stl e variare la correzione dei fori nello slicer, senza toccare il CAD."
+    - "Provare solo con il valore zero e scegliere dopo, con la prova dell'FSR."
+  consiglio: "Parametro pied_stretta e tre STL nella 2.1.7: la stretta decisa deve stare nel CAD come ogni altro valore dei provini."
+
+- titolo: Il provino di luce e quello del piedino chiedono un programma di banco e pezzi non ancora approvati
+  gravita: importante
+  tipo: allocazione
+  dove: "1.15, 1.17 (passi della sezione 4, banco dell'elettronica)"
+  cosa: >-
+    Il provino 7 vuole 3 pixel comandati dall'ESP32 su GPIO48 (piano elettronico, fase P1) e il 6 un FSR 400 Short e
+    un doppino. Nel firmware non c'e' alcun codice per i pixel: firmware/ ha il nucleo e lo scheletro, e docs/software.md
+    descrive il banco S1 ma non lo scrive. FSR (X5) e striscia a 120 LED/m (X9) sono predisposizioni approvate nel CAD
+    ma "niente e' ancora approvato per l'acquisto" (BOM, sezione X): il piano elettronico elenca come "da approvare" 2
+    FSR e un tratto di striscia con buffer e resistenze. Il programma e il collegamento (GPIO48, buffer SN74AHCT125N,
+    330 Ω, pull-down 10 kΩ) appartengono alla sezione 4; la guida del provino li cita senza ripeterli.
+  prove:
+    - "docs/piano-elettronica-software.md:249-252 (fase P1: provino di luce con tre pixel su GPIO48; da approvare 2 FSR e un tratto di striscia)"
+    - "docs/BOM.md, sezione X: 'Niente e' ancora approvato per l'acquisto'"
+    - "docs/cablaggio.md:47 (GPIO48, 10 kΩ, SN74AHCT125N, 330 Ω)"
+    - "grep di ws2812, led_strip, rmt_ e pixel in firmware/main e firmware/components: nessun risultato"
+  opzioni:
+    - "Programma di banco S1 con un comando che accende N pixel con colore e luminosita' (nuovo, in ESP-IDF)."
+    - "Un tester di strisce WS2812 comprato, senza ESP32 (acquisto in piu', da approvare)."
+    - "Provare la luce con un solo pixel diretto da un pin, senza buffer: da valutare il livello logico a 3,3 V (X9: dato a 5 V)."
+  consiglio: Programma di banco nella sezione 4 (S1) prima del provino 7; acquisti X5 e X9 approvati con il BOM.
+  domanda: "Approvi l'acquisto di 2 FSR 400 Short (X5) e di un tratto di striscia a 120 LED/m con buffer e resistenze (X9) per i provini 6 e 7?"
+
+- titolo: I 94 inserti M3 chiedono due lunghezze del kit e la guida non sa quale va dove
+  gravita: minore
+  dove: "1.03"
+  cosa: >-
+    Il kit ha M3 × 5 e × 6 (e × 3, × 4) con 50 pezzi per lunghezza; gli inserti M3 da mettere sono 94. Il CAD ha fori
+    profondi 6,7 per un inserto da 5,7 (CNC Kitchen); la guida (guida/catalogo/viteria.yaml, INS_M3) calcola le prese
+    con l = 5,0 per tutti. Con un inserto da 6 la presa delle viti cambia di 1 mm e il controllo "lunghezze" della
+    guida va rifatto. Il BOM non dice dove ne vadano di 5 e dove di 6.
+  prove:
+    - "docs/BOM.md:87 (M3 × 5 e × 6, 50 per misura) e :120 (94 inserti M3)"
+    - "guida/catalogo/viteria.yaml (INS_M3 l 5,0)"
+    - "cad/script/rif_componenti.py:127 (ins_m3_l 6,7 = 5,7 + 1)"
+  opzioni:
+    - "Inserti da 6 dove la vite e' piu' lunga o la presa conta (alette dei servo) e da 5 altrove."
+    - "Tutti da 5 e 44 da un'altra confezione."
+    - "Decidere dopo il provino 1, che dice se il fondo tocca."
+  consiglio: Decidere dopo il provino 1 e scrivere la scelta nella sezione 3 e in ins_m3_l.
+  domanda: "Quanti M3 × 5 e quanti × 6 hai nel kit Temu? Il BOM dice 50 per misura."
+
+- titolo: La tibia del provino ha fori per gli inserti da 4,2, prima che il provino 1 dica il valore giusto
+  gravita: minore
+  dove: "1.05, 1.08"
+  cosa: >-
+    Il provino della culla chiede le due viti lato coda negli inserti, ma Tibia.stl ha i fori per gli inserti a
+    ins_m3_d = 4,2, il valore che il provino 1 deve correggere. Se il valore buono e' 4,0 la tenuta degli inserti nella
+    tibia di prova e' falsata e la prova "il servo resta fermo" non dice niente sull'alette lato coda. Dal valore di
+    ins_m3_d dipendono anche le bugne della culla (bug_corto, bug_coda, bug_semi), cioe' la forma della tibia.
+  prove:
+    - "cad/script/zampa.py:61-63 (bug_* con ins_m3_d), :359 (ins_coda_*)"
+    - "CLAUDE.md:166 (ins_m3_d muove anche le bugne delle culle)"
+    - "cad/stl/README.md 'Provino della culla' punto 2"
+  opzioni:
+    - "Fare prima il provino 1 e, se il valore cambia, riesportare Tibia.stl prima della prova della culla."
+    - "Fare la prova della culla con i fori di oggi e contare solo le misure, non la tenuta degli inserti."
+  consiglio: Provino 1 per primo; la guida lo dice nell'ordine (1.01) e in una NOTA (1.05).
+
+- titolo: Il provino di luce non prova l'incastro del diffusore ne' quello del fondo dell'anello
+  gravita: minore
+  dove: "1.16, 1.17"
+  cosa: >-
+    luc_dif_gio (0,1 per lato, "da tarare sul provino") e luc_fondo_gio (0,05 per lato, "forzamento leggero, da tarare
+    con il provino X10") sono due giochi da stampa che il provino di luce non contiene: ha solo camere nere, strisce di
+    bianco e un anello di prova senza fondo ne' diffusore.
+  prove:
+    - "cad/script/zampa.py:223 (luc_dif_gio)"
+    - "cad/script/corpo.py:209 (luc_fondo_gio)"
+    - "cad/script/attrezzi.py:200-245 (fai_provino_luce: camere, bianchi, anello; niente bordino ne' gonna)"
+  opzioni:
+    - "Provare i due incastri sui pezzi veri (Cover_Tibia con il diffusore, Fascia con il fondo dell'anello) quando si stampano la prima volta."
+    - "Aggiungere un bordino e una gonna al provino di luce (2.1.7)."
+  consiglio: Pezzi veri alla prima stampa; il valore si corregge in una versione successiva se serve.
+
+- titolo: Il piano della versione 2.1.5 descrive la base del provino delle tasche in modo diverso dal CAD
+  gravita: minore
+  dove: "1.12"
+  cosa: >-
+    docs/piano-v2.1.0.md (sezione 2.1.5) dice che la base ha "un foro passante per una vite M3 × 6 e la trappola del
+    dado sotto; viti e dadi dal kit D6/D7". D-072 e attrezzi.py (fai_provino_tasche) hanno un foro pilota Ø2,5 con la
+    vite che si fa il filetto, "cosi' non servono dadi ne' inserti". La guida segue D-072 e il codice.
+  prove:
+    - "docs/piano-v2.1.0.md:251"
+    - "docs/decisioni.md D-072 (base con una vite M3 × 6 in un foro pilota Ø2,5)"
+    - "cad/script/attrezzi.py:248-253 (pilota, vite_m3_pilota, profondita' 7)"
+  opzioni:
+    - "Correggere il piano nella 2.1.7."
+    - "Lasciare il piano com'e': D-072 vale su di esso."
+  consiglio: Correggere il piano nella 2.1.7, insieme agli altri testi.
+
+- titolo: Tre provini citati nel README non hanno ne' un pezzo ne' un passo
+  gravita: minore
+  dove: "1.01"
+  cosa: >-
+    cad/stl/README.md elenca fra i provini della passata estetica un tappo a rombo, le nervature dello sportellino e il
+    collare del cicalino. Nessuno ha un attrezzo in cad/stl/attrezzi/ e nessuno e' fra i sei provini di CLAUDE.md. Il
+    tappo a rombo sta nel guscio della tibia (Cover_Tibia), le nervature nello sportellino (D-056, "si tara sul
+    pezzo"), il collare nel carapace (D-063).
+  prove:
+    - "cad/stl/README.md:60"
+    - "CLAUDE.md:162-167 (i provini da stampare)"
+    - "docs/decisioni.md D-056 (nervature dello sportellino: 'si tara sul pezzo'), D-063 (collare del cicalino)"
+  opzioni:
+    - "Provarli sui pezzi veri alla prima stampa (guscio, sportellino, carapace)."
+    - "Aggiungerli al blocco degli inserti o a un provino nuovo (2.1.7)."
+  consiglio: Pezzi veri alla prima stampa; la guida non li mette fra i provini.
+
+- titolo: Il valore atteso "servo fermo, senza gioco" dipende dal servo vero e le nervature non esistono ancora
+  gravita: minore
+  dove: "1.08"
+  cosa: >-
+    La sede della culla e' 41,4 × 20,9 (cassa 41,0 × 20,5 piu' 0,2 per lato, il caso peggiore fra le fonti). Le casse
+    dichiarate vanno da 40,3 a 41,0 in lunghezza e da 20 a 20,5 in larghezza: nella sede un servo AZDelivery ha da 0,4
+    a 1,1 mm di gioco in lunghezza e fino a 0,9 in larghezza. Le nervature di schiacciamento che chiuderebbero il gioco
+    sono "da decidere sul provino" (README) e "da fare" (progetto-meccanico.md): Tibia.stl non le ha. A servo fermo
+    contano le quattro viti nelle alette (fori da 4,2 per viti M3). L'utente non puo' misurare i servo (CLAUDE.md):
+    la misura e' quella del provino.
+  prove:
+    - "cad/script/rif_componenti.py:41-42 (srv_cassa_l 41,0: STEP 41,0, AZDelivery 40,3, Tower Pro 40,9; srv_cassa_w 20,5: STEP 20,5, AZDelivery e Tower Pro 20)"
+    - "cad/script/zampa.py:52-54 (cul_sede_* = cassa + gio_servo)"
+    - "cad/stl/README.md 'Provino della culla' punto 4 (nervature da decidere sul provino); docs/progetto-meccanico.md:98"
+  opzioni:
+    - "Misurare il gioco con il servo vero nella tibia di prova e disegnare le nervature dopo."
+    - "Nessuna nervatura: contare solo sulle quattro viti."
+  consiglio: Misurare il gioco nel provino 3 e disegnare le nervature nella 2.1.7 con la misura.
+
+- titolo: Nessuna fonte dice temperatura e tempo di posa degli inserti nel PETG-CF
+  gravita: minore
+  dove: "1.03"
+  cosa: >-
+    Il progetto ha la dimensione dei fori e l'attrezzo (saldatore con la punta per inserti), ma non la temperatura
+    della punta ne' il tempo o la profondita' di spinta per il PETG-CF. Senza questi la posa (sezione 3) e' a
+    sentimento. La bozza fa annotare la temperatura nel provino 1 e la riusa nella sezione 3.
+  prove:
+    - "docs/dimensioni-componenti.md:150-158 (fori e profondita', nessuna temperatura)"
+    - "docs/BOM.md:136 (saldatore con punta per inserti, nessun valore)"
+    - "ricerca in docs/: nessuna riga con temperatura di posa degli inserti"
+  opzioni:
+    - "Ricavarla dal provino 1."
+    - "Cercare la scheda del produttore degli inserti del kit (Temu: probabilmente senza dati)."
+  consiglio: Ricavarla dal provino 1.

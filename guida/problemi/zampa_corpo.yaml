@@ -1,0 +1,145 @@
+# Problemi trovati scrivendo la sezione 9, la zampa sul corpo (D-075, formato in guida/schema.md "Problemi").
+# Coordinate nella terna della zampa AS (mm): X lungo la zampa verso l'esterno, Y verso il lato A, Z in alto, origine
+# sull'asse della coxa all'altezza degli assi dei femori; nel robot la zampa AS sta in (80; 44) ruotata di +30 gradi.
+# Imbardata positiva = antioraria vista dall'alto. Le misure sono raggi (Moller-Trumbore) e prove di contenimento dei
+# vertici (parita' lungo Z) sulle mesh di build/guida/cad/mesh/*.ply con le trasformate di guida/dati/manifest.json,
+# posa di riferimento. La prova sui vertici non vede i contatti fra soli spigoli: i "nessun urto" valgono sul CAD, sul
+# pezzo restano C. Campi in piu' rispetto allo schema: tipo (allocazione), domanda.
+
+- titolo: La coxa non si monta piu' alzandola di 5 mm in linea con la gondola; va avvicinata ruotata di circa 40 gradi
+  gravita: importante
+  dove: "9.04"
+  cosa: >-
+    Il perno della coxa sporge 5,0 mm sopra il rialzo del braccio (perno da Z -39,75 a -27,75, rialzo a -32,75, faccia
+    bassa del cuscinetto della gondola a -32,75): per farlo passare sotto il cuscinetto la zampa va tenuta piu' di 5 mm
+    piu' in basso. In linea con la gondola (imbardata 0) la testa dell'anima ha la faccia inferiore a Z 8,05, 4,0 mm
+    sopra la faccia superiore delle alette del servo di coxa (Z 4,05, da X 34,1 a 37,55) e 1,0 mm sopra le teste delle
+    viti lato coda (Z 7,05): scesa di 5 o 6 mm, 22 vertici dell'aletta del servo cadono dentro la coxa. La revisione
+    della zampa v0 dava "alzata di 5 mm" con la mensola a Z 13,05; D-049 ha poi abbassato la testa dell'anima fino a
+    1 mm sopra le teste, e quella procedura non vale piu'. Nessun documento di main la aggiorna. Con la zampa ruotata
+    attorno all'asse della coxa la testa dell'anima non ha niente sotto fra +30 e +120 gradi e fra -30 e -100: a +-40
+    gradi, 6 mm piu' in basso e spostata da 0 a 40 mm verso l'esterno lungo il suo asse, la coxa con il perno non
+    tocca base, chiglia, servo di coxa, cuscinetto e squadretta; a 30 gradi tocca il servo con un vertice. Le zampe
+    AS, MS e PS ruotate di +-40 e abbassate di 6 non toccano le vicine montate a 0. Alzata a 40 gradi e riportata a 0
+    alla quota finale, la testa dell'anima passa 1,0 mm sopra le teste lato coda, che ci siano o no.
+  prove:
+    - "cad/script/zampa.py: perno_sporge 1,4; cox_braccio_sp 5,2; cus_rialzo_h 0,4; cz_mensola (riga 126); cx_testa 34; ISTANZE Perno_Coxa"
+    - "guida/dati/fori.json: Coxa foro_perno da Z -38,35 a -32,75; manifest: Cuscinetto_Coxa_AS a Z -32,75, Perno_coxa a -39,75"
+    - "Raggi verso +Z dalle teste lato coda (X 34,25, Y +-5, Z 7,06): coxa a 0,99 mm; ponte a 12,54"
+    - "Contenimento dei vertici: imbardata 0 e discesa 6: 22 vertici del Servo_Coxa_AS dentro la coxa (Z 4,05); imbardata +-40, discesa 6, fuori 0/10/15/30/40: nessuno (base, chiglia, servo, cuscinetto, squadretta, zampe vicine)"
+    - "docs/ricerca/zampa-v0-revisione.json:78 ('Montaggio della coxa sul perno: va alzata di 5 mm ... mensola (Z 13,05 - 5)'), superato da D-049 'Inserti del ponte con fondo di 0,55 mm'"
+    - "guida/problemi/corpo.yaml, primo problema: ripete 'alzandola di 5 mm' dalla stessa fonte"
+  opzioni:
+    - "Procedura della bozza: zampa ruotata di circa 40 gradi, 6 mm piu' in basso, avvicinata lungo il suo asse, alzata con il perno nel cuscinetto, riportata in linea. Nessun cambio al CAD; corpo sul cavalletto perche' la zampa possa scendere."
+    - "Perno infilato da sotto a coxa gia' in posizione: il forzamento nel braccio scarica sul cuscinetto in assiale (sconsigliato)."
+    - "Cambiare il CAD nella 2.1.7 (perno piu' corto o sede del cuscinetto piu' alta): tocca giunto e escursioni."
+  consiglio: "Procedura a 40 gradi, da provare sul provino del giunto o sulla prima zampa; annotarla in progetto-meccanico.md con la 2.1.7."
+
+- titolo: "Viti lato coda del servo di coxa: dove si accostano e come si stringono"
+  tipo: allocazione
+  gravita: importante
+  dove: "7.05, 9.04, 9.08"
+  cosa: >-
+    La bozza mette alette_coxa_coda (2 M3 x 8 per gondola) tutta nel passo 9.08: coxa portata a 30 gradi con il servo,
+    viti avvitate e strette, poi le due lato albero (accostate in 7.05) strette nello stesso passo. Misure nella terna
+    della zampa con la zampa completa, chiave dritta Ø4 lungo +Z: vite Y +5 libera da imbardata <= -15 o >= +30, vite
+    Y -5 libera da >= +15 o <= -30; a +30 o a -30 tutte e due; la colonna sopra e' libera fino in cima (carapace non
+    montato). Le viti lato albero (X -13,75) sono libere a ogni imbardata: il mozzo del ponte (R 12) resta a 2,6 mm
+    dall'asse della vite. La sezione 7 propone di accostare le viti coda gia' in 7.05 e di stringerle qui con stringi:
+    con la procedura a 40 gradi di 9.04 la testa dell'anima passa sopra le teste con 1,0 mm, quindi va bene. Accostarle
+    in 7.05 toglie anche il conteggio sbagliato di 9.08 (la giunzione del corpo conta 12 viti a ogni ripetizione della
+    sezione 9, vedi difetti della pipeline) e tiene il servo su quattro viti mentre si monta la coxa. Il serraggio delle
+    lato albero in 9.08 non e' disegnato: la giunzione alette_coxa_albero e' della sezione 7.
+  prove:
+    - "Raggi verso +Z da 17 punti per testa (centro, anelli R 1,25 e 2,0) con tutti i pezzi della zampa ruotati a passi di 5 gradi da -45 a +45"
+    - "D-049 (viti delle alette strette per ultime); docs/ricerca/corpo-v0-revisione.json:46-50 e :91"
+    - "guida/problemi/corpo.yaml, primo problema (allocazione); guida/passi/07-corpo.yaml 7.05"
+  opzioni:
+    - "alette_coxa_coda in 7.05 (accostate) e in 9.08 {id: alette_coxa_coda, stringi: true}; in 9.08 anche {id: alette_coxa_albero, stringi: true}. Il testo di 9.08 resta: coxa a 30 gradi, stringi."
+    - "Tutto in 9.08 come nella bozza (prima messa a zampa montata, con il servo alimentato)."
+  consiglio: "Prima opzione, insieme alla sezione 7; la coxa si porta a 30 gradi (una posa sola), non a +-20."
+
+- titolo: La prova B5 nella sezione 9 viene prima della batteria e della prima accensione della sezione 12
+  gravita: importante
+  dove: "9.08, rinviati della sezione 9 (B5)"
+  cosa: >-
+    Il piano mette la prova B5 (una zampa sul cavalletto: limiti, tabella del ginocchio, taratura con le dime) nella
+    sezione 9, e la "prima accensione e taratura" (cavalletto, F1 da 15 A, B4, dime 1 e 2) nella sezione 12, dopo
+    batteria e sportello (sezione 11). B5 e il serraggio delle alette di coxa a 30 gradi chiedono il rail dei servo
+    acceso, cioe' la catena di potenza di B3 (sezione 8) e una sorgente: batteria fuori dal corpo o alimentatore.
+    B3 nella sua seconda parte chiede "un lato con 9 servo", che c'e' solo dopo tre zampe. Lo strumento della prova,
+    tools/hexa banco (software.md 6.7), in tools/ non c'e' ancora (fase S2). La bozza tiene B5 in 9.09 e il rail
+    "come nella sezione 8", marcati C, e ripete B5 a ogni zampa con la sezione.
+  prove:
+    - "docs/piano-guida.md 'Struttura della guida', righe 8, 9, 11 e 12"
+    - "docs/software.md 6.7 (B3, B4, B5, B6) e 7 (S2: taratura con le dime)"
+    - "cad/stl/README.md 'Attrezzi da banco' (dime con la lama B tolta, cavalletto)"
+    - "ls tools/: descrizione.py, genera_*.py, riferimento.py; nessun hexa"
+  opzioni:
+    - "B5 sulla prima zampa nella sezione 9, con la prima parte di B3 fatta nella sezione 8 e la batteria fuori dal corpo (o un alimentatore); sezione 12 per B3 con 9 servo, B4 e le dime di tutte le zampe."
+    - "B5 nella sezione 12 per tutte le zampe; nella sezione 9 il rail si accende solo per portare la coxa a 30 gradi."
+    - "Serraggio delle alette di coxa con un tester di servo collegato alla sola spina di coxa (come nella sezione 5), senza la catena del robot."
+  consiglio: "Prima opzione: provare una zampa prima di montarne altre cinque. Le sezioni 8, 11 e 12 vanno allineate nella riconciliazione."
+  domanda: "Per la prima prova della zampa sul corpo, prima di montare la batteria, alimenti il robot con la batteria appoggiata fuori o con un alimentatore da banco?"
+
+- titolo: "Squadretta di coxa: dente, vite centrale e viti-spina"
+  gravita: minore
+  dove: "9.01, 9.02"
+  cosa: >-
+    Nessun documento dice su che dente va la squadretta di coxa. Nel CAD i due fori usati come spine stanno a Y +-7
+    (di traverso alla zampa) e il servo ha il lato lungo lungo X: la bozza dice "due fori opposti di traverso al servo",
+    con il servo a meta' corsa. Con 25 denti (14,4 gradi) e quattro fori a 90 gradi, scegliendo dente e coppia di fori
+    si arriva entro 1,8 gradi (14,4 k mod 90 da' multipli di 3,6) [S]: vale se il disco vero ha quattro fori a 90
+    gradi (BOM D3: fori non dichiarati). La vite centrale e' "in dotazione" (BOM riga 108; viteria VSQ, misura C): tipo
+    e attrezzo non noti. Le viti-spina: D-048 diceva M3 x 6 con rondella, D-049 lo corregge esplicitamente in M3 x 5
+    senza rondella; la riga 107 del BOM dice ancora "da approvare", la voce D6 "approvate il 9 ottobre 2026".
+  prove:
+    - "cad/script/zampa.py ISTANZE (Squadretta_Coxa con assi della zampa), fai_ponte (foro_testa a Y +-sq_fori_pcd/2)"
+    - "guida/dati/fori.json Rif_Squadretta_25T: fori Ø3 a (+-7; 0) e (0; +-7)"
+    - "docs/BOM.md D3, D6, righe 107-108; D-048; D-049"
+    - "docs/software.md 6.7 B4 (residuo entro +-7,2 gradi)"
+  opzioni:
+    - "Tenere la regola dei fori di traverso; controllare lo scarto con la dima di posa 1 (imbardata 0) in B5."
+    - "Correggere la riga 107 del BOM (approvate il 9 ottobre)."
+  consiglio: "Entrambe; vite centrale e disco si guardano all'arrivo della squadretta di prova (BOM, domanda 4)."
+
+- titolo: Spine di FSR e luci dalle prolunghe avanzate, ordine delle prese e poli non scritti
+  gravita: minore
+  dove: "9.09, 10.02"
+  cosa: >-
+    cablaggio.md 3.3 dice spina JR femmina dalle prolunghe C5 avanzate, "2 poli su 3: segnale e massa" per l'FSR e
+    "massa, +5 V, dato, come un servo" per le luci, prese nell'ordine AS...PD = 0...5 (C). Non dice quale polo resta
+    libero sulla presa dei piedi, se il polo centrale porta qualcosa, da che capo della fila si parte, ne' come si
+    fanno le spine (si salda un capo tagliato della prolunga). Le prolunghe avanzate sono 16 (20 meno 4) per 12 spine.
+  prove:
+    - "docs/cablaggio.md 3.3 e 5 (punti 1 e 4); D-069 (prese delle luci); docs/BOM.md C5"
+  opzioni:
+    - "Definire poli e ordine con lo schema della basetta (F3b) e scriverli in cablaggio.md."
+  consiglio: "Con gli schemi della F3b; fino ad allora la bozza marca C."
+
+- titolo: Le misure per i pettini dei cavi non sono definite
+  gravita: minore
+  dove: "9.10"
+  cosa: >-
+    Il backlog dice che i pettini si disegnano "con le lunghezze misurate" dopo il montaggio di una zampa, senza dire
+    quali. La bozza chiede per ogni cavo della zampa la lunghezza dall'ingresso nel corpo alla spina e l'ansa che avanza
+    con la spina inserita, a coxa 0, e il controllo che non tiri a +-30 gradi. La sezione 7 lascia le anse di coxa nella
+    baia posteriore sopra il Wago, dove andranno i pettini.
+  prove:
+    - "CLAUDE.md, Backlog 'Pettini dei cavi dei servo'; docs/cablaggio.md 3.2 e 5 (punto 5); guida/passi/07-corpo.yaml 7.12"
+  opzioni:
+    - "Tenere le due misure della bozza; aggiungere la posizione dell'ansa (baia, quota) se il disegno del pettine la chiede."
+  consiglio: "Confermare le misure quando si disegnano i pettini."
+
+- titolo: "BOM D4: 'alette dei servo (72 tra lato coda e corpo)' conta le viti, non gli inserti"
+  gravita: minore
+  dove: "prima della sezione 9 (inserti delle gondole e della testa dell'anima)"
+  cosa: >-
+    Gli inserti M3 delle alette lato coda sono 36: 2 per culla in 6 coxe, 6 tibie e 6 gondole. 72 e' il numero delle
+    viti delle alette (riga 103 del BOM). Il totale di D4, 94, torna con i fori: per zampa 11 (coxa 2 coda + 2 ponte,
+    tibia 2 coda + 1 guscio, Femore_B 4 blocco), 66 in tutto, piu' 28 nel corpo.
+  prove:
+    - "docs/BOM.md D4 e riga 103; guida/dati/fori.json (ins_coda_*, ins_ponte_*, ins_guscio, ins_blocco_*, Corpo_Base ins_coda_*_ang/_med); guida/catalogo/viteria.yaml totali_bom"
+  opzioni:
+    - "Correggere il testo di D4: '36 nelle alette lato coda'."
+  consiglio: "Correggerlo con la 2.1.7."

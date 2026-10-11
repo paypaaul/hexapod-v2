@@ -1,0 +1,126 @@
+# Problemi trovati scrivendo la sezione 12, prima accensione e taratura (D-075, formato in guida/schema.md "Problemi").
+# Campi in piu' rispetto allo schema: tipo (allocazione, quando un passo sta in un'altra sezione), domanda.
+
+- titolo: La sezione dipende da un firmware che non c'e' ancora (console, rail, stato di taratura)
+  gravita: importante
+  dove: "12.07–12.13"
+  cosa: >-
+    I passi usano la console (comandi ssc, rail, stato, cal), lo stato CALIBRAZIONE con i passi di 1 e 10 µs, il
+    salvataggio della taratura e la sequenza d'accensione (impulsi di parcheggio, poi rail). Sono tutti in software.md
+    come progetto della fase S2; il firmware di oggi ha solo gli scheletri dei compiti e non e' mai stato provato sul
+    chip. Inoltre software.md 2.6 tiene il rail spento finche' "la taratura non e' valida" (e 2.7: "senza taratura
+    valida il rail non si accende"), ma per tarare servono i servo alimentati: serve un modo di accendere il rail con
+    i valori di partenza della repo in CALIBRAZIONE o al banco. La bozza marca [C] ogni comando.
+  prove:
+    - "docs/software.md:237 (GPIO42 basso finche' la taratura non e' valida), :271-273 (taratura e rail), :298 (console), :666 (S2)"
+    - "firmware/README.md:12 (compiti FreeRTOS: scheletri), :52 (non provato sul chip)"
+  opzioni:
+    - "Fare S2 prima della sezione 12, con un comando di banco che accende il rail con la taratura di partenza (robot.yaml) e i limiti di velocita'."
+    - "Scrivere nella guida i comandi veri quando S2 c'e', e togliere le [C]."
+  consiglio: "S2 e' un prerequisito della sezione 12: la guida si chiude dopo S2, con i comandi veri."
+
+- titolo: Senza carapace non c'e' il pulsante, che e' anche l'arresto d'emergenza
+  gravita: importante
+  dove: "12.01, 12.07, 12.13"
+  cosa: >-
+    Il pulsante da 12 mm sta sul carapace (sezione 13) e arriva alla 2813 dalla scheda del carapace e dal cavo piatto.
+    Nella sezione 12 il carapace non c'e': la bozza accende e spegne con il pulsantino della 2813, che il BOM cita
+    ("in parallelo al suo pulsantino, come indica la pagina Pololu"). La 2813 sta in piedi fra la SSC-32 e F1
+    (x -58,4): non e' scritto da che lato ha il pulsantino ne' se si raggiunge con le dita fra SSC-32, F1 e T-plug
+    [C]. Il pulsante e' anche l'arresto d'emergenza (software.md 2.6): finche' manca, resta solo il T-plug.
+  prove:
+    - "docs/BOM.md B3 e B3b; D-066 'Blocco B' (2813 in piedi fra SSC-32 e portafusibile); docs/cablaggio.md 3.1 'Pulsante'"
+    - "docs/software.md 2.6 (pulsante = arresto d'emergenza; T-plug = sezionamento dei servo)"
+    - "guida/dati/manifest.json: corpo/Interruttore X -58,4…-54,3; corpo/SSC32 da X -50,8; corpo/Portafusibile_F1 fino a X -61,4"
+  opzioni:
+    - "Pulsantino della 2813, se si raggiunge (bozza); da guardare sul pezzo."
+    - "Pulsante provvisorio sui pin A e B della 2813, con due fili, per la sezione 12."
+    - "Collegare il pulsante del carapace al banco, con il cavo piatto, senza montare il carapace."
+  consiglio: "Pulsante provvisorio sui pin A e B (un B3b di scorta: il BOM ne prevede 1 + 1), appoggiato fuori dal robot."
+
+- titolo: Prove con la corrente previste nelle sezioni 8 e 9, prima che la batteria arrivi nella 11
+  gravita: importante
+  tipo: allocazione
+  dove: "12.06–12.13; sezioni 8 e 9"
+  cosa: >-
+    Il piano della guida mette "B3" (catena di potenza) nella sezione 8 e la "prova B5" (una zampa sul cavalletto:
+    limiti, tabella del ginocchio, taratura con le dime) nella sezione 9. La batteria entra nella sezione 11 e il
+    cavalletto, nel piano, nella 12. La bozza della 12 rifa' tutto per gradi con la batteria: F1 da 15 A, logica, rail
+    senza servo, un lato, l'altro, tutti, poi la taratura delle sei zampe. Se le sezioni 8 e 9 fanno davvero B3 e B5,
+    servono un'alimentazione (alimentatore da banco o batteria fuori dal robot) e il cavalletto prima, e la 12
+    ripete.
+  prove:
+    - "docs/piano-guida.md:123 (sezione 8, B3), :124 (sezione 9, prova B5), :127 (sezione 12)"
+    - "docs/software.md:651-653 (B3, B4, B5); B2 con alimentatore limitato a 1 A o fusibile da 3 A"
+  opzioni:
+    - "B3 e la taratura solo nella 12 con la batteria (bozza); nelle sezioni 8 e 9 solo prove senza rail."
+    - "B3 e B5 nelle sezioni 8 e 9 con l'alimentatore da banco limitato; la 12 controlla soltanto."
+  consiglio: "Tutto quello che accende il rail nella 12; nelle 8 e 9 solo continuita' e logica al banco."
+
+- titolo: Il piano dice "B4" nella sezione 12, ma B4 e' il fusibile nel BOM e il calettamento nelle prove di banco
+  gravita: minore
+  dove: "12.04, 12.05, 12.11"
+  cosa: >-
+    Nella riga della sezione 12 il piano scrive "cavalletto, F1 da 15 A, B4, dime 1 e 2...". Nel BOM B4 e'
+    l'assortimento di fusibili di F1; nelle procedure di banco di software.md B4 e' il calettamento delle squadrette
+    (residuo entro ±7,2°), che il piano fa nella sezione 6; il cicalino BX100 e' la voce B9. La bozza mette il
+    cicalino (B9) in 12.04, il fusibile (B4) in 12.05 e il controllo del calettamento come avviso della taratura
+    (12.11: oltre 80 µs dall'impulso di partenza la squadretta e' un dente fuori).
+  prove:
+    - "docs/piano-guida.md:127; docs/BOM.md B4 e B9; docs/software.md:652 (B4 calettamento) e 2.7 (±7,2°, circa ±80 µs)"
+  opzioni:
+    - "Correggere la riga del piano: 'F1 da 15 A (B4), cicalino (B9)'."
+  consiglio: "Correggere il piano."
+
+- titolo: Soglia del cicalino BX100 e verso dei suoi pin non scritti
+  gravita: minore
+  dove: "12.04"
+  cosa: >-
+    Il BOM dice "soglia regolabile" e "posizione dei pin da guardare sul pezzo". Le soglie del firmware sono proposte:
+    3,6 V per cella avviso, 3,5 per 5 s rail spento, 3,3 spegnimento. La bozza imposta il cicalino a 3,5 V per cella
+    [C]. Sotto carico, con i servo che tirano, una soglia a 3,5 puo' suonare a ogni passo.
+  prove:
+    - "docs/BOM.md B9; docs/software.md 2.6 (tabella degli eventi); decisioni.md 'Decisioni ereditate' (sottotensione su piu' livelli)"
+  opzioni:
+    - "3,5 V per cella, come il firmware (bozza)."
+    - "3,3 V per cella: ultimo livello, indipendente dal firmware, che suona solo se il firmware non ha gia' fermato il robot."
+  consiglio: "3,3 V per cella come ultimo livello; da decidere con l'utente."
+
+- titolo: Mancano le tolleranze delle tensioni da misurare
+  gravita: minore
+  dove: "12.06–12.10"
+  cosa: >-
+    Le fonti danno i valori nominali (6,0 V dei regolatori, 5 V del D24V22F5, partitore 8,4 V -> 2,69 V) ma non la
+    tolleranza: la bozza dice "lontano da 6,0 V, fermati" senza un numero. Anche il calo della batteria con i servo
+    fermi non e' scritto (stima: 6 A a 6 V in piedi, studio-componenti; sul cavalletto molto meno).
+  prove:
+    - "docs/BOM.md B1, B2, B10; docs/studio-componenti.md 'Batteria' (fermo in piedi circa 6 A)"
+  opzioni:
+    - "Leggere le pagine Pololu del D42V110F6 e del D24V22F5 e scrivere il campo ammesso (V) nella tabella."
+  consiglio: "Leggerle prima della guida 2.1.7."
+
+- titolo: Il verso della coxa contro il braccio della dima ("antiorario") non dice da dove si guarda
+  gravita: minore
+  dove: "12.11"
+  cosa: >-
+    D-066 e software.md 2.7 dicono che la coxa va contro il braccio "in senso antiorario". D-066 dice anche che il
+    braccio urta la cassa a +2° di imbardata: l'imbardata positiva e' antioraria vista dall'alto (Z in alto) [S]. La
+    bozza scrive "antiorario" senza "visto dall'alto" [C].
+  prove:
+    - "D-066, blocco C ('controllo a ±2°: ... quello dell'imbardata la cassa a +2°'); docs/software.md:271"
+  opzioni:
+    - "Scrivere 'antiorario visto dall'alto' dopo averlo controllato con la dima nel CAD."
+  consiglio: "Controllarlo nel CAD con Dima_Posa_1 e scriverlo."
+
+- titolo: Procedura d'emergenza per la batteria (calore, fumo, gonfiore) senza fonte
+  gravita: importante
+  dove: "12.01; sezione 0"
+  cosa: >-
+    Le fonti dicono che il T-plug e' il sezionamento d'emergenza e il pulsante l'arresto, ma non cosa fare se il pacco
+    scalda, si gonfia o fuma. La bozza scrive in 12.01 le regole generali [S]: staccare solo se non si tocca il
+    pacco, allontanarsi, niente acqua, all'aperto su una superficie che non brucia se e' sicuro.
+  prove:
+    - "docs/BOM.md 'Schema di alimentazione'; docs/software.md 2.6; nessuna voce nei documenti per l'incendio del pacco"
+  opzioni:
+    - "Pagina di sicurezza LiPo nella sezione 0 da una fonte primaria (manuale OVONIC), richiamata da 11.01 e 12.01."
+  consiglio: "Pagina nella sezione 0; i passi 11.01 e 12.01 la richiamano."

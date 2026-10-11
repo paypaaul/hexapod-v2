@@ -1,0 +1,128 @@
+# Problemi trovati scrivendo la sezione 15, smontaggio e manutenzione (D-075, formato in guida/schema.md "Problemi").
+# Campi in piu' rispetto allo schema: tipo (allocazione), domanda (cosa chiedere all'utente).
+
+- titolo: Nessun documento descrive la sostituzione di un servo di femore, di ginocchio o di coxa
+  gravita: importante
+  dove: "15.10, 15.11"
+  cosa: >-
+    Per il servo di coxa esiste solo una proposta nella ricerca (docs/ricerca/corpo-v0-revisione.json, difetto sul
+    servo di coxa: "si toglie il coperchio, si stacca la spina, si toglie il ponte, si ruota la coxa a mano di circa 33
+    gradi, si tolgono le quattro viti e si sfila il servo verso l'alto") scritta sul corpo v0, prima delle lame e del
+    ponte attuali, mai riportata in progetto-meccanico.md. Per i servo di femore e ginocchio nessun documento dice come
+    separare tibia e femore (squadrette, Femore_A, perni) per sfilare il servo dalla culla: i soli vincoli sono gli
+    esiti approvati dei problemi della zampa (lama A tolta, ginocchio a 45-75 gradi con il servo alimentato,
+    cacciavite a brugola dritto, servo sfilato dal lato A con il passacavo nella fessura). La guida dice di
+    ripercorrere al contrario la sezione 6 [C] e porta la coxa a circa 33 gradi con il ponte tolto [C].
+  prove:
+    - "docs/ricerca/corpo-v0-revisione.json: difetto 'Servo di coxa: le viti delle alette lato coda stanno sotto la testa dell'anima, e manca la procedura di serraggio e di sostituzione'"
+    - "guida/problemi/zampa.yaml: 'Le viti delle alette del ginocchio si raggiungono solo con la lama A tolta ...' (esito approvato l'11 ottobre 2026)"
+    - "guida/problemi/corpo.yaml: 'Viti lato coda del servo di coxa'; guida/passi/09-zampa-corpo.yaml 9.08"
+    - "ricerca in docs/ con 'sostitu' e 'smont': solo cablaggio.md 4 (carapace, T-plug, zampa) e D-054 (batteria)"
+  opzioni:
+    - "Scrivere la procedura in progetto-meccanico.md dopo averla provata sul primo servo da sostituire (bozza della guida con [C])."
+    - "Provarla nel CAD con i giunti veri prima di scriverla: angoli di accesso e ordine."
+  consiglio: "Provare la sostituzione sul primo servo e riportare la procedura in progetto-meccanico.md; la guida 1.1 la copia."
+
+- titolo: "Il cambio della batteria dipende dal problema bloccante di 11.03: le spine del pacco potrebbero non passare dal tetto"
+  gravita: importante
+  tipo: allocazione
+  dove: "15.04, 15.05"
+  cosa: >-
+    D-054 dice "due viti, si sfila lo sportello, si sfila il pacco", ma il primo problema di guida/problemi/batteria.yaml
+    mostra che le spine T-plug e JST-XH del pacco non passano dalle due fessure del tetto (13 x 4,5 mm) e che la
+    verifica di D-051 riguarda solo la scatola. Se il pacco non si sfila con i cavi collegati, ogni carica o cambio
+    richiede di staccare le spine sopra il tetto, in coda, e di tirare il pacco con i cavi liberi: non e' scritto
+    e dipende dall'esito del problema di 11. 15.05 rimanda a quel problema e marca [C] la carica fuori dal robot.
+  prove:
+    - "guida/problemi/batteria.yaml, primo problema (bloccante); guida/passi/11-batteria.yaml 11.03"
+    - "D-054 e D-051; docs/cablaggio.md 4"
+  opzioni:
+    - "Fessure aperte verso la coda (2.1.7) con la prova della spina vera."
+    - "Staccare T-plug e prolunga in coda e sfilare il pacco con i cavi liberi (bozza di 15.05)."
+  consiglio: "Seguire l'esito del problema di 11; 15.05 si aggiorna di conseguenza."
+
+- titolo: Come si sfila la lama A e quanta forza serve non sono misurati
+  gravita: minore
+  dove: "15.07"
+  cosa: >-
+    La lama A non ha viti: si calza sulle quattro teste M3 del blocco (Ø5,6) e le otto teste delle squadrette stanno
+    libere in tasche Ø6,2 (D-070). Le tasche cieche con pelle da 0,8 sono ancora da tarare con il provino D-072, che
+    decide se la tenuta viene da tasche lisce o da tre costole. Nessun documento dice con che forza si toglie ne' dove
+    si impugna; il rischio e' fare leva sul femore, sulle teste o sul bordo smussato della lama. La bozza dice di
+    tirare dritto lungo Y con le dita sui bordi e di non forzare [C].
+  prove:
+    - "D-070 (lama A, tasche, incastro sulle 4 teste del blocco) e D-072 (provino delle tasche)"
+    - "cad/stl/README.md: 'Attrezzo_Provino_Tasche_Base' e '_Lama'; CLAUDE.md, provini da stampare"
+    - "docs/ricerca/estetica.json: 'Si calza sulle quattro teste M3 x 8 ... le tazze tengono per attrito ... Si toglie per stringere le viti delle alette'"
+  opzioni:
+    - "Annotare la forza e il verso dopo il provino delle tasche e scriverli in 15.07."
+    - "Una tacca per l'unghia nel bordo della lama, nella 2.1.7."
+  consiglio: "Il provino prima, poi la procedura; nel frattempo tirare dritto e non forzare."
+  domanda: "Dopo il provino delle tasche, quanta forza serve per togliere la lama? Si impugna bene?"
+
+- titolo: Come si estrae un cuscinetto o un perno forzato non e' scritto
+  gravita: minore
+  dove: "15.10, 15.11"
+  cosa: >-
+    Il cuscinetto LF-1050ZZ si preme nella sede con un tubetto sulla sola flangia (Ø esterno al piu' 11,5, interno almeno
+    8) e il perno Ø5 e' forzato; il foro dietro la sede e' Ø7,2. Le fonti dicono come si premono, non come si tolgono
+    senza rovinare il cuscinetto o la sede: un'asta nel foro Ø7,2 spinge sull'anello interno (Ø6,4) e sulle sfere, non
+    sulla flangia. Per il giunto di coxa il perno sta nel braccio (1,4 mm sotto il braccio) e nel cuscinetto della gondola.
+  prove:
+    - "guida/problemi/zampa.yaml: 'Come si preme il cuscinetto del ginocchio' (tubetto sulla flangia, foro da 7,2)"
+    - "guida/catalogo/attrezzi.d/corpo.yaml: tubetto_cuscinetti"
+    - "guida/passi/09-zampa-corpo.yaml 9.03 (perno nel braccio)"
+  opzioni:
+    - "Un secondo tubetto, o un attrezzo stampato, per spingere dal lato giusto sulla flangia (2.1.7)."
+    - "Non togliere cuscinetti e perni: sostituire il pezzo stampato intero."
+  consiglio: "Se il forzamento e' leggero (taratura dal provino) basta il pollice; altrimenti l'attrezzo stampato della 2.1.7."
+
+- titolo: Gli intervalli di manutenzione non hanno nessuna fonte
+  gravita: minore
+  dove: "15.13"
+  cosa: >-
+    La tabella dei controlli periodici e' fatta di fatti dei documenti (il PLA rammollisce verso 55-60 C, il budget
+    termico dei servo di circa 10 minuti di sforzo e 30 di riposo, il cicalino che assorbe sempre, la taratura che si
+    rifa' dopo ogni smontaggio e la calibrazione camera-IMU dopo il vassoio) e di intervalli 'dopo le prime uscite',
+    'dopo ogni uscita', 'dopo ogni smontaggio' che sono proposte mie. Nessun documento dice ogni quanto controllare viti,
+    giochi, cuscinetti, piedini, fascette. Le viti dei giunti non hanno una coppia di serraggio.
+  prove:
+    - "docs/software.md 2.5, 2.6, 2.7; D-065; docs/BOM.md B9"
+    - "ricerca in docs/ con 'manutenzione': nessuna voce"
+  opzioni:
+    - "Tenere gli intervalli a eventi (bozza) e fissare i numeri dopo le prime ore di marcia."
+    - "Aggiungere una pagina 'Manutenzione' a progetto-meccanico.md con le prime misure."
+  consiglio: "Bozza; dopo le prime ore i numeri vengono dall'usura vera."
+  domanda: "Con la v1 ogni quanto ti e' capitato di dover stringere le viti o sostituire un servo?"
+
+- titolo: La zampa montata con la lama B non e' verificata nel CAD per lo sfilamento, e gli unici passaggi scritti sono per la zampa senza lama
+  gravita: minore
+  dove: "15.09"
+  cosa: >-
+    9.04 (zampa sotto la gondola) esclude Cover_Femore_B e il suo intarsio, perche' la lama B si monta nella sezione 12,
+    dopo la taratura. I 40 gradi e i 6 mm di abbassamento sono misurati sulla mesh senza lama B. La bozza dice di togliere la
+    lama B prima (15.06) e marca [C] lo sfilamento con la lama montata.
+  prove:
+    - "guida/passi/09-zampa-corpo.yaml 9.04 (esclusi: Cover_Femore_B e Cover_Femore_B_Feritoia)"
+    - "guida/passi/12-accensione.yaml (lama B montata dopo la taratura)"
+  opzioni:
+    - "Togliere sempre la lama B prima (bozza)."
+    - "Provare lo sfilamento con la lama B nel CAD (rifare il raggio di 9.04)."
+  consiglio: "Togliere la lama B; la prova nel CAD solo se serve evitare le due viti."
+
+- titolo: Ricambi, scorte di pezzi stampati e di inserti non sono nel BOM
+  gravita: minore
+  dove: "15.14"
+  cosa: >-
+    Il BOM da' le scorte di servo (2), squadrette (2), cuscinetti e perni (6), FSR (1), piedini (2), prolunghe (confezione da
+    20) e fusibili (assortimento). Non da' quanti pezzi stampati tenere ristampati, ne' filamento di scorta, ne' quanti inserti restano:
+    il kit ne ha 50 per misura ma i 94 M3 chiedono due lunghezze (guida/problemi/inserti.yaml). Le strisce
+    LED comprate (1 m) sono circa il doppio del necessario (circa 0,43 m: 16 pixel dell'anello e dei lobi + 36 delle tibie, S).
+  prove:
+    - "docs/BOM.md A1, B4, B6, C5, D1-D6, D9, D11, X5, X9; D4 e D5 (inserti)"
+    - "guida/problemi/inserti.yaml (lunghezze degli inserti)"
+  opzioni:
+    - "Ristampare un pezzo quando serve dai file in cad/stl/ (bozza)."
+    - "Stampare subito un secondo carapace, una tibia e un femore di scorta."
+  consiglio: "Ristampare quando serve; tenere in casa PETG-CF, PLA e TPU per un ricambio."
+  domanda: "Vuoi una scorta di pezzi stampati (un carapace, una tibia, un femore, i piedini) o ristampi quando serve?"

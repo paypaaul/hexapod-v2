@@ -1,0 +1,92 @@
+# Sezione 10, le altre cinque zampe (D-075, docs/piano-guida.md "Struttura della guida"): una pagina di lotti e la
+# scheda a spunta, con rimando alle sezioni 6 e 9. Nessun pezzo nuovo: i pezzi si montano nelle sezioni 6 e 9, che
+# hanno ripeti: 6 e contano gia' le quantita' per sei zampe.
+sezione:
+  id: altre_zampe
+  numero: 10
+  titolo: Le altre cinque zampe
+  colore: "#d9480f"
+  terna: robot
+  obiettivo: >-
+    Montare sul corpo le zampe MS, PS, AD, MD e PD, già fatte nella sezione 6, ripetendo la sezione 9, in due lotti: prima il lato sinistro, poi il
+    destro. Le zampe sono tutte uguali; cambiano solo i canali, le prese e la prolunga del ginocchio sulle zampe
+    d'angolo. Una scheda a spunta tiene il conto di ogni zampa.
+  prima:
+    - "Sei zampe montate (sezione 6, sei volte); zampa AS montata sul corpo (sezione 9)."
+    - "Lunghezze dei fili di FSR e luci misurate sulla zampa AS (passo 9.09), se monti X5 o X31."
+  tempo: "circa 45 minuti a zampa, come la sezione 9 [S]"
+  stato_elettrico: "T-plug staccato. Il servo di coxa si muove con il tester (passo 9.08)."
+  fonti: [D-075, docs/piano-guida.md "Struttura della guida"]
+  controllo:
+    - "Sei zampe sul corpo, tutte in linea con le gondole."
+    - "Ogni colonna della scheda è spuntata; le prolunghe sono solo sulle zampe d'angolo."
+    - "Le 18 spine sono sui canali della tabella e nessun cavo tira con le coxe a ±30°."
+
+passi:
+  - id: "10.01"
+    titolo: Ordine e lotti
+    formato: grande
+    immagine: false
+    testo:
+      - "Monta le zampe nell'ordine della tabella, una alla volta, con la sezione 9."
+      - "Finisci il lato sinistro prima di cominciare il destro."
+      - "Controlla a ogni zampa che le vicine già montate stiano a 0°: la zampa nuova arriva ruotata di 40° [V]."
+      - "Annota a ogni zampa il numero dei tre servo nella scheda del passo 10.03."
+    tabella:
+      intestazione: [Lotto, Zampe, Alla fine]
+      righe:
+        - ["0 (sezione 9)", "AS", "zampa pilota sul corpo, fili misurati"]
+        - ["1", "MS, PS", "lato sinistro completo: 9 servo sul rail VS1"]
+        - ["2", "AD, MD, PD", "lato destro: altri 9 servo, rail VS2"]
+    avvisi:
+      - {tipo: nota, testo: "Un lato alla volta perché la prima accensione (sezione 12) prova un lato con 9 servo (docs/software.md 6.7): ogni lato ha il suo regolatore e il suo rail (cablaggio.md 2)."}
+      - {tipo: nota, testo: "A 40° e 6 mm più in basso la zampa nuova non tocca le vicine ferme a 0° (prova sulle mesh del CAD per AS, MS e PS) [V]."}
+    fonti: ["docs/software.md 6.7 (B3)", "docs/cablaggio.md 2 (regolatore S su VS1, D su VS2)", "docs/dimensioni-componenti.md 'Servo controller' (VS1 canali 0–15, VS2 16–31)", robot/robot.yaml canali, "guida/problemi/zampa_corpo.yaml (prove sulle mesh)"]
+
+  - id: "10.02"
+    titolo: Cosa cambia da una zampa all'altra
+    formato: grande
+    immagine: false
+    testo:
+      - "Usa per ogni zampa gli stessi pezzi: non ci sono zampe destre e sinistre."
+      - "Controlla il lato A: guardando dal corpo verso il piede sta a sinistra, su tutte le sei zampe [V]."
+      - "Metti la prolunga sul ginocchio solo delle zampe d'angolo."
+      - "Collega le spine ai canali e alle prese della tabella."
+    tabella:
+      intestazione: [Zampa, Posto, "Prolunga sul ginocchio", "Canali coxa / femore / ginocchio [C]", "Presa FSR e luci [C]"]
+      righe:
+        - ["AS", "angolo", "sì", "0 / 1 / 2", "1ª"]
+        - ["MS", "media", "no", "6 / 7 / 8", "2ª"]
+        - ["PS", "angolo", "sì", "13 / 14 / 15", "3ª"]
+        - ["AD", "angolo", "sì", "16 / 17 / 18", "4ª"]
+        - ["MD", "media", "no", "22 / 23 / 24", "5ª"]
+        - ["PD", "angolo", "sì", "29 / 30 / 31", "6ª"]
+    avvisi:
+      - {tipo: importante, testo: "Sulle zampe d'angolo il ginocchio senza prolunga arriva alla SSC-32 con il 2 % di margine, o non ci arriva (docs/cablaggio.md 3.2)."}
+      - {tipo: nota, testo: "Squadretta di coxa uguale per tutte: due fori di traverso al servo con il servo a metà corsa (passo 9.01)."}
+      - {tipo: nota, testo: "Ordine delle prese: AS, MS, PS, AD, MD, PD, come robot.yaml; da quale capo della fila si parte è da confermare [C]."}
+    fonti: ["cad/stl/README.md 'Zampa (sei di ognuna)'", "D-046: la zampa è un componente istanziato sei volte", "guida/dati/manifest.json istanze (terne delle sei zampe)", "docs/cablaggio.md 3.2 e 3.3", robot/robot.yaml canali e zampe, "docs/BOM.md C5"]
+
+  - id: "10.03"
+    titolo: Scheda a spunta delle zampe
+    formato: grande
+    immagine: false
+    testo:
+      - "Spunta ogni casella quando la cosa è fatta; scrivi i numeri dove servono."
+      - "Non chiudere il carapace finché una colonna ha caselle vuote."
+    tabella:
+      intestazione: [Controllo, AS, MS, PS, AD, MD, PD]
+      righe:
+        - ["Servo coxa / femore / ginocchio (numeri)", "", "", "", "", "", ""]
+        - ["Sezione 6: alette strette, lama A, cavi", "", "", "", "", "", ""]
+        - ["Squadretta di coxa: fori di traverso", "", "", "", "", "", ""]
+        - ["Perno: 1,4 mm sotto il braccio", "", "", "", "", "", ""]
+        - ["Ponte stretto, gioco verticale 0,3 mm [C]", "", "", "", "", "", ""]
+        - ["Fascetta del ponte", "", "", "", "", "", ""]
+        - ["Prolunga sul ginocchio", "", "—", "", "", "—", ""]
+        - ["Spine sui canali", "", "", "", "", "", ""]
+        - ["Alette di coxa strette a 30°", "", "", "", "", "", ""]
+        - ["FSR e luci alle prese (X5, X31)", "", "", "", "", "", ""]
+    avvisi:
+      - {tipo: nota, testo: "La scheda riassume quelle delle sezioni 6 e 9; la taratura con le dime di tutte le zampe è nella sezione 12."}
+    fonti: [docs/piano-guida.md "Decisioni dell'utente" (scheda a spunta per zampa), "docs/software.md 6.7 (B5)"]

@@ -1,0 +1,438 @@
+# Sezione 4, banco dell'elettronica (D-075, docs/piano-guida.md "Struttura della guida"; fasi B0 e B1 di docs/software.md
+# 6.7 e di docs/piano-elettronica-software.md, P2). F3, estrattore delle sezioni 4 e 5.
+# Nessun pezzo e' montato nel corpo: SSC-32, basetta, ESP32 e scheda del carapace sono comprati e entrano nel corpo nelle
+# sezioni 8 e 13, qui si mostrano a colori pieni (in_evidenza). Nuovi sono solo i pezzi della sezione: regolatori,
+# slitte, supporti e INA260 (predisposizione X7). Le slitte entrano nel corpo nella sezione 8, che le prende come assieme.
+# Gli inserti M2 di slitte e supporti li mette la sezione 3 (3.15, 3.16, 3.19): qui si controllano soltanto.
+# Gli schemi della basetta e della scheda del carapace non esistono (guida/schemi/ e' vuota): i passi 4.04-4.06 danno
+# l'elenco dei collegamenti dalle fonti, marcato [C], e dicono di non saldare finche' lo schema non e' approvato
+# (guida/problemi/banco.yaml, primo problema). Le immagini delle slitte mostrano i due lati insieme, di fronte, con gli
+# esplosi simmetrici: la slitta destra e' la sinistra ruotata (D-066, X7) e le viti dei due lati stanno nella stessa
+# giunzione (regolatori, 8 viti), quindi non si puo' nascondere un lato senza lasciare le sue viti nell'aria.
+sezione:
+  id: banco
+  numero: 4
+  titolo: Banco dell'elettronica
+  colore: "#2f9e6f"
+  terna: robot
+  istanza: AS
+  presenti_iniziali: []
+  obiettivo: >-
+    Preparare e provare l'elettronica sul tavolo, prima del corpo: SSC-32 con le barre di rame e la configurazione dalla
+    micro-USB, che a corpo montato non si raggiunge (D-051); ESP32, basetta e scheda del carapace; ramo logica; i due
+    regolatori dei servo sulle slitte, con gli INA260. Ogni blocco si prova da solo, con il risultato atteso scritto nel
+    passo (docs/software.md 6.7).
+  prima:
+    - "Provini fatti e valori nel CAD (sezione 1); pezzi stampati e controllati (sezione 2)."
+    - "Inserti M2 messi nelle slitte (4 ciascuna) e, con gli INA260 (X7), nei supporti (2 ciascuno) (sezione 3)."
+    - "Pezzi elencati qui a destra in casa; batteria carica (passo 0.06)."
+    - "Cavi USB-C e micro-USB per dati; Mac con ESP-IDF (firmware/README.md)."
+  tempo: "circa 5 ore la prima volta, saldature escluse [S]"
+  stato_elettrico: >-
+    Batteria collegata solo nei passi di prova, per ultima, con il fusibile giusto: F2 da 2 A sulla logica, F1 da 3 A sul
+    regolatore. Prima di ogni collegamento, continuità fra + e −: nessun corto. Dopo ogni prova, T-plug staccato.
+  fonti: [D-051, D-053, D-073, "docs/software.md 6.7", "docs/piano-elettronica-software.md 4 (P2)", docs/cablaggio.md]
+  controllo:
+    - "SSC-32: ponticelli VS VL e VS1 VS2 tolti; quattro barre saldate sul retro, senza corti."
+    - "SSC-32: dalla micro-USB risponde a VER, e la risposta è annotata. Da qui in poi non si configura più."
+    - "ESP32: flash fatto dalla porta TTL; GPIO42 a 0 V."
+    - "Basetta e scheda del carapace: collegamenti saldati e provati in continuità, secondo lo schema approvato."
+    - "Ramo logica: 5,0 V all'uscita del D24V22F5; GPIO1 a 0,32 volte la tensione del pacco; corrente sotto 0,5 A."
+    - "Regolatori: ognuno sulla sua slitta con 4 viti M2; 6,0 V con EN libero e 0 V con EN a massa tramite 47 kΩ."
+    - "INA260, se montati: sinistro con il ponticello A1, destro con A0 e A1, su supporto e slitta."
+    - "Risultati e risposte della SSC-32 annotati nelle tabelle dei passi."
+  vista_finale: {direzione: [0.8, -0.3, 0.5], su: [0, 0, 1]}
+
+passi:
+  - id: "4.01"
+    titolo: Ponticelli della SSC-32
+    formato: grande
+    in_evidenza: [corpo/SSC32]
+    vista: {direzione: [0.6, -0.45, 0.65], su: [0, 0, 1]}
+    etichette:
+      - {testo: Morsettiera, punto: [22, 0, 4]}
+      - {testo: VS VL, punto: [14, 14, 6]}
+      - {testo: VS1 VS2, punto: [14, -14, 6]}
+      - {testo: Micro-USB, punto: [-50, -14, 3]}
+      - {testo: "Canali 0–15", punto: [-14, 26, 6]}
+      - {testo: "Canali 16–31", punto: [-14, -26, 6]}
+    testo:
+      - "Posa la SSC-32 sul tavolo, con le spine in alto e la morsettiera verso di te."
+      - "Togli il ponticello VS VL, vicino al canale 0."
+      - "Togli i due ponticelli VS1 VS2, vicino al canale 16."
+      - "Controlla con il multimetro, in continuità, che i morsetti VS1+, VS2+ e VL+ non si tocchino."
+      - "Metti i tre ponticelli in un sacchetto, con l'etichetta SSC-32."
+    avvisi:
+      - {tipo: attenzione, testo: "Con VS VL al suo posto la logica, che arriva dalla batteria fino a 8,4 V, entrerebbe nel rail dei servo, che reggono al massimo 7,2 V [V]."}
+      - {tipo: nota, testo: "Posizioni dal disegno del venditore [S]: cerca le scritte sulla scheda vera e, se non coincidono, annota dove sono [C]."}
+      - {tipo: nota, testo: "VS VL si toglie perché la logica ha la sua alimentazione, dopo la 2813; VS1 VS2 perché ogni rail ha il suo regolatore."}
+    attrezzi: [multimetro]
+    fonti:
+      - "docs/dimensioni-componenti.md, 'Servo controller SSC32-V2.5' (ponticelli, morsettiera, micro-USB: S)"
+      - "docs/studio-componenti.md, 'Distribuzione: potenza dal retro della SSC-32'"
+      - "docs/BOM.md, 'Schema di alimentazione' e A1 (4,8-7,2 V)"
+      - "docs/software.md 6.7, B1 (ponticello VS-VL tolto)"
+
+  - id: "4.02"
+    titolo: Barre di rame sul retro della SSC-32
+    formato: grande
+    in_evidenza: [corpo/SSC32]
+    vista: {direzione: [0.35, -0.55, -0.75], su: [0, 0, 1]}
+    etichette:
+      - {testo: "Barre VS2 e massa", punto: [-14.5, -31, -1.4]}
+      - {testo: "Barre VS1 e massa", punto: [-14.5, 31, -1.4]}
+    testo:
+      - "Guarda il retro sotto gli header: annota se fra i pin ci sono componenti [C]."
+      - "Taglia quattro fili di rame Ø 1 mm lunghi come una fila di 16 pin, circa 50 mm [S], e stagnali."
+      - "Salda una barra sui 16 pin della fila VS1, quella di mezzo del lato dei canali 0–15."
+      - "Salda una barra sulla fila di massa, la più vicina al bordo."
+      - "Ripeti sul lato dei canali 16–31, con VS2 e massa."
+      - "Controlla in continuità: ogni barra tocca i suoi 16 pin, VS e massa non si toccano."
+    avvisi:
+      - {tipo: importante, testo: "Dopo il passo 4.01: con un ponticello rimasto, le barre unirebbero due rail."}
+      - {tipo: attenzione, testo: "Ogni servo prende la corrente dal suo pin, circa 3 A ammessi [S]: le piste non portano potenza. I fili dei regolatori vanno a metà barra (sezione 8)."}
+      - {tipo: nota, testo: "File dal bordo: massa, VS, segnale [S]. La fila VS sta a 23,5 mm dall'asse del robot, da x 10,3 a −39,4 [V]."}
+    extra: [{nome: "filo di rame stagnato Ø 1 mm, 4 pezzi da 50 mm", qta: 4, bom: B16}]
+    attrezzi: [saldatore, tronchesino, multimetro]
+    fonti:
+      - "docs/studio-componenti.md, 'Distribuzione: potenza dal retro della SSC-32' (barre, 3 A per pin)"
+      - "docs/BOM.md B16, B15 e 'Schema di alimentazione'"
+      - "docs/cablaggio.md, tabella 1 (file degli header) e 2 ('Le barre di rame da 1 mm')"
+      - "guida/problemi/banco.yaml (retro della SSC-32 da guardare)"
+
+  - id: "4.03"
+    titolo: ESP32 su USB, prova B0
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Appoggia l'ESP32 sul tavolo, senza basetta, batteria e regolatori."
+      - "Leggi la sigla stampata sulla scheda: deve essere RE1.3 [C]."
+      - "Collega la porta USB-C TTL, quella del CH340, al Mac."
+      - "Carica lo scheletro del firmware: . ~/esp/esp-idf/export.sh, poi dalla cartella firmware idf.py -p porta flash monitor [C]."
+      - "Misura la tensione fra GPIO42 e GND, e fra il pin 5V e GND."
+    tabella:
+      intestazione: [Punto, Atteso, Misurato]
+      righe:
+        - ["LED di alimentazione", "acceso [S]", ""]
+        - ["Porta seriale sul Mac", "nuova, ls /dev/cu.* [C]", ""]
+        - ["Flash con idf.py", "senza errori [C]", ""]
+        - ["GPIO42 contro GND", "0 V: il firmware lo tiene basso [V]", ""]
+        - ["Pin 5V contro GND, con la sola USB", "da annotare: se è a 5 V esiste un percorso dalla USB al pin [C]", ""]
+    avvisi:
+      - {tipo: attenzione, testo: "Mai la USB con l'ESP32 alimentata dal pin 5V: non sappiamo se la scheda ha un diodo fra i due ingressi [C]."}
+      - {tipo: importante, testo: "TTL va al CH340 (console, flash); OTG è la USB nativa, riservata (docs/studio-componenti.md)."}
+      - {tipo: nota, testo: "Lo scheletro del firmware non è mai stato provato sul chip e non accende il LED né legge GPIO1: LED e ADC si provano con il programma di banco S1, che non c'è ancora (guida/problemi/banco.yaml)."}
+      - {tipo: nota, testo: "Se il flash non parte: tieni BOOT, premi RST, rilascia BOOT e riprova [S]."}
+    attrezzi: [multimetro, mac_seriale]
+    fonti:
+      - "docs/software.md 6.7 (B0: flash, LED, ADC su GPIO1, GPIO42 con il multimetro)"
+      - "firmware/README.md ('Compilare il firmware', 'Non provato sul chip') e firmware/main/main.cpp (GPIO42 basso)"
+      - "docs/studio-componenti.md ('Scheda UICPAL ESP32-S3-CAM', pinout, USB-C)"
+      - "docs/BOM.md A2 (la RE1.3 si legge sulla scheda), C3 (ingresso del 5 V)"
+      - "CLAUDE.md, 'Da guardare sui pezzi in casa'"
+
+  - id: "4.04"
+    titolo: Basetta, alimentazione e comandi
+    formato: grande
+    immagine: false
+    testo:
+      - "Taglia la millefori a 56 × 35 mm (D-053)."
+      - "Salda i due strip femmina 1 × 20 per l'ESP32, con le file a 24,7 mm [C]."
+      - "Salda un collegamento della tabella alla volta, e controllalo in continuità."
+    tabella:
+      intestazione: [Collegamento, Da → a, Fonte]
+      righe:
+        - ["5 V logica", "uscita 2813 → D24V22F5; uscita D24V22F5 → pin 5V dell'ESP32", "cablaggio 3.1"]
+        - ["Seriale SSC-32", "GPIO21 TX e GPIO14 RX → traslatore C1 (3,3 V da una parte, 5 V dall'altra) → RX e TX della SSC-32", "cablaggio 3.6"]
+        - ["Partitore batteria", "uscita 2813 → 100 kΩ → GPIO1 → 47 kΩ → GND; 100 nF fra GPIO1 e GND", "BOM B10, B8"]
+        - ["Abilitazione rail", "GPIO42 → 1N4148 (anodo a GPIO42) → EN dei due regolatori; 47 kΩ da EN a GND", "BOM B11"]
+        - ["Spegnimento", "GPIO41 → OFF della 2813; 100 kΩ a GND solo se scatta da sola", "cablaggio 3.1"]
+        - ["Prova seriale", "TX, RX e GND su un connettore a 3 poli", "software 8"]
+    avvisi:
+      - {tipo: importante, testo: "Non saldare finché lo schema della basetta non è approvato: la disposizione sulla millefori non è mai stata disegnata. La tabella dà i collegamenti, non i posti [C]."}
+      - {tipo: nota, testo: "Il diodo ferma il pull-up che il pin EN potrebbe avere verso l'ingresso. Resistenza e soglia si provano al passo 4.12 (BOM B11) [C]."}
+    extra:
+      - {nome: "millefori 50 × 70 (taglio 56 × 35) e 2 strip femmina 1 × 20", qta: 1, bom: C2}
+      - {nome: "D24V22F5, traslatore C1, resistenze 100 kΩ e 47 kΩ, diodo 1N4148", qta: 1, bom: "B2, C1, B10, B11"}
+    attrezzi: [saldatore, tronchesino, multimetro]
+    fonti:
+      - "D-053 (basetta 56 × 35, strip, colonnine)"
+      - "docs/cablaggio.md, 2 ('Potenza', 'Segnali') e 3.1, 3.6"
+      - "docs/BOM.md B2, B8, B10, B11, C1, C2"
+      - "docs/piano-elettronica-software.md 2.3 (GPIO)"
+      - "docs/software.md 8 ('Elettronica': connettore di prova, 100 kΩ su GPIO41)"
+      - "guida/problemi/banco.yaml (schemi mancanti)"
+
+  - id: "4.05"
+    titolo: Basetta, luci, bus e cavo piatto
+    formato: grande
+    immagine: false
+    testo:
+      - "Salda un collegamento della tabella alla volta, e controllalo in continuità."
+      - "Salda il cavo piatto a 16 vie, lungo circa 15 cm: il filo n porta il segnale del polo n (tabella del passo 4.06)."
+    tabella:
+      intestazione: [Collegamento, Da → a, Fonte]
+      righe:
+        - ["Catena LED (X9)", "GPIO48 → 10 kΩ a GND e ingresso del buffer SN74AHCT125N a 5 V; uscita → 330 Ω → polo 4 e ramo delle tibie", "cablaggio 2"]
+        - ["5 V dei LED (X9)", "D24V22F5 → PTC → poli 1 e 2 e ramo delle tibie", "cablaggio 3.1"]
+        - ["Bus sensori (X1)", "GPIO47 SDA e GPIO3 SCL → pull-up → 3,3 V; poli 8 e 6 e rami nel corpo", "cablaggio 3.4"]
+        - ["3,3 V sensori", "pin 3V3 dell'ESP32 → polo 7 e rami; con X3, D24V5F3", "piano 2.2"]
+        - ["Audio (X16, X17)", "GPIO38 BCLK, GPIO39 WS, GPIO40 microfoni, GPIO2 amplificatore → poli 10, 11, 12, 13", "cablaggio 2"]
+        - ["Pulsante", "poli 15 e 16 → A e B della 2813", "cablaggio 3.1"]
+        - ["Massa", "tutte le masse tornano alla basetta e da lì al Wago −", "predisposizioni 2.3"]
+    avvisi:
+      - {tipo: importante, testo: "Non saldare finché lo schema della basetta non è approvato: il valore dei pull-up e la disposizione stanno nello schema [C]."}
+      - {tipo: opzionale, x: X9, quando: meglio_ora, testo: "Il buffer e il PTC non stanno sul carapace: se vuoi le luci vanno sulla basetta adesso. Senza X9 salta la prima e la seconda riga."}
+      - {tipo: opzionale, x: X1, quando: meglio_ora, testo: "Senza il bus dei sensori e il cavo piatto salta il resto, tranne il pulsante."}
+      - {tipo: opzionale, x: X3, quando: anche_dopo, testo: "D24V5F3 solo se la prova del 3,3 V della scheda fallisce. Senza, i sensori prendono il 3,3 V dalla scheda ESP32."}
+    extra:
+      - {nome: "buffer SN74AHCT125N, 330 Ω, 10 kΩ, PTC e cavo piatto a 16 vie", qta: 1, bom: "X9, X2"}
+    attrezzi: [saldatore, tronchesino, multimetro]
+    fonti:
+      - "docs/cablaggio.md 2 ('Segnali'), 3.1, 3.4, 3.5"
+      - "docs/predisposizioni.md 2.3 (cavo piatto saldato sulla basetta, masse) e X9"
+      - "docs/piano-elettronica-software.md 2.2, 2.3, 2.4 (pull-up)"
+      - "docs/BOM.md X1, X2, X3, X9"
+      - "guida/problemi/banco.yaml (schemi mancanti)"
+
+  - id: "4.06"
+    titolo: Scheda del carapace
+    formato: grande
+    immagine: false
+    testo:
+      - "Taglia dall'avanzo di millefori una striscia di al più 20 × 30 mm, l'ingombro nel CAD [V]."
+      - "Salda la testata 2 × 8, la presa Qwiic e il condensatore da 470 µF."
+      - "Salda il pull-down da 100 kΩ sul polo 12."
+      - "Controlla in continuità ogni riga della tabella."
+    tabella:
+      intestazione: [Polo, Segnale, Va a]
+      righe:
+        - ["1 e 2", "+5 V", "470 µF verso massa; luci e amplificatore"]
+        - ["3, 5 e 9", "massa", "massa comune"]
+        - ["4", "dato dei LED a 5 V", "catena: anello e lobi"]
+        - ["6 e 8", "SCL e SDA", "presa Qwiic e ToF posteriore"]
+        - ["7", "+3,3 V sensori", "presa Qwiic e ToF posteriore"]
+        - ["10 e 11", "BCLK e WS", "microfoni e amplificatore"]
+        - ["12", "dati dei microfoni", "microfoni; 100 kΩ verso massa"]
+        - ["13", "dati verso l'amplificatore", "amplificatore"]
+        - ["14", "riserva", "libero"]
+        - ["15 e 16", "pulsante A e B", "pulsante del carapace"]
+    avvisi:
+      - {tipo: importante, testo: "Non saldare finché lo schema della scheda non è approvato: la disposizione non esiste [C]."}
+      - {tipo: opzionale, x: X2, quando: meglio_ora, testo: "Senza X2 il pulsante e le luci del carapace non hanno il cavo a 16 poli. Dopo costa smontare il carapace."}
+      - {tipo: nota, testo: "La spina IDC sta sulla scheda e si sfila dall'ottagono. Nel cavo piatto il filo n sta accanto al filo n + 1: la tabella è già in quest'ordine (docs/cablaggio.md 3.5)."}
+    extra:
+      - {nome: "box header 2 × 8, spina IDC a 16 poli, 470 µF, resistenza 100 kΩ", qta: 1, bom: "X2, B10"}
+    attrezzi: [saldatore, multimetro]
+    fonti:
+      - "docs/cablaggio.md 3.5 (piedinatura 2 × 8)"
+      - "docs/predisposizioni.md 2.3 (scheda del carapace, presa Qwiic)"
+      - "D-074 (pull-down da 100 kΩ sui dati dei microfoni)"
+      - "docs/BOM.md X2"
+      - "guida/problemi/banco.yaml (schemi mancanti)"
+
+  - id: "4.07"
+    titolo: Ramo logica sul tavolo
+    formato: grande
+    immagine: false
+    testo:
+      - "Metti in F1 il fusibile da 3 A del banco, e in F2 quello da 2 A."
+      - "Infila nel Wago + il filo rosso del T-plug e nel Wago − il nero, da 14 AWG."
+      - "Collega il Wago + all'ingresso di F2, e F2 all'ingresso della 2813 (26 AWG)."
+      - "Collega il Wago − alla massa della 2813."
+      - "Collega l'uscita della 2813 al D24V22F5, a VL+ della SSC-32 e al partitore; la massa di VL va al Wago −."
+      - "Collega l'uscita 5 V del D24V22F5 al pin 5V dell'ESP32, con la USB staccata."
+    avvisi:
+      - {tipo: attenzione, testo: "Prima della batteria misura in continuità fra Wago + e Wago −: nessun contatto. Il T-plug si collega per ultimo."}
+      - {tipo: importante, testo: "La logica passa da F2 e dalla 2813. I regolatori dei servo hanno il loro ramo (passi 4.10–4.12)."}
+      - {tipo: nota, testo: "Senza basetta, D24V22F5 e partitore stanno sciolti, con cavetti Dupont (BOM C4) [C]. Lo schema è quello del robot: F1 passa da 3 A a 15 A alla prima accensione (BOM B4, B13)."}
+    extra:
+      - {nome: "T-plug, portafusibile F1 con fusibile da 3 A, portafusibile F2 con fusibile da 2 A", qta: 1, bom: "B12, B5, B6"}
+      - {nome: "morsetto Wago 221-415", qta: 2, bom: B13}
+      - {nome: "interruttore Pololu 2813", qta: 1, bom: B3}
+      - {nome: "cavo 26 AWG, più colori", qta: 1, bom: B17}
+    attrezzi: [multimetro, spelafili, cacciavite_piatto]
+    fonti:
+      - "docs/BOM.md, 'Schema di alimentazione' e B3, B4, B5, B6, B12, B13, B17"
+      - "docs/cablaggio.md, 2 ('Potenza'), 3.1 ('Ramo logica', '5 V e VL') e 5.6 (Wago)"
+      - "docs/software.md 6.7 (B1: logica da 2S attraverso F2)"
+      - "docs/piano-elettronica-software.md 2.2 e 3.3"
+
+  - id: "4.08"
+    titolo: Prova del ramo logica
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Collega il T-plug alla batteria."
+      - "Premi il pulsantino della 2813: il LED dell'ESP32 si accende [S]."
+      - "Misura e annota le tensioni della tabella."
+      - "Misura la corrente con il multimetro in serie al filo rosso dopo F2."
+      - "Premi il pulsantino: la 2813 spegne. Stacca il T-plug."
+    tabella:
+      intestazione: [Punto, Atteso, Misurato]
+      righe:
+        - ["Wago + contro Wago −", "tensione del pacco, 6,0–8,4 V [V]", ""]
+        - ["Uscita della 2813", "come il pacco [V]", ""]
+        - ["Uscita del D24V22F5", "5,0 V [V]", ""]
+        - ["GPIO1 contro GND", "0,32 volte il pacco: 2,69 V a 8,4 V, 2,37 V a 7,4 V [V]", ""]
+        - ["GPIO42 contro GND", "0 V [V]", ""]
+        - ["Corrente dopo F2", "meno di 0,5 A [S]", ""]
+    avvisi:
+      - {tipo: attenzione, testo: "Se il D24V22F5 scalda, il 5 V è lontano da 5,0 V o la corrente supera 1 A: premi il pulsantino e stacca il T-plug."}
+      - {tipo: attenzione, testo: "Con l'ESP32 sul pin 5V la USB resta staccata [C]."}
+      - {tipo: nota, testo: "GPIO1 legge il pacco per 47/147: 6,0–8,4 V diventano 1,92–2,69 V, dentro l'ADC (BOM B10)."}
+    attrezzi: [multimetro]
+    fonti:
+      - "docs/software.md 6.7 (B0, B1)"
+      - "docs/BOM.md B2, B10"
+      - "docs/piano-elettronica-software.md 3.3 (ramo logica, circa 0,49 A)"
+      - "guida/passi/12-accensione.yaml 12.07 (stessa tabella nel robot)"
+
+  - id: "4.09"
+    titolo: SSC-32 dalla micro-USB, prova B1
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Collega la SSC-32 al Mac con il cavo micro-USB dati."
+      - "Collega il T-plug e premi il pulsantino della 2813: VL arriva alla SSC-32."
+      - "Apri un terminale seriale a 115200 baud, 8N1, sulla porta della SSC-32 [C]."
+      - "Scrivi VER e premi Invio: annota la risposta. Poi scrivi Q e annota la risposta."
+      - "Se non risponde a 115200, prova le velocità vicine e annota quella che funziona."
+      - "Spegni la 2813 e stacca T-plug e micro-USB."
+    tabella:
+      intestazione: [Comando, Atteso, Risposta]
+      righe:
+        - ["VER", "la versione della scheda [C]", ""]
+        - ["Q", "risposta senza errori [C]", ""]
+        - ["Velocità che risponde", "115200 baud [C]", ""]
+    avvisi:
+      - {tipo: importante, testo: "Ultimo momento: a corpo montato la micro-USB non si raggiunge (D-051). Quello che vuoi cambiare nella SSC-32 si fa adesso."}
+      - {tipo: attenzione, testo: "Non scrivere i registri: sono in EEPROM, circa 100 000 scritture [S]. La velocità si cambia solo se 115200 non risponde, con il pulsante BAUD [S]."}
+      - {tipo: nota, testo: "Le risposte del clone diventano i dati dell'emulatore (docs/software.md 6.5): annotale parola per parola. Il clone non è mai stato acceso: non sappiamo se la micro-USB alimenta la logica né quali comandi accetta (QP, binario) [C]. I movimenti si provano con un servo nella sezione 5."}
+    attrezzi: [mac_seriale]
+    fonti:
+      - "D-051 (micro-USB non raggiungibile a corpo montato: si configura al banco)"
+      - "docs/software.md 2.4 (comandi), 6.5 (emulatore), 6.7 (B1)"
+      - "docs/studio-componenti.md ('Controllo (invariato)': 115200 baud 8N1)"
+      - "docs/piano-elettronica-software.md 2.5 (UART della SSC-32), P2"
+      - "guida/problemi/banco.yaml (clone della SSC-32 non verificato)"
+
+  - id: "4.10"
+    titolo: Regolatore sulla slitta
+    formato: grande
+    nuovi: [corpo/Corpo_Slitta_Regolatore_S, corpo/Corpo_Slitta_Regolatore_D, corpo/Regolatore_S, corpo/Regolatore_D]
+    giunzioni: [{id: regolatori, esploso: 17}]
+    esploso: {pezzi: {"corpo/Regolatore_S": [0, -20, 0], "corpo/Regolatore_D": [0, 20, 0]}}
+    vista: {direzione: [0.8, -0.3, 0.5], su: [0, 0, 1]}
+    testo:
+      - "Controlla che i quattro inserti M2 di ogni slitta siano a filo, sulla faccia verso il centro."
+      - "Posa il regolatore sulla slitta, con i componenti verso il centro."
+      - "Allinea i quattro fori del circuito con gli inserti."
+      - "Accosta le quattro viti M2 × 5, poi stringile piano."
+      - "Fai lo stesso sull'altra slitta: è la stessa, ruotata."
+    avvisi:
+      - {tipo: importante, testo: "Stringi piano, finché la testa tocca il circuito: la punta della M2 × 5 arriva a 0,6 mm dal fondo del foro [V], e una vite forzata rompe la plastica o stacca l'inserto."}
+      - {tipo: nota, testo: "I fori del Pololu stanno a 4,191 mm dal lato delle piazzole, non al centro (D-051): se non coincidono con gli inserti, controlla il verso del regolatore [S]."}
+      - {tipo: opzionale, x: X14, quando: meglio_ora, testo: "NTC: incollane ora una sulla bobina di ogni regolatore e salda due fili 28 AWG [C]; nel corpo non si arriva (8.26)."}
+    extra: [{nome: "NTC 10 kΩ", qta: 2, bom: X14}]
+    attrezzi: [croce_ph0]
+    fonti:
+      - "D-051 (regolatori su slitte stampate, fori a 4,191 mm)"
+      - "docs/BOM.md, 'Viteria e inserti' (regolatori → slitte M2 × 5, 8) e D8"
+      - "guida/catalogo/giunzioni.yaml (regolatori: 4 viti per regolatore, presa 3,42 mm, fondo libero 0,58 mm)"
+      - "guida/passi/03-inserti.yaml 3.15 e 3.16 (inserti delle slitte)"
+      - "cad/stl/README.md (Corpo_Slitta_Regolatore.stl, due copie)"
+
+  - id: "4.11"
+    titolo: Fili dei regolatori
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Salda su VIN e GND del regolatore due fili 14 AWG da 0,5 m [S], rosso e nero."
+      - "Salda su VOUT e GND due fili 14 AWG da 0,6 m [S], rosso e nero."
+      - "Lascia liberi EN e PG."
+      - "Controlla che le saldature siano lucide e che ingresso e uscita non si tocchino."
+      - "Ripeti per il regolatore destro."
+    avvisi:
+      - {tipo: attenzione, testo: "Controlla la polarità prima di saldare: la protezione da inversione c'è sull'ingresso (BOM B1), ma non metterla alla prova."}
+      - {tipo: importante, testo: "Con gli INA260 (X7) il filo rosso d'uscita passa dalla morsettiera dell'INA260, che potrebbe non prendere un 14 AWG: allora l'ultimo tratto si salda. Si decide nella sezione 8 [C]."}
+      - {tipo: nota, testo: "Lunghezze stimate dal percorso nel corpo (docs/cablaggio.md 3.1) [S]. Cavo siliconico 14 AWG già in casa (BOM B14, B15)."}
+    attrezzi: [saldatore, spelafili, multimetro]
+    fonti:
+      - "docs/cablaggio.md 3.1 ('Ingresso dei regolatori', 'Rail servo')"
+      - "D-073 (14 AWG sulle uscite dei regolatori)"
+      - "docs/BOM.md B1 (protezione da inversione, pin EN e PG), B14, B15"
+      - "docs/predisposizioni.md X7 (morsettiera dell'INA260: C)"
+
+  - id: "4.12"
+    titolo: Prova dei regolatori
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Collega l'ingresso del regolatore ai Wago, con F1 da 3 A; l'uscita resta libera."
+      - "Collega il T-plug alla batteria e misura l'uscita con EN libero."
+      - "Collega EN a massa con 47 kΩ e misura l'uscita."
+      - "Collega EN al 3,3 V dell'ESP32 con un 1N4148, tenendo i 47 kΩ, e misura l'uscita."
+      - "Stacca il T-plug. Ripeti per l'altro regolatore."
+    tabella:
+      intestazione: [Pin EN, Uscita attesa, Misurato]
+      righe:
+        - ["libero", "6,0 V [V]", ""]
+        - ["47 kΩ verso massa", "0 V: rail spento [C]", ""]
+        - ["1N4148 dal 3,3 V, con i 47 kΩ", "6,0 V [C]", ""]
+    avvisi:
+      - {tipo: attenzione, testo: "Con i 47 kΩ il regolatore deve restare spento: se l'uscita dà 6 V, stacca il T-plug. Prova il 22 kΩ di riserva (BOM B11) e annota quale funziona [C]."}
+      - {tipo: importante, testo: "Questa prova decide le resistenze della basetta (passo 4.04): la soglia bassa del pin non è pubblicata (BOM B11)."}
+      - {tipo: nota, testo: "Il 3,3 V viene dall'ESP32 alimentata dalla USB, non dal pin 5V; la sua massa va al Wago −. Nel robot la prova si ripete con GPIO42 (sezione 12)."}
+    attrezzi: [multimetro]
+    fonti:
+      - "docs/BOM.md B1, B11 (soglia bassa non pubblicata: da provare al banco)"
+      - "docs/cablaggio.md 3.1 ('Abilitazione del rail': S, valori da provare al banco)"
+      - "docs/software.md 6.7 (B3)"
+      - "guida/problemi/banco.yaml (pin EN)"
+
+  - id: "4.13"
+    titolo: Ponticelli degli INA260
+    formato: mezzo
+    immagine: false
+    testo:
+      - "Prendi l'INA260 sinistro e chiudi con una goccia di stagno il ponticello A1."
+      - "Prendi l'INA260 destro e chiudi i ponticelli A0 e A1."
+      - "Controlla in continuità le piazzole chiuse, e che l'altro ponticello sia aperto."
+      - "Scrivi S o D con il pennarello sul retro."
+    tabella:
+      intestazione: [Scheda, Ponticelli chiusi, Indirizzo I2C]
+      righe:
+        - ["INA260 sinistro", "A1", "0x44 [V]"]
+        - ["INA260 destro", "A0 e A1", "0x45 [V]"]
+    avvisi:
+      - {tipo: importante, testo: "Si fanno prima di collegarli: le schede nascono tutte a 0x40 e due uguali sul bus non si distinguono (docs/piano-elettronica-software.md 2.4)."}
+      - {tipo: opzionale, x: X7, quando: meglio_ora, testo: "Senza INA260 salta questo passo e il 4.14: il robot funziona lo stesso, la corrente dei rail si stima soltanto."}
+    attrezzi: [saldatore, multimetro]
+    fonti:
+      - "docs/predisposizioni.md X7 e tabella degli indirizzi (0x44: A1; 0x45: A0 e A1)"
+      - "docs/piano-elettronica-software.md 2.4"
+
+  - id: "4.14"
+    titolo: Supporto dell'INA260 sulla slitta
+    formato: grande
+    nuovi: [corpo/Corpo_Supporto_INA260_S, corpo/Corpo_Supporto_INA260_D]
+    in_evidenza: [corpo/INA260_S, corpo/INA260_D]
+    esploso: {pezzi: {"corpo/Corpo_Supporto_INA260_S": [0, -8, 0], "corpo/Corpo_Supporto_INA260_D": [0, 8, 0]}}
+    vista: {direzione: [0.8, -0.3, 0.5], su: [0, 0, 1]}
+    testo:
+      - "Controlla gli inserti M2 del supporto: a filo, verso il centro."
+      - "Tieni da parte l'INA260 con i ponticelli fatti: si avvita sul supporto nel corpo (passo 8.03)."
+      - "Posa il supporto sulla slitta, con il labbro sul suo bordo, senza fissarlo."
+      - "Fai lo stesso sull'altro lato."
+    avvisi:
+      - {tipo: opzionale, x: X7, quando: meglio_ora, testo: "Senza INA260 salta questo passo. Dopo costa smontare la slitta dal corpo."}
+      - {tipo: importante, testo: "Nel corpo la vite M3 della slitta passa anche dal supporto: 2,4 mm più lunga delle M3 × 8, quindi M3 × 10 [S]. Si sceglie nella sezione 8 (guida/problemi/banco.yaml)."}
+      - {tipo: nota, testo: "L'INA260 non va avvitato ora: sopra la slitta copre la sua vite M3, che nel corpo non si raggiunge più (passo 8.01)."}
+    attrezzi: [croce_ph0]
+    fonti:
+      - "D-066 (supporti separati, slitta destra uguale alla sinistra)"
+      - "docs/BOM.md X7 e 'Viteria in più se si montano tutte' (viti M3 più lunghe di 2,4 mm; M2 corte)"
+      - "docs/predisposizioni.md X7 (INA260 sulle slitte, morsettiera in basso)"
+      - "cad/stl/README.md (Corpo_Supporto_INA260_*: si appoggiano alla slitta e prendono la sua vite)"
+      - "guida/passi/03-inserti.yaml 3.19 (inserti dei supporti)"

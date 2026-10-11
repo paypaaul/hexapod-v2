@@ -1,0 +1,31 @@
+# Problemi trovati scrivendo la sezione 10, le altre cinque zampe (D-075, formato in guida/schema.md "Problemi").
+
+- titolo: L'ordine dei lotti (prima il lato sinistro) e' una proposta della guida
+  gravita: minore
+  dove: "10.01"
+  cosa: >-
+    Nessun documento dice in che ordine montare le zampe. La bozza propone di finire il lato sinistro (AS, MS, PS)
+    prima del destro, perche' la prova di potenza B3 chiede "un lato con 9 servo" e i canali 0-15 della SSC-32 stanno
+    sul rail VS1, i 16-31 su VS2; lo schema di cablaggio.md da' il regolatore S su VS1 e il D su VS2, 9 servo per
+    lato. La prova sulle mesh dice che una zampa nuova, ruotata di 40 gradi e
+    abbassata di 6 mm, non tocca le vicine ferme a 0 (provato per AS, MS e PS; le destre sono le stesse ruotate).
+  prove:
+    - "docs/software.md 6.7 (B3); docs/cablaggio.md:25-26 (D42V110F6 S su VS1, D su VS2); docs/dimensioni-componenti.md 'Servo controller'; robot/robot.yaml canali"
+    - "guida/problemi/zampa_corpo.yaml, primo problema (prove sulle mesh)"
+  opzioni:
+    - "Tenere l'ordine per lati."
+    - "Ordine libero: le zampe non si ostacolano."
+  consiglio: "Ordine per lati: ogni lato completo si prova da solo sul suo regolatore."
+
+- titolo: Canali della SSC-32 e ordine delle prese sono ancora una proposta
+  gravita: minore
+  dove: "9.07, 9.09, 10.02"
+  cosa: >-
+    I canali di robot.yaml sono marcati C ("il lato dei canali 0-15 sulla scheda montata va controllato ... al banco,
+    passo B1") e l'ordine delle prese dei piedi e delle luci (AS...PD = 0...5) e' C in cablaggio.md 3.3. La tabella di
+    10.02 li riporta con la C.
+  prove:
+    - "robot/robot.yaml, commento sui canali; docs/cablaggio.md 3.2 e 3.3"
+  opzioni:
+    - "Confermarli al banco (B1, sezione 4) e togliere la C prima della stampa della guida."
+  consiglio: "Confermarli in B1."

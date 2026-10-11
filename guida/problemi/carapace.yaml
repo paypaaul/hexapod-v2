@@ -1,0 +1,172 @@
+# Problemi trovati scrivendo la sezione 13, il carapace (D-075, formato in guida/schema.md "Problemi").
+# Coordinate nella terna del robot (mm): X avanti, Y a sinistra, Z in alto, origine al centro del corpo all'altezza degli
+# assi dei femori. Misure dalle quote di cad/script/corpo.py (fai_carapace_dettagli, fai_carapace_predisposizioni), da
+# guida/dati/manifest.json (bbox e trasformate) e da guida/dati/fori.json. Campi in piu' rispetto allo schema: tipo
+# (allocazione), domanda (cosa chiedere all'utente).
+
+- titolo: Gli schemi della scheda del carapace non esistono, e il lato saldature e il verso della testata non sono definiti
+  gravita: importante
+  dove: "13.16, 13.17"
+  cosa: >-
+    La scheda del carapace (X2) e' una striscia di millefori di circa 30 x 20 mm, con la testata 2 x 8, la presa Qwiic,
+    il 470 uF, il pull-down da 100 kohm e le derivazioni di pulsante, catena LED, microfoni, amplificatore e ToF
+    posteriore. guida/schemi/ e' vuota: la fase F3b non ha prodotto nessuno schema, quindi la disposizione sulla
+    millefori non esiste (docs/piano-guida.md la prevede "da progettare durante la guida"). Nel CAD l'ingombro e' un
+    parallelepipedo 30 x 20 x 9 (x 29,5-49,5, |y| <= 15, z 21,9-30,9) con la faccia alta (z 30,9) sulle quattro bugne
+    (alte 3,5, inserti M2 a 15 x 25 mm). Se la testata e il condensatore stanno sotto (9 mm di spessore con la spina), le
+    saldature stanno sopra, a 3,5 mm dal dorso, e dopo l'avvitamento non si raggiungono con il saldatore. Il verso
+    della testata non e' scritto da nessuna parte: cablaggio.md dice solo che "la spina si sfila dall'ottagono"
+    (x -20...28), cioe' verso -X. La bozza salda la scheda per intero fuori dal carapace, poi la avvita, con la
+    testata verso l'ottagono [C]: richiede fili dei moduli lunghi 2 cm in piu'.
+  prove:
+    - "ls guida/schemi/: vuota; guida/passi/04-banco.yaml (nota in testa) e 4.05: 'Non saldare finche' lo schema non e' approvato'"
+    - "docs/cablaggio.md 3.5 (scheda sotto il dorso, x 29-49; testata 2 x 8) e 4 (come si toglie il carapace)"
+    - "docs/predisposizioni.md 2.3 (testata con spina circa 9 + 9 mm, 470 uF Ø6,3-8)"
+    - "guida/dati/manifest.json: corpo/Scheda_carapace, T = rotazione 90 gradi, origine (39,5; 0; 21,9)"
+    - "cad/script/corpo.py fai_carapace_predisposizioni: bugne sch_a-d, 5,5 x 3,5, inserti M2 da 4,0 a z 30,9"
+    - "guida/dati/fori.json: Corpo_Carapace ins_sch_a-d a (32; +-12,5), (47; +-12,5)"
+  opzioni:
+    - "Scheda saldata per intero fuori dal carapace e poi avvitata, testata verso l'ottagono (bozza)."
+    - "Bugne piu' alte nella 2.1.7, cosi' sotto la scheda restano 8-10 mm per saldare e per la testata."
+    - "Testata ad angolo retto sul bordo verso l'ottagono, con le saldature in basso: cambia la lista di montaggio della scheda."
+  consiglio: >-
+    Disegnare gli schemi prima della guida (F3b) con il lato saldature in basso e la testata sul bordo verso l'ottagono;
+    fino ad allora il passo dice di saldare fuori dal carapace e di non avvitare prima della prova in continuita' (13.18).
+  domanda: "Hai gia' una millefori tagliata per la scheda e una testata 2 x 8 dritta o ad angolo retto?"
+
+- titolo: Altoparlante, microfoni e ToF posteriore non hanno un fissaggio definito
+  gravita: importante
+  dove: "13.09, 13.11, 13.12, 13.13"
+  cosa: >-
+    L'altoparlante tondo Ø15 sta fra due guide (15,4 di luce) e si ferma contro un fermo davanti: dietro non c'e' nulla
+    che lo trattenga e sporge 3,3 mm. I microfoni MS3625 poggiano sull'anello Ø5/3 x 0,6 attorno al foro Ø1, centrati
+    da quattro lunette che "si posano": non c'e' ritegno verso il dorso, e la guarnizione citata da D-066 non ha un
+    materiale ne' una voce del BOM. Il ToF posteriore sta su un piano inclinato di 35 gradi, ma il CAD ha solo il piano: nessun foro, inserto o perno,
+    mentre predisposizioni.md parlava di "due perni o un inserto M2". La bozza dice di fermare i tre con colla a caldo o
+    nastro biadesivo [C]. L'altoparlante e i microfoni sono nel percorso del suono: la colla non deve coprire il foro Ø1 ne' la membrana.
+  prove:
+    - "cad/script/corpo.py fai_carapace_predisposizioni: guida_altoparlante_*, fermo_altoparlante, mic_anello_*, mic_sede_*, piano_tof_posteriore (blocco_obl, nessun foro)"
+    - "guida/dati/fori.json: Corpo_Carapace non ha fori per il ToF; ins_amp_* e ins_sch_* sono le uniche bugne M2"
+    - "docs/predisposizioni.md X19: 'supporto sulla guancia, due perni o un inserto M2'; D-066 blocco B: 'anello per la guarnizione'"
+    - "D-074: altoparlante centrato contro un fermo da 1 mm, lunette 'si posano alle estremita' del telaio'"
+  opzioni:
+    - "Colla a caldo o nastro biadesivo, reversibili con l'aria calda (bozza)."
+    - "Due fori Ø1,7 sul piano del ToF per viti M2 (o due perni stampati), nella 2.1.7."
+    - "Una linguetta stampata dietro l'altoparlante, o due costole che lo stringano, nella 2.1.7."
+  consiglio: >-
+    Per ora colla a caldo o nastro, un punto solo e fuori dal suono; poi ritoccare il carapace nella 2.1.7 con le viti del
+    ToF e un ritegno per l'altoparlante.
+  domanda: "Hai colla a caldo o nastro biadesivo sottile in casa? Il ToF lo preferisci avvitato (due fori nel carapace) o incollato?"
+
+- titolo: La prova del carapace con la logica accesa dipende dal firmware, che non c'e' ancora
+  gravita: importante
+  dove: "13.20"
+  cosa: >-
+    13.20 vuole che il pulsante accenda la logica, l'anello e i lobi si accendano in ordine, i microfoni e
+    l'altoparlante rispondano e il ToF posteriore compaia sul bus a 0x31. Il firmware di oggi ha solo gli scheletri dei
+    compiti (nessun driver LED, I2S, ToF, nessuna console per i LED): firmware/README.md "Cosa e' uno scheletro". Le
+    righe dei LED, dell'audio e del ToF sono marcate [C]. Anche i colori dell'anello non sono definiti. Il pulsante e
+    il display del cicalino non dipendono dal firmware e sono marcati [V].
+  prove:
+    - "firmware/README.md: 'Mancano: macchina a stati ..., sensori, ...' e la tabella dei compiti (comm, sens, cam, telem a vuoto)"
+    - "docs/software.md 2.9 (console: ssc, servo, rail, cal, stato; nessun comando LED) e 3.3 (modo visibile dall'anello)"
+    - "docs/piano-elettronica-software.md 4: P4 (LED), P6 (audio, ToF posteriore)"
+  opzioni:
+    - "Prova minima senza firmware nuovo: pulsante, display del cicalino, continuita' (13.18); luci, audio e ToF si provano dopo S3-S6 (bozza)."
+    - "Scrivere un firmware di banco che accende la catena LED e legge il ToF (nuovo lavoro, non in questa guida)."
+  consiglio: "Tenere 13.20 con le righe [C] e rifarla con i comandi veri quando ci sono S3-S6."
+
+- titolo: I contatti a saldare del pulsante potrebbero non passare nel foro del fondo, e il pulsante puo' essere normalmente chiuso
+  gravita: importante
+  dove: "13.02, 13.05, 13.06"
+  cosa: >-
+    Il fondo dell'anello (Corpo_Fondo_Anello) ha un foro Ø12,2 e si infila dal basso sul corpo del pulsante, dopo il
+    dado. Il pulsante da pannello Ø12 ha contatti a saldare alla fine del corpo (lungo circa 20 mm sotto il pannello,
+    C): se le linguette sporgono oltre Ø12,2 il fondo non passa, e il passo 13.05 non si fa. La bozza salda i
+    fili dopo il fondo (13.06) ma questo non risolve linguette piu' larghe del foro. In piu' il BOM dice "NO o NC non
+    dichiarato" (B3b, C): la 2813 vuole un contatto normalmente aperto, e un pulsante NC la terrebbe sempre accesa o
+    in stato indefinito. La bozza fa misurare il pulsante in 13.02 prima di montarlo.
+  prove:
+    - "cad/script/corpo.py fai_fondo_anello (foro_pulsante, car_puls_d 12,2); rif_componenti.py Rif_Pulsante_12 (corpo Ø12 x 21,6, testa Ø15, dado Ø17,3 x 2)"
+    - "docs/BOM.md B3b: 'corpo sotto il pannello circa 20 mm, da confermare'; Kamami: 'NO o NC non dichiarato: C'"
+    - "D-067: 'Fondo ... si monta dopo il dado del pulsante'"
+  opzioni:
+    - "Misurare il pulsante vero (linguette, lunghezza, NO/NC) prima di stampare il fondo."
+    - "Fondo diviso o con un foro a chiave, nella 2.1.7, se le linguette non passano."
+    - "Saldare i fili al pulsante prima del fondo e infilare il fondo da sopra: cambia l'ordine (pulsante, fondo, dado)."
+  consiglio: "Misurare il pulsante vero adesso; se le linguette passano, la bozza resta com'e'."
+  domanda: "Hai gia' il pulsante da 12 mm? Misura il diametro massimo dei contatti a saldare e dimmi se e' aperto a riposo."
+
+- titolo: La catena LED non ha un percorso disegnato fra i lobi, e il fondo dell'anello e' descritto con un pixel in un documento
+  gravita: importante
+  dove: "13.04, 13.08"
+  cosa: >-
+    cablaggio.md 3.5 dice che la catena corre "lungo i fianchi nei ganci sotto il dorso (x -40, 0, 40, |y| 41,8-47,2) con
+    il passaggio da sinistra a destra davanti". I ganci sono sei coppie (tre posizioni, due lati), ma le piastrine dei
+    lobi d'angolo stanno a x +-94,7 (|y| 52,5) e quelle dei lobi medi a x 0, |y| 65: fra l'ultimo gancio e un lobo
+    d'angolo ci sono circa 55 mm senza ganci e il passaggio davanti non ne ha. I tratti in linea retta sono 76 (anello-PS),
+    95,5 (PS-MS, MS-AS, AD-MD, MD-PD) e 105 mm (AS-AD): la bozza dice di tagliarli di 20 mm in piu' [S]. Lo stesso
+    documento dice due pixel per sede del fondo; cad/stl/README.md, "Corpo_Fondo_Anello.stl", dice ancora "nelle due
+    sedi va un pixel di striscia ciascuna": e' il testo di D-067 (60 LED/m) prima di D-068 (120 LED/m, due pixel).
+  prove:
+    - "docs/cablaggio.md 3.5 'Catena LED' e 'Dentro la camera dell'anello'"
+    - "cad/script/corpo.py fai_carapace_predisposizioni: gancio_cavo_* a x -40, 0, 40, y 41,8-43 e 46-47,2; luce_lobo_* e gancio_lobo_*"
+    - "D-068: 'Anello: 4 pixel, 2 per sede. Lobi: 2 pixel'; cad/stl/README.md Corpo_Fondo_Anello.stl: 'Nelle due sedi va un pixel'"
+    - "docs/predisposizioni.md X11 e X12"
+  opzioni:
+    - "Cavo con un'ansa a ogni lobo, fermato con nastro dove non ci sono ganci (bozza)."
+    - "Ganci in piu' nel carapace (2.1.7), a x +-75 e davanti."
+    - "Correggere cad/stl/README.md: 'due pixel per sede'."
+  consiglio: "Bozza per ora; ganci in piu' e README corretto nella 2.1.7."
+
+- titolo: Il collare del cicalino segue un ingombro stimato, e il verso dei pin del BX100 non e' scritto
+  gravita: minore
+  dove: "13.14, 13.19"
+  cosa: >-
+    Il collare e' tagliato sull'ingombro del cicalino, 40 x 25 x 11 mm (cic_x0/cic_x1/cic_semi), con quattro
+    nervature a filo e "la stretta la da' la stampa". Il BX100 vero non e' misurato: il BOM scrive "posizione dei pin da
+    guardare sul pezzo" (B9). Il provino del collare, nell'elenco dei provini della passata estetica, non e' stato fatto.
+    Il collare e' aperto in coda (pin verso la coda): se i pin stanno sul lato lungo, la spina di bilanciamento non
+    arriva alla prolunga con il carapace sollevato di 10 cm.
+  prove:
+    - "cad/script/rif_componenti.py: Rif_Cicalino_BX100 box 40 x 25 x 11; corpo.py cic_x0 -87, cic_x1 -62, cic_semi 20, cic_z0 17,4"
+    - "docs/BOM.md B9; cad/stl/README.md 'Provini della passata estetica': collare del cicalino"
+  opzioni:
+    - "Misurare il BX100 e stampare un provino del collare prima del carapace."
+    - "Se la misura e' diversa, cambiare le quote cic_* nel CAD (2.1.7)."
+  consiglio: "Misurare il BX100 prima di stampare il carapace."
+  domanda: "Dimmi lunghezza, larghezza, altezza del BX100, da che lato stanno i pin della presa di bilanciamento e dove sta il display."
+
+- titolo: Le viti M2 della scheda e dell'amplificatore non sono giunzioni del catalogo, e la lunghezza non e' scritta
+  gravita: minore
+  dove: "13.10, 13.17"
+  cosa: >-
+    guida/catalogo/giunzioni.yaml non ha le giunzioni di scheda del carapace e amplificatore (nel BOM sono "viti M2
+    corte", senza lunghezza): non si contano, non si disegnano, e il controllo "lunghezze" non verifica la presa. La bozza
+    dice M2 x 5 a croce (D8) [C]: con un circuito da 1,6 mm restano 3,4 mm di vite nell'inserto da 3 (foro da 4,0), sopra
+    il minimo di 2 mm del controllo; se il circuito vero e' piu' spesso la presa cala. Le due M2 per
+    l'amplificatore e le quattro della scheda stanno fuori dai totali del BOM (viti M2 x 5: 16).
+  prove:
+    - "docs/BOM.md 'Viteria in piu' se si montano tutte': viti M2 corte per le stesse, nessuna lunghezza"
+    - "guida/catalogo/giunzioni.yaml: ultima voce 'imu' (X4); nessuna per X2 e X17"
+    - "guida/dati/fori.json: Corpo_Carapace ins_sch_* e ins_amp_* profondi 4,0"
+  opzioni:
+    - "Aggiungere due giunzioni a giunzioni.yaml (scheda_carapace, ampli) con le viti M2 x 5 e il circuito come testa."
+    - "Mettere la lunghezza nel BOM."
+  consiglio: "Aggiungere le giunzioni al catalogo e la lunghezza al BOM; M2 x 5 fino ad allora."
+
+- titolo: Il T-plug a carapace montato e' stretto fra cicalino, ToF e altoparlante, e va provato a mano
+  gravita: minore
+  dove: "13.23"
+  cosa: >-
+    Il T-plug sta 7 mm dentro la porta di coda, sopra F1, con 3,3 mm d'aria sotto il cicalino, 7 mm verso l'altoparlante e
+    10,4 mm verso la guancia sinistra; il ToF posteriore copre solo un angolo di 3 x 3 mm visto da dietro e sta 8 mm piu'
+    indietro. E' il sezionamento d'emergenza dei servo. D-069 lo dichiara "da provare a mano sul primo carapace", con
+    il ripiego di una linguetta di nastro sulla meta' lato batteria. CLAUDE.md lo tiene fra gli aperti tecnici.
+  prove:
+    - "docs/cablaggio.md 4 'T-plug'; D-069 (verifica della 2.1.2); CLAUDE.md, aperti tecnici"
+    - "guida/dati/manifest.json: corpo/Tplug, Cicalino (z da 17,4), ToF_posteriore, Altoparlante"
+  opzioni:
+    - "Prova a mano (bozza): se scomodo, linguetta di nastro."
+    - "ToF e altoparlante piu' in alto, sopra il piano del T-plug (2.1.7)."
+  consiglio: "Provare a mano sul primo carapace, come previsto."
