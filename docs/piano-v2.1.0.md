@@ -301,7 +301,27 @@ L'utente ha scelto i moduli che ha già (D-073):
    - le due guide sulla guancia restano a 15,4 di distanza, perché il tondo da 15 scorre fra le stesse guide;
    - le guide si alzano per uno spessore di circa 4 e prendono un fermo in fondo;
    - ingombro tondo Ø15 × 4 (C).
-5. **Firmware e documenti**:
+5. **Collegamenti** (verificati l'11 ottobre 2026, prima del via):
+   - **IMU**:
+     - stesso bus I2C0 (GPIO47 e GPIO3) e stessi 4 fili (VCC a 3,3 V, massa, SCL, SDA);
+     - NCS, AD0 e FSYNC hanno già pull-up e pull-down sulla scheda (S, dalle schede dei venditori), quindi restano scollegati;
+     - indirizzo 0x68. Su I2C0 non ci sono conflitti; 0x68 è fra gli indirizzi che il driver della camera prova sul suo bus, quindi l'IMU non va mai sul bus della camera;
+     - la GY ha un suo regolatore a 3,3 V e i suoi pull-up, come la Pololu: il bilancio dei pull-up non cambia, si misura al banco.
+   - **Firmware dell'IMU**:
+     - driver dell'MPU-6500 (registri e scale diversi; WHO_AM_I 0x70, oppure 0x71 se è un MPU-9250);
+     - riconoscimento automatico: 0x68 → MPU-6500, 0x6B → LSM6DSO. Così il cambio di scheda non chiede di ricompilare;
+     - rotazione degli assi per scheda nella configurazione. Oggi il driver non esiste ancora: non c'è codice da rifare.
+   - **Microfoni**:
+     - gli stessi sei segnali con altri nomi: 3V = VDD, BCLK = SCK, LRCL = WS, DOUT = SD, SEL = L/R;
+     - stessi GPIO 38, 39 e 40, L/R a massa su uno e a 3,3 V sull'altro;
+     - formato I2S standard a 24 bit in slot da 32: è più semplice della SPH0645, che dà 18 bit e chiede di spostare i bit e togliere l'offset;
+     - **in più, per tutti e due i tipi**: un pull-down da 100 kΩ sulla linea dati comune, sulla scheda del carapace (datasheet ADMP441/INMP441: la linea resta flottante quando nessun microfono la pilota). La resistenza c'è già nel set di B10;
+     - l'MS3625 non ha un datasheet: si prova al banco prima di montarla.
+   - **Amplificatore**:
+     - stessi pin e stesso ordine (LRC, BCLK, DIN, GAIN, SD, GND, Vin), stesse impostazioni di fabbrica (9 dB, (L+R)/2): è una copia della Adafruit;
+     - per l'altoparlante si taglia il connettore da 1,25 e i fili vanno nella morsettiera;
+     - a 5 V su 8 Ω l'amplificatore arriva a circa 1,4 W: il volume va limitato nel firmware per l'altoparlante da 1 W, come lo sarebbe stato per quello da 0,7 W.
+6. **Firmware e documenti**:
    - IMU a 0x68 nella tabella degli indirizzi (0x6B resta per la Pololu) e assi della GY-6500 da rimappare;
    - BOM: X4, X16 e X17 in possesso;
    - `predisposizioni.md`, `piano-elettronica-software.md` §6, `cablaggio.md`, `cad/stl/README.md`, D-074, `versioni.md`, `CLAUDE.md`.
