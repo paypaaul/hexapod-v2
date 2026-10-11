@@ -39,7 +39,7 @@ Sulla SSC-32 le barre di rame da 1 mm (B16) corrono lungo le file VS e di massa 
 
 ```
 ESP32-S3 ─ GPIO21 TX / GPIO14 RX ─ traslatore C1 ─ RX / TX della SSC-32 ─ 18 servo, canali in robot.yaml
-         ─ GPIO47 SDA, GPIO3 SCL (I2C0, pull-up sulla basetta) ─┬─ IMU 0x6B e ADC 0x48 sotto il vassoio ─ 6 FSR, 2 NTC
+         ─ GPIO47 SDA, GPIO3 SCL (I2C0, pull-up sulla basetta) ─┬─ IMU 0x68 e ADC 0x48 sotto il vassoio ─ 6 FSR, 2 NTC
                                                                 ├─ INA260 0x44 e 0x45 nelle baie
                                                                 ├─ ToF frontale 0x30 nella mensola
                                                                 └─ connettore a 16 poli ─ scheda del carapace: Qwiic,
@@ -117,7 +117,7 @@ Bus I2C0: GPIO47 SDA, GPIO3 SCL, 3,3 V, 400 kHz. Ogni ramo ha 4 fili: massa, 3,3
 
 | Ramo | Da → a | Percorso | Stato |
 |---|---|---|---|
-| Vano sotto il vassoio | basetta → IMU (0x6B) e ADS7830 (0x48) | dall'asola del vassoio | S |
+| Vano sotto il vassoio | basetta → IMU (GY-6500 a 0x68, oppure la Pololu predisposta a 0x6B; 4 fili saldati sulle piazzole, senza pin: sotto il vassoio non c'è altezza, D-074) e ADS7830 (0x48) | dall'asola del vassoio | S |
 | Baie anteriori | basetta → INA260 sinistro (0x44) e destro (0x45) | passaggio fra SSC-32 e vassoio, clip sul tetto | S |
 | ToF frontale (X8) | basetta → VL53L7CX nella mensola della camera | lungo la torretta. Alimentato dal pin VDD a 3,3 V con VIN scollegato. Prende 0x30 a ogni accensione mentre il posteriore è tenuto spento | V alimentazione; S percorso |
 | Carapace | basetta → poli 5–8 del connettore → scheda del carapace | cavo piatto | S |
@@ -147,9 +147,9 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 | Catena LED (X9, X11, X12) | scheda → anello del pulsante → lobi PS, MS, AS, AD, MD, PD | dalla scheda lungo il lato sinistro dell'ottagono fino alla camera dell'anello. Entra dalla tacca verso la coda ed esce dalla stessa tacca. Poi lungo i fianchi nei ganci sotto il dorso (x −40, 0, 40, \|y\| 41,8–47,2), con il passaggio da sinistra a destra davanti | saldati sulle piazzole della striscia | 3 × 30 AWG (5 V, dato, massa) | S percorso; 16 pixel in tutto (D-068) |
 | Dentro la camera dell'anello | due pezzi da due pixel (16,7 mm a 120 LED/m, D-068) nelle sedi del fondo, a Y ±(6,5…11,9) | entra al capo DIN del pezzo +Y, dalla parte della coda. Dal capo DOUT un ponticello di 3 fili gira attorno al corpo del pulsante sul lato della testa e va al capo DIN del pezzo −Y. Dal capo DOUT del pezzo −Y esce verso la tacca | saldati | 3 + 3 + 3 fili da 30 AWG | V spazio nel CAD (camera Ø32 × 6, D-067) |
 | Pulsante | pulsante → scheda → poli 15-16 | sotto il dorso, circa 9 cm | saldati | 2 fili | S |
-| Microfoni (X16) | due schede (x 83…96, \|y\| 3…19) → scheda | sotto il dorso, circa 5 cm | saldati | 5 per scheda: 3,3 V, massa, BCLK, WS, dati. I dati dei due microfoni sono uniti sul polo 12; SEL a massa su uno e a 3,3 V sull'altro | S |
-| Amplificatore (X17) | scheda → ampli (x 51…70) | sotto il dorso | saldati | 5: 5 V, massa, BCLK, WS, dati | S |
-| Altoparlante | ampli → altoparlante sulla guancia destra di coda | sotto il dorso, dalla testa alla coda, circa 17 cm | saldati | 2 | S |
+| Microfoni (X16) | due schede (x 83…96, \|y\| 3…19) → scheda | sotto il dorso, circa 5 cm | saldati | 5 per scheda: 3,3 V, massa, BCLK, WS, dati. I dati dei due microfoni sono uniti sul polo 12, con un pull-down da 100 kΩ verso massa sulla scheda del carapace (D-074); L/R (SEL sulla Adafruit) a massa su uno e a 3,3 V sull'altro. MS3625: VDD, GND, SCK, WS, SD, L/R | S |
+| Amplificatore (X17) | scheda → ampli generico (x 51…70, pin verso la scheda, D-074) | sotto il dorso | saldati | 5: 5 V, massa, BCLK, WS, dati | S |
+| Altoparlante | ampli → altoparlante tondo da 15 mm sulla guancia destra di coda | sotto il dorso, dalla testa alla coda, circa 17 cm | il cavetto dell'altoparlante si taglia (connettore da 1,25) e si allunga; nella morsettiera o saldato | 2 | S |
 | ToF posteriore (X19) | scheda → VL53L1X sulla guancia sinistra di coda | sotto il dorso, circa 15 cm | saldati | 5: 3,3 V, massa, SDA, SCL, XSHUT (dal TCA9534) | S |
 | Espansione | presa Qwiic sulla scheda | si raggiunge dall'ottagono | JST SH 4 poli | 4 | V standard Qwiic |
 

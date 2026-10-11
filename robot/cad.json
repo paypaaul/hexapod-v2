@@ -1,7 +1,7 @@
 {
- "versione": "2.1.5",
- "documento": "Hexapod v2.1.0 v13",
- "esportato": "2026-10-11T15:53:41",
+ "versione": "2.1.6",
+ "documento": "Hexapod v2.1.0 v14",
+ "esportato": "2026-10-11T18:55:10",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -201,14 +201,14 @@
  },
  "masse": {
   "segmenti_g": {
-   "corpo": 1067.9,
+   "corpo": 1069.4,
    "coxa": 94.1,
    "femore": 63.3,
    "tibia": 111.9
   },
-  "modellato_g": 2683.5,
+  "modellato_g": 2685.0,
   "non_modellato_g": 360.0,
-  "atteso_g": 3043.5,
+  "atteso_g": 3045.0,
   "nota": "stampate con pareti 1,2 mm e riempimento 25 %, comprate con la massa dichiarata; il non modellato (cavi, viteria) va distribuito sul corpo"
  },
  "parti": {
@@ -914,33 +914,6 @@
    "materiale": "comprato",
    "segmento": "corpo"
   },
-  "Corpo_Carapace": {
-   "massa_g": 63.16,
-   "baricentro_mm": [
-    1.32,
-    0.154,
-    32.109
-   ],
-   "inerzia_gmm2": [
-    [
-     109728.9,
-     904.0,
-     280.9
-    ],
-    [
-     904.0,
-     277482.7,
-     109.9
-    ],
-    [
-     280.9,
-     109.9,
-     381267.6
-    ]
-   ],
-   "materiale": "PLA",
-   "segmento": "corpo"
-  },
   "Corpo_Slitta_Regolatore_2": {
    "massa_g": 5.34,
    "baricentro_mm": [
@@ -1103,33 +1076,6 @@
    "materiale": "PLA",
    "segmento": "corpo"
   },
-  "Rif_IMU": {
-   "massa_g": 1.0,
-   "baricentro_mm": [
-    47.5,
-    -7.5,
-    -3.9
-   ],
-   "inerzia_gmm2": [
-    [
-     14.8,
-     -0.0,
-     0.0
-    ],
-    [
-     -0.0,
-     44.8,
-     0.0
-    ],
-    [
-     0.0,
-     0.0,
-     58.2
-    ]
-   ],
-   "materiale": "comprato",
-   "segmento": "corpo"
-  },
   "Rif_Prese_Piedi": {
    "massa_g": 3.0,
    "baricentro_mm": [
@@ -1233,60 +1179,6 @@
      -0.0,
      27.3,
      124.3
-    ]
-   ],
-   "materiale": "comprato",
-   "segmento": "corpo"
-  },
-  "Rif_Altoparlante": {
-   "massa_g": 1.5,
-   "baricentro_mm": [
-    -94.05,
-    -23.9,
-    12.0
-   ],
-   "inerzia_gmm2": [
-    [
-     29.3,
-     0.0,
-     0.0
-    ],
-    [
-     0.0,
-     43.2,
-     -0.0
-    ],
-    [
-     0.0,
-     -0.0,
-     16.2
-    ]
-   ],
-   "materiale": "comprato",
-   "segmento": "corpo"
-  },
-  "Rif_Ampli_MAX98357A": {
-   "massa_g": 1.2,
-   "baricentro_mm": [
-    60.7,
-    0.0,
-    29.4
-   ],
-   "inerzia_gmm2": [
-    [
-     32.6,
-     0.0,
-     0.0
-    ],
-    [
-     0.0,
-     38.5,
-     -0.0
-    ],
-    [
-     0.0,
-     -0.0,
-     69.3
     ]
    ],
    "materiale": "comprato",
@@ -1400,60 +1292,6 @@
    "materiale": "comprato",
    "segmento": "corpo"
   },
-  "Rif_Microfono_I2S": {
-   "massa_g": 0.4,
-   "baricentro_mm": [
-    89.3,
-    11.0,
-    32.9
-   ],
-   "inerzia_gmm2": [
-    [
-     9.4,
-     0.0,
-     0.0
-    ],
-    [
-     0.0,
-     5.5,
-     0.0
-    ],
-    [
-     0.0,
-     0.0,
-     14.7
-    ]
-   ],
-   "materiale": "comprato",
-   "segmento": "corpo"
-  },
-  "Rif_Microfono_I2S_2": {
-   "massa_g": 0.4,
-   "baricentro_mm": [
-    89.3,
-    -11.0,
-    32.9
-   ],
-   "inerzia_gmm2": [
-    [
-     9.4,
-     0.0,
-     0.0
-    ],
-    [
-     0.0,
-     5.5,
-     0.0
-    ],
-    [
-     0.0,
-     0.0,
-     14.7
-    ]
-   ],
-   "materiale": "comprato",
-   "segmento": "corpo"
-  },
   "Corpo_Fascia": {
    "massa_g": 4.55,
    "baricentro_mm": [
@@ -1533,6 +1371,222 @@
     ]
    ],
    "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Corpo_Piastrina_IMU": {
+   "massa_g": 0.88,
+   "baricentro_mm": [
+    47.5,
+    -9.848,
+    -4.161
+   ],
+   "inerzia_gmm2": [
+    [
+     9.7,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     48.5,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     57.3
+    ]
+   ],
+   "materiale": "PETG-CF",
+   "segmento": "corpo"
+  },
+  "Corpo_Carapace": {
+   "massa_g": 63.19,
+   "baricentro_mm": [
+    1.297,
+    0.144,
+    32.101
+   ],
+   "inerzia_gmm2": [
+    [
+     109753.8,
+     855.8,
+     236.0
+    ],
+    [
+     855.8,
+     277781.5,
+     97.8
+    ],
+    [
+     236.0,
+     97.8,
+     381571.0
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Rif_IMU_MPU6500": {
+   "massa_g": 1.5,
+   "baricentro_mm": [
+    47.5,
+    -7.6,
+    -1.6
+   ],
+   "inerzia_gmm2": [
+    [
+     30.9,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     85.3,
+     -0.0
+    ],
+    [
+     0.0,
+     -0.0,
+     114.5
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Altoparlante_Tondo": {
+   "massa_g": 1.5,
+   "baricentro_mm": [
+    -96.3,
+    -23.4,
+    12.0
+   ],
+   "inerzia_gmm2": [
+    [
+     23.1,
+     0.0,
+     -0.0
+    ],
+    [
+     0.0,
+     42.2,
+     0.0
+    ],
+    [
+     -0.0,
+     0.0,
+     23.1
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Ampli_Generico": {
+   "massa_g": 1.2,
+   "baricentro_mm": [
+    60.7,
+    0.0,
+    29.4
+   ],
+   "inerzia_gmm2": [
+    [
+     31.5,
+     -0.0,
+     -0.0
+    ],
+    [
+     -0.0,
+     32.2,
+     0.0
+    ],
+    [
+     -0.0,
+     0.0,
+     62.0
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Microfono_MS3625": {
+   "massa_g": 0.3,
+   "baricentro_mm": [
+    89.3,
+    11.0,
+    32.8
+   ],
+   "inerzia_gmm2": [
+    [
+     3.6,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     3.3,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     6.7
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Microfono_MS3625_2": {
+   "massa_g": 0.3,
+   "baricentro_mm": [
+    89.3,
+    -11.0,
+    32.8
+   ],
+   "inerzia_gmm2": [
+    [
+     3.6,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     3.3,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     6.7
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Corpo_Lunette_Microfoni": {
+   "massa_g": 0.31,
+   "baricentro_mm": [
+    89.3,
+    -0.0,
+    33.4
+   ],
+   "inerzia_gmm2": [
+    [
+     53.3,
+     -0.0,
+     -0.0
+    ],
+    [
+     -0.0,
+     5.1,
+     0.0
+    ],
+    [
+     -0.0,
+     0.0,
+     58.3
+    ]
+   ],
+   "materiale": "PLA",
    "segmento": "corpo"
   },
   "Rif_Servo_MG996R_7": {
@@ -7471,6 +7525,150 @@
    "unita": "mm",
    "espressione": "34 mm",
    "commento": "Lama B: X dall asse dell anca della vite lato ginocchio (a Z 1,5 sta prima del taglio basso del blocco, da X 89,5)"
+  },
+  "sen_mpu_l": {
+   "valore": 26.0,
+   "unita": "mm",
+   "espressione": "26 mm",
+   "commento": "IMU GY-6500 (MPU-6500, X4): lunghezza, lungo la fila dei 10 pin S"
+  },
+  "sen_mpu_w": {
+   "valore": 15.5,
+   "unita": "mm",
+   "espressione": "15.5 mm",
+   "commento": "IMU GY-6500: larghezza S"
+  },
+  "sen_mpu_sp": {
+   "valore": 2.6,
+   "unita": "mm",
+   "espressione": "2.6 mm",
+   "commento": "IMU GY-6500: spessore con i componenti (circuito 1,6) S"
+  },
+  "sen_mpu_fori": {
+   "valore": 20.6,
+   "unita": "mm",
+   "espressione": "20.6 mm",
+   "commento": "IMU GY-6500: interasse dei due fori Ø3 sul lato lungo opposto ai pin C"
+  },
+  "sen_mpu_fori_y": {
+   "valore": 5.45,
+   "unita": "mm",
+   "espressione": "5.45 mm",
+   "commento": "IMU GY-6500: distanza della fila dei fori dal centro della scheda (2,3 dal bordo) C"
+  },
+  "aud_ms_d": {
+   "valore": 13.5,
+   "unita": "mm",
+   "espressione": "13.5 mm",
+   "commento": "Microfono MS3625 (X16): diametro della scheda tonda S"
+  },
+  "aud_ms_piatti": {
+   "valore": 12.6,
+   "unita": "mm",
+   "espressione": "12.6 mm",
+   "commento": "Microfono MS3625: distanza fra i due lati piatti, lungo le file dei pin S"
+  },
+  "aud_ms_sp": {
+   "valore": 2.0,
+   "unita": "mm",
+   "espressione": "2 mm",
+   "commento": "Microfono MS3625: spessore con il chip (circuito circa 1) S"
+  },
+  "aud_ampg_l": {
+   "valore": 17.5,
+   "unita": "mm",
+   "espressione": "17.5 mm",
+   "commento": "Amplificatore MAX98357A generico (X17): lato dei pin e della morsettiera S"
+  },
+  "aud_ampg_w": {
+   "valore": 17.7,
+   "unita": "mm",
+   "espressione": "17.7 mm",
+   "commento": "Amplificatore generico: dal lato dei pin a quello della morsettiera S"
+  },
+  "aud_amp_fori": {
+   "valore": 13.0,
+   "unita": "mm",
+   "espressione": "13 mm",
+   "commento": "Amplificatore, generico e Adafruit: interasse dei due fori sul lato della morsettiera C"
+  },
+  "aud_amp_fori_x": {
+   "valore": 6.65,
+   "unita": "mm",
+   "espressione": "6.65 mm",
+   "commento": "Amplificatore generico: distanza della fila dei fori dal centro della scheda (2,2 dal bordo) C"
+  },
+  "aud_altt_d": {
+   "valore": 15.0,
+   "unita": "mm",
+   "espressione": "15 mm",
+   "commento": "Altoparlante tondo 8 ohm 1 W (X17): diametro con l anello S"
+  },
+  "aud_altt_sp": {
+   "valore": 4.0,
+   "unita": "mm",
+   "espressione": "4 mm",
+   "commento": "Altoparlante tondo: spessore, non dichiarato C"
+  },
+  "cor_mpu_y": {
+   "valore": -7.6,
+   "unita": "mm",
+   "espressione": "-( 7.6 mm )",
+   "commento": "IMU GY-6500 (X4): Y del centro, pin verso +Y (0,6 dal bordo dell ADC, 0,65 dalla parete del vano) S"
+  },
+  "cor_pimu_sp": {
+   "valore": 2.5,
+   "unita": "mm",
+   "espressione": "2.5 mm",
+   "commento": "Piastrina della GY-6500: spessore (M2 x 5 svasate: restano 2,5 nell inserto della bugna)"
+  },
+  "cor_pimu_svas": {
+   "valore": 0.9,
+   "unita": "mm",
+   "espressione": "0.9 mm",
+   "commento": "Piastrina della GY-6500: svasatura a 90 gradi sul foro da 2,4 (testa M2 da 4,0, 0,1 sotto la faccia)"
+  },
+  "cor_pimu_pilota": {
+   "valore": 1.7,
+   "unita": "mm",
+   "espressione": "1.7 mm",
+   "commento": "Piastrina della GY-6500: fori pilota per le due M2 x 6 della scheda"
+  },
+  "cor_pimu_bordo": {
+   "valore": 0.5,
+   "unita": "mm",
+   "espressione": "0.5 mm",
+   "commento": "Piastrina della GY-6500: margine oltre le bugne verso +Y"
+  },
+  "aud_ms_gio": {
+   "valore": 0.1,
+   "unita": "mm",
+   "espressione": "0.1 mm",
+   "commento": "Lunette dei microfoni MS3625: gioco verso la scheda e verso il telaio"
+  },
+  "aud_lun_h": {
+   "valore": 2.0,
+   "unita": "mm",
+   "espressione": "2 mm",
+   "commento": "Lunette dei microfoni: altezza (scheda sull anello da 0,6, spessa circa 1)"
+  },
+  "aud_fermo_sp": {
+   "valore": 1.0,
+   "unita": "mm",
+   "espressione": "1 mm",
+   "commento": "Altoparlante tondo: fermo davanti alle guide, all estremo anteriore della guancia"
+  },
+  "aud_altt_x": {
+   "valore": 96.3,
+   "unita": "mm",
+   "espressione": "car_guancia_x1 + aud_fermo_sp + 0.2 mm + aud_altt_d / 2",
+   "commento": "Altoparlante tondo: distanza del centro verso la coda (sporge 3,3 dietro la guancia, lunga 12,9: lo spazio e libero)"
+  },
+  "aud_lun_semi": {
+   "valore": 6.0,
+   "unita": "mm",
+   "espressione": "6 mm",
+   "commento": "Lunette dei microfoni: meta larghezza (a 6,45 toccavano lo smusso del viso da x 95,3)"
   }
  }
 }

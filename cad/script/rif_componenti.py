@@ -160,6 +160,22 @@ PARAMETRI = [
     ('aud_mic_l', '16.7 mm', 'mm', 'Microfono I2S Adafruit 3421 (X16): lunghezza V'),
     ('aud_mic_w', '12.7 mm', 'mm', 'Microfono: larghezza V'),
     ('aud_mic_sp', '1.8 mm', 'mm', 'Microfono: spessore V'),
+    # --- versione 2.1.6 (D-074): moduli che l'utente ha gia' in casa (D-073). Quote S dalle foto dei venditori, con il
+    #     passo dei pin da 2,54 come scala; C da guardare sui pezzi prima di stampare (CLAUDE.md, cose da guardare)
+    ('sen_mpu_l', '26 mm', 'mm', 'IMU GY-6500 (MPU-6500, X4): lunghezza, lungo la fila dei 10 pin S'),
+    ('sen_mpu_w', '15.5 mm', 'mm', 'IMU GY-6500: larghezza S'),
+    ('sen_mpu_sp', '2.6 mm', 'mm', 'IMU GY-6500: spessore con i componenti (circuito 1,6) S'),
+    ('sen_mpu_fori', '20.6 mm', 'mm', 'IMU GY-6500: interasse dei due fori Ø3 sul lato lungo opposto ai pin C'),
+    ('sen_mpu_fori_y', '5.45 mm', 'mm', 'IMU GY-6500: distanza della fila dei fori dal centro della scheda (2,3 dal bordo) C'),
+    ('aud_ms_d', '13.5 mm', 'mm', 'Microfono MS3625 (X16): diametro della scheda tonda S'),
+    ('aud_ms_piatti', '12.6 mm', 'mm', 'Microfono MS3625: distanza fra i due lati piatti, lungo le file dei pin S'),
+    ('aud_ms_sp', '2 mm', 'mm', 'Microfono MS3625: spessore con il chip (circuito circa 1) S'),
+    ('aud_ampg_l', '17.5 mm', 'mm', 'Amplificatore MAX98357A generico (X17): lato dei pin e della morsettiera S'),
+    ('aud_ampg_w', '17.7 mm', 'mm', 'Amplificatore generico: dal lato dei pin a quello della morsettiera S'),
+    ('aud_amp_fori', '13 mm', 'mm', 'Amplificatore, generico e Adafruit: interasse dei due fori sul lato della morsettiera C'),
+    ('aud_amp_fori_x', '6.65 mm', 'mm', 'Amplificatore generico: distanza della fila dei fori dal centro della scheda (2,2 dal bordo) C'),
+    ('aud_altt_d', '15 mm', 'mm', 'Altoparlante tondo 8 ohm 1 W (X17): diametro con l anello S'),
+    ('aud_altt_sp', '4 mm', 'mm', 'Altoparlante tondo: spessore, non dichiarato C'),
     ('zai_l', '65 mm', 'mm', 'Computer di bordo a zaino (Radxa ZERO 3W): lunghezza V'),
     ('zai_w', '30 mm', 'mm', 'Computer di bordo: larghezza V'),
     ('zai_sp', '5 mm', 'mm', 'Computer di bordo: spessore con i componenti S'),
@@ -217,6 +233,10 @@ LIBRERIA = {
     'Rif_Scheda_Carapace': (120, 710, 0),
     'Rif_Prese_Piedi': (170, 710, 0),
     'Rif_Computer_Zaino': (0, 780, 0),
+    'Rif_IMU_MPU6500': (90, 780, 0),
+    'Rif_Microfono_MS3625': (130, 780, 0),
+    'Rif_Altoparlante_Tondo': (160, 780, 0),
+    'Rif_Ampli_Generico': (190, 780, 0),
 }
 
 GENERATI = [n for n in LIBRERIA if n not in STEP]
@@ -506,6 +526,14 @@ def fai_ingombri(des, root, rigenera, solo=None):
     fatti.append(componente(root, 'Rif_Scheda_Carapace', [('scheda', box(0, 0, 0, p('sch_l'), p('sch_w'), p('sch_sp')))]))
     fatti.append(componente(root, 'Rif_Prese_Piedi', [('prese', box(0, 0, 0, p('pre_l'), p('pre_w'), p('pre_h')))]))
     fatti.append(componente(root, 'Rif_Computer_Zaino', [('scheda', box(0, 0, 0, p('zai_l'), p('zai_w'), p('zai_sp')))]))
+    # versione 2.1.6 (D-074): moduli in casa dell'utente, montati al posto di Pololu e Adafruit (che restano predisposti)
+    fatti.append(componente(root, 'Rif_IMU_MPU6500', [('scheda', box(0, 0, 0, p('sen_mpu_l'), p('sen_mpu_w'), p('sen_mpu_sp')))]))
+    md, mp, ms = p('aud_ms_d'), p('aud_ms_piatti'), p('aud_ms_sp')
+    fatti.append(componente(root, 'Rif_Microfono_MS3625', [('scheda', sottrai(cyl(0, 0, 0, md, ms),           # lati piatti a y = +-mp/2
+                                                                             box(0, (mp + md) / 2, -1.0, md + 2.0, md, ms + 2.0),
+                                                                             box(0, -(mp + md) / 2, -1.0, md + 2.0, md, ms + 2.0)))]))
+    fatti.append(componente(root, 'Rif_Ampli_Generico', [('scheda', box(0, 0, 0, p('aud_ampg_l'), p('aud_ampg_w'), p('aud_amp_sp')))]))
+    fatti.append(componente(root, 'Rif_Altoparlante_Tondo', [('altoparlante', cyl(0, 0, 0, p('aud_altt_d'), p('aud_altt_sp')))]))
     return [o.component.name for o in fatti if o is not None]
 
 

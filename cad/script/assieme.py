@@ -89,7 +89,8 @@ def pose_corpo(des):
     out['Interruttore'] = ('Rif_Interruttore_Pololu_2813', A['matrice']((_mm(des, 'cor_int_x'), 0, _mm(des, 'cor_int_z0') + _mm(des, 'int_w') / 2),
                                                                  (0, 1, 0), (0, 0, 1), (1, 0, 0)))
     zb = zt + _mm(des, 'cor_sen_bugna_h')
-    out['IMU'] = ('Rif_IMU', _rz(_mm(des, 'cor_imu_x'), _mm(des, 'cor_imu_y'), zb, 0.0))
+    # IMU montata: GY-6500 sulla sua piastrina (D-074); la Pololu sulle bugne e' in alternative()
+    out['IMU'] = ('Rif_IMU_MPU6500', _rz(_mm(des, 'cor_imu_x'), _mm(des, 'cor_mpu_y'), zb + _mm(des, 'cor_pimu_sp'), 0.0))
     out['ADC'] = ('Rif_ADC_ADS7830', _rz(_mm(des, 'cor_ads_x'), _mm(des, 'cor_ads_y'), zb, 0.0))
     out['Prese_piedi'] = ('Rif_Prese_Piedi', _rz(_mm(des, 'cor_pre_x'), _mm(des, 'cor_pre_y'), zt + 0.5, 0.0))
     out['Prese_luci'] = ('Rif_Prese_Piedi', _rz(_mm(des, 'cor_pre_x'), -_mm(des, 'cor_pre_y'), zt + 0.5, 0.0))
@@ -104,16 +105,70 @@ def pose_corpo(des):
     xi, zi = _mm(des, 'cor_ina_x'), _mm(des, 'cor_ina_z')
     out['INA260_S'] = ('Rif_INA260', A['matrice']((xi, yi, zi), (1, 0, 0), (0, 0, 1), (0, -1, 0)))
     out['INA260_D'] = ('Rif_INA260', A['matrice']((xi, -yi, zi), (-1, 0, 0), (0, 0, 1), (0, 1, 0)))
-    xg = -(_mm(des, 'car_guancia_x0') + _mm(des, 'car_guancia_x1')) / 2
-    out['Altoparlante'] = ('Rif_Altoparlante', A['matrice']((xg, -_mm(des, 'car_guancia_y0'), _mm(des, 'aud_alt_z')),
-                                                            (0, 0, 1), (1, 0, 0), (0, 1, 0)))
+    # altoparlante tondo (D-074): fra le guide, contro il fermo all'estremo anteriore della guancia
+    out['Altoparlante'] = ('Rif_Altoparlante_Tondo', A['matrice']((-_mm(des, 'aud_altt_x'), -_mm(des, 'car_guancia_y0'), _mm(des, 'aud_alt_z')),
+                                                                  (0, 0, 1), (1, 0, 0), (0, 1, 0)))
     zs = _mm(des, 'car_top') - _mm(des, 'car_sp')
-    out['Ampli'] = ('Rif_Ampli_MAX98357A', _rz(_mm(des, 'aud_amp_x'), 0, zs - 3.5 - _mm(des, 'aud_amp_sp'), 0.0))
+    # amplificatore generico (D-074): morsettiera e fori verso +X, pin verso la scheda del carapace
+    out['Ampli'] = ('Rif_Ampli_Generico', _rz(_mm(des, 'aud_amp_x'), 0, zs - 3.5 - _mm(des, 'aud_amp_sp'), -90.0))
     out['Scheda_carapace'] = ('Rif_Scheda_Carapace', _rz(_mm(des, 'sch_x'), 0, zs - 3.5 - _mm(des, 'sch_sp'), 90.0))
     for lato, s in (('S', 1), ('D', -1)):
         # scheda capovolta: la porta del microfono (sul fondo) guarda il foro, appoggiata all'anello della guarnizione
-        out['Microfono_' + lato] = ('Rif_Microfono_I2S', A['matrice']((_mm(des, 'aud_mic_x'), s * _mm(des, 'aud_mic_y'), zs - 0.6),
-                                                                       (0, 1, 0), (1, 0, 0), (0, 0, -1)))
+        # MS3625 montate (D-074): lati piatti lungo Y, centrate dalle lunette nel telaio della Adafruit 3421
+        out['Microfono_' + lato] = ('Rif_Microfono_MS3625', _pose_microfono(des, s))
+    return out
+
+
+def _pose_microfono(des, s):
+    zs = _mm(des, 'car_top') - _mm(des, 'car_sp')
+    return A['matrice']((_mm(des, 'aud_mic_x'), s * _mm(des, 'aud_mic_y'), zs - 0.6), (0, 1, 0), (1, 0, 0), (0, 0, -1))
+
+
+def alternative(des):
+    """Moduli predisposti ma non montati (D-074): {chiave: (componente di libreria, matrice, parti da togliere)}. Le
+    parti da togliere sono quelle della variante montata, che si smontano per far posto a questa."""
+    zb = -_mm(des, 'cor_tetto') + _mm(des, 'cor_sen_bugna_h')
+    out = {'IMU_Pololu': ('Rif_IMU', _rz(_mm(des, 'cor_imu_x'), _mm(des, 'cor_imu_y'), zb, 0.0),
+                          ('Corpo_Piastrina_IMU', 'Rif_IMU_MPU6500'))}
+    for lato, s in (('S', 1), ('D', -1)):
+        out['Microfono_Adafruit_' + lato] = ('Rif_Microfono_I2S', _pose_microfono(des, s), ('Corpo_Lunette_Microfoni', 'Rif_Microfono_MS3625'))
+    return out
+
+
+def varianti(des, root):
+    """Ogni modulo alternativo nella sua posa, contro tutti i corpi del robot tranne la variante montata: volumi di
+    intersezione (mm3). Caso di controllo: lo stesso conto senza togliere la variante montata deve trovare un urto."""
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    lib = {o.component.name: o for o in root.occurrences if o.component.name.startswith('Rif_')}
+    corpi = []
+    def raccogli(o):
+        for b in o.bRepBodies:
+            corpi.append((o.component.name, b))
+        for c in o.childOccurrences:
+            raccogli(c)
+    for o in root.occurrences:
+        if not o.component.name.startswith('Rif_') and not o.component.name.startswith('Attrezzo'):
+            raccogli(o)
+    out = {}
+    for chiave, (nome_lib, m, togli) in alternative(des).items():
+        prove = {'variante': [c for c in corpi if c[0] not in togli], 'controllo': corpi}
+        for k, insieme in prove.items():
+            urti = []
+            for b in lib[nome_lib].component.bRepBodies:
+                t = tbm.copy(b)
+                tbm.transform(t, m)
+                bb = t.boundingBox
+                for nome, cb in insieme:
+                    if cb.name in ('flat', 'linguetta', 'uscita_cavi'):     # ingombri non rigidi, come in _voluta
+                        continue
+                    q = cb.boundingBox
+                    if (q.maxPoint.x < bb.minPoint.x or q.minPoint.x > bb.maxPoint.x or q.maxPoint.y < bb.minPoint.y or
+                            q.minPoint.y > bb.maxPoint.y or q.maxPoint.z < bb.minPoint.z or q.minPoint.z > bb.maxPoint.z):
+                        continue
+                    c1 = tbm.copy(t)
+                    if tbm.booleanOperation(c1, tbm.copy(cb), adsk.fusion.BooleanTypes.IntersectionBooleanType) and c1.volume > 1e-6:
+                        urti.append('%s %.2f' % (nome, c1.volume * 1000))
+            out['%s %s' % (chiave, k)] = urti or 'nessuno'
     return out
 
 
@@ -423,7 +478,8 @@ GRUPPO_CARAPACE = ('Corpo_Carapace', 'Corpo_Fascia', 'Corpo_Visiera', 'Corpo_Gon
 # montati sul carapace o sulla visiera: si tolgono con loro (D-066)
 SALGONO_COL_CARAPACE = GRUPPO_CARAPACE + ('Rif_Cicalino_BX100', 'Rif_Pulsante_12', 'Corpo_Fondo_Anello', 'Corpo_Tappo_ToF',
                                           'Corpo_Sportello_Servizio_Zaino',
-                                          'Rif_Altoparlante', 'Rif_Microfono_I2S', 'Rif_Ampli_MAX98357A', 'Rif_Scheda_Carapace', 'Rif_ToF_1')
+                                          'Rif_Altoparlante_Tondo', 'Rif_Microfono_MS3625', 'Corpo_Lunette_Microfoni', 'Rif_Ampli_Generico',
+                                          'Rif_Scheda_Carapace', 'Rif_ToF_1')
 
 
 def _occ_carapace(root, nomi=GRUPPO_CARAPACE):
@@ -544,6 +600,8 @@ def main(passi, **kw):
             out['campo'] = campo(des, root, kw.get('piu_gradi', 0.0))
         if 'ripristina' in passi:
             out['ripristina'] = A['ripristina'](des)
+        if 'varianti' in passi:
+            out['varianti'] = varianti(des, root)
         if 'stato' in passi:
             out['stato'] = stato(des, root)
     except Exception:

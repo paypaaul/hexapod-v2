@@ -56,6 +56,9 @@ SPOST_CORPO = {
     'Rif_Interruttore_Pololu_2813': (0, 0, 40), 'Rif_IMU': (0, 0, 40), 'Rif_ADC_ADS7830': (0, 0, 40), 'Rif_Prese_Piedi': (0, 0, 40),
     'Rif_ToF_8x8': (18, 0, 72), 'Corpo_Tappo_ToF': (14, 0, 150), 'Rif_ToF_1': (-12, 0, 150), 'Rif_Altoparlante': (-12, 0, 150),
     'Rif_Microfono_I2S': (0, 0, 132), 'Corpo_Fondo_Anello': (0, 0, 132), 'Rif_Ampli_MAX98357A': (0, 0, 132), 'Rif_Scheda_Carapace': (0, 0, 132),
+    # moduli e pezzi della 2.1.6 (D-074)
+    'Rif_IMU_MPU6500': (0, 0, 40), 'Corpo_Piastrina_IMU': (0, 0, 40), 'Rif_Altoparlante_Tondo': (-12, 0, 150),
+    'Rif_Microfono_MS3625': (0, 0, 132), 'Corpo_Lunette_Microfoni': (0, 0, 132), 'Rif_Ampli_Generico': (0, 0, 132),
 }
 
 # inquadrature: (direzione dell'occhio, terna 'robot' o 'zampa', bersaglio in mm nella stessa terna, ampiezza in cm)

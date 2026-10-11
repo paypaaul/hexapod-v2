@@ -264,7 +264,10 @@ Sullo stesso design "Hexapod v2.1.0", tag `v2.1.5`, decisione D-072. Il modello 
 
 ## Seguito: versione 2.1.6 — predisposizioni con i pezzi già in casa (scelta dell'utente dell'11 ottobre 2026)
 
-**Piano, da fare dopo il via dell'utente.** Sullo stesso design "Hexapod v2.1.0", tag `v2.1.6`, decisione D-074.
+**Fatta l'11 ottobre 2026** (D-074, tag `v2.1.6`). Sullo stesso design "Hexapod v2.1.0", versione 14 del file. Rispetto al piano:
+- le guide dell'altoparlante non si alzano: la guancia è lunga 12,9, e il tondo si centra a x −96,3 contro il fermo e sporge 3,3 dietro, nello spazio libero;
+- le lunette sono larghe 12, non 12,9: più larghe toccavano lo smusso del viso;
+- la distanza del carapace dalle zampe medie è 3,96 mm, non 4,58 come in D-071, con carapace e lame identici a quelli della 2.1.5.
 
 L'utente ha scelto i moduli che ha già (D-073):
 - **X4**: MPU-6500 (GY-6500) al posto della Pololu LSM6DSO, con **doppia predisposizione**: si deve poter tornare alla Pololu smontando e basta;

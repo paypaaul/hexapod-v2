@@ -14,7 +14,7 @@ Materiali (scelta dell'utente, D-065): **PETG-CF nero** per le parti funzionali,
 | `Femore_B.stl` | PETG-CF | faccia esterna della piastra dei perni sul piatto | blocco in piedi; due fori per inserti M2 sulla faccia esterna (lama B) |
 | `Femore_A.stl` | PETG-CF | faccia esterna sul piatto | sedi delle squadrette verso l'alto |
 | `Cover_Femore_A.stl` + `Cover_Femore_A_Feritoia.stl` | PLA bianco + PLA nero, in un solo pezzo | faccia interna (piana) sul piatto, faccia esterna e intarsio in alto | dalla 2.1.3 (D-070, sagoma del femore D-071): le 12 tasche delle teste sono fori ciechi dal piatto; si incastra sulle teste M3 del blocco. L'intarsio della feritoia è profondo 0,6 e si stampa insieme alla lama, come la fascia del carapace |
-| `Cover_Femore_B.stl` + `Cover_Femore_B_Feritoia.stl` | PLA bianco + PLA nero, in un solo pezzo | faccia interna (piana) sul piatto, faccia esterna e intarsio in alto | tasche dei perni dal piatto; due fori per viti M2 × 6 a testa piana a Z 1,5 (X 81 e 89, D-071), con le svasature tutte nell'intarsio nero (profondo 1,0) |
+| `Cover_Femore_B.stl` + `Cover_Femore_B_Feritoia.stl` | PLA bianco + PLA nero, in un solo pezzo | faccia interna (piana) sul piatto, faccia esterna e intarsio in alto | tasche dei perni dal piatto; due fori per viti M2 × 5 a testa piana (D-073) a Z 1,5 (X 81 e 89, D-071), con le svasature tutte nell'intarsio nero (profondo 1,0) |
 | `Cover_Tibia.stl` | PLA | retro aperto sul piatto, fronte in alto | il fronte fa da ponte fra i due smussi; supporti piccoli sotto i due tappi e il bossolo della vite |
 | `Piedino.stl` | TPU 95A | bocca sul piatto, punta in alto | calza la punta dello stinco; nel modello la stretta è zero, da tarare sul provino (0 / −0,2 / −0,4 mm). Dalla 2.1.0 la suola è piana, con il pistoncino per l'FSR dentro e la tacca dei fili (D-066) |
 | `Cover_Tibia_Diffusore.stl` | PLA bianco (o PETG traslucido fumé) | lastra sul piatto, bordino in alto | solo con le luci nelle tibie: si incastra da dentro nella finestra del guscio (D-066) |
@@ -34,6 +34,8 @@ Materiali (scelta dell'utente, D-065): **PETG-CF nero** per le parti funzionali,
 | `Corpo_Tappo_ToF.stl` | PLA nero | flangia sul piatto | chiude la finestra del ToF frontale finché il sensore manca |
 | `Corpo_Fondo_Anello.stl` | PLA nero | disco sul piatto, gonna e sedi dei pixel in alto | chiude da sotto la camera nera dell'anello del pulsante: si infila sul corpo del pulsante dopo il dado e calza la parete della camera (forzamento leggero, D-067). Nelle due sedi va un pixel di striscia ciascuna, LED in su |
 | `Corpo_Sportello_Servizio_Zaino.stl` | PLA nero | come lo sportellino | al posto dello sportellino, solo con il computer a zaino (tacca per l'USB-C) |
+| `Corpo_Piastrina_IMU.stl` | PETG-CF | faccia inferiore sul piatto, svasature in alto | IMU GY-6500 (X4, D-074): si avvita sulle due bugne della Pololu con due M2 × 5 svasate (a filo, la scheda ci passa sopra); la scheda, con i pin verso +Y, prende due M2 × 6 nei fori pilota Ø1,7. Per montare la Pololu si toglie |
+| `Corpo_Lunette_Microfoni.stl` | PLA | piatte sul piatto | quattro lunette, due per microfono MS3625 (X16, D-074): si posano alle estremità del telaio del microfono e centrano la scheda tonda sul foro. Sono simmetriche; per la Adafruit 3421 si tolgono |
 
 Parti in PETG-CF: ugello temprato 0,4, pareti 3 perimetri (1,2 mm), 4–5 strati sopra e sotto, riempimento 25 %.
 

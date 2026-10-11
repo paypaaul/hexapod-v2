@@ -605,3 +605,52 @@ L'utente ha chiesto di cercare nei suoi ordini Amazon, AliExpress e Temu i pezzi
   - lega dello stagno "a bassa temperatura";
   - quanto resta del PETG-CF nero FlashForge.
 - **Predisposizioni** (IMU, microfoni, amplificatore e altoparlante in casa): ancora da decidere con l'utente.
+
+## D-074 — Versione 2.1.6: predisposizioni con i pezzi già in casa, IMU e microfoni doppi (2026-10-11)
+
+L'utente ha scelto i moduli che ha già (D-073):
+- l'MPU-6500 (GY-6500) al posto della Pololu LSM6DSO, con **doppia predisposizione**: per tornare alla Pololu basta smontare;
+- lo stesso per i microfoni: MS3625 montati, Adafruit 3421 predisposti;
+- l'amplificatore MAX98357A generico e l'altoparlante tondo da 15 mm.
+
+Piano in `docs/piano-v2.1.0.md`, sezione 2.1.6. Prima del via sono stati controllati i collegamenti.
+
+- **Quote dei moduli**: S, ricavate dalle foto dei venditori con il passo dei pin da 2,54 come scala; C, da guardare sui pezzi (elenco in `CLAUDE.md`).
+  - **GY-6500** ("MPU-9250/6500" blu): 26 × 15,5 × 1,6 mm, componenti alti circa 1 mm; 10 pin su un lato lungo; due fori Ø3 sul lato opposto, a 20,6 di interasse e 2,3 dal bordo; asse X del chip sul lato corto.
+  - **MS3625**: tonda, Ø13,5, con due lati piatti a 12,6 lungo le file dei pin. La porta è al centro della faccia senza componenti, come la porta sul fondo della Adafruit.
+  - **MAX98357A generico**: 17,5 × 17,7 mm; due fori Ø2,4 sul lato della morsettiera, a 13 di interasse e 2,2 dai bordi.
+  - **Altoparlante**: Ø15, spessore non dichiarato (4, C).
+- **IMU** (`Corpo_Piastrina_IMU`, PETG-CF, 26 × 11,1 × 2,5):
+  - la base non cambia, la Pololu si avvita ancora sulle sue bugne;
+  - la piastrina va sulle stesse bugne con due M2 × 5 svasate a filo, e porta la GY-6500 con due M2 × 6 in fori pilota Ø1,7;
+  - pin verso +Y, scheda a 0,6 dal bordo della scheda dell'ADC e a 0,65 dalla parete del vano; in Z da −2,9 a −0,3, sotto il vassoio a +1;
+  - fili saldati sulle piazzole, senza pin.
+- **Microfoni**:
+  - stesso foro e stesso telaio della Adafruit: la MS3625 ci sta con i lati piatti lungo i lati lunghi, a 0,25 dalle pareti;
+  - lungo il telaio la centrano due lunette per microfono (`Corpo_Lunette_Microfoni`, PLA, quattro pezzi simmetrici), che si tolgono per montare la Adafruit;
+  - le lunette sono larghe 12 invece di 12,9, perché a 12,9 toccavano per 0,49 mm³ lo smusso del viso.
+- **Amplificatore**: le bugne passano sul lato della morsettiera (verso +X), a 13 di interasse. **Quelle in diagonale della 2.1.0 erano sbagliate anche per la Adafruit**, che ha i fori nello stesso punto.
+- **Altoparlante**:
+  - la guancia è lunga 12,9 e il tondo è Ø15: si centra a x −96,3 contro un fermo nuovo da 1 mm all'estremo anteriore della guancia, e sporge 3,3 mm dietro;
+  - le guide restano quelle di prima (15,4 fra le facce interne);
+  - lo spazio dietro la guancia è libero, compreso un corridoio di 25 mm per infilarlo da dietro (verificato nel CAD).
+- **Collegamenti**:
+  - l'IMU usa gli stessi 4 fili (NCS, AD0 e FSYNC già tirati sulla scheda, S) e l'indirizzo 0x68, che non va mai sul bus della camera;
+  - i microfoni usano gli stessi sei segnali e GPIO, con **in più un pull-down da 100 kΩ sulla linea dati** (datasheet ADMP441/INMP441), che valeva anche per le Adafruit;
+  - l'amplificatore ha gli stessi pin;
+  - il volume dell'altoparlante da 1 W va limitato nel firmware;
+  - il driver dell'IMU riconoscerà la scheda dall'indirizzo e ruoterà gli assi (`software.md`). I colpetti si riconoscono in software, perché l'MPU-6500 non li fa in hardware.
+- **Verifiche nel CAD**:
+  - ingombri nuovi con i volumi del calcolo a mano;
+  - schizzi vincolati, timeline senza problemi;
+  - **sentinella**: cambia solo il carapace, +0,020 cm³ (il fermo); baricentro spostato di 0,01–0,02 mm, quanto danno fermo e bugne;
+  - **assieme**: nessuna interferenza; coxe libere a ±35°;
+  - **varianti**: la Pololu e le Adafruit montate al posto di GY-6500 e MS3625 non toccano niente; i casi di controllo (senza togliere la variante montata) trovano piastrina, scheda e lunette;
+  - **carapace**: sfilamento libero a 5, 10, 20 e 40 mm; campo della camera libero;
+  - carapace contro le zampe senza urti: **3,96 mm** sulle zampe medie a +35° (lama A), 4,76 a −35°, 7,1 sulle altre. Il 4,58 scritto in D-071 non si ritrova con carapace e lame identici a quelli della 2.1.5: probabilmente era stato misurato prima di un ritocco alle lame. Il valore buono è 3,96;
+  - cicli non rifatti: i pezzi nuovi sono dentro il corpo e il carapace, la forma esterna non cambia.
+- **Massa**: attesa **3045,0 g** (+1,5 g); femore sempre al 53 % dello stallo a 100/45 (5,84 kgf·cm), margine di stabilità 59 mm.
+- **BOM**:
+  - X4, X16 e X17 sono in possesso;
+  - le predisposizioni approvate costano circa 42 € in meno (220,26 € invece di 262,12, senza il computer di bordo);
+  - il carrello DigiKey scende a 51,22 € e paga 25 € di spedizione, mentre sparisce l'ordine da pololu.com.

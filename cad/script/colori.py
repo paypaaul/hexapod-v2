@@ -45,6 +45,7 @@ PARTI = {
     'Piedino': 'Esa TPU arancio',
     'Corpo_Tappo_ToF': 'Esa PLA nero', 'Corpo_Fondo_Anello': 'Esa PLA nero', 'Corpo_Sportello_Servizio_Zaino': 'Esa PLA nero',
     'Corpo_Supporto_INA260_S': 'Esa PETG-CF nero', 'Corpo_Supporto_INA260_D': 'Esa PETG-CF nero',
+    'Corpo_Piastrina_IMU': 'Esa PETG-CF nero', 'Corpo_Lunette_Microfoni': 'Esa PLA nero',
     'Dima_Posa_1': 'Esa PLA placche', 'Dima_Posa_2': 'Esa PLA placche', 'Attrezzo_Cavalletto': 'Esa PETG-CF nero',
     'Attrezzo_Provino_Luce_Nero': 'Esa PLA nero', 'Attrezzo_Provino_Luce_Bianco': 'Esa PLA placche',
     'Attrezzo_Provino_Tasche_Base': 'Esa PETG-CF nero', 'Attrezzo_Provino_Tasche_Lama': 'Esa PLA placche',
@@ -52,6 +53,8 @@ PARTI = {
     'Rif_ToF_1': 'Esa scheda verde', 'Rif_Ampli_MAX98357A': 'Esa scheda blu', 'Rif_Altoparlante': 'Esa plastica nera',
     'Rif_Microfono_I2S': 'Esa scheda blu', 'Rif_FSR_400': 'Esa grigio chiaro', 'Rif_Scheda_Carapace': 'Esa scheda verde',
     'Rif_Prese_Piedi': 'Esa plastica nera', 'Rif_Computer_Zaino': 'Esa scheda verde',
+    'Rif_IMU_MPU6500': 'Esa scheda blu', 'Rif_Microfono_MS3625': 'Esa plastica nera', 'Rif_Ampli_Generico': 'Esa scheda blu',
+    'Rif_Altoparlante_Tondo': 'Esa plastica nera',
     # comprati (ingombri generati)
     'Ingombro_Teste_A': 'Esa acciaio', 'Rif_Cuscinetto_LF1050ZZ': 'Esa acciaio', 'Rif_Perno_5': 'Esa acciaio',
     'Rif_Squadretta_25T': 'Esa alluminio', 'Rif_Pulsante_12': 'Esa acciaio',

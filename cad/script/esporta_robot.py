@@ -46,7 +46,7 @@ ZA = runpy.run_path(os.path.join(QUI, 'zampa.py'))
 RHO = {'PETG-CF': 1.3, 'PLA': 1.24, 'TPU': 1.21}
 GUSCIO_CM, RIEMPIMENTO = 0.12, 0.25
 PLA = ('Corpo_Carapace', 'Cover_Femore_A', 'Cover_Femore_B', 'Cover_Femore_A_Feritoia', 'Cover_Femore_B_Feritoia', 'Cover_Tibia', 'Cover_Tibia_Diffusore', 'Corpo_Vassoio', 'Corpo_Fascia',
-       'Corpo_Tappo_ToF', 'Corpo_Sportello_Servizio_Zaino', 'Corpo_Fondo_Anello',
+       'Corpo_Tappo_ToF', 'Corpo_Sportello_Servizio_Zaino', 'Corpo_Fondo_Anello', 'Corpo_Lunette_Microfoni',
        'Corpo_Visiera', 'Corpo_Gonne', 'Corpo_Sportello_Servizio')
 TPU = ('Piedino',)
 # parti comprate: massa dichiarata in g (servo: datasheet AZDelivery, V; batteria 245-259 +-20, arrotondata per eccesso;
@@ -57,7 +57,9 @@ COMPRATE = {'Rif_Servo_MG996R': 55.0, 'Rif_Squadretta_25T': 4.0, 'Rif_Cuscinetto
             # predisposizioni 2.1.0 (D-066), dalle pagine dei produttori (S): si contano quando si montano
             'Rif_Interruttore_Pololu_2813': 3.0, 'Rif_IMU': 1.0, 'Rif_ADC_ADS7830': 2.0, 'Rif_Prese_Piedi': 3.0, 'Rif_ToF_8x8': 0.5,
             'Rif_ToF_1': 0.5, 'Rif_INA260': 3.0, 'Rif_Altoparlante': 1.5, 'Rif_Ampli_MAX98357A': 1.2, 'Rif_Scheda_Carapace': 5.0,
-            'Rif_Microfono_I2S': 0.4, 'Rif_FSR_400': 0.3}
+            'Rif_Microfono_I2S': 0.4, 'Rif_FSR_400': 0.3,
+            # moduli in casa montati dalla 2.1.6 (D-074), stimati (S)
+            'Rif_IMU_MPU6500': 1.5, 'Rif_Microfono_MS3625': 0.3, 'Rif_Ampli_Generico': 1.2, 'Rif_Altoparlante_Tondo': 1.5}
 NON_MODELLATO_G = 360.0       # cavi, viteria, inserti, logica, fusibili, Wago, T-plug, interruttore (progetto-meccanico.md)
 ALTERNATIVE = ('Corpo_Sportello_Servizio_Zaino',)   # pezzi che sostituiscono un altro (si monta l'uno o l'altro)
 SALTA = ('flat', 'linguetta', 'zona_spine_servo', 'zona_barre_retro', 'uscita_cavi')   # ingombri non rigidi o sovrapposti

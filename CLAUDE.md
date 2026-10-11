@@ -13,12 +13,13 @@ Robot esapode a 18 gradi di libertà (6 zampe × 3 servo MG996R), stampato in 3D
 | 1. Studio | fatta (8 ottobre 2026): `docs/studio-componenti.md`, `docs/dimensionamento.md`, `docs/dimensioni-componenti.md` |
 | 2. BOM | v2.0 approvata; v2.1 con prezzi, link e foto (D-068) in `docs/BOM.md` |
 | 3. Modelli 3D | fatta: parametri, STEP e ingombri in libreria (`cad/script/rif_componenti.py`, D-046) |
-| 4. CAD | **versione 2.1.5** (11 ottobre 2026, D-072); piano della 2.1.6 (predisposizioni con i pezzi in casa) in `docs/piano-v2.1.0.md`, da fare dopo il via. Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
+| 4. CAD | **versione 2.1.6** (11 ottobre 2026, D-074): predisposizioni con i pezzi in casa, IMU e microfoni con doppia sede. Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
 | 5. BOM finale | v2.2: circa 362 € consegnati per le voci approvate, tolto quello che l'utente ha già in casa (D-073); predisposizioni X a parte (D-068) |
 | 6. Verifica del movimento | da fare |
 
 Numeri di oggi:
-- massa attesa 3043,5 g, con il femore al 53 % dello stallo a 100/45;
+- massa attesa 3045,0 g, con il femore al 53 % dello stallo a 100/45;
+- carapace a 3,96 mm dalle zampe medie a +35° (D-074: il 4,58 di D-071 non si ritrova), 7,1 dalle altre;
 - zampe vicine libere a 30,5° e a contatto a 31° ciascuna su tre coppie su quattro; AD–MD libere anche a 31° (D-071);
 - il firmware limita la coxa a ±30° e la somma fra vicine a 56°. Il valore sta in `robot.yaml` ed è ancora una proposta da approvare: D-050 e D-061 dicono 60°.
 
@@ -85,7 +86,7 @@ Numeri di oggi:
 | `cad/stl/` | STL da stampare, con orientamento e materiali nel README; `cad/modelli/`: STEP di terzi (fuori da git) |
 | `cad/render/` | render schematici con matplotlib (`render.py`) e ritaglio dei render di Fusion |
 | `docs/decisioni.md` | registro delle decisioni (D-041 e successive) |
-| `docs/versioni.md`, `docs/piano-v2.1.0.md` | storico delle versioni e piani dalla 2.1.0 alla 2.1.5 |
+| `docs/versioni.md`, `docs/piano-v2.1.0.md` | storico delle versioni e piani dalla 2.1.0 alla 2.1.6 |
 | `docs/progetto-meccanico.md` | architettura, quote, verifiche, masse e render |
 | `docs/BOM.md` | distinta base con prezzi, carrelli, foto e domande aperte |
 | `docs/cablaggio.md` | tutti i cavi, connettori, piedinature e punti aperti |
@@ -106,7 +107,7 @@ Numeri di oggi:
   - `Hexapod v2 - MG996R - ripristino tibia asimmetrica (v22)`, lineage `2kd8UmqPSSqdH-nUiwVWhw`;
   - `Hexapod v2 - MG996R` (versione 2.0.0, congelata, tag `v2.0.0`), lineage `AVxbp0QWS5m_QEugpeB99A`.
   - I lineage hanno tutti il prefisso `urn:adsk.wipprod:dm.lineage:`.
-- **Design di lavoro**: "Hexapod v2.1.0", lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Ha le versioni dalla 2.1.0 alla 2.1.5 (versione 13 del file).
+- **Design di lavoro**: "Hexapod v2.1.0", lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Ha le versioni dalla 2.1.0 alla 2.1.6 (versione 14 del file).
   - Struttura (D-046): un solo file; la zampa è un componente istanziato sei volte; le parti comprate `Rif_*` stanno in libreria (y ≥ 250 mm).
   - Gli attrezzi stanno anche loro in libreria e sono nascosti.
 
@@ -137,7 +138,6 @@ Numeri di oggi:
 
 1. **Da far decidere all'utente**:
    - domanda 4 del BOM (una squadretta di prova) e voci X da comprare;
-   - predisposizioni con i pezzi già in casa (D-073): MPU-6500 al posto dell'IMU Pololu (X4), microfoni MS3625 o INMP441 (X16), MAX98357A generico e altoparlante da 15 mm (X17). Cambiano le sedi nel CAD;
    - se montare le luci nelle tibie (la sede X31 è approvata, D-069) e il colore del diffusore: bianco o PETG traslucido fumé. Lo zaino è approvato, resta l'acquisto;
    - somma fra vicine a 56° invece di 60° (proposta in `docs/software.md`);
    - eventuali viti DIN 7984 a testa bassa sotto la lama A: la lama passa da 4,0 a 3,0 mm, il contatto fra vicine sale verso 31,25° e la massa cala di pochi grammi. Cambiano 72 viti del BOM (D-070).
@@ -153,6 +153,11 @@ Numeri di oggi:
    - Set Temu da 500 inserti in ottone: misure.
    - Lega dello stagno "a bassa temperatura": se non è al bismuto, B19 perde anche lo stagno.
    - Quanto resta della bobina FlashForge di PETG-CF nero: se è quasi intera, E1 scende a una bobina.
+   - Quote dei moduli della 2.1.6 (D-074), prese dalle foto dei venditori; prima di stampare base, piastrina e carapace:
+     - GY-6500: 26 × 15,5, fori Ø3 a 20,6 di interasse e 2,3 dal bordo (`sen_mpu_*`);
+     - MS3625: Ø13,5 con i lati piatti a 12,6 (`aud_ms_*`);
+     - MAX98357A generico: fori a 13 di interasse, 2,2 dal bordo della morsettiera (`aud_amp_fori*`);
+     - altoparlante da 15: spessore (`aud_altt_sp`, oggi 4).
 4. **Provini da stampare prima dei pezzi**:
    - culla e giunto: passacavo, fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata;
    - luce (X10, D-069);

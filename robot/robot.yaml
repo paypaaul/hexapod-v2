@@ -1,4 +1,4 @@
-# Descrizione unica del robot (versione 2.1.5): la parte scritta a mano. La geometria, le masse e i limiti meccanici
+# Descrizione unica del robot (versione 2.1.6): la parte scritta a mano. La geometria, le masse e i limiti meccanici
 # stanno in cad.json, esportato dal modello Fusion con cad/script/esporta_robot.py; tools/descrizione.py unisce i
 # due file, tools/genera_header.py ne fa l'header del firmware, tools/genera_modelli.py URDF e MJCF. Il CI controlla che cad_sha256 sia quello di
 # cad.json: se si riesporta dal CAD, si aggiorna anche qui (e si rigenera).
@@ -11,9 +11,9 @@
 #   ginocchio (180 = distesa). Cinematica: calc/statica_tripode.py -> ik_piano (soluzione a ginocchio alto).
 # Stato dei dati: V verificato, S stimato, C da confermare (come nei documenti).
 
-versione: 2.1.5
+versione: 2.1.6
 cad: cad.json
-cad_sha256: 128e7e8696ab958f4c862e133dee2090d8d69fadb0956594ddd28304353b049a  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
+cad_sha256: 8037796ae41c3a2d9a12bc29b6ffd6cdd041e19e73c01cf7ed88c48fae8284c0  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
 
 zampe: [AS, MS, PS, AD, MD, PD]          # A anteriore, M media, P posteriore; S sinistra, D destra
 tripodi: [[AS, PS, MD], [AD, PD, MS]]    # calc/statica_tripode.py -> TRIPODI
@@ -76,10 +76,10 @@ andatura:
   giro_max: 30.0                         # gradi a passo nella rotazione sul posto (verificato nel CAD)
 
 massa:
-  attesa_g: 3043.5                       # D-071: modellato + non modellato (cad.json); calc/statica_tripode.py -> CONFIG
+  attesa_g: 3045.0                       # D-074: modellato + non modellato (cad.json); calc/statica_tripode.py -> CONFIG
   non_modellato_sul_corpo: true          # cavi e viteria (cad.json -> masse.non_modellato_g) aggiunti al corpo
 
 regressione_statica:                     # software.md 6.3, test 6
-  femore_frazione_stallo: [0.525, 0.545] # 53 % +- 1 a 100/45 con 3043,5 g (D-071; 51 % con 2945 g)
+  femore_frazione_stallo: [0.525, 0.545] # 53 % +- 1 a 100/45 con 3045 g (D-074; 51 % con 2945 g)
   femore_kgfcm: 5.84
   margine_stabilita_mm: 59.0

@@ -142,14 +142,14 @@ Nel CAD ci sono le sedi per le voci approvate come predisposizione in D-069 (la 
 | Voce | Posto nel modello (D-066) |
 |---|---|
 | X5 FSR 400 Short (6 + 1) | punta della tibia, piedino con pistoncino, tasca e gola dei fili, prese dei piedi accanto all'ADC |
-| X4 IMU Pololu #2798 | bugne sul tetto del tunnel sotto il vassoio |
+| X4 IMU: GY-6500 (MPU-6500) montata, Pololu #2798 predisposta (D-074) | bugne sul tetto del tunnel sotto il vassoio: la Pololu ci si avvita sopra, la GY-6500 sta su `Corpo_Piastrina_IMU` avvitata alle stesse bugne |
 | X6 ADS7830 | bugne accanto all'IMU |
 | X7 2 × INA260 | supporti sopra le slitte dei regolatori |
 | X8 ToF VL53L7CX | mensola della camera, finestra nella visiera, tappo |
 | X9, X11, X12, X31 luci (striscia WS2812B-2020 a 120 LED/m, D-068) | anello del pulsante con camera nera Ø32 × 6 e fondo con due sedi da 16,7 mm (2 pixel ciascuna); sedi dei lobi da 2 pixel; sedi nelle tibie con il fermo dei fili, diffusore, prese delle luci delle tibie sul tetto del tunnel (2.1.2). Cablaggio in `cablaggio.md` |
 | X10 provino di luce | `Attrezzo_Provino_Luce_Nero` e `_Bianco`, stampa a due colori (2.1.2) |
 | X13 spie dei rail | linguette in coda |
-| X2 scheda del carapace, X17 amplificatore e altoparlante, X16 microfoni, X19 ToF posteriore | bugne sotto il dorso, guide e piano sulle guance di coda, fori con anello |
+| X2 scheda del carapace, X17 amplificatore e altoparlante, X16 microfoni, X19 ToF posteriore | bugne sotto il dorso (quelle dell'amplificatore sul lato della morsettiera, D-074), guide e fermo dell'altoparlante tondo e piano del ToF sulle guance di coda, fori con anello e telaio dei microfoni (MS3625 con le lunette, oppure Adafruit senza) |
 | Computer a zaino (Radxa ZERO 3W) | quattro bugne M2 sopra l'ottagono, sportellino con la tacca dell'USB-C |
 
 Prezzi delle voci X (10 ottobre 2026, IVA inclusa). Quali si predispongono e quali vanno in backlog è deciso in D-069; **l'acquisto di ogni voce resta da approvare**. La striscia LED è la WS2812B-2020 a 120 LED/m, larga 4 mm (D-068). X10, X11 e X12 non hanno costi propri: sono pezzi della stessa striscia.
@@ -159,7 +159,7 @@ Prezzi delle voci X (10 ottobre 2026, IVA inclusa). Quali si predispongono e qua
 | <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | approvata | X1 | cavi Qwiic Adafruit 4210 100 mm, 5 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4210/10230021) | 5,06 € (V) |
 | <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | approvata | X1 | cavo Qwiic con prese femmina Adafruit 4397 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4397/10824270) | 1,01 € (V) |
 | <img src="https://kamami.pl/105748-large_default/dc-dc-step-down-converter-module-33v-d24v5f3.jpg" width="48" alt="X3"> | approvata | X3 | Pololu D24V5F3 #2842 | [Kamami](https://kamami.pl/en/step-down/558118-pololu-2842-pololu-33v-500ma-step-down-voltage-regulator-d24v5f3.html) | 7,76 € (V) |
-| <img src="https://a.pololu-files.com/picture/0J11767.1200x627.jpg?9cec8ded097e97a57913799c94b50cc0" width="48" alt="X4"> | approvata | X4 | Pololu LSM6DSO #2798 | [pololu.com](https://www.pololu.com/product/2798) | 22,40 € (S) |
+| — | approvata, **in possesso** (D-074) | X4 | GY-6500 (MPU-6500) dell'utente, su `Corpo_Piastrina_IMU`; la Pololu LSM6DSO #2798 resta predisposta sulle stesse bugne | — | 0 € |
 | <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | approvata | X5 | Interlink FSR 400 Short 34-00004, 7 pz | [Tinytronics](https://www.tinytronics.nl/en/sensors/weight-pressure-force/membrane/interlink-electronics-fsr-400-short-tail-membrane-pressure-sensor-7.6mm-round-soldertabs) | 35,00 € (V) |
 | <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | approvata | X5 | cavo siliconico 28 AWG, rosso e nero, 3 m ciascuno | [AliExpress](https://it.aliexpress.com/item/1005009017260144.html) | 3,42 € (V) |
 | <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | approvata | X5 | partitori: 10 kΩ 1 % × 6, 100 nF × 6 | [DigiKey.it](https://www.digikey.it/en/products/detail/yageo/MFR-25FRF52-10K/14626) | 1,36 € (V) |
@@ -172,9 +172,10 @@ Prezzi delle voci X (10 ottobre 2026, IVA inclusa). Quali si predispongono e qua
 | <img src="https://cdn-shop.adafruit.com/480x360/4226-12.jpg" width="48" alt="X7"> | approvata | X7 | Adafruit INA260 #4226, 2 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4226/10130492) | 21,32 € (V) |
 | <img src="https://www.buerklin.com/en/images/dae/9163079581726/500x500/ntc-10-k-1-0-06-w-3988-k-0-002-w-k-15-s-tht-b57861s0103f040.webp" width="48" alt="X14"> | approvata | X14 | NTC TDK B57861S0103F040, 3 pz | [Bürklin](https://buerklin.com/en/p/epcos/ntc-thermistors/b57861s0103f040/80E6746) | 11,32 € (S) |
 | <img src="https://www.buerklin.com/en/images/dae/9163079581726/500x500/ntc-10-k-1-0-06-w-3988-k-0-002-w-k-15-s-tht-b57861s0103f040.webp" width="48" alt="X14"> | approvata | X14 | 10 kΩ 1 % × 3 | [DigiKey.it](https://www.digikey.it/en/products/detail/yageo/MFR-25FRF52-10K/14626) | 0,14 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/3421-03.jpg" width="48" alt="X16"> | approvata | X16 | Adafruit SPH0645 #3421, 2 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/3421/6691114) | 14,88 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/3006-04.jpg" width="48" alt="X17"> | approvata | X17 | Adafruit MAX98357A #3006 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/3006/6058477) | 6,37 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/3006-04.jpg" width="48" alt="X17"> | approvata | X17 | altoparlante Same Sky CMS-15113-078SP-67 | [DigiKey.it](https://www.digikey.it/en/products/detail/same-sky-formerly-cui-devices/CMS-15113-078SP-67/9561103) | 3,21 € (V) |
+| — | approvata, **in possesso** (D-074) | X16 | 2 MS3625 I2S dell'utente (ne ha 5), centrate dalle `Corpo_Lunette_Microfoni`; la Adafruit SPH0645 #3421 resta predisposta | — | 0 € |
+| — | approvata (D-074) | X16 | pull-down da 100 kΩ sulla linea dati dei microfoni, dal set di B10 | — | 0 € |
+| — | approvata, **in possesso** (D-074) | X17 | MAX98357A generico dell'utente (copia della Adafruit 3006, ne ha 10) | — | 0 € |
+| — | approvata, **in possesso** (D-074) | X17 | altoparlante tondo da 15 mm, 8 Ω, 1 W, dell'utente | — | 0 € |
 | <img src="https://kamami.pl/31951-large_default/distance-sensor-vl53l1x-4-400-cm-in-tof-technology-with-voltage-regulator.jpg" width="48" alt="X19"> | approvata | X19 | Pololu VL53L1X #3415 | [Kamami](https://kamami.pl/en/distance-sensors/571453-distance-sensor-vl53l1x-4-400-cm-in-tof-technology-with-voltage-regulator.html) | 28,78 € (V) |
 | <img src="https://www.sparkfun.com/media/catalog/product/cache/6b78ac9ed927a3c2db42a3c84dab4ce5/1/7/17047-SparkFun_Qwiic_GPIO-01.jpg" width="48" alt="X20"> | approvata | X20 | SparkFun Qwiic GPIO TCA9534 DEV-17047 (in arrivo il 24 novembre) | [DigiKey.it](https://www.digikey.it/en/products/detail/sparkfun-electronics/17047/13419022) | 7,23 € (V) |
 | <img src="https://ae-pic-a1.aliexpress-media.com/kf/Sa63c7c29c9a64cf68382d7b623461fe3N.jpg" width="48" alt="X31"> | approvata | X31 | cavo siliconico 30 AWG, 3 colori × 3 m | [AliExpress](https://it.aliexpress.com/item/1005009017260144.html) | 4,77 € (V) |
@@ -193,19 +194,18 @@ Prezzi delle voci X (10 ottobre 2026, IVA inclusa). Quali si predispongono e qua
 
 | Insieme | Merce | Spedizioni | Totale |
 |---|---|---|---|
-| predisposizioni approvate, senza computer di bordo | 221,93 € | 40,19 € | 262,12 € |
-| predisposizioni approvate, con computer di bordo e il suo regolatore | 301,96 € | 57,69 € | 359,65 € |
+| predisposizioni approvate, senza computer di bordo | 175,07 € | 45,19 € | 220,26 € |
+| predisposizioni approvate, con computer di bordo e il suo regolatore | 255,10 € | 62,69 € | 317,79 € |
 | backlog | 199,66 € | 20,00 € | 219,66 € |
 
-- **Spedizioni**: le stime S sono pololu.com (circa 20 €, da fuori UE: possibile dogana), RS, Bürklin, Botland e Tinytronics. AliExpress spedisce gratis sopra 10 €. DigiKey spedisce gratis sopra 75 €, altrimenti costa 25 €; con le voci approvate si supera la soglia, ancora di più spostando lì B7 e B8.
+- **Spedizioni**: le stime S sono pololu.com (circa 20 €, da fuori UE: possibile dogana), RS, Bürklin, Botland e Tinytronics. AliExpress spedisce gratis sopra 10 €. DigiKey spedisce gratis sopra 75 €, altrimenti costa 25 €.
+- **Con i pezzi in casa** (D-074): X4, X16 e X17 non si comprano. Sparisce l'ordine da pololu.com (circa 20 € di spedizione), ma il carrello DigiKey scende da 75,68 a 51,22 € e paga 25 € di spedizione: conviene aggiungerci altre voci da DigiKey quando si ordina, o rimandarlo. In tutto le predisposizioni approvate costano circa 42 € in meno.
 - **Da controllare**:
   - X13: a magazzino c'è solo il LED giallo a 590 nm;
-  - X17: l'altoparlante è la variante -67 (IP67);
   - X20: in arrivo a novembre;
-  - X4: solo su pololu.com;
   - il regolatore 5 V del computer di bordo: Botland dice di vendere solo a clienti B2B.
 
-Viteria in più se si montano tutte, da contare a robot deciso: inserti M2 (D5) per IMU 2, ADC 2, INA260 4, scheda del carapace 4, amplificatore 2, zaino 4; viti M2 corte per le stesse; viti M3 delle slitte più lunghe di 2,4 mm con i supporti degli INA260.
+Viteria in più se si montano tutte, da contare a robot deciso: inserti M2 (D5) per IMU 2, ADC 2, INA260 4, scheda del carapace 4, amplificatore 2, zaino 4; viti M2 corte per le stesse; viti M3 delle slitte più lunghe di 2,4 mm con i supporti degli INA260. Con la GY-6500 (D-074): due M2 × 5 svasate per la piastrina (dalle 50 di D8b) e due M2 × 6 a croce per la scheda (dal kit degli inserti).
 
 ## Ordine degli acquisti consigliato
 
@@ -228,11 +228,11 @@ Prezzi IVA inclusa del 10 ottobre 2026; V letto sulla pagina, S stimato. Amazon.
 | Amazon.it | B16, B18, C3, D6, D10, D11 | 83,89 € | 0,00 € (gratis sopra 29 € per gli articoli venduti da Amazon; per i venditori terzi può variare, S) | 83,89 € |
 | **Totale** | | **353,89 €** | **8,24 €** | **362,13 €** |
 
-- **Kamami** (Polonia, FedEx 3–7 giorni) porta in un solo pacco i regolatori Pololu e quasi tutta la minuteria, con 16 righe. Le predisposizioni Pololu (X3, X8, X19) si aggiungono senza altra spedizione.
+- **Kamami** (Polonia, FedEx 3–7 giorni; la merce è sommata dai prezzi in PLN, per questo differisce di qualche centesimo dalla somma delle righe in euro) porta in un solo pacco i regolatori Pololu e quasi tutta la minuteria, con 16 righe. Le predisposizioni Pololu (X3, X8, X19) si aggiungono senza altra spedizione.
 - **Amazon.it**: 8 righe (filo delle barre, distanziali, spinotto USB-C, viti M3, schiuma, guaina spiralata), ciascuna con il suo ASIN. Alcune sono di venditori terzi: la spedizione gratuita sopra 29 € vale per gli articoli venduti o spediti da Amazon, quindi va controllata nel carrello.
 - **Viti**: il kit Amazon con le due confezioni in più (32,60 €) costa meno di Gedex con le misure esatte (53,03 € con la spedizione) e porta anche dadi e rondelle.
 - **Squadrette** (D3): su AliExpress il disco da 25 denti costa 0,42 €, ma diametro e fori non sono dichiarati. Prima se ne provano 1–2 pezzi (BOM, domanda 4). Con le misure del CAD dichiarate c'è la diymore su Amazon, 6 pezzi a 10,99 €.
-- **In casa** (D-073): cavi, connettore e portafusibile della linea principale, condensatori, basetta, cavetti, viti M2 e filamento PLA vengono dagli ordini già fatti dall'utente. B7 e B8 non servono più per arrivare alla soglia di DigiKey: il carrello delle voci X ci deve arrivare da solo.
+- **In casa** (D-073): cavi, connettore e portafusibile della linea principale, condensatori, basetta, cavetti, viti M2 e filamento PLA vengono dagli ordini già fatti dall'utente. B7 e B8 non servono più, e con X4, X16 e X17 in casa (D-074) il carrello DigiKey delle voci X resta sotto la soglia: vedi la sezione X.
 
 Fuori dal totale:
 

@@ -47,7 +47,7 @@ Tre livelli. L'ESP32-S3 è il "midollo spinale": andature, cinematica, guardia, 
 Il bus dei sensori parte dalla basetta (pull-up, D24V5F3 se serve):
 
 ```
- basetta ─┬─ vano sotto il vassoio: IMU (0x6B), ADS7830 (0x48) ← 6 FSR dei piedi, 2 NTC
+ basetta ─┬─ vano sotto il vassoio: IMU (0x68; 0x6B con la Pololu), ADS7830 (0x48) ← 6 FSR dei piedi, 2 NTC
           ├─ baie anteriori: INA260 sinistro (0x44) e destro (0x45) sulle slitte
           ├─ mensola della camera: ToF frontale VL53L7CX (0x30)
           └─ cavo piatto 16 poli ─ scheda del carapace: presa Qwiic, TCA9534 (0x20), CAP1188 (0x28),
@@ -123,7 +123,8 @@ Bus dei sensori: I2C0, GPIO47 SDA, GPIO3 SCL, 400 kHz, 3,3 V.
 | 0x48 | ADS7830 | X6 | alta | di fabbrica |
 | 0x49…0x4B | ADS7830 in più | X32 | bassa | ponticelli |
 | 0x4C | seesaw | X33 | bassa | ponticelli (0x49 se X32 non c'è) |
-| 0x6B | LSM6DSO | X4 | alta | di fabbrica (V) |
+| 0x68 | MPU-6500 (GY-6500), montata (D-074) | X4 | alta | AD0 a massa sulla scheda (S); solo su I2C0 |
+| 0x6B | LSM6DSO (Pololu), predisposta | X4 | alta | di fabbrica (V) |
 
 Bus della camera: I2C1 (SCCB), GPIO4 e GPIO5. Solo la OV3660 (0x3C). All'avvio esp32-camera prova gli indirizzi dei sensori di camera compilati (0x21, 0x30, 0x3C, 0x68 e altri, V): per questo i sensori non stanno su quel bus. Se mai servisse la riserva (bus condiviso), i ToF vanno a indirizzi fuori da quella tabella (per esempio 0x52 e 0x53, da ricontrollare sulla versione del driver).
 
@@ -328,7 +329,7 @@ Stato: **sicuro** = quote e posto controllati sul modello nella revisione, resta
 | `Corpo_Vassoio` | mensola della camera come plancia del ToF; testa della camera bloccata nella torretta, posizione e orientamento come parametri | mensola x 92,5…98,5, \|y\| ≤ 6, z 1…18,25; sede a 20° per 13 × 18 × 3, lato 13 lungo y, centro del sensore a z ≤ ~11,5; perni Ø1,9 o inserti M2 (C); fessura fino a z ≈ −0,5; canale per 4 fili lungo la torretta | X8; calibrazione | da verificare: posizione del sensore sulla scheda (C, disegno Pololu). La scheda inclinata arriva a z ≈ 16,4 e circa 6 più avanti del piede: prova d'interferenza con la bugna dell'occhio (x ≥ 99,4, z ≥ 15, \|y\| ≤ 11) e con la testa della camera. Fermo della testa da disegnare |
 | `Corpo_Vassoio` | asola per il bus verso il vano sotto il vassoio | 6 × 3 a x ≈ 50, y 13…16 | X1 | sicuro |
 | `Corpo_Base` | posto della 2813, oggi aperto: decide le due righe sotto | 20,3 × 25,4 × 4,1 | B3 | posto da trovare |
-| `Corpo_Base` | IMU sul tetto del tunnel sotto il vassoio, freccia dell'asse X stampata | due bugne Ø5,5 alte 2 (fino a z −7,4), inserti M2 (D5), 1 mm di tetto sopra il pacco; gioco 1 mm attorno a 13 × 23; interasse dal disegno Pololu (C) | X4 | sicuro se la 2813 va altrove |
+| `Corpo_Base` | IMU sul tetto del tunnel sotto il vassoio, freccia dell'asse X stampata; dalla 2.1.6 la GY-6500 su `Corpo_Piastrina_IMU`, avvitata alle stesse bugne (D-074) | due bugne Ø5,5 alte 2 (fino a z −7,4), inserti M2 (D5), 1 mm di tetto sopra il pacco; gioco 1 mm attorno a 13 × 23; interasse dal disegno Pololu (C) | X4 | sicuro se la 2813 va altrove |
 | `Corpo_Base` | ADS7830 e striscia dei partitori, accanto all'IMU | due bugne con inserti M2 (fori C) | X6 | posto da trovare se la 2813 va sotto il vassoio |
 | `Corpo_Base` | sei prese a 3 poli dei piedi, raggiungibili a carapace tolto | — | X5 | posto da trovare |
 | `Corpo_Base` | passaggi: 4 fili del bus fra SSC-32 (x 22) e vassoio (x 26) con due clip sul tetto; cavi dei piedi dalle file della SSC-32 alle prese | — | X1, X5 | sicuro le clip; percorsi da tracciare |
@@ -340,16 +341,16 @@ Stato: **sicuro** = quote e posto controllati sul modello nella revisione, resta
 | `Corpo_Carapace` | ganci passacavo della striscia | alti 3 ogni 40 mm, fuori dalla battuta dello sportellino (x −21…29, \|y\| ≤ 17) e dai pozzetti (x 40 e −56, \|y\| 17,8–27,2) | X9 | sicuro |
 | `Corpo_Carapace`, `Corpo_Fascia` | linee di luce lungo la fascia | gola a \|y\| 17–18,5 con 0,6–0,8 di bianco; canali neri a U alti 5, interno ≥ 5,4 centrato su \|y\| 17,75; tre tratti per lato (x −91…−61, −51…35, 45…96); passaggio nelle paratie (x 81…82,6) | X22 | da ridisegnare: con pareti da 0,8 il canale occupa \|y\| 14,25–21,25, z 29,4…34,4, e urta tre cose. (1) La battuta dello sportellino (x −21…29). (2) Il collare del cicalino (\|y\| 20,2–21,4, z 25,4…34,4) per tutto x −87…−62, e il cicalino stesso se è alto più di 12 (D-059 gli lascia 14, fino a z 31,4). (3) La camera nera di X11 fra x ≈ −47 e −33. Tratto posteriore da togliere o spostare, tratto centrale spezzato |
 | `Corpo_Carapace` | scheda del carapace con la spina che si sfila dall'ottagono | testata con spina ~9 + 9, 470 µF Ø6,3–8, TCA9534; libero il passaggio dell'USB-C (\|y\| ≤ 13, z 14…24) | X2, X20 | posto da trovare: prima da guardare x 29…50, \|y\| ≤ 16, sopra l'ESP32, prima dell'antenna (da x 55,6) |
-| `Corpo_Carapace`, `Corpo_Fascia` | fori dei microfoni con anello per la guarnizione, sedi delle schede a faccia in giù | due fori Ø1 a x ≈ 89; a \|y\| 11 le schede arrivano a 17,35, dentro i canali di X22 | X16 | posto da trovare |
+| `Corpo_Carapace`, `Corpo_Fascia` | fori dei microfoni con anello per la guarnizione, sedi delle schede a faccia in giù | due fori Ø1 a x ≈ 89; a \|y\| 11 le schede arrivano a 17,35, dentro i canali di X22; dalla 2.1.6 le MS3625 tonde centrate da `Corpo_Lunette_Microfoni` (D-074) | X16 | fatto nella 2.1.0, MS3625 nella 2.1.6 |
 | `Corpo_Carapace` | sede dell'amplificatore | 19,4 × 17,8 × 3 | X17 | posto da trovare |
-| `Corpo_Carapace` | guance di coda: ToF posteriore sulla guancia lontana dallo spinotto, inclinato di 35° in basso; altoparlante sull'altra | \|y\| 25,4; il ToF sporge ~13 nella porta larga 50,8 | X19, X17 | da verificare: T-plug e spinotto si afferrano con i due montati, altrimenti sopra il piano del T-plug |
+| `Corpo_Carapace` | guance di coda: ToF posteriore sulla guancia lontana dallo spinotto, inclinato di 35° in basso; altoparlante sull'altra | \|y\| 25,4; il ToF sporge ~13 nella porta larga 50,8; dalla 2.1.6 altoparlante tondo da 15 con un fermo, a x −96,3 (D-074) | X19, X17 | da verificare: T-plug e spinotto si afferrano con i due montati, altrimenti sopra il piano del T-plug |
 | `Corpo_Carapace` | zone piane per gli elettrodi, sede del CAP1188 | 15 × 25 senza ganci né nervature (viso x 96…101, coda x −91…−83, lobi); modulo 42 × 18 × 3; niente sopra l'antenna (x 55,6…81,1) | X18 | sicuro le zone; sede del modulo da collocare |
 | `Corpo_Carapace` | vano del computer di bordo con feritoie, passaggio per un USB-C a 90° | 70 × 35 × 15, bugne M2,5 a 58 × 23; sotto il dorso restano 9,2 sopra le spine della SSC-32 e circa 13,6 sopra l'ESP32 | computer di bordo | posto da trovare; ripiego zaino sul dorso (domanda 6) |
 | `Corpo_Carapace`, `Corpo_Fascia` | voci basse, solo se scelte: finestra dei gesti 5 × 4 a x ≈ 40 (X27); sede del radar sotto il dorso, niente viti sopra le antenne (X26); finestra della termocamera (X29); sella del LIDAR fino alle viti a x 40 (X28) | — | X26–X29 | da decidere (domanda 5) |
 | visiera o fascia | guida di luce dal WS2812 della scheda | — | stato | solo se la catena LED non si fa |
 | parti nuove, non sul robot | dime di taratura generate dai parametri: coxa 0° e +30°, femore 0° e +45°, ginocchio 90° e 135° | — | taratura | da disegnare |
 | parti nuove, non sul robot | cavalletto da banco: corpo appoggiato sotto la chiglia, zampe libere su tutta l'escursione; leva di prova facoltativa | — | banco | da disegnare |
-| `rif_componenti.py` → `ingombri` | ingombri nuovi in libreria | IMU 13 × 23 × 3; ToF 8 × 8 13 × 18 × 3; ToF semplice 13 × 18 × 2; INA260 22,9 × 22,8 × 2,7 più morsettiera; INA3221 38,6 × 22,9 × 10,5; ADS7830 30,5 × 17,7 × 4,7; D24V5F3 13 × 10 × 3; scheda del carapace con spina IDC; MAX98357A 19,4 × 17,8 × 3; altoparlante 15 × 11 × 3; microfono 16,7 × 12,7 × 1,8; FSR Ø7,6 × 0,3 con coda da 16 | — | sicuro |
+| `rif_componenti.py` → `ingombri` | ingombri nuovi in libreria | IMU 13 × 23 × 3; ToF 8 × 8 13 × 18 × 3; ToF semplice 13 × 18 × 2; INA260 22,9 × 22,8 × 2,7 più morsettiera; INA3221 38,6 × 22,9 × 10,5; ADS7830 30,5 × 17,7 × 4,7; D24V5F3 13 × 10 × 3; scheda del carapace con spina IDC; MAX98357A 19,4 × 17,8 × 3; altoparlante 15 × 11 × 3; microfono 16,7 × 12,7 × 1,8; FSR Ø7,6 × 0,3 con coda da 16; dalla 2.1.6 (D-074) GY-6500 26 × 15,5 × 2,6, MS3625 Ø13,5, amplificatore generico 17,5 × 17,7 × 3, altoparlante tondo Ø15 × 4 | — | sicuro |
 | `cad/script/esporta_robot.py` (nuovo) | esportazione in sola lettura per S0 | ogni chiamata sotto i 40 s | S0 | sicuro |
 
 `Corpo_Chiglia`, `Coxa_Ponte` e i femori (salvo le facce per le dime) non cambiano: i fili dei piedi seguono le fascette esistenti.
@@ -364,7 +365,7 @@ Tutti da approvare per l'acquisto; quali si predispongono e quali vanno in backl
 | X9 catena LED: striscia WS2812B-2020, buffer SN74AHCT1G125, 330 Ω, pull-down 10 kΩ, PTC sul 5 V | base di tutte le luci | P1 (provino), P4 | ~1 g ogni 10 cm | 5 V: tetto 600 mA | ~15 € |
 | X1 cavi Qwiic e cavo Adafruit 4209 | bus dei sensori e presa di espansione | P2 | ~5 g | ~2 mA | ~5 € |
 | X3 Pololu D24V5F3 | 3,3 V dei sensori, solo se il 3V3 della scheda non regge | P2 | <1 g | 0,2 mA a vuoto | ~9 € |
-| X4 Pololu #2798 (LSM6DSO) | assetto, caduta, imbardata, urti, vibrazioni (X23) | P2 | ~2 g | 1 mA | ~20 € |
+| X4 GY-6500 (MPU-6500) dell'utente; Pololu #2798 (LSM6DSO) predisposta (D-074) | assetto, caduta, imbardata, urti, vibrazioni (X23) | P2 | ~2 g | ~3,4 mA | 0 € (Pololu ~20 € più la spedizione da fuori UE) |
 | X6 Adafruit ADS7830 (#5836) e partitori | sei piedi e due NTC | P2 | ~3 g | <1 mA | ~6 € |
 | X8 Pololu #3418 (VL53L7CX) | ostacoli, bordo del tavolo, gradini | P2 | ~3 g | 100, picco 150 mA | ~22 € |
 | X13 2 LED ambra Ø3, 2 × 1 kΩ | spia dei rail senza firmware | P3 | <1 g | 6 V: 4 mA per rail | <1 € |
@@ -372,8 +373,8 @@ Tutti da approvare per l'acquisto; quali si predispongono e quali vanno in backl
 | X7 2 × Adafruit INA260 | corrente dei rail, giunto bloccato, stima della carica | P4 | ~8 g | 0,6 mA | ~25 € |
 | X14 3 NTC TDK B57861S0103F040 e 10 kΩ 1 % | temperatura dei regolatori; decide PLA o PETG del carapace | P4 | ~1 g | 0,34 mA | ~3 € |
 | X15 2 × Adafruit INA3221 | corrente di ogni femore | P6, solo con il posto | ~16 g | 0,7 mA | ~24 € |
-| X16 2 × Adafruit 3421 (SPH0645, I2S) | comandi a voce, direzione dei suoni | P6 | ~3 g | ~1 mA | ~14 € |
-| X17 Adafruit 3006 (MAX98357A) e altoparlante CUI CMS-15113-078SP | voce e avvisi | P6 | ~4 g | 5 V: fino a ~200 mA | ~10 € |
+| X16 2 × MS3625 (I2S) dell'utente, con pull-down da 100 kΩ sui dati; Adafruit 3421 predisposte (D-074) | comandi a voce, direzione dei suoni | P6 | ~3 g | ~2,8 mA (2 × 1,4, S) | 0 € |
+| X17 MAX98357A generico e altoparlante tondo da 15 mm, 8 Ω, 1 W, dell'utente (D-074) | voce e avvisi | P6 | ~4 g | 5 V: fino a ~200 mA | 0 € |
 | X18 Adafruit 1602 (CAP1188) e nastro di rame | tocco sul carapace | P6 | ~3,5 g | ~1 mA | ~13 € |
 | X19 Pololu #3415 (VL53L1X) | retromarcia e rotazione | P6 | ~3,5 g | 20, picco 40 mA | ~22 € |
 | X20 TCA9534 su adattatore | XSHUT dei ToF, uscita del radar | P6 | ~2 g | <1 mA | ~3–6 € |

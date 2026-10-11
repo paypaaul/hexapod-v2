@@ -112,7 +112,7 @@ Legenda: **V** dato da fonte primaria indicata dai ricercatori (non riletta in q
 | 4 / 5 | SCCB della camera, da sola; riserva per i sensori se il bus dedicato non va | sulla scheda |
 | 2 | dati I2S verso l'amplificatore (`predisposizioni.md`, piano A). Porta il LED "ON" della scheda (`dimensioni-componenti.md`): per l'I2C no, il LED carica la linea | proposta |
 | 47 / 3 | SDA / SCL del bus dei sensori, I2C0 (`predisposizioni.md` 2.2). GPIO47 ha un solo uso: la riserva della RX della SSC-32 (`studio-componenti.md`) sparisce | proposta |
-| 38 / 39 / 40 | I2S dell'audio senza scheda TF (la TF non serve: si registra sul PC). Al banco, prima dell'audio, GPIO38 misura gli impulsi con l'RMT | proposta |
+| 38 / 39 / 40 | I2S dell'audio senza scheda TF (la TF non serve: si registra sul PC). Al banco, prima dell'audio, GPIO38 misura gli impulsi con l'RMT. Con le MS3625 (D-074): I2S standard, 24 bit in slot da 32, senza gli spostamenti di bit della SPH0645; volume dell'altoparlante da 1 W limitato nel firmware | proposta |
 
 ### Dove le ricerche non erano d'accordo
 
@@ -136,7 +136,7 @@ Legenda: **V** dato da fonte primaria indicata dai ricercatori (non riletta in q
 | Computer di bordo | non serve (locomozione); da predisporre (visione) | **predisporre ora** vano, 5 V e USB (circa 5 g di stampa; il posto del vano è da trovare, 8), **comprare solo** se le fasi con il PC lo dimostrano |
 | Porta USB OTG | debug e HIL (strumenti); collegamento del computer di bordo (visione) | **debug e HIL durante lo sviluppo**; se arriva il computer di bordo la porta passa a lui e il debug va sulla CH340 e in OTA |
 | Servo nel simulatore | attuatore di posizione (strumenti); PID con limite di velocità e ritardo (locomozione) | **PID con limite di velocità e ritardo** (MuJoCo ≥ 3.12); ripiego: posizione più ritardo scritto nell'ambiente |
-| Posizione dell'IMU | vicino al baricentro (locomozione); rigida con la camera (visione) | **sul tetto del tunnel sotto il vassoio** (`Corpo_Base`, `predisposizioni.md` X4): misura il corpo che porta le zampe, e il tetto è più rigido del vassoio; per l'assetto i circa 50 mm dal baricentro non contano. La calibrazione camera–IMU (5.2) si rifà dopo ogni smontaggio del vassoio |
+| Posizione dell'IMU | vicino al baricentro (locomozione); rigida con la camera (visione) | **sul tetto del tunnel sotto il vassoio** (`Corpo_Base`, `predisposizioni.md` X4): misura il corpo che porta le zampe, e il tetto è più rigido del vassoio; per l'assetto i circa 50 mm dal baricentro non contano. La calibrazione camera–IMU (5.2) si rifà dopo ogni smontaggio del vassoio. **Dalla 2.1.6 (D-074)** la scheda montata è la GY-6500 (MPU-6500) dell'utente, e la Pololu LSM6DSO resta predisposta: il driver riconosce la scheda dall'indirizzo (0x68 MPU-6500, WHO_AM_I 0x70, oppure 0x71 se è un MPU-9250; 0x6B LSM6DSO) e ruota gli assi con la tabella della scheda, così il cambio non chiede di ricompilare. Sulla GY-6500 l'asse X del chip sta sul lato corto |
 | Partizioni | LittleFS da 6 a 7,8 MB secondo il ricercatore | **tabella del firmware** (capitolo 2.8) |
 
 ## 2. Firmware
@@ -429,7 +429,7 @@ Sono i riflessi di Walknet e la modalità "balance" del codice Phoenix. Senza la
 ### 4.3b Tocco, spinte e molleggio con i sensori che ci sono (D-069)
 
 Il tocco capacitivo sul carapace (X18) è in backlog. Gran parte di quello che dava si ottiene da IMU (X4), contatti dei piedi (X5) e correnti dei rail (X7), senza hardware in più:
-- **Colpetti**: l'LSM6DSO riconosce in hardware colpetto e doppio colpetto, con soglia, durata e asse configurabili. Un doppio colpetto sulla schiena può diventare un comando, per esempio "seduto" o "attenzione".
+- **Colpetti**: l'LSM6DSO riconosce in hardware colpetto e doppio colpetto, con soglia, durata e asse configurabili; con la GY-6500 montata (D-074) si riconoscono in software, dai picchi dell'accelerometro nella FIFO a 400 Hz. Un doppio colpetto sulla schiena può diventare un comando, per esempio "seduto" o "attenzione".
 - **Dove si preme**: una pressione sul carapace sposta il carico fra i sei piedi. Il centro di pressione degli FSR rispetto al baricentro dice dove si è premuto (testa, coda, un fianco o un lobo) e quanto forte, in modo relativo. Esempi: premere sulla coda per farlo sedere, premere su un lobo per fargli alzare quella zampa.
 - **Molleggio** (controllo di ammettenza): la spinta esterna stimata dalla variazione del carico sui piedi e dall'IMU sposta il riferimento del corpo come una massa su molla e smorzatore. Premi e il corpo cede, lasci e torna su. Rigidezza e smorzamento sono parametri del modo.
 - **Spinta laterale e passo di recupero**: col livellamento di 4.3 il corpo torna orizzontale. Se il baricentro stimato si avvicina al bordo del poligono d'appoggio, il generatore d'andatura fa un passo nella direzione della spinta.
@@ -604,7 +604,7 @@ La repo è **pubblica** su GitHub (*verificato oggi*): credenziali Wi-Fi e chiav
 3. **Pose verificate in Fusion** (ciclo a tripode 100/45, 130/25, 80/60, 70/70; rotazione sul posto di 30°): devono passare la guardia.
 4. **Casi d'urto del CAD** (femore a −60°, vicine a 40°, ginocchio sotto la tabella): la guardia li deve rifiutare.
 5. **Regole del firmware**: imbardata, somma tra vicine, ginocchio minimo più 3° con l'interpolazione prudente, velocità.
-6. **Regressione della statica**: femore al 53 % ± 1 a 100/45 (5,84 kgf·cm con 3043,5 g, D-071; era 51 % con 2945 g) e margine di stabilità 59 mm.
+6. **Regressione della statica**: femore al 53 % ± 1 a 100/45 (5,84 kgf·cm con 3045,0 g, D-074; era 51 % con 2945 g) e margine di stabilità 59 mm.
 7. **Andature**: niente salti tra fasi e transizioni, piedi in appoggio fermi entro 0,5 mm, nucleo C++ uguale al Python entro 0,01° sugli stessi vettori.
 
 L'esportazione delle pose da Fusion si rifà a ogni cambio di zampa o corpo: è un passo in più nella procedura del CAD.

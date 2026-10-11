@@ -223,6 +223,18 @@ PARAMETRI = [
     ('aud_alt_z', '12 mm', 'mm', 'Altoparlante (X17): Z del centro, sulla guancia destra della porta di coda'),
     ('aud_amp_x', '60.7 mm', 'mm', 'Amplificatore (X17): X del centro, appeso al dorso davanti alla scheda del carapace, sopra il flat'),
     ('sch_x', '39.5 mm', 'mm', 'Scheda del carapace (X2): X del centro, appesa al dorso davanti all ottagono'),
+    # versione 2.1.6 (D-074): doppia predisposizione di IMU e microfoni, amplificatore generico, altoparlante tondo
+    ('cor_mpu_y', '-(7.6 mm)', 'mm', 'IMU GY-6500 (X4): Y del centro, pin verso +Y (0,6 dal bordo dell ADC, 0,65 dalla parete del vano) S'),
+    ('cor_pimu_sp', '2.5 mm', 'mm', 'Piastrina della GY-6500: spessore (M2 x 5 svasate: restano 2,5 nell inserto della bugna)'),
+    ('cor_pimu_svas', '0.9 mm', 'mm', 'Piastrina della GY-6500: svasatura a 90 gradi sul foro da 2,4 (testa M2 da 4,0, 0,1 sotto la faccia)'),
+    ('cor_pimu_pilota', '1.7 mm', 'mm', 'Piastrina della GY-6500: fori pilota per le due M2 x 6 della scheda'),
+    ('cor_pimu_bordo', '0.5 mm', 'mm', 'Piastrina della GY-6500: margine oltre le bugne verso +Y'),
+    ('aud_ms_gio', '0.1 mm', 'mm', 'Lunette dei microfoni MS3625: gioco verso la scheda e verso il telaio'),
+    ('aud_lun_h', '2 mm', 'mm', 'Lunette dei microfoni: altezza (scheda sull anello da 0,6, spessa circa 1)'),
+    ('aud_lun_semi', '6 mm', 'mm', 'Lunette dei microfoni: meta larghezza (a 6,45 toccavano lo smusso del viso da x 95,3)'),
+    ('aud_fermo_sp', '1 mm', 'mm', 'Altoparlante tondo: fermo davanti alle guide, all estremo anteriore della guancia'),
+    ('aud_altt_x', 'car_guancia_x1 + aud_fermo_sp + 0.2 mm + aud_altt_d / 2', 'mm',
+     'Altoparlante tondo: distanza del centro verso la coda (sporge 3,3 dietro la guancia, lunga 12,9: lo spazio e libero)'),
 ]
 
 T0 = {}
@@ -1065,21 +1077,72 @@ def fai_carapace_predisposizioni(corpo):
                 ('aud_mic_x - %s - 0.2 mm' % xw, '%s - %s - 1 mm' % (y, yl), 'aud_mic_x + %s + 0.2 mm' % xw, '%s - %s - 0.2 mm' % (y, yl)),
                 ('aud_mic_x - %s - 0.2 mm' % xw, '%s + %s + 0.2 mm' % (y, yl), 'aud_mic_x + %s + 0.2 mm' % xw, '%s + %s + 1 mm' % (y, yl)))):
             p.blocco('z', zs, 'mic_sede_%s%d' % (lato, k), xa, ya, xb, yb, '2.6 mm', -1)
-    # scheda del carapace e amplificatore: bugne con inserti M2 (fori C), inserti messi da sotto
+    # scheda del carapace e amplificatore: bugne con inserti M2 (fori C), inserti messi da sotto. L'amplificatore ha i fori
+    # sul lato della morsettiera, verso +X (D-074: prima erano in diagonale, sbagliati anche per la Adafruit)
     for nome, x, y in (('sch_a', 'sch_x - 7.5 mm', '12.5 mm'), ('sch_b', 'sch_x + 7.5 mm', '12.5 mm'),
                        ('sch_c', 'sch_x - 7.5 mm', '-(12.5 mm)'), ('sch_d', 'sch_x + 7.5 mm', '-(12.5 mm)'),
-                       ('amp_a', 'aud_amp_x - 7.5 mm', '-(6.4 mm)'), ('amp_b', 'aud_amp_x + 7.5 mm', '6.4 mm')):
+                       ('amp_a', 'aud_amp_x + aud_amp_fori_x', '-(aud_amp_fori / 2)'), ('amp_b', 'aud_amp_x + aud_amp_fori_x', 'aud_amp_fori / 2')):
         p.cilindro('z', zs, 'bugna_' + nome, x, y, '5.5 mm', '3.5 mm', -1)
         p.cilindro('z', zs + ' - 3.5 mm', 'ins_' + nome, x, y, 'ins_m2_d', 'ins_m2_l', 1, TAGLIA)
-    # altoparlante sulla guancia destra (due guide, si infila da dietro); ToF posteriore su un piano inclinato a sinistra
-    for k, (z0, z1) in (('basso', ('aud_alt_z - aud_alt_l / 2 - 1 mm', 'aud_alt_z - aud_alt_l / 2 - 0.2 mm')),
-                        ('alto', ('aud_alt_z + aud_alt_l / 2 + 0.2 mm', 'aud_alt_z + aud_alt_l / 2 + 1 mm'))):
+    # altoparlante tondo sulla guancia destra (due guide, si infila da dietro fino al fermo; D-074); ToF posteriore su
+    # un piano inclinato a sinistra
+    for k, (z0, z1) in (('basso', ('aud_alt_z - aud_altt_d / 2 - 1 mm', 'aud_alt_z - aud_altt_d / 2 - 0.2 mm')),
+                        ('alto', ('aud_alt_z + aud_altt_d / 2 + 0.2 mm', 'aud_alt_z + aud_altt_d / 2 + 1 mm'))):
         p.blocco('y', '-(car_guancia_y0)', 'guida_altoparlante_' + k, '-(car_guancia_x0)', z0, '-(car_guancia_x1)', z1, '2.5 mm', 1)
+    p.blocco('y', '-(car_guancia_y0)', 'fermo_altoparlante', '-(car_guancia_x1 + aud_fermo_sp)', 'aud_alt_z - 4 mm',
+             '-(car_guancia_x1)', 'aud_alt_z + 4 mm', '2.5 mm', 1)
     y0 = 'car_guancia_y0 - 0.5 mm - sen_tof_w'
     p.blocco_obl('y', y0, 'piano_tof_posteriore', ('cor_tofp_x', 'cor_tofp_z'),
                  ('cor_tofp_x - 10 mm * sin(cor_tofp_ang)', 'cor_tofp_z + 10 mm * cos(cor_tofp_ang)'),
                  '-(sen_tof_l / 2)', 'sen_tof_l / 2', '-(2 mm)', '0 mm', 'car_guancia_y0 + 0.2 mm - (%s)' % y0, 1)
     p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
+    return occ, p
+
+
+def fai_piastrina_imu(corpo):
+    """Piastrina della GY-6500 (X4, D-074), in PETG-CF: si avvita sulle due bugne della Pololu con due M2 x 5 svasate a
+    filo, e porta la scheda con due M2 x 6 in fori pilota. Per tornare alla Pololu si toglie con le sue due viti."""
+    occ = _nuovo_comp(corpo, 'Corpo_Piastrina_IMU')
+    p = Parte(occ.component)
+    comp = occ.component
+    zb = '-(cor_tetto) + cor_sen_bugna_h'
+    p.blocco('z', zb, 'piastrina', 'cor_imu_x - sen_mpu_l / 2', 'cor_mpu_y - sen_mpu_w / 2', 'cor_imu_x + sen_mpu_l / 2',
+             'cor_imu_y + cor_sen_bugna_d / 2 + cor_pimu_bordo', 'cor_pimu_sp', 1, NUOVO)
+    for k, sg in (('a', '-'), ('b', '+')):
+        p.cilindro('z', zb, 'foro_bugna_' + k, 'cor_imu_x %s sen_imu_fori / 2' % sg, 'cor_imu_y', 'vite_m2_pass', 'cor_pimu_sp', 1, TAGLIA)
+        p.cilindro('z', zb, 'pilota_' + k, 'cor_imu_x %s sen_mpu_fori / 2' % sg, 'cor_mpu_y - sen_mpu_fori_y', 'cor_pimu_pilota',
+                   'cor_pimu_sp', 1, TAGLIA)
+    # svasature sui fori delle bugne, sulla faccia alta (la scheda ci passa sopra)
+    corpo_b = comp.bRepBodies.item(0)
+    r_foro, z_alta = p.val('vite_m2_pass') / 2, p.val('cor_sen_bugna_h') - p.val('cor_tetto') + p.val('cor_pimu_sp')
+    bordi = []
+    for fa in corpo_b.faces:
+        g = fa.geometry
+        if g.surfaceType == adsk.core.SurfaceTypes.CylinderSurfaceType and abs(g.radius * 10 - r_foro) < 0.01:
+            bordi += [e for e in fa.edges if abs(e.pointOnEdge.z * 10 - z_alta) < 0.01]
+    ch = comp.features.chamferFeatures
+    ci = ch.createInput2()
+    ci.chamferEdgeSets.addEqualDistanceChamferEdgeSet(_collezione(bordi), adsk.core.ValueInput.createByString('cor_pimu_svas'), False)
+    cf = ch.add(ci)
+    cf.name = 'svasature'
+    p.n += 1
+    p.info = {'svasature': len(bordi), 'corpi': comp.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in comp.bRepBodies), 3)}
+    return occ, p
+
+
+def fai_lunette_microfoni(corpo):
+    """Lunette dei microfoni MS3625 (X16, D-074), in PLA: due per microfono, alle estremita' del telaio della Adafruit
+    3421, centrano la scheda tonda sul foro. Per montare la Adafruit si tolgono."""
+    occ = _nuovo_comp(corpo, 'Corpo_Lunette_Microfoni')
+    p = Parte(occ.component)
+    zs = 'car_top - car_sp'
+    xw = 'aud_lun_semi'                                                # simmetriche: non hanno un verso di montaggio
+    ye = '(aud_mic_l / 2 + 0.2 mm - aud_ms_gio)'
+    for lato, y in (('s', 'aud_mic_y'), ('d', '-(aud_mic_y)')):
+        for k, (y0, y1) in (('a', ('%s + 2 mm' % y, '%s + %s' % (y, ye))), ('b', ('%s - %s' % (y, ye), '%s - 2 mm' % y))):
+            p.blocco('z', zs, 'lunetta_%s%s' % (lato, k), 'aud_mic_x - %s' % xw, y0, 'aud_mic_x + %s' % xw, y1, 'aud_lun_h', -1, NUOVO)
+        p.cilindro('z', zs, 'vano_ms_' + lato, 'aud_mic_x', y, 'aud_ms_d + 2 * aud_ms_gio', 'aud_lun_h', -1, TAGLIA)
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 3)}
     return occ, p
 
 
@@ -1187,7 +1250,8 @@ def main(passi, **kw):
                         ('supporto_ina_s', lambda c: fai_supporto_ina(c, 1)), ('supporto_ina_d', lambda c: fai_supporto_ina(c, -1)),
                         ('sportellino_zaino', fai_sportellino_zaino), ('fondo_anello', fai_fondo_anello), ('prese_luci', fai_prese_luci),
                         ('base_predisposizioni', fai_base_predisposizioni),
-                        ('carapace_predisposizioni', fai_carapace_predisposizioni)):
+                        ('carapace_predisposizioni', fai_carapace_predisposizioni),
+                        ('piastrina_imu', fai_piastrina_imu), ('lunette_microfoni', fai_lunette_microfoni)):
             if nome in passi:
                 occ, p = f(corpo)
                 out[nome] = _chiudi(des, getattr(p, 'gruppo', occ.component.name), p)
