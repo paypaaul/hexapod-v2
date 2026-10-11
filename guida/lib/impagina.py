@@ -11,11 +11,14 @@ import re
 import shutil
 
 import jinja2
+import yaml
 from PIL import Image
 
 from . import elenchi as E
 from . import scena as S
 
+# zampe dalla testa alla coda, sinistra prima di destra
+ORDINE_ZAMPE = ['AS', 'AD', 'MS', 'MD', 'PS', 'PD']
 ETICHETTE = {'attenzione': 'Attenzione', 'importante': 'Importante', 'nota': 'Nota', 'opzionale': 'Opzionale', 'prova': 'Prova'}
 QUANDO = {'solo_ora': 'solo ora', 'meglio_ora': 'meglio ora', 'anche_dopo': 'anche dopo'}
 # Frecce in pixel del render (9 px/mm, scena.PX_MM): pezzi 1,6 mm, viti e inserti 0,9 mm, bordo bianco 0,5 mm.
@@ -83,6 +86,15 @@ def svg_distanziale(s):
             '<rect class="gambo" x="%.2f" y="%.2f" width="6" height="3"/></svg>' % (w, h, w, h, m, m, lung, d, m + lung, h / 2 - 1.5))
 
 
+def righello(mm):
+    """Righello 1:1 in mm, tacche ogni millimetro e numeri ogni 10."""
+    tacche = ''.join('<line x1="%d" y1="0" x2="%d" y2="%s"/>' % (i, i, '3' if i % 10 == 0 else ('2' if i % 5 == 0 else '1.2'))
+                     for i in range(mm + 1))
+    numeri = ''.join('<text x="%d" y="5.6">%d</text>' % (i, i) for i in range(0, mm + 1, 10))
+    return ('<svg class="righello" width="%dmm" height="6mm" viewBox="-0.5 0 %d 6"><g class="tacche">%s</g>%s</svg>'
+            % (mm + 1, mm + 1, tacche, numeri))
+
+
 def nome_vite(tipo, v):
     return 'M%g × %g%s' % (v['d'], v['l'], ' svasata' if v['testa'] == 'svasata' else '')
 
@@ -111,11 +123,13 @@ def avviso(a):
 
 
 def _tabella(t):
-    """Tabella di un passo: {intestazione: [...], righe: [[...]]}, celle con lo stesso trattamento del testo."""
+    """Tabella di un passo: {intestazione: [...], righe: [[...]]}, celle con lo stesso trattamento del testo. Le righe
+    con celle vuote sono da compilare a mano: piu' alte."""
     if not t:
         return None
     return {'intestazione': [testo(c, verbo=False) for c in t.get('intestazione', [])],
-            'righe': [[testo(c, verbo=False) for c in r] for r in t['righe']]}
+            'righe': [{'celle': [testo(c, verbo=False) for c in r], 'da_compilare': any(str(c).strip() == '' for c in r)}
+                      for r in t['righe']]}
 
 
 # ---------------------------------------------------------------------------------------------- frecce
@@ -191,6 +205,7 @@ class Impaginatore:
     def __init__(self, dati, build, sito):
         self.dati, self.build, self.sito = dati, build, sito
         self.problemi = []
+        self.totali = {'viti': {}, 'rondelle': {}, 'inserti': {}, 'distanziali': {}}
 
     def _img(self, src_rel):
         """Copia piatta del render nel sito; torna il percorso relativo per l'HTML."""
@@ -261,7 +276,47 @@ class Impaginatore:
                 'attrezzi': self._attrezzi(el['attrezzi']), 'img': img, 'da_file': 'figura' in p,
                 'larghezza': info['larghezza'], 'altezza': info['altezza'], 'frecce': frecce, 'volte': p.get('volte'),
                 'etichette': info.get('etichette', []),
-                'tabella': _tabella(p.get('tabella')), 'fonti': p.get('fonti', [])}
+                'tabella': _tabella(p.get('tabella')), 'html': None, 'fonti': p.get('fonti', [])}
+
+    def _genera(self, sez, p, n0):
+        """Passi generati: glossario (da guida/glossario.yaml, a pagine di 22 termini) e foglio delle viti 1:1 (tutta
+        la viteria della guida, con la barra di controllo da 100 mm)."""
+        s = sez['sezione']
+        base = {'sez': s['numero'], 'formato': 'grande', 'voci': [], 'avvisi': [], 'attrezzi': [], 'img': None,
+                'da_file': False, 'larghezza': 1, 'altezza': 1, 'frecce': [], 'etichette': [], 'volte': None,
+                'tabella': None, 'html': None, 'fonti': p.get('fonti', []), 'righe': []}
+        if p['genera'] == 'glossario':
+            with open(os.path.join(self.dati.radice, 'glossario.yaml'), encoding='utf-8') as f:
+                g = yaml.safe_load(f) or {}
+            voci = sorted(g.items(), key=lambda kv: kv[0].lower())
+            out = []
+            for i in range(0, len(voci), 22):
+                parte = voci[i:i + 22]
+                righe = [{'celle': [testo(k, verbo=False), testo(v['definizione'] if isinstance(v, dict) else v, verbo=False)],
+                          'da_compilare': False} for k, v in parte]
+                out.append(dict(base, id='%s.%d' % (p['id'], len(out) + 1), n=n0 + len(out),
+                                titolo='%s, %s–%s' % (p['titolo'], parte[0][0][:1].upper(), parte[-1][0][:1].upper()),
+                                tabella={'intestazione': ['Termine', 'Significato'], 'righe': righe}))
+            return out
+        if p['genera'] == 'viti':
+            V = self.dati.viteria
+            h = ['<div class="foglio-viti"><div class="controllo"></div><div class="nota">Questa barra deve misurare '
+                 '100 mm: se no, ristampa al 100 % senza adattamento alla pagina.</div>', righello(100), '<div class="viteria">']
+            for tipo, n in sorted(self.totali['viti'].items()):
+                h.append('<div class="voce">%s<span><span class="q">%d×</span> %s</span></div>'
+                         % (svg_vite(V['viti'][tipo]), n, nome_vite(tipo, V['viti'][tipo])))
+            for tipo, n in sorted(self.totali['rondelle'].items()):
+                h.append('<div class="voce">%s<span><span class="q">%d×</span> rondella M3</span></div>' % (svg_rondella(V['rondelle'][tipo]), n))
+            for tipo, n in sorted(self.totali['inserti'].items()):
+                h.append('<div class="voce">%s<span><span class="q">%d×</span> inserto %s</span></div>'
+                         % (svg_inserto(V['inserti'][tipo]), n, V['inserti'][tipo]['filetto']))
+            for tipo, n in sorted(self.totali['distanziali'].items()):
+                h.append('<div class="voce">%s<span><span class="q">%d×</span> distanziale</span></div>' % (svg_distanziale(V['distanziali'][tipo]), n))
+            h.append('</div></div>')
+            return [dict(base, id=p['id'], n=n0, titolo=p['titolo'], html=''.join(h),
+                         righe=[testo('Appoggia ogni vite sul suo disegno: lunghezza e testa devono coincidere.'),
+                                testo('Conta le viti per tipo prima di cominciare una sezione.')])]
+        raise ValueError('%s: genera %s sconosciuto (glossario, viti)' % (p['id'], p['genera']))
 
     def sezione(self, sez):
         s = dict(sez['sezione'])
@@ -284,13 +339,22 @@ class Impaginatore:
                 h = '<div>%s</div>' % testo(v, verbo=False)
             blocchi.append({'titolo': titolo, 'html': h})
         apertura = {'tipo': 'apertura', 'sezione': s, 'blocchi': blocchi, 'attrezzi': self._attrezzi(tot['attrezzi']),
+                    'molti': len(tot['pezzi']) > 12,
                     'pezzi': [voce(img=self._miniatura(c), qta=q, tot=q * per if per > 1 else None, nome=self._pezzo(c)['nome'],
                                    bom=self._pezzo(c).get('bom', ''), x=self._pezzo(c).get('x')) for c, q in tot['pezzi'].items()],
                     'viteria': self._voci_viteria(tot, per), 'extra': [voce(qta=x.get('qta', 1), nome=x['nome'], bom=x.get('bom', ''))
                                                                        for x in tot['extra']],
                     'fonti': sorted(set(re.findall(r'\bD-0\d\d[a-z]?\b', str(s.get('fonti', [])))))}
         pagine = [apertura]
-        passi = [self.passo(sez, i + 1, p, el) for i, ((p, _), el) in enumerate(zip(stati, per_passo))]
+        for k in ('viti', 'rondelle', 'inserti', 'distanziali'):      # totali della guida per il foglio delle viti
+            for t, q in tot[k].items():
+                self.totali[k][t] = self.totali[k].get(t, 0) + q * per
+        passi = []
+        for (p, _), el in zip(stati, per_passo):
+            if 'genera' in p:
+                passi += self._genera(sez, p, len(passi) + 1)
+            else:
+                passi.append(self.passo(sez, len(passi) + 1, p, el))
         i = 0
         while i < len(passi):
             e = passi[i]
@@ -306,7 +370,7 @@ class Impaginatore:
         if fine or s.get('controllo'):
             pagine.append({'tipo': 'controllo', 'sezione': s, 'img': self._img('%s/fine.png' % s['id']) if fine else None,
                            'spunte': [testo(x, verbo=False) for x in s.get('controllo', [])],
-                           'zampe': list(self.dati.manifest['istanze']['zampe']) if s.get('scheda') else [],
+                           'zampe': ORDINE_ZAMPE if s.get('scheda') else [],
                            'tabella': s.get('scheda', []), 'fonti': []})
         return pagine
 

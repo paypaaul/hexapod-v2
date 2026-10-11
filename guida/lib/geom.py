@@ -14,6 +14,16 @@ def componi(a, b):
     return out
 
 
+def inversa(m):
+    """Inversa di una trasformata rigida (rotazione e traslazione)."""
+    r = [[m[4 * i + j] for j in range(3)] for i in range(3)]
+    t = [m[3], m[7], m[11]]
+    out = []
+    for i in range(3):
+        out += [r[0][i], r[1][i], r[2][i], -(r[0][i] * t[0] + r[1][i] * t[1] + r[2][i] * t[2])]
+    return out
+
+
 def punto(m, p):
     return [m[4 * r] * p[0] + m[4 * r + 1] * p[1] + m[4 * r + 2] * p[2] + m[4 * r + 3] for r in range(3)]
 
@@ -73,4 +83,20 @@ def base_da_asse(z):
 def con_origine(m, o):
     out = list(m)
     out[3], out[7], out[11] = o[0], o[1], o[2]
+    return out
+
+
+def rotazione(punto_asse, asse, gradi):
+    """Rotazione di 'gradi' attorno alla retta (punto_asse, asse), regola della mano destra."""
+    u = unit(asse)
+    a = math.radians(gradi)
+    c, s_, t = math.cos(a), math.sin(a), 1 - math.cos(a)
+    x, y, z = u
+    r = [[t * x * x + c, t * x * y - s_ * z, t * x * z + s_ * y],
+         [t * x * y + s_ * z, t * y * y + c, t * y * z - s_ * x],
+         [t * x * z - s_ * y, t * y * z + s_ * x, t * z * z + c]]
+    p = punto_asse
+    out = []
+    for i in range(3):
+        out += [r[i][0], r[i][1], r[i][2], p[i] - (r[i][0] * p[0] + r[i][1] * p[1] + r[i][2] * p[2])]
     return out

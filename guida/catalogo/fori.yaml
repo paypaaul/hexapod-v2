@@ -1,5 +1,6 @@
 # Classificazione dei fori di guida/dati/fori.json (D-075). Vince la prima regola che corrisponde.
-# Campi: componente (glob), lav (glob sul nome della lavorazione, anche quella d'origine degli specchi), d (mm, +-0.05),
+# Campi: componente (glob), lav (glob sul nome della lavorazione; le copie specchiate hanno quello d'origine), d (mm,
+# +-0.05, oppure il nome di un parametro del manifest),
 # cieco (un estremo e' 'fondo'). Il diametro da solo non basta: 3,4 vale per il passante M3 e per l'inserto M2,
 # 4,2 per l'inserto M3 e per le alette del servo.
 regole:
@@ -10,8 +11,9 @@ regole:
   - {componente: "Rif_Reg_Servo_D42V110F6", tipo: foro_pcb}
   - {componente: "Rif_SSC32_V25", tipo: foro_pcb}
   - {componente: "Rif_*", tipo: ignora}
-  - {d: 4.2, cieco: true, tipo: inserto_m3}
-  - {d: 3.4, cieco: true, tipo: inserto_m2}
+  # i fori degli inserti hanno il diametro del parametro del CAD (manifest.parametri): cambia con il provino degli inserti
+  - {d: ins_m3_d, cieco: true, tipo: inserto_m3}
+  - {d: ins_m2_d, cieco: true, tipo: inserto_m2}
   - {d: 3.4, tipo: passante_m3}
   - {d: 2.5, tipo: pilota_m3}
   - {d: 2.4, tipo: passante_m2}

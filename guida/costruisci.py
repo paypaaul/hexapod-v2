@@ -35,6 +35,8 @@ def uscita(solo):
 
 def controlla(dati, solo=None):
     esito = C.tutti(dati, solo)
+    if solo and dati.errori_yaml:                   # con -s non sono errori (puo' essere il file a meta' di un altro),
+        print('file illeggibili, saltati:\n  ' + '\n  '.join(dati.errori_yaml))   # ma si vedono sempre
     for k, v in esito.items():
         print('%-20s %s' % (k, 'ok' if not v else '\n  ' + '\n  '.join(v)))
     avvisi = C.lunghezze(dati)

@@ -32,9 +32,10 @@
 {%- macro istruzioni(e) %}
 <div class="istruzioni">
   {%- if e.righe %}<ol>{% for r in e.righe %}<li>{{ r | safe }}</li>{% endfor %}</ol>{% endif %}
+  {%- if e.html %}{{ e.html | safe }}{% endif %}
   {%- if e.tabella %}
   <table class="elenco tabella">{% if e.tabella.intestazione %}<tr>{% for c in e.tabella.intestazione %}<th>{{ c | safe }}</th>{% endfor %}</tr>{% endif %}
-  {%- for r in e.tabella.righe %}<tr>{% for c in r %}<td>{{ c | safe }}</td>{% endfor %}</tr>{% endfor %}</table>
+  {%- for r in e.tabella.righe %}<tr{% if r.da_compilare %} class="da-compilare"{% endif %}>{% for c in r.celle %}<td>{{ c | safe }}</td>{% endfor %}</tr>{% endfor %}</table>
   {%- endif %}
   {%- for a in e.avvisi %}
   <div class="avviso {{ a.tipo }}"><span class="t">{{ a.etichetta }}</span>{{ a.testo | safe }}</div>
@@ -85,7 +86,7 @@
   <div class="destra" data-controlla="apertura destra">
     {%- if p.pezzi %}
     <div><div class="etichetta">Pezzi{% if s.ripeti > 1 %} — per {{ s.unita }} (tra parentesi: per {{ s.ripeti }}){% endif %}</div>
-    <div class="griglia">{% for v in p.pezzi %}<div class="voce"><img src="{{ v.img }}" alt=""><span class="q">{{ v.qta }}×{% if v.tot %} <small>({{ v.tot }})</small>{% endif %}</span><span class="n">{{ v.nome }}</span><span class="b">{{ v.bom }}{% if v.x %} · {{ v.x }}{% endif %}</span></div>{% endfor %}</div></div>
+    <div class="griglia{% if p.molti %} molti{% endif %}">{% for v in p.pezzi %}<div class="voce"><img src="{{ v.img }}" alt=""><span class="q">{{ v.qta }}×{% if v.tot %} <small>({{ v.tot }})</small>{% endif %}</span><span class="n">{{ v.nome }}</span><span class="b">{{ v.bom }}{% if v.x %} · {{ v.x }}{% endif %}</span></div>{% endfor %}</div></div>
     {%- endif %}
     {%- if p.viteria %}
     <div><div class="etichetta">Viti, rondelle e inserti — scala 1:1</div>

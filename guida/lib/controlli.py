@@ -228,7 +228,9 @@ def decisioni(dati, solo=None):
         esistono = set(re.findall(r'^##+ (D-0\d\d[a-z]?)\b', f.read(), re.M))
     errori = []
     for z in _sezioni(dati, anche_prova=True, solo=solo):
-        for p in z['passi']:
+        citate = set(re.findall(r'\bD-0\d\d[a-z]?\b', str(z['sezione'])))
+        errori += ['sezione %s: %s non esiste in docs/decisioni.md' % (z['sezione']['id'], d) for d in sorted(citate - esistono)]
+        for p in z['passi'] + z.get('rinviati', []):
             citate = set(re.findall(r'\bD-0\d\d[a-z]?\b', str(p)))
             errori += ['%s: %s non esiste in docs/decisioni.md' % (p['id'], d) for d in sorted(citate - esistono)]
     return errori
@@ -244,10 +246,8 @@ def mancanti(dati):
             usate.update(g['id'] if isinstance(g, dict) else g for g in p.get('giunzioni', []))
             terna, istanza = S.terna_di(z, p)
             for sel in p.get('inserti', []):
-                for k in dati.chiavi(sel['chiave']):
-                    for f in F.fori_di(dati, k, terna, istanza):
-                        if f['tipo'].startswith('inserto') and fnmatch.fnmatchcase(f['lav'] or '', sel.get('lav', '*')):
-                            inseriti.add((dati.base(k), f['lav'], tuple(round(x, 1) for x in f['p0'])))
+                for f in F.inserti_scelti(dati, sel, terna, istanza):
+                    inseriti.add((dati.base(f['chiave']), f['lav'], tuple(round(x, 1) for x in f['p0'])))
     pezzi = [k for k in dati.basi if not dati.occ[k].get('virtuale') and not dati.occ[k]['componente'].startswith('Ingombro_')]
     out = ['pezzo mai montato: %s' % k for k in pezzi if k not in montati]
     out += ['giunzione mai usata: %s' % n for a in ('zampa', 'corpo') for n in dati.giunzioni[a] if n not in usate]

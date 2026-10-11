@@ -100,10 +100,19 @@ def terna_di(sez, passo):
 
 def ha_render(passo):
     """Il passo ha un'immagine del CAD: no se e' solo testo (immagine: false) o se la figura viene da un file."""
-    return passo.get('immagine', True) is not False and 'figura' not in passo
+    return passo.get('immagine', True) is not False and 'figura' not in passo and 'genera' not in passo
 
 
 def lavoro(dati, sez, passo, presenti, uscita):
+    """Il lavoro per Blender di un passo; con posa: {alfa, gamma, coxa} la zampa e' disegnata in quella posa."""
+    dati.posa = dati.matrici_posa(passo.get('posa'))
+    try:
+        return _lavoro(dati, sez, passo, presenti, uscita)
+    finally:
+        dati.posa = None
+
+
+def _lavoro(dati, sez, passo, presenti, uscita):
     terna, istanza = terna_di(sez, passo)
     stile, viste = _stile(dati), _viste(dati)
     nuovi, assiemi = entrano(dati, passo)
@@ -170,15 +179,13 @@ def lavoro(dati, sez, passo, presenti, uscita):
                 frecce.append({'da': punta, 'a': arrivo, 'tipo': 'vite'})
     inserti = []
     for sel in passo.get('inserti', []):
-        for k in dati.chiavi(sel['chiave']):
-            for f in F.fori_di(dati, k, terna, istanza):
-                if f['tipo'].startswith('inserto') and fnmatch.fnmatchcase(f['lav'] or '', sel.get('lav', '*')):
-                    spec = dati.viteria['inserti']['INS_M3' if f['tipo'] == 'inserto_m3' else 'INS_M2']
-                    ingresso = f['p0'] if f['e1'] == 'fondo' else f['p1']
-                    asse = geom.unit(geom.sub(f['p1'], f['p0']) if f['e1'] == 'fondo' else geom.sub(f['p0'], f['p1']))
-                    via = spec['l'] + 8
-                    inserti.append({'centro': geom.add(ingresso, geom.scala(asse, -via)), 'asse': asse, 'd': spec['d'], 'l': spec['l']})
-                    frecce.append({'da': geom.add(ingresso, geom.scala(asse, spec['l'] - via)), 'a': ingresso, 'tipo': 'inserto'})
+        for f in F.inserti_scelti(dati, sel, terna, istanza):
+            spec = dati.viteria['inserti']['INS_M3' if f['tipo'] == 'inserto_m3' else 'INS_M2']
+            ingresso = f['p0'] if f['e1'] == 'fondo' else f['p1']
+            asse = geom.unit(geom.sub(f['p1'], f['p0']) if f['e1'] == 'fondo' else geom.sub(f['p0'], f['p1']))
+            via = spec['l'] + 8
+            inserti.append({'centro': geom.add(ingresso, geom.scala(asse, -via)), 'asse': asse, 'd': spec['d'], 'l': spec['l']})
+            frecce.append({'da': geom.add(ingresso, geom.scala(asse, spec['l'] - via)), 'a': ingresso, 'tipo': 'inserto'})
     etichette = []
     for e in passo.get('etichette', []):            # nomi sull'immagine: su un punto o al centro di un pezzo
         if 'punto' in e:

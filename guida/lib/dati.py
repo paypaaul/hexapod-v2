@@ -27,6 +27,9 @@ class Dati:
         cat = os.path.join(radice, 'catalogo')
         self.viteria = _yaml(os.path.join(cat, 'viteria.yaml'))
         self.regole_fori = _yaml(os.path.join(cat, 'fori.yaml'))['regole']
+        for r in self.regole_fori:                  # diametri dati con il nome di un parametro del CAD
+            if isinstance(r.get('d'), str):
+                r['d'] = self.manifest['parametri'][r['d']]
         self.giunzioni = _yaml(os.path.join(cat, 'giunzioni.yaml'))
         self.pezzi = _yaml(os.path.join(cat, 'pezzi.yaml')) if os.path.exists(os.path.join(cat, 'pezzi.yaml')) else {}
         self.attrezzi = _yaml(os.path.join(cat, 'attrezzi.yaml')) if os.path.exists(os.path.join(cat, 'attrezzi.yaml')) else {}
@@ -74,12 +77,45 @@ class Dati:
     def componente(self, chiave):
         return self.manifest['componenti'][self.occ[chiave]['componente']]
 
+    # ------------------------------------------------------------------------------------------ pose della zampa
+    def _asse_servo(self, chiave):
+        """(punto, direzione) dell'albero di un servo della zampa: terna del servo con l'origine sull'asse e +Z
+        verso la cima dell'albero (cad/CLAUDE.md, modello dell'MG996R)."""
+        t = self.occ[chiave]['T']
+        return geom.punto(t, [0, 0, 0]), geom.direzione(t, [0, 0, 1])
+
+    def _centro_zampa(self, chiave):
+        lo, hi = self.componente(chiave)['bbox']
+        return geom.punto(self.occ[chiave]['T'], [(lo[i] + hi[i]) / 2 for i in range(3)])
+
+    def matrici_posa(self, posa):
+        """{segmento: trasformata} della zampa in posa, nella sua terna. posa: {alfa, gamma, coxa} in gradi, rispetto
+        alla zampa come costruita (alfa 0, gamma 90, coxa 0). alfa positivo alza il ginocchio, gamma oltre 90 porta il
+        piede in fuori, coxa positivo gira la zampa in senso antiorario vista dall'alto. Il verso di ogni rotazione si
+        ricava dal modello (ginocchio e piedino), cosi' non dipende da come e' orientato l'albero del servo."""
+        if not posa:
+            return {}
+        pf, uf = self._asse_servo('zampa/Servo_femore')
+        pg, ug = self._asse_servo('zampa/Servo_ginocchio')
+        ginocchio, piede = self._centro_zampa('zampa/Servo_ginocchio'), self._centro_zampa('zampa/Piedino')
+        sf = 1 if geom.punto(geom.rotazione(pf, uf, 1), ginocchio)[2] > ginocchio[2] else -1
+        sg = 1 if geom.punto(geom.rotazione(pg, ug, 1), piede)[0] > piede[0] else -1
+        mf = geom.rotazione(pf, uf, sf * posa.get('alfa', 0))
+        mg = geom.rotazione(pg, ug, sg * (posa.get('gamma', 90) - 90))
+        mc = geom.rotazione([0, 0, 0], [0, 0, 1], posa.get('coxa', 0))
+        return {'coxa': mc, 'femore': geom.componi(mc, mf), 'tibia': geom.componi(mc, geom.componi(mf, mg))}
+
     def matrice(self, chiave, terna='zampa', istanza='AS'):
-        """Trasformata dell'occorrenza nella terna richiesta: 'zampa' (zampa come costruita) o 'robot'."""
+        """Trasformata dell'occorrenza nella terna richiesta: 'zampa' (zampa come costruita) o 'robot'. Con una posa
+        attiva (self.posa, da matrici_posa) i pezzi della zampa la seguono."""
         o = self.occ[chiave]
         istanza = o.get('istanza', istanza)
         if o['assieme'] == 'zampa':
-            return o['T'] if terna == 'zampa' else geom.componi(self.manifest['istanze']['zampe'][istanza], o['T'])
+            t = o['T']
+            posa = getattr(self, 'posa', None)
+            if posa and o.get('segmento') in posa:
+                t = geom.componi(posa[o['segmento']], t)
+            return t if terna == 'zampa' else geom.componi(self.manifest['istanze']['zampe'][istanza], t)
         if terna == 'zampa':
             raise ValueError('%s sta nel corpo: non ha posto nella terna della zampa' % chiave)
         return geom.componi(self.manifest['istanze']['corpo'], o['T'])

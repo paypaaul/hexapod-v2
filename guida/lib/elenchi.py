@@ -2,7 +2,6 @@
 
 Le quantita' di una sezione ripetuta (la zampa, ripeti: 6) sono per una ripetizione; il totale si moltiplica.
 """
-import fnmatch
 from collections import Counter
 
 from . import fori as F
@@ -38,10 +37,8 @@ def passo(dati, sez, p, presenti):
             if v.get('distanziale'):
                 distanziali[v['distanziale']['tipo']] += 1
     for sel in p.get('inserti', []):
-        for k in dati.chiavi(sel['chiave']):
-            for f in F.fori_di(dati, k, terna, istanza):
-                if f['tipo'].startswith('inserto') and fnmatch.fnmatchcase(f['lav'] or '', sel.get('lav', '*')):
-                    inserti['INS_M3' if f['tipo'] == 'inserto_m3' else 'INS_M2'] += 1
+        for f in F.inserti_scelti(dati, sel, terna, istanza):
+            inserti['INS_M3' if f['tipo'] == 'inserto_m3' else 'INS_M2'] += 1
     if inserti:
         attrezzi.append('saldatore_inserti')
     attrezzi += p.get('attrezzi', [])
@@ -59,7 +56,12 @@ def sezione(dati, sez, per_passo):
             tot['pezzi'][c] += n
         for k in ('viti', 'rondelle', 'distanziali', 'inserti'):
             tot[k].update(e[k])
-        tot['extra'] += e['extra']
+        for x in e['extra']:                        # la stessa cosa in piu' passi: una riga sola, quantita' sommate
+            gia = next((y for y in tot['extra'] if y['nome'] == x['nome']), None)
+            if gia and isinstance(gia.get('qta', 1), (int, float)) and isinstance(x.get('qta', 1), (int, float)):
+                gia['qta'] = gia.get('qta', 1) + x.get('qta', 1)
+            elif not gia:
+                tot['extra'].append(dict(x))
         tot['attrezzi'] += [a for a in e['attrezzi'] if a not in tot['attrezzi']]
     tot['attrezzi'] += [a for a in sez['sezione'].get('attrezzi', []) if a not in tot['attrezzi']]
     return tot

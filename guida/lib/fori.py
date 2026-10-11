@@ -144,3 +144,21 @@ def piazza(dati, nome_g, g, presenti, terna='zampa', istanza='AS'):
                     'presa': round(presa, 2), 'fondo_libero': fondo_libero, 'rondelle': rondelle,
                     'distanziale': distanziale})
     return out
+
+
+def inserti_scelti(dati, sel, terna, istanza):
+    """Fori per inserti di una scelta di un passo: {chiave, lav (glob), lato: sinistro | destro}. Il lato guarda la y
+    del foro nella terna del robot (sinistra = y positiva): i fori specchiati hanno lo stesso nome dei loro originali."""
+    out = []
+    for k in dati.chiavi(sel['chiave']):
+        robot = dati.matrice(k, 'robot', istanza) if 'lato' in sel else None
+        locale = geom.componi(robot, geom.inversa(dati.matrice(k, terna, istanza))) if robot else None
+        for f in fori_di(dati, k, terna, istanza):
+            if not f['tipo'].startswith('inserto') or not fnmatch.fnmatchcase(f['lav'] or '', sel.get('lav', '*')):
+                continue
+            if 'lato' in sel:
+                y = geom.punto(locale, f['p0'])[1]
+                if (y > 0) != (sel['lato'] == 'sinistro'):
+                    continue
+            out.append(f)
+    return out

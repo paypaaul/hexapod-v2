@@ -6,6 +6,30 @@
 "corpo": "Corpo1",
 "d": 4.2,
 "e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "chi_ins_a",
+"origine": "specchio",
+"p0": [
+84.0,
+-15.0,
+-25.25
+],
+"p1": [
+84.0,
+-15.0,
+-31.95
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
 "aperto",
 null
 ],
@@ -24,6 +48,30 @@ null
 84.0,
 15.0,
 -25.25
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "chi_ins_p",
+"origine": "specchio",
+"p0": [
+-52.0,
+-31.0,
+-25.25
+],
+"p1": [
+-52.0,
+-31.0,
+-31.95
 ]
 },
 {
@@ -54,6 +102,30 @@ null
 "corpo": "Corpo1",
 "d": 4.2,
 "e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "colonnina_a_ins",
+"origine": "specchio",
+"p0": [
+40.0,
+-22.5,
+21.7
+],
+"p1": [
+40.0,
+-22.5,
+28.4
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
 "aperto",
 null
 ],
@@ -72,6 +144,30 @@ null
 40.0,
 22.5,
 21.7
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "colonnina_p_ins",
+"origine": "specchio",
+"p0": [
+-56.0,
+-22.5,
+21.7
+],
+"p1": [
+-56.0,
+-22.5,
+28.4
 ]
 },
 {
@@ -148,102 +244,6 @@ null
 },
 {
 "corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "gondola_posteriore_s",
-"origine": "specchio",
-"p0": [
--112.508,
-56.995,
--5.05
-],
-"p1": [
--112.508,
-56.995,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "gondola_posteriore_s",
-"origine": "specchio",
-"p0": [
--107.508,
-65.655,
--5.05
-],
-"p1": [
--107.508,
-65.655,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
-"d": 2.5,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "gondola_posteriore_s",
-"origine": "specchio",
-"p0": [
--70.892,
-32.275,
--5.05
-],
-"p1": [
--70.892,
-32.275,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
-"d": 2.5,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "gondola_posteriore_s",
-"origine": "specchio",
-"p0": [
--65.292,
-41.975,
--5.05
-],
-"p1": [
--65.292,
-41.975,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
 "d": 3.4,
 "e0": [
 "aperto",
@@ -302,6 +302,78 @@ null
 null
 ],
 "lav": "ins_coda_a_ang",
+"origine": "specchio",
+"p0": [
+-112.508,
+-56.995,
+1.65
+],
+"p1": [
+-112.508,
+-56.995,
+-5.05
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "ins_coda_a_ang",
+"origine": "specchio",
+"p0": [
+-112.508,
+56.995,
+-5.05
+],
+"p1": [
+-112.508,
+56.995,
+1.65
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "ins_coda_a_ang",
+"origine": "specchio",
+"p0": [
+112.508,
+-56.995,
+-5.05
+],
+"p1": [
+112.508,
+-56.995,
+1.65
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "ins_coda_a_ang",
 "origine": "estrusione",
 "p0": [
 112.508,
@@ -312,6 +384,30 @@ null
 112.508,
 56.995,
 -5.05
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "ins_coda_a_med",
+"origine": "specchio",
+"p0": [
+5.0,
+-82.65,
+-5.05
+],
+"p1": [
+5.0,
+-82.65,
+1.65
 ]
 },
 {
@@ -350,6 +446,78 @@ null
 null
 ],
 "lav": "ins_coda_b_ang",
+"origine": "specchio",
+"p0": [
+-107.508,
+-65.655,
+1.65
+],
+"p1": [
+-107.508,
+-65.655,
+-5.05
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "ins_coda_b_ang",
+"origine": "specchio",
+"p0": [
+-107.508,
+65.655,
+-5.05
+],
+"p1": [
+-107.508,
+65.655,
+1.65
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "ins_coda_b_ang",
+"origine": "specchio",
+"p0": [
+107.508,
+-65.655,
+-5.05
+],
+"p1": [
+107.508,
+-65.655,
+1.65
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "ins_coda_b_ang",
 "origine": "estrusione",
 "p0": [
 107.508,
@@ -360,6 +528,30 @@ null
 107.508,
 65.655,
 -5.05
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "ins_coda_b_med",
+"origine": "specchio",
+"p0": [
+-5.0,
+-82.65,
+-5.05
+],
+"p1": [
+-5.0,
+-82.65,
+1.65
 ]
 },
 {
@@ -436,54 +628,6 @@ null
 },
 {
 "corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"aperto",
-null
-],
-"e1": [
-"fondo",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
--112.508,
--56.995,
-1.65
-],
-"p1": [
--112.508,
--56.995,
--5.05
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"aperto",
-null
-],
-"e1": [
-"fondo",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
--107.508,
--65.655,
-1.65
-],
-"p1": [
--107.508,
--65.655,
--5.05
-]
-},
-{
-"corpo": "Corpo1",
 "d": 2.5,
 "e0": [
 "aperto",
@@ -493,7 +637,7 @@ null
 "fondo",
 null
 ],
-"lav": "lato_destro",
+"lav": "pilota_a_ang",
 "origine": "specchio",
 "p0": [
 -70.892,
@@ -510,30 +654,6 @@ null
 "corpo": "Corpo1",
 "d": 2.5,
 "e0": [
-"aperto",
-null
-],
-"e1": [
-"fondo",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
--65.292,
--41.975,
-1.65
-],
-"p1": [
--65.292,
--41.975,
--5.05
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
 "fondo",
 null
 ],
@@ -541,112 +661,16 @@ null
 "aperto",
 null
 ],
-"lav": "lato_destro",
+"lav": "pilota_a_ang",
 "origine": "specchio",
 "p0": [
--56.0,
--22.5,
-21.7
-],
-"p1": [
--56.0,
--22.5,
-28.4
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
--52.0,
--31.0,
--25.25
-],
-"p1": [
--52.0,
--31.0,
--31.95
-]
-},
-{
-"corpo": "Corpo1",
-"d": 2.5,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
--5.6,
--34.25,
+-70.892,
+32.275,
 -5.05
 ],
 "p1": [
--5.6,
--34.25,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
--5.0,
--82.65,
--5.05
-],
-"p1": [
--5.0,
--82.65,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
-5.0,
--82.65,
--5.05
-],
-"p1": [
-5.0,
--82.65,
+-70.892,
+32.275,
 1.65
 ]
 },
@@ -661,103 +685,7 @@ null
 "aperto",
 null
 ],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
-5.6,
--34.25,
--5.05
-],
-"p1": [
-5.6,
--34.25,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
-35.59,
--54.7,
-6.0
-],
-"p1": [
-35.59,
--48.0,
-6.0
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
-40.0,
--22.5,
-21.7
-],
-"p1": [
-40.0,
--22.5,
-28.4
-]
-},
-{
-"corpo": "Corpo1",
-"d": 2.5,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
-65.292,
--41.975,
--5.05
-],
-"p1": [
-65.292,
--41.975,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
-"d": 2.5,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
+"lav": "pilota_a_ang",
 "origine": "specchio",
 "p0": [
 70.892,
@@ -767,78 +695,6 @@ null
 "p1": [
 70.892,
 -32.275,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
-84.0,
--15.0,
--25.25
-],
-"p1": [
-84.0,
--15.0,
--31.95
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
-107.508,
--65.655,
--5.05
-],
-"p1": [
-107.508,
--65.655,
-1.65
-]
-},
-{
-"corpo": "Corpo1",
-"d": 4.2,
-"e0": [
-"fondo",
-null
-],
-"e1": [
-"aperto",
-null
-],
-"lav": "lato_destro",
-"origine": "specchio",
-"p0": [
-112.508,
--56.995,
--5.05
-],
-"p1": [
-112.508,
--56.995,
 1.65
 ]
 },
@@ -864,6 +720,30 @@ null
 70.892,
 32.275,
 -5.05
+]
+},
+{
+"corpo": "Corpo1",
+"d": 2.5,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "pilota_a_med",
+"origine": "specchio",
+"p0": [
+5.6,
+-34.25,
+-5.05
+],
+"p1": [
+5.6,
+-34.25,
+1.65
 ]
 },
 {
@@ -902,6 +782,78 @@ null
 null
 ],
 "lav": "pilota_b_ang",
+"origine": "specchio",
+"p0": [
+-65.292,
+-41.975,
+1.65
+],
+"p1": [
+-65.292,
+-41.975,
+-5.05
+]
+},
+{
+"corpo": "Corpo1",
+"d": 2.5,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "pilota_b_ang",
+"origine": "specchio",
+"p0": [
+-65.292,
+41.975,
+-5.05
+],
+"p1": [
+-65.292,
+41.975,
+1.65
+]
+},
+{
+"corpo": "Corpo1",
+"d": 2.5,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "pilota_b_ang",
+"origine": "specchio",
+"p0": [
+65.292,
+-41.975,
+-5.05
+],
+"p1": [
+65.292,
+-41.975,
+1.65
+]
+},
+{
+"corpo": "Corpo1",
+"d": 2.5,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "pilota_b_ang",
 "origine": "estrusione",
 "p0": [
 65.292,
@@ -912,6 +864,30 @@ null
 65.292,
 41.975,
 -5.05
+]
+},
+{
+"corpo": "Corpo1",
+"d": 2.5,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "pilota_b_med",
+"origine": "specchio",
+"p0": [
+-5.6,
+-34.25,
+-5.05
+],
+"p1": [
+-5.6,
+-34.25,
+1.65
 ]
 },
 {
@@ -936,6 +912,30 @@ null
 -5.6,
 34.25,
 -5.05
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "slitta_ins",
+"origine": "specchio",
+"p0": [
+35.59,
+-54.7,
+6.0
+],
+"p1": [
+35.59,
+-48.0,
+6.0
 ]
 },
 {

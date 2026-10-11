@@ -110,3 +110,31 @@ def test_controlli_solo_le_sezioni_scelte(dati):
     d = _con_sezioni(dati, BUONA, rotta)
     assert C.chiavi_esistenti(d, solo=['tibia']) == []
     assert C.chiavi_esistenti(d) != []
+
+
+def test_inserti_dal_parametro(dati):
+    """Le regole dei fori per inserti prendono il diametro dal parametro del CAD (cambia con il provino)."""
+    regole = {r['tipo']: r['d'] for r in dati.regole_fori if r['tipo'].startswith('inserto')}
+    assert regole == {'inserto_m3': dati.manifest['parametri']['ins_m3_d'], 'inserto_m2': dati.manifest['parametri']['ins_m2_d']}
+
+
+def test_posa_della_zampa(dati):
+    """alfa alza il ginocchio, gamma sotto 90 porta il piede verso la coxa, coxa gira in senso antiorario."""
+    from guida.lib import geom
+
+    def centro(k):
+        lo, hi = dati.componente(k)['bbox']
+        return geom.punto(dati.matrice(k), [(lo[i] + hi[i]) / 2 for i in range(3)])
+    d = copy.copy(dati)
+    g0, p0 = centro('zampa/Servo_ginocchio'), centro('zampa/Piedino')
+    try:
+        d.posa = d.matrici_posa({'alfa': 20})
+        assert geom.punto(d.matrice('zampa/Servo_ginocchio'), [0, 0, 0])[2] > geom.punto(dati.occ['zampa/Servo_ginocchio']['T'], [0, 0, 0])[2]
+        d.posa = d.matrici_posa({'gamma': 60})
+        lo, hi = d.componente('zampa/Piedino')['bbox']
+        piede = geom.punto(d.matrice('zampa/Piedino'), [(lo[i] + hi[i]) / 2 for i in range(3)])
+        assert piede[0] < p0[0] - 20
+        d.posa = d.matrici_posa({'coxa': 20})
+        assert geom.punto(d.matrice('zampa/Servo_ginocchio'), [0, 0, 0])[1] > g0[1] + 20
+    finally:
+        d.posa = None

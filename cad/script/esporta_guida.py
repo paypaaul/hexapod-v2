@@ -174,7 +174,7 @@ def manifest(des, root):
                            'sostituisce': list(togli), 'T': _matrice(m)})
     doc = adsk.core.Application.get().activeDocument
     out = {'versione': V['VERSIONE'], 'documento': doc.name, 'unita': 'mm',
-           'parametri': {k: round(_mm(des, k), 4) for k in ('zam_Lc', 'zam_Lf', 'zam_Lt')},
+           'parametri': {k: round(_mm(des, k), 4) for k in ('zam_Lc', 'zam_Lf', 'zam_Lt', 'ins_m3_d', 'ins_m3_l', 'ins_m2_d', 'ins_m2_l')},
            'istanze': {'corpo': _matrice(corpo.transform2), 'zampe': {n: _matrice(z.transform2) for n, z in sorted(zampe.items())}},
            'componenti': dict(sorted(componenti.items())), 'occorrenze': occorrenze}
     os.makedirs(DATI, exist_ok=True)
@@ -259,25 +259,64 @@ def mesh(des, root, budget_s=25.0, forza=False, solo=None):
 
 
 # ------------------------------------------------------------------------------------------------ fori
-def _mappa_lavorazioni(comp):
-    """{(nome del corpo, tempId della faccia): (lavorazione, origine)} dalle facce laterali delle estrusioni e dagli
-    specchi (i fori specchiati portano il nome dello specchio: la classificazione guarda anche quello d'origine)."""
-    mappa = {}
+def _rifletti(pt, o, n):
+    """Punto riflesso sul piano (o, n)."""
+    k = math.sqrt(n.x * n.x + n.y * n.y + n.z * n.z)
+    nx, ny, nz = n.x / k, n.y / k, n.z / k
+    d = (pt.x - o.x) * nx + (pt.y - o.y) * ny + (pt.z - o.z) * nz
+    return adsk.core.Point3D.create(pt.x - 2 * d * nx, pt.y - 2 * d * ny, pt.z - 2 * d * nz)
+
+
+def _firma(fa):
+    """Tipo di superficie e raggio: restringe la ricerca della faccia d'origine di una copia specchiata."""
+    g = fa.geometry
+    return g.surfaceType, round(getattr(g, 'radius', 0.0), 5)
+
+
+def _sulla_faccia(fa, pt):
+    ev = fa.evaluator
+    ok, par = ev.getParameterAtPoint(pt)
+    if not ok:
+        return False
+    ok, q = ev.getPointAtParameter(par)
+    return ok and q.distanceTo(pt) < 1e-4 and ev.isParameterOnFace(par)
+
+
+def _lavorazioni_facce(comp):
+    """[(faccia, lavorazione, origine)] delle facce create da estrusioni e specchi. Una copia specchiata prende il nome
+    della lavorazione d'origine: un punto della copia, riflesso sul piano dello specchio, cade sulla faccia d'origine
+    (anche per gli specchi di specchi, nell'ordine in cui sono fatti). Se non la trova resta il nome dello specchio."""
+    out, fonti = [], []
     for f in comp.features.extrudeFeatures:
-        try:
-            facce = list(f.sideFaces)
-        except Exception:
+        if f.isSuppressed:
             continue
-        for fa in facce:
-            mappa[(fa.body.name, fa.tempId)] = (f.name, 'estrusione')
+        for fa in f.faces:
+            fonti.append((fa, f.name))
+            out.append((fa, f.name, 'estrusione'))
     for f in comp.features.mirrorFeatures:
-        try:
-            elementi = [f.patternElements.item(i) for i in range(f.patternElements.count)]
-        except Exception:
+        if f.isSuppressed:
             continue
-        for el in elementi:
-            for fa in el.faces:
-                mappa.setdefault((fa.body.name, fa.tempId), (f.name, 'specchio'))
+        g = f.mirrorPlane.geometry
+        per_firma = {}
+        for fa, lav in fonti:
+            per_firma.setdefault(_firma(fa), []).append((fa, lav))
+        nuove = []
+        for i in range(f.patternElements.count):
+            for fa in f.patternElements.item(i).faces:
+                r = _rifletti(fa.pointOnFace, g.origin, g.normal)
+                lav = next((nome for c, nome in per_firma.get(_firma(fa), []) if _sulla_faccia(c, r)), None)
+                nuove.append((fa, lav or f.name, 'specchio' if lav else 'specchio senza origine'))
+        for fa, lav, org in nuove:
+            fonti.append((fa, lav))
+            out.append((fa, lav, org))
+    return out
+
+
+def _mappa_lavorazioni(comp):
+    """{(nome del corpo, tempId della faccia): (lavorazione, origine)}; vince la prima lavorazione che crea la faccia."""
+    mappa = {}
+    for fa, lav, org in _lavorazioni_facce(comp):
+        mappa.setdefault((fa.body.name, fa.tempId), (lav, org))
     return mappa
 
 
@@ -426,16 +465,11 @@ def _zone_richieste():
 
 
 def _facce_lavorazioni(comp, modelli):
-    """{lavorazione: [facce]} delle estrusioni e degli specchi il cui nome corrisponde a uno dei glob."""
+    """{lavorazione: [facce]} delle lavorazioni il cui nome corrisponde a uno dei glob, copie specchiate comprese."""
     out = {}
-    for f in comp.features.extrudeFeatures:
-        if not f.isSuppressed and any(fnmatch.fnmatchcase(f.name, m) for m in modelli):
-            out.setdefault(f.name, []).extend(list(f.faces))
-    for f in comp.features.mirrorFeatures:
-        if f.isSuppressed or not any(fnmatch.fnmatchcase(f.name, m) for m in modelli):
-            continue
-        for i in range(f.patternElements.count):
-            out.setdefault(f.name, []).extend(list(f.patternElements.item(i).faces))
+    for fa, lav, _ in _lavorazioni_facce(comp):
+        if any(fnmatch.fnmatchcase(lav, m) for m in modelli):
+            out.setdefault(lav, []).append(fa)
     return out
 
 

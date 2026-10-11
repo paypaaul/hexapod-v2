@@ -53,6 +53,8 @@ rinviati: [...]             # passi gia' scritti che vanno piu' avanti (stesso f
   etichette: [{testo: AS, chiave: corpo/Servo_Coxa_AS}, {testo: F1, punto: [x, y, z]}]   # nomi sull'immagine
   in_evidenza: [corpo/Corpo_Base]   # pezzi disegnati a colori pieni senza montarli (es. gli inserti a caldo, pezzo per pezzo)
   terna: robot              # la terna del passo, se diversa da quella della sezione (con istanza: AS per la zampa)
+  posa: {alfa: 20, gamma: 60, coxa: 0}   # zampa in posa (gradi; come costruita: 0, 90, 0). alfa + alza il ginocchio,
+                            # gamma < 90 porta il piede verso la coxa, coxa + gira in senso antiorario vista dall'alto
   immagine: false           # passo senza immagine del CAD (procedure, prove, misure): il testo prende tutta la pagina
   figura: schemi/basetta.svg   # figura da un file sotto guida/ al posto del render (schemi, disegni); niente frecce
   tabella: {intestazione: [Punto, Atteso, Misurato], righe: [["Rail servo", "6,0 V [V]", ""]]}   # sotto il testo

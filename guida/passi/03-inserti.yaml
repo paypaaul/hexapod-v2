@@ -5,8 +5,7 @@
 # Conteggi dal CAD (controlli.totali_inserti): M3 94 = zampa 11 x 6 (tibia 3, coxa 4, Femore_B 4) + corpo 28 (base 26,
 # chiglia 2); M2 28 = lama B 2 x 6 + slitte 8 + SSC-32 4 + vassoio 4. Predisposizioni (fuori dai totali del BOM): 18 M2.
 # Il BOM scrive "30 nel corpo": non torna con il CAD (guida/problemi/inserti.yaml).
-# I fori a destra della base sono specchi e si chiamano tutti "lato_destro" in fori.json: per questo la base ha un passo
-# per lato e non per gruppo (guida/problemi/inserti.yaml, difetto della pipeline).
+# I fori a destra della base sono specchi: hanno lo stesso nome degli originali e si scelgono con lato: destro.
 sezione:
   id: inserti
   numero: 3
@@ -207,11 +206,10 @@ passi:
     istanza: AS
     in_evidenza: [corpo/Corpo_Base]
     inserti:
-      - {chiave: corpo/Corpo_Base, lav: "ins_coda_*"}
-      - {chiave: corpo/Corpo_Base, lav: "gondola_posteriore_s"}
-      - {chiave: corpo/Corpo_Base, lav: "chi_ins_*"}
-      - {chiave: corpo/Corpo_Base, lav: "colonnina_*_ins"}
-      - {chiave: corpo/Corpo_Base, lav: "slitta_ins"}
+      - {chiave: corpo/Corpo_Base, lav: "ins_coda_*", lato: sinistro}
+      - {chiave: corpo/Corpo_Base, lav: "chi_ins_*", lato: sinistro}
+      - {chiave: corpo/Corpo_Base, lav: "colonnina_*_ins", lato: sinistro}
+      - {chiave: corpo/Corpo_Base, lav: "slitta_ins", lato: sinistro}
     vista: {direzione: [0.7, 0.65, 0.16], su: [0, 0, 1]}
     etichette:
       - {testo: AS, punto: [110.0, 61.4, 4.0]}
@@ -242,7 +240,10 @@ passi:
     istanza: AS
     in_evidenza: [corpo/Corpo_Base]
     inserti:
-      - {chiave: corpo/Corpo_Base, lav: "lato_destro"}
+      - {chiave: corpo/Corpo_Base, lav: "ins_coda_*", lato: destro}
+      - {chiave: corpo/Corpo_Base, lav: "chi_ins_*", lato: destro}
+      - {chiave: corpo/Corpo_Base, lav: "colonnina_*_ins", lato: destro}
+      - {chiave: corpo/Corpo_Base, lav: "slitta_ins", lato: destro}
     vista: {direzione: [0.7, -0.65, 0.16], su: [0, 0, 1]}
     etichette:
       - {testo: AD, punto: [110.0, -61.4, 4.0]}
@@ -262,7 +263,7 @@ passi:
       - "Metti 1 inserto M3 di fianco, nella parete della baia, per la slitta."
       - "Capovolgi la base e metti 2 inserti M3 dal basso, per la chiglia."
     avvisi:
-      - {tipo: nota, testo: "Il lato destro è lo specchio del sinistro: stessi gruppi, stesse misure (cad/script/corpo.py, specchio 'lato_destro')."}
+      - {tipo: nota, testo: "Il lato destro è lo specchio del sinistro: stessi gruppi, stesse misure (cad/script/corpo.py)."}
       - {tipo: importante, testo: "Lascia vuoti i 6 fori pilota Ø2,5 delle gondole sul lato destro (D-049)."}
     fonti: [D-049, D-051, D-052, D-056, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
 

@@ -5,7 +5,11 @@
  "parametri": {
   "zam_Lc": 55.0,
   "zam_Lf": 65.0,
-  "zam_Lt": 110.0
+  "zam_Lt": 110.0,
+  "ins_m3_d": 4.2,
+  "ins_m3_l": 6.7,
+  "ins_m2_d": 3.4,
+  "ins_m2_l": 4.0
  },
  "istanze": {
   "corpo": [

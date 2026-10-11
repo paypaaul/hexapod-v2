@@ -150,14 +150,26 @@ table.zampe td:first-child { text-align: left }
 .indice a { color: inherit; text-decoration: none }
 
 /* passi senza immagine del CAD: solo testo e tabelle (procedure, prove), oppure figura da file (schemi) */
-.grande.senza-figura .colonna { width: 273mm; display: grid; grid-template-columns: 1fr 1fr; align-content: start; column-gap: 8mm }
-.grande.senza-figura .colonna > div:first-child { grid-column: 1 / -1 }
+.grande.senza-figura .colonna { width: 273mm }
+.grande.senza-figura .istruzioni ol { columns: 2; column-gap: 10mm; display: block }
+.grande.senza-figura .istruzioni li { break-inside: avoid; margin-bottom: 1.3mm }
+.grande.senza-figura .box { align-self: flex-start }
 .mezzo.senza-figura .sotto { top: 17mm; height: 166mm; flex-direction: column }
 .mezzo.senza-figura .sotto .box { width: auto }
 .figura.da-file img { object-fit: contain }
 table.tabella { margin-top: 1mm }
-table.tabella th { text-align: left; font: 700 7.5pt Barlow, sans-serif; letter-spacing: .05em; text-transform: uppercase;
-                   color: var(--tenue); padding: .8mm 1mm; border-bottom: .3mm solid var(--inchiostro) }
+table.tabella th { text-align: left; font: 700 8pt Barlow, sans-serif; color: var(--tenue); padding: .8mm 1mm;
+                   border-bottom: .3mm solid var(--inchiostro) }
+table.tabella tr.da-compilare td { height: 8mm; vertical-align: middle }
+.griglia.molti { grid-template-columns: repeat(auto-fill, minmax(21mm, 1fr)); gap: 1.4mm }
+.griglia.molti .voce { grid-template-rows: 11mm auto auto; padding: 1mm .6mm }
+.griglia.molti .voce img { height: 11mm; max-width: 19mm }
+.griglia.molti .n { font-size: 6.4pt }
 /* nomi sull'immagine (etichette: nei passi), in pixel del render: 34 px sono circa 3,8 mm a 9 px/mm */
 .frecce text.etichetta { font: 800 34px "Barlow Condensed", sans-serif; fill: var(--inchiostro); stroke: #fff; stroke-width: 9px;
                          paint-order: stroke; stroke-linejoin: round; text-anchor: middle; dominant-baseline: middle }
+/* foglio delle viti 1:1 (genera: viti): barra di controllo da 100 mm e righello */
+.foglio-viti .controllo { width: 100mm; height: 4mm; background: var(--inchiostro); margin: 2mm 0 1mm }
+.foglio-viti .nota { font-size: 8.5pt; color: var(--tenue); margin-bottom: 2mm }
+.foglio-viti .viteria { margin-top: 5mm; gap: 4mm 9mm }
+.righello .tacche line { stroke: var(--inchiostro); stroke-width: .12 } .righello text { font-size: 1.8px; text-anchor: middle }
