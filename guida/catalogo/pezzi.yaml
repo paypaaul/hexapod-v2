@@ -65,3 +65,12 @@ Rif_Ampli_Generico:      {nome: Amplificatore MAX98357A, x: X17}
 Rif_Altoparlante_Tondo:  {nome: Altoparlante da 15 mm, x: X17}
 Rif_Microfono_MS3625:    {nome: Microfono MS3625, x: X16}
 Rif_Microfono_I2S:       {nome: Microfono Adafruit (alternativa), x: X16}
+
+# ------------------------------------------------------------------ attrezzi stampati (cad/script/attrezzi.py)
+Attrezzo_Cavalletto:           {nome: Cavalletto, bom: E1}
+Attrezzo_Provino_Luce_Bianco:  {nome: Provino di luce bianco, bom: E2, x: X10}
+Attrezzo_Provino_Luce_Nero:    {nome: Provino di luce nero, bom: E2b, x: X10}
+Attrezzo_Provino_Tasche_Base:  {nome: "Provino delle tasche, base", bom: E1}
+Attrezzo_Provino_Tasche_Lama:  {nome: "Provino delle tasche, lama", bom: E2}
+Dima_Posa_1:                   {nome: Dima di posa 1, bom: E1}
+Dima_Posa_2:                   {nome: Dima di posa 2, bom: E1}

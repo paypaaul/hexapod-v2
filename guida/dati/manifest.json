@@ -114,6 +114,146 @@
   }
  },
  "componenti": {
+  "Attrezzo_Cavalletto": {
+   "tipo": "stampato",
+   "revisione": "ce62a340-70be-48fc-87af-9c7028535877",
+   "mesh": "Attrezzo_Cavalletto.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1,
+   "bbox": [
+    [
+     -80.0,
+     -60.0,
+     -170.0
+    ],
+    [
+     80.0,
+     60.0,
+     -33.4
+    ]
+   ]
+  },
+  "Attrezzo_Provino_Luce_Bianco": {
+   "tipo": "stampato",
+   "revisione": "c717712d-1ec6-4249-9765-bad67b6f9737",
+   "mesh": "Attrezzo_Provino_Luce_Bianco.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 4,
+   "bbox": [
+    [
+     -26.0,
+     -33.6,
+     3.6
+    ],
+    [
+     26.0,
+     18.0,
+     9.2
+    ]
+   ]
+  },
+  "Attrezzo_Provino_Luce_Nero": {
+   "tipo": "stampato",
+   "revisione": "4c838f65-fe11-43f0-a01c-748258db832b",
+   "mesh": "Attrezzo_Provino_Luce_Nero.ply",
+   "aspetti": [
+    [
+     "Esa PLA nero",
+     [
+      16,
+      16,
+      18
+     ]
+    ]
+   ],
+   "corpi": 2,
+   "bbox": [
+    [
+     -28.0,
+     -35.6,
+     0.0
+    ],
+    [
+     28.0,
+     20.0,
+     9.2
+    ]
+   ]
+  },
+  "Attrezzo_Provino_Tasche_Base": {
+   "tipo": "stampato",
+   "revisione": "b3e664a7-109b-4752-8efe-afe4c1ac02dd",
+   "mesh": "Attrezzo_Provino_Tasche_Base.ply",
+   "aspetti": [
+    [
+     "Esa PETG-CF nero",
+     [
+      42,
+      42,
+      45
+     ]
+    ]
+   ],
+   "corpi": 1,
+   "bbox": [
+    [
+     -12.0,
+     -8.0,
+     0.0
+    ],
+    [
+     12.0,
+     8.0,
+     8.0
+    ]
+   ]
+  },
+  "Attrezzo_Provino_Tasche_Lama": {
+   "tipo": "stampato",
+   "revisione": "f771b16e-8310-467a-93b3-7e91f7cd9133",
+   "mesh": "Attrezzo_Provino_Tasche_Lama.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 1,
+   "bbox": [
+    [
+     -30.0,
+     -7.0,
+     0.0
+    ],
+    [
+     30.0,
+     7.0,
+     4.0
+    ]
+   ]
+  },
   "Corpo_Base": {
    "tipo": "stampato",
    "revisione": "70bdf338-f740-4a33-b85e-05ec802bd70c",
@@ -811,6 +951,62 @@
      44.55,
      12.0,
      23.5
+    ]
+   ]
+  },
+  "Dima_Posa_1": {
+   "tipo": "stampato",
+   "revisione": "584220fb-cf9f-45ed-b909-b7557c5a056f",
+   "mesh": "Dima_Posa_1.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 1,
+   "bbox": [
+    [
+     16.526,
+     -33.55,
+     -29.0
+    ],
+    [
+     134.0,
+     -10.25,
+     14.0
+    ]
+   ]
+  },
+  "Dima_Posa_2": {
+   "tipo": "stampato",
+   "revisione": "5a3c286f-7d89-4ad8-a231-fd7e6070a5a3",
+   "mesh": "Dima_Posa_2.ply",
+   "aspetti": [
+    [
+     "Esa PLA placche",
+     [
+      236,
+      236,
+      232
+     ]
+    ]
+   ],
+   "corpi": 1,
+   "bbox": [
+    [
+     24.882,
+     -33.55,
+     -32.138
+    ],
+    [
+     134.0,
+     -20.032,
+     38.816
     ]
    ]
   },
@@ -3317,6 +3513,139 @@
    "componente": "Cover_Femore_B_Feritoia",
    "assieme": "zampa",
    "segmento": "femore",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "attrezzo/Dima_Posa_1",
+   "componente": "Dima_Posa_1",
+   "assieme": "attrezzo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "attrezzo/Dima_Posa_2",
+   "componente": "Dima_Posa_2",
+   "assieme": "attrezzo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "attrezzo/Cavalletto",
+   "componente": "Attrezzo_Cavalletto",
+   "assieme": "attrezzo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "attrezzo/Provino_Luce_Nero",
+   "componente": "Attrezzo_Provino_Luce_Nero",
+   "assieme": "attrezzo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "attrezzo/Provino_Luce_Bianco",
+   "componente": "Attrezzo_Provino_Luce_Bianco",
+   "assieme": "attrezzo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "attrezzo/Provino_Tasche_Base",
+   "componente": "Attrezzo_Provino_Tasche_Base",
+   "assieme": "attrezzo",
+   "T": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "chiave": "attrezzo/Provino_Tasche_Lama",
+   "componente": "Attrezzo_Provino_Tasche_Lama",
+   "assieme": "attrezzo",
    "T": [
     1.0,
     0.0,

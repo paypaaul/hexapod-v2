@@ -78,6 +78,8 @@ rinviati: [...]             # passi gia' scritti che vanno piu' avanti (stesso f
   - corpo: `corpo/Corpo_Base`, `corpo/Servo_Coxa_AS`, ….
 - Nelle sezioni con `terna: robot` i pezzi della zampa si citano con l'istanza: `zampa/Coxa@AS`.
 - Le alternative virtuali (`corpo/IMU_Pololu`, `corpo/Microfono_Adafruit_*`) non si montano; si citano negli avvisi.
+- Gli attrezzi stampati (`attrezzo/Dima_Posa_1`, `attrezzo/Cavalletto`, `attrezzo/Provino_*`) stanno nella loro terna e
+  non si montano: si mostrano con `in_evidenza`, da soli o con pezzi della stessa terna.
 - I nomi da usare nel testo stanno in `guida/catalogo/pezzi.yaml`.
 
 ## Come si prova

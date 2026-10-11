@@ -110,6 +110,8 @@ class Dati:
         attiva (self.posa, da matrici_posa) i pezzi della zampa la seguono."""
         o = self.occ[chiave]
         istanza = o.get('istanza', istanza)
+        if o['assieme'] == 'attrezzo':              # attrezzi stampati: sempre nella loro terna, da soli
+            return o['T']
         if o['assieme'] == 'zampa':
             t = o['T']
             posa = getattr(self, 'posa', None)

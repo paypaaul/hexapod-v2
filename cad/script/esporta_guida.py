@@ -167,6 +167,13 @@ def manifest(des, root):
         viste.add(k)
         occorrenze.append({'chiave': 'zampa/' + k, 'componente': o.component.name, 'assieme': 'zampa',
                            'segmento': AS['_gruppo'](des, o), 'T': _matrice(o.transform2)})
+    # attrezzi stampati (dime, cavalletto, provini; cad/script/attrezzi.py): nella terna propria, non si montano
+    for o in root.occurrences:
+        n = o.component.name
+        if n.startswith(('Attrezzo_', 'Dima_')):
+            registra(o.component)
+            occorrenze.append({'chiave': 'attrezzo/' + n.replace('Attrezzo_', ''), 'componente': n, 'assieme': 'attrezzo',
+                               'T': [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0]})
     lib = {o.component.name: o for o in root.occurrences if o.component.name.startswith('Rif_')}
     for chiave, (nome_lib, m, togli) in AS['alternative'](des).items():
         registra(lib[nome_lib].component)

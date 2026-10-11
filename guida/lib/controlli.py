@@ -54,7 +54,7 @@ def totali_inserti(dati):
     predisp = dati.viteria['inserti_predisposizioni']
     for k in dati.basi:
         o = dati.occ[k]
-        if o.get('virtuale') or o.get('alternativa'):
+        if o.get('virtuale') or o.get('alternativa') or o['assieme'] == 'attrezzo':
             continue
         molt = ZAMPE if o['assieme'] == 'zampa' else 1
         terna = 'zampa' if o['assieme'] == 'zampa' else 'robot'
@@ -248,12 +248,13 @@ def mancanti(dati):
             for sel in p.get('inserti', []):
                 for f in F.inserti_scelti(dati, sel, terna, istanza):
                     inseriti.add((dati.base(f['chiave']), f['lav'], tuple(round(x, 1) for x in f['p0'])))
-    pezzi = [k for k in dati.basi if not dati.occ[k].get('virtuale') and not dati.occ[k]['componente'].startswith('Ingombro_')]
+    pezzi = [k for k in dati.basi if not dati.occ[k].get('virtuale') and not dati.occ[k]['componente'].startswith('Ingombro_')
+             and dati.occ[k]['assieme'] != 'attrezzo']
     out = ['pezzo mai montato: %s' % k for k in pezzi if k not in montati]
     out += ['giunzione mai usata: %s' % n for a in ('zampa', 'corpo') for n in dati.giunzioni[a] if n not in usate]
     for k in dati.basi:
         o = dati.occ[k]
-        if o.get('virtuale') or o['componente'].startswith('Ingombro_'):
+        if o.get('virtuale') or o['componente'].startswith('Ingombro_') or o['assieme'] == 'attrezzo':
             continue
         terna = 'zampa' if o['assieme'] == 'zampa' else 'robot'
         for f in F.fori_di(dati, k, terna, 'AS'):
