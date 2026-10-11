@@ -145,3 +145,67 @@ Lavori:
    STL in `cad/stl/attrezzi/`.
 4. **Documenti**: D-069; classificazione in `predisposizioni.md`, nel piano elettronico, nella sezione X del BOM e in `CLAUDE.md`; NTC da 3 a 2; tocco dai sensori esistenti in `software.md`.
 5. **Chiusura**: verifiche, salvataggio in Fusion, STL, esportazione del robot, commit, tag `v2.1.2`.
+
+## Seguito: versione 2.1.3 — lame del femore come la tibia (scelta dell'utente dell'11 ottobre 2026)
+
+Sullo stesso design "Hexapod v2.1.0", tag `v2.1.3`, decisione D-070. Concept e verifiche sulle mesh in `docs/ricerca/estetica/8-placca-femore/` (`concept3.py`, `concept4.py`, `confronto_strisce.png`).
+
+Scelte dell'utente:
+- lame laterali nello stile del guscio della tibia: faccia piana, smussi tutt'attorno, chiuse anche sulle teste dei bulloni e sui mozzi;
+- con la feritoia;
+- **nessuna copertura superiore**. Scartate: finestra larga, cappucci, strisce da lama a lama, linguetta sull'anca.
+
+Geometria (dalle verifiche sulle mesh; si riverifica in CAD):
+- **Sagoma**:
+  - da X 40 a 135,5 (anca a 55, ginocchio a 120), da Z −14,5 a 20;
+  - verso l'anca si stringe con due smussi, (48; 20)–(40; 12) in alto e (40; −3,5)–(52; −14,5) in basso; sotto il ginocchio uno smusso (129; −14,5)–(135,5; −8);
+  - il bordo alto resta dritto a Z 20. Un bordo che sale verso il ginocchio porta la lama a 1,4 mm dal carapace con α 85 e coxa a ±35.
+- **Faccia esterna** piana, con lo smusso 3 × 2 tutt'attorno: 3 in pianta, 2 nello spessore.
+- **Lama A**:
+  - da \|y\| 30,6 a 34,6, quindi 4,0 di spessore;
+  - tasche cieche per le 12 teste M3: teste da 3,0, 0,2 di gioco, pelle 0,8;
+  - si incastra sulle 4 teste del blocco con tasche Ø5,6 (`cov_testa_d`, come oggi); le 8 teste delle squadrette stanno in tasche libere Ø6,2.
+- **Lama B**:
+  - da 30,6 a 33,2: 2,6 di spessore, come oggi;
+  - tasche per le punte dei perni (sporgono 1,4; la tasca è profonda 1,7);
+  - restano le due viti M2 svasate a X 81 e 94,5, Z 6 (D-065).
+- **Feritoia**:
+  - intarsio di PLA nero a filo della faccia, profondo 0,6 come la fascia del carapace (D-063);
+  - 37 × 7 con gli estremi tondi, centrata fra gli assi (X 87,5) e all'altezza delle viti della lama B (Z 6);
+  - sul lato A copre le tasche delle due teste basse del blocco; sul lato B le viti nere stanno dentro l'intarsio nero;
+  - componenti nuovi `Cover_Femore_A_Feritoia` e `Cover_Femore_B_Feritoia`, stampati insieme alla lama (PLA su PLA).
+- **Stampa**: faccia interna sul piatto. Le tasche sono fori ciechi che partono dal piatto; la faccia esterna e l'intarsio stanno in cima.
+- **Stime sulle mesh**:
+  - contatto fra zampe vicine a 30,75° (oggi 31,25°); gioco a 30° di 3,5 mm (oggi 4,6). Il firmware resta a 30° per zampa e 60° di somma;
+  - distanza dal carapace con α 85 e coxa a ±35: 4,0–4,8 mm (oggi 4,6).
+- **Dime di posa**: si usano con la lama B smontata, come oggi.
+
+Lavori:
+1. **`zampa.py`**:
+   - parametri `cov_fem_*` nuovi;
+   - `_cover_femore` riscritta, più `fai_cover_femore_feritoia` per i due intarsi;
+   - tolti i parametri delle lame bombate che non servono più (bombatura, esagoni, plateau, finestre).
+2. **Rifare nel CAD**:
+   - `Cover_Femore_A` e `_B`, poi i due intarsi con le istanze e i giunti rigidi nella zampa montata;
+   - controllo delle trasformate e dei volumi delle altre parti (sentinella).
+3. **Verifiche**:
+   - zampa: interferenze, scansione delle pose (le 81 libere e i controlli), misura;
+   - assieme:
+     - interferenze;
+     - coxe a ±35;
+     - zampe vicine libere a 30°, con il contatto atteso fra 30,5° e 31°;
+     - carapace contro le zampe con (85, 90), (85, 29) e (60, 90), a imbardata −35, 0 e +35;
+     - cicli 100/45 e 70/70, rotazione a 30°;
+   - massa delle lame.
+4. **A valle**:
+   - `colori.py`: intarsi in PLA nero;
+   - `esporta_stl.py` e `cad/stl/README.md`: orientamento e materiali;
+   - `viste.py` (esploso), `esporta_robot.py` (geometria, mesh, pose), `tools/descrizione.py --aggiorna-hash`, `genera_header.py`, `genera_vettori.py`, `genera_modelli.py`;
+   - mesh del renderer e render della zampa in `docs/immagini/`.
+5. **Documenti**:
+   - D-070 in `decisioni.md`;
+   - `versioni.md`;
+   - `progetto-meccanico.md` (lame del femore e contatto fra vicine);
+   - `CLAUDE.md`: stato, e la placca superiore del femore tolta dal backlog perché scartata;
+   - `software.md`, se cambia il margine del contatto fra vicine.
+6. **Chiusura**: `versione.py` a 2.1.3, salvataggio in Fusion, commit, tag `v2.1.3`, CI verde.
