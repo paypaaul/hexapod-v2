@@ -261,3 +261,58 @@ Sullo stesso design "Hexapod v2.1.0", tag `v2.1.5`, decisione D-072. Il modello 
    - Una o due inquadrature in `docs/immagini/render-notte-*.png`.
    - Il colore delle luci è uno solo per ora: si può cambiare.
 3. **Documenti e chiusura**: D-072, `versioni.md`, `CLAUDE.md` (provini da stampare), `cad/stl/README.md`; salvataggio in Fusion, tag, CI.
+
+## Seguito: versione 2.1.6 — predisposizioni con i pezzi già in casa (scelta dell'utente dell'11 ottobre 2026)
+
+**Piano, da fare dopo il via dell'utente.** Sullo stesso design "Hexapod v2.1.0", tag `v2.1.6`, decisione D-074.
+
+L'utente ha scelto i moduli che ha già (D-073):
+- **X4**: MPU-6500 (GY-6500) al posto della Pololu LSM6DSO, con **doppia predisposizione**: si deve poter tornare alla Pololu smontando e basta;
+- **X16**: microfoni MS3625, anche qui con doppia predisposizione (MS3625 e Adafruit 3421);
+- **X17**: amplificatore MAX98357A generico e altoparlante tondo da 15 mm.
+
+**Quote dei moduli** (S: dalle foto dei venditori, con il passo dei pin da 2,54 come scala; C: da guardare sul pezzo prima di stampare, nell'elenco delle cose da guardare in `CLAUDE.md`):
+- **GY-6500**, la scheda blu "MPU-9250/6500":
+  - 26 × 15,5 × 1,6 mm, componenti alti circa 1 mm;
+  - 10 pin su un lato lungo, due fori Ø3 agli angoli del lato opposto, a circa 20,6 di interasse e circa 2,3 dal bordo;
+  - asse X del chip sul lato corto; indirizzo I2C 0x68.
+- **MS3625**: tonda, Ø13,5 circa, con due lati piatti a 12,6 lungo le due file di 3 pin. La porta del microfono è al centro della faccia senza componenti.
+- **MAX98357A generico**, copia della Adafruit 3006:
+  - 17,5 × 17,7 mm;
+  - due fori Ø2,4 sul lato della morsettiera, a circa 13 di interasse e circa 2,2 dai bordi.
+  - Anche la Adafruit ha i fori lì: **le bugne in diagonale di oggi sono sbagliate** e si correggono comunque.
+- **Altoparlante tondo da 15 mm** (8 Ω, 1 W): anello bianco e cavetto con connettore da 1,25; lo spessore non è dichiarato (circa 4, C).
+
+**Modifiche**:
+1. **IMU** (`corpo.py`, nuovo pezzo `Corpo_Piastrina_IMU`, PETG-CF):
+   - la base non cambia: restano le due bugne con gli inserti M2 a 18 di interasse, dove si avvita direttamente la Pololu;
+   - la GY-6500 si monta su una piastrina di circa 26 × 11 × 2,5, che si avvita sulle stesse bugne con due M2 × 5 svasate a filo (la scheda ci passa sopra);
+   - la scheda si fissa alla piastrina con due M2 × 6 in fori pilota Ø1,7, con i pin verso +Y, da dove arriva il bus;
+   - fili saldati sulle piazzole, senza pin: sotto il vassoio non c'è altezza;
+   - in Z: tetto a −9,4, bugne fino a −5,4, piastrina fino a −2,9, scheda fino a circa −0,3; il vassoio è a +1;
+   - nuovo ingombro `Rif_IMU_MPU6500` in `rif_componenti.py`;
+   - si cambia IMU svitando due viti: se la piastrina va corretta, si ristampa solo lei.
+2. **Microfoni** (`Corpo_Carapace`):
+   - stesso foro e stesso telaio 16,7 × 12,7: la MS3625 ci sta con i lati piatti lungo i lati lunghi, a 0,25 dalle pareti;
+   - lungo il telaio la centrano due lunette stampate per microfono (`Corpo_Lunette_Microfoni`, PLA, quattro pezzi), che si tolgono per montare la Adafruit;
+   - nuovo ingombro `Rif_Microfono_MS3625`.
+3. **Amplificatore** (`Corpo_Carapace`): bugne spostate sul lato della morsettiera, a 13 di interasse (vale per la generica e per la Adafruit); ingombro aggiornato a 17,7 × 17,5.
+4. **Altoparlante** (`Corpo_Carapace`):
+   - le due guide sulla guancia restano a 15,4 di distanza, perché il tondo da 15 scorre fra le stesse guide;
+   - le guide si alzano per uno spessore di circa 4 e prendono un fermo in fondo;
+   - ingombro tondo Ø15 × 4 (C).
+5. **Firmware e documenti**:
+   - IMU a 0x68 nella tabella degli indirizzi (0x6B resta per la Pololu) e assi della GY-6500 da rimappare;
+   - BOM: X4, X16 e X17 in possesso;
+   - `predisposizioni.md`, `piano-elettronica-software.md` §6, `cablaggio.md`, `cad/stl/README.md`, D-074, `versioni.md`, `CLAUDE.md`.
+
+**Verifiche**:
+- sentinella sui volumi;
+- `stato` e interferenze dell'assieme con gli ingombri nuovi, provando le due varianti di IMU e di microfono una alla volta;
+- per il carapace: `carapace_zampe`, `sfilamento` e `campo`;
+- distanza della GY-6500 dalla scheda dell'ADC (il suo bordo è a y 0,75) e dalle pareti del vano (|y| ≤ 16);
+- spazio delle lunette accanto alle paratie della testa (x 82,6);
+- massa aggiornata se cambia (pochi grammi);
+- colori, STL, mesh, `esporta_robot` e generatori, test e CI.
+
+**Chiusura**: salvataggio in Fusion, `geometria` riletta con la versione nuova del file, tag `v2.1.6`, push, CI verde.
