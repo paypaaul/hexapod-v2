@@ -91,3 +91,22 @@ def test_passi_viti_strette_dopo(dati):
     prima = _sez('tibia', [BUONA['passi'][0], {'id': '1.02', 'titolo': 'stringi', 'nuovi': ['zampa/Servo_ginocchio'],
                                                'giunzioni': [{'id': 'alette_ginocchio_coda', 'stringi': True}]}])
     assert C.giunzioni_usate(_con_sezioni(dati, prima)) != []
+
+
+def test_passi_campi_nuovi(dati):
+    """Figura che non esiste, tabella con righe storte, terna sbagliata: errori; passo solo testo: ammesso."""
+    s = _sez('tibia', [{'id': '1.01', 'titolo': 'testo', 'immagine': False, 'testo': ['Controlla.']},
+                       {'id': '1.02', 'titolo': 'figura', 'figura': 'schemi/manca.svg'},
+                       {'id': '1.03', 'titolo': 'tabella', 'immagine': False,
+                        'tabella': {'intestazione': ['a', 'b'], 'righe': [['1']]}},
+                       {'id': '1.04', 'titolo': 'terna', 'terna': 'spazio', 'in_evidenza': ['zampa/Tibia']}])
+    errori = C.chiavi_esistenti(_con_sezioni(dati, s))
+    assert len(errori) == 3, errori
+
+
+def test_controlli_solo_le_sezioni_scelte(dati):
+    """Con solo, un errore in un'altra sezione non si vede; senza, si'."""
+    rotta = _sez('altra', [{'id': '9.01', 'titolo': 'x', 'nuovi': ['zampa/Inesistente']}])
+    d = _con_sezioni(dati, BUONA, rotta)
+    assert C.chiavi_esistenti(d, solo=['tibia']) == []
+    assert C.chiavi_esistenti(d) != []

@@ -16,8 +16,7 @@ def _attrezzo_vite(dati, tipo):
 def passo(dati, sez, p, presenti):
     """{'pezzi': [(componente, qta)], 'viti': Counter, 'rondelle': Counter, 'distanziali': Counter, 'inserti': Counter,
     'extra': [...], 'attrezzi': [chiavi]} del passo, con i pezzi nell'ordine in cui il passo li cita."""
-    s = sez['sezione']
-    terna, istanza = s.get('terna', 'zampa'), s.get('istanza', 'AS')
+    terna, istanza = S.terna_di(sez, p)
     nuovi, assiemi = S.entrano(dati, p)
     nuovi = [c for c in nuovi if c not in presenti]
     pezzi = Counter()
@@ -25,7 +24,8 @@ def passo(dati, sez, p, presenti):
         pezzi[dati.occ[k]['componente']] += 1
     viti, rondelle, distanziali, inserti = Counter(), Counter(), Counter(), Counter()
     attrezzi = []
-    tutti = list(dict.fromkeys(list(presenti) + nuovi + assiemi))
+    pieni = [c for k in p.get('in_evidenza', []) for c in dati.chiavi(k)]
+    tutti = list(dict.fromkeys(list(presenti) + nuovi + assiemi + pieni))
     for gj in p.get('giunzioni', []):
         nome = gj['id'] if isinstance(gj, dict) else gj
         assieme = 'zampa' if nome in dati.giunzioni['zampa'] else 'corpo'

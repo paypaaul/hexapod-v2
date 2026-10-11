@@ -110,6 +110,14 @@ def avviso(a):
     return {'tipo': tipo, 'etichetta': et, 'testo': testo(a['testo'], verbo=False)}
 
 
+def _tabella(t):
+    """Tabella di un passo: {intestazione: [...], righe: [[...]]}, celle con lo stesso trattamento del testo."""
+    if not t:
+        return None
+    return {'intestazione': [testo(c, verbo=False) for c in t.get('intestazione', [])],
+            'righe': [[testo(c, verbo=False) for c in r] for r in t['righe']]}
+
+
 # ---------------------------------------------------------------------------------------------- frecce
 def freccia_path(da, a, larg):
     (x0, y0), (x1, y1) = da, a
@@ -218,13 +226,26 @@ class Impaginatore:
     def _pezzo(self, comp):
         return self.dati.pezzi.get(comp) or {'nome': comp}
 
+    def _figura_file(self, rel):
+        """Figura che non viene dal CAD (schemi delle schede, foto): copiata nel sito, percorso per l'HTML."""
+        src = os.path.join(self.dati.radice, rel)
+        dst = os.path.join(self.sito, 'img', 'figure', rel.replace('/', '__'))
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copyfile(src, dst)
+        return 'img/figure/' + os.path.basename(dst)
+
     def passo(self, sez, n, p, el):
         s = sez['sezione']
         sid = s['id']
-        info = json.load(open(os.path.join(self.build, 'img', sid, p['id'] + '.json'), encoding='utf-8'))
-        nuovi = S.entrano(self.dati, p)[0]
-        for prob in verifica(os.path.join(self.build, 'img', sid, p['id'] + '.png'), info, nuovi):
-            self.problemi.append('%s: %s' % (p['id'], prob))
+        img, info = None, {'larghezza': 1, 'altezza': 1, 'frecce': []}
+        if S.ha_render(p):
+            info = json.load(open(os.path.join(self.build, 'img', sid, p['id'] + '.json'), encoding='utf-8'))
+            nuovi = S.entrano(self.dati, p)[0]
+            for prob in verifica(os.path.join(self.build, 'img', sid, p['id'] + '.png'), info, nuovi):
+                self.problemi.append('%s: %s' % (p['id'], prob))
+            img = self._img('%s/%s.png' % (sid, p['id']))
+        elif 'figura' in p:
+            img = self._figura_file(p['figura'])
         voci = [voce(img=self._miniatura(c), qta=q, nome=self._pezzo(c)['nome'], x=self._pezzo(c).get('x'))
                 for c, q in el['pezzi']]
         voci += self._voci_viteria(el)
@@ -233,9 +254,9 @@ class Impaginatore:
                   for f in info['frecce']]
         return {'id': p['id'], 'sez': s['numero'], 'n': n, 'titolo': p['titolo'], 'formato': p.get('formato', 'grande'),
                 'voci': voci, 'righe': [testo(r) for r in p.get('testo', [])], 'avvisi': [avviso(a) for a in p.get('avvisi', [])],
-                'attrezzi': self._attrezzi(el['attrezzi']), 'img': self._img('%s/%s.png' % (sid, p['id'])),
+                'attrezzi': self._attrezzi(el['attrezzi']), 'img': img, 'da_file': 'figura' in p,
                 'larghezza': info['larghezza'], 'altezza': info['altezza'], 'frecce': frecce, 'volte': p.get('volte'),
-                'fonti': p.get('fonti', [])}
+                'tabella': _tabella(p.get('tabella')), 'fonti': p.get('fonti', [])}
 
     def sezione(self, sez):
         s = dict(sez['sezione'])

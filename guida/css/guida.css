@@ -148,3 +148,13 @@ table.zampe td:first-child { text-align: left }
 .indice li .n { font: 800 13pt "Barlow Condensed", sans-serif; width: 9mm; color: var(--c) }
 .indice li .p { margin-left: auto; font: 700 11pt "Barlow Condensed", sans-serif }
 .indice a { color: inherit; text-decoration: none }
+
+/* passi senza immagine del CAD: solo testo e tabelle (procedure, prove), oppure figura da file (schemi) */
+.grande.senza-figura .colonna { width: 273mm; display: grid; grid-template-columns: 1fr 1fr; align-content: start; column-gap: 8mm }
+.grande.senza-figura .colonna > div:first-child { grid-column: 1 / -1 }
+.mezzo.senza-figura .sotto { top: 17mm; height: 166mm; flex-direction: column }
+.mezzo.senza-figura .sotto .box { width: auto }
+.figura.da-file img { object-fit: contain }
+table.tabella { margin-top: 1mm }
+table.tabella th { text-align: left; font: 700 7.5pt Barlow, sans-serif; letter-spacing: .05em; text-transform: uppercase;
+                   color: var(--tenue); padding: .8mm 1mm; border-bottom: .3mm solid var(--inchiostro) }

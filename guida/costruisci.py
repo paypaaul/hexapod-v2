@@ -3,9 +3,13 @@
     .venv/bin/python -m guida.costruisci controlla      controlli contro il BOM e sui passi
     .venv/bin/python -m guida.costruisci scene [-s ID]  lotti JSON per Blender in build/guida/lotti/
     .venv/bin/python -m guida.costruisci rendi [-s ID] [-j 3] [--forza]
-    .venv/bin/python -m guida.costruisci impagina [-s ID]   HTML in build/guida/sito/ e verifica delle immagini
-    .venv/bin/python -m guida.costruisci pdf [-s ID]        PDF in build/guida/guida.pdf, con le pagine che debordano
+    .venv/bin/python -m guida.costruisci impagina [-s ID]   HTML e verifica delle immagini
+    .venv/bin/python -m guida.costruisci pdf [-s ID]        PDF, con i contenitori che debordano
+    .venv/bin/python -m guida.costruisci anteprime [-s ID]  PNG di ogni pagina
     .venv/bin/python -m guida.costruisci tutto [-s ID]
+
+Senza -s l'uscita e' build/guida/ (sito/, guida.pdf, anteprima/); con -s e' build/guida/sezioni/<id>/, cosi' piu'
+estrattori lavorano insieme senza scriversi addosso. Con -s anche i controlli sui passi guardano solo quelle sezioni.
 
 Le dipendenze in piu' stanno in guida/requirements.txt; Blender 4.5 e Chrome sono installati a parte.
 """
@@ -25,8 +29,12 @@ BUILD = os.path.join(D.RADICE, 'build', 'guida')
 BLENDER = '/Applications/Blender.app/Contents/MacOS/Blender'
 
 
-def controlla(dati):
-    esito = C.tutti(dati)
+def uscita(solo):
+    return os.path.join(BUILD, 'sezioni', '-'.join(sorted(solo))) if solo else BUILD
+
+
+def controlla(dati, solo=None):
+    esito = C.tutti(dati, solo)
     for k, v in esito.items():
         print('%-20s %s' % (k, 'ok' if not v else '\n  ' + '\n  '.join(v)))
     avvisi = C.lunghezze(dati)
@@ -57,15 +65,16 @@ def scene(dati, solo=None, forza=False):
         os.makedirs(cartella, exist_ok=True)
         lavori, presenti = [], []
         for p, presenti in S.stati(dati, sez):
-            lavori.append(S.lavoro(dati, sez, p, presenti, os.path.join(cartella, p['id'] + '.png')))
+            if S.ha_render(p):
+                lavori.append(S.lavoro(dati, sez, p, presenti, os.path.join(cartella, p['id'] + '.png')))
             componenti.update(dati.occ[c]['componente'] for k in p.get('nuovi', []) for c in dati.chiavi(k))
         tutti = list(presenti) + [c for c in sum(S.entrano(dati, sez['passi'][-1]), []) if c not in presenti]
         lavori.append(S.finale(dati, sez, tutti, os.path.join(cartella, 'fine.png')))
         lotti[sid] = lavori
     cartella = os.path.join(BUILD, 'img', 'miniature')
     os.makedirs(cartella, exist_ok=True)
-    lotti['miniature'] = [S.miniatura(dati, c, os.path.join(cartella, c + '.png')) for c in sorted(componenti)
-                          if not c.startswith('Ingombro_')]
+    lotti['miniature-' + ('-'.join(sorted(solo)) if solo else 'tutte')] = [
+        S.miniatura(dati, c, os.path.join(cartella, c + '.png')) for c in sorted(componenti) if not c.startswith('Ingombro_')]
     percorsi, saltati = [], 0
     for nome, lavori in lotti.items():
         da_fare = []
@@ -109,7 +118,7 @@ def rendi(lotti, paralleli=3):
 
 def impagina(dati, solo=None):
     from guida.lib import impagina as I
-    imp = I.Impaginatore(dati, BUILD, os.path.join(BUILD, 'sito'))
+    imp = I.Impaginatore(dati, BUILD, os.path.join(uscita(solo), 'sito'))
     p, n = imp.scrivi(solo)
     print('HTML', p, n, 'pagine')
     for x in imp.problemi:
@@ -117,11 +126,11 @@ def impagina(dati, solo=None):
     return p
 
 
-def pdf(html_path):
+def pdf(html_path, solo=None):
     from guida.lib import impagina as I
-    uscita = os.path.join(BUILD, 'guida.pdf')
-    deborda = I.pdf(html_path, uscita)
-    print('PDF', uscita, '%.1f MB' % (os.path.getsize(uscita) / 1e6))
+    p = os.path.join(uscita(solo), 'guida.pdf')
+    deborda = I.pdf(html_path, p)
+    print('PDF', p, '%.1f MB' % (os.path.getsize(p) / 1e6))
     for x in deborda:
         print('  deborda:', x)
     return not deborda
@@ -129,22 +138,26 @@ def pdf(html_path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('comando', choices=['controlla', 'scene', 'rendi', 'impagina', 'pdf', 'tutto'])
+    ap.add_argument('comando', choices=['controlla', 'scene', 'rendi', 'impagina', 'pdf', 'anteprime', 'tutto'])
     ap.add_argument('-s', '--sezione', action='append')
     ap.add_argument('-j', type=int, default=3)
     ap.add_argument('--forza', action='store_true')
     a = ap.parse_args()
     dati = D.Dati()
-    if a.comando in ('controlla', 'tutto') and not controlla(dati):
+    if a.comando in ('controlla', 'tutto') and not controlla(dati, a.sezione):
         sys.exit(1)
     if a.comando in ('scene', 'rendi', 'tutto'):
         lotti = scene(dati, a.sezione, a.forza)
         if a.comando in ('rendi', 'tutto') and not rendi(lotti, a.j):
             sys.exit(1)
-    if a.comando in ('impagina', 'pdf', 'tutto'):
+    if a.comando in ('impagina', 'pdf', 'anteprime', 'tutto'):
         p = impagina(dati, a.sezione)
-        if a.comando in ('pdf', 'tutto') and not pdf(p):
+        if a.comando in ('pdf', 'tutto') and not pdf(p, a.sezione):
             sys.exit(1)
+        if a.comando == 'anteprime':
+            from guida.lib import impagina as I
+            fatti = I.anteprime(p, os.path.join(uscita(a.sezione), 'anteprima'))
+            print('anteprime', os.path.dirname(fatti[0]) if fatti else '-', len(fatti))
 
 
 if __name__ == '__main__':

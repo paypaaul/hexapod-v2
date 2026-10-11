@@ -113,8 +113,9 @@ TIPI_AVVISO = {'attenzione', 'importante', 'nota', 'opzionale', 'prova'}
 SEZIONI_DI_PROVA = {'prova'}          # guida/passi/99-prova.yaml: solo per la pipeline, fuori dai conteggi
 
 
-def _sezioni(dati, anche_prova=False):
-    return [z for z in dati.sezioni if anche_prova or z['sezione']['id'] not in SEZIONI_DI_PROVA]
+def _sezioni(dati, anche_prova=False, solo=None):
+    return [z for z in dati.sezioni if (anche_prova or z['sezione']['id'] not in SEZIONI_DI_PROVA)
+            and (not solo or z['sezione']['id'] in solo)]
 
 
 def _giunzione(dati, nome):
@@ -124,12 +125,12 @@ def _giunzione(dati, nome):
     return None, None
 
 
-def chiavi_esistenti(dati):
-    """Nessun passo cita pezzi, giunzioni, attrezzi, viste o tipi di avviso che non esistono; id unici."""
+def chiavi_esistenti(dati, solo=None):
+    """Nessun passo cita pezzi, giunzioni, attrezzi, viste, figure o tipi di avviso che non esistono; id unici."""
     errori, visti = [], set()
     with open(os.path.join(dati.radice, 'catalogo', 'viste.yaml'), encoding='utf-8') as f:
         viste = yaml.safe_load(f)
-    for z in dati.sezioni:
+    for z in _sezioni(dati, anche_prova=True, solo=solo):
         s = z['sezione']
         for k in s.get('presenti_iniziali', []):
             if not dati.chiavi(k):
@@ -139,7 +140,14 @@ def chiavi_esistenti(dati):
             if pid in visti:
                 errori.append('%s: id ripetuto' % pid)
             visti.add(pid)
-            for campo in ('nuovi', 'mostra', 'nascondi'):
+            if p.get('terna', 'zampa') not in ('zampa', 'robot'):
+                errori.append('%s: terna %s' % (pid, p['terna']))
+            if 'figura' in p and not os.path.exists(os.path.join(dati.radice, p['figura'])):
+                errori.append('%s: figura %s non esiste (percorso da guida/)' % (pid, p['figura']))
+            t = p.get('tabella')
+            if t is not None and (not t.get('righe') or any(len(r) != len(t.get('intestazione', r)) for r in t['righe'])):
+                errori.append('%s: tabella senza righe o con righe di lunghezza diversa dall\'intestazione' % pid)
+            for campo in ('nuovi', 'mostra', 'nascondi', 'in_evidenza'):
                 for k in p.get(campo, []):
                     if not dati.chiavi(k):
                         errori.append('%s: %s %s non esiste' % (pid, campo, k))
@@ -169,11 +177,11 @@ def chiavi_esistenti(dati):
     return errori
 
 
-def montaggio_unico(dati):
+def montaggio_unico(dati, solo=None):
     """Ogni pezzo si monta una volta sola in tutta la guida (la zampa una volta, ripetuta sei: 'zampa/Coxa' e
     'zampa/Coxa@AS' sono lo stesso pezzo) e mai se e' gia' presente nel passo."""
     errori, dove = [], {}
-    for z in _sezioni(dati):
+    for z in _sezioni(dati, solo=solo):
         for p, presenti in S.stati(dati, z):
             for c in S.entrano(dati, p)[0]:
                 if c in presenti:
@@ -185,16 +193,17 @@ def montaggio_unico(dati):
     return errori
 
 
-def giunzioni_usate(dati):
+def giunzioni_usate(dati, solo=None):
     """Ogni giunzione si usa una volta sola, e nel passo che la usa trova tutte le viti attese: se ne mancano, un
     pezzo della giunzione non e' ancora montato (ordine sbagliato)."""
     errori, dove = [], {}
-    for z in _sezioni(dati, anche_prova=True):
+    for z in _sezioni(dati, anche_prova=True, solo=solo):
         s = z['sezione']
-        terna, istanza = s.get('terna', 'zampa'), s.get('istanza', 'AS')
         for p, presenti in S.stati(dati, z):
+            terna, istanza = S.terna_di(z, p)
             nuovi, assiemi = S.entrano(dati, p)
-            tutti = list(dict.fromkeys(presenti + nuovi + assiemi))
+            pieni = [c for k in p.get('in_evidenza', []) for c in dati.chiavi(k)]
+            tutti = list(dict.fromkeys(presenti + nuovi + assiemi + pieni))
             for gj in p.get('giunzioni', []):
                 nome = gj['id'] if isinstance(gj, dict) else gj
                 assieme, g = _giunzione(dati, nome)
@@ -213,12 +222,12 @@ def giunzioni_usate(dati):
     return errori
 
 
-def decisioni(dati):
+def decisioni(dati, solo=None):
     """Ogni D-0xx citato nei passi esiste in docs/decisioni.md."""
     with open(os.path.join(os.path.dirname(dati.radice), 'docs', 'decisioni.md'), encoding='utf-8') as f:
         esistono = set(re.findall(r'^##+ (D-0\d\d[a-z]?)\b', f.read(), re.M))
     errori = []
-    for z in dati.sezioni:
+    for z in _sezioni(dati, anche_prova=True, solo=solo):
         for p in z['passi']:
             citate = set(re.findall(r'\bD-0\d\d[a-z]?\b', str(p)))
             errori += ['%s: %s non esiste in docs/decisioni.md' % (p['id'], d) for d in sorted(citate - esistono)]
@@ -226,19 +235,38 @@ def decisioni(dati):
 
 
 def mancanti(dati):
-    """Avvisi finche' la guida non e' completa: pezzi mai montati, giunzioni mai usate."""
-    montati, usate = set(), set()
+    """Avvisi finche' la guida non e' completa: pezzi mai montati, giunzioni mai usate, fori per inserti senza
+    inserto in nessun passo (zampa contata una volta)."""
+    montati, usate, inseriti = set(), set(), set()
     for z in _sezioni(dati):
         for p, _ in S.stati(dati, z):
             montati.update(dati.base(c) for c in S.entrano(dati, p)[0])
             usate.update(g['id'] if isinstance(g, dict) else g for g in p.get('giunzioni', []))
+            terna, istanza = S.terna_di(z, p)
+            for sel in p.get('inserti', []):
+                for k in dati.chiavi(sel['chiave']):
+                    for f in F.fori_di(dati, k, terna, istanza):
+                        if f['tipo'].startswith('inserto') and fnmatch.fnmatchcase(f['lav'] or '', sel.get('lav', '*')):
+                            inseriti.add((dati.base(k), f['lav'], tuple(round(x, 1) for x in f['p0'])))
     pezzi = [k for k in dati.basi if not dati.occ[k].get('virtuale') and not dati.occ[k]['componente'].startswith('Ingombro_')]
     out = ['pezzo mai montato: %s' % k for k in pezzi if k not in montati]
     out += ['giunzione mai usata: %s' % n for a in ('zampa', 'corpo') for n in dati.giunzioni[a] if n not in usate]
+    for k in dati.basi:
+        o = dati.occ[k]
+        if o.get('virtuale') or o['componente'].startswith('Ingombro_'):
+            continue
+        terna = 'zampa' if o['assieme'] == 'zampa' else 'robot'
+        for f in F.fori_di(dati, k, terna, 'AS'):
+            if f['tipo'].startswith('inserto') and (k, f['lav'], tuple(round(x, 1) for x in f['p0'])) not in inseriti:
+                out.append('inserto mai messo: %s %s' % (k, f['lav']))
     return out
 
 
-def tutti(dati):
-    return {'giunzioni_complete': giunzioni_complete(dati), 'totali_viti': totali_viti(dati),
-            'totali_inserti': totali_inserti(dati), 'teste_a': teste_a(dati), 'chiavi_esistenti': chiavi_esistenti(dati),
-            'montaggio_unico': montaggio_unico(dati), 'giunzioni_usate': giunzioni_usate(dati), 'decisioni': decisioni(dati)}
+def tutti(dati, solo=None):
+    """Tutti i controlli. Con solo (id di sezioni) quelli sui passi guardano solo quelle sezioni: serve quando piu'
+    estrattori lavorano insieme; gli incroci fra sezioni li vede il controllo completo."""
+    return {'file_leggibili': [] if solo else list(dati.errori_yaml),
+            'giunzioni_complete': giunzioni_complete(dati), 'totali_viti': totali_viti(dati),
+            'totali_inserti': totali_inserti(dati), 'teste_a': teste_a(dati),
+            'chiavi_esistenti': chiavi_esistenti(dati, solo), 'montaggio_unico': montaggio_unico(dati, solo),
+            'giunzioni_usate': giunzioni_usate(dati, solo), 'decisioni': decisioni(dati, solo)}

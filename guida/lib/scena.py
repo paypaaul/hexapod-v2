@@ -91,15 +91,26 @@ def _centro(dati, chiave, terna, istanza):
     return geom.punto(dati.matrice(chiave, terna, istanza), [(lo[i] + hi[i]) / 2 for i in range(3)])
 
 
-def lavoro(dati, sez, passo, presenti, uscita):
+def terna_di(sez, passo):
+    """(terna, istanza) del passo: quelle della sezione, salvo che il passo le dia (es. gli inserti, pezzo per pezzo)."""
     s = sez['sezione']
-    terna, istanza = s.get('terna', 'zampa'), s.get('istanza', 'AS')
+    return passo.get('terna', s.get('terna', 'zampa')), passo.get('istanza', s.get('istanza', 'AS'))
+
+
+def ha_render(passo):
+    """Il passo ha un'immagine del CAD: no se e' solo testo (immagine: false) o se la figura viene da un file."""
+    return passo.get('immagine', True) is not False and 'figura' not in passo
+
+
+def lavoro(dati, sez, passo, presenti, uscita):
+    terna, istanza = terna_di(sez, passo)
     stile, viste = _stile(dati), _viste(dati)
     nuovi, assiemi = entrano(dati, passo)
-    nuovi = nuovi + assiemi
+    pieni = [c for k in passo.get('in_evidenza', []) for c in dati.chiavi(k)]   # a colori pieni, ma non si montano
+    nuovi = nuovi + assiemi + [c for c in pieni if c not in nuovi]
     visibili = list(presenti) + [k for k in nuovi if k not in presenti]
     if 'mostra' in passo:
-        visibili = [c for k in passo['mostra'] for c in dati.chiavi(k)] + nuovi
+        visibili = [c for k in passo['mostra'] for c in dati.chiavi(k)] + [c for c in nuovi]
     nascosti = {c for k in passo.get('nascondi', []) for c in dati.chiavi(k)}
     oggetti, frecce = [], []
     for k in visibili:
@@ -110,7 +121,7 @@ def lavoro(dati, sez, passo, presenti, uscita):
         m = dati.matrice(k, terna, istanza)
         oggetti.append({'chiave': k, 'mesh': dati.componente(k)['mesh'], 'matrice': geom.componi(geom.traslazione(d), m),
                         'ruolo': 'nuovo' if nuovo else 'vecchio', 'colore': _colore(dati, stile, k)})
-        if nuovo and geom.norma(d) > 1 and k not in assiemi:
+        if nuovo and geom.norma(d) > 1 and k not in assiemi and k not in pieni:
             c = _centro(dati, k, terna, istanza)
             frecce.append({'da': geom.add(c, d), 'a': c, 'tipo': 'pezzo', 'chiavi': [k]})
     for a in passo.get('assiemi', []):                 # una freccia sola per sottoassieme

@@ -37,7 +37,18 @@ class Dati:
             for k in self.basi:
                 if self.occ[k]['assieme'] == 'zampa':
                     self.occ['%s@%s' % (k, ist)] = dict(self.occ[k], chiave='%s@%s' % (k, ist), istanza=ist)
-        self.sezioni = [_yaml(p) for p in sorted(glob.glob(os.path.join(radice, 'passi', '*.yaml')))]
+        # Piu' estrattori scrivono i loro file in parallelo: un file degli altri a meta' non deve fermare chi lavora.
+        # Gli errori di lettura restano in errori_yaml e il controllo li riporta.
+        self.sezioni, self.errori_yaml = [], []
+        for p in sorted(glob.glob(os.path.join(radice, 'passi', '*.yaml'))):
+            try:
+                z = _yaml(p)
+                z['sezione']['id'], z['passi']
+            except (yaml.YAMLError, KeyError, TypeError) as e:
+                self.errori_yaml.append('%s: %s' % (os.path.basename(p), str(e).splitlines()[0]))
+                continue
+            z['_file'] = os.path.basename(p)
+            self.sezioni.append(z)
 
     # -------------------------------------------------------------------------------------- occorrenze e terne
     def chiavi(self, modello):

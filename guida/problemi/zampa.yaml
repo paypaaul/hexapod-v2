@@ -2,7 +2,7 @@
 # Coordinate nella terna della zampa (mm): X verso l'esterno (il fronte della tibia), Y lungo l'asse del femore verso
 # il lato A, Z in alto; asse del ginocchio in X 120, Z 0. Le misure sulle mesh sono raggi lanciati su
 # build/guida/cad/mesh/*.ply con le trasformate di guida/dati/manifest.json (posa di riferimento, gamma 90).
-# Campo in piu' rispetto allo schema: domanda (cosa chiedere all'utente, quando serve).
+# Campi in piu' rispetto allo schema: domanda (cosa chiedere all'utente, quando serve), esito (decisione).
 
 - titolo: Il guscio della tibia copre una vite delle alette, che D-049 vuole stretta per ultima
   gravita: importante
@@ -25,6 +25,7 @@
     - "Foro d'accesso Ø3 nel fianco +Y del guscio, in asse con la vite (si vede sul fianco)."
     - "Stringere le alette prima di montare il femore (contro D-049: il servo non si allinea al cuscinetto)."
   consiglio: Guscio dopo le alette; il diffusore si mette nel guscio sciolto quando si vuole. Nessun cambio al CAD.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: Le viti delle alette del ginocchio si raggiungono solo con la lama A tolta, il ginocchio fra 45 e 75 gradi e un cacciavite a brugola dritto
   gravita: importante
@@ -45,6 +46,7 @@
     - "Nel passo delle alette strette: servo alimentato e portato a gamma 45-75 (gamma minimo 43 con il femore a 0, tabella di progetto-meccanico.md), lama A non ancora montata, cacciavite a brugola dritto da 2,5 nel catalogo degli attrezzi."
     - "Accesso con una chiave a testa sferica inclinata (da provare sul pezzo)."
   consiglio: La F3 verifichi l'angolo nel CAD con i giunti veri e lo scriva nel passo; lama A dopo le alette; aggiungere il cacciavite dritto.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: Come si preme il cuscinetto del ginocchio
   gravita: importante
@@ -65,6 +67,7 @@
     - "Tubetto e distanziale di recupero, con le misure del passo [C]."
     - "Sede tarata sul provino perche' il cuscinetto entri col pollice."
   consiglio: Tarare la sede sul provino per il pollice; se non basta, attrezzo stampato nella 2.1.7.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: La testa della vite del guscio appoggia su una faccia inclinata di circa 12,6°, e l'avviso dei 0,03 mm oltre il fondo e' falsato
   gravita: importante
@@ -88,6 +91,7 @@
     - "Vite M3 x 8: presa di circa 4,7 mm (cambia il BOM: M3 x 8 da 106 a 112, M3 x 10 da 18 a 12)."
     - "Testa svasata o rondella sagomata (pezzo in piu')."
   consiglio: Lamatura piana nella 2.1.7; fino ad allora 'stringi piano', con l'inclinazione marcata V.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: La striscia delle luci (6 pixel, 50 mm) e' piu' lunga della sua sede (47,5 mm)
   gravita: minore
@@ -108,6 +112,7 @@
     - "Lasciare cosi': il capo basso sporge 2,5 mm, c'e' aria."
     - "5 pixel (41,7 mm): il ramo delle tibie ne ripete 6, il firmware andrebbe cambiato."
   consiglio: Allungare la sede nella 2.1.7; nella bozza una NOTA con il dato V.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: D-066 dice sede delle luci fino a Z -80, il taglio arriva a -80,5
   gravita: minore
@@ -120,6 +125,7 @@
   opzioni:
     - "Correggere il testo di D-066 o progetto-meccanico.md con la 2.1.7 (insieme al problema della lunghezza)."
   consiglio: Correggere il testo quando si allunga la sede.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: Nella gola del fermo i fili stanno a filo (3,3-4,05 mm in 4)
   gravita: minore
@@ -135,6 +141,7 @@
   opzioni:
     - "Misurare i fili comprati (BOM X5 e X31) e, se servono, ponticelli 0,4 piu' alti o gola da 4,5 nella 2.1.7."
   consiglio: Misurare i fili prima di stampare le tibie.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
   domanda: "Che diametro esterno hanno i fili siliconici 28 AWG e 30 AWG che hai comprato (o che comprerai) per FSR e luci?"
 
 - titolo: Mancano i dati per saldare e fissare FSR e striscia nella tibia
@@ -153,6 +160,7 @@
   opzioni:
     - "Leggere la guida d'integrazione Interlink e la scheda della striscia comprata; provare piega e saldatura sul provino del piedino (predisposizioni.md, verifica dopo D-066)."
   consiglio: Provino del piedino con un FSR vero prima delle sei tibie.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
   domanda: "La striscia e gli FSR che hai (o comprerai) hanno l'adesivo sul retro?"
 
 - titolo: Le linguette dell'FSR finirebbero sopra la tasca e fuori dal piedino
@@ -168,6 +176,7 @@
   opzioni:
     - "Guardare la coda sull'FSR vero o sul provino del piedino; se serve, tasca piu' alta o coda accorciata (se il sensore lo permette)."
   consiglio: Provino del piedino con un FSR vero.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: La tasca dell'FSR ha quote diverse fra documenti e CAD
   gravita: minore
@@ -180,6 +189,7 @@
   opzioni:
     - "Correggere i documenti con le quote del CAD (o allungare la tasca, se la coda vera lo chiede: problema precedente)."
   consiglio: Decidere con il provino del piedino, poi allineare documenti e CAD.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: Le immagini della striscia e dei fili non mostrano striscia e fili
   gravita: minore
@@ -195,6 +205,7 @@
   opzioni:
     - "Lavoro sulla pipeline (lo prende il coordinatore): evidenziare lavorazioni con nome, o disegnare percorsi semplici."
   consiglio: Pipeline.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: predisposizioni.md descrive ancora la finestra del guscio chiusa da 0,6 di bianco
   gravita: minore
@@ -209,6 +220,7 @@
   opzioni:
     - "Aggiornare la riga di X31 in predisposizioni.md."
   consiglio: Aggiornarla con la 2.1.7.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: Fascette dei cavi della zampa con quote e riferimenti diversi fra cablaggio.md e D-061
   gravita: minore
@@ -222,6 +234,7 @@
   opzioni:
     - "Correggere cablaggio.md (X 24, D-061)."
   consiglio: Correggerlo con la 2.1.7; la F3 usi X 24.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
 
 - titolo: Luci nelle tibie e colore del diffusore non ancora decisi
   gravita: minore
@@ -235,4 +248,5 @@
   opzioni:
     - "Decidere prima di montare la prima zampa."
   consiglio: Decidere prima della sezione 6; il provino di luce (X10) dice il colore.
+  esito: "consiglio approvato dall'utente (11 ottobre 2026); le modifiche al CAD e ai documenti vanno nella 2.1.7"
   domanda: "Monti le luci nelle tibie? Se si', diffusore bianco o fume' (dopo il provino di luce)?"

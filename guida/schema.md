@@ -50,6 +50,11 @@ rinviati: [...]             # passi gia' scritti che vanno piu' avanti (stesso f
   evidenzia: [{chiave: zampa/Tibia, lav: sede_luce}]   # facce di lavorazioni in giallo (guida/catalogo/zone.yaml):
                             # dove va quello che il CAD non ha (striscia, fili); si esportano con esporta_guida.py zone
   volte: 2                  # riquadro "2×" nell'immagine: il passo si fa due volte uguale (es. i due lati)
+  in_evidenza: [corpo/Corpo_Base]   # pezzi disegnati a colori pieni senza montarli (es. gli inserti a caldo, pezzo per pezzo)
+  terna: robot              # la terna del passo, se diversa da quella della sezione (con istanza: AS per la zampa)
+  immagine: false           # passo senza immagine del CAD (procedure, prove, misure): il testo prende tutta la pagina
+  figura: schemi/basetta.svg   # figura da un file sotto guida/ al posto del render (schemi, disegni); niente frecce
+  tabella: {intestazione: [Punto, Atteso, Misurato], righe: [["Rail servo", "6,0 V [V]", ""]]}   # sotto il testo
   testo:                    # un'azione per riga, imperativo, verbo all'inizio (guida/stile.md)
     - Premi il cuscinetto nella sede del lato B fino in battuta.
   avvisi:
@@ -77,9 +82,13 @@ rinviati: [...]             # passi gia' scritti che vanno piu' avanti (stesso f
 ```
 .venv/bin/python -m guida.costruisci controlla          # deve dire ok ovunque
 .venv/bin/python -m guida.costruisci rendi -s zampa     # immagini in build/guida/img/zampa/ (pochi secondi a passo)
-.venv/bin/python -m guida.costruisci pdf -s zampa       # build/guida/guida.pdf; righe "immagine:" e "deborda:" da correggere
-.venv/bin/python -c "from guida.lib import impagina as I; I.anteprime('build/guida/sito/index.html', 'build/guida/anteprima')"
+.venv/bin/python -m guida.costruisci pdf -s zampa       # build/guida/sezioni/zampa/guida.pdf; righe "immagine:" e "deborda:" da correggere
+.venv/bin/python -m guida.costruisci anteprime -s zampa   # PNG di ogni pagina in build/guida/sezioni/zampa/anteprima/
 ```
+
+Con `-s` i controlli sui passi guardano solo le sezioni date e l'uscita va in `build/guida/sezioni/<id>/`: piu' persone (o
+agenti) possono lavorare insieme su sezioni diverse. Il controllo senza `-s` vede anche gli incroci fra le sezioni (un
+pezzo montato in due sezioni, una giunzione usata due volte).
 
 - "esploso di scorcio": l'asse dell'esploso è quasi lungo la vista. Cambia la vista o l'asse.
 - "poco visibile": un pezzo nuovo o una vite è coperto. Cambia la vista, oppure usa `nascondi` per i pezzi davanti.

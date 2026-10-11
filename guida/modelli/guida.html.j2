@@ -32,6 +32,10 @@
 {%- macro istruzioni(e) %}
 <div class="istruzioni">
   {%- if e.righe %}<ol>{% for r in e.righe %}<li>{{ r | safe }}</li>{% endfor %}</ol>{% endif %}
+  {%- if e.tabella %}
+  <table class="elenco tabella">{% if e.tabella.intestazione %}<tr>{% for c in e.tabella.intestazione %}<th>{{ c | safe }}</th>{% endfor %}</tr>{% endif %}
+  {%- for r in e.tabella.righe %}<tr>{% for c in r %}<td>{{ c | safe }}</td>{% endfor %}</tr>{% endfor %}</table>
+  {%- endif %}
   {%- for a in e.avvisi %}
   <div class="avviso {{ a.tipo }}"><span class="t">{{ a.etichetta }}</span>{{ a.testo | safe }}</div>
   {%- endfor %}
@@ -40,13 +44,15 @@
 {%- endmacro %}
 
 {%- macro figura(e) %}
-<div class="figura">
+{%- if e.img %}
+<div class="figura{% if e.da_file %} da-file{% endif %}">
   <img src="{{ e.img }}" alt="">
   <svg class="frecce" viewBox="0 0 {{ e.larghezza }} {{ e.altezza }}" preserveAspectRatio="xMidYMid meet">
     {%- for f in e.frecce %}<path class="{{ f.tipo }}" d="{{ f.d }}" stroke-width="{{ f.bordo }}"/>{% endfor %}
   </svg>
   {%- if e.volte %}<div class="ripeti">{{ e.volte }}×</div>{% endif %}
 </div>
+{%- endif %}
 {%- endmacro %}
 
 {%- macro numero(e) %}<div class="numero"><span class="sez">{{ e.sez }}.</span>{{ e.n }}</div>{% endmacro %}
@@ -94,7 +100,7 @@
   {{ fascia(s) }}
   {%- if p.passi | length == 1 and p.passi[0].formato == 'grande' %}
   {%- set e = p.passi[0] %}
-  <div class="passo grande" id="passo-{{ e.id }}">
+  <div class="passo grande{% if not e.img %} senza-figura{% endif %}" id="passo-{{ e.id }}">
     <div class="colonna" data-controlla="colonna {{ e.id }}">
       <div>{{ numero(e) }}<h2>{{ e.titolo }}</h2></div>
       {{ box(e) }}
@@ -104,7 +110,7 @@
   </div>
   {%- else %}
   {%- for e in p.passi %}
-  <div class="passo mezzo {{ 'primo' if loop.first else 'secondo' }}" id="passo-{{ e.id }}">
+  <div class="passo mezzo {{ 'primo' if loop.first else 'secondo' }}{% if not e.img %} senza-figura{% endif %}" id="passo-{{ e.id }}">
     <div class="testa">{{ numero(e) }}<h2>{{ e.titolo }}</h2></div>
     {{ figura(e) }}
     <div class="sotto" data-controlla="sotto {{ e.id }}">{{ box(e) }}{{ istruzioni(e) }}</div>
