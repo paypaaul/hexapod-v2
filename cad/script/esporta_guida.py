@@ -243,6 +243,190 @@ def mesh(des, root, budget_s=25.0, forza=False, solo=None):
     return {'fatti': fatti, 'restano': len(restano), 's': round(time.time() - t0, 1)}
 
 
+# ------------------------------------------------------------------------------------------------ fori
+def _mappa_lavorazioni(comp):
+    """{(nome del corpo, tempId della faccia): (lavorazione, origine)} dalle facce laterali delle estrusioni e dagli
+    specchi (i fori specchiati portano il nome dello specchio: la classificazione guarda anche quello d'origine)."""
+    mappa = {}
+    for f in comp.features.extrudeFeatures:
+        try:
+            facce = list(f.sideFaces)
+        except Exception:
+            continue
+        for fa in facce:
+            mappa[(fa.body.name, fa.tempId)] = (f.name, 'estrusione')
+    for f in comp.features.mirrorFeatures:
+        try:
+            elementi = [f.patternElements.item(i) for i in range(f.patternElements.count)]
+        except Exception:
+            continue
+        for el in elementi:
+            for fa in el.faces:
+                mappa.setdefault((fa.body.name, fa.tempId), (f.name, 'specchio'))
+    return mappa
+
+
+def _vicina(edge, faccia):
+    for f in edge.faces:
+        if f.tempId != faccia.tempId or f.body.name != faccia.body.name:
+            return f
+    return None
+
+
+def _estremo(faccia, edge, asse, r):
+    """Che cosa c'e' oltre lo spigolo circolare: fondo (foro cieco), svasato, gradino (cilindro coassiale) o aperto."""
+    v = _vicina(edge, faccia)
+    if v is None:
+        return 'aperto', None
+    st = v.geometry.surfaceType
+    if st == adsk.core.SurfaceTypes.ConeSurfaceType:
+        return 'svasato', None
+    if st == adsk.core.SurfaceTypes.CylinderSurfaceType:
+        return 'gradino', round(v.geometry.radius * 20, 3)
+    if st == adsk.core.SurfaceTypes.PlaneSurfaceType:
+        n = v.geometry.normal
+        parallelo = abs(n.x * asse.x + n.y * asse.y + n.z * asse.z) > 0.999
+        if parallelo and v.area < math.pi * r * r * 1.05:
+            return 'fondo', None
+    return 'aperto', None
+
+
+def _cilindri(comp, m):
+    """Cilindri concavi (fori) da 1,5 a 6,5 mm dei corpi del componente e dei sotto-componenti, nella terna di comp."""
+    out = []
+    for c, mt in [(comp, adsk.core.Matrix3D.create())] + [(o.component, o.transform2) for o in comp.occurrences]:
+        mappa = _mappa_lavorazioni(c)
+        for b in c.bRepBodies:
+            if b.name in SALTA:
+                continue
+            for fa in b.faces:
+                g = fa.geometry
+                if g.surfaceType != adsk.core.SurfaceTypes.CylinderSurfaceType:
+                    continue
+                r = g.radius
+                if not 0.075 <= r <= 0.325:
+                    continue
+                o, a = g.origin, g.axis
+                a.normalize()
+                p = fa.pointOnFace
+                ok, nrm = fa.evaluator.getNormalAtPoint(p)
+                w = adsk.core.Vector3D.create(p.x - o.x, p.y - o.y, p.z - o.z)
+                ax = w.dotProduct(a)
+                w = adsk.core.Vector3D.create(w.x - a.x * ax, w.y - a.y * ax, w.z - a.z * ax)
+                if not ok or nrm.dotProduct(w) >= 0:          # la normale guarda fuori dall'asse: e' una bugna
+                    continue
+                ts = [adsk.core.Vector3D.create(v.geometry.x - o.x, v.geometry.y - o.y, v.geometry.z - o.z).dotProduct(a)
+                      for v in fa.vertices]
+                if not ts:
+                    continue
+                t0, t1 = min(ts), max(ts)
+                estremi = {}
+                for e in fa.edges:
+                    if e.geometry.curveType != adsk.core.Curve3DTypes.Circle3DCurveType:
+                        continue
+                    c3 = e.geometry.center
+                    t = adsk.core.Vector3D.create(c3.x - o.x, c3.y - o.y, c3.z - o.z).dotProduct(a)
+                    estremi['t0' if abs(t - t0) < abs(t - t1) else 't1'] = _estremo(fa, e, a, r)
+                p0 = adsk.core.Point3D.create(o.x + a.x * t0, o.y + a.y * t0, o.z + a.z * t0)
+                p1 = adsk.core.Point3D.create(o.x + a.x * t1, o.y + a.y * t1, o.z + a.z * t1)
+                p0.transformBy(mt)
+                p1.transformBy(mt)
+                p0.transformBy(m)
+                p1.transformBy(m)
+                lav = mappa.get((b.name, fa.tempId), ('', ''))
+                out.append({'lav': lav[0], 'origine': lav[1], 'corpo': b.name, 'd': round(r * 20, 3),
+                            'p0': [round(p0.x * 10, 3), round(p0.y * 10, 3), round(p0.z * 10, 3)],
+                            'p1': [round(p1.x * 10, 3), round(p1.y * 10, 3), round(p1.z * 10, 3)],
+                            'e0': list(estremi.get('t0', ('aperto', None))), 'e1': list(estremi.get('t1', ('aperto', None)))})
+    return out
+
+
+def _teste(comp):
+    """Cilindri convessi di Ingombro_Teste_A (teste delle viti sul lato A): caso di controllo del piazzamento."""
+    out = []
+    for b in comp.bRepBodies:
+        for fa in b.faces:
+            g = fa.geometry
+            if g.surfaceType != adsk.core.SurfaceTypes.CylinderSurfaceType:
+                continue
+            bb = fa.boundingBox
+            out.append({'corpo': b.name, 'd': round(g.radius * 20, 3),
+                        'centro': [round((bb.minPoint.x + bb.maxPoint.x) * 5, 3), round((bb.minPoint.y + bb.maxPoint.y) * 5, 3),
+                                   round((bb.minPoint.z + bb.maxPoint.z) * 5, 3)],
+                        'asse': [round(g.axis.x, 6), round(g.axis.y, 6), round(g.axis.z, 6)]})
+    return out
+
+
+def fori(des, root, budget_s=25.0, forza=False):
+    t0 = time.time()
+    with open(os.path.join(DATI, 'manifest.json'), encoding='utf-8') as f:
+        man = json.load(f)
+    cartella = os.path.join(CACHE, 'fori')
+    os.makedirs(cartella, exist_ok=True)
+    comp = {}
+
+    def trova(c):
+        comp.setdefault(c.name, c)
+        for o in c.occurrences:
+            trova(o.component)
+    trova(root)
+    fatti, restano = [], 0
+    for nome, info in man['componenti'].items():
+        p = os.path.join(cartella, nome + '.json')
+        if not forza and os.path.exists(p) and json.load(open(p, encoding='utf-8')).get('revisione') == info['revisione']:
+            continue
+        if time.time() - t0 > budget_s:
+            restano += 1
+            continue
+        dati = {'revisione': info['revisione'], 'fori': _cilindri(comp[nome], adsk.core.Matrix3D.create())}
+        if nome == 'Ingombro_Teste_A':
+            dati['teste'] = _teste(comp[nome])
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(dati, f)
+        fatti.append('%s %d' % (nome, len(dati['fori'])))
+    if restano == 0:                                   # tutto pronto: il file unico per la guida, deterministico
+        tutti = {}
+        for nome, info in man['componenti'].items():
+            d = json.load(open(os.path.join(cartella, nome + '.json'), encoding='utf-8'))
+            if d['fori'] or d.get('teste'):
+                tutti[nome] = {'fori': sorted(d['fori'], key=lambda h: (h['lav'], h['p0'], h['p1'])), **({'teste': d['teste']} if d.get('teste') else {})}
+        with open(os.path.join(DATI, 'fori.json'), 'w', encoding='utf-8') as f:
+            json.dump({'versione': man['versione'], 'documento': man['documento'], 'componenti': tutti}, f, indent=0, sort_keys=True)
+            f.write('\n')
+    return {'fatti': fatti, 'restano': restano, 's': round(time.time() - t0, 1)}
+
+
+# ------------------------------------------------------------------------------------------------ controllo
+def controllo(des, root):
+    """Ogni componente ha mesh e fori aggiornati; i proxy delle zampe coincidono con istanza x locale (entro 1e-3 mm)."""
+    with open(os.path.join(DATI, 'manifest.json'), encoding='utf-8') as f:
+        man = json.load(f)
+    indice = json.load(open(os.path.join(CACHE, 'mesh', 'indice.json'), encoding='utf-8'))
+    senza_mesh = [n for n, i in man['componenti'].items() if indice.get(n) != i['revisione']]
+    scarti = []
+    locali = {o['chiave'].split('/', 1)[1]: o['T'] for o in man['occorrenze'] if o['assieme'] == 'zampa'}
+    for n, z in AS['mappa_zampe'](des, root).items():
+        tz = man['istanze']['zampe'][n]
+        for o in z.childOccurrences:
+            k = _chiave_zampa(des, o.nativeObject)
+            a = _componi(tz, locali[k])
+            b = _matrice(o.transform2)
+            d = max(abs(a[i] - b[i]) for i in range(12))
+            if d > 1e-3:
+                scarti.append('%s/%s %.4f' % (n, k, d))
+    return {'senza_mesh': senza_mesh, 'scarti': scarti}
+
+
+def _componi(a, b):
+    """Prodotto di due matrici 3x4 in mm (prima b, poi a)."""
+    out = []
+    for r in range(3):
+        for c in range(4):
+            v = sum(a[4 * r + k] * b[4 * k + c] for k in range(3))
+            out.append(v + (a[4 * r + 3] if c == 3 else 0.0))
+    return out
+
+
 # ------------------------------------------------------------------------------------------------ main
 def main(passi, **kw):
     out = {'passi': passi}
@@ -257,6 +441,10 @@ def main(passi, **kw):
             out['manifest'] = manifest(des, root)
         if 'mesh' in passi:
             out['mesh'] = mesh(des, root, kw.get('budget_s', 25.0), kw.get('forza', False), kw.get('solo'))
+        if 'fori' in passi:
+            out['fori'] = fori(des, root, kw.get('budget_s', 25.0), kw.get('forza', False))
+        if 'controllo' in passi:
+            out['controllo'] = controllo(des, root)
     except Exception:
         out['errore'] = traceback.format_exc()
     print(json.dumps(out, indent=1, ensure_ascii=False))
