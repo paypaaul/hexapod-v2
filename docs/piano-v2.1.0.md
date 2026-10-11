@@ -211,3 +211,29 @@ Lavori:
    - `CLAUDE.md`: stato, e la placca superiore del femore tolta dal backlog perché scartata;
    - `software.md`, se cambia il margine del contatto fra vicine.
 6. **Chiusura**: `versione.py` a 2.1.3, salvataggio in Fusion, commit, tag `v2.1.3`, CI verde.
+
+## Seguito: versione 2.1.4 — lame del femore che seguono la sagoma del femore (richiesta dell'utente dell'11 ottobre 2026)
+
+Sullo stesso design "Hexapod v2.1.0", tag `v2.1.4`, decisione D-071.
+
+**Richiesta dell'utente**: le lame della 2.1.3 escono troppo dalla forma del femore e "sembrano una placca buttata lì". Vuole la sagoma che aderisce al femore come le lame bombate di prima (D-061), con l'estetica nuova.
+
+**Lavori**:
+- **Sagoma** come le lame di D-061:
+  - fascia fra i mozzi a Z ±14,5;
+  - teste esagonali con l'apotema 14,5 attorno ad anca e ginocchio (teste del femore R13);
+  - rialzo sopra il blocco fino a Z 20, con le rampe a 30° verso l'anca e a 45° verso il ginocchio.
+  - Il rialzo va da X 80 a 97, prima da 81 a 96: così le tasche delle teste alte del blocco restano sotto la faccia piana, non nello smusso.
+  - Niente raccordi in pianta: spigoli vivi e smussati, come le sfaccettature della tibia.
+- **Come la 2.1.3** (D-070):
+  - faccia piana con lo smusso 3 × 2;
+  - lama A spessa 4,0 con le 12 tasche, lama B spessa 2,6 con le tasche dei perni e le due viti M2;
+  - feritoia a intarsio nero a X 87,5, Z 6.
+- **Parametri**: tolti `cov_fem_x0`, `x1`, `giu`, `anca_*` e `gin_giu`; nuovi `cov_fem_ap`, `cov_fem_plateau0` e `cov_fem_plateau1`.
+
+**Verifiche e chiusura**, come nella 2.1.3:
+- sentinella dei volumi;
+- zampa: interferenze e scansione;
+- assieme: coxe a ±35, vicine a 30, 30,5 e 31°, carapace, cicli e rotazione;
+- colori, STL, esportazione del robot e generatori, mesh del renderer, render delle zampe;
+- documenti, salvataggio in Fusion, tag `v2.1.4`, CI.
