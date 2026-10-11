@@ -199,7 +199,7 @@ static void test_limiti_morbidi_solo_piu_stretti(void) {
 }
 
 // Test 6: carichi, coppie e margine come calc/statica_tripode.py -> valuta(CONFIG), riga per riga, e regressione:
-// femore al 53 % +- 1 dello stallo a 100/45 (5,87 kgf*cm) e margine 59 mm (robot.yaml -> regressione_statica).
+// femore al 53 % +- 1 dello stallo a 100/45 (5,84 kgf*cm) e margine 59 mm (robot.yaml -> regressione_statica).
 static void test_statica_come_calc(void) {
     TEST_ASSERT_FLOAT_WITHIN(1e-3f, vettori::statica_massa_g, robot::masse::attesa_g);
     TEST_ASSERT_FLOAT_WITHIN(1e-3f, vettori::statica_stallo_kgfcm, robot::servo::stallo_kgfcm);

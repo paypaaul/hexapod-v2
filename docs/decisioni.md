@@ -512,3 +512,38 @@ Verifiche nel CAD (design "Hexapod v2.1.0"):
   - al punto di progetto 100/45 il femore sale dal 51 % al **53 % dello stallo** (5,87 kgf·cm), la tibia al 49 %;
   - regressioni di Python e del nucleo aggiornate; nella simulazione il contatto fra vicine è a 31°, come nel CAD.
 - **Se servisse togliere peso**: con viti a testa bombata ISO 7380 (testa alta 1,65) sulle squadrette e sul blocco la lama A scenderebbe a circa 2,7 mm. Il contatto tornerebbe come prima, ma cambiano 72 viti del BOM: va approvato dall'utente.
+
+## D-071 — Versione 2.1.4: lame del femore con la sagoma del femore, feritoia al centro (2026-10-11)
+
+Sulle lame della 2.1.3 (D-070) l'utente ha detto che escono troppo dalla forma del femore senza avvolgerla, "una placca un po' buttata lì". Ha chiesto la sagoma delle lame di prima (D-061), che seguono il femore, con l'estetica nuova. Poi ha chiesto di abbassare la feritoia, che stava troppo in alto.
+
+- **Sagoma** come D-061:
+  - fascia fra i mozzi a Z ±14,5;
+  - teste esagonali con l'apotema 14,5 attorno ad anca e ginocchio;
+  - rialzo fino a Z 20 sopra il blocco, con le rampe a 30° verso l'anca e a 45° verso il ginocchio.
+  - Il rialzo va da X 80 a 97, prima da 81 a 96: così la tasca della testa alta del blocco lato anca resta sotto la faccia piana, a 0,85 mm dallo smusso invece che dentro.
+  - Niente raccordi in pianta: spigoli vivi con lo smusso 3 × 2, sfaccettati come la tibia.
+  - Parametri `cov_fem_ap`, `cov_fem_plateau0` e `cov_fem_plateau1`; tolti quelli della sagoma rettangolare.
+- **Feritoia a Z 1,5**, quasi al centro della faccia: il baricentro della faccia piana sta a Z 1 circa, per il rialzo. Prima era a Z 6.
+  - Le due viti M2 della lama B la seguono, perché devono restare nel nero: passano a Z 1,5 (`cov_vite_b_z`) e quella lato ginocchio da X 94,5 a **X 89** (`cov_vite_b_xg`).
+  - A Z 1,5 e X 94,5 il foro dell'inserto avrebbe bucato il taglio basso del blocco, che comincia a X 89,5. A X 89 restano 1,6 mm di parete, e 1,8 sopra il fondo del blocco.
+  - In `Femore_B` è cambiata solo la quota dello schizzo dell'inserto, senza rifare il pezzo. I due fori degli inserti sono cilindri interi (42,73 mm² come da calcolo).
+- **Resta come in D-070**:
+  - lama A spessa 4,0 con le 12 tasche; lama B spessa 2,6 con le tasche dei perni;
+  - intarsio nero a filo, 0,6 sulla A e 1,0 sulla B con le svasature;
+  - stampa con la faccia interna sul piatto.
+
+Verifiche nel CAD:
+- **Lame**: un corpo ciascuna, smusso dalla parte giusta, faccia piana da X 41,72 a 133,28 come da calcolo. Volumi: lama A 9,074 cm³, lama B 6,117; intarsi 0,149 e 0,232.
+- **Sentinella**: le altre parti hanno gli stessi volumi di prima; `Femore_B` resta 32,858 perché i fori si spostano soltanto.
+- **Zampa**: nessuna interferenza, 81 pose libere su 81, 17 controlli su 20 toccano.
+- **Assieme**:
+  - nessuna interferenza; coxe libere a ±20 e ±35;
+  - vicine libere a 30,5° e a contatto a 31° su AS–MS, MS–PS e MD–PD; AD–MD libere anche a 31°;
+  - gioco a 30° di 3,58 mm; anteriori e posteriori libere a 34°.
+- **Carapace**: distanza minima **4,58 mm** sulle zampe medie (3,96 nella 2.1.3, 4,6 con le lame bombate), 7,1 sulle altre.
+- **Cicli**: 100/45, 70/70 e rotazione a 30° liberi.
+- **Masse**:
+  - femore 63,3 g a segmento: 66,2 nella 2.1.3, 54,4 con le lame bombate;
+  - atteso **3043,5 g**;
+  - femore al 53 % dello stallo a 100/45 (5,84 kgf·cm).

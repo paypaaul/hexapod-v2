@@ -141,18 +141,15 @@ PARAMETRI = [
     ('vite_m3_testa_d', '5.5 mm', 'mm', 'Vite M3 ISO 4762: diametro della testa (dk 5,32-5,5)'),
     ('fem_fascetta_u', '24.5 mm', 'mm', 'Femore: X dall anca della fascetta dei cavi dentro il blocco (sullo smusso alto)'),
     ('fem_fascetta_fondo', '10 mm', 'mm', 'Femore: Z del tunnel della fascetta nel blocco'),
-    ('cov_vite_b_z', '6 mm', 'mm', 'Lama B: Z delle due viti M2 svasate in inserti di Femore_B (al posto delle spine, D-065)'),
+    ('cov_vite_b_z', '1.5 mm', 'mm', 'Lama B: Z delle due viti M2 svasate in inserti di Femore_B, al centro della lama con la feritoia (D-071; 6 in D-065)'),
+    ('cov_vite_b_xg', '34 mm', 'mm', 'Lama B: X dall asse dell anca della vite lato ginocchio (a Z 1,5 sta prima del taglio basso del blocco, da X 89,5)'),
     ('cov_svasatura', '0.9 mm', 'mm', 'Lama B: svasatura a 90 gradi sul foro da 2,4 (testa M2 da 4,0: resta 0,1 sotto la superficie)'),
     # --- lame del femore come il guscio della tibia (D-070): faccia piana con smusso, chiuse su teste e mozzi, feritoia
-    # a intarsio nero; il bordo alto resta dritto (verso il ginocchio una lama piu' alta va a 1,4 mm dal carapace)
-    ('cov_fem_x0', '15 mm', 'mm', 'Lame: estremo verso il corpo, dietro l asse dell anca (X 40)'),
-    ('cov_fem_x1', '15.5 mm', 'mm', 'Lame: estremo oltre l asse del ginocchio (X 135,5, come le lame bombate)'),
-    ('cov_fem_giu', '14.5 mm', 'mm', 'Lame: bordo basso sotto gli assi (teste del femore R13)'),
-    ('cov_fem_su', 'fem_blocco_su', 'mm', 'Lame: bordo alto, dritto (con alfa 85 e coxa a +-35 il carapace resta a oltre 4 mm)'),
-    ('cov_fem_anca_su', '8 mm', 'mm', 'Lame: smusso a 45 gradi dell angolo alto verso l anca, lungo X e Z'),
-    ('cov_fem_anca_giu_x', '12 mm', 'mm', 'Lame: smusso dell angolo basso verso l anca, lungo X'),
-    ('cov_fem_anca_giu_z', '11 mm', 'mm', 'Lame: smusso dell angolo basso verso l anca, lungo Z'),
-    ('cov_fem_gin_giu', '6.5 mm', 'mm', 'Lame: smusso a 45 gradi dell angolo basso oltre il ginocchio'),
+    # a intarsio nero; sagoma che segue il femore come le lame di D-061 (D-071)
+    ('cov_fem_ap', '14.5 mm', 'mm', 'Lame: semialtezza della fascia e apotema delle teste esagonali (teste del femore R13, come D-061)'),
+    ('cov_fem_su', 'fem_blocco_su', 'mm', 'Lame: cima del rialzo sopra il blocco (bordo dritto: il carapace resta a oltre 3,9 mm)'),
+    ('cov_fem_plateau0', '25 mm', 'mm', 'Lame: inizio del rialzo dall asse dell anca (X 80: la tasca della testa alta del blocco resta sotto la faccia piana)'),
+    ('cov_fem_plateau1', '42 mm', 'mm', 'Lame: fine del rialzo dall asse dell anca (X 97, come sopra per la testa lato ginocchio)'),
     ('cov_fem_sp_a', '4 mm', 'mm', 'Lama A: spessore (teste M3 alte 3, 0,2 di gioco, pelle 0,8)'),
     ('cov_fem_sp_b', '2.6 mm', 'mm', 'Lama B: spessore (perni sporgenti 1,4, 0,3 di gioco, pelle 0,9; come la lama bombata)'),
     ('cov_fem_smusso', '3 mm', 'mm', 'Lame: smusso della faccia esterna, in pianta'),
@@ -164,7 +161,7 @@ PARAMETRI = [
     ('cov_fem_fin_l', '37 mm', 'mm', 'Lame: lunghezza della feritoia (intarsio nero, come la finestra della tibia)'),
     ('cov_fem_fin_w', '7 mm', 'mm', 'Lame: larghezza della feritoia (come cov_tib_fin_w)'),
     ('cov_fem_fin_x', 'zam_Lf / 2', 'mm', 'Lame: centro della feritoia dall asse dell anca (a meta tra gli assi)'),
-    ('cov_fem_fin_z', 'cov_vite_b_z', 'mm', 'Lame: Z della feritoia (le viti della lama B stanno dentro l intarsio)'),
+    ('cov_fem_fin_z', 'cov_vite_b_z', 'mm', 'Lame: Z della feritoia, quasi al centro della faccia (le viti della lama B stanno dentro l intarsio)'),
     ('cov_fem_intarsio_a', '0.6 mm', 'mm', 'Lama A: profondita dell intarsio nero (come la fascia; sopra le tasche resta 0,2 di bianco)'),
     ('cov_fem_intarsio_b', '1 mm', 'mm', 'Lama B: profondita dell intarsio nero (contiene tutta la svasatura delle viti M2, 0,9)'),
     ('cov_testa_d', '5.6 mm', 'mm', 'Lama A: fori sulle teste M3 del blocco (incastro sui fianchi, da tarare 5,4-5,7)'),
@@ -457,7 +454,7 @@ def fai_femore_b(zampa):
     for nome, x, z in _inserti_blocco():
         p.cilindro('y', y_rim, nome, x, z, 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
     # inserti M2 per le due viti della lama B (D-065; prima fori ciechi per due spine stampate sulla lama)
-    for nome, x in (('ins_lama_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('ins_lama_g', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx')):
+    for nome, x in (('ins_lama_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('ins_lama_g', 'zam_Lc + cov_vite_b_xg')):
         p.cilindro('y', 'zy_B_est', nome, x, 'cov_vite_b_z', 'ins_m2_d', 'ins_m2_l', 1, TAGLIA)
     # fascetta dei cavi dentro il blocco: due feritoie dallo smusso alto e un tunnel tra le due (la fascetta attorno al
     # femore di D-058 entrava nella testa dell'anima della coxa da alfa 74 gradi)
@@ -490,6 +487,17 @@ def _collezione(oggetti):
     return c
 
 
+def _esagono(p, q, nome, xc, ap, h, verso, op):
+    """Esagono con i vertici lungo X (apotema ap) come unione di tre rettangoli a 0, 60 e 120 gradi (da D-061)."""
+    f = []
+    for k, ang in enumerate((0, 60, 120)):
+        c, s_ = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+        p1 = ('%s + %.6f mm' % (xc, 10 * c), '%.6f mm' % (10 * s_))
+        f.append(p.blocco_obl('y', q, '%s_%d' % (nome, k), (xc, '0 mm'), p1, '-(%s / cos(30 deg) / 2)' % ap,
+                              '%s / cos(30 deg) / 2' % ap, '-(%s)' % ap, ap, h, verso, op if k == 0 or op != NUOVO else UNISCI))
+    return f
+
+
 LATI_LAMA = {'A': ('zy_A_est', 1, 'cov_fem_sp_a', 'cov_fem_intarsio_a'), 'B': ('zy_B_est', -1, 'cov_fem_sp_b', 'cov_fem_intarsio_b')}
 
 
@@ -514,33 +522,38 @@ def _feritoia(p, y_est, prof, verso_dentro, op):
 
 def _viti_lama_b(p, prof):
     """Fori delle due viti M2 della lama B (D-065), dalla faccia di Femore_B verso l'esterno."""
-    for nome_s, x in (('vite_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('vite_g', 'zam_Lc + zam_Lf - fem_blocco_dk - fem_ins_dx')):
+    for nome_s, x in (('vite_a', 'zam_Lc + fem_blocco_x0 + fem_ins_dx'), ('vite_g', 'zam_Lc + cov_vite_b_xg')):
         p.cilindro('y', 'zy_B_est', 'foro_' + nome_s, x, 'cov_vite_b_z', 'vite_m2_pass', prof, -1, TAGLIA)
 
 
 def _cover_femore(zampa, nome, lato):
     """Lama del femore come il guscio della tibia (D-070), lato 'A' (+Y, sulle teste delle squadrette e del blocco) o 'B'
-    (-Y, sui perni). Contorno da X 40 a 135,5 e da Z -14,5 a 20 con tre angoli smussati, faccia esterna piana con lo
-    smusso 3 x 2 tutt'attorno; dentro, tasche cieche per teste e perni; fuori, la sede dell'intarsio nero della feritoia.
-    Si stampa con la faccia interna sul piatto."""
+    (-Y, sui perni). Sagoma del femore come le lame di D-061 (D-071), faccia esterna piana con lo smusso 3 x 2
+    tutt'attorno; dentro, tasche cieche per teste e perni; fuori, la sede dell'intarsio nero della feritoia. Si stampa con
+    la faccia interna sul piatto."""
     occ = _nuovo_comp(zampa, nome)
     p = Parte(occ.component)
     comp = occ.component
     y0, verso, sp, intarsio = LATI_LAMA[lato]
-    xa, xb = 'zam_Lc - cov_fem_x0', 'zam_Lc + zam_Lf + cov_fem_x1'
-    p.blocco('y', y0, 'corpo', xa, '-(cov_fem_giu)', xb, 'cov_fem_su', sp, verso, NUOVO)
-    # angoli: retta da p0 a p1 con l'angolo da togliere a sinistra (+b in sk_rett_obl)
-    for nome_t, p0, p1, lung in (
-            ('angolo_anca_su', (xa, 'cov_fem_su - cov_fem_anca_su'), (xa + ' + cov_fem_anca_su', 'cov_fem_su'), 'cov_fem_anca_su * sqrt(2)'),
-            ('angolo_anca_giu', (xa + ' + cov_fem_anca_giu_x', '-(cov_fem_giu)'), (xa, 'cov_fem_anca_giu_z - cov_fem_giu'),
-             'sqrt(cov_fem_anca_giu_x ^ 2 + cov_fem_anca_giu_z ^ 2)'),
-            ('angolo_ginocchio_giu', (xb, 'cov_fem_gin_giu - cov_fem_giu'), (xb + ' - cov_fem_gin_giu', '-(cov_fem_giu)'),
-             'cov_fem_gin_giu * sqrt(2)')):
-        p.blocco_obl('y', y0, nome_t, p0, p1, '-(5 mm)', lung + ' + 5 mm', '0 mm', '15 mm', sp + ' + 1 mm', verso, TAGLIA)
+    xh, xk = 'zam_Lc', 'zam_Lc + zam_Lf'
+    # sagoma che segue il femore (D-071, come le lame di D-061): fascia fra i mozzi, teste esagonali, rialzo sopra il
+    # blocco con le rampe a 30 gradi verso l'anca e a 45 verso il ginocchio; spigoli vivi, sfaccettati come la tibia
+    p.blocco('y', y0, 'corpo', xh, '-(cov_fem_ap)', xk, 'cov_fem_ap', sp, verso, NUOVO)
+    _esagono(p, y0, 'testa_anca', xh, 'cov_fem_ap', sp, verso, UNISCI)
+    _esagono(p, y0, 'testa_ginocchio', xk, 'cov_fem_ap', sp, verso, UNISCI)
+    xp0, xp1 = 'zam_Lc + cov_fem_plateau0', 'zam_Lc + cov_fem_plateau1'
+    p.blocco('y', y0, 'rialzo', xp0, 'cov_fem_ap - 1 mm', xp1, 'cov_fem_su', sp, verso)
+    dz = '(cov_fem_su - cov_fem_ap)'
+    # le rampe si allungano di 1 mm solo dalla parte della base, dentro la fascia: in cima devono finire sullo spigolo
+    p.blocco_obl('y', y0, 'rampa_anca', (xp0 + ' - %s / tan(30 deg)' % dz, 'cov_fem_ap'), (xp0, 'cov_fem_su'),
+                 '-(1 mm)', '%s / sin(30 deg)' % dz, '-(6 mm)', '0 mm', sp, verso)
+    p.blocco_obl('y', y0, 'rampa_ginocchio', (xp1, 'cov_fem_su'), (xp1 + ' + %s' % dz, 'cov_fem_ap'),
+                 '0 mm', '%s * sqrt(2) + 1 mm' % dz, '-(6 mm)', '0 mm', sp, verso)
     # smusso della faccia esterna: 3 in pianta, 2 nello spessore. Quale distanza va su quale faccia lo decide Fusion:
     # si controlla la faccia piana che resta e, se e' rientrata di 2 invece che di 3, si rifa' girato
     v = p.val
     y_est = abs(v(y0)) + v(sp)
+    x_atteso = v(xh) - (v('cov_fem_ap') - v('cov_fem_smusso')) / math.cos(math.radians(30))
     giri = []
     for girato in (False, True):
         corpo = comp.bRepBodies.item(0)
@@ -552,9 +565,8 @@ def _cover_femore(zampa, nome, lato):
         cf = ch.add(ci)
         cf.name = 'smusso_esterno'
         bb = _faccia_esterna(comp.bRepBodies.item(0), y_est).boundingBox
-        rientro = bb.minPoint.x * 10 - v(xa)
-        giri.append(round(rientro, 3))
-        if abs(rientro - v('cov_fem_smusso')) < 0.01:
+        giri.append(round(bb.minPoint.x * 10, 3))
+        if abs(bb.minPoint.x * 10 - x_atteso) < 0.01:
             break
         cf.deleteMe()
     p.n += 1
@@ -578,7 +590,7 @@ def _cover_femore(zampa, nome, lato):
     _feritoia(p, y_est_expr, intarsio, -verso, TAGLIA)
     corpo = comp.bRepBodies.item(0)
     bb = _faccia_esterna(corpo, y_est).boundingBox
-    p.info = {'smusso_girato': len(giri) > 1, 'rientri_provati': giri, 'tasche': tasche, 'corpi': comp.bRepBodies.count,
+    p.info = {'smusso_girato': len(giri) > 1, 'x_min_faccia_provati': giri, 'x_min_atteso': round(x_atteso, 3), 'tasche': tasche, 'corpi': comp.bRepBodies.count,
               'volume_cm3': round(sum(b.volume for b in comp.bRepBodies), 3),
               'faccia_esterna_xz': [round(bb.minPoint.x * 10, 2), round(bb.minPoint.z * 10, 2), round(bb.maxPoint.x * 10, 2),
                                     round(bb.maxPoint.z * 10, 2)]}

@@ -12,7 +12,7 @@ def st():
 
 
 def test_regressione_a_100_45(d, st):
-    """Femore al 53 % +- 1 dello stallo a 100/45 (5,87 kgf*cm) e margine di stabilita' 59 mm, come robot.yaml ->
+    """Femore al 53 % +- 1 dello stallo a 100/45 (5,84 kgf*cm) e margine di stabilita' 59 mm, come robot.yaml ->
     regressione_statica."""
     attesi = d.yaml['regressione_statica']
     ris = st['valuta'](st['CONFIG'], verbose=False)

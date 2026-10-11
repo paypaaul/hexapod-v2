@@ -214,6 +214,8 @@ Lavori:
 
 ## Seguito: versione 2.1.4 — lame del femore che seguono la sagoma del femore (richiesta dell'utente dell'11 ottobre 2026)
 
+**Fatta l'11 ottobre 2026** (D-071, tag `v2.1.4`). In più, su richiesta dell'utente, la feritoia è scesa a Z 1,5, con le viti della lama B (quella lato ginocchio a X 89). Verificato in CAD: contatto fra vicine a 31°, carapace a 4,58 mm, massa attesa 3043,5 g.
+
 Sullo stesso design "Hexapod v2.1.0", tag `v2.1.4`, decisione D-071.
 
 **Richiesta dell'utente**: le lame della 2.1.3 escono troppo dalla forma del femore e "sembrano una placca buttata lì". Vuole la sagoma che aderisce al femore come le lame bombate di prima (D-061), con l'estetica nuova.

@@ -9,9 +9,9 @@
 namespace nucleo::robot {
 
 // Origine dei dati
-inline constexpr const char* versione = "2.1.3";
-inline constexpr const char* documento_cad = "Hexapod v2.1.0 v11";
-inline constexpr const char* cad_sha256 = "a2fc7b02ce44c3a59e4434e24048a0e5a3cf24f9930498aeb37f4031ef7fb0c7";
+inline constexpr const char* versione = "2.1.4";
+inline constexpr const char* documento_cad = "Hexapod v2.1.0 v12";
+inline constexpr const char* cad_sha256 = "584382d53a78b610fc8ad3a37736f3d04a3ff2b56acce5e759fbe0fcf6468b4d";
 
 // Zampe nell'ordine di robot.yaml -> zampe
 inline constexpr int N_ZAMPE = 6;
@@ -157,12 +157,12 @@ inline constexpr std::array<Assetto, 4> assetti_verificati = {{{130.0f, 25.0f}, 
 
 // Masse (robot.yaml -> massa, cad.json -> masse)
 namespace masse {
-inline constexpr float attesa_g = 3060.6f;  // usata per le coppie stimate, come calc/statica_tripode.py
-inline constexpr float modellato_g = 2700.6f;
+inline constexpr float attesa_g = 3043.5f;  // usata per le coppie stimate, come calc/statica_tripode.py
+inline constexpr float modellato_g = 2683.5f;
 inline constexpr float non_modellato_g = 360.0f;
 inline constexpr float corpo_g = 1067.9f;
 inline constexpr float coxa_g = 94.1f;
-inline constexpr float femore_g = 66.2f;
+inline constexpr float femore_g = 63.3f;
 inline constexpr float tibia_g = 111.9f;
 }  // namespace masse
 

@@ -20,7 +20,7 @@ Fatto e verificato sul Mac. I dettagli e le prove stanno in `firmware/README.md`
   - corpo fra 97,7 e 99,2 mm, inclinazione 0,2°;
   - nessun urto;
   - scivolamento 0,5 mm all'atterraggio;
-  - femore al 51 % dello stallo (con 2945 g; 53 % con i 3060,6 g della 2.1.3, D-070).
+  - femore al 51 % dello stallo (con 2945 g; 53 % con i 3043,5 g della 2.1.4, D-071).
 - **Gemello digitale nel browser** (`app/`, three.js): riproduce tripode e rotazione con i cursori di assetto e avvisa che le pose sono comandate, non misurate.
 - **CI su GitHub** (`ci.yml`, `sim.yml`): ruff e pytest, nucleo con gcc e clang e i sanitizer, firmware, file generati, simulazione, app.
 
@@ -604,7 +604,7 @@ La repo è **pubblica** su GitHub (*verificato oggi*): credenziali Wi-Fi e chiav
 3. **Pose verificate in Fusion** (ciclo a tripode 100/45, 130/25, 80/60, 70/70; rotazione sul posto di 30°): devono passare la guardia.
 4. **Casi d'urto del CAD** (femore a −60°, vicine a 40°, ginocchio sotto la tabella): la guardia li deve rifiutare.
 5. **Regole del firmware**: imbardata, somma tra vicine, ginocchio minimo più 3° con l'interpolazione prudente, velocità.
-6. **Regressione della statica**: femore al 53 % ± 1 a 100/45 (5,87 kgf·cm con 3060,6 g, D-070; era 51 % con 2945 g) e margine di stabilità 59 mm.
+6. **Regressione della statica**: femore al 53 % ± 1 a 100/45 (5,84 kgf·cm con 3043,5 g, D-071; era 51 % con 2945 g) e margine di stabilità 59 mm.
 7. **Andature**: niente salti tra fasi e transizioni, piedi in appoggio fermi entro 0,5 mm, nucleo C++ uguale al Python entro 0,01° sugli stessi vettori.
 
 L'esportazione delle pose da Fusion si rifà a ogni cambio di zampa o corpo: è un passo in più nella procedura del CAD.
