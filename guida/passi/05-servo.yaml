@@ -4,6 +4,9 @@
 # servo a colori pieni (in_evidenza zampa/Servo_femore, solo come figura: il pezzo e' identico per i 18). Il CAD non ha
 # gommini, cavi ne' fili: restano etichette e testo.
 # I passi 5.03-5.08 si fanno per ogni servo, uno alla volta (B2: "un servo alla volta, senza carico").
+# F3c, schemi delle schede: il rail si accende portando l'ENA del regolatore a 3,3 V con un Dupont dal pin 3V3 dell'ESP32
+# (sulla sola USB, fuori dalla basetta); la R3 da 22 kOhm saldata sul regolatore nel passo 4.31 lo tiene spento a riposo
+# (guida/schemi/schemi.md 1.6, guida/problemi/schemi.yaml S-05, S-20). Prima c'erano un 47 kOhm e un diodo volanti.
 sezione:
   id: servo
   numero: 5
@@ -16,13 +19,13 @@ sezione:
     servo alla volta, senza carico, a 6,0 V con un fusibile da 3 A. Si tolgono i gommini, si scrive il numero sul cavo,
     si prova centro, verso ed escursione, si scartano i difettosi. Gli esiti vanno nel registro (sezioni 6, 7 e 12).
   prima:
-    - "Sezione 4 fatta: SSC-32 configurata, regolatore sinistro con i fili e provato a 6,0 V."
+    - "Sezione 4 fatta: SSC-32 configurata (4.29), regolatore sinistro con i fili e la R3, provato a 6,0 V (4.32)."
     - "20 servo MG996R AZDelivery; i 4 MG995 dello stesso ingombro non vanno sul robot."
     - "Nastro di carta e pennarello per i numeri."
   tempo: "circa 5 minuti per servo, dopo il primo [S]"
   stato_elettrico: >-
-    Rail a 6,0 V da un regolatore, con F1 da 3 A. Si accende dopo l'impulso di centro e si spegne prima di toccare una
-    spina. Un servo alla volta, albero libero.
+    Rail a 6,0 V da un regolatore, con F1 da 3 A; logica dalla 2813 come nel passo 4.26, basetta staccata. Il rail si
+    accende dopo l'impulso di centro e si spegne prima di toccare una spina. Un servo alla volta, albero libero.
   fonti: [D-045, D-049, "docs/software.md 6.7 (B2) e 2.7", docs/dimensioni-componenti.md, "robot/robot.yaml (servo)"]
   attrezzi: [nastro_pennarello]
   controllo:
@@ -37,32 +40,39 @@ passi:
   - id: "5.01"
     titolo: Banco di prova dei servo
     formato: grande
-    immagine: false
+    terna: robot
+    in_evidenza: [corpo/SSC32]
+    vista: {direzione: [0.6, -0.45, 0.65], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: corpo/SSC32, lav: "corpo:morsettiera"}
+      - {chiave: corpo/SSC32, lav: "corpo:micro_usb"}
+    etichette:
+      - {testo: "VS1 e VL", punto: [15.4, 0, 10]}
+      - {testo: Micro-USB, punto: [-48, -12.5, 4]}
+      - {testo: "Canali 0–15, lato VS1", punto: [-14, 26, 9]}
     testo:
-      - "Posa la SSC-32 su un foglio di cartone: le barre sul retro non devono toccare il metallo."
-      - "Collega la micro-USB e la logica come nel passo 4.09."
-      - "Collega il regolatore sinistro ai morsetti VS1+ e VS1− della SSC-32, con F1 da 3 A sul suo ingresso."
-      - "Collega EN con i 47 kΩ a massa e il diodo come nel passo 4.12: il filo del diodo resta libero."
-      - "Collega l'ESP32 alla USB, non al pin 5V: il suo pin 3V3 accende il rail."
+      - "Posa la SSC-32 su un cartone, collega la micro-USB e la logica dalla 2813 come nei passi 4.26 e 4.29, senza basetta."
+      - "Collega l'uscita del regolatore sinistro ai morsetti VS1+ e VS1−, con F1 da 3 A sul suo ingresso."
+      - "Infila un Dupont femmina sul pin 3V3 dell'ESP32, alimentata dalla sola USB; l'altro capo resta libero: è il filo dell'ENA."
+      - "Collega la massa dell'ESP32 al Wago −."
       - "Controlla in continuità che VS1+ non tocchi VL+."
     tabella:
       intestazione: [Punto, Atteso, Misurato]
       righe:
-        - ["VS1 con il filo del diodo libero", "0 V: rail spento [C]", ""]
-        - ["VS1 con il filo sul 3V3", "6,0 V [V]", ""]
+        - ["VS1, filo dell'ENA libero", "0 V: la R3 tiene il rail spento [C]", ""]
+        - ["VS1, filo dell'ENA sul pin ENA", "6,0 V [V]", ""]
         - ["VL", "come il pacco [V]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Con il rail a 6,0 V ogni servo può prendere fino a 2,5 A di stallo [V]. Il fusibile da 3 A in ingresso al regolatore protegge il filo, non il servo: scollega subito il filo del diodo se il servo scalda o non gira."}
+      - {tipo: attenzione, testo: "Con il rail a 6,0 V ogni servo può prendere fino a 2,5 A di stallo [V]. Il fusibile da 3 A protegge il filo, non il servo: stacca subito il filo dell'ENA se il servo scalda o non gira."}
       - {tipo: importante, testo: "Non infilare né togliere la spina del servo con il rail acceso."}
-      - {tipo: nota, testo: "Qui la potenza passa dal morsetto della SSC-32, che regge 8–10 A [S]: per un servo basta. Nel robot passa dalle barre (sezione 8)."}
-      - {tipo: nota, testo: "In alternativa al regolatore: alimentatore da banco a 6,0 V, limitato a 1 A (docs/software.md 6.7, B2)."}
+      - {tipo: nota, testo: "In giallo la morsettiera (VS1, VL) e la micro-USB. La potenza passa dal morsetto, che regge 8–10 A [S]: per un servo basta. In alternativa al regolatore: alimentatore da banco a 6,0 V limitato a 1 A (docs/software.md 6.7, B2)."}
     attrezzi: [multimetro, mac_seriale, cacciavite_piatto]
     fonti:
       - "docs/software.md 6.7 (B2: rail a 6 V con fusibile da 3 A o alimentatore limitato a 1 A)"
       - "docs/dimensioni-componenti.md, 'Servo controller SSC32-V2.5' (morsettiera)"
-      - "docs/studio-componenti.md ('Distribuzione: potenza dal retro della SSC-32', 'Accensione e protezioni')"
-      - "docs/BOM.md A1 (stallo 2,5 A a 6 V), B1, B4, B11"
-      - "guida/passi/04-banco.yaml 4.09 e 4.12"
+      - "docs/BOM.md A1 (stallo 2,5 A a 6 V), B1, B4"
+      - "guida/schemi/schemi.md 1.6 (ENA dei D42V110F6, R3 sul regolatore); guida/problemi/schemi.yaml S-05"
+      - "guida/passi/04-banco.yaml 4.26, 4.29, 4.31, 4.32"
 
   - id: "5.02"
     titolo: Gommini tolti
@@ -84,7 +94,7 @@ passi:
       - {tipo: importante, testo: "Il servo si avvita rigido sulle alette: con i gommini il giunto avrebbe gioco e le viti non starebbero a filo (docs/dimensioni-componenti.md, docs/studio-componenti.md)."}
       - {tipo: nota, testo: "Non sappiamo se i gommini sono già montati sui servo AZDelivery o stanno nel sacchetto: se ci sono, si tolgono; se mancano, il passo è fatto [C]."}
       - {tipo: nota, testo: "La figura mostra il servo del femore: i 18 sono uguali. Nella culla le alette poggiano sul pezzo (docs/dimensioni-componenti.md)."}
-    extra: [{nome: "servo MG996R AZDelivery, 18 più 2 di scorta", qta: 20, bom: A1}]
+    extra: [{nome: "servo MG996R AZDelivery, uno per volta: 18 più 2 di scorta", qta: 1, bom: A1}]
     fonti:
       - "docs/dimensioni-componenti.md, 'Servo MG996R' (gommini si tolgono; fori 4 × Ø 4,2: S)"
       - "docs/studio-componenti.md ('Fissaggio': i gommini si tolgono e il servo si avvita rigido)"
@@ -116,9 +126,9 @@ passi:
     testo:
       - "Infila la spina del servo sul canale 0 del lato VS1, filo marrone verso il bordo della scheda [S]."
       - "Apri il terminale e scrivi #0P1500T1000 con il rail spento: la SSC-32 manda l'impulso di centro."
-      - "Tocca con il filo del diodo il pin 3V3 dell'ESP32: il rail si accende."
+      - "Tocca con il filo dell'ENA il pin ENA del regolatore: il rail si accende."
       - "Controlla che il servo vada al centro e si fermi, senza ronzio."
-      - "Stacca il filo dal pin 3V3 se il servo ronza o scalda."
+      - "Stacca il filo dell'ENA se il servo ronza o scalda."
     avvisi:
       - {tipo: importante, testo: "Prima l'impulso, poi il rail: così il servo non parte a scatti, come nel robot (docs/studio-componenti.md, 'Accensione e protezioni')."}
       - {tipo: nota, testo: "Colori del cavo: marrone massa, rosso +, arancio segnale [V]. Sulla scheda, dal bordo verso l'interno, le file sono massa, VS, segnale."}
@@ -184,7 +194,7 @@ passi:
     immagine: false
     testo:
       - "Scrivi #0P1500T1000 e aspetta che il servo si fermi."
-      - "Spegni il rail: stacca il filo del diodo dal pin 3V3."
+      - "Spegni il rail: stacca il filo dell'ENA dal regolatore."
       - "Stacca la spina dalla SSC-32."
       - "Riponi il servo con il suo numero sul cavo, senza girare l'albero."
     avvisi:
@@ -203,33 +213,22 @@ passi:
     formato: grande
     immagine: false
     testo:
-      - "Compila una riga per ogni servo mentre lo provi."
-      - "Scrivi OK se i comandi hanno dato l'esito atteso, scarto se no."
-      - "Scrivi A o O per il verso."
-      - "Le ultime due colonne si compilano nelle sezioni 6 e 7."
+      - "Compila una riga per ogni servo mentre lo provi: due servo per riga."
+      - "Scrivi OK se i comandi hanno dato l'esito atteso, scarto se no; A o O per il verso."
+      - "Compila la colonna Zampa e giunto nelle sezioni 6 e 7; scrivi le note nel registro delle misure (appendice)."
     tabella:
-      intestazione: [N°, Esito, Verso, Note, Zampa e giunto]
+      intestazione: [N°, Esito, Verso, Zampa e giunto, N°, Esito, Verso, Zampa e giunto]
       righe:
-        - ["1", "", "", "", ""]
-        - ["2", "", "", "", ""]
-        - ["3", "", "", "", ""]
-        - ["4", "", "", "", ""]
-        - ["5", "", "", "", ""]
-        - ["6", "", "", "", ""]
-        - ["7", "", "", "", ""]
-        - ["8", "", "", "", ""]
-        - ["9", "", "", "", ""]
-        - ["10", "", "", "", ""]
-        - ["11", "", "", "", ""]
-        - ["12", "", "", "", ""]
-        - ["13", "", "", "", ""]
-        - ["14", "", "", "", ""]
-        - ["15", "", "", "", ""]
-        - ["16", "", "", "", ""]
-        - ["17", "", "", "", ""]
-        - ["18", "", "", "", ""]
-        - ["19 scorta", "", "", "", ""]
-        - ["20 scorta", "", "", "", ""]
+        - ["1", "", "", "", "11", "", "", ""]
+        - ["2", "", "", "", "12", "", "", ""]
+        - ["3", "", "", "", "13", "", "", ""]
+        - ["4", "", "", "", "14", "", "", ""]
+        - ["5", "", "", "", "15", "", "", ""]
+        - ["6", "", "", "", "16", "", "", ""]
+        - ["7", "", "", "", "17", "", "", ""]
+        - ["8", "", "", "", "18", "", "", ""]
+        - ["9", "", "", "", "19 scorta", "", "", ""]
+        - ["10", "", "", "", "20 scorta", "", "", ""]
     avvisi:
       - {tipo: nota, testo: "Le due scorte restano a portata di mano: un servo che si rompe nella taratura si cambia senza ricominciare."}
     fonti:

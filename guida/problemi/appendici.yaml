@@ -55,3 +55,22 @@
     - "Generare il registro dalle tabelle dei passi con un comando dell'impaginatore."
     - "Tenere la copia a mano e farla rivedere dalla riconciliazione."
   consiglio: "La prima opzione, o almeno una revisione della copia alla riconciliazione."
+
+- titolo: Le pagine delle appendici prendono il numero dalla posizione, e la sezione 0 cita ancora A.15-A.24 per il glossario
+  gravita: minore
+  dove: "A.15-A.26; guida/passi/00-prima.yaml riga 569"
+  cosa: >-
+    F3c aggiunge cinque passi in appendice (A.15-A.19: basetta lato componenti e lato saldature, scheda del carapace
+    lato componenti e lato saldature, collegamenti esterni). L'impaginatore numera le pagine dalla posizione nel file e
+    non dall'id: il glossario (generato) comincia ora a A.20 e finisce a A.25, il foglio delle viti 1:1 e' A.26. Gli id
+    dei passi generati sono stati portati a A.20 e A.26 per non duplicare quelli nuovi. La tabella delle appendici
+    della sezione 0 dice ancora "A.15-A.24 Glossario" e non elenca gli schemi (0.xx, sezione che non e' di questa
+    passata).
+  prove:
+    - "build/guida/sezioni/appendici-carapace/anteprima/p036.png (A.15 basetta), p041.png (A.20 glossario), p047.png (A.26 viti)"
+    - "guida/passi/00-prima.yaml:567-569"
+  opzioni:
+    - "Aggiornare la tabella di 0 a: A.15-A.19 schemi elettrici, A.20-A.25 glossario, A.26 viti."
+    - "Leggere i numeri dall'impaginatore invece di scriverli a mano nelle altre sezioni."
+  consiglio: "Aggiornare la tabella della sezione 0 alla riconciliazione, dopo che le sezioni sono tutte chiuse."
+

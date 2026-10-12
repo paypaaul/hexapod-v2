@@ -348,7 +348,7 @@ passi:
         - ["X8", "ToF frontale nella testa", "8, 13", "meglio ora", ""]
         - ["X13", "Spie dei rail in coda", "7, 8", "meglio ora", ""]
         - ["X14", "NTC sulle bobine dei regolatori", "4, 8", "meglio ora", ""]
-        - ["X31", "Luci nelle tibie", "6–9", "meglio ora (diffusore: anche dopo)", ""]
+        - ["X31", "Luci nelle tibie", "4, 6–9", "meglio ora (diffusore: anche dopo)", ""]
     testo:
       - "Decidi per ogni voce se la monti, e segna Sì o No."
       - "Rileggi la colonna Quando: dice se puoi rimandare."
@@ -364,7 +364,7 @@ passi:
     tabella:
       intestazione: [Voce, Cosa, Sez., Quando, Sì/No]
       righe:
-        - ["X2", "Scheda e connettore del carapace", "4, 13", "meglio ora (cavo piatto), anche dopo (scheda)", ""]
+        - ["X2", "Scheda e connettore del carapace", "4, 8, 13", "meglio ora (cavo piatto), anche dopo (scheda)", ""]
         - ["X9", "Catena LED", "4, 13", "meglio ora (buffer), anche dopo (striscia)", ""]
         - ["X10", "Provino di luce", "1", "solo ora", ""]
         - ["X11", "Anello di stato del pulsante", "13", "meglio ora; dopo, a carapace tolto", ""]
@@ -516,7 +516,7 @@ passi:
         - ["1", "Provini", "stampe in un giorno; prove circa 3 ore", "nessun rail dei servo"]
         - ["2", "Stampa e controllo dei pezzi", "una stampa a pezzo; la zampa 6 volte", "nessuno"]
         - ["3", "Inserti a caldo", "circa 2 ore per 122 inserti", "nessuno; punta calda"]
-        - ["4", "Banco dell'elettronica", "circa 5 ore, più le saldature", "batteria solo nelle prove, F2 da 2 A"]
+        - ["4", "Banco dell'elettronica", "circa 12 ore, 6–7 di saldature [S]", "batteria solo nelle prove, F2 da 2 A"]
         - ["5", "Servo", "circa 5 minuti per servo", "un servo alla volta, F1 da 3 A"]
         - ["6", "La zampa, per sei", "circa 2 ore la prima volta", "nessuno"]
         - ["7", "Il corpo", "circa 2 ore la prima volta", "nessuno; F1 senza fusibile"]
@@ -536,13 +536,13 @@ passi:
     tabella:
       intestazione: [Sez., Cosa, "Tempo [S]", Stato elettrico]
       righe:
-        - ["8", "Elettronica nel corpo e cablaggio", "circa 8 ore [S]", "prove con la corrente: vedi la sezione"]
+        - ["8", "Elettronica nel corpo e cablaggio", "circa 5 ore [S]", "prove con la corrente: vedi la sezione"]
         - ["9", "La zampa sul corpo", "circa 45 minuti la prima volta", "T-plug staccato, salvo due prove"]
         - ["10", "Le altre cinque zampe", "circa 2 ore a zampa", "come le sezioni 6 e 9"]
         - ["11", "Batteria e sportello", "circa 30 minuti, più la carica", "T-plug staccato, F1 vuoto"]
         - ["12", "Prima accensione e taratura", "circa 2 ore, metà per la taratura", "T-plug collegato, F1 da 15 A"]
-        - ["13", "Carapace", "circa 4 ore [S]", "prova al banco"]
-        - ["14", "Collaudo", "circa 2 ore [S]", "robot sul cavalletto, poi a terra"]
+        - ["13", "Carapace", "circa 2 ore e mezza [S]", "prova al banco"]
+        - ["14", "Collaudo", "mezza giornata [S]", "robot sul cavalletto, poi a terra"]
         - ["15", "Smontaggio e manutenzione", "quando serve", "T-plug staccato"]
         - ["A", "Appendici", "da consultare", "–"]
     testo:
@@ -566,12 +566,15 @@ passi:
         - ["A.03–A.09", "Registro delle misure: provini, forzamenti, tensioni, numeri dei servo, calettamento, taratura, cavi"]
         - ["A.10–A.11", "Opzioni X: dove, quando, viteria in più"]
         - ["A.12–A.14", "Inserti a caldo: dove, quali, quando"]
-        - ["A.15–A.24", "Glossario"]
+        - ["A.15–A.18", "Schemi della basetta dell'ESP32 e della scheda del carapace: lato componenti e lato saldature"]
+        - ["A.19", "Collegamenti esterni di basetta e scheda"]
+        - ["A.20–A.25", "Glossario"]
+        - ["A.26", "Viti, rondelle e inserti in scala 1:1"]
     testo:
       - "Cerca nelle appendici il dato che ti serve, senza rileggere la sezione."
       - "Compila il registro delle misure man mano che lavori."
     avvisi:
-      - {tipo: nota, testo: "Il foglio delle viti 1:1, l'elenco generale dei pezzi, i problemi noti e gli schemi elettrici arrivano a fine guida, dall'impaginatore e dalla riconciliazione [S]."}
+      - {tipo: nota, testo: "L'elenco generale dei pezzi e i problemi noti arrivano a fine guida, dall'impaginatore e dalla riconciliazione [S]."}
     fonti: [docs/piano-guida.md "Struttura della guida", D-075]
 
   # --- appendici generato (fine) ---

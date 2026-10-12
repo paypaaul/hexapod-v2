@@ -6,7 +6,7 @@
 
 - titolo: Gli schemi della basetta, della striscia dei partitori e della scheda del carapace non esistono
   gravita: bloccante
-  dove: "8.09, 8.11, 8.18-8.25, 8.28"
+  dove: "8.10, 8.12, 8.17-8.23, 8.26 (numeri dopo la F3c)"
   cosa: >-
     Nessun passo puo' dire dove si salda un filo sulla millefori: `guida/schemi/` e' vuota e il passo F3b del piano
     (disposizione di basetta 56 x 35 e scheda del carapace su griglia da 2,54) non ha prodotto niente. La sezione 8 dice
@@ -30,6 +30,10 @@
   domanda: >-
     Vuoi approvare gli schemi di basetta, striscia dei partitori e scheda del carapace prima di costruire, come nel
     piano (docs/piano-guida.md:41)?
+  esito: >-
+    in parte superato dagli schemi F3b (basetta e scheda del carapace, guida/schemi/schemi.md): nella F3c i fili della
+    basetta si saldano al banco e la sezione 8 salda solo l'altro capo. Resta senza schema la striscia dei partitori
+    (8.10), che il compito F3b non copriva.
 
 - titolo: Vite delle slitte con il supporto dell'INA260, lunghezza e accesso
   gravita: importante
@@ -103,7 +107,7 @@
 
 - titolo: L'ADC non ha giunzione, viti ne' posto per la striscia dei partitori
   gravita: importante
-  dove: "8.08, 8.09, 8.24"
+  dove: "8.09, 8.10, 8.22"
   cosa: >-
     Nella base ci sono due bugne con inserti M2 per l'ADS7830 (ins_ads_a e ins_ads_b), ma il catalogo delle giunzioni
     non ha una giunzione per l'ADC e il BOM conta "viti M2 corte" per l'ADC senza lunghezza. I fori dell'ADS7830 sono
@@ -121,7 +125,7 @@
 
 - titolo: ToF e camera senza ritegno modellato, e ordine ToF prima della camera
   gravita: importante
-  dove: "8.13, 8.14"
+  dove: "8.13, 8.28"
   cosa: >-
     Il ToF sta in una sede inclinata della mensola con 0,2 mm di gioco (cor_tof_gio): nel CAD non ci sono perni ne'
     viti, e la predisposizione dice "due perni Ø 1,9 o due inserti M2 sui fori della scheda (C)". La testa della camera e'
@@ -142,7 +146,7 @@
 
 - titolo: Seriale della SSC-32, tre o quattro fili, e dove va VL
   gravita: importante
-  dove: "8.18, 8.20"
+  dove: "8.17, 8.19"
   cosa: >-
     cablaggio.md 3.6 dice "4: TX, RX, massa, VL" con Dupont femmina, e 3.1 dice "VL con un Dupont (C4)" per il tratto
     dalla 2813 alla SSC-32. VL e' l'alimentazione della logica, a 6-8,4 V, e non puo' viaggiare su un pin di segnale. Il
@@ -162,7 +166,7 @@
 
 - titolo: Fra T-plug e F1 non c'e' un connettore, e F2 non ha una sede
   gravita: importante
-  dove: "8.15, 8.17"
+  dove: "8.14, 8.16"
   cosa: >-
     cablaggio.md dice "T-plug -> F1 -> Wago +" con 14 AWG e non dice come si uniscono T-plug e portafusibile (i codini
     sono saldati: T-plug e portafusibile sono entrambi con codino 14 AWG, D-073). La guida scrive saldatura e
@@ -182,7 +186,7 @@
 
 - titolo: Verso del flat e connettore FPC dell'ESP32 non documentati
   gravita: minore
-  dove: "8.14"
+  dove: "8.28"
   cosa: >-
     Le fonti dicono solo che l'ESP32 ha un connettore FPC a 24 pin al centro della scheda e che il flat esce verso il lato
     dell'antenna; non dicono se il connettore ha una levetta ne' se i contatti del flat guardano in alto o in basso. La
@@ -198,7 +202,7 @@
 - titolo: Le NTC dei regolatori si incollano al banco, non nel corpo
   tipo: allocazione
   gravita: minore
-  dove: "8.26"
+  dove: "8.24"
   cosa: >-
     L'NTC sta sulla bobina di ogni regolatore (X14, ADS7830 canali 6 e 7). Nel corpo la bobina e' sotto l'INA260 e
     il camino d'aria e il lato dei componenti guarda il tunnel con 4,8 mm d'aria: il posto e' stretto. Al banco, sezione 4,
@@ -231,7 +235,7 @@
 
 - titolo: D-012 non ha una voce in decisioni.md
   gravita: minore
-  dove: "8.20"
+  dove: "8.19"
   cosa: >-
     cablaggio.md e piano-elettronica-software.md citano "D-012" per la seriale della SSC-32 (115200 baud, GPIO21 e 14), ma
     il registro delle decisioni comincia da D-041 e D-012 compare solo in una riga di riepilogo, non come voce. Il
@@ -242,3 +246,73 @@
   opzioni:
     - "Aggiungere una voce D-012 (o D-0xx) per la seriale in decisioni.md."
   consiglio: Una voce nuova nel registro; nei passi nessun cambio.
+
+# --- Passata di qualita' F3c (schemi delle schede, immagini con zone, etichette) ---
+
+- titolo: "Fili saldati sulla basetta gia' avvitata: spostati al banco"
+  tipo: allocazione
+  gravita: importante
+  dove: "4.15-4.19, 8.07, 8.08, 8.12, 8.13, 8.17-8.23"
+  cosa: >-
+    Problema della riconciliazione: 8.18, 8.21 e 8.25 saldavano fili sulla basetta gia' sulle colonnine, con le
+    saldature in basso. Con gli schemi tutti i fili della basetta (cavo piatto, rami del bus della riga 1, Dupont della
+    seriale, riga 13 con D2 e R6 e R9 in linea, batteria su P-4) si saldano al banco (4.15-4.19, schemi.md 1.4 punto
+    10). Nel corpo si salda solo l'altro capo: IMU (8.08), ToF (8.13), 2813 (8.17, 8.18, 8.21), ENA dei regolatori
+    (8.18), prese delle luci (8.23); Dupont e Qwiic si innestano (8.09, 8.19, 8.20).
+  prove:
+    - "guida/problemi/riconciliazione.yaml, 'Fili saldati sulla basetta gia' avvitata'"
+    - "guida/schemi/schemi.md 1.4 punto 10, 1.6 e sezione 3"
+  opzioni:
+    - "Nessuna: applicato."
+  consiglio: Nessuna azione.
+  esito: applicato nella F3c
+
+- titolo: "L'asola del bus sta sotto il bordo della basetta; la spina Qwiic dell'ADC deve passarci"
+  gravita: importante
+  dove: "4.16, 8.07, 8.09, 8.11, 8.12"
+  cosa: >-
+    L'asola del vassoio e' a x 47-53, y 13-16; la basetta arriva a y 17,5: l'asola sta 1,5 mm sotto il bordo sinistro
+    della basetta. I fili del ramo 3 (E-1, I-1, M-1, S-1, x 34-70) devono andare dal bordo all'asola passando sotto la
+    basetta, nei 3,3 mm in cui stanno saldature e teste M3 (S-19), fuori dalle colonnine (y +-6,8). In piu', con i fili
+    saldati al banco, il cavetto Qwiic dell'ADC passa nell'asola dalla parte della spina: una spina JST SH a 4 poli in
+    un'asola 6 x 3 non e' verificata. La guida fa passare i fili prima di saldarli all'IMU e di montare il vassoio (8.07).
+  prove:
+    - "build/guida/cad/zone/indice.json, Corpo_Vassoio asola_bus: x 47,0-53,0, y 13,0-16,0, z 1,0-2,6"
+    - "build/guida/cad/mesh, Basetta nella terna del robot: x 22-78, |y| <= 17,5, z 5,9-7,5"
+    - "docs/predisposizioni.md X1 (asola nel vassoio)"
+  opzioni:
+    - "Provare la spina nell'asola sul vassoio stampato; se non passa, cavetto dell'ADC saldato sull'ADC invece della spina."
+    - "CAD 2.1.7: asola spostata fuori dal bordo della basetta (|y| >= 18) e allargata a 7 x 4."
+  consiglio: Seconda opzione nella 2.1.7; fino ad allora la prima.
+
+- titolo: "Prove a freddo con l'ESP32 fuori, ma il flat della camera era gia' innestato"
+  tipo: allocazione
+  gravita: importante
+  dove: "8.26, 8.27, 8.28"
+  cosa: >-
+    Le prove del bus si fanno con l'ESP32 fuori dagli strip (schemi.md 1.5; la bozza diceva 'con ESP32 fuori'), ma
+    l'ESP32 entrava in 8.12 e il flat della camera nel suo connettore FPC in 8.14: per togliere l'ESP32 bisognava
+    staccare il flat. Ora le prove a freddo sono 8.26, poi ESP32 (8.27) e camera (8.28). Il ToF resta prima della
+    camera. La sezione 9 cita le prove come 'passo 8.28': ora sono 8.26.
+  prove:
+    - "guida/schemi/schemi.md 1.5 (ESP32 fuori dagli strip)"
+    - "guida/passi/09-zampa-corpo.yaml, prima: 'Prove a freddo dell'elettronica fatte (sezione 8, passo 8.28)'"
+  opzioni:
+    - "Nessuna: applicato; da aggiornare il rimando della sezione 9."
+  consiglio: Aggiornare la sezione 9 (chi la ha).
+
+- titolo: "Sulla 2813, nel corpo, si saldano nove fili"
+  gravita: importante
+  dove: "8.16, 8.17, 8.18, 8.21"
+  cosa: >-
+    Sulla 2813, gia' nella sua guida in coda (x -58..-54), arrivano: ingresso da F2, massa verso il Wago -, batteria della
+    basetta (P-4), reoforo di R6, massa della basetta (S-13), VL+ e VL- verso la SSC-32, OFF (Q-13), pulsante A e B
+    dal cavo piatto. Tre fili sull'uscita e tre sulla massa. Che si raggiungano con il saldatore nella guida, con la
+    SSC-32 e il T-plug accanto, non e' verificato; nemmeno le sigle dei pin [C].
+  prove:
+    - "build/guida/cad/mesh, Interruttore: x -58,4..-54,3, |y| <= 12,7, z -4,4..15,9; T-plug x -80..-64; SSC-32 fino a x -50,8"
+    - "guida/schemi/schemi.md 1.6; docs/cablaggio.md 3.1"
+  opzioni:
+    - "Unire al banco su un solo filo i tre dell'uscita e i tre della massa (giunzione con guaina), cosi' sulla 2813 vanno due fili per pin."
+    - "Saldare sulla 2813 prima di metterla nella guida (sezione 7), con i fili lunghi."
+  consiglio: Provare sul corpo stampato; se non si arriva, prima opzione.

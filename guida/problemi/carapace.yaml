@@ -4,34 +4,28 @@
 # guida/dati/manifest.json (bbox e trasformate) e da guida/dati/fori.json. Campi in piu' rispetto allo schema: tipo
 # (allocazione), domanda (cosa chiedere all'utente).
 
-- titolo: Gli schemi della scheda del carapace non esistono, e il lato saldature e il verso della testata non sono definiti
-  gravita: importante
-  dove: "13.16, 13.17"
+- titolo: "La posizione della testata 2 x 8 sotto la scheda del carapace e' bloccata da S-01 (gli schemi ora esistono)"
+  gravita: bloccante
+  dove: "13.16, 13.17, 13.19; A.17, A.18"
   cosa: >-
-    La scheda del carapace (X2) e' una striscia di millefori di circa 30 x 20 mm, con la testata 2 x 8, la presa Qwiic,
-    il 470 uF, il pull-down da 100 kohm e le derivazioni di pulsante, catena LED, microfoni, amplificatore e ToF
-    posteriore. guida/schemi/ e' vuota: la fase F3b non ha prodotto nessuno schema, quindi la disposizione sulla
-    millefori non esiste (docs/piano-guida.md la prevede "da progettare durante la guida"). Nel CAD l'ingombro e' un
-    parallelepipedo 30 x 20 x 9 (x 29,5-49,5, |y| <= 15, z 21,9-30,9) con la faccia alta (z 30,9) sulle quattro bugne
-    (alte 3,5, inserti M2 a 15 x 25 mm). Se la testata e il condensatore stanno sotto (9 mm di spessore con la spina), le
-    saldature stanno sopra, a 3,5 mm dal dorso, e dopo l'avvitamento non si raggiungono con il saldatore. Il verso
-    della testata non e' scritto da nessuna parte: cablaggio.md dice solo che "la spina si sfila dall'ottagono"
-    (x -20...28), cioe' verso -X. La bozza salda la scheda per intero fuori dal carapace, poi la avvita, con la
-    testata verso l'ottagono [C]: richiede fili dei moduli lunghi 2 cm in piu'.
+    F3b ha prodotto gli schemi (guida/schemi/scheda_carapace.svg e _saldature.svg, schemi.md sezione 2): griglia 7 x 11,
+    J2 in D/E righe 2-9 con la tacca dal lato di D, CE1 in A-9/B-9, ponticelli, fili 101-112, fili dei moduli, dato dei
+    LED e pulsante sui pin E-3, D-9, E-9. Le sezioni 13.16, 13.17, 13.18 e le appendici sono allineate. Resta aperto
+    S-01 (guida/problemi/schemi.yaml): la testata con la spina innestata scende di 16-18 mm sotto la scheda, sopra
+    l'ESP32 ne restano circa 10, e il CAD (sch_sp 9, S) non lo mostra. I collegamenti valgono comunque; la posizione
+    della testata no, e con essa il verso di 13.17 (colonna A verso l'ottagono) e 13.19 (triangolo del polo 1 verso D-2).
+    Le righe 13.16-13.19 che ne dipendono sono marcate [C] e hanno un avviso. Il vecchio problema "lato saldature non
+    raggiungibile dopo l'avvitamento" e' risolto dalla procedura: si salda tutto fuori dal carapace, poi si avvita.
   prove:
-    - "ls guida/schemi/: vuota; guida/passi/04-banco.yaml (nota in testa) e 4.05: 'Non saldare finche' lo schema non e' approvato'"
-    - "docs/cablaggio.md 3.5 (scheda sotto il dorso, x 29-49; testata 2 x 8) e 4 (come si toglie il carapace)"
-    - "docs/predisposizioni.md 2.3 (testata con spina circa 9 + 9 mm, 470 uF Ø6,3-8)"
-    - "guida/dati/manifest.json: corpo/Scheda_carapace, T = rotazione 90 gradi, origine (39,5; 0; 21,9)"
-    - "cad/script/corpo.py fai_carapace_predisposizioni: bugne sch_a-d, 5,5 x 3,5, inserti M2 da 4,0 a z 30,9"
-    - "guida/dati/fori.json: Corpo_Carapace ins_sch_a-d a (32; +-12,5), (47; +-12,5)"
+    - "guida/problemi/schemi.yaml S-01, S-26 e S-17"
+    - "guida/schemi/schemi.md 2 (testo bloccante), 2.5 e 3 (riga 13.16)"
+    - "guida/dati/manifest.json: corpo/Scheda_carapace, origine (39,5; 0; 21,9), ESP32 sotto"
   opzioni:
-    - "Scheda saldata per intero fuori dal carapace e poi avvitata, testata verso l'ottagono (bozza)."
-    - "Bugne piu' alte nella 2.1.7, cosi' sotto la scheda restano 8-10 mm per saldare e per la testata."
-    - "Testata ad angolo retto sul bordo verso l'ottagono, con le saldature in basso: cambia la lista di montaggio della scheda."
+    - "CAD 2.1.7: scheda e testata con 18 mm sotto (S-01, opzione 1) oppure testata a 90 gradi sul bordo verso l'ottagono (opzione 2)."
+    - "Testata senza scatola e chiave ottenuta togliendo il pin 14 (opzione 3 di S-01)."
   consiglio: >-
-    Disegnare gli schemi prima della guida (F3b) con il lato saldature in basso e la testata sul bordo verso l'ottagono;
-    fino ad allora il passo dice di saldare fuori dal carapace e di non avvitare prima della prova in continuita' (13.18).
+    Decidere S-01 prima di stampare il carapace; fino ad allora 13.16 e 13.17 non fanno saldare J2 e dicono che le
+    quote della testata sono da confermare.
   domanda: "Hai gia' una millefori tagliata per la scheda e una testata 2 x 8 dritta o ad angolo retto?"
 
 - titolo: Altoparlante, microfoni e ToF posteriore non hanno un fissaggio definito
@@ -170,3 +164,39 @@
     - "Prova a mano (bozza): se scomodo, linguetta di nastro."
     - "ToF e altoparlante piu' in alto, sopra il piano del T-plug (2.1.7)."
   consiglio: "Provare a mano sul primo carapace, come previsto."
+
+- titolo: I fili dei microfoni (5 cm) e del ToF posteriore (15 cm) non arrivano alla scheda con la scorta
+  gravita: minore
+  dove: "13.12, 13.13, 13.16"
+  cosa: >-
+    cablaggio.md 3.5 dice "circa 5 cm" per i microfoni e "circa 15 cm" per il ToF posteriore. Dal CAD i microfoni stanno
+    a (89,3; +-11) e i fori G-4...G-8 della scheda a x 47,1: 42,6-45,1 mm in linea retta, senza scorta ne' curve. Il ToF
+    sta a (-93,5; 18,4) e i fori A-3...B-4 a x 31,9-34,4: circa 126-129 mm in pianta, piu' 12 mm di quota, con il cavo
+    che deve girare fuori dall'ottagono (|y| 17). La guida scrive 8 cm per il gruppo dei microfoni e 20 cm per il ToF
+    [S]: sono stime dalle distanze, non misure sul pezzo. I cavi dell'amplificatore (5 cm, a x 60,7) e
+    dell'altoparlante (17 cm) tornano.
+  prove:
+    - "docs/cablaggio.md 3.5, righe Microfoni e ToF posteriore"
+    - "guida/dati/manifest.json: corpo/Microfono_S (89,3; 11; 33,8), Microfono_D, ToF_posteriore (-93,5; 18,4; 19), Scheda_carapace (39,5; 0; 21,9)"
+    - "guida/schemi/schemi.md 2: colonna A a x 31,88, passo 2,54, riga 1 a y +12,7"
+  opzioni:
+    - "Tagliare i fili a misura sul primo carapace, con la scheda posata (bozza: 8 e 20 cm, in piu' dei 5 e 15 del cablaggio)."
+    - "Correggere cablaggio.md 3.5 con le lunghezze misurate."
+  consiglio: "Misurare sul primo carapace e correggere cablaggio.md; fino ad allora 8 e 20 cm [S]."
+
+- titolo: CE1 da 11 mm copre A-4 e B-4, ma i fili del ToF e del Qwiic si saldano in 13.16, molto dopo CE1 (4.06)
+  gravita: minore
+  dove: "4.06, 13.16"
+  cosa: >-
+    schemi.md 2.5 dice di saldare i fili di A-4 e B-4 prima di CE1 se il condensatore e' lungo 11 mm (il fondo arriva a
+    0,4 mm da quei fori, S-18). La ripartizione dei passi mette CE1, ponticelli e fili 101-112 in 4.06 al banco e i fili
+    dei moduli in 13.16: se CE1 e' da 11 mm, A-4 e B-4 non si raggiungono piu'. Il cavo Qwiic tagliato (4 fili) fa parte
+    della scheda, non di un modulo: potrebbe stare in 4.06. 13.16 ha un avviso con la rinuncia: un 470 uF piu' corto.
+  prove:
+    - "guida/schemi/schemi.md 2.5 passo 2 e 2.7; guida/problemi/schemi.yaml S-18"
+    - "guida/passi/04-banco.yaml 4.06 (testo) e guida/passi/13-carapace.yaml 13.16"
+  opzioni:
+    - "Spostare in 4.06 la saldatura dei quattro fili Qwiic (A-3, B-3, A-4, B-4), prima di CE1 (sezione 4, non toccata qui)."
+    - "Ordinare il 470 uF con Ø 6,3 e altezza di al piu' 8 mm (S-18)."
+  consiglio: "Prima opzione, quando si riscrive 4.06; la seconda se si ordina il condensatore."
+

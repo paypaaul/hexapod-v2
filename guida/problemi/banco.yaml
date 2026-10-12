@@ -4,7 +4,7 @@
 
 - titolo: Gli schemi della basetta e della scheda del carapace non esistono
   gravita: bloccante
-  dove: "4.04, 4.05, 4.06"
+  dove: "4.04, 4.05, 4.06 della bozza F3 (ora 4.06-4.25)"
   cosa: >-
     Il piano della guida (docs/piano-guida.md, F3b) prevedeva che un progettista disegnasse su griglia da 2,54 la
     disposizione della basetta (56 x 35) e della scheda del carapace, con le prove al multimetro. Il passo F3b non ha
@@ -28,10 +28,14 @@
   consiglio: >-
     Rifare F3b prima delle saldature. Nella bozza i passi sono marcati [C] e dicono di non saldare finche' lo schema non
     e' approvato; il ramo logica e la SSC-32 si provano comunque con componenti sciolti.
+  esito: >-
+    superato dagli schemi F3b (guida/schemi/schemi.md e basetta*.svg, scheda_carapace*.svg, 12 ottobre 2026): nella F3c i
+    passi 4.06-4.25 seguono l'ordine di saldatura, le prove e i collegamenti degli schemi. Restano i bloccanti S-01, S-02
+    e S-19 di guida/problemi/schemi.yaml, con avviso e [C] nei passi.
 
 - titolo: Il programma di prova del banco non esiste, e lo scheletro del firmware non e' mai girato sul chip
   gravita: importante
-  dove: "4.03, 4.08"
+  dove: "4.05, 4.28"
   cosa: >-
     docs/software.md 6.7 descrive B0 come "flash, LED, ADC su GPIO1 con il partitore, GPIO42 con il multimetro" e prevede
     "script tools/hexa banco piu' una lista di controllo". Lo script non c'e' (tools/ contiene solo descrizione,
@@ -53,7 +57,7 @@
 
 - titolo: "La SSC-32 clone non e' mai stata vista: ponticelli, micro-USB, retro e lato dei canali sono tutti dal disegno del venditore"
   gravita: importante
-  dove: "4.01, 4.02, 4.09"
+  dove: "4.01, 4.02, 4.29"
   cosa: >-
     Le posizioni dei ponticelli "VS VL" e "VS1 VS2", della micro-USB, dei morsetti e delle file massa-VS-segnale
     vengono dal disegno quotato del venditore (marcate S). Il retro non e' fotografato: che sotto gli header non ci siano
@@ -81,7 +85,7 @@
 
 - titolo: "Il pin di abilitazione dei regolatori puo' avere un pull-up interno che rende vano il \"rail spento di default\""
   gravita: importante
-  dove: "4.04, 4.12"
+  dove: "4.18, 4.31, 4.32"
   cosa: >-
     Il progetto tira a massa il pin EN dei due D42V110F6 con 47 kOhm e lo alza con GPIO42 attraverso un diodo 1N4148
     (rail spento con il GPIO flottante). Il BOM dice che "la soglia bassa non e' pubblicata: valori da provare al banco"
@@ -101,11 +105,14 @@
   consiglio: >-
     Fare la prova del passo 4.12 prima della basetta: decide la resistenza (47 o 22 kOhm). Nella bozza c'e' l'avviso e
     la riga di prova.
+  esito: >-
+    ripreso dagli schemi (S-05, S-20): la pagina Pololu dice ENA tirato a VIN con circa 500 kOhm; una R3 da 22 kOhm su
+    ogni regolatore (passo 4.31) e D2 in linea nel filo di GPIO42 (4.18). La prova e' il passo 4.32.
 
 - titolo: "Con i supporti degli INA260 la vite M3 della slitta deve essere piu' lunga: la giunzione \"slitte\" ha M3 x 8"
   gravita: importante
   tipo: allocazione
-  dove: "4.14 e sezione 8 (giunzione slitte)"
+  dove: "4.34 e sezione 8 (giunzione slitte)"
   cosa: >-
     I supporti stanno sulla faccia interna della slitta e "prendono la sua vite" (D-066, cad/stl/README.md). Nel CAD la
     vite M3 x 8 della giunzione "slitte" (testa a y 45,6, asse verso la parete, foro Ø 3,4 per 2,4 mm di slitta) ha
@@ -130,7 +137,7 @@
 
 - titolo: Gli INA260 non hanno fori di fissaggio nel CAD e nessuna giunzione
   gravita: minore
-  dove: "4.14"
+  dove: "4.34"
   cosa: >-
     Il supporto ha due inserti M2 (ins_a, ins_b a x 16,7 e 34,5, z 28,9, y 40,2-44,2): 17,8 mm di interasse. Il modello
     dell'INA260 (Rif_INA260, 22,9 x 22,8 x 2,7 piu' la morsettiera) non ha fori, quindi il catalogo non ha una giunzione
@@ -148,7 +155,7 @@
 
 - titolo: La morsettiera dell'INA260 potrebbe non prendere il 14 AWG del rail dei servo
   gravita: importante
-  dove: "4.11, 4.14 e sezione 8"
+  dove: "4.31, 4.34 e sezione 8"
   cosa: >-
     Il cablaggio mette l'INA260 in serie sul positivo all'uscita di ogni regolatore, con 14 AWG da 0,6 + 0,6 m. La
     morsettiera da 3,5 mm dell'INA260 (nel CAD) potrebbe prendere al massimo 16 AWG: allora "l'ultimo tratto si salda".
@@ -168,7 +175,7 @@
 
 - titolo: "ESP32 su USB e sul pin 5V insieme: la scheda potrebbe non avere un diodo fra i due ingressi"
   gravita: importante
-  dove: "4.03, 4.07, 4.08, 4.12"
+  dove: "4.05, 4.26, 4.28, 4.32"
   cosa: >-
     Il progetto alimenta l'ESP32 dal pin 5V con il D24V22F5; il C3 del BOM (diodo 1N5817 e spinotto USB-C) c'e' come
     alternativa solo "se la scheda non si accende dal pin 5V". Non e' scritto se la UICPAL ha un diodo tra VBUS e il pin
@@ -193,7 +200,7 @@
 
 - titolo: Quale delle 4 schede ESP32-S3 e' la RE1.3, la lega dello stagno e la temperatura del saldatore
   gravita: minore
-  dove: "4.02, 4.03, 4.04-4.06, 4.11, 4.13"
+  dove: "4.02, 4.03, 4.06-4.25, 4.31, 4.33"
   cosa: >-
     Da guardare sui pezzi in casa (CLAUDE.md, punto 3 degli aperti): la sigla RE1.3 e' stampata sulla scheda e serve
     prima del vassoio; lo stagno "a bassa temperatura" (100 g) potrebbe non essere al bismuto, e allora B19 perde anche
@@ -214,7 +221,7 @@
 
 - titolo: La slitta destra e' la sinistra ruotata; i supporti degli INA260 sono due pezzi diversi
   gravita: minore
-  dove: "4.10, 4.14"
+  dove: "4.30, 4.34"
   cosa: >-
     Il piano della guida elencava "slitta destra: specchiata o la stessa" fra i candidati. Nel CAD le due slitte sono lo
     stesso componente (Corpo_Slitta_Regolatore) con trasformate diverse: il destro e' il sinistro ruotato di 180 gradi
@@ -229,3 +236,93 @@
     - "Nessuna: confermato dal CAD."
   consiglio: Nessuna azione. I passi dicono "e' la stessa, ruotata".
   esito: "confermato nel CAD; nessuna modifica"
+
+# --- Passata di qualita' F3c (schemi delle schede, immagini con zone, etichette) ---
+
+- titolo: "Sezione 4 rinumerata: i rimandi delle altre sezioni ai passi 4.xx vanno aggiornati"
+  tipo: allocazione
+  gravita: importante
+  dove: "sezioni 9, 12, 13, appendici; guida/problemi/*.yaml"
+  cosa: >-
+    Con gli schemi la sezione 4 passa da 14 a 34 passi: ESP32 in tre passi (4.03-4.05), basetta in quattordici
+    (4.06-4.21), scheda del carapace in quattro (4.22-4.25), ramo logica in tre (4.26-4.28), poi SSC-32 (4.29),
+    regolatori (4.30-4.32) e INA260 (4.33, 4.34). Le altre sezioni citano ancora i numeri vecchi. Corrispondenze:
+    4.03 -> 4.05 (prova B0; sigla e serigrafia in 4.03, passo dei pin e GPIO40 in 4.04); 4.04-4.05 -> 4.06-4.21
+    (basetta; cavo piatto 4.15); 4.06 -> 4.22-4.25 (scheda del carapace); 4.07 -> 4.26; 4.08 -> 4.27 (prima
+    accensione senza ESP32, pin A e B della 2813) e 4.28; 4.09 -> 4.29; 4.10 -> 4.30; 4.11 -> 4.31; 4.12 -> 4.32;
+    4.13 -> 4.33; 4.14 -> 4.34.
+  prove:
+    - "guida/passi/13-carapace.yaml: 'sezione 4, 4.06' e '(4.05)' nei prerequisiti, '(4.06)' in 13.16, '(4.08)' nell'avviso su A e B"
+    - "guida/passi/90-appendici.yaml: fonti '04-banco.yaml 4.07 e 4.11'"
+    - "guida/problemi/appendici.yaml: 'tabelle dei passi 1.18, 4.07, 4.11'"
+  opzioni:
+    - "Aggiornare i rimandi nelle sezioni 9, 12, 13 e nelle appendici con la tabella qui sopra (chi ha quelle sezioni)."
+  consiglio: Prima opzione, nella riconciliazione F3c.
+
+- titolo: "Al banco la 2813 si collega alla basetta con i coccodrilli: le saldature sulla 2813 si fanno nel corpo"
+  gravita: minore
+  dove: "4.26, 4.27, 4.28, 4.32, 8.17"
+  cosa: >-
+    La prima accensione della basetta (schemi.md 1.5) vuole la 2813, il filo della batteria (P-4), la massa (S-13) e R6.
+    La 2813 pero' si monta nel corpo nella sezione 7 e i fili della basetta vi si saldano nella sezione 8 (8.17): se
+    si saldassero al banco, la basetta resterebbe appesa alla 2813 durante le sezioni 5-7. La guida collega al banco con
+    cavetti a coccodrillo (attrezzo nuovo, non nel BOM) e salda nel corpo. Lo stesso per l'ENA nella prova dei
+    regolatori (4.32). La 100 kOhm fra OFF e massa (S-11) invece si salda subito sulla 2813, al banco (4.26).
+  prove:
+    - "guida/schemi/schemi.md 1.5 ('collega solo il ramo logica: 2813, filo VBAT, massa della 2813, R6')"
+    - "guida/passi/07-corpo.yaml (la 2813 nella sua guida)"
+    - "guida/catalogo/attrezzi.d/banco.yaml (coccodrilli)"
+  opzioni:
+    - "Coccodrilli al banco, saldature nel corpo (bozza)."
+    - "Saldare al banco e montare la 2813 nella sezione 7 con la basetta appesa."
+  consiglio: Prima opzione.
+
+- titolo: "Lunghezze dei fili della basetta stimate dal CAD, prima che il corpo esista"
+  gravita: minore
+  dove: "4.16, 4.17, 4.18, 4.19"
+  cosa: >-
+    I fili verso il robot si saldano al banco (sezione 4), ma il corpo si monta nella sezione 7. Le lunghezze della
+    guida sono la distanza in linea d'aria nel CAD per 1,5 piu' 3 cm, arrotondate: 2813 da P-4, S-13, R-13, Q-13 circa
+    12 cm in linea d'aria (25 cm); ENA del regolatore destro 4 cm, del sinistro 6 cm (10 e 15 cm dopo D2); prese delle
+    luci 1,4-3,2 cm (10 cm); rami del bus 2-6 cm (9-15 cm); seriale 3,5 cm (Dupont da 10 cm). Si accorciano nel corpo.
+    I cavetti Qwiic da 100 mm tagliati lasciano circa 9 cm: per l'INA260 destro (5 cm in linea d'aria, passando fra la
+    SSC-32 e il vassoio) potrebbero essere corti [C].
+  prove:
+    - "build/guida/cad/mesh/*.ply con le trasformate di guida/dati/manifest.json: basetta x 22-78, |y| <= 17,5, z 5,9; 2813 x -58,4..-54,3; regolatori y +-33,4..44,8; INA260 x 14,2-37, y +-29..40; prese delle luci x 48-64, y -25..-22"
+    - "guida/schemi/schemi.md 1 (colonna A a x 23,77, riga 1 a y +15,24, passo 2,54)"
+  opzioni:
+    - "Lunghezze stimate con margine (bozza)."
+    - "Misurarle con un filo sul corpo montato e saldare i fili della basetta dopo la sezione 7 (la sezione 4 si divide)."
+  consiglio: Prima opzione; dopo il primo robot le lunghezze vere vanno nella guida 1.1.
+
+- titolo: "Il disegno della basetta dice U2 su nastro isolante, schemi.md 1.4 dice Kapton"
+  gravita: minore
+  dove: "4.07, 4.09; guida/schemi/basetta.svg (U2)"
+  cosa: >-
+    basetta.svg scrive sotto U2 "su nastro isolante"; schemi.md 1.4 punto 6 dice "U2 su un quadrato di Kapton" e S-24
+    elenca il Kapton sotto PTC, U2 e teste M3. La guida segue il disegno per U2 (nastro isolante) e mette il Kapton
+    sotto PTC1, dove serve per la temperatura.
+  prove:
+    - "guida/schemi/basetta.svg, testo di U2"
+    - "guida/schemi/schemi.md 1.4 punto 6; guida/problemi/schemi.yaml S-24"
+  opzioni:
+    - "Allineare disegno e testo nella prossima versione degli schemi."
+  consiglio: Prima opzione.
+
+- titolo: "Scheda del carapace: anche ponticelli e fili 101-112 aspettano S-01; i fili dei moduli restano in 13.16"
+  gravita: importante
+  dove: "4.22-4.25, 13.16"
+  cosa: >-
+    Ponticelli e fili 101-112 si saldano sui pin della testata J2 (schemi.md 2.3, 2.5 punti 3-4): finche' S-01 non
+    decide il posto della testata, al banco si possono fare solo taglio, fori e CE1. Anche il taglio dipende da S-01
+    (la seconda opzione allarga la scheda). I fili dei moduli, il dato dei LED e il pulsante restano nel passo 13.16,
+    come dice schemi.md 2.5 punto 5, con la scheda ancora fuori dal carapace: e' l'unica saldatura sulla scheda fuori
+    dalla sezione 4. Le prove 6 e meta' della 8 di schemi.md 2.6 vogliono i moduli: vanno nel passo 13.16.
+  prove:
+    - "guida/schemi/schemi.md 2.3, 2.5, 2.6"
+    - "guida/problemi/schemi.yaml S-01"
+    - "guida/passi/13-carapace.yaml 13.16"
+  opzioni:
+    - "Come la bozza: sezione 4 fino ai fili 101-112, moduli in 13.16."
+    - "Fili dei moduli saldati sulla scheda al banco con le lunghezze dal CAD, saldati ai moduli in 13."
+  consiglio: Prima opzione; 13.16 deve riportare le prove 6 e 8 (chi ha la sezione 13).

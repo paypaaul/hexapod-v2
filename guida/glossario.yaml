@@ -2,7 +2,7 @@
 # all'appendice. Formato: termine: {definizione, fonte}. Le parole della zampa seguono la terna del CAD
 # (docs/progetto-meccanico.md "Architettura": X verso l'esterno, Y lungo l'asse del femore verso le squadrette, Z in alto).
 # Riconciliazione F3: qui sono uniti i termini scritti dagli estrattori in guida/glossario.d/ (la sezione d'origine e'
-# nella fonte); fra i doppioni si e' tenuta la definizione piu' chiara. L'appendice A.15 e seguenti si genera da qui.
+# nella fonte); fra i doppioni si e' tenuta la definizione piu' chiara. L'appendice A.20 e seguenti si genera da qui.
 
 a filo:
   definizione: "Con la bocca dell'inserto alla stessa quota della faccia del pezzo: ne' sotto, ne' sporgente."

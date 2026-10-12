@@ -7,3 +7,9 @@
 mac_seriale:       {nome: "Mac con un terminale seriale", icona: "", uso: "SSC-32 e ESP32 al banco, 115200 baud (docs/software.md 6.7)"}
 cacciavite_piatto: {nome: "Cacciavite a taglio piccolo", icona: cacciavite, uso: "morsetti a vite della SSC-32 e dell'INA260 (passo 3,5 mm)"}
 nastro_pennarello: {nome: "Nastro di carta e pennarello", icona: "", uso: "numeri sui cavi dei servo (B2)"}
+# F3c, schemi delle schede (guida/schemi/schemi.md 1.4 e 2.5): taglio della millefori C2 a 56 x 35 e della scheda del
+#   carapace a 20 x 30, fori delle colonnine Ø 2,2 (D-053) e d'angolo Ø 2,6; collegamenti provvisori al banco (2813 nella
+#   prima accensione, ENA nella prova dei regolatori), che nella sezione 8 diventano saldature. Nessuna voce del BOM.
+seghetto:   {nome: "Seghetto o taglierino", icona: "", uso: "taglio della millefori (C2): basetta 56 × 35, scheda del carapace 20 × 30"}
+trapanino:  {nome: "Trapanino, punte Ø 2,2 e 2,6", icona: "", uso: "fori delle colonnine della basetta (D-053) e fori d'angolo della scheda del carapace"}
+coccodrilli: {nome: "Cavetti a coccodrillo", icona: "", uso: "collegamenti provvisori al banco: 2813, ENA dei regolatori"}

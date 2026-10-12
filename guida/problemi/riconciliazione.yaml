@@ -195,3 +195,54 @@
     - "7.05 in due passi: servo e viti lato albero, poi viti lato coda con una vista piu' alta."
     - "Immagini quantizzate (piano: 15-30 MB)."
   consiglio: "Correggerli nell'impaginatore (F7), non nei testi."
+
+# --- Riconciliazione F3c (dopo la passata di qualita' delle parti A e B) ---
+
+- titolo: "F3c: rimandi alle sezioni 4, 8 e alle appendici riallineati alla nuova numerazione"
+  tipo: allocazione
+  gravita: importante
+  dove: "9 prima, 13 prima, 13.06, 13.12, 13.16, 13.18, A.05, A.15-A.19, 0.24"
+  cosa: >-
+    La sezione 4 e' passata da 14 a 34 passi, la 8 ha spostato ESP32 e camera in fondo (8.27, 8.28) e le appendici
+    hanno cinque passi nuovi (A.15-A.19) prima dei generati (glossario A.20-A.25, viti A.26). Restavano rimandi ai
+    vecchi numeri: 9 citava le prove a freddo come 8.28 (ora 8.26); 13 citava 4.05 (cavo piatto), 4.06 (scheda),
+    4.08 (pin A e B della 2813), 4.03 (misura GPIO40); le appendici 4.04-4.08, 4.06, 4.07, 4.11 e 8.18-8.25; la
+    tabella di 0.24 diceva "A.15-A.24 Glossario" e non elencava gli schemi.
+  prove:
+    - "guida/problemi/banco.yaml, 'Sezione 4 rinumerata' (tabella delle corrispondenze)"
+    - "guida/problemi/appendici.yaml, numerazione delle pagine generate"
+    - "build/guida/sito/index.html: pagine 295-306 = A.15-A.26"
+  consiglio: >-
+    Applicato. 9: passo 8.26. 13: 4.15 (cavo piatto), 4.22-4.25 (scheda), 4.27 (pin A e B), 4.04 (GPIO40). A.05:
+    fonti 4.26 e 4.31. A.15: saldature 4.06-4.21. A.16: prove 4.20, 4.21 e prima accensione 4.27. A.17: 4.22-4.25.
+    A.18: fili 101-112 in 4.24. A.19: basetta 4.15-4.19 al banco, altro capo in 8.08, 8.13 e 8.17-8.23; scheda 4.24 e
+    13.16. 0.24: righe A.15-A.18 schemi, A.19 collegamenti, A.20-A.25 glossario, A.26 viti 1:1; la nota non dice
+    piu' che schemi e viti 1:1 arrivano dopo. Commento di guida/glossario.yaml: A.20. Le righe "sezione 3, riga 4.xx"
+    nelle fonti puntano alle tabelle di guida/schemi/schemi.md, che usano i vecchi numeri: non toccate.
+
+- titolo: "F3c: tabelle della sezione 0 (opzioni X, durate) riallineate alle sezioni"
+  tipo: allocazione
+  gravita: minore
+  dove: "0.15, 0.16, 0.22, 0.23"
+  cosa: >-
+    Dopo F3c X31 compare anche nella sezione 4 (fili delle tibie saldati sulla basetta, 4.17) e X2 nella 8 (cavo
+    piatto e pulsante, 8.21), ma la colonna Sez. diceva "6-9" e "4, 13". Le durate di 0.22 e 0.23 non coincidevano
+    con il tempo scritto nell'apertura delle sezioni: 4 (5 ore contro 12), 8 (8 ore contro 5), 13 (4 ore contro
+    2 e mezza), 14 (2 ore contro mezza giornata).
+  consiglio: >-
+    Applicato. X2: "4, 8, 13"; X31: "4, 6-9". Durate di 4, 8, 13 e 14 copiate dall'apertura della sezione. La 10
+    resta "circa 2 ore a zampa", perche' la nota di 0.23 dice che conta anche le cinque zampe della sezione 6. Il
+    totale "circa 45 ore" della nota di 0.23 non e' stato ricalcolato: con le durate nuove viene circa 48 ore [S].
+  domanda: "Il totale di 0.23 va portato a circa 48 ore, o le durate delle sezioni 4 e 13 sono da rivedere?"
+
+- titolo: "La misura RMT al banco e' solo nell'appendice A.19: nessun passo della sezione 4 la fa"
+  gravita: minore
+  dove: "A.19, 4.28-4.29"
+  cosa: >-
+    A.19 chiede la misura RMT al banco (Dupont da un canale della SSC-32 a I-4, filo provvisorio I-7 -> L-12, da
+    togliere prima della scheda del carapace), come schemi.md 1.6 (P2, rilievo 22). La sezione 4 non ha un passo che
+    la faccia, e la scheda del carapace (4.22-4.25) viene prima dell'ESP32 negli strip (4.28) e della SSC-32 (4.29).
+  prove: ["guida/schemi/schemi.md riga 225 'Misura RMT al banco'", "guida/passi/04-banco.yaml (nessuna occorrenza di RMT)"]
+  consiglio: >-
+    Un passo dopo 4.29 con la misura e la rimozione del filo provvisorio, quando esiste il programma di banco S1;
+    l'avviso di A.19 va riformulato senza "prima della scheda del carapace". Non applicato: e' contenuto nuovo.

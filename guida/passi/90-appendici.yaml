@@ -1,7 +1,9 @@
 # Appendici (D-075, docs/piano-guida.md "Struttura della guida"). F3, estrattore della sezione.
 # Tutto a tabelle, passi senza figura a mezzo foglio (due per pagina). Canali, registro delle misure da compilare,
-# opzionali X, inserti a caldo (dove, quali, quando) e glossario. Il foglio delle viti 1:1, l'elenco dei pezzi, i problemi
-# noti e gli schemi elettrici li aggiungono l'impaginatore e la riconciliazione.
+# opzionali X, inserti a caldo (dove, quali, quando) e glossario. Il foglio delle viti 1:1 e l'elenco dei pezzi li
+# aggiunge l'impaginatore. F3c: A.15-A.19 sono gli schemi elettrici (figure da guida/schemi/, formato grande) e la
+# tabella dei collegamenti esterni; seguono i passi generati A.20 (glossario, pagine A.20-A.25) e A.26 (viti 1:1),
+# che restano in fondo (guida/problemi/appendici.yaml, numerazione: la pagina prende il numero dalla posizione).
 # Il glossario e' una copia di guida/glossario.yaml e di guida/glossario.d/*.yaml fatta con uno script a fine lavoro:
 # l'impaginatore non legge il glossario (guida/problemi/appendici.yaml, difetto della pipeline).
 sezione:
@@ -13,10 +15,11 @@ sezione:
   istanza: AS
   obiettivo: >-
     Avere sotto mano le tabelle che servono durante il montaggio: i canali della SSC-32, il registro delle misure da
-    compilare, le opzioni X con la viteria in più, gli inserti a caldo e il glossario.
+    compilare, le opzioni X con la viteria in più, gli inserti a caldo, gli schemi della basetta e della scheda del
+    carapace con i collegamenti verso il resto del robot, e il glossario.
   tempo: "da consultare quando serve"
   stato_elettrico: "nessuno: sono tabelle."
-  fonti: [D-075, docs/cablaggio.md, robot/robot.yaml, docs/BOM.md, docs/predisposizioni.md]
+  fonti: [D-075, docs/cablaggio.md, robot/robot.yaml, docs/BOM.md, docs/predisposizioni.md, guida/schemi/schemi.md]
 
 passi:
   - id: "A.01"
@@ -142,7 +145,7 @@ passi:
       - {tipo: attenzione, testo: "Misura sul rail dei servo con il T-plug inserito solo se la sezione lo chiede, e con una mano vicina al T-plug."}
       - {tipo: nota, testo: "Le tolleranze non sono scritte nei documenti: lontano dal valore atteso, fermati e controlla i collegamenti [C]. Le prove B0–B6 sono quelle di software.md 6.7."}
     attrezzi: [multimetro]
-    fonti: [guida/passi/04-banco.yaml 4.07 e 4.11, guida/passi/12-accensione.yaml, guida/passi/11-batteria.yaml 11.01, docs/BOM.md B1 B2 B10, docs/software.md 6.7, docs/piano-elettronica-software.md 3.2]
+    fonti: [guida/passi/04-banco.yaml 4.26 e 4.31, guida/passi/12-accensione.yaml, guida/passi/11-batteria.yaml 11.01, docs/BOM.md B1 B2 B10, docs/software.md 6.7, docs/piano-elettronica-software.md 3.2]
 
   - id: "A.06"
     titolo: Registro, numeri dei servo
@@ -191,29 +194,17 @@ passi:
     formato: mezzo
     immagine: false
     tabella:
-      intestazione: [Zampa, Giunto e pose, Impulso posa 1, Impulso posa 2]
+      intestazione: [Zampa, "Coxa 0°", "Coxa +30°", "Femore 0°", "Femore +45°", "Ginocchio 90°", "Ginocchio 135°"]
       righe:
-        - ["AS", "coxa 0°, +30°", "", ""]
-        - ["AS", "femore 0°, +45°", "", ""]
-        - ["AS", "ginocchio 90°, 135°", "", ""]
-        - ["MS", "coxa 0°, +30°", "", ""]
-        - ["MS", "femore 0°, +45°", "", ""]
-        - ["MS", "ginocchio 90°, 135°", "", ""]
-        - ["PS", "coxa 0°, +30°", "", ""]
-        - ["PS", "femore 0°, +45°", "", ""]
-        - ["PS", "ginocchio 90°, 135°", "", ""]
-        - ["AD", "coxa 0°, +30°", "", ""]
-        - ["AD", "femore 0°, +45°", "", ""]
-        - ["AD", "ginocchio 90°, 135°", "", ""]
-        - ["MD", "coxa 0°, +30°", "", ""]
-        - ["MD", "femore 0°, +45°", "", ""]
-        - ["MD", "ginocchio 90°, 135°", "", ""]
-        - ["PD", "coxa 0°, +30°", "", ""]
-        - ["PD", "femore 0°, +45°", "", ""]
-        - ["PD", "ginocchio 90°, 135°", "", ""]
+        - ["AS", "", "", "", "", "", ""]
+        - ["MS", "", "", "", "", "", ""]
+        - ["PS", "", "", "", "", "", ""]
+        - ["AD", "", "", "", "", "", ""]
+        - ["MD", "", "", "", "", "", ""]
+        - ["PD", "", "", "", "", "", ""]
     testo:
       - "Infila le dime sui perni del femore, dal lato B, con la lama B tolta."
-      - "Porta ogni giunto contro il suo dente e annota l'impulso, in microsecondi."
+      - "Porta ogni giunto contro il suo dente e annota l'impulso, in microsecondi, nella casella della posa."
     avvisi:
       - {tipo: nota, testo: "Il guadagno dell'MG996R non è pubblicato: circa 11 µs/° su 500–2500 µs [S]. Due pose per giunto danno offset e guadagno."}
       - {tipo: importante, testo: "Senza taratura valida il rail non si accende (software.md 2.7)."}
@@ -363,11 +354,105 @@ passi:
     fonti: [docs/BOM.md "Viteria in più se si montano tutte", guida/passi/03-inserti.yaml 3.18-3.20, guida/catalogo/viteria.yaml inserti_predisposizioni, D-065]
 
   - id: "A.15"
+    titolo: Basetta dell'ESP32, lato componenti
+    formato: grande
+    figura: schemi/basetta.svg
+    testo:
+      - "Taglia la millefori a 56 × 35 mm: 21 colonne (A–U) e 13 righe."
+      - "Metti i componenti ai fori del disegno: strip dell'ESP32 in riga 2 e riga 12, U2 in M–S riga 4, U3 in E–K righe 8 e 11, U4 in E–J righe 4 e 7."
+      - "Lascia vuoti i fori con la croce: sotto la basetta ci sono le teste M3 e le colonnine."
+      - "Salda solo i pin dell'ESP32 che servono; gli altri tagliali a filo."
+      - "Ordine di saldatura e prove: passi 4.06–4.21."
+    avvisi:
+      - {tipo: attenzione, testo: "BLOCCANTE (S-19): le teste M3 del vassoio stanno 0,3 mm sotto la basetta, proprio sotto T-2, D-12 e B-2, che servono. Con le teste DIN 912 la basetta non si monta: servono viti a testa bassa o il CAD 2.1.7 [C]."}
+      - {tipo: attenzione, testo: "BLOCCANTE (S-02): le due file di pin dell'ESP32 distano 24,7 mm nel CAD e 25,4 sulla millefori. Misura la scheda vera prima di tagliare gli strip [C]."}
+      - {tipo: importante, testo: "Non stanno sulla basetta: R6 sulla 2813, D2 in linea nella guaina, una R3 da 22 kΩ fra ENA e massa su ogni D42V110F6, R9 da 330 Ω in linea sul dato delle tibie (S-20)."}
+      - {tipo: nota, testo: "Ordine dei pin di U2 [C] e sigle di U4 [C]: controllali sui pezzi prima di saldare (S-03, S-04). Piedinatura dell'ESP32 dall'immagine dell'inserzione [S] (S-15)."}
+    fonti: ["guida/schemi/schemi.md 1.0, 1.1, 1.4", "guida/schemi/basetta.svg", "guida/problemi/schemi.yaml S-02 S-03 S-04 S-15 S-19 S-20", "guida/passi/04-banco.yaml 4.06-4.21"]
+
+  - id: "A.16"
+    titolo: Basetta dell'ESP32, lato saldature
+    formato: grande
+    figura: schemi/basetta_saldature.svg
+    testo:
+      - "Guarda la basetta dal lato saldature: il disegno è specchiato."
+      - "Salda prima i ponticelli e la barra di massa sotto U3, poi i fili 1–37 in ordine, poi CS1 e CS2."
+      - "Porta le masse alla stella Q-4, Q-5, Q-6: i fili 1–4 vanno ciascuno alla stella."
+      - "Salda i fili verso il resto del robot (A.19), e VBAT su P-4 per ultimo."
+      - "Prove con il multimetro e prima accensione senza ESP32: sezione 4, passi 4.20, 4.21 e 4.27."
+    avvisi:
+      - {tipo: importante, testo: "Un filo del lato saldature si salda sulla saldatura del pin, non dentro il foro. Nessun filo e nessuno stagno sui fori con la croce: sotto ci sono teste M3 e colonnine, a 3,3 mm."}
+      - {tipo: attenzione, testo: "VBAT è un filo solo, dalla 2813 a P-4 lungo il bordo sinistro, posato per ultimo: nessun altro filo passa vicino a P-4."}
+      - {tipo: nota, testo: "26 AWG per le masse di ritorno, il 5 V e la batteria; 30 AWG per i segnali (schemi.md 1.3). T-2, D-12 e B-2 con un giunto piatto, solo dopo S-19 [C]."}
+    fonti: ["guida/schemi/schemi.md 1.3, 1.4, 1.5", "guida/schemi/basetta_saldature.svg", "guida/passi/04-banco.yaml 4.06-4.21 e 4.27"]
+
+  - id: "A.17"
+    titolo: Scheda del carapace, lato componenti
+    formato: grande
+    figura: schemi/scheda_carapace.svg
+    testo:
+      - "Taglia dall'avanzo una scheda di 20 × 30 mm: 7 colonne (A–G) e 11 righe."
+      - "Salda J2 con i poli dispari in colonna D e i pari in colonna E, righe 2–9, la tacca dal lato di D."
+      - "Salda CE1 sdraiato, + in A-9 e − in B-9."
+      - "Lascia vuoti i fori con la ×: sono le bugne."
+      - "Scheda: passi 4.22–4.25. Fili dei moduli e montaggio: passi 13.16 e 13.17."
+    avvisi:
+      - {tipo: attenzione, testo: "BLOCCANTE (S-01): la testata con la spina innestata scende di 16–18 mm sotto la scheda, sopra l'ESP32 ne restano circa 10. Il disegno vale per i collegamenti; la posizione della testata no [C]."}
+      - {tipo: nota, testo: "I quattro fori d'angolo A-1, G-1, A-11, G-11 si allargano a Ø 2,6: sono a 0,23 mm dalle viti del CAD (schemi.md 2)."}
+      - {tipo: nota, testo: "R8, 100 kΩ, non sta sulla scheda: sta sul microfono, fra dati e massa (S-18)."}
+    fonti: ["guida/schemi/schemi.md 2.1, 2.2, 2.4", "guida/schemi/scheda_carapace.svg", "guida/problemi/schemi.yaml S-01 S-18 S-26", "guida/passi/04-banco.yaml 4.22-4.25", "guida/passi/13-carapace.yaml 13.16 e 13.17"]
+
+  - id: "A.18"
+    titolo: Scheda del carapace, lato saldature
+    formato: grande
+    figura: schemi/scheda_carapace_saldature.svg
+    testo:
+      - "Guarda la scheda dal lato saldature: il disegno è specchiato."
+      - "Salda i ponticelli D-2–E-2, D-3–D-4, E-6…G-6, E-7…G-7; poi i fili 101–112."
+      - "Salda sul pin di J2 il DIN dell'anello e i due fili del pulsante: E-3, D-9, E-9."
+      - "Non saldare né posare fili sui fori con la ×: la scheda poggia sulle bugne."
+      - "Fili 101–112: passo 4.24. Fili dei moduli: passo 13.16."
+    avvisi:
+      - {tipo: importante, testo: "Salda tutto prima di avvitare la scheda: il lato saldature poggia sulle bugne, a 3,5 mm dal dorso, e dopo non si raggiunge."}
+      - {tipo: nota, testo: "Fili in 30 AWG, salvo 101, 103 e il pulsante in 26 AWG (schemi.md 2.3). Prove con il multimetro: passo 13.18."}
+    fonti: ["guida/schemi/schemi.md 2.3, 2.5, 2.6", "guida/schemi/scheda_carapace_saldature.svg", "guida/passi/04-banco.yaml 4.24", "guida/passi/13-carapace.yaml 13.16 e 13.18"]
+
+  - id: "A.19"
+    titolo: Collegamenti esterni di basetta e scheda
+    formato: grande
+    immagine: false
+    tabella:
+      intestazione: [Fori, Rete, Va a, "Filo e connettore"]
+      righe:
+        - ["Basetta P-4", "VBAT", "uscita della 2813; posato per ultimo, lungo il bordo sinistro", "un filo siliconico [S] (S-27)"]
+        - ["Basetta S-13", "massa", "massa della 2813", "26 AWG nero"]
+        - ["Basetta R-13", "partitore", "R6, 100 kΩ 1 %, sull'uscita della 2813", "26 AWG, al più 2,7 V"]
+        - ["Basetta Q-13", "OFF", "pin OFF della 2813, con 100 kΩ verso massa sulla 2813", "26 AWG"]
+        - ["Basetta P-13", "GPIO42", "D2 1N4148 in linea, anodo lato basetta; poi ENA di ogni D42V110F6 con R3 22 kΩ verso massa; ENB libero", "26 AWG, tre fili dopo il diodo"]
+        - ["Basetta E-3, F-3, H-3", "massa, TX, RX", "SSC-32: massa, RX, TX", "tre Dupont femmina dal bordo di coda"]
+        - ["Basetta riga 1", "bus I2C", "A-1…T-1: massa A B E F, SCL G–J, 3,3 V K–N, SDA Q–T; un ramo per foro", "cavetti Qwiic tagliati: nero massa, rosso 3,3 V, blu SDA, giallo SCL"]
+        - ["Basetta A-13, B-13, E-13…O-13", "poli 1–13", "scheda del carapace, spina IDC; poli 1 e 2 in A-13 e B-13", "cavo piatto 16 vie, 15 cm [S], filo rosso = polo 1"]
+        - ["Cavo piatto, poli 15 e 16", "pulsante", "pin A e B della 2813", "separati per 10 cm e giuntati a 26 AWG"]
+        - ["Basetta K-13, B-13, T-13", "massa, +5 V, dato delle tibie", "prese delle luci delle tibie", "26 AWG, dato 30 AWG con R9 330 Ω in linea vicino alla basetta"]
+        - ["Scheda A-3, B-3, A-4, B-4", "massa, 3,3 V, SDA, SCL", "ToF posteriore e cavo Qwiic tagliato", "30 AWG, due fili per foro"]
+        - ["Scheda A-9, B-9, pin E-3", "+5 V, massa, dato", "catena LED: anello, poi lobi", "3 × 30 AWG; il dato sul pin del polo 4"]
+        - ["Scheda G-3…G-9", "5 V, massa, 3,3 V, BCLK, dati, WS, dati ampli", "microfoni (uniti fra loro) e amplificatore", "30 AWG, al più due fili per foro"]
+        - ["Scheda pin D-9, E-9", "pulsante", "i due contatti del pulsante da 12 mm", "26 AWG, circa 9 cm"]
+    testo:
+      - "Salda i fili della basetta al banco: passi 4.15–4.19. Poi saldali ai moduli e alla 2813 nel robot: 8.08, 8.13 e 8.17–8.23."
+      - "Salda i fili della scheda al banco: 4.24 e 13.16."
+      - "Controlla in continuità ogni filo dal suo foro al pin."
+    avvisi:
+      - {tipo: nota, testo: "Il cavo piatto: 1–2 +5 V, 3 massa, 4 dato LED, 5 massa, 6 SCL, 7 +3,3 V, 8 SDA, 9 massa, 10 BCLK, 11 WS, 12 dati microfoni, 13 dati ampli, 14 riserva, 15–16 pulsante [V]."}
+      - {tipo: importante, testo: "Misura RMT al banco: un Dupont dall'uscita di un canale della SSC-32 a I-4 e un filo provvisorio da I-7 a L-12 sul lato saldature. Si toglie dopo la misura, prima della scheda del carapace (schemi.md 1.6)."}
+    fonti: ["guida/schemi/schemi.md 1.6 e 2.4", "docs/cablaggio.md 3.5", "guida/passi/08-elettronica.yaml 8.08, 8.13, 8.17-8.23", "guida/passi/04-banco.yaml 4.15-4.25"]
+
+  - id: "A.20"
     titolo: Glossario
     genera: glossario
     fonti: [guida/glossario.yaml]
 
-  - id: "A.16"
+  - id: "A.26"
     titolo: Viti, rondelle e inserti in scala 1:1
     genera: viti
     fonti: [guida/catalogo/viteria.yaml, docs/BOM.md "Viteria e inserti contati dal modello"]

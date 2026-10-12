@@ -98,6 +98,10 @@
     - "EN libero (se la prova 4.12 dice che con EN libero il regolatore e' acceso) e la logica sul T-plug: il rail si accende insieme alla batteria, senza l'ordine impulso-prima-del-rail."
     - "Alimentatore da banco a 6,0 V e 1 A, se l'utente ce l'ha."
   consiglio: Come nella bozza; la prova 4.12 conferma o cambia il comportamento di EN.
+  esito: >-
+    F3c, con gli schemi: la R3 da 22 kOhm sta sul regolatore (passo 4.31) e tiene il rail spento; il rail si accende
+    toccando l'ENA con un Dupont dal pin 3V3 dell'ESP32 sulla sola USB (5.01, 5.04, 5.07). Il diodo volante non serve:
+    D2 sta nel filo di GPIO42 della basetta.
   domanda: >-
     Hai un alimentatore da banco regolabile con limite di corrente? (Se si', il banco dei servo e' piu' semplice.)
 
@@ -115,3 +119,20 @@
     - "Tenerli separati e senza numero (nella bozza)."
     - "Usarli solo per prove del banco."
   consiglio: Come nella bozza.
+
+# --- Passata di qualita' F3c ---
+
+- titolo: "Il registro dei servo nel sacchetto della sezione contava 400 servo"
+  gravita: minore
+  dove: "5.02, apertura della sezione 5"
+  cosa: >-
+    5.02 ha volte: 20 e l'extra dei servo con qta 20: l'apertura moltiplicava e scriveva 400. Corretto con qta 1 ("uno
+    per volta"): il passo mostra 1 e l'apertura 20. La tabella del registro (5.08) usciva dalla pagina con 20 righe: ora
+    sono 10 righe con due servo per riga, e la colonna Note va nel registro delle misure.
+  prove:
+    - "build/guida/sezioni/banco-elettronica-servo/anteprima, pagina dell'apertura della sezione 5 prima della correzione"
+    - "guida/lib/elenchi.py (totali per volte)"
+  opzioni:
+    - "Nessuna: corretto."
+  consiglio: Nessuna azione.
+  esito: corretto nella F3c
