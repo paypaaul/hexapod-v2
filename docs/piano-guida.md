@@ -189,3 +189,41 @@ Tempo stimato: circa 10–13 giorni di lavoro in più sessioni, fra pipeline (5�
   - peso sotto i 30 MB.
 - **Revisione F8** dei tre lettori: con rilievi bloccanti a zero il PDF va alla release.
 - **Dopo la zampa costruita davvero**: guida 1.1 con le misure reali, le foto ed eventuali correzioni.
+
+## Stato e ripresa (12 ottobre 2026, pausa chiesta dall'utente per l'uso settimanale)
+
+**Fatto** (tutto su `main`, ultimo commit della guida `a910620`, CI verde):
+- F0, F1: pipeline completa. Catalogo, controlli e test (33), Blender, impaginazione, PDF.
+- F2: tibia pilota, approvata all'arresto 1. L'utente ha approvato anche le soluzioni dei problemi della tibia (campo `esito` in `guida/problemi/zampa.yaml`).
+- F3: bozze di tutte le sezioni (0-15 e appendici), riconciliate (`guida/problemi/riconciliazione.yaml`).
+- F3b: schemi della basetta e della scheda del carapace (`guida/schemi/`, generatori in `guida/schemi/sorgenti/`), verificati e corretti.
+- F3c: passata di qualita' su tutte le sezioni (zone in giallo, pose della zampa, etichette, attrezzi), saldature tutte al banco.
+- Risultato: 306 pagine, nessun avviso sulle immagini, nessun testo che deborda; `controlla` verde, salvo l'avviso noto della vite del guscio.
+- Problemi: 207 in `guida/problemi/*.yaml`, di cui 9 bloccanti, 81 importanti, 117 minori. Alcuni hanno `domanda` per l'utente.
+
+**Per ripartire**:
+- `build/` non e' in git. Servono:
+  - Fusion aperto sul design di lavoro;
+  - `esporta_guida.py` con i passi `manifest`, `mesh`, `fori`, `zone`, `controllo` (sola lettura; `cad/CLAUDE.md`);
+  - poi `.venv/bin/python -m guida.costruisci tutto -j 3`. Circa mezz'ora di render la prima volta, poi la cache.
+- Dipendenze: `guida/requirements.txt` nella `.venv`, Blender 4.5 in `/Applications`, Chrome.
+
+**Prossimo passo: F4**, la verifica avversaria. Poi F5 con il registro unico dei problemi e l'**arresto 2** con l'utente.
+- L'uso pesa:
+  - F3: circa 4,8 milioni di token di agenti;
+  - F3b: 1,4 milioni;
+  - F3c: 2,9 milioni.
+- La F4 va dimensionata con l'utente prima di partire: meno agenti (per dimensione, non per sezione), Sonnet dove basta, Opus solo per ordine e accessi e per la sicurezza.
+- Caso di controllo della F4: le 8 incongruenze note di "Contesto" non vanno nei prompt.
+
+**Difetti della pipeline ancora aperti** (dai rapporti degli agenti, da sistemare prima della F7):
+- PDF da 98 MB contro i 30 previsti: risoluzione e colori delle immagini, forse JPEG per i render grandi.
+- Le etichette su un punto non seguono l'esploso del pezzo e non evitano le altre etichette.
+- Un extra con `qta` in un passo con `volte` si moltiplica due volte se l'autore ha gia' scritto il totale. Va deciso e scritto in `schema.md` che `qta` e' per una volta.
+- `assiemi` entrano sempre con quantita' 1.
+- L'apertura di una sezione con molti extra deborda: serve una seconda pagina del sacchetto.
+- Il controllo delle immagini non vede le zone gialle coperte da altri pezzi; manca una vista in sezione o la trasparenza.
+- I rimandi "N.xx" scritti a mano sono fragili: servono rimandi simbolici risolti dall'impaginatore.
+- Passi con figura e tabella insieme: la colonna e' stretta.
+- Gli attrezzi non seguono la posa della zampa (dima 2 sul femore).
+- Le giunzioni M2 delle predisposizioni (ADC, INA260, scheda del carapace, ampli) non si possono disegnare finche' le schede nel CAD sono blocchi senza fori.
