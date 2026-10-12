@@ -14,8 +14,10 @@
     9 + 9 mm"); il CAD le da' 9 mm in tutto (sch_sp, S). Una testata a 90 gradi con la spina verso l'ottagono non
     risolve: la scatola e' lunga 27,9 mm lungo Y e copre le due viti di coda (32; +-12,5), oppure, messa fra le viti, la
     spina che esce verso -X ci passa sopra; e in ogni caso scatola e spina coprono quasi tutta la scheda (20 x 30), dove
-    devono stare anche il 470 uF e 17 piazzole. Lo schema disegnato vale per i collegamenti (piedinatura, reti,
-    prove); la posizione della testata no.
+    devono stare anche il 470 uF e le piazzole dei moduli. Con le zone delle bugne (rilievo 12 della verifica
+    elettrica) e la scatola della testata sulle colonne C-F restano 13 fori per i moduli: il dato dei LED e il
+    pulsante si saldano sul pin della testata. Lo schema disegnato vale per i collegamenti (piedinatura, reti,
+    prove); la posizione della testata no. Nel CAD 2.1.7 la scheda dovrebbe avere anche qualche foro libero in piu'.
   prove:
     - "cad/script/rif_componenti.py:184-186 (sch_l 30, sch_w 20, sch_sp 9 con la spina: S)"
     - "docs/predisposizioni.md:72 (testata con la spina IDC circa 9 + 9 mm, S; 470 uF Ø 6,3-8)"
@@ -25,7 +27,7 @@
     - "guida/problemi/carapace.yaml, primo problema (lato saldature e verso della testata non definiti)"
   opzioni:
     - "CAD 2.1.7: spostare la scheda fuori dall'ingombro dell'ESP32 o abbassare le cose sotto, in modo da avere 18 mm sotto la scheda (la piu' semplice per la guida)."
-    - "CAD 2.1.7: testata a 90 gradi con chiave (da comprare al posto della dritta) sul bordo verso l'ottagono, con le viti di coda spostate fuori dall'ingombro della spina (|y| >= 15) e la scheda allargata verso la testa di quanto serve a 17 piazzole e al 470 uF."
+    - "CAD 2.1.7: testata a 90 gradi con chiave (da comprare al posto della dritta) sul bordo verso l'ottagono, con le viti di coda spostate fuori dall'ingombro della spina (|y| >= 15) e la scheda allargata verso la testa di quanto serve alle piazzole dei moduli e al 470 uF."
     - "Testata senza scatola fatta piegando la strip maschio in casa, con la chiave ottenuta togliendo il pin 14 (riserva) e tappando il foro 14 della spina: costa zero ma protegge solo da una parte degli errori di verso."
   consiglio: >-
     Prima opzione o seconda, decise con il CAD prima di stampare il carapace. Fino ad allora la guida non fa saldare
@@ -68,9 +70,11 @@
     - "pololu.com/product/2858 (letta il 12 ottobre 2026): pin PG, EN, VIN, GND, VOUT; EN con 270 kOhm verso VIN; due fori M2 a 13,21"
     - "docs/dimensioni-componenti.md:148 (17,8 x 17,8 x 8) e :170 (STEP Pololu)"
   opzioni:
-    - "Leggere la serigrafia sul regolatore prima di saldarlo e correggere schemi.md e basetta.svg se l'ordine e' diverso (i fili 1, 2, 6 e 30 cambiano capo)."
+    - "Leggere la serigrafia sul regolatore prima di saldarlo e correggere schemi.md e basetta.svg se l'ordine e' diverso (cambiano capo il filo della batteria, i fili 1 e 13 e la stella di massa Q-4/Q-5/Q-6)."
     - "Leggerlo dallo STEP Pololu in cad/modelli/ (ha le piazzole) e dal disegno quotato della pagina."
-  consiglio: Leggere lo STEP o la serigrafia e fissare l'ordine nello schema prima della guida finale.
+  consiglio: >-
+    Leggere lo STEP o la serigrafia e fissare l'ordine nello schema prima della guida finale. In ogni caso la prima
+    accensione si fa senza ESP32, misurando nelle prese degli strip (schemi.md 1.5).
 
 - id: S-04
   titolo: Piedinatura e passo fra le file del traslatore KAmod (C1) non noti
@@ -79,10 +83,11 @@
   cosa: >-
     Il BOM compra il KAmod Level Shift x4 di Kamami (MOSFET non dichiarato). La pagina (letta il 12 ottobre 2026) da'
     solo 15,7 x 10,7 mm e "due strip da 6 pin a passo 2,54": niente sigle, ordine ne' distanza fra le file. Lo schema
-    assume per ogni lato l'ordine V, 1, 2, 3, 4, GND e le file a 7,62 mm (righe 4 e 7), lato 5 V (HV) in riga 4. Se
+    assume per ogni lato l'ordine V, 1, 2, 3, 4, GND e le file a 7,62 mm (righe 4 e 7), lato 5 V (HV) in riga 4;
+    TX sul canale 1 (F), RX sul canale 3 (H), canali 2 e 4 liberi, LV sul 3,3 V dei sensori (3V3S). Se
     le file sono a un'altra distanza o le sigle in un altro ordine, il modulo non entra nei fori disegnati o i fili del
     lato saldature vanno spostati. Non e' noto nemmeno se il modulo ha le resistenze di pull-up da 10 kOhm su tutti e
-    due i lati (le misure 2 e 4 di schemi.md 1.5 dipendono da questo).
+    due i lati (le letture delle prove 5 e 14 di schemi.md 1.5 dipendono da questo).
   prove:
     - "kamami.pl, KAmod Level Shift x4 (letta il 12 ottobre 2026): 15,7 x 10,7 mm, 2 strip da 6 pin"
     - "docs/BOM.md:69 (C1: tipo Adafruit 757, MOSFET non dichiarato, C)"
@@ -93,27 +98,29 @@
   domanda: "Quando arriva il traslatore KAmod, puoi fotografarlo dai due lati con le scritte dei pin leggibili?"
 
 - id: S-05
-  titolo: "Pin EN dei D42V110F6: con 1 MOhm interno verso VIN per regolatore, i due in parallelo alzano l'EN a 0,72 V"
+  titolo: "Abilitazione dei D42V110F6: ENA tirato a VIN con circa 500 kOhm per regolatore, R3 su ogni regolatore"
   gravita: importante
-  dove: "4.12, 8.19, 12; basetta.svg R3"
+  dove: "4.12, 8.19, 12; schemi.md 1.6"
   cosa: >-
-    La pagina Pololu del D42V110F6 (5673, letta il 12 ottobre 2026) dice che ENA e' tirato verso VIN con 1 MOhm e che
-    per accendere va portato fra 2 e 5 V; la soglia bassa non c'e'. Con i due regolatori in parallelo le due 1 MOhm fanno
-    500 kOhm: con R3 da 47 kOhm l'EN sta a 8,4 x 47 / 547 = 0,72 V a batteria piena (0,38 V con un regolatore solo, come
-    nella prova 4.12). Con 22 kOhm sarebbe 0,35 V. Con GPIO42 alto l'EN sta a 3,3 - 0,7 = 2,6 V, sopra i 2 V chiesti,
-    con qualunque delle due resistenze. Il rischio e' il rail acceso con GPIO42 flottante, contro "rail spento di
-    default".
+    La pagina Pololu del D42V110F6 (5673, riletta il 12 ottobre 2026) dice che ENA e' tirato a VIN con 1 MOhm e che
+    per accendere va portato fra 2 e 5 V; la soglia bassa non c'e'. Dice anche che ENB e' tirato a VIN con un altro
+    1 MOhm ed e' collegato a ENA con 10 kOhm: ENA vede quindi circa 500 kOhm verso VIN, non 1 MOhm. ENB non va usato
+    in modo PFM (quello di fabbrica): si lascia libero. Lo schema mette una R3 su ogni regolatore, fra ENA e GND
+    (S-20): con 22 kOhm l'ENA sta a 8,4 x 22 / 524 = 0,35 V a batteria piena, con 47 kOhm a 0,72 V. Con i due
+    regolatori uniti e una sola R3 da 47 kOhm (prima versione dello schema) sarebbe stato 1,3 V. Con GPIO42 alto
+    l'ENA sta a 3,3 - 0,7 = 2,6 V, sopra i 2 V chiesti, e il GPIO42 da' circa 0,25 mA alle due R3 da 22 kOhm.
   prove:
-    - "pololu.com/product/5673 (letta il 12 ottobre 2026): ENA pulled up to VIN through 1 MOhm; drive high between 2 V and 5 V"
+    - "pololu.com/product/5673 (riletta il 12 ottobre 2026): ENA pulled up to VIN through 1 MOhm; ENB pulled up to VIN through 1 MOhm and connected to ENA through 10 kOhm; ENB should NOT be used in PFM mode; drive ENA high between 2 V and 5 V"
     - "docs/BOM.md:53 (B11: 47 kOhm e 22 kOhm di riserva, soglia non pubblicata)"
     - "guida/passi/04-banco.yaml, passo 4.12 (un regolatore alla volta)"
     - "guida/problemi/banco.yaml, problema sul pin di abilitazione"
   opzioni:
-    - "Rifare la prova 4.12 con i due regolatori collegati insieme all'EN e a R3, a batteria carica (8,4 V)."
-    - "Montare 22 kOhm (0,35 V) da subito: il GPIO42 regge 150 uA senza problemi."
+    - "R3 da 22 kOhm su ogni regolatore (0,35 V): una e' la riserva di B11, l'altra dal set B10 [C: valore nel set]."
+    - "R3 da 47 kOhm su ogni regolatore (0,72 V), solo se la prova 4.12 dice che la soglia sta sopra."
   consiglio: >-
-    Prova 4.12 con i due regolatori insieme; se l'uscita non e' 0 V con 47 kOhm, 22 kOhm. Lo schema tiene R3 con
-    tutti e due i valori possibili (stessi fori).
+    22 kOhm su tutti e due; prova 4.12 con ogni regolatore, la sua R3 e D2 in linea, a batteria carica: con GPIO42
+    basso o scollegato l'uscita deve essere 0 V.
+  domanda: "Nel set di resistenze B10 c'e' il valore 22 kOhm? Serve una seconda R3."
 
 - id: S-06
   titolo: Il PTC MF-R075 regge 0,75 A a 23 gradi, il ramo 5 V dopo il PTC arriva a circa 0,86 A
@@ -146,8 +153,10 @@
     Non si sa se la UICPAL ha un diodo fra la USB e il pin 5V (banco.yaml). Senza diodo, con la sola USB collegata
     (al banco e per il flash) la USB alimenterebbe all'indietro il 5 V della basetta: buffer, traslatore, PTC e LED, e
     attraverso il regolatore forse anche il ramo della batteria. Lo schema mette sempre il 1N5819 del BOM C3 (catodo
-    verso l'ESP32). Costo: 0,3-0,45 V di caduta; il pin 5V riceve 4,55-4,7 V. Il regolatore della scheda (non
-    documentato) deve dare 3,3 V anche cosi', con Wi-Fi, camera e, senza X3, i sensori.
+    verso l'ESP32), catodo in A-6 e anodo in D-6. Costo: 0,3-0,45 V di caduta; il pin 5V riceve 4,55-4,7 V con
+    l'ESP32 acceso (a vuoto quasi 5 V). Il regolatore della scheda (non documentato) deve dare 3,3 V anche cosi',
+    con Wi-Fi, camera e, senza X3, i sensori. Con D1 la USB non arriva piu' al regolatore; resta da sapere se, con
+    tutti e due collegati, la porta USB del Mac riceve il 5 V del pin (se la scheda non ha un diodo sulla USB).
   prove:
     - "docs/BOM.md:71 (C3: diodo Schottky, solo se la scheda non si accende dal pin 5V)"
     - "guida/problemi/banco.yaml, problema 'ESP32 su USB e sul pin 5V insieme'"
@@ -158,24 +167,25 @@
   consiglio: Tenere D1 finche' la misura del passo 4.03 non dice il contrario.
 
 - id: S-08
-  titolo: Sotto l'ESP32 la basetta e' piena; PTC sopra il buffer a 8,1 mm su 8,5
+  titolo: Sotto l'ESP32 la basetta e' piena; PTC sopra il buffer a 8,1 mm su 8,5, su Kapton
   gravita: importante
   dove: "4.04, 4.05; basetta.svg"
   cosa: >-
-    Fra le due file di pin restano 9 righe per 20 colonne, con quattro zone sotto le viti e il regolatore da 17,8 x 17,8.
-    Per farci stare buffer, traslatore, PTC, due diodi e sette resistenze lo schema: mette D2 e R3 sotto il
-    traslatore rialzato sulle sue strip (2,5 mm di luce contro 1,9 e 2,3); sdraia il PTC sopra il buffer (5,1 + 3,0 =
-    8,1 mm, con 8,5 mm all'ESP32); usa un solo canale del buffer; sposta fuori la 100 kOhm di GPIO41 (S-11) e il
-    D24V5F3 (S-12). Il lato inferiore dell'ESP32 e' modellato solo con la sede della microSD: se ha altri componenti
-    (condensatori, LED) sopra il PTC o il regolatore, l'ESP32 non entra fino in fondo.
+    Fra le due file di pin restano 9 righe per 20 colonne, con otto zone vietate sotto (teste M3 e colonnine, S-19) e
+    il regolatore da 17,8 x 17,8. Per farci stare buffer, traslatore, PTC, D1 e cinque resistenze lo schema sdraia il
+    PTC sopra il buffer (5,1 + 3,0 = 8,1 mm, con 8,5 mm all'ESP32) e porta fuori dalla basetta R6, D2, le R3, la
+    100 kOhm di GPIO41 e R9 (S-20, S-11) e il D24V5F3 (S-12). A PTC scattato la superficie supera 100 gradi [S]:
+    sotto il PTC, sopra U3, un quadrato di Kapton al posto del nastro in PVC (S-24). Il lato inferiore dell'ESP32 e'
+    modellato solo con la sede della microSD: se ha altri componenti (condensatori, LED) sopra il PTC o il regolatore,
+    l'ESP32 non entra fino in fondo.
   prove:
     - "docs/decisioni.md D-053 (8,5 mm d'altezza, 6,6 sotto la microSD)"
     - "cad/script/rif_componenti.py:470-476 (ESP32: solo slot_tf sotto il circuito)"
     - "docs/predisposizioni.md:126 (basetta piena per meta' prima di buffer, PTC e cavo piatto)"
   opzioni:
     - "Guardare il lato inferiore dell'ESP32 e provare a secco con i componenti appoggiati prima di saldare."
-    - "Se il PTC non sta: PTC in linea sul filo del 5 V LED appena fuori dalla basetta, nella guaina."
-  consiglio: Prova a secco al banco; se l'ESP32 non va in fondo, PTC in linea.
+    - "Se il PTC non sta o scalda l'ESP32: PTC in linea sul filo del 5 V LED appena fuori dalla basetta, nella guaina (L-10 e L-8 diventano due fili; i poli 1-2 e il +5 V delle tibie si giuntano dopo il PTC)."
+  consiglio: Prova a secco al banco (schemi.md 1.4, passo 2); se l'ESP32 non va in fondo, PTC in linea.
   domanda: "Sotto l'ESP32 (lato senza modulo) ci sono componenti oltre alla sede della microSD? Una foto basta."
 
 - id: S-09
@@ -183,34 +193,35 @@
   gravita: importante
   dove: "4.04, 4.05; schemi.md 1.5, prova 5"
   cosa: >-
-    Le righe 1 e 13 sono le sole fuori dall'ESP32 e confinano con le strip: nella riga 13 il cavo piatto porta il +5 V
-    dei LED (C-13, D-13) e il dato a 5 V (F-13, T-13) accanto a GPIO20, GPIO21, GPIO48 e GPIO43; il VCC del buffer (E-11)
-    confina con GPIO47. Un ponte di stagno porterebbe 5 V su un GPIO dell'ESP32-S3, che non lo regge. Non c'e' un
-    ordine dei poli che eviti tutte le vicinanze: la riga 12 ha solo pin dell'ESP32.
+    Le righe 1 e 13 sono le sole fuori dall'ESP32 e confinano con le strip. Nella seconda versione il +5 V dei LED sta
+    in A-13 e B-13, accanto alla massa (A-12) e a un pin non saldato (B-12); il dato delle tibie in T-13, accanto a un
+    pin non saldato (T-12). Restano due vicinanze a 5 V: il dato del polo 4 (F-13) accanto a GPIO48 (F-12) e il VCC del
+    buffer (E-11) accanto a GPIO47 (E-12). Un ponte di stagno porterebbe 5 V su un GPIO dell'ESP32-S3, che non lo
+    regge. I pin non usati non si saldano: le altre piazzole delle righe 1, 3, 11 e 13 confinano con prese vuote.
   prove:
     - "guida/schemi/schemi.md 1.2 (verifiche) e 1.5 (prova 5)"
     - "docs/cablaggio.md:132-143 (piedinatura del cavo piatto)"
   opzioni:
-    - "Prova 5 obbligatoria con l'ESP32 fuori, foro per foro (scelta dello schema)."
+    - "Prove 5 e 6 obbligatorie con l'ESP32 fuori, foro per foro (scelta dello schema)."
     - "Nastro isolante sulle piazzole libere della riga 12 dal lato saldature."
-  consiglio: Prova 5 nella guida come passo con tabella, prima di inserire l'ESP32.
+  consiglio: Prove 5 e 6 nella guida come passo con tabella, prima di inserire l'ESP32.
 
 - id: S-10
   titolo: Tensione dei pin A e B della 2813 sconosciuta
   gravita: importante
-  dove: "8.23, 13.16; scheda_carapace.svg A-4, B-4"
+  dove: "8.23, 13.16; scheda_carapace_saldature.svg, pin D-9 ed E-9"
   cosa: >-
     Il pulsante del carapace va ai pin A e B della 2813 attraverso i poli 15-16. La pagina Pololu dice solo che A si
     collega a B (o a massa) con un pulsante; la tensione a cui stanno i due pin non e' scritta e potrebbe essere vicina a
     quella della batteria. Per questo lo schema non fa passare i poli 15-16 sulla basetta (si giuntano ai fili della
-    2813), ma sulla scheda del carapace le piazzole A-4 e B-4 confinano con SDA e SCL, e nella testata il polo 15 sta
-    accanto al 13 (dati dell'ampli) per la piedinatura documentata.
+    2813). Sulla scheda del carapace i due fili del pulsante si saldano sui pin dei poli 15 e 16 (D-9, E-9), che nella
+    testata stanno accanto al 13 (dati dell'ampli) e al 14 (riserva) per la piedinatura documentata.
   prove:
     - "pololu.com/product/2813 (letta il 12 ottobre 2026): A e B per il pulsante esterno; nessuna tensione indicata"
     - "docs/cablaggio.md:80 e :143 (poli 15-16)"
   opzioni:
     - "Misurare A e B contro massa con la 2813 accesa e spenta, al banco (passo 4.08)."
-    - "Se superano 3,6 V: spostare il pulsante sui fori A-10, B-11 (vicini alla vite) con le loro piazzole nastrate."
+    - "Se superano 3,6 V: Kapton sul polo 13 (D-8) dal lato saldature e prova 4 di schemi.md 2.6 ripetuta con la spina innestata."
   consiglio: Misurare al passo 4.08 e scrivere il valore in cablaggio.md.
   domanda: "Al banco, con la 2813 accesa, quanti volt ci sono fra il pin A e la massa, e fra il B e la massa?"
 
@@ -233,12 +244,12 @@
 - id: S-12
   titolo: Il regolatore 3,3 V dei sensori (X3) non sta sulla basetta
   gravita: minore
-  dove: "4.05; basetta.svg J1"
+  dove: "4.05; basetta_saldature.svg, filo 19"
   cosa: >-
-    Il D24V5F3 (13 x 10) non trova posto sotto l'ESP32. Lo schema prepara la scelta con il ponticello J1 (T-3 - S-3):
-    chiuso, i sensori prendono il 3,3 V dell'ESP32; con X3, J1 si toglie e il D24V5F3, montato nel vano sotto il vassoio
-    o in linea nella guaina, prende VIN da B-9 (secondo filo), massa da E-1 (insieme al ramo 4) e porta l'uscita in S-3.
-    Mai J1 e X3 insieme: due regolatori sulla stessa linea.
+    Il D24V5F3 (13 x 10) non trova posto sotto l'ESP32. Lo schema prepara la scelta con J1, il filo 19 (T-3 - N-3):
+    con J1 i sensori e il lato LV del traslatore prendono il 3,3 V dell'ESP32; con X3, J1 si toglie e il D24V5F3,
+    montato nel vano sotto il vassoio o in linea nella guaina, prende VIN dall'uscita della 2813 (un filo suo), massa
+    da F-1 (insieme al ramo 4) e porta l'uscita in N-3. Mai J1 e X3 insieme: due regolatori sulla stessa linea.
   prove:
     - "docs/predisposizioni.md:108 e :164 (X3 sulla basetta o nel vano sotto il vassoio)"
     - "docs/piano-elettronica-software.md:77 (senza X3, 3,3 V dal regolatore della scheda)"
@@ -289,25 +300,29 @@
   cosa: >-
     L'ordine dei 40 pin viene dall'immagine "Pin definitions" del venditore, con l'antenna in alto, e non e' scritto da
     quale lato e' vista. Lo schema la legge dal lato dei componenti: con l'antenna verso la testa, 3V3...5V a sinistra
-    (+Y, riga 2) e GPIO43...GND a destra (riga 12). Se fosse vista dal retro, le due file si scambierebbero e il 5 V
-    finirebbe su GPIO19.
+    (+Y, riga 2) e GPIO43...GND a destra (riga 12). Se fosse vista dal retro, le due file si scambierebbero: A-2, che
+    lo schema collega al 5 V, cadrebbe sul GND della scheda e A-12, collegato a massa, sul suo pin 5V. Sarebbe
+    un'inversione di polarita' sull'ESP32, oltre a tutti i GPIO al posto sbagliato.
   prove:
     - "docs/dimensioni-componenti.md:70-93 (pinout dall'immagine dell'inserzione, S)"
   opzioni:
     - "Leggere la serigrafia accanto ai pin (5V, GND, 3V3 di solito sono scritti) prima di saldare le strip."
-  consiglio: Controllo con la serigrafia al passo 4.03, insieme alla sigla RE1.3.
+  consiglio: >-
+    Controllo con la serigrafia al passo 4.03, insieme alla sigla RE1.3. La prima accensione senza ESP32 (schemi.md
+    1.5) non lo scopre: lo scopre solo la serigrafia.
 
 - id: S-16
   titolo: Collegamenti diversi dai passi scritti (connettore di prova, fili al banco, poli 15-16)
   tipo: allocazione
   gravita: importante
-  dove: "4.04, 4.05, 4.06, 4.12, 8.18-8.25, 8.28, 13.16"
+  dove: "4.03-4.08, 4.12, P2, 8.18-8.25, 8.28, 13.16"
   cosa: >-
-    Lo schema cambia dove si salda una parte dei fili, per altezza e per sicurezza: fili verso 2813, regolatori e
-    SSC-32 saldati sulla basetta al banco e usciti dal bordo di coda; seriale con tre fili e Dupont invece del
-    "connettore di prova"; poli 15-16 separati dal cavo piatto e giuntati ai fili della 2813; fili delle tibie saldati
-    al banco; bus in riga 1 con un ramo per foro; microfoni uniti fra loro e cavo Qwiic tagliato sulla scheda del
-    carapace. La tabella e' in schemi.md, sezione 3.
+    Lo schema cambia dove si salda una parte dei fili, per altezza e per sicurezza: fili verso 2813 e regolatori
+    saldati sulla basetta al banco e usciti dalla riga 13; seriale con tre Dupont dalla riga 3 invece del "connettore
+    di prova"; R6, D2, R3 e R9 fuori dalla basetta (S-20); poli 15-16 separati dal cavo piatto e giuntati ai fili della
+    2813; fili delle tibie saldati al banco; bus in riga 1 con un ramo per foro; prima accensione senza ESP32;
+    microfoni uniti fra loro con R8 al microfono, cavo Qwiic tagliato, dato dei LED e pulsante sui pin della testata.
+    La tabella e' in schemi.md, sezione 3.
   prove:
     - "guida/schemi/schemi.md, sezione 3"
   opzioni:
@@ -317,7 +332,7 @@
 - id: S-17
   titolo: Presa Qwiic ed espansore TCA9534 senza posto sulla scheda del carapace
   gravita: minore
-  dove: "13.16; scheda_carapace.svg A-2...B-3"
+  dove: "13.16; scheda_carapace.svg A-3...B-4"
   cosa: >-
     predisposizioni.md mette sulla scheda la presa Qwiic e l'espansore (X20). Il connettore JST SH a passo 1 mm e' SMD e
     non si salda sulla millefori; la SparkFun DEV-17047 e' un modulo a se'. Lo schema usa un cavo Qwiic tagliato (X1) con
@@ -331,16 +346,190 @@
   consiglio: Insieme a S-01.
 
 - id: S-18
-  titolo: Diametro del 470 uF e resistenza da 100 kOhm sul lato saldature
+  titolo: Diametro del 470 uF; la 100 kOhm dei microfoni va al microfono
   gravita: minore
   dove: "4.06; scheda_carapace.svg CE1, R8"
   cosa: >-
     CE1 sdraiato occupa le colonne A e B fra le righe 5 e 9: ci sta con Ø 6,3, non con Ø 8 (predisposizioni.md: 6,3-8).
-    La 100 kOhm dei microfoni (D-074) non trova tre passi liberi sul lato componenti e sta sdraiata sul lato saldature, con
-    la guaina, sotto 3,5 mm di dorso.
+    La 100 kOhm dei microfoni (D-074) non trova posto sulla scheda: sul lato saldature stava sopra i giunti di G-7 e G-8,
+    in 3,5 mm d'aria (rilievo 13 della verifica elettrica). Si salda al microfono da cui parte il gruppo di cinque fili,
+    fra SD e GND, con la guaina. Vedi S-21 per il pull-up della microSD sulla stessa linea.
+    Con il 470 uF in 6,3 x 11 il fondo del condensatore arriva a circa 0,4 mm dai fori A-4 e B-4 (SDA e SCL dei
+    moduli): i fili si infilano prima di CE1, oppure si prende un 470 uF piu' corto [C].
   prove:
     - "docs/predisposizioni.md:72 (470 uF Ø 6,3-8, S); docs/BOM.md, sezione X (X2: 470 uF 10 V)"
     - "docs/decisioni.md:639 (D-074: pull-down da 100 kOhm sulla linea dati)"
   opzioni:
     - "Ordinare il 470 uF 10 V in Ø 6,3 (per esempio 6,3 x 11)."
+    - "R8 al microfono, nel fascio (passo 13.16)."
   consiglio: Ø 6,3 all'ordine di X2.
+
+- id: S-19
+  titolo: Le teste M3 del vassoio stanno 0,3 mm sotto la basetta, proprio sotto tre pin dell'ESP32 che servono
+  gravita: bloccante
+  dove: "4.04; schemi.md 1.0; basetta_saldature.svg (zone rosse)"
+  cosa: >-
+    Il vassoio si avvita sui distanziali con quattro M3 x 6 a testa cilindrica (DIN 912: Ø 5,5 x 3 [V norma]) a
+    (30; +-12,5) e (75; +-12,5). Le teste arrivano a z 5,6, la basetta parte da z 5,9: restano 0,3 mm. Sotto le teste
+    cadono i pin degli strip T-2 (3V3), D-12 (GPIO21, TX verso la SSC-32) e, al limite, B-2 (GPIO14): servono tutti e
+    tre e non si possono spostare (GPIO21 e 14 decisi da D-012, nessun GPIO libero). Una saldatura, anche piatta, e' alta
+    0,5-1 mm: la testa metallica toccherebbe il pin, e dove una testa sta sotto due pin vicini (C-12 e D-12, GPIO20 e 21)
+    li unirebbe. Lo schema tiene tutto il resto fuori dalle zone (nessun altro giunto, nessun filo, pin non usati non
+    saldati); quei tre pin restano.
+  prove:
+    - "guida/dati/fori.json, Corpo_Vassoio foro_pa/pb/aa/ab (piano del vassoio z 1,0-2,6)"
+    - "cad/script/corpo.py:86 (cor_bas_luce 3,3: 'sotto ci sono le teste M3 alte 3')"
+    - "docs/BOM.md:114 (vassoio sui distanziali con M3 x 6), :60 (B18)"
+    - "docs/decisioni.md D-053 (basetta da z 5,9)"
+    - "docs/piano-elettronica-software.md 2.3 (nessun GPIO libero)"
+  opzioni:
+    - "Teste basse per le quattro viti del vassoio: DIN 7984 (Ø 5,5 x 2,0) lascia 1,3 mm, ISO 7380 a testa bombata (Ø 5,7 x 1,65) lascia 1,65 mm [V norma]. Kapton sulle teste, code di T-2, D-12 e B-2 tagliate a filo prima di saldare, giunti piatti."
+    - "CAD 2.1.7: viti del vassoio fuori dall'ingombro della basetta (|y| oltre 17,5 o x fuori da 22-78), oppure colonnine piu' alte (cor_bas_luce), se sopra l'ESP32 c'e' posto."
+  consiglio: >-
+    Prima opzione, se il kit Temu di viti ha M3 a testa bassa (e' gia' fra le cose da guardare in CLAUDE.md); se no,
+    la seconda nel CAD 2.1.7. Le zone vietate dello schema valgono con tutte e due.
+  domanda: "Nel kit Temu da 918 viti ci sono M3 x 6 a testa bassa (DIN 7984) o bombata (ISO 7380)? Se no, preferisci comprarle o spostare le viti del vassoio nel CAD?"
+
+- id: S-20
+  titolo: Partitore, diodo e pull-down dell'abilitazione fuori dalla basetta
+  tipo: allocazione
+  gravita: importante
+  dove: "4.04, 4.12, 8.18, 8.19, 8.25; schemi.md 1.6, 1.7 (scelte 6, 7)"
+  cosa: >-
+    La verifica elettrica ha trovato la rete EN (D2, R3) accanto a segnali alti a riposo (H1, L1, H4) e VBAT che
+    attraversava la basetta fino a R6. Sulla basetta non c'e' un posto per l'abilitazione che non confini con una rete
+    alta, e VBAT puo' arrivare solo a U2. Lo schema porta fuori: R6 (100 kOhm 1 %) saldata sull'uscita della 2813, in
+    guaina, con un filo verso R-13; D2 (1N4148) in linea nella guaina del filo che parte da P-13 (GPIO42), anodo dal
+    lato della basetta; una R3 per ogni D42V110F6, fra ENA e GND sul regolatore (22 kOhm, S-05); R9 (330 Ohm) in linea
+    sul filo del dato delle tibie. Con la R3 sul regolatore un filo staccato lascia l'ENA a massa (rail spento); con la
+    R3 sulla basetta lo lasciava al suo pull-up verso VIN (rail acceso). Con R6 alla 2813 un corto del filo del
+    partitore non porta la batteria da nessuna parte.
+  prove:
+    - "docs/cablaggio.md:31-32, :78 (GPIO42 - 1N4148 - EN, 47 kOhm a massa; partitore 100 k / 47 k)"
+    - "docs/BOM.md:52 (B10), :53 (B11: 47 kOhm e 22 kOhm)"
+    - "pololu.com/product/5673 (ENA e ENB)"
+    - "docs/decisioni.md D-019 (rail spento di default)"
+  opzioni:
+    - "Come lo schema: componenti in linea con guaina termorestringente (C6), R3 sui regolatori."
+    - "R3 unica sulla basetta come in cablaggio.md: non c'e' un foro che non confini con una rete alta (schemi.md 5)."
+  consiglio: Come lo schema; cablaggio.md 3.1 va aggiornato con la nuova posizione delle resistenze.
+
+- id: S-21
+  titolo: "GPIO38-40 sono anche le linee della microSD della scheda: il pull-down dei microfoni potrebbe non contare"
+  gravita: importante
+  dove: "4.03, 13.16; schemi.md 2.1 (R8), 2.4"
+  cosa: >-
+    Sulla UICPAL i GPIO38, 39 e 40 sono SD_CMD, SD_CLK e SD_DATA della sede microSD. Se la scheda ha i soliti pull-up da
+    circa 10 kOhm su CMD e DATA, il pull-down R8 da 100 kOhm della linea dei microfoni (GPIO40, D-074) non porta la
+    linea a 0: la tiene a circa 3,0 V quando i microfoni non trasmettono. Non e' un danno, ma R8 non fa quello che D-074
+    chiede. Con una microSD inserita, la scheda TF userebbe le stesse linee dei microfoni e dell'audio (piano A: niente
+    microSD).
+  prove:
+    - "docs/dimensioni-componenti.md:82-84 (GPIO38 SD_CMD, GPIO39 SD_CLK, GPIO40 SD_DATA)"
+    - "docs/piano-elettronica-software.md:81, :105, :110 (piano A senza microSD)"
+    - "docs/decisioni.md D-074 (pull-down da 100 kOhm)"
+  opzioni:
+    - "Al passo 4.03, a scheda spenta, misurare la resistenza fra GPIO40 e 3V3: se e' intorno a 10 kOhm c'e' il pull-up, R8 si toglie (o resta, annotato come inutile) e il firmware tiene conto del livello alto a riposo."
+    - "Avviso al passo 4.03: nessuna microSD nella scheda."
+  consiglio: Tutte e due; il risultato della misura va in cablaggio.md 3.5.
+  domanda: "Quando arriva la scheda: puoi misurare con il multimetro la resistenza fra il pin GPIO40 e il pin 3V3, a scheda spenta?"
+
+- id: S-22
+  titolo: Doppia massa fra la SSC-32 e la logica
+  gravita: minore
+  dove: "8.18, 8.20; schemi.md 1.6 (E-3)"
+  cosa: >-
+    La massa della seriale va dalla SSC-32 alla basetta (E-3), quella di VL dalla SSC-32 alla massa della 2813 (passo
+    8.18), e la basetta e' a sua volta collegata alla 2813 (S-13). Se sul clone VL- e la massa di VS sono comuni, una
+    parte del ritorno dei servo puo' passare sui 26 AWG della logica invece che sul 14 AWG verso il Wago: lo fa anche
+    con il solo filo di VL-. Il filo di massa della seriale aggiunge un secondo giro.
+  prove:
+    - "guida/passi/08-elettronica.yaml 8.18 (VL- alla massa della 2813), 8.20 (massa della seriale)"
+    - "docs/cablaggio.md:160 (seriale con TX, RX, massa, VL)"
+  opzioni:
+    - "Con il multimetro, sulla SSC-32 scollegata: VL- contro le file di massa dei servo. Se sono uniti, togliere il Dupont di massa della seriale (la massa comune arriva da VL-)."
+    - "Se sono uniti e si tiene il filo di massa della seriale: accettarlo e scriverlo, e misurare in P4 la caduta sulla massa della basetta con i servo sotto sforzo."
+  consiglio: Misurare prima di 8.20; se uniti, senza il Dupont di massa.
+  domanda: "Sulla SSC-32, con il multimetro: il morsetto VL- e' collegato alle file di massa dei servo?"
+
+- id: S-23
+  titolo: Nessun condensatore sul ramo delle tibie
+  gravita: minore
+  dove: "8.25; X31"
+  cosa: >-
+    Le luci delle tibie sono 36 pixel su fili sottili lunghi circa 0,5 m, alimentati dal 5 V dopo il PTC senza un
+    condensatore vicino alle prese (il 470 uF di X2 sta sul carapace). E' un tema delle fonti (cablaggio.md e
+    predisposizioni.md non lo prevedono), non dello schema della basetta.
+  prove:
+    - "docs/cablaggio.md:108 (luci della tibia: 3 x 30 AWG), :173-174 (ramo delle tibie)"
+  opzioni:
+    - "Un elettrolitico (per esempio 220-470 uF 10 V) sulla fila delle prese delle luci, fra +5 V e massa: voce nuova di X31, da approvare."
+    - "Niente condensatore, e prova dei LED delle tibie al massimo in P4."
+  consiglio: Prova in P4; condensatore solo se i pixel delle tibie sfarfallano.
+  domanda: "Vuoi aggiungere un condensatore sulle prese delle luci delle tibie (voce nuova, pochi centesimi)?"
+
+- id: S-24
+  titolo: Il nastro Kapton non e' nel BOM
+  gravita: minore
+  dove: "4.04, 4.05; schemi.md 1.4"
+  cosa: >-
+    Lo schema mette Kapton sotto il PTC (che scattato supera 100 gradi), sotto U2 e, con le teste basse di S-19, sulle
+    teste M3 del vassoio. Il BOM non lo elenca e non e' fra le cose in casa.
+  prove:
+    - "docs/BOM.md (nessuna voce Kapton)"
+  opzioni:
+    - "Un rotolo di nastro Kapton da 10-20 mm, voce nuova da approvare."
+    - "Nastro isolante in PVC sotto U2 e sulle teste; per il PTC, PTC in linea fuori dalla basetta (S-08)."
+  consiglio: Kapton, se non c'e' gia' in casa.
+  domanda: "Hai del nastro Kapton in casa?"
+
+- id: S-25
+  titolo: Piazzole di GPIO42, OFF e polo 13 vicine nella riga 13
+  gravita: importante
+  dove: "4.04; schemi.md 1.5 (prove 5 e 13)"
+  cosa: >-
+    Nella riga 13 il filo del GPIO42 (P-13) sta fra il polo 13 (O-13, dati dell'ampli dal GPIO2) e il filo OFF (Q-13);
+    sullo strip GPIO42 (P-12) confina con GPIO41 (OFF) e GPIO2 per la piedinatura della scheda. Un ponte fra P-13 e
+    O-13 farebbe accendere il rail dei servo con l'audio; uno fra P-13 e Q-13 spegnerebbe la 2813 quando il firmware
+    accende il rail; uno fra Q-13 e O-13 o Q-12 spegnerebbe il robot con l'audio. Nessuno brucia qualcosa, ma il primo
+    va contro D-019. Non c'e' un'altra uscita per questi fili: le righe 1 e 13 sono le sole fuori dall'ESP32 e la coda
+    porta la seriale.
+  prove:
+    - "guida/schemi/schemi.md 1.2 e 1.5"
+    - "docs/dimensioni-componenti.md:70-93 (GPIO41, 42 e 2 vicini sullo strip)"
+  opzioni:
+    - "Prove 5 e 13 di schemi.md 1.5 obbligatorie, con l'ESP32 fuori."
+  consiglio: Come lo schema.
+
+- id: S-26
+  titolo: Testata 2 x 8 del BOM non identificata; il verso della chiave viene dalla spina
+  gravita: minore
+  dove: "4.06; scheda_carapace.svg (tacca)"
+  cosa: >-
+    Il link di X2 nel BOM (DigiKey, Wurth 61201623021) e' la spina IDC femmina con il fermacavo, non la testata. Sul
+    disegno Wurth della spina il polo 1 e la sporgenza della chiave stanno sulla stessa fila: la tacca della testata,
+    che riceve la sporgenza, sta quindi dal lato dei poli dispari (colonna D dello schema) [V]. La testata da comprare
+    deve essere una testata a scatola standard compatibile con quella spina (per esempio della stessa serie WR-BHD).
+  prove:
+    - "we-online.com, disegno 61201623021 (letto il 12 ottobre 2026): fila 1 con la chiave, fila 2 dall'altra parte"
+    - "docs/BOM.md:171 (X2)"
+  opzioni:
+    - "Controllare il verso con la spina in mano prima di saldare J2: la sporgenza della spina deve entrare nella tacca con il triangolo del polo 1 verso D-2."
+  consiglio: Come le opzioni; codice della testata da scrivere nel BOM insieme alla decisione di S-01.
+
+- id: S-27
+  titolo: Filo della batteria verso la basetta, siliconico, non nel BOM in 26 AWG
+  gravita: minore
+  dove: "4.04, 8.18; schemi.md 1.3"
+  cosa: >-
+    Il filo VBAT corre sul lato saldature lungo il bordo e si salda per ultimo, accanto a saldature gia' fatte: conviene
+    un isolamento siliconico, che regge il saldatore. B17 e' 26 AWG di rame stagnato con isolamento non dichiarato; i
+    siliconici del BOM sono 28 AWG (X5), 30 AWG (X31) e 14 AWG (B14). Con il pacco a 6 V e U2 al massimo l'ingresso
+    chiede circa 2,3 A: troppo per un 28 o un 30 AWG su lunghezze di 20 cm.
+  prove:
+    - "docs/BOM.md:59 (B17), X5, X31, B14"
+    - "docs/cablaggio.md 3.1 (ramo logica in 26 AWG, regge i 2 A di F2)"
+  opzioni:
+    - "26 AWG di B17 con una guaina siliconica sul tratto lungo la basetta."
+    - "Uno dei cavetti Dupont in silicone di C4, tagliato, se e' almeno 26 AWG [C]."
+  consiglio: Prima opzione.

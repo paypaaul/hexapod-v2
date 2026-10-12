@@ -15,3 +15,6 @@ select = ["E4", "E7", "E9", "F", "W"]
 "cad/script/assieme.py" = ["F841"]   # variabile y non usata (riga 257)
 "cad/script/viste.py" = ["E731"]     # lambda assegnata a un nome
 "cad/render/render.py" = ["E702", "E731"]
+# generatori degli schemi delle schede (F3b, 12 ottobre 2026), scritti in fretta da un agente: si tengono com'erano
+# (rigenerano gli SVG identici); restano attivi gli errori veri (nomi non definiti)
+"guida/schemi/sorgenti/*.py" = ["E701", "E702", "E401", "E402", "F401", "F841"]
