@@ -14,7 +14,7 @@ Robot esapode a 18 gradi di libertà (6 zampe × 3 servo MG996R), stampato in 3D
 | 2. BOM | v2.0 approvata; v2.1 con prezzi, link e foto (D-068) in `docs/BOM.md` |
 | 3. Modelli 3D | fatta: parametri, STEP e ingombri in libreria (`cad/script/rif_componenti.py`, D-046) |
 | 4. CAD | **versione 2.1.6** (11 ottobre 2026, D-074): predisposizioni con i pezzi in casa, IMU e microfoni con doppia sede. Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
-| 5. BOM finale | v2.2: circa 362 € consegnati per le voci approvate, tolto quello che l'utente ha già in casa (D-073); predisposizioni X a parte (D-068) |
+| 5. BOM finale | v2.3: circa 367 € consegnati per le voci approvate, tolto quello che l'utente ha già in casa (D-073, D-076); predisposizioni X a parte (D-068) |
 | 6. Verifica del movimento | da fare |
 
 Numeri di oggi:

@@ -474,7 +474,7 @@ Decisione (D-076): fessure aperte, nessun caricatore integrato; si carica con il
 
 Decisione (D-076): soluzione A. Quote e confronto con B e C: `docs/ricerca/bloccanti-arresto2.md`, P-002. La spina entra ed esce orizzontale verso −X, dentro l'ottagono. In una versione futura l'utente vorrà un PCB stampato al posto della millefori: non è in questa versione; per ora J2 al bordo e le quote della scheda restano le stesse che servirebbero a un PCB.
 - **Script**:
-  - `rif_componenti.py`: `sch_l` da 20 a circa 23 e `sch_w` se serve; `sch_sp` diventa l'ingombro vero (testata a 90° circa 9 [S] + scheda 1,6) invece di 1,6 + 2;
+  - `rif_componenti.py`: `sch_w` (lato lungo X, oggi 20) a circa 23, `sch_l` (lungo Y, oggi 30) invariato; `sch_sp` (oggi 9 "con la spina IDC S") diventa l'ingombro vero (testata a 90° circa 9 [S] + scheda 1,6): da rileggere nello script che cosa conta oggi il 9, perché la ricerca parla di 1,6 + 2;
   - `corpo.py` → `fai_carapace_predisposizioni` (bugne `sch_a…d`, righe 1080-1086, e `sch_x` 39,5): le viti di coda si spostano davanti alla testata (x ≥ 41,5, oggi 32), la scheda si allunga verso la coda fino a x 29,5, bordo della testata.
 - **Parametri**: `sch_l`, `sch_sp`, `sch_x`, posizioni delle bugne; nuovo parametro per l'ingombro della testata e della spina (misure dal disegno del pezzo scelto, non stime).
 - **Prima del CAD**: leggere il disegno della testata scelta (Würth 61201621721 o equivalente, codice da confermare) e della spina IDC 61201623021: altezza della scatola, posizione della chiave e del polo 1, lunghezza della spina con il cavo piegato. I valori della ricerca (scatola circa 9, spina 10-12) sono [S].
@@ -537,6 +537,7 @@ Fatti con le immagini nuove e solo dopo il CAD (la guida segue ancora i distanzi
 - **P-050**: 8, 9 e 12 come in D-076: rail acceso solo nella 12, con la batteria nel robot; la sezione 9.08 dice come si alimenta il tester dei servo (6,0 V dal regolatore del banco o dal rail, da decidere: oggi "alimentato a 6 V [C]").
 - **P-088, P-078**: 02-stampa (vassoio e lunette in PLA, colore libero). **P-072**: 4.04-4.09 (Kapton o nastro in PVC, non nel BOM). **P-066**: 12.04, 13.14 (soglia 3,3 V). **P-046**: 14.07, 14.08. **P-085**: 4.05 (J1; X3 non si compra). **P-077**: 6.05, 6.08, 6.22 (luci opzionali, diffusore bianco). **P-111**: durate dei passi senza totale. **P-010**: 13.02 (misura il pulsante all'arrivo). **P-058**: 3.01 (divisione M3 × 5 e × 6 dopo il provino 1.03). **P-117**: 14.06 (soglie di batteria in simulazione).
 - **Gommini**: niente nel CAD; nella guida è già fatto con D-076 (5.02).
+- Dubbi della revisione dell'arresto 2 (15 ottobre 2026), da chiudere con i testi: 0.06, 11.01 e 15.04 danno gia' per aperte le fessure del tetto; sezione 9, alimentazione del tester dei servo (batteria fuori, F1 da 3 A) in contrasto con "T-plug staccato"; 14.09, regola del palmo per i 55 °C senza fonte; modifica 12, verso in cui si allunga la scheda del carapace e valore di `sch_sp` da rileggere nel codice. Il registro di riferimento dei problemi e' `guida/problemi.md` (i file `guida/problemi/*.yaml` sono le origini e non si rigenerano).
 
 ### Verifiche a valle (una volta, alla fine)
 

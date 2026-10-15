@@ -229,13 +229,13 @@ Prezzi IVA inclusa del 10 ottobre 2026; V letto sulla pagina, S stimato. Amazon.
 | Kamami | B1, B2, B3, B3b, B4, B6, B9, B10, B11, B13, B19 (stagno e flussante), C1, C3, C5, D11 | 170,45 € | 8,24 € (FedEx zona 1, 6,70 € + IVA; nessuna soglia gratuita per l'estero, S) | 178,69 € |
 | 3DJake.it | E1, E3 | 89,47 € | 0,00 € (gratis sopra 49,90 €, V) | 89,47 € |
 | AliExpress | D3 | 10,08 € | 0,00 € (gratis sopra 10 €, V) | 10,08 € |
-| Amazon.it | B16, B20 (circa 10 €, S), C9 (circa 5 €, S), C3, D6, D10, D11 | 88,90 € (era 83,89 con B18 da 9,99; più 15 € stimati) | 0,00 € (gratis sopra 29 € per gli articoli venduti da Amazon; per i venditori terzi può variare, S) | 83,89 € |
+| Amazon.it | B16, B20 (circa 10 €, S), C9 (circa 5 €, S), C3, D6, D10, D11 | 88,90 € (era 83,89 con B18 da 9,99; più 15 € stimati) | 0,00 € (gratis sopra 29 € per gli articoli venduti da Amazon; per i venditori terzi può variare, S) | 88,90 € |
 | **Totale** | | **358,90 €** | **8,24 €** | **367,14 €** |
 
 - **Kamami** (Polonia, FedEx 3–7 giorni; la merce è sommata dai prezzi in PLN, per questo differisce di qualche centesimo dalla somma delle righe in euro) porta in un solo pacco i regolatori Pololu e quasi tutta la minuteria, con 16 righe. Le predisposizioni Pololu (X8, X19; X3 è tolta) si aggiungono senza altra spedizione.
 - **Amazon.it**: 9 righe (filo delle barre, sacchetto LiPo e tester dei servo, ancora da scegliere, spinotto USB-C, tre di viti M3, schiuma, guaina spiralata; i distanziali sono tolti), ciascuna con il suo ASIN. Alcune sono di venditori terzi: la spedizione gratuita sopra 29 € vale per gli articoli venduti o spediti da Amazon, quindi va controllata nel carrello.
 - **Viti**: il kit Amazon con le due confezioni in più (32,60 €) costa meno di Gedex con le misure esatte (53,03 € con la spedizione) e porta anche dadi e rondelle.
-- **Squadrette** (D3): su AliExpress il disco da 25 denti costa 0,42 €, ma diametro e fori non sono dichiarati; con le misure del CAD dichiarate c'è la diymore su Amazon, 6 pezzi a 10,99 €. **Squadretta di prova approvata il 15 ottobre 2026** (domanda 4): una AliExpress e una confezione diymore. La confezione diymore non è nel totale di 362,13 € qui sopra: la prova la porta a circa 378,13 €.
+- **Squadrette** (D3): su AliExpress il disco da 25 denti costa 0,42 €, ma diametro e fori non sono dichiarati; con le misure del CAD dichiarate c'è la diymore su Amazon, 6 pezzi a 10,99 €. **Squadretta di prova approvata il 15 ottobre 2026** (domanda 4): una AliExpress e una confezione diymore. La confezione diymore non è nel totale di 367,14 € qui sopra: la prova la porta a circa 378,13 €.
 - **In casa** (D-073): cavi, connettore e portafusibile della linea principale, condensatori, basetta, cavetti, viti M2 e filamento PLA vengono dagli ordini già fatti dall'utente. B7 e B8 non servono più, e con X4, X16 e X17 in casa (D-074) il carrello DigiKey delle voci X resta sotto la soglia: vedi la sezione X.
 
 Fuori dal totale:
