@@ -208,7 +208,9 @@ Tempo stimato: circa 10–13 giorni di lavoro in più sessioni, fra pipeline (5�
   - poi `.venv/bin/python -m guida.costruisci tutto -j 3`. Circa mezz'ora di render la prima volta, poi la cache.
 - Dipendenze: `guida/requirements.txt` nella `.venv`, Blender 4.5 in `/Applications`, Chrome.
 
-**Prossimo passo: F4**, la verifica avversaria. Poi F5 con il registro unico dei problemi e l'**arresto 2** con l'utente.
+**Ordine cambiato il 15 ottobre 2026** (utente): prima la F5 con il registro unico dei problemi (`guida/problemi.md`,
+fatto: 138 voci da 207 problemi) e l'**arresto 2**; poi le correzioni (2.1.7, documenti, testi); la verifica avversaria
+(F4) si fa dopo, sulla guida corretta, insieme alla revisione finale (F8), cosi' non si rifa' due volte.
 - L'uso pesa:
   - F3: circa 4,8 milioni di token di agenti;
   - F3b: 1,4 milioni;
