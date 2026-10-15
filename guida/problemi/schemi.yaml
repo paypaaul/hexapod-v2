@@ -533,3 +533,107 @@
     - "26 AWG di B17 con una guaina siliconica sul tratto lungo la basetta."
     - "Uno dei cavetti Dupont in silicone di C4, tagliato, se e' almeno 26 AWG [C]."
   consiglio: Prima opzione.
+
+# --- Striscia dei partitori (15 ottobre 2026, P-006): guida/schemi/schemi.md sezione 6, partitori*.svg ---
+
+- id: S-28
+  titolo: La striscia dei partitori non ha un posto nel CAD, e la tasca libera accanto all'IMU e' al limite
+  tipo: allocazione
+  gravita: importante
+  dove: "8.10, 8.22, 8.24; schemi.md 6.9; partitori.svg"
+  cosa: >-
+    La striscia (8 canali, 9 x 4 fori = 22,86 x 10,16 mm, R in piedi, C sul lato saldature) non ha una sede in Corpo_Base.
+    Sul tetto del tunnel, sotto il vassoio, la sola tasca libera e' accanto all'IMU: x 60,5-71,3 (la piastrina della
+    GY-6500 arriva a 60,5, le bugne del vassoio a (75; +-12,5) di Ø 7,4 partono da 71,3), y da -20,9 (sede delle prese
+    delle luci, alta 3, a x < 64,95) a +0,75 (angolo dell'ADC, a x < 69,5). Ci stanno le 8 colonne (20,32 x 10,16) con
+    0,3 mm di margine in larghezza e 1,3 in lunghezza; con la colonna delle viti (22,86) mancano circa 1,2 mm. In altezza,
+    la striscia alzata di 1,2 mm sul tetto ha la faccia dei componenti a z -6,6 e le R in piedi (corpo 6,3 + reoforo 0,5)
+    arrivano a circa +0,2/+0,7: sotto il vassoio (z +1,0, fino a |y| 16,5) restano 0,3-0,8 mm, quanto la tolleranza del
+    corpo della R (6,3 +- 0,5, S). I fili delle prese dei piedi vengono da y +23,4 e devono aggirare l'ADC dal lato x > 69,5.
+    La striscia non e' nel CAD, nel BOM (nessun pezzo di fissaggio) ne' nella libreria `rif_componenti.py`.
+  prove:
+    - "cad/script/corpo.py:174-179 (cor_sen_bugna_h 4, cor_imu_x 47,5, cor_imu_y -7,5, cor_ads_x 54,25, cor_ads_y 9,6), :227 (cor_mpu_y -7,6), :37 (cor_tetto 9,4), :72 (cor_chi_bugna_d 7,4), :75-77 (cor_vas_z 1; vassoio x 26-82, |y| 16,5), :180-181 e :962-965 (prese: x 56, y +-23,4, sede 17,9 x 5 alta 3)"
+    - "cad/script/rif_componenti.py:139-142 (ADS7830 30,5 x 17,7 x 4,7, fori a 25,4), :165-169 (GY-6500 26 x 15,5), :187-188 (prese 15,5 x 2,6)"
+    - "guida/dati/fori.json: ins_ads_a/b (41,55; 9,6), (66,95; 9,6); ins_imu_a/b (38,5; -7,5), (56,5; -7,5); vas_bugna_aa/ab (75; +-12,5)"
+    - "docs/predisposizioni.md:125 (vano 37 x 32 x 10,4, 'si raggiunge solo togliendo il vassoio'), :377 ('posto per la striscia dei partitori'), :375 (2813, IMU e ADS7830 non ci stanno insieme)"
+    - "Yageo MFR-25: corpo 6,3 x Ø 2,5 (S, scheda tecnica, non rimisurata)"
+  opzioni:
+    - "Striscia di 8 colonne (senza colonna delle viti) nella tasca, ferma con una goccia di colla a caldo o una fascetta (D11) su due bugne con asola: nessun margine, R in piedi quasi a contatto con il vassoio."
+    - "Spostare nel CAD 2.1.7 la sede delle prese delle luci di 2,5 mm verso la coda (x < 62,5): la tasca diventa lunga 22,9+ e la colonna delle viti entra."
+    - "Un solo pezzo con le prese dei piedi (P-012): una millefori con il pettine 6 x 3 e i sei partitori, sul lato +Y fuori dal vassoio (y 18,5-25, x 47-65, oggi occupato dalla sede delle prese). Niente fili dei piedi lungo il tetto; da disegnare nel CAD."
+    - "R da 10 kOhm SMD (0805 o 1206, alte 0,5-0,6) al posto delle assiali: la striscia scende a 2,2 mm di spessore con i C e le tolleranze di S-28 non contano. Non sono nel BOM."
+  consiglio: >-
+    Rifare i calcoli nel CAD 2.1.7 insieme a P-012: la terza opzione toglie il problema dell'altezza e dei fili che
+    aggirano l'ADC. Fino ad allora il passo 8.10 tiene la striscia accanto all'ADC senza fissarla e senza coprire il
+    vassoio. La prima opzione si prova su un pezzo vero: misura dell'altezza con le R montate, a banco.
+  domanda: "Hai in casa resistenze da 10 kOhm 1 % SMD (0805 o 1206)? Servono solo se si sceglie l'ultima opzione. Hai gia' una misura dell'altezza delle 10 kOhm assiali che hai ordinato (X5)?"
+
+- id: S-29
+  titolo: "Fissaggio della striscia: due viti M2 in colonna I, con le teste a 0,4 mm dalle piazzole e bugne in PETG-CF"
+  tipo: allocazione
+  gravita: importante
+  dove: "8.10; schemi.md 6.1, 6.7; partitori.svg (cerchi rossi)"
+  cosa: >-
+    Tutte le 32 piazzole delle colonne A-H della striscia servono (3,3 V, massa, nodo, condensatore): per fissarla serve
+    una colonna in piu', la I, con due fori Ø 2,4 in I-1 e I-4 (`vite_m2_pass`) per due M2 x 5 negli inserti di due bugne
+    nuove (kit D5, viti D8). La testa tonda della M2 x 5 e' Ø 4,0 (`cor_pimu_svas`, CAD): arriva a 2,0 dal centro del
+    foro e le piazzole di H-1 (massa) e H-4 (3,3 V) stanno a 2,54, con raggio di circa 0,9 [S]: 0,4 mm di sormonto
+    sulla piazzola. Le due viti toccherebbero la massa e il 3,3 V, e se l'inserto e la bugna in PETG-CF conducono (le
+    fibre di carbonio possono rendere il filamento debolmente conduttivo; non e' misurato) le due viti si
+    collegherebbero fra loro: corto fra massa e 3,3 V. Non c'e' nel CAD alcuna bugna, e il CAD dell'IMU (`cor_pimu_svas`)
+    usa una piastrina con viti a testa svasata, che qui non c'e'.
+  prove:
+    - "cad/script/corpo.py:229 (cor_pimu_svas, testa M2 da 4,0 per la piastrina dell'IMU), :999-1000 (bugne con inserti M2 dell'IMU)"
+    - "docs/BOM.md:88, :91 (D5, D8: viti M2 x 5 a testa tonda, Ø 4 sui fori da 3,0 dell'SSC-32)"
+    - "guida/problemi/schemi.yaml S-24 (nastro Kapton, non nel BOM)"
+  opzioni:
+    - "Rondelle isolanti sulle teste (di nylon M2, o un dischetto di nastro in PVC sulle due piazzole H-1 e H-4) e misura con il multimetro, sul pezzo, fra l'inserto e il resto, prima di montare."
+    - "Colonna I a due colonne di distanza (I-2 e I-3 invece di I-1 e I-4, e una colonna vuota fra H e I): 25,4 mm in lunghezza, non entra in S-28."
+    - "Niente viti: fascetta (D11) attorno alla striscia e a due bugne con asola (nessun foro nella striscia, nessuna colonna I)."
+  consiglio: Terza opzione se la striscia sta nella tasca di S-28; altrimenti la prima, con la misura sul pezzo.
+  domanda: "Misura con il multimetro la conduzione di un pezzo stampato in PETG-CF (due puntali a 5 mm sulla faccia): e' isolante o no? Serve anche per le slitte dei regolatori."
+
+- id: S-30
+  titolo: "Condensatori da 100 nF: i sei di X5 sono a reoforo o SMD? E le NTC, ne hanno uno?"
+  gravita: minore
+  dove: "8.10; schemi.md 6.1"
+  cosa: >-
+    X5 compra 100 nF x 6 per i partitori dei piedi (DigiKey, link della resistenza MFR-25FRF52-10K nel BOM): la forma non
+    e' scritta. Se sono a reoforo non stanno sul lato saldature fra riga 1 e riga 2, dove li mette lo schema; in
+    piedi, con le R, salirebbero di altri 4-5 mm e S-28 non regge. In casa ci sono 600 ceramici SMD 50 V del kit
+    Temu (B8, che D-073 dice non necessari per il resto). Le fonti non mettono il condensatore sui canali 6 e 7 delle
+    NTC (`cablaggio.md:124`: solo 10 kOhm): le NTC stanno sulle bobine dei regolatori, a 0,3 m di filo da 28 AWG e a pochi
+    millimetri dai convertitori a commutazione, e un filtro da 100 nF con 10 kOhm (160 Hz) costa nulla e toglie il rumore
+    commutato dall'ingresso di un ADC da 8 bit.
+  prove:
+    - "docs/BOM.md:165 (X5: 100 nF x 6), :50 (B8: kit di 600 ceramici SMD, in casa), :235 (B7 e B8 non servono piu')"
+    - "docs/cablaggio.md:107 (FSR: 100 nF a massa), :124 (NTC: solo 10 kOhm)"
+    - "docs/predisposizioni.md:166 (X5), :180 (X14: 0,17 mA, nessun condensatore)"
+  opzioni:
+    - "Usare per C1-C8 gli SMD del kit B8 (gia' in casa, 0 EUR); i 6 di X5 restano di scorta o si tolgono dal carrello."
+    - "C7 e C8 non montati (come le fonti), con le piazzole libere: si aggiungono se la lettura delle NTC e' rumorosa."
+  consiglio: Prima opzione, C7 e C8 inclusi (disegnati in tratteggio fine nel disegno).
+  domanda: "I 100 nF di X5 che hai ordinato (o che ti arrivano) sono a reoforo o SMD? Se hai gia' il pacchetto, foto o codice."
+
+- id: S-31
+  titolo: "Posizione e ordine dei pin A0-A7, VIN e GND sull'ADS7830 non sono nelle fonti"
+  gravita: importante
+  dove: "8.09, 8.10, 8.22; schemi.md 6.2, 6.6"
+  cosa: >-
+    La pagina Adafruit (guida 'ADS7830 pinouts', letta il 15 ottobre 2026) nomina VIN, REF, GND, COM, SCL, SDA, A0-A7,
+    AD0 e AD1 (anche come ponticelli sul retro) e dice che REF va a VIN e COM a GND di fabbrica; la pagina del
+    prodotto dice 'un po' di header da 0,1 in' (passo 2,54), quattro fori di fissaggio e due connettori STEMMA QT, ma non
+    dice su quale bordo stanno A0-A7, in che ordine, se i pin di alimentazione stanno sullo stesso bordo, ne' dove sono i
+    fori. Il CAD ha solo due dei quattro fori (a 25,4 mm sul lato lungo, `sen_ads_fori`, C). Lo schema della striscia
+    porta 10 fili all'ADC (A0-A7, VIN, GND); la loro lunghezza (40-60 mm) e il lato da cui uscire dipendono dalla
+    scheda vera. Se A0-A7 sono una fila da 8 passi di 2,54, la riga 2 della striscia (A-2…H-2) puo' andare saldata a una fila
+    di pin e togliere 8 fili: non e' verificato.
+  prove:
+    - "https://learn.adafruit.com/adafruit-ads7830-8-channel-8-bit-adc/pinouts (nomi dei pin, REF=VIN, COM=GND, indirizzo 0x48 con AD0/AD1 aperti)"
+    - "https://www.adafruit.com/product/5836 (30,5 x 17,7 x 4,7, header da 0,1 in, quattro fori)"
+    - "cad/script/rif_componenti.py:139-142 (sen_ads_l, sen_ads_w, sen_ads_sp, sen_ads_fori C); guida/problemi/elettronica.yaml 'L'ADC non ha giunzione, viti ne' posto' (Q-32 di problemi.md)"
+  opzioni:
+    - "Aspettare la scheda: guardare il bordo di A0-A7 e VIN/GND, poi scrivere nel passo 8.09 la lunghezza dei fili."
+    - "Fotografia del pezzo prima di stampare la base (come Q-32): decide anche i fori di fissaggio."
+  consiglio: Come le opzioni; il disegno resta valido, cambiano solo la lunghezza e il lato dei fili 203-226.
+  domanda: "Foto dell'ADS7830 dal lato dei componenti (ce l'hai gia'?): quale bordo porta A0-A7, VIN e GND, e dove sono i quattro fori."

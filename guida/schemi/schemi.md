@@ -1,4 +1,4 @@
-# Schemi della basetta e della scheda del carapace (F3b)
+# Schemi della basetta, della scheda del carapace e della striscia dei partitori (F3b)
 
 Fase F3b della guida di montaggio (D-075, `docs/piano-guida.md` riga 150). Proposta da approvare: niente è ancora saldato. Seconda versione, rifatta dopo la verifica elettrica del 12 ottobre 2026: i rilievi applicati sono elencati in fondo (sezione 4), quelli non applicati con il perché nella sezione 5. Gli SVG sono generati da uno script (griglia, reti, zone vietate, instradamento dei fili e controlli in un solo posto) e qui sono elencati per intero.
 
@@ -8,6 +8,8 @@ Fase F3b della guida di montaggio (D-075, `docs/piano-guida.md` riga 150). Propo
 | `schemi/basetta_saldature.svg` | basetta, lato saldature (specchiata): zone vietate, ponticelli, fili numerati 1–37 con la sezione, filo della batteria |
 | `schemi/scheda_carapace.svg` | scheda del carapace (X2), lato componenti, scala 3:1 |
 | `schemi/scheda_carapace_saldature.svg` | scheda del carapace, lato saldature (specchiata): zone delle bugne, fili numerati 101–112, fili dei moduli saldati sui pin |
+| `schemi/partitori.svg` | striscia dei partitori (X5, X6, X14), lato componenti, scala 5:1: 8 canali, R in piedi, C sul lato saldature, fili numerati 201–226, schema di un canale |
+| `schemi/partitori_saldature.svg` | striscia dei partitori, lato saldature (specchiata): ponticelli, condensatori SMD, estremi dei fili |
 
 Convenzioni:
 - **fori**: colonna-riga con il trattino (`R-11`), per non confonderli con le sigle dei componenti (`R7`). Colonne a lettere lungo X del robot (A verso la coda), righe a numeri lungo Y;
@@ -420,3 +422,147 @@ In più, rileggendo la pagina Pololu 5673 per il rilievo 15: ENB è tirato a VIN
 - **Rilievo 10, seconda parte** ("controllare a secco con D2 e R3 sotto il modulo"): non serve, sotto U4 non c'è più niente. Resta la prova a secco di tutto l'insieme (1.4, passo 2).
 - **Rilievo 20, seconda parte** ("con D1 USB e pin 5V insieme non sono più un rischio"): vero per il regolatore, non ancora per la porta USB del Mac, che potrebbe ricevere il 5 V del pin se la scheda non ha un diodo sulla USB (S-07). L'avviso resta, con il motivo cambiato.
 - **Rilievo 1, "code degli strip tagliate a filo e Kapton sulle teste"** come correzione sufficiente: non basta. Con 0,3 mm di luce non sta nemmeno una saldatura piatta su T-2 e D-12, che servono. Resta una delle soluzioni di S-19.
+
+
+## 6. Striscia dei partitori (X5, X6, X14)
+
+Aggiunta del 15 ottobre 2026 (problema P-006, il resto della F3b non cambia). Disegni: `schemi/partitori.svg` (lato componenti, scala 5:1) e `schemi/partitori_saldature.svg` (lato saldature, specchiata). Generatori: `sorgenti/partitori_def.py` (componenti, reti, ponticelli, fili: la fonte di verità, con il controllo delle reti) e `sorgenti/disegno_partitori.py`.
+
+La striscia porta i **partitori di tensione** dei sei FSR dei piedi (X5) e delle due NTC dei regolatori (X14) verso gli otto ingressi dell'ADS7830 (X6). Ogni canale è un partitore fra il 3,3 V e la massa: una resistenza da 10 kΩ verso il 3,3 V, il sensore verso la massa, un condensatore da 100 nF in parallelo al sensore. L'FSR scende di resistenza con la forza, la NTC con la temperatura: la lettura è **invertita** (più forza o più caldo, tensione e codice più bassi). Il 3,3 V è quello del pin VIN dell'ADC, che è anche il suo riferimento (REF è unito a VIN di fabbrica, COM a GND: pagina Adafruit "ADS7830 pinouts", letta il 15 ottobre 2026 [V]): la lettura è un rapporto e non dipende dal valore del 3,3 V.
+
+**Posto nel corpo: non dimostrato** (S-28, S-29). I disegni valgono per componenti, reti, valori, ordine di saldatura e prove; la posizione e il fissaggio vanno decisi nel CAD 2.1.7.
+
+### 6.1 Componenti
+
+| Sigla | Cosa (voce del BOM) | Fori | Note |
+|---|---|---|---|
+| — | millefori della C2 (avanzo), **9 × 4 fori = 22,86 × 10,16 mm**, a doppia faccia, una piazzola per foro | colonne A–I, righe 1–4 | si taglia fra due colonne e fra due righe, a metà del canale. Il passo 8.10 oggi dice 9 colonne e 8 canali più la massa: qui le 8 colonne A–H sono i canali, la colonna I porta le viti (S-29). Orientamento nel corpo (proposta): colonne lungo Y con A verso +Y, riga 1 verso la testa (S-28) |
+| R1–R8 | resistenza 10 kΩ 1 % (X5 per R1–R6, X14 per R7 e R8; Yageo MFR-25FRF52-10K, 1/4 W) | R*n* fra riga 3 (reoforo basso, rete del nodo) e riga 4 (reoforo alto, 3,3 V) della colonna *n* | **in piedi**: il corpo sul foro di riga 3, il reoforo alto piegato sul foro di riga 4. Corpo 6,3 × Ø 2,5 [S, scheda tecnica Yageo]; la sagoma sale di circa 6,5–7 mm: S-28 |
+| C1–C6 | condensatore 100 nF (X5 ×6; oppure SMD 50 V del kit B8) | C*n* fra riga 1 (massa) e riga 2 (nodo), **lato saldature** | in parallelo all'FSR del canale 0–5. Se i 6 di X5 sono a reoforo, non stanno sul lato saldature: la forma è da guardare (S-30) |
+| C7, C8 | condensatore 100 nF SMD (kit B8, già in casa) | come C1–C6, canali 6 e 7 | **proposta**, non nelle fonti (S-30): le NTC stanno vicino ai regolatori, con fili lunghi nel rumore dei convertitori |
+| FSR, NTC | 6 FSR 400 Short (X5) e 2 NTC TDK B57861S0103F040, 10 kΩ 1 %, B = 3988 K (X14) | non sulla striscia: arrivano con i fili 201–224 | FSR fra il segnale e la massa; NTC idem. Lungo la zampa passano solo segnale e massa, mai il 3,3 V (`predisposizioni.md` 2.5) |
+| — | 30 AWG siliconico (X31) | fili 201–226, 6.6 | per tutti i collegamenti esterni: il carico è al massimo circa 2 mA in tutto [S, `predisposizioni.md` X5] |
+
+Non servono altri componenti. La striscia non ha l'indirizzo né il bus: l'ADC resta quello della sezione 4 (I2C 0x48, AD0 e AD1 aperti).
+
+### 6.2 Reti (netlist)
+
+| Rete | Pin e fori | Fonte |
+|---|---|---|
+| 3V3 | A-4…H-4 (tutta la riga 4, un filo nudo teso); reoforo alto di R1–R8; filo 225 da VIN dell'ADC in A-4 | `cablaggio.md:107` (10 kΩ al 3,3 V); `predisposizioni.md:166`; Adafruit ADS7830 (VIN) |
+| GND | A-1…H-1 (tutta la riga 1, un filo nudo teso); piazzola bassa di C1–C8; fili 202, 205, 208, 211, 214, 217, 220, 223 (massa dei sensori) in A-1…H-1; filo 226 da GND dell'ADC in A-1 | `cablaggio.md:107, :124` (100 nF a massa); `predisposizioni.md:110` |
+| N0 … N5 | per ogni colonna A…F: reoforo basso di R*n* (riga 3), ponticello fra riga 3 e riga 2, piazzola alta di C*n* (riga 2), filo del segnale della presa (201, 204, 207, 210, 213, 216) e filo verso l'ingresso A0…A5 dell'ADC (203, 206, 209, 212, 215, 218) nel foro di riga 2 | `cablaggio.md:107` (FSR, canali 0–5); `predisposizioni.md:166` |
+| N6, N7 | come sopra, colonne G e H: fili della NTC sinistra (219) e destra (222), uscite 221 e 224 verso A6 e A7 | `cablaggio.md:124` (NTC dei regolatori, canali 6 e 7); `predisposizioni.md:180` |
+| — | I-1 e I-4: fori delle due M2 (Ø 2,4), non collegati; I-2 e I-3 liberi | S-29 |
+
+Canale, zampa e colonna: 0 AS A; 1 MS B; 2 PS C; 3 AD D; 4 MD E; 5 PD F; 6 NTC sinistra G; 7 NTC destra H. L'ordine delle zampe è la proposta di `robot/robot.yaml` [C]: si conferma al banco (B2) premendo un piede alla volta.
+
+### 6.3 Ponticelli del lato saldature
+
+22 segmenti, nessun filo isolato su questo lato:
+- **riga 1** da A-1 a H-1 (massa): un filo nudo teso (un reoforo tagliato delle R), saldato su ogni foro, 7 segmenti;
+- **riga 4** da A-4 a H-4 (3,3 V): idem, 7 segmenti;
+- **uno per colonna** fra la riga 2 e la riga 3 (A-2–A-3, …, H-2–H-3): un ponte di stagno o un pezzetto di reoforo, 8 segmenti.
+
+I condensatori C1–C8 stanno sul lato saldature a cavallo di due piazzole vicine, fra riga 1 e riga 2: la piazzola bassa sulla saldatura del foro di riga 1 (la stessa del ponticello), quella alta sul foro di riga 2. Sono 2,0 × 1,25 mm (0805 [S]), come CS1 e CS2 della basetta (1.1).
+
+### 6.4 Ordine di saldatura
+
+1. Taglia la millefori a 9 × 4 fori e lima i bordi. Allarga **I-1 e I-4** a Ø 2,4 (`vite_m2_pass`) dal lato componenti. Segna a matita le colonne A–I e le righe 1–4.
+2. Lato componenti: R1–R8 in piedi, il corpo sul foro di riga 3 (reoforo basso) e il reoforo alto piegato a V sul foro di riga 4. Saldale dal lato saldature, taglia i reofori a 1 mm. Controlla che nessun corpo tocchi il vicino con una goccia di stagno e che l'altezza totale sia nel limite di S-28.
+3. Lato saldature: prima i condensatori C1–C8 (la piazzola alta sul foro di riga 2, la bassa su quello di riga 1), poi i ponti fra riga 2 e riga 3 di ogni colonna.
+4. Lato saldature: i due fili nudi lungo la riga 1 e la riga 4. Stagna ogni foro, non fra un foro e il vicino della riga accanto.
+5. **Prove 1–6 di 6.5**, con la striscia sola.
+6. Fili esterni (6.6), dal lato componenti, uno alla volta, con la prova di continuità dal capo libero al foro: prima massa e 3,3 V (225, 226), poi i canali 0–7. Due fili per foro in riga 2: il filo del segnale della presa e il filo verso l'ADC, uno accanto all'altro.
+7. Ultimo: collega i fili 225 e 226 ai pin VIN e GND dell'ADC solo con la basetta spenta, poi gli otto fili verso A0…A7.
+
+### 6.5 Prove con il multimetro
+
+Le prove 1–6 con la striscia sola (nessun filo, nessun sensore); le 7–9 a striscia completa, prima di accendere.
+
+| N. | Punto | Atteso | Se no |
+|---|---|---|---|
+| 1 | riga 4 (A-4) contro riga 1 (A-1) | parte da circa 1,25 kΩ (otto R in parallelo) e sale (i C si caricano): mai 0 Ω | corto fra 3,3 V e massa |
+| 2 | A-4 contro ogni nodo (A-3…H-3 e A-2…H-2) | 10 kΩ, fra 9,9 e 10,1 | R mancante, errata o ponte fra riga 2 e riga 3 mancante |
+| 3 | ogni nodo contro la riga 1 | sale verso l'aperto (C); mai 0 Ω | corto del nodo sulla massa: ponte fra riga 1 e riga 2 |
+| 4 | nodo di una colonna contro il nodo della colonna vicina (A-2 / B-2, …) | circa 20 kΩ (due R in serie attraverso la riga 4), fra 19,8 e 20,2 | più basso: ponte fra due colonne; più alto: R mancante |
+| 5 | I-1 e I-4 contro tutti gli altri fori | aperto | stagno sulle viti: la scheda poggia male |
+| 6 | continuità H-1…A-1, H-4…A-4, A-2…A-3, …, H-2…H-3 | 0 Ω | ponticello mancante |
+| 7 | ogni filo 201–226: dal capo libero al foro | 0 Ω | filo non saldato |
+| 8 | con una NTC collegata (G-2 contro G-1, H-2 contro H-1) | circa 10 kΩ a 25 °C [S, B = 3988 K] | NTC rotta o sul filo sbagliato |
+| 9 | con un FSR collegato e non premuto (A-2 contro A-1, …) | alto, nell'ordine dei megaohm [S, scheda Interlink]; premuto con il dito, scende | FSR al contrario del canale o in corto |
+
+A striscia alimentata dall'ADC (3,3 V su VIN), prima di collegare i sensori, il nodo di ogni canale deve stare a 3,3 V; con una resistenza da 10 kΩ messa fra il nodo e la massa, a 1,65 V (partitore 10 kΩ / 10 kΩ). La lettura del firmware, con l'ADC a 8 bit e il riferimento sul 3,3 V: 255 a canale vuoto, circa 128 con la NTC a 25 °C.
+
+Codici attesi della NTC, calcolati con B = 3988 K e R25 = 10 kΩ [S, calcolo del 15 ottobre 2026, non misurato]:
+
+| °C | R della NTC | Tensione al nodo | Codice (0–255) |
+|---|---|---|---|
+| 20 | 12,6 kΩ | 1,84 V | 142 |
+| 25 | 10,0 kΩ | 1,65 V | 128 |
+| 40 | 5,3 kΩ | 1,14 V | 88 |
+| 60 | 2,45 kΩ | 0,65 V | 50 |
+| 80 | 1,25 kΩ | 0,37 V | 28 |
+
+Verifica della risoluzione di `predisposizioni.md` (0,6 °C a 60 °C): fra 50 e 60 °C il codice scende di 16,6, cioè 1,66 codici per grado.
+
+### 6.6 Collegamenti verso il resto del robot
+
+| N. | Da | A | Rete | Sezione | A cosa serve |
+|---|---|---|---|---|---|
+| 201, 204, 207, 210, 213, 216 | presa dei piedi 1…6, polo del segnale | A-2, B-2, C-2, D-2, E-2, F-2 | N0…N5 | 30 AWG | segnale dell'FSR: AS, MS, PS, AD, MD, PD (8.22) |
+| 202, 205, 208, 211, 214, 217 | presa dei piedi 1…6, polo di massa | A-1, B-1, C-1, D-1, E-1, F-1 | GND | 30 AWG | massa di ogni piede, un filo per presa (`predisposizioni.md` 2.5) |
+| 219, 222 | NTC sinistra, NTC destra (capo del segnale) | G-2, H-2 | N6, N7 | 28 AWG delle NTC o 30 AWG | canali 6 e 7 (8.24) |
+| 220, 223 | NTC sinistra, NTC destra (capo di massa) | G-1, H-1 | GND | 28 AWG delle NTC o 30 AWG | massa delle NTC |
+| 203, 206, 209, 212, 215, 218, 221, 224 | A-2…H-2 (secondo filo del foro) | pin A0…A7 dell'ADC | N0…N7 | 30 AWG | ingressi dell'ADC, canale *n* sul pin A*n* |
+| 225 | pin VIN dell'ADC | A-4 | 3V3 | 30 AWG | 3,3 V dei partitori, la stessa alimentazione dell'ADC |
+| 226 | pin GND dell'ADC | A-1 | GND | 30 AWG | massa comune con l'ADC e con il bus |
+
+- Gli otto fili ADC–striscia sono i soli che portano segnale verso l'ADC: lunghezza consigliata 40–60 mm [S], lontani dai fili dei rail da 12–16 AWG (almeno 10 mm, incrocio a 90°, come il bus: `cablaggio.md` 3.4).
+- **I pin A0…A7, VIN e GND dell'ADS7830** sono nominati sulla pagina Adafruit ma la loro posizione sulla scheda e l'ordine sul bordo non sono nelle fonti [C]: si leggono sul pezzo (S-31). Non si toccano AD0, AD1, REF, COM e i ponticelli sul retro.
+- Le NTC si incollano e si saldano al banco (4.30); i loro due fili da 28 AWG arrivano dalle baie al vano senza chiudere il camino d'aria (8.24).
+- Nessun filo porta il 3,3 V fuori dal corpo e nessuno lo porta lungo la zampa.
+
+### 6.7 Scelte e perché
+
+1. **3,3 V dal pin VIN dell'ADC**, non dal bus del vano. Il riferimento dell'ADS7830 è la sua alimentazione: partitori e riferimento sullo stesso nodo danno una lettura in rapporto, che non risente del valore del 3,3 V né dei suoi disturbi (condensatore sull'ingresso dell'ADC compreso). Un filo in meno, e la massa dei sensori torna all'ADC, che è dove si misura.
+2. **R in piedi e C sul lato saldature**: 8 canali in 8 colonne da 2,54 mm, per stare in 10,16 mm di larghezza (S-28). Le R sdraiate (interasse 7,62 mm) chiederebbero 6 righe invece di 4, cioè 15,24 mm di larghezza invece di 10,16.
+3. **Nodo su due fori** (riga 2 e riga 3, uniti da un ponte): in un solo foro avrebbero dovuto convivere un reoforo, due fili e un condensatore; ora ogni foro ha al più due fili o un reoforo e un'altra piazzola.
+4. **Fili esterni dal lato componenti, ponticelli dal lato saldature**: i fili non attraversano mai un ponte, come nella scheda del carapace (2.3). I fili escono dall'alto dai fori delle righe 1 e 2.
+5. **Massa dei sensori sulla riga 1 e 3,3 V sulla riga 4**: le due reti sono sui bordi opposti, e fra le due c'è sempre una riga di nodi: un ponte fra massa e 3,3 V non si fa con uno stagno solo.
+6. **Una massa per presa**, come dice il passo 8.22 (`predisposizioni.md` 2.5, "ogni sensore dei piedi ha il proprio filo di massa"): sulla striscia sono otto fili sulla riga 1, uno per colonna.
+7. **Condensatori su tutti gli otto canali**: sulle NTC non sono nelle fonti (S-30).
+8. **Due viti M2 sulla colonna I**: la striscia non ha altri fori liberi, tutte le 32 piazzole delle colonne A–H servono. Le teste (Ø 4) arrivano a 0,4 mm dalle piazzole di H-1 e H-4 (S-29).
+
+### 6.8 Passi della guida da cambiare
+
+Da riportare nei passi (non fatto qui: i YAML della guida non sono stati toccati), con `figura: schemi/partitori.svg` e `schemi/partitori_saldature.svg`.
+
+| Passo | Oggi | Con lo schema |
+|---|---|---|
+| nuovo, nella sezione 4 (dopo 4.30, le NTC) | la striscia si costruisce nel corpo, al 8.10 | **costruire la striscia al banco**: 6.1–6.5 in un passo (ordine di saldatura e prove 1–6), così le prove si fanno con la striscia sola, come per la basetta e la scheda del carapace. Resta in 8.10 solo il fissaggio e i fili 6.6. Elenco degli attrezzi: saldatore, tronchesino, multimetro, pinzetta per gli SMD |
+| 8.09 (ADC sulle bugne) | due M2 × 5 [C]; "fori e viti non sono nel CAD" | invariato; aggiungere dopo l'avvitamento: «saldare i pin VIN e GND e gli otto A0…A7 con i fili 225, 226 e 203…224 solo quando la striscia è fissata (8.10)»; i pin non nominati (AD0, AD1, REF, COM) restano liberi |
+| 8.10 | «taglia 9 colonne [C]: sei piedi, due NTC, la massa»; R e C «fra l'ingresso e il 3,3 V» e «fra l'ingresso e la massa» | tagliare 9 × 4 fori (22,86 × 10,16); 8 canali in A–H, viti in I; R in piedi fra riga 3 e riga 4; C sul lato saldature fra riga 1 e riga 2 (6.1, 6.3); canali 6 e 7 con C7 e C8 come proposta (S-30); sostituire la tabella: canale, colonna, zampa o NTC, fili (6.2, 6.6) |
+| 8.10, avviso «Non fissare la striscia: nel CAD non ha un posto e il suo schema non è disegnato» | senza schema, senza posto | «Lo schema c'è (`partitori.svg`); il posto no (S-28): fissala con le due M2 in I-1 e I-4 solo se il CAD 2.1.7 le dà le bugne; fino ad allora tienila accanto all'ADC, ferma con un giro di fascetta (D11), senza coprire le feritoie né i fili dell'IMU» |
+| 8.22 (prese dei piedi) | «dal polo del segnale al suo ingresso della striscia»; «porta i fili sul tetto, fino all'ADC»; tabella senza fori | i fili 201, 204, 207, 210, 213, 216 vanno ai fori A-2…F-2, i fili 202, 205, 208, 211, 214, 217 a A-1…F-1; il filo non va all'ADC: va alla striscia; tabella con colonna «Foro della striscia» |
+| 8.24 (NTC) | «collega la NTC sinistra al canale 6 e la destra al canale 7 della striscia» | NTC sinistra: filo 219 in G-2, massa 220 in G-1; destra: 222 in H-2, 223 in H-1. Prove 8 di 6.5 |
+| `14-collaudo.yaml`, righe «FSR dei piedi (X5)» | senza valori di partenza | nodo a 3,3 V (codice 255) a FSR scarico, scende premendo; NTC a 25 °C vicino a 128 (6.5) |
+| appendice «ADC dei piedi e prese» (`90-appendici.yaml` riga 49) | tabella zampa-canale; «collega il doppino dell'FSR alla sua presa» | aggiungere colonna e foro della striscia; richiamo a `partitori.svg` |
+| 4.16 (rami del bus), solo se serve | un ramo per modulo | nessuna modifica: la striscia non ha bus; l'ADC si collega come oggi |
+
+### 6.9 Posto nel corpo: analisi
+
+Per il CAD 2.1.7, da verificare (S-28). Quote dal CAD (`cor_*` in `corpo.py`, `fori.json`) e dalle schede:
+
+| Zona libera sul tetto del tunnel (z −9,4) | Quote |
+|---|---|
+| ADC (centro 54,25; 9,6; 30,5 × 17,7) | x 39,0…69,5, y 0,75…18,45 [C: orientamento] |
+| IMU, piastrina sotto la GY-6500 (centro 47,5; −7,6; 26 × 15,5) | x 34,5…60,5, y −15,35…−4,25 |
+| Vassoio, lato inferiore a z +1,0, semilarghezza 16,5 | tutta la striscia a y > −16,5 sta sotto il vassoio |
+| Bugne del vassoio (75; ±12,5), Ø 7,4 | x ≥ 71,3 |
+| Sede delle prese delle luci (blocco di 3, x 47,05…64,95, y −25,9…−20,9) | z −9,4…−6,4 |
+| **Tasca libera accanto all'IMU** | x 60,5…71,3 (10,8) × y −20,9…0,75 (21,65) |
+
+La striscia di 8 colonne (20,32 × 10,16 mm) entra con 0,3 mm di margine in larghezza; con la colonna delle viti (22,86 mm) mancano circa 1,2 mm di lunghezza, senza contare nessun margine verso l'ADC e verso la sede delle prese delle luci. In altezza, con la striscia alzata di 1,2 mm sul tetto, la faccia dei componenti è a z −6,6; le R in piedi (6,3 + 0,5 del reoforo) arrivano a circa z +0,2…+0,7: sotto il vassoio, che sta a z +1,0, restano 0,3–0,8 mm. Le quote sono dei disegni e dei parametri del CAD, non misure sui pezzi.
+
+Percorso dei fili: i fili delle prese dei piedi partono dal lato +Y (prese a y +23,4) e devono raggiungere la striscia a y −20,9…0 passando fuori dal bordo anteriore dell'ADC (x > 69,5) o sopra; i fili verso l'ADC partono dallo stesso lato.
