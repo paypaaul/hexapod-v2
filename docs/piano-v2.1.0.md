@@ -339,3 +339,153 @@ L'utente ha scelto i moduli che ha già (D-073):
 - colori, STL, mesh, `esporta_robot` e generatori, test e CI.
 
 **Chiusura**: salvataggio in Fusion, `geometria` riletta con la versione nuova del file, tag `v2.1.6`, push, CI verde.
+
+## Seguito: versione 2.1.7 — correzioni dalla guida di montaggio (BOZZA, 15 ottobre 2026)
+
+> Bozza: non si parte senza il via dell'utente. Mancano le scelte di P-001 e P-002 (segnaposto più sotto).
+
+Origine: arresto 2 della guida (`guida/problemi.md`). Decisioni prese in autonomia su richiesta dell'utente per P-003 e P-005, con il ragionamento in `docs/ricerca/bloccanti-arresto2.md`; modifiche CAD del gruppo 4 delle decisioni in blocco (P-009, P-014, P-015, P-016, P-019, P-057, P-062, P-065), approvate dall'utente. Chiusura con una decisione nuova (D-076).
+
+Ogni modifica dice: script e funzione, parametri, verifica dopo la modifica (procedure di `cad/CLAUDE.md`), impatto su BOM, guida e documenti. Le verifiche comuni a tutte sono in fondo ("Verifiche a valle").
+
+### 1. P-003 (S-19): vassoio su colonne della base, viti M2 svasate a filo
+
+Decisione e quote: `docs/ricerca/bloccanti-arresto2.md`, P-003.
+- **Script**:
+  - `corpo.py` → `fai_base`, blocco "bugne del vassoio" (righe 415-418): bugna Ø7,4 com'è fino a z −4,0, più una colonna Ø`cor_vas_col_d` (6,0) fino a `cor_vas_z` (1,0); in cima l'inserto M2 (`ins_m2_d` × `ins_m2_l`) al posto dell'M3. Commento corretto (oggi dice "distanziali da 10").
+  - `corpo.py` → `fai_vassoio`: i quattro `foro_*` passano da `vite_m3_pass` a `vite_m2_pass` con la svasatura a 90° dall'alto, come `fai_piastrina_imu` (righe 1117-1125).
+  - `corpo.py` → `_vassoio_fori`: posizioni invariate (30; ±12,5), (75; ±12,5); docstring da aggiornare.
+- **Parametri**: nuovo `cor_vas_svas` = 0,9 mm (testa M2 Ø4,0 a 0,1 sotto la faccia, come `cor_pimu_svas`); `cor_vas_col_d` 6 mm finalmente usato; `cor_bas_luce` resta 3,3.
+- **Verifica**:
+  - `base` e poi `base_predisposizioni`, `giunti_coxa`, `istanze_corpo`; `vassoio`;
+  - `controllo`, `interferenze`; in particolare colonne contro IMU (bordo a x 34,5: atteso 1,5 mm dalla colonna di (30; −12,5)), ADC (bordo a x 69,5: atteso 2,5), fili del bus e asola (modifica 8);
+  - distanza testa-basetta: atteso 3,4 (testa a z 2,5, basetta a 5,9); misura nel modello con la vite svasata (catalogo della guida);
+  - controllo "lunghezze" della guida: M2 × 5 svasata, punta a 3,4 sotto la cima della colonna, fondo del foro a 4,0;
+  - sentinella sui volumi di base e vassoio.
+- **BOM**: B18 (distanziali, 9,99 €, non ordinato) esce; riga "Vassoio → distanziali" della viteria diventa "Vassoio → colonne della base: M2 × 5 svasate (D8b), 4"; totali: M3 × 6 da 52 a 48, M2 × 5 svasate da 12 a 16 (+2 della piastrina IMU già contate a parte); inserti M2 (D5) +4, inserti M3 (D4) −4; ordine Amazon senza B18.
+- **Guida**: catalogo `giunzioni.yaml` (`vassoio`: vite M2x5 svasata, punta `inserto_m2`, niente distanziale), `viteria.yaml` (`DIST_M3_5` non usato), glossario ("vassoio"), passi con i distanziali (03 inserti: quattro M2 in più sulle colonne; 08 elettronica); `basetta*.svg` e schemi.md 1.0: teste a filo del vassoio, i tre pin T-2, D-12, B-2 si saldano normalmente; S-19 chiuso. Le zone vietate restano.
+- **Documenti**: D-051 e D-053 (rimando alla D-076), `docs/progetto-meccanico.md` (vassoio), `docs/predisposizioni.md` 2.8 (vano sotto il vassoio: le colonne), `docs/BOM.md`.
+
+### 2. P-005 (S-02): interasse delle file di pin dell'ESP32 a 25,4
+
+Decisione e fonti: `docs/ricerca/bloccanti-arresto2.md`, P-005.
+- **Script**: `rif_componenti.py`, parametro `esp_file` (riga 99) da 24,7 a **25,4**, commento "S: 10 passi da 2,54; il 24,7 del disegno è fra le facce interne dei pin". Usato solo da `Rif_ESP32_S3_CAM` (`pin_header`, riga 461).
+- **Parametri**: `esp_file` 25,4 (S fino alla prova a secco).
+- **Verifica**: `rif_componenti` (ingombri), `istanze_corpo`; `interferenze` delle strip contro colonnine della basetta (|y| 6,5-6,8: restano 5,9 mm) e contro il bordo della basetta (|y| 17,5); `esporta_robot.py` (`esp_file` è in `robot/cad.json`), hash e generatori.
+- **BOM**: nessun impatto.
+- **Guida**: passo 4.04 ("file a 24,7 mm [C]" diventa "file a 25,4, 10 passi [S]") con la **prova a secco** prima di tagliare e saldare: strip infilate sui pin, gambe nelle righe 2 e 12 della millefori intera, tutte e quaranta senza forzare; se no, misura (Q-18) e opzione 3 di S-02. Q-18 non blocca più. S-02 chiuso con la prova come condizione.
+- **Documenti**: D-053 (|y| 12,35 diventa 12,7, rimando alla D-076), `docs/dimensioni-componenti.md` (riga della quota 24,7).
+
+### 3. P-009: ganci della catena LED fra i lobi; README del fondo dell'anello
+
+- **Script**: `corpo.py` → `fai_carapace_predisposizioni`, ciclo "ganci del cavo della catena" (righe 1056-1062): alle x −40, 0, 40 si aggiungono **x ±75** (fra l'ultimo gancio e i lobi d'angolo a x ±94,7, oggi 55 mm senza ganci) e i ganci del **passaggio davanti**, sul percorso di `docs/cablaggio.md` 3.5; stessa sezione dei ganci di oggi (denti 1,2 × 2 alti 3 a y 41,8-43 e 46-47,2), posizione esatta scelta nel modello fuori da lobi, colonnine e pozzetti.
+- **Parametri**: nessuno nuovo (le x restano nel ciclo, come oggi).
+- **Verifica**: `carapace`, `carapace_dettagli`, `carapace_predisposizioni` (le ultime due vanno in timeout ma finiscono: rileggere); `controllo`, `interferenze`, `carapace_zampe`, `sfilamento`, `campo`; tratti in linea retta della catena (oggi 76-105 mm) misurati di nuovo per la lunghezza da tagliare.
+- **BOM**: nessun impatto (stessa striscia).
+- **Guida**: 13.04, 13.08 (ganci in più, niente nastro dove ora ci sono i ganci; lunghezza da tagliare ricalcolata), 2.19.
+- **Documenti**: `cad/stl/README.md`, riga di `Corpo_Fondo_Anello`: "due pixel per sede" (D-068, 120 LED/m; quattro in tutto come X11); `docs/cablaggio.md` 3.5.
+
+### 4. P-014: lamatura piana sotto la testa della vite del guscio della tibia
+
+- **Script**: `zampa.py` → `fai_cover_tibia` (righe 868-870, `bossolo_vite` e `foro_vite`): nuovo taglio `lamatura_vite`, cilindro coassiale alla vite, piano e perpendicolare all'asse, dal fronte fino al punto più basso della faccia inclinata sotto la testa (oggi 1,23 mm sotto il bordo alto).
+- **Parametri**: nuovo `cov_tib_lam_d` = 6,0 mm (testa DIN 912 Ø5,5 + 0,25 per lato).
+- **Verifica**: procedura della zampa (`giunti`, `limiti`, `misura`, `interferenze`, `scansione`); parete residua del bossolo sotto la lamatura (bossolo Ø7 × 2,5); controllo "lunghezze" della guida con la testa sul piano nuovo: oggi la punta della M3 × 10 è 0,03 oltre il fondo con la testa nominale, quindi con la testa 1,23 più in basso **va controllato che non tocchi il fondo**. Se tocca: **M3 × 8** (BOM: M3 × 8 da 106 a 112, M3 × 10 da 18 a 12, opzione 2 di P-014) oppure foro più profondo nella tibia, se c'è materiale.
+- **BOM**: forse M3 × 10 → M3 × 8 (sopra), dentro gli assortimenti già previsti.
+- **Guida**: 6.23 (togliere "stringi piano"; vite giusta).
+- **Documenti**: `docs/progetto-meccanico.md` (guscio della tibia), riga di viteria del BOM se cambia la vite.
+
+### 5. P-015: dima del calettamento (α +20°, γ 100°)
+
+- **Script**: `attrezzi.py`: in `POSE` una terza posa `'Dima_Calettamento': (0.0, 20.0, 100.0)` (imbardata, femore, ginocchio) e il suo posto in `LIBRERIA`; si costruisce con `fai_dima` e si controlla con `verifica_dime`, come `Dima_Posa_1` e `_2`.
+- **Parametri**: nessuno nuovo (la posa viene dal calettamento di `robot/robot.yaml`: se cambia lì, cambia qui).
+- **Verifica**: `verifica_dime` (i tre contatti toccano, niente altro); sentinella sui volumi; in più, come chiede P-015, il **margine del ginocchio a 180°** con un errore di calettamento di ±7,2° (mezzo dente su 25): `limiti` e `scansione` con γ fino a 180° e i limiti del firmware (177°); se il margine resta 0°, proposta di correzione in `robot.yaml` da approvare.
+- **BOM**: nessun impatto (stampa).
+- **Guida**: 6.16, 6.17 (calettamento con la dima, non più a occhio [C]); elenco delle stampe degli attrezzi.
+- **Documenti**: `cad/stl/README.md` (nuovo `Dima_Calettamento.stl`), `docs/software.md` se cambia il calettamento.
+
+### 6. P-016: stretta del piedino come parametro, tre varianti
+
+- **Script**: `zampa.py` → `fai_piedino`: lo svuotamento `calza` usa `insideThickness` = `pied_stretta` invece di 0 (spessore verso l'interno: la calza si stringe sullo stinco). `esporta_stl.py`: tre file del piedino con `pied_stretta` 0 / 0,2 / 0,4 (il parametro si rimette a 0 alla fine).
+- **Parametri**: nuovo `pied_stretta` = 0 mm (D-064: si tara sul provino 6).
+- **Verifica**: procedura della zampa; con 0,2 e 0,4 l'interferenza piedino-stinco deve valere esattamente la stretta (caso di controllo: a 0 deve toccare senza compenetrare); pistoncino dell'FSR e suola invariati; sentinella sui volumi.
+- **BOM**: nessun impatto (TPU di qualche provino in più).
+- **Guida**: 1.14 (provino 6 con tre piedini), 2.12; dopo la prova, il valore scelto in `pied_stretta`.
+- **Documenti**: `cad/stl/README.md` (tre STL del provino, uno solo per le zampe), D-064 (rimando).
+
+### 7. P-057: blocco del provino degli inserti
+
+- **Script**: `attrezzi.py`: nuova `fai_provino_inserti` (con il suo posto in `LIBRERIA` e il passo in `main`): blocchetto in PETG-CF con otto fori ciechi e i valori incisi accanto: **M3 Ø3,9 / 4,0 / 4,1** più **4,2** (oggi) profondi `ins_m3_l`; **M2 Ø2,9 / 3,0 / 3,1** più **3,4** (oggi) profondi `ins_m2_l`. Pareti fra i fori come nelle bugne del corpo (almeno 1,6 attorno al foro più grande). Esporta `cad/stl/attrezzi/Attrezzo_Provino_Inserti.stl`.
+- **Parametri**: nessuno nuovo nel modello; i diametri del provino stanno nella funzione (sono i valori di `CLAUDE.md`, "Provini da stampare").
+- **Verifica**: sentinella sui volumi; le profondità leggono i parametri di oggi. **Dopo la prova** (non in questa versione): valori in `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` e verifica completa, perché `ins_m3_d` muove le bugne delle culle.
+- **BOM**: nessun impatto (inserti del kit, D4 e D5).
+- **Guida**: 1.02, 1.03 (il provino ha un pezzo), 3.01, 3.02; i passi non scrivono il diametro.
+- **Documenti**: `cad/stl/README.md`; vale anche per le colonne M2 del vassoio (modifica 1).
+
+### 8. P-019: asola del bus fuori dalla basetta, 7 × 4
+
+- **Script**: `corpo.py` → `fai_vassoio`, taglio `asola_bus` (righe 525-526). Oggi a x 47-53, y 13-16, cioè 1,5 mm sotto il bordo della basetta (y 17,5). Nella 2.1.7 l'asola va **fuori dall'ingombro della basetta, a y 18-22** (lato +Y, verso IMU e ADC), larga 7 lungo X: il piano del vassoio oggi finisce a y 16,5, quindi si aggiunge un'**ala** del piano attorno all'asola (fino a circa y 23,5, spessore `cor_vas_sp`), oppure, se l'ala non ci sta, una tacca aperta sul bordo.
+- **Parametri**: `cor_vas_asola_x` 50 resta; nuovi `cor_vas_asola_y0` = 18 mm, `cor_vas_asola_l` = 7 mm (lungo X), `cor_vas_asola_w` = 4 mm (lungo Y).
+- **Verifica**: `vassoio`; `controllo`, `interferenze` dell'ala con base, fili dei regolatori e del bus, carapace (`sfilamento`); passaggio della spina Qwiic dell'ADC (JST SH 4 poli, circa 6 × 4,3 × 2,9 [S]) nell'asola 7 × 4; i fili del ramo 3 non passano più sotto la basetta.
+- **BOM**: nessun impatto.
+- **Guida**: 4.16, 8.07, 8.09, 8.11, 8.12 (percorso dei fili fuori dalla basetta; niente più "prova la spina, altrimenti cavetto saldato").
+- **Documenti**: D-066 (rimando), `docs/cablaggio.md` (ramo 3), `docs/predisposizioni.md` 2.8.
+
+### 9. P-062: sede delle luci della tibia lunga quanto la striscia
+
+- **Script**: `zampa.py`, parametro `luc_tib_z1` (riga 218) da `cov_tib_fin_z1` a **`cov_tib_fin_z1 + 3 mm`**; lo usa `fai_tibia` (`sede_luce`, riga 808) e, se lo segue, `fai_cover_tibia_diffusore`. Sede da z −33,0 a −83,5 (con lo 0,5 del taglio): 50,5 per la striscia da 50.
+- **Parametri**: `luc_tib_z1`.
+- **Verifica**: rigenerare la tibia (va in timeout ma finisce: rileggere), poi procedura della zampa; materiale fra il fondo della sede (z −83,5) e il foro dell'inserto del guscio (z −88, Ø4,2: bordo a −85,9): atteso 2,4 mm, da misurare; diffusore e finestra del guscio (la finestra finisce a −80: i sei LED restano nella finestra).
+- **BOM**: nessun impatto.
+- **Guida**: 6.05 (la striscia entra tutta nella sede).
+- **Documenti**: testo di D-066 ("fino a Z −80" diventa la quota vera) con rimando dalla D-076.
+
+### 10. P-065: bussola di battuta dei perni e attrezzo d'estrazione
+
+- **Script**: `attrezzi.py`:
+  - nuova `fai_bussola_perno`: appoggio forato con un **foro cieco Ø5,5 profondo 5,0**, così premendo il perno Ø5 × 12 si ferma con la sporgenza giusta di 1,4 dall'altra faccia senza misurarla; la profondità si calcola dai parametri (`perno_l`, spessore del blocco, sporgenza) invece di scriverla;
+  - nuova `fai_estrattore`: asta che passa nel foro Ø7,2 e spinge sull'anello interno del cuscinetto o sul perno, con un tubo d'appoggio; secondo il consiglio di P-065 si stampa solo se il forzamento del provino non è leggero.
+  - Tutti e due in `LIBRERIA`, nascosti, STL in `cad/stl/attrezzi/`.
+- **Parametri**: nuovi `att_bus_d` = 5,5 mm; la profondità è un'espressione.
+- **Verifica**: `verifica` sul perno di riferimento (`Rif_Perno_5`) dentro la bussola: sporgenza 1,4 ± 0,05; asta dell'estrattore contro il foro Ø7,2 (gioco ≥ 0,2) e contro la flangia (non deve toccarla); sentinella sui volumi.
+- **BOM**: nessun impatto.
+- **Guida**: 6.14 (perni con la bussola), sezione 9, 15.10, 15.11 (estrazione).
+- **Documenti**: `cad/stl/README.md`. L'attrezzo dei cuscinetti di P-013 non è nel gruppo 4: resta fuori, a meno che l'utente lo chieda (P-013 dice "solo se il pollice non basta").
+
+### 11. P-001: carica del pacco e fessure del tetto (SEGNAPOSTO)
+
+In attesa: un altro agente sta studiando la carica via USB-C; poi decide l'utente (Q-17). Opzioni di oggi (`guida/problemi.md`, P-001): fessure aperte verso la coda togliendo il ponte da 2 mm (`corpo.py` → `fai_base`, `fessura_cavi_*`, righe 408-410, con la fascetta di F1 di D-055 e la rigidezza del tetto da verificare), fessura larga quanto la spina accanto a F1, carica dentro il robot, prolunga di bilanciamento. Collegati: P-007, P-029, P-041 e le sezioni 11 e 15 della guida. Quando c'è la scelta: script, parametri, verifiche (`base`, `base_predisposizioni`, `interferenze`, `sfilamento` del pacco con le spine, D-054), BOM, guida.
+
+### 12. P-002: testata della scheda del carapace (SEGNAPOSTO)
+
+In attesa della scelta dell'utente fra A (testata a 90° con chiave verso l'ottagono, raccomandata), B (cavo saldato con giunzione IDC volante) e C (testata piegata dalla strip, chiave col polo 14): quote, CAD, BOM e guida in `docs/ricerca/bloccanti-arresto2.md`, P-002. In ogni caso cambiano `rif_componenti.py` (`sch_l`, `sch_w`, `sch_sp` con l'ingombro vero di testata e spina) e `corpo.py` → `fai_carapace_predisposizioni` (bugne `sch_a…d`, righe 1080-1086, e `sch_x`); verifiche: `carapace_predisposizioni`, `interferenze` della spina contro ESP32, USB-C, SSC-32 e ottagono, `sfilamento`; poi `scheda_carapace*.svg` (J2), 4.06, 13.16, 13.17, voce X2 del BOM. Con A o C la scheda guadagna i fori liberi chiesti da S-01; P-067 e P-075 seguono la stessa scelta.
+
+### 13. Testi rimandati qui da altre voci
+
+- P-092: in questo piano (versione 2.1.5) la base del provino delle tasche è descritta diversamente dal CAD: correggere il testo come il CAD (foro pilota Ø2,5 autofilettante, D-072).
+- P-099 e P-100: `cad/stl/README.md`, orientamento delle slitte (faccia piana sul piatto, bugne in alto [C]) e "le due slitte sono lo stesso pezzo, la destra ruotata". Nessuna modifica al CAD.
+
+### Verifiche a valle (una volta, alla fine)
+
+- Corpo (modifiche 1, 3, 8, e 11-12 quando decise): `controllo`, `interferenze`; coxe a ±35° e a 30,5° fra vicine; `carapace_zampe`, `sfilamento`, `campo`; `ciclo` a 100/45 e 70/70 a gruppi di fasi.
+- Zampa (modifiche 4, 6, 9): `giunti`, `limiti`, `misura`, `interferenze`, `scansione` (81 libere, 17 controlli su 20 che toccano).
+- Attrezzi (5, 7, 10): `verifica_dime` e verifiche dei pezzi nuovi; tutti in libreria e nascosti.
+- Sentinella sui volumi delle parti non toccate; caso di controllo per ogni interferenza nuova.
+- A valle: `colori.py`, `esporta_stl.py` (con le varianti del piedino), `esporta_mesh.py`, `esporta_robot.py` (`geometria`, `mesh`, `pose`), `tools/descrizione.py --aggiorna-hash`, generatori; ruff, pytest, ctest, `npm test`.
+- Massa: cambia di pochi grammi (via 4 distanziali da 5 e 4 M3, più 4 colonne di PETG-CF e 4 M2): aggiornare `calc/statica_tripode.py` e `robot.yaml` (`massa.attesa_g`, `regressione_statica`) solo se la differenza si vede nel totale.
+- Guida: `esporta_guida.py` (`manifest`, `mesh`, `fori`, `zone`, `controllo`), poi `.venv/bin/python -m guida.costruisci controlla`; registro dei problemi aggiornato dall'utente (non da qui).
+
+### Ordine e arresti
+
+1. Via dell'utente su questo piano; scelte di P-001 e P-002 (possono arrivare dopo: la 2.1.7 può chiudersi senza e prenderle in una 2.1.8, oppure aspettarle).
+2. Copia del file Fusion di lavoro per la versione (regola delle versioni).
+3. Corpo: 1, 8, 3 (poi 11, 12); verifiche del corpo.
+4. Zampa: 9, 4, 6; verifiche della zampa.
+5. Attrezzi: 7, 5, 10.
+6. Riferimenti: 2.
+7. Verifiche a valle, documenti, BOM, guida.
+
+Blocchi che lasciano repo e Fusion in uno stato da cui ripartire: un commit e un push per ogni punto, CI verde.
+
+### Chiusura
+
+D-076 (P-003, P-005, gruppo 4, e P-001 / P-002 se decise), `docs/versioni.md`, `CLAUDE.md` ("Stato attuale" e "Aperti"), `VERSIONE` in `versione.py` e `versione` in `robot.yaml` a 2.1.7, salvataggio in Fusion, `geometria` riletta, hash e generatori, tag `v2.1.7`, push, CI verde. Riepilogo all'utente diviso in verificato / assunzione / aperto.
