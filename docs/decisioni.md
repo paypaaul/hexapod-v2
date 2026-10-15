@@ -18,6 +18,10 @@ Riassunto; il perché è nel registro vecchio al numero indicato.
 
 Non valgono più: tutto ciò che riguarda servo MG90S, regolatori Pololu da 11 A, batteria da 2200 mAh, cuscinetti F683ZZ, geometria delle zampe e del corpo (D-007, D-014, D-015, D-018, D-021, D-024…D-027, D-033, D-035…D-038).
 
+## D-012 — Seriale ESP32 ↔ SSC-32: UART1, TX su GPIO21, RX su GPIO14, 115200 baud, traslatore di livello (ereditata dalla versione MG90S, registrata qui il 15 ottobre 2026)
+
+Presa il 8 ottobre 2026 nel registro della versione MG90S (`git show mg90s:docs/decisioni.md`, D-012), che usava GPIO47 per la RX. Qui vale con una differenza: la RX è su GPIO14, perché GPIO47 è la SDA del bus dei sensori (`piano-elettronica-software.md`, tabella dei GPIO). I GPIO dell'ESP32-S3 non tollerano 5 V e la sua uscita a 3,3 V non garantisce la soglia alta di un ATmega a 5 V: serve un traslatore su entrambe le linee, con le resistenze di pull-up che tengono a riposo la linea al reset. A 115200 baud un comando per 18 servo dura circa 12 ms. Il baud reale della scheda si legge sui LED. La voce esiste perché `cablaggio.md`, il piano elettronico e la guida la citano (P-091).
+
 ## D-041 — Si costruisce la versione con gli MG996R; la versione MG90S è congelata (2026-10-08, decisione dell'utente)
 
 L'utente aveva indicato per errore il file dell'MG90S: i servo voluti sono gli MG996R (AZDelivery) della sua v1. Si costruisce solo questa versione. La versione MG90S, coerente e verificata fino al ciclo a tripode, resta nel branch `mg90s` e nel design Fusion "Hexapod v2 - Assieme"; `main` diventa la versione grande. Indicazione esplicita: non limitare la versione grande per riusare la piccola; progettarla come si farebbe partendo da zero, cambiando qualunque scelta se serve.
@@ -359,7 +363,7 @@ Decisioni dell'utente del 9 ottobre: audio a bordo senza la microSD dell'ESP32, 
   - i tre denti a distanza 0,000 dalle loro facce;
   - controllo a ±2°: il dente del femore urta la coxa a −2°, quello del ginocchio la tibia a 88°, quello dell'imbardata la cassa a +2°; dall'altra parte resta libero.
 
-  In taratura quindi si porta il femore giù contro il dente, il ginocchio a chiudere e la coxa in senso antiorario, a passi di 1 e 10 µs. Passa da pochi decimi di millimetro di gioco a contatto: la precisione attesa è quella della stampa più la taratura (±0,5° circa, C).
+  In taratura quindi si porta il femore giù contro il dente, il ginocchio a chiudere e la coxa in senso antiorario visto dall'alto, a passi di 1 e 10 µs. Passa da pochi decimi di millimetro di gioco a contatto: la precisione attesa è quella della stampa più la taratura (±0,5° circa, C).
 - **Cavalletto** (`Attrezzo_Cavalletto`, PETG-CF, 222 cm³):
   - culla sotto la chiglia fra x −30 e +30, con labbri sui fianchi alti 8 mm, sotto il ripiano delle baie; resta lontana dallo sportello della batteria e dalle viti;
   - colonna cava 60 × 40 e base 160 × 120. Il tavolo sta a z −170, perché il piede più basso arriva a −159 con femore −49 e ginocchio 139.

@@ -33,7 +33,7 @@ sezione:
   tempo: "circa 12 ore la prima volta, 6–7 di saldature [S]"
   stato_elettrico: >-
     Batteria solo nei passi di prova, per ultima: F2 da 2 A sulla logica, F1 da 3 A sul regolatore; prima, continuità fra
-    + e −. Mai la USB dell'ESP32 insieme al 5 V della basetta.
+    + e −. Mai la USB dell'ESP32 insieme al 5 V della basetta, finché il pin 5V con la sola USB (4.05) non dice che la scheda ha un diodo.
   fonti: [D-051, D-053, D-073, "docs/software.md 6.7", "docs/piano-elettronica-software.md 4 (P2)", docs/cablaggio.md, guida/schemi/schemi.md]
   attrezzi: []
   controllo:
@@ -533,14 +533,15 @@ passi:
     formato: grande
     figura: schemi/basetta_saldature.svg
     testo:
-      - "Taglia un filo 26 AWG rosso di circa 25 cm [S], siliconico se c'è."
+      - "Taglia un filo 26 AWG rosso di circa 25 cm [S] (BOM B17)."
+      - "Infila sul tratto lungo la basetta una guaina termorestringente (BOM B19) e restringila."
       - "Posalo sul lato saldature lungo il bordo sinistro, fuori dalle piazzole della riga 1."
       - "Fallo entrare fra le colonne O e P, sopra P-1, P-2 e P-3, e saldalo su P-4."
       - "Fermalo al bordo con un punto di colla a caldo o di Kapton."
     avvisi:
       - {tipo: attenzione, testo: "È la batteria, 6,0–8,4 V: per ultimo, dopo tutte le altre saldature, e nessun altro filo vicino a P-4. Un ponte qui porta la batteria sull'ESP32."}
-      - {tipo: nota, testo: "Isolamento siliconico, che regge il saldatore accanto alle saldature fatte (S-27). L'altro capo va all'uscita della 2813 (sezione 8)."}
-    attrezzi: [saldatore, spelafili]
+      - {tipo: nota, testo: "L'isolamento del 26 AWG non è dichiarato siliconico: la guaina lo protegge dal saldatore accanto alle saldature fatte (S-27). L'altro capo va all'uscita della 2813 (sezione 8)."}
+    attrezzi: [saldatore, spelafili, termorestringente]
     fonti:
       - "guida/schemi/schemi.md 1.3 ('Filo della batteria'), 1.4 punto 11, 1.7 scelta 9"
       - "guida/problemi/schemi.yaml S-27"

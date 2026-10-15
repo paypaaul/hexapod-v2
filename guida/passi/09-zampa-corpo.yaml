@@ -83,7 +83,7 @@ passi:
       - "Stringi la vite centrale in dotazione [C]."
     avvisi:
       - {tipo: importante, testo: "Non girare l'albero mentre infili la squadretta: un dente di scarto storta la zampa di 14,4° [V]."}
-      - {tipo: nota, testo: "Con 25 denti e 4 fori a 90°, cambiando dente o coppia di fori si trova una posizione entro circa 2° dal traverso [S]."}
+      - {tipo: nota, testo: "Con 25 denti e 4 fori a 90°, cambiando dente o coppia di fori si trova una posizione entro 1,8° dal traverso [S], se il disco ha davvero quattro fori [C]. Controlla lo scarto con la dima 1 (12.11)."}
     extra: [{nome: "vite centrale in dotazione con la squadretta", qta: 1, bom: D3}]
     attrezzi: [cavalletto]
     fonti: ["docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 3", "docs/software.md 6.7 (B4)", "cad/script/zampa.py ISTANZE (Squadretta_Coxa, fori a Y ±7)", "docs/BOM.md D3 e 'Viti centrali delle squadrette'", "cad/stl/README.md 'Attrezzi da banco'"]

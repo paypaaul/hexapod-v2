@@ -22,7 +22,7 @@ sezione:
   note: >-
     Questa sezione non monta niente. Le immagini mostrano il robot intero solo per dare i nomi delle zampe, dei lati e
     degli assi.
-  attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, alimentatore_limitato]
+  attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, coccodrilli, alimentatore_limitato]
   fonti: [D-075, docs/piano-guida.md "Struttura della guida", guida/stile.md]
   controllo:
     - "Una vite M3 × 8 vera, appoggiata al suo disegno nella pagina di apertura della sezione 6, ne copre esattamente la lunghezza."
@@ -479,7 +479,7 @@ passi:
       - "Controlla di avere gli attrezzi in basso: servono quasi tutti."
     avvisi:
       - {tipo: nota, testo: "Se la bobina FlashForge di PETG-CF nero è quasi intera, ne basta una [C]. Il PLA nero è una proposta dell'estetica, non confermata (D-065)."}
-    attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, alimentatore_limitato]
+    attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, coccodrilli, alimentatore_limitato]
     fonti: [docs/BOM.md E1 E2 E2b E3 e "Attrezzi necessari", D-065, D-073]
 
   - id: "0.21"

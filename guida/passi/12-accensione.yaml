@@ -241,7 +241,8 @@ passi:
       - {testo: "SSC-32", chiave: corpo/SSC32}
     testo:
       - "Premi il pulsantino della 2813: l'ESP32 si accende."
-      - "Collega al computer la USB-C dell'ESP32 marcata TTL (CH340) e apri la console [C]."
+      - "Se il pin 5V con la sola USB ha dato 0 V (passo 4.05), collega al computer la USB-C marcata TTL (CH340) e apri la console [C]."
+      - "Altrimenti non collegare la USB: apri la console con l'adattatore USB-seriale CH340N [C]."
       - "Misura e annota le tensioni della tabella."
       - "Controlla con la console che la SSC-32 risponda (comando ssc) e la tensione della batteria (comando stato) [C]."
     tabella:
@@ -257,6 +258,7 @@ passi:
       - {tipo: nota, testo: "Il pulsante del carapace arriva nella sezione 13: è in parallelo al pulsantino della 2813 (BOM B3b)."}
       - {tipo: nota, testo: "Il partitore è 100 kΩ e 47 kΩ: GPIO1 legge il pacco × 47/147 (BOM B10). Il ramo logica prende circa 0,5 A [S]."}
       - {tipo: attenzione, testo: "Se il regolatore 5 V scalda o il 5 V è lontano da 5,0 V, spegni con il pulsantino e stacca il T-plug."}
+      - {tipo: attenzione, testo: "Finché non sai se la scheda ha un diodo sulla USB, mai USB e batteria insieme: la basetta e la USB si spingerebbero il 5 V una contro l'altra (S-07)."}
     attrezzi: [multimetro, computer_usb]
     fonti: ["docs/software.md 2.6 (accensione, punto 1), 2.9 (console), 6.7 (B0, B1, B3)", docs/BOM.md B2 B3 B3b B10 B11, "docs/piano-elettronica-software.md 3.3"]
 

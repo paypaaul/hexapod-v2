@@ -268,7 +268,7 @@ Spegnimento: seduta sulla chiglia, parcheggio, rail spento, impulso su GPIO41.
 - Procedura dalla web app, nello stato CALIBRAZIONE: un servo alla volta, passi di ±1 e ±10 µs, **due pose fissate da dime stampate**: coxa a 0° e +30°, femore a 0° e +45°, ginocchio a 90° e 135°. Circa un'ora per il robot (S).
 - Dime (versione 2.1.0, D-066):
   - si usano `Dima_Posa_1` e `Dima_Posa_2`, in `cad/stl/attrezzi/`, infilate sui perni del femore dal lato B, con la lama B tolta;
-  - ogni giunto va contro il suo dente da un verso noto: il femore scende, il ginocchio chiude, la coxa gira in senso antiorario;
+  - ogni giunto va contro il suo dente da un verso noto: il femore scende, il ginocchio chiude, la coxa gira in senso antiorario visto dall'alto;
   - il robot sta sul cavalletto, con le zampe libere.
 - Salvataggio: blob con versione e CRC in una partizione NVS dedicata, copia in `robot/calib/<robot>.yaml` nella repo. All'avvio il firmware manda l'hash in telemetria e gli strumenti avvisano se non coincide. **Senza taratura valida il rail non si accende.**
 - Le correzioni le applica l'ESP32, non il comando `PO` della SSC-32: copre solo ±100 µs e non resta allo spegnimento (V).

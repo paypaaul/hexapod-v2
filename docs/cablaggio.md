@@ -27,8 +27,8 @@ Batteria 2S ─12 AWG─ T-plug ─14 AWG─ F1 30 A ─14 AWG─ Wago + ─┬�
    │                                                            └─18/26 AWG─ F2 2 A ─ 2813 ─┬─ D24V22F5 5 V ─┬─ ESP32, pin 5V
    └─ bilanciamento JST-XH 3 poli ─ prolunga C7 ─ cicalino BX100                            │                ├─ PTC ─ LED: poli 1-2 del
                                                                                             │                │   connettore e ramo delle tibie
-   VS1, VS2 ─ 1 kΩ ─ LED ambra ─ massa (spie, X13)                                          │                └─ amplificatore (poli 1-2)
-   GPIO42 ─ 1N4148 ─ EN dei due D42V110F6 (47 kΩ a massa)                                   ├─ VL della SSC-32
+   VS1, VS2 ─ 1 kΩ ─ LED giallo ─ massa (spie, X13)                                          │                └─ amplificatore (poli 1-2)
+   GPIO42 ─ 1N4148 in linea ─ ENA dei due D42V110F6 (R3 22 kΩ ENA–massa su ognuno)                                   ├─ VL della SSC-32
    GPIO41 ─ OFF della 2813;  pulsante ─ A e B della 2813                                     ├─ partitore 100 k / 47 k ─ GPIO1
                                                                                             └─ D24V5F3 3,3 V sensori (X3, se serve)
 ```
@@ -45,7 +45,7 @@ ESP32-S3 ─ GPIO21 TX / GPIO14 RX ─ traslatore C1 ─ RX / TX della SSC-32 �
                                                                 └─ connettore a 16 poli ─ scheda del carapace: Qwiic,
                                                                    TCA9534 0x20, ToF posteriore 0x31
          ─ GPIO48 ─ 10 kΩ a massa ─ SN74AHCT125N ── 330 Ω ─┬─ polo 4 ─ anello (4 pixel) ─ 6 lobi (2 pixel ciascuno)
-                                                           └─ ramo delle tibie: 6 × 6 pixel in parallelo (ripetono i primi 6)
+                                                           └─ secondo canale ─ R9 330 Ω in linea ─ ramo delle tibie: 6 × 6 pixel in parallelo (ripetono i primi 6)
          ─ GPIO38 BCLK, 39 WS, 40 dati dei microfoni, 2 dati dell'ampli ─ poli 10-13 ─ 2 microfoni, ampli ─ altoparlante
          ─ camera OV3660: flat da 75 mm (SCCB su GPIO4 e 5, da sola)
 ```
@@ -73,12 +73,12 @@ striscia LED (6 pixel) ─ capo in alto a z −33 ──────────
 | Ingresso dei regolatori | Wago → D42V110F6 S e D | dai Wago (x −46…−16) alle baie anteriori (x 14…57), uno per lato | saldati | 14 AWG siliconico, 0,5 + 0,5 m | S |
 | Rail servo | D42V110F6 → INA260 → file VS della SSC-32 | INA260 in serie sul positivo all'uscita di ogni regolatore; poi alla fila VS del suo lato | morsettiera dell'INA260 (C: deve reggere 13 A); barre B16 sulla SSC-32 | 14 AWG siliconico, 0,6 + 0,6 m (D-073) | S, C morsettiera: quella da 3,5 mm dell'INA260 potrebbe prendere al massimo 16 AWG, e allora l'ultimo tratto si salda |
 | Ramo logica | Wago + → F2 → 2813 | in coda: F2 in linea fra i Wago e la 2813 | portafusibile MINI | codini 18 AWG del portafusibile, poi 26 AWG (D-073: regge i 2 A di F2) | S |
-| 5 V e VL | 2813 → D24V22F5 (basetta) → ESP32; 2813 → VL della SSC-32; 2813 → partitore → GPIO1 | dalla 2813 (x −56) alla basetta lungo il fianco del tunnel | saldati; VL con un Dupont (C4) | 26 AWG, più colori (circa 2 m in tutto) | S |
+| 5 V e VL | 2813 → D24V22F5 (basetta) → ESP32; 2813 → VL della SSC-32; 2813 → R6 (100 kΩ, saldata sull'uscita della 2813, in guaina) → partitore → GPIO1 | dalla 2813 (x −56) alla basetta lungo il fianco del tunnel | saldati; VL con un Dupont (C4) | 26 AWG, più colori (circa 2 m in tutto) | S |
 | 5 V dei LED | D24V22F5 → PTC → poli 1-2 del connettore del carapace; → ramo delle tibie | sulla basetta | saldati | 26 AWG fino alla basetta | S |
-| Abilitazione del rail | GPIO42 → 1N4148 → EN dei due regolatori, 47 kΩ a massa | dalla basetta alle due baie | saldati | 26 AWG | S, valori da provare al banco |
+| Abilitazione del rail | GPIO42 → D2 (1N4148) in linea nella guaina, anodo dal lato della basetta → ENA dei due regolatori; R3 da 22 kΩ fra ENA e massa su ogni regolatore | dalla basetta alle due baie | saldati; D2 e R3 non stanno sulla basetta (`guida/schemi/schemi.md`, S-20: con la R3 sul regolatore un filo staccato lascia il rail spento) | 26 AWG, tre fili dopo il diodo | S, valori da provare al banco |
 | Spegnimento | GPIO41 → OFF della 2813 | dalla basetta alla 2813 | saldato; 100 kΩ a massa se scatta da sola (C) | 26 AWG | S |
 | Pulsante | pulsante (x −40) → scheda del carapace → poli 15-16 → basetta → A e B della 2813 | sotto il dorso, poi nel cavo piatto | contatti a saldare sul pulsante; spina IDC | 2 fili | S |
-| Spie dei rail (X13) | file VS1 e VS2 della SSC-32 → 1 kΩ → LED ambra → massa | dalla SSC-32 alla linguetta in coda sotto il cicalino | saldati | 2 + 2 fili, 26 AWG | S |
+| Spie dei rail (X13) | file VS1 e VS2 della SSC-32 → 1 kΩ → LED giallo → massa | dalla SSC-32 alla linguetta in coda sotto il cicalino | saldati | 2 + 2 fili, 26 AWG | S |
 | Bilanciamento | presa JST-XH del pacco → prolunga C7 → cicalino BX100 | dal tunnel alla coda | JST-XH 3 poli | 3 fili | S; si stacca a fine uso |
 
 ### 3.2 Servo
@@ -95,8 +95,8 @@ Ogni servo ha il suo cavo a 3 fili (massa, +6 V, segnale), lungo 32 cm dichiarat
 | PD | 29 / 30 / 31 | 112 | 158 | 267, +33 mm (11 %) | sì, sul ginocchio |
 
 - **Coxa**: il cavo sale dalla culla nella baia e va sotto il coperchio fino al canale. Non attraversa giunti.
-- **Femore**: esce dall'alto della culla della coxa, sull'asse dell'anca. Passa sul braccio del ponte (fascetta da 2,5 mm nelle feritoie a X 28, \|Y\| 5,5, D-058) e sopra l'asse della coxa, dove l'imbardata cambia meno la lunghezza. Entra sotto il coperchio a z 25. Attraversa un giunto, l'imbardata.
-- **Ginocchio**: esce dalla finestra del cavo nella testata della culla della tibia, sull'asse del ginocchio. Fa l'ansa del ginocchio, 22–40 mm al variare di γ, e passa nella fascetta dentro il blocco del femore (feritoie a X 79,5, tunnel a Z 10, D-060). Segue l'ansa dell'anca, 11–56 mm al variare di α, poi ponte, imbardata e canale come il femore. Attraversa tre giunti.
+- **Femore**: esce dall'alto della culla della coxa, sull'asse dell'anca. Passa sul braccio del ponte (fascetta da 2,5 mm nelle feritoie a X 24, \|Y\| 5,5: `cox_fascetta_x`, D-061; era a X 28 in D-058) e sopra l'asse della coxa, dove l'imbardata cambia meno la lunghezza. Entra sotto il coperchio a z 25. Attraversa un giunto, l'imbardata.
+- **Ginocchio**: esce dalla finestra del cavo nella testata della culla della tibia, sull'asse del ginocchio. Fa l'ansa del ginocchio e passa nella fascetta dentro il blocco del femore (feritoie a X 79,5, tunnel a Z 10, D-061). I 22–40 mm di D-058 valgono per la fascetta di prima, vicino all'anca: dall'uscita del cavo alla fascetta nel blocco sono 57,4 mm a γ 29°, 40,5 a 90° e 27,2 a 150° [S]; il valore vero si misura sulla prima zampa (P-060). Segue l'ansa dell'anca, 11–56 mm al variare di α, poi ponte, imbardata e canale come il femore. Attraversa tre giunti.
 - **Prolunghe** (BOM C5): 4 JR maschio-femmina da 15 cm, 22 AWG, sui ginocchi delle zampe d'angolo. Le giunzioni si chiudono con il termorestringente (C6).
 - I pettini per le anse dei cavi nelle baie posteriori sono in backlog: pezzi separati, da disegnare con le lunghezze misurate (`CLAUDE.md`, Backlog).
 
@@ -105,7 +105,7 @@ Ogni servo ha il suo cavo a 3 fili (massa, +6 V, segnale), lungo 32 cm dichiarat
 | Cavo | Da → a | Percorso | Connettore | Fili e sezione | Stato |
 |---|---|---|---|---|---|
 | Sensore di forza (X5) | FSR sotto la punta dello stinco → prese dei piedi → partitore (10 kΩ 1 % al 3,3 V, 100 nF a massa) → ADS7830, canali 0–5 | coda dell'FSR piegata sul raccordo della punta, saldature nella tasca 6 × 9. Poi gola 2 × 2 sullo stinco fino al fondo della culla, gola del fermo sulla parete +X della culla sotto tre ponticelli, testata. Infine con il cavo del servo del ginocchio (3.2) fino alla fila delle prese | spina JR femmina (dalle prolunghe C5 avanzate, 2 poli su 3: segnale e massa) sulle prese dei piedi (x 48…64, y 22…25) | doppino 28 AWG siliconico, circa 0,4–0,5 m | S lunghezza; C canali: proposta nell'ordine di `robot.yaml` (AS, MS, PS, AD, MD, PD = 0…5) |
-| Luci della tibia (X31) | capo alto della striscia (z −33) → prese delle luci (x 48…64, y −25…−22) → 5 V dopo il PTC, massa, dato dal buffer | dal capo della striscia alla gola del fermo, poi come l'FSR | spina JR a 3 poli: massa, +5 V, dato, come un servo | 3 × 30 AWG siliconico | prese nel CAD dalla 2.1.2 (D-069) |
+| Luci della tibia (X31) | capo alto della striscia (z −33) → prese delle luci (x 48…64, y −25…−22) → 5 V dopo il PTC, massa, dato dal buffer con R9 (330 Ω) in linea nella guaina vicino alla basetta | dal capo della striscia alla gola del fermo, poi come l'FSR | spina JR a 3 poli: massa, +5 V, dato, come un servo | 3 × 30 AWG siliconico | prese nel CAD dalla 2.1.2 (D-069) |
 
 - **Fili che attraversano i giunti**, per zampa: 8 al ginocchio e all'anca (servo del ginocchio, 2 dell'FSR, 3 delle luci). All'imbardata sono 11, con i 3 del servo del femore.
 - **Gola del fermo** (D-067): larga 4 e profonda 0,8 sulla parete +X della culla, da z −33 a +12,45, a Y 4,4…8,4. Sta fuori dalle finestre a rombo e dai tappi del guscio. I tre ponticelli a z −28, −10 e +6 lasciano 1,1 mm sotto di sé. Si infilano i fili prima di saldarli all'altro capo.
@@ -147,10 +147,10 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 | Catena LED (X9, X11, X12) | scheda → anello del pulsante → lobi PS, MS, AS, AD, MD, PD | dalla scheda lungo il lato sinistro dell'ottagono fino alla camera dell'anello. Entra dalla tacca verso la coda ed esce dalla stessa tacca. Poi lungo i fianchi nei ganci sotto il dorso (x −40, 0, 40, \|y\| 41,8–47,2), con il passaggio da sinistra a destra davanti | saldati sulle piazzole della striscia | 3 × 30 AWG (5 V, dato, massa) | S percorso; 16 pixel in tutto (D-068) |
 | Dentro la camera dell'anello | due pezzi da due pixel (16,7 mm a 120 LED/m, D-068) nelle sedi del fondo, a Y ±(6,5…11,9) | entra al capo DIN del pezzo +Y, dalla parte della coda. Dal capo DOUT un ponticello di 3 fili gira attorno al corpo del pulsante sul lato della testa e va al capo DIN del pezzo −Y. Dal capo DOUT del pezzo −Y esce verso la tacca | saldati | 3 + 3 + 3 fili da 30 AWG | V spazio nel CAD (camera Ø32 × 6, D-067) |
 | Pulsante | pulsante → scheda → poli 15-16 | sotto il dorso, circa 9 cm | saldati | 2 fili | S |
-| Microfoni (X16) | due schede (x 83…96, \|y\| 3…19) → scheda | sotto il dorso, circa 5 cm | saldati | 5 per scheda: 3,3 V, massa, BCLK, WS, dati. I dati dei due microfoni sono uniti sul polo 12, con un pull-down da 100 kΩ verso massa sulla scheda del carapace (D-074); L/R (SEL sulla Adafruit) a massa su uno e a 3,3 V sull'altro. MS3625: VDD, GND, SCK, WS, SD, L/R | S |
+| Microfoni (X16) | due schede (x 83…96, \|y\| 3…19) → scheda | sotto il dorso, circa 8 cm [S]: dal CAD 42,6–45,1 mm in linea retta, più la scorta; si taglia a misura sul primo carapace | saldati | 5 per scheda: 3,3 V, massa, BCLK, WS, dati. I dati dei due microfoni sono uniti sul polo 12, con un pull-down da 100 kΩ verso massa sulla scheda del carapace (D-074); L/R (SEL sulla Adafruit) a massa su uno e a 3,3 V sull'altro. MS3625: VDD, GND, SCK, WS, SD, L/R | S |
 | Amplificatore (X17) | scheda → ampli generico (x 51…70, pin verso la scheda, D-074) | sotto il dorso | saldati | 5: 5 V, massa, BCLK, WS, dati | S |
 | Altoparlante | ampli → altoparlante tondo da 15 mm sulla guancia destra di coda | sotto il dorso, dalla testa alla coda, circa 17 cm | il cavetto dell'altoparlante si taglia (connettore da 1,25) e si allunga; nella morsettiera o saldato | 2 | S |
-| ToF posteriore (X19) | scheda → VL53L1X sulla guancia sinistra di coda | sotto il dorso, circa 15 cm | saldati | 5: 3,3 V, massa, SDA, SCL, XSHUT (dal TCA9534) | S |
+| ToF posteriore (X19) | scheda → VL53L1X sulla guancia sinistra di coda | sotto il dorso, circa 20 cm [S]: dal CAD circa 126–129 mm in pianta più 12 di quota, con il cavo che gira fuori dall'ottagono; si taglia a misura sul primo carapace | saldati | 5: 3,3 V, massa, SDA, SCL, XSHUT (dal TCA9534) | S |
 | Espansione | presa Qwiic sulla scheda | si raggiunge dall'ottagono | JST SH 4 poli | 4 | V standard Qwiic |
 
 ### 3.6 Comandi dei servo e camera

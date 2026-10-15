@@ -306,6 +306,7 @@ passi:
     avvisi:
       - {tipo: attenzione, testo: "Solo morsa a ganasce morbide: niente martello."}
       - {tipo: prova, testo: "Atteso: forzato, tiene senza ritegno (D-049); entra con la morsa [C]. Parametro: perno_foro (5,0)."}
+      - {tipo: nota, testo: "La sede del disco in Femore A e i perni in Femore B non hanno un provino a parte (stessi parametri): si provano sui pezzi veri, con Femore B come primo pezzo del lotto [C]."}
     attrezzi: [morsa_morbida, calibro]
     fonti: [D-049, "cad/script/zampa.py perno_foro, perno_sporge", "manifest: Perno_coxa a Z -39,8"]
 
@@ -491,6 +492,7 @@ passi:
       - {tipo: prova, testo: "Atteso: 0,6–0,8 mm di bianco nascondono il punto del LED e lasciano luce uniforme [C]."}
       - {tipo: nota, testo: "Nessun dato pubblicato sulla luce nel PLA bianco: il provino la misura a occhio (D-069)."}
       - {tipo: importante, testo: "Serve un programma che accenda 3 pixel dal GPIO48: non c'è ancora [C]."}
+      - {tipo: nota, testo: "Gli incastri del diffusore (luc_dif_gio 0,1) e del fondo dell'anello (luc_fondo_gio 0,05) non stanno nel provino: si tarano sui pezzi veri alla prima stampa [C]."}
     attrezzi: [multimetro]
     fonti: [D-069, D-066, "docs/predisposizioni.md X10 e X31", "docs/piano-elettronica-software.md fase P1", "docs/cablaggio.md (segnali, GPIO48)"]
 

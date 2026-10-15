@@ -118,6 +118,9 @@ corpo:
     testa: {chiave: "corpo/Corpo_Slitta_Regolatore_*", tipo: passante_m3}
     attesi: 2
     decisione: D-051
+  # P-020: con il supporto dell'INA260 (X7) la testa della vite si alza di 2,4 mm e la vite e' M3 x 10 (presa 5,2 mm;
+  # M3 x 8 ne darebbe 3,2). Qui resta M3 x 8, la variante senza X7 che il BOM conta nel "Totale viti"; il passo 4.14 e
+  # 8.01 dicono M3 x 10. Una giunzione per variante serve quando la pipeline la sa disegnare con il supporto (F7).
   regolatori:
     descrizione: regolatori Pololu sulle slitte
     vite: M2x5

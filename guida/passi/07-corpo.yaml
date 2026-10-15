@@ -417,11 +417,12 @@ passi:
     testo:
       - "Porta ogni cavo fuori dalla finestra, verso il centro, e fallo salire lungo la parete della gondola."
       - "Dirigi il cavo verso la fila di spine della SSC-32 dello stesso lato, spina in alto."
-      - "Raccogli la scorta in un'ansa nella baia posteriore dello stesso lato, sopra il Wago, senza stringerla [S]."
+      - "Raccogli la scorta in un'ansa nella baia posteriore dello stesso lato, sopra il Wago, e tienila con una fascetta lasca [S]."
       - "Lascia vuote le baie anteriori: sono il camino d'aria dei regolatori."
     avvisi:
       - {tipo: importante, testo: "Le spine non si collegano ora: la SSC-32 non c'è ancora. Accanto a ogni servo c'è il suo canale [C], come nella tabella del passo 7.06."}
       - {tipo: nota, testo: "Il cavo di coxa non attraversa giunti. I pettini per le anse sono in backlog: fino ad allora le anse restano libere (cablaggio.md 3.2)."}
+    extra: [{nome: "fascetta 2,5 mm, lasca", qta: 6, bom: D11}]
     fonti:
       - "D-050"
       - "D-058"

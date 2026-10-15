@@ -113,12 +113,12 @@ Disposizione "compatto" (D-050, confronto in `ricerca/corpo-disposizioni.json`).
 | `Corpo_Base` | tunnel della batteria (parte alta e tetto), ripiano e pareti delle baie, sei gondole (culle uguali a quelle della zampa: fessura del passacavo verso il centro, cuscinetto nel fondo), parete anteriore sopra il tetto con l'apertura per vassoio e basetta, quattro bugne della SSC-32 con fori pilota M2,5 | 140 cm³ |
 | `Corpo_Chiglia` | fondo e parte bassa del tunnel, da −41,4 a −31,95 | 24 cm³ |
 | `Corpo_Coperchio` | fino a D-062: dorso da +28,4 a +30 con i lobi sopra le coxe, gonne laterali sulle pareti delle baie; **sostituito dal carapace** (D-063) | 40 cm³ |
-| `Corpo_Sportello` | sportello della batteria sul retro: piastra e due rebbi alti che premono il pacco (con schiuma) contro la battuta anteriore; sotto i rebbi passa la coppia di T-plug | 5 cm³ |
+| `Corpo_Sportello` | sportello della batteria sul retro: piastra e due rebbi alti che premono il pacco (con schiuma) contro la battuta anteriore; la coppia di T-plug non passa da qui: sta sopra F1 (D-051) | 5 cm³ |
 | `Corpo_Vassoio` | in PETG: piano per la basetta dell'ESP32 su quattro colonnine dal tetto, torretta e mensola della camera con una fessura di 0,5 mm per il flat | 9 cm³ |
 
 Quote: assi delle coxe d'angolo (±80, ±44) a ±30° e ±150°, medie (0, ±48); base 235 × 173 (da z −31,95 a +7), tunnel interno 162 × 50, chiglia fino a −41,4.
 
-Vano di coda (corpo v0.2): fessura nel tetto per i cavi della batteria; portafusibile F1 di traverso sul tetto dietro la SSC-32 (raggiungibile senza togliere il coperchio, dal retro); coppia di T-plug nella zona dei cavi dietro il pacco, raggiungibile aprendo lo sportello della batteria; Wago sul tetto sotto il vassoio, ingressi verso l'esterno.
+Vano di coda (corpo v0.2): fessura nel tetto per i cavi della batteria; portafusibile F1 di traverso sul tetto dietro la SSC-32 (raggiungibile senza togliere il coperchio, dal retro); coppia di T-plug sopra F1, nel vano di coda, raggiungibile dal retro senza aprire lo sportello (D-051, D-054, D-055); Wago sul tetto sotto il vassoio, ingressi verso l'esterno.
 
 ![Assieme v0 con il coperchio](immagini/assieme-v0-coperchio.png)
 

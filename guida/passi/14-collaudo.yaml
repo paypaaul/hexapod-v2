@@ -142,7 +142,7 @@ passi:
         - ["T-plug", "si stacca e si ricollega con due dita, carapace montato (13.23) [V]", ""]
         - ["Cicalino", "display visibile dalla finestra; staccato dalla prolunga a fine uso [V]", ""]
     avvisi:
-      - {tipo: importante, testo: "A 3045 g il femore è al 53 % dello stallo e l'avviso scatta al 55 %: oltre circa 3150 g l'avviso scatta già in piedi [S, la coppia è proporzionale alla massa]."}
+      - {tipo: importante, testo: "A 3045 g il femore è al 53 % dello stallo e l'avviso scatta al 55 %: oltre circa 3150 g l'avviso scatta già in piedi [S, la coppia è proporzionale alla massa]. Pesa prima di camminare; oltre 3150 g annota il peso e fermati: decidi con chi progetta come alleggerire (per esempio il guscio della tibia, D-063)."}
       - {tipo: nota, testo: "3045 g è la massa attesa di D-074 con tutte le predisposizioni montate: senza di loro il robot pesa meno (docs/software.md 6.3)."}
     attrezzi: [bilancia]
     fonti: ["D-074: massa attesa 3045,0 g", "docs/software.md 6.3 test 6 (regressione 53 % ± 1)", "robot/robot.yaml guardia (avviso al 55 %)", "docs/BOM.md 'Viteria e inserti contati dal modello'", "guida/passi/13-carapace.yaml 13.23", guida/problemi/collaudo.yaml]

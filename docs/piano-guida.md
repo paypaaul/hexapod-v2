@@ -124,9 +124,9 @@ Circa 220 passi, 140 pagine e 200 immagini. Ogni sezione si apre con un "sacchet
 | 9 | Zampa pilota sul corpo | vite centrale della squadretta, viti-spina, coxa, ponte, viti lato coda; prova B5; misura dei fili |
 | 10 | Le altre cinque zampe | una pagina di lotti e la scheda a spunta, con rimando alle sezioni 6 e 9 |
 | 11 | Batteria e sportello | |
-| 12 | Prima accensione e taratura | cavalletto, F1 da 15 A, B4, dime 1 e 2 con la lama B tolta, poi lame B e F1 da 30 A |
+| 12 | Prima accensione e taratura | cavalletto, F1 da 15 A (B4 del BOM), cicalino (B9), dime 1 e 2 con la lama B tolta, poi lame B e F1 da 30 A |
 | 13 | Carapace | pulsante e fondo dell'anello, lobi, scheda del carapace, ampli e altoparlante, microfoni con lunette, ToF posteriore, cicalino; prova al banco; montaggio |
-| 14 | Collaudo (B6) | |
+| 14 | Collaudo (prova B6 di `software.md`) | |
 | 15 | Smontaggio e manutenzione | |
 | App. | | viteria, viti 1:1, canali della SSC-32, registro delle misure, opzionali, glossario, problemi noti, schemi elettrici |
 
