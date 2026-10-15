@@ -215,7 +215,7 @@ passi:
       - {chiave: zampa/Tibia, lav: "ins_coda_*"}
       - {chiave: zampa/Tibia, lav: "pilota_corto_*"}
     testo:
-      - "Togli i gommini dalle alette del servo."
+      - "Controlla che le alette del servo siano nude: gommini e tubetti di ottone restano da parte."
       - "Infila la spina del cavo nella finestra della testata, da dentro la culla."
       - "Cala il servo nella culla dal lato A, con il passacavo nella fessura."
       - "Stringi 2 viti M3 × 8 negli inserti lato coda e 2 nei fori pilota lato albero."
@@ -487,7 +487,7 @@ passi:
         - ["Bianco sopra la luce (anello, lobi)", "0,8 [V]", "luc_bianco (0,6–0,8)", ""]
         - ["Bianco del diffusore della tibia", "0,6 [V]", "luc_dif_sp (0,6–0,8)", ""]
         - ["Altezza della camera nera", "6 [V]", "luc_camera_h", ""]
-        - ["Colore del diffusore", "bianco", "bianco o PETG fumé (X31)", ""]
+        - ["Colore del diffusore", "bianco", "bianco (deciso, D-076)", ""]
     avvisi:
       - {tipo: prova, testo: "Atteso: 0,6–0,8 mm di bianco nascondono il punto del LED e lasciano luce uniforme [C]."}
       - {tipo: nota, testo: "Nessun dato pubblicato sulla luce nel PLA bianco: il provino la misura a occhio (D-069)."}

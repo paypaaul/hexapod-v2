@@ -70,7 +70,7 @@ passi:
         - ["Lama A con intarsio", "Cover_Femore_A.stl + _Feritoia.stl", "PLA bianco + nero", "1", "6"]
         - ["Lama B con intarsio", "Cover_Femore_B.stl + _Feritoia.stl", "PLA bianco + nero", "1", "6"]
         - ["Guscio della tibia", "Cover_Tibia.stl", "PLA bianco", "1", "6"]
-        - ["Diffusore (solo X31)", "Cover_Tibia_Diffusore.stl", "PLA bianco o PETG fumé", "1", "6"]
+        - ["Diffusore (solo X31)", "Cover_Tibia_Diffusore.stl", "PLA bianco", "1", "6"]
         - ["Piedino", "Piedino.stl", "TPU 95A arancio", "1", "6 + 2 di scorta"]
     avvisi:
       - {tipo: nota, testo: "Le sei zampe sono la stessa zampa, ruotata: nessun pezzo è destro o sinistro (manifest, trasformate senza specchio) [V]."}
@@ -245,10 +245,10 @@ passi:
       - {testo: PIATTO, punto: [131.8, 0, -56]}
     testo:
       - "Posa la lastra sul piatto, con il bordino in alto."
-      - "Stampa in PLA bianco, oppure in PETG traslucido fumé."
+      - "Stampa in PLA bianco."
       - "Stampa 6 diffusori solo se monti le luci nelle tibie."
     avvisi:
-      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Senza luci salta questo pezzo: la finestra del guscio resta aperta. Bianco o fumé si decide con il provino di luce (sezione 1)."}
+      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Senza luci salta questo pezzo: la finestra del guscio resta aperta. Il diffusore è bianco (D-076); lo spessore del bianco si controlla con il provino di luce (sezione 1)."}
     fonti: ["cad/stl/README.md 'Cover_Tibia_Diffusore.stl'", D-066, D-069]
 
   - id: "2.12"

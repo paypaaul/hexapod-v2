@@ -22,7 +22,7 @@ sezione:
   note: >-
     Questa sezione non monta niente. Le immagini mostrano il robot intero solo per dare i nomi delle zampe, dei lati e
     degli assi.
-  attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, coccodrilli, alimentatore_limitato]
+  attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, coccodrilli, tester_servo]
   fonti: [D-075, docs/piano-guida.md "Struttura della guida", guida/stile.md]
   controllo:
     - "Una vite M3 × 8 vera, appoggiata al suo disegno nella pagina di apertura della sezione 6, ne copre esattamente la lunghezza."
@@ -158,13 +158,13 @@ passi:
     formato: mezzo
     immagine: false
     testo:
-      - "Carica solo con un caricabatterie per LiPo 2S con bilanciamento, sulla presa JST-XH."
+      - "Carica con il caricatore USB per batterie 2S che hai già (lento), sulla presa JST-XH e sul T-plug: deve essere per LiPo 2S e fermarsi a 8,4 V [C]."
       - "Imposta 2 celle: 8,4 V a fine carica [V], cioè 4,20 V per cella [S]."
       - "Imposta la corrente di carica dal manuale OVONIC [C]."
       - "Carica su una superficie che non brucia, e resta presente."
       - "Stacca il pacco quando la carica è finita."
     avvisi:
-      - {tipo: importante, testo: "Il progetto non dice come si carica il pacco: il caricabatterie non è nel BOM, e corrente di carica e conservazione vanno lette sul manuale OVONIC [C]. Le altre regole di questa pagina sono regole generali sulle LiPo [S]."}
+      - {tipo: importante, testo: "Si carica con il caricatore USB 2S lento che hai già (D-076): corrente di carica e conservazione vanno lette sull'etichetta e sul manuale OVONIC [C]. Il pacco si sfila dal tunnel con le spine attaccate e si carica nel sacchetto per LiPo (BOM B20). Dentro il robot si carica solo con il robot spento e restando presente, su una superficie che non brucia; il sacchetto non si usa con il pacco dentro il robot. Le altre regole di questa pagina sono regole generali sulle LiPo [S]."}
       - {tipo: attenzione, testo: "Non caricare un pacco gonfio, ammaccato o caldo."}
       - {tipo: nota, testo: "Per lasciare il pacco fermo per giorni portalo a metà carica, con la modalità di conservazione del caricabatterie [S]."}
     fonti: [docs/BOM.md A5, docs/studio-componenti.md "Batteria", D-045, guida/problemi/prima.yaml, guida/problemi/batteria.yaml]
@@ -194,7 +194,7 @@ passi:
         - ["F1", "3 A", "Linea principale, un solo regolatore", "Banco: sezioni 4 e 5 [V]"]
         - ["F1", "15 A", "Linea principale", "Prime accensioni: sezione 12, fino alla fine della taratura [V]"]
         - ["F1", "30 A", "Linea principale", "In uso, dopo la taratura (BOM B4) [V]"]
-        - ["F2", "2 A", "Ramo logica: 2813, 5 V, VL", "Sempre. Con lo zaino vedi la nota [C]"]
+        - ["F2", "2 A", "Ramo logica: 2813, 5 V, VL", "Sempre (niente zaino per ora, D-076)"]
     testo:
       - "Monta il fusibile della sezione che stai facendo: 3 A al banco, 15 A alla prima accensione."
       - "Sostituisci un fusibile bruciato con uno uguale, mai più grosso."
@@ -202,7 +202,7 @@ passi:
       - "Tieni F1 nel suo portafusibile fissato al corpo, non appeso ai cavi."
     avvisi:
       - {tipo: attenzione, testo: "Non ponticellare mai un fusibile, nemmeno per provare."}
-      - {tipo: importante, testo: "Il ramo logica chiede circa 1,35 A con le voci alte e medie, il 67 % di F2 [S]. Con lo zaino (computer di bordo, 4 W) chiede circa 2,04 A: il piano dice F2 da 3 A, ma il cavo della logica è da 26 AWG. Non cambiare F2 da solo: è un punto aperto del progetto [C]."}
+      - {tipo: importante, testo: "Il ramo logica chiede circa 1,35 A con le voci alte e medie, il 67 % di F2 [S]. Niente zaino per ora (D-076): F2 resta da 2 A. Con lo zaino (computer di bordo, 4 W) il ramo chiederebbe circa 2,04 A: F2 da 2 A non basta e il cavo della logica è da 26 AWG, quindi servirebbe un ramo proprio con fusibile e cavo suoi [C]."}
       - {tipo: nota, testo: "Il rail dei servo non ha un fusibile suo: i due regolatori limitano la corrente e F1 protegge il cavo da 14 AWG (D-073)."}
     fonti: [docs/BOM.md B4 B5 B6, docs/piano-elettronica-software.md 3.3, docs/cablaggio.md 3.1, docs/software.md 6.7, guida/passi/04-banco.yaml, guida/passi/05-servo.yaml, guida/passi/12-accensione.yaml, D-073]
 
@@ -340,7 +340,7 @@ passi:
       intestazione: [Voce, Cosa, Sez., Quando, Sì/No]
       righe:
         - ["X1", "Bus I2C dei sensori e presa Qwiic", "4, 8", "meglio ora", ""]
-        - ["X3", "Regolatore 3,3 V (solo se il 3,3 V della scheda non regge)", "4", "anche dopo, se serve", ""]
+        - ["X3", "Regolatore 3,3 V (non si compra ora: solo se la prova del 3,3 V lo chiede, D-076)", "4", "anche dopo, se serve", ""]
         - ["X4", "IMU GY-6500 sotto il vassoio", "8", "meglio ora", ""]
         - ["X5", "Sensore di forza FSR nel piede", "6–9", "meglio ora", ""]
         - ["X6", "ADC ADS7830 per gli FSR e le NTC", "8", "meglio ora", ""]
@@ -372,13 +372,13 @@ passi:
         - ["X16", "Microfoni MS3625 con le lunette", "13", "meglio ora; dopo, a carapace tolto", ""]
         - ["X17", "Amplificatore e altoparlante", "13", "meglio ora; dopo, a carapace tolto", ""]
         - ["X19, X20", "ToF posteriore ed espansore di I/O", "13", "meglio ora; dopo, a carapace tolto", ""]
-        - ["Zaino", "Computer di bordo sul dorso", "13", "anche dopo", ""]
+        - ["Zaino", "Computer di bordo sul dorso (per ora no, D-076)", "13", "anche dopo", ""]
     testo:
       - "Decidi per ogni voce se la monti, e segna Sì o No."
       - "Stampa il provino di luce prima di stampare carapace e gusci."
     avvisi:
       - {tipo: nota, testo: "Senza posto nel modello e quindi non predisposte: X15, X18, X21, X22, X25–X30, X32, X33 (D-069). X23 e X24 non hanno pezzi: usano l'IMU e una riserva I2C."}
-      - {tipo: nota, testo: "X10 decide il bianco o il PETG fumé del diffusore e lo spessore del bianco: per questo è solo ora, prima di stampare (D-069)."}
+      - {tipo: nota, testo: "Il diffusore è bianco (D-076); X10 controlla lo spessore del bianco: per questo è solo ora, prima di stampare (D-069)."}
     fonti: [D-069, D-074, docs/predisposizioni.md 3.1 e 3.2, docs/BOM.md "X. Predisposizioni", guida/passi/03-inserti.yaml 3.20, guida/problemi/prima.yaml]
 
   - id: "0.17"
@@ -433,9 +433,9 @@ passi:
         - ["Cavo 14 AWG, 26 AWG e filo di rame Ø1 mm", "0,5 + 0,5 m, 0,6 + 0,6 m; 2 m; 1 m", "B14–B17", ""]
     testo:
       - "Conta ogni voce e spunta la colonna ✓."
-      - "Controlla che il T-plug abbia il sesso giusto per il pacco [C]."
+      - "Controlla con il multimetro che il positivo sia dal lato verticale del T-plug, come dice il pacco [V]."
     avvisi:
-      - {tipo: nota, testo: "Il T-plug della batteria è femmina e quello del robot maschio: dalle immagini del produttore, da guardare sul pacco (BOM B12)."}
+      - {tipo: nota, testo: "Il T-plug della batteria è femmina e quello del robot maschio: verificato dall'utente sul pacco, con il positivo sul lato verticale (BOM B12, D-076). Controlla la polarità con il multimetro prima di saldare."}
     fonti: [docs/BOM.md A5 B1-B17, D-073, docs/cablaggio.md 3.1]
 
   - id: "0.19"
@@ -473,13 +473,15 @@ passi:
         - ["PLA bianco", "circa 230 g [S]", "E2", ""]
         - ["PLA nero", "circa 15 g [S]", "E2b", ""]
         - ["TPU 95A arancio", "circa 10 g [S]", "E3", ""]
-        - ["Alimentatore regolabile con limite di corrente", "1, utile e non indispensabile", "Attrezzi", ""]
+        - ["Tester dei servo a manopola", "1", "C9", ""]
+        - ["Sacchetto per LiPo", "1", "B20", ""]
+        - ["Bilancia da cucina, almeno 5 kg", "1, in casa", "Attrezzi", ""]
     testo:
       - "Controlla di avere i quattro filamenti."
       - "Controlla di avere gli attrezzi in basso: servono quasi tutti."
     avvisi:
       - {tipo: nota, testo: "Se la bobina FlashForge di PETG-CF nero è quasi intera, ne basta una [C]. Il PLA nero è una proposta dell'estetica, non confermata (D-065)."}
-    attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, coccodrilli, alimentatore_limitato]
+    attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, coccodrilli, tester_servo]
     fonti: [docs/BOM.md E1 E2 E2b E3 e "Attrezzi necessari", D-065, D-073]
 
   - id: "0.21"
@@ -550,7 +552,7 @@ passi:
       - "Salta la 15 finché non devi smontare o riparare."
     avvisi:
       - {tipo: attenzione, testo: "Dalla sezione 12 il robot intero ha la corrente: tieni le zampe libere e una mano vicina al T-plug."}
-      - {tipo: nota, testo: "In tutto circa 45 ore di lavoro, stampe escluse [S]. La sezione 6 si rifà per sei zampe: la 10 conta le cinque in più."}
+      - {tipo: nota, testo: "Le durate sono stime [S], senza totale: non importano all'utente (D-076). La sezione 6 si rifà per sei zampe: la 10 conta le cinque in più."}
     fonti: [docs/piano-guida.md "Struttura della guida", docs/software.md 6.7, guida/passi/11-batteria.yaml, guida/problemi/prima.yaml]
 
   # --- appendici generato (inizio) ---

@@ -39,37 +39,37 @@ I bloccanti:
 Ogni domanda dice quali voci sblocca. Sono cose da scegliere o da guardare sui pezzi, mai misure dei servo.
 
 **Scelte**
-- **Q-01** Va bene comprare ora una squadretta di prova (D3, domanda 4 del BOM)? AliExpress da 0,42 €, diymore da 10,99 € (6 pezzi, misure dichiarate) o tutte e due? Sblocca P-004, P-059, P-069, P-136.
-- **Q-02** Scheda del carapace: preferisci spostarla (18 mm liberi sotto) o passare a una testata a 90° da comprare? Hai già una millefori tagliata e una testata 2 × 8? Sblocca P-002, P-067, P-075.
-- **Q-03** Se il kit Temu non ha M3 × 6 a testa bassa, preferisci comprarle o spostare le viti del vassoio nel CAD? Sblocca P-003.
-- **Q-04** Prese dei piedi e delle luci: un pettine a 3 poli per zampa o un connettore diverso? Hai già qualcosa in casa? Sblocca P-012, P-006, P-017.
-- **Q-05** Approvi l'acquisto di 2 FSR 400 Short (X5) e di un tratto di striscia a 120 LED/m con buffer e resistenze (X9) per i provini 6 e 7? Sblocca P-021.
-- **Q-06** Monti le luci nelle tibie? Se sì, diffusore bianco o fumé (dopo il provino di luce)? Sblocca P-077, P-062, P-063, P-064, P-138.
-- **Q-07** Aggiungiamo un condensatore sulle prese delle luci delle tibie (voce nuova, pochi centesimi)? Sblocca P-074.
-- **Q-08** Monti lo zaino con il computer di bordo? Se sì, da dove lo alimenti? Sblocca P-027.
-- **Q-09** Il ToF posteriore lo preferisci avvitato (due fori nel carapace) o incollato? Sblocca P-008.
-- **Q-10** Il vassoio dell'ESP32 va in PLA bianco (BOM E2) o in PETG? Sblocca P-088.
-- **Q-11** Le lunette dei microfoni vanno in PLA nero o bianco? Sblocca P-078.
-- **Q-12** Soglia del cicalino a 3,3 V per cella (ultimo livello) o a 3,5 V (come il firmware)? Sblocca P-066.
-- **Q-13** Da quale assetto parte il robot a terra: 100/45 (punto di progetto) o più alto? Sblocca P-046.
-- **Q-14** La prima prova della zampa sul corpo può aspettare la sezione 12 (batteria nel robot), o la vuoi prima con la batteria appoggiata fuori o con un alimentatore? Sblocca P-050.
-- **Q-15** Vuoi una scorta di pezzi stampati (carapace, tibia, femore, piedini) o ristampi quando serve? Sblocca P-080.
-- **Q-16** Il totale delle durate (0.23) va portato a circa 48 ore, o le durate delle sezioni 4 e 13 sono da rivedere? Sblocca P-111.
+- **Q-01** Va bene comprare ora una squadretta di prova (D3, domanda 4 del BOM)? AliExpress da 0,42 €, diymore da 10,99 € (6 pezzi, misure dichiarate) o tutte e due? Sblocca P-004, P-059, P-069, P-136. RISPSTA: SI COMPRIAMOLA.
+- **Q-02** Scheda del carapace: preferisci spostarla (18 mm liberi sotto) o passare a una testata a 90° da comprare? Hai già una millefori tagliata e una testata 2 × 8? Sblocca P-002, P-067, P-075. RISPOSTA: SI VA BENE SPOSTARLA SE C'E SPAZIO. PER LA MILLEFORI E LA BASETTA: SICURAMENTE HO DUE CONNETTORI FEMMINA MASCHIO 1X8. PERO IN REALTA PRIMA DI FARLO REALMENTE MI SA CHE PENSO DI DISEGNARE E FARMI STAMPARE UN PCB (NO MILLEFORI), LO DISEGNEREMO ASSIEME IN UNA VERSIONE SUCCESSIVA PER ORA NON PREOCCUPIAMONECENE. NELLA GUIDA RIMANE SEMPRE LA MILLEFORI. AGGIUNGEREMO L'ALTERNATIVA DI FARSI STAMAPRE IL PCB APPOSTA.
+- **Q-03** Se il kit Temu non ha M3 × 6 a testa bassa, preferisci comprarle o spostare le viti del vassoio nel CAD? Sblocca P-003. RISPOSTA: è UGUALE.
+- **Q-04** Prese dei piedi e delle luci: un pettine a 3 poli per zampa o un connettore diverso? Hai già qualcosa in casa? Sblocca P-012, P-006, P-017. RISPOSTA: NON LO SO.
+- **Q-05** Approvi l'acquisto di 2 FSR 400 Short (X5) e di un tratto di striscia a 120 LED/m con buffer e resistenze (X9) per i provini 6 e 7? Sblocca P-021. RISPOSTA: SI
+- **Q-06** Monti le luci nelle tibie? Se sì, diffusore bianco o fumé (dopo il provino di luce)? Sblocca P-077, P-062, P-063, P-064, P-138. RISPOSTA: NON è ESSENZIALE. LASCIAMOLO COSI COM'E ORA, BIANCO. SE LO CAMBIEREMO MODIFICHEREMO.
+- **Q-07** Aggiungiamo un condensatore sulle prese delle luci delle tibie (voce nuova, pochi centesimi)? Sblocca P-074. RISPOSTA: SE E NECESSARIO AGGIUNGIAMOLO, SE POSSIAMO USARE CONDENSATORI CHE ABBIAMO GIA (SIA CERAMICI CHE ELETROLITICI)
+- **Q-08** Monti lo zaino con il computer di bordo? Se sì, da dove lo alimenti? Sblocca P-027. RISPOSTA: NO ADESSO NO.
+- **Q-09** Il ToF posteriore lo preferisci avvitato (due fori nel carapace) o incollato? Sblocca P-008. RISPOSTA: è UGUALE, DI BASE AVVITARLO E MEGLIO MA NON è ESSENZIALE.
+- **Q-10** Il vassoio dell'ESP32 va in PLA bianco (BOM E2) o in PETG? Sblocca P-088. RISPOSTA: IN PLA SICURO, IL COLORE VEDIAMO MA NON CAMBIA NULLA.
+- **Q-11** Le lunette dei microfoni vanno in PLA nero o bianco? Sblocca P-078. RISPOSTA: IN PLA SICURO, IL COLORE VEDIAMO MA NON CAMBIA NULLA.
+- **Q-12** Soglia del cicalino a 3,3 V per cella (ultimo livello) o a 3,5 V (come il firmware)? Sblocca P-066. RISPOSTA: RISOLVI IN AUTONOMIA.
+- **Q-13** Da quale assetto parte il robot a terra: 100/45 (punto di progetto) o più alto? Sblocca P-046. RISPOSTA: è DAVVERO NECESSARIO SAPERLO ADESSO? RISOLVI IN AUTONOMIA.
+- **Q-14** La prima prova della zampa sul corpo può aspettare la sezione 12 (batteria nel robot), o la vuoi prima con la batteria appoggiata fuori o con un alimentatore? Sblocca P-050. RISPOSTA: è UGUALE, DIPENDE DA COSA è PIU COMODO, DI BASE NON HO ALIMENTATORE VARIABILE QUINDI DIREI BATTERIA.
+- **Q-15** Vuoi una scorta di pezzi stampati (carapace, tibia, femore, piedini) o ristampi quando serve? Sblocca P-080. RISPOSTA: RISTAMPO QUANDO SERVE
+- **Q-16** Il totale delle durate (0.23) va portato a circa 48 ore, o le durate delle sezioni 4 e 13 sono da rivedere? Sblocca P-111. RISPOSTA: NON è IMPORTANTE LA STIMA DELLE DURATE. 
 
 **Pezzi già in casa: da guardare o misurare**
-- **Q-17** Batteria OVONIC: lunghezza del pacco con il calibro; il T-plug del pacco è femmina e quale lato è il +; che caricatore usavi con la v1 (carica bilanciata 2S, modalità storage), e caricavi il pacco fuori dal robot ogni volta? Hai un sacchetto per LiPo? Sblocca P-001, P-007, P-029, P-041.
-- **Q-18** Scheda ESP32: con il calibro, distanza fra le due file di pin da centro a centro (prima di tutto); la sigla stampata (è la RE1.3?) e la serigrafia accanto ai pin 5V, GND, 3V3; con la sola USB collegata, i volt fra pin 5V e GND; a scheda spenta, la resistenza fra GPIO40 e 3V3; componenti sul lato inferiore oltre alla microSD; il connettore FPC ha la levetta e come stanno i contatti del flat (foto). Sblocca P-005, P-026, P-035, P-039, P-040, P-079, P-086.
-- **Q-19** SSC-32: foto dei due lati con le scritte di ponticelli, morsetti e pin accanto alla morsettiera leggibili; i ponticelli sono a spina o saldati? Con il multimetro, VL− è collegato alle file di massa dei servo? Sblocca P-022, P-023, P-082.
-- **Q-20** Kit Temu: misure degli inserti (diametro esterno e lunghezza di ogni misura), quanti per misura e se il kit è da 800 o da 500 pezzi; nel kit da 918 viti ci sono M3 × 6 a testa bassa (DIN 7984) o bombata (ISO 7380)? Che chiave serve alle M2 svasate nere? Sblocca P-003, P-057, P-058, P-112.
-- **Q-21** Saldatore e stagno: hai una punta per inserti a temperatura regolabile? Che lega è lo stagno "a bassa temperatura"? Che temperatura consigliano le istruzioni per il 14 AWG? Sblocca P-058, P-079.
-- **Q-22** Pulsante da 12 mm: ce l'hai? Diametro massimo dei contatti a saldare, ed è aperto a riposo? Sblocca P-010.
+- **Q-17** Batteria OVONIC: lunghezza del pacco con il calibro; il T-plug del pacco è femmina e quale lato è il +; che caricatore usavi con la v1 (carica bilanciata 2S, modalità storage), e caricavi il pacco fuori dal robot ogni volta? Hai un sacchetto per LiPo? Sblocca P-001, P-007, P-029, P-041. RISPOSTA: LUNGHEZZA 139,65mm, IL TPLUG è FEMMINA, LUNGHEZZA DEL CAVO 110mm, IL LATO POSITIVO è QUELLO VERTICALE, LA CARICAVO CON UN ALIMENTATORE USB APPOSITO PER LE 2S MOLTO LENTO, LA CARICAVO SIA FUORI CHE DENTRO, NON HO SACCHETTO.
+- **Q-18** Scheda ESP32: con il calibro, distanza fra le due file di pin da centro a centro (prima di tutto); la sigla stampata (è la RE1.3?) e la serigrafia accanto ai pin 5V, GND, 3V3; con la sola USB collegata, i volt fra pin 5V e GND; a scheda spenta, la resistenza fra GPIO40 e 3V3; componenti sul lato inferiore oltre alla microSD; il connettore FPC ha la levetta e come stanno i contatti del flat (foto). Sblocca P-005, P-026, P-035, P-039, P-040, P-079, P-086. RISPOSTA: NON SO ORA, STANDBY. SE PUOI OTTENERE QUESTE NFORMAZIONI DA SOLO, FALLO.
+- **Q-19** SSC-32: foto dei due lati con le scritte di ponticelli, morsetti e pin accanto alla morsettiera leggibili; i ponticelli sono a spina o saldati? Con il multimetro, VL− è collegato alle file di massa dei servo? Sblocca P-022, P-023, P-082. RISPOSTA: TI MANDO LA FOTO.
+- **Q-20** Kit Temu: misure degli inserti (diametro esterno e lunghezza di ogni misura), quanti per misura e se il kit è da 800 o da 500 pezzi; nel kit da 918 viti ci sono M3 × 6 a testa bassa (DIN 7984) o bombata (ISO 7380)? Che chiave serve alle M2 svasate nere? Sblocca P-003, P-057, P-058, P-112. RISPOSTA: INTERNO è RELATIVO AL FILETTO CHE DEVE OSPITARE (M2 O M3), ESTERNO HA DUE DIMENSIONI UNA PARTE ZIGRINATA DAL DIAMETRO 4,2mm PER M3 (3,2mm PER M2) E UNA PARTE LISCIA DA DIAMETRO 4mm PER M3 (3mm PER M2) CHE FA DA INVITO PER L'INSERTO.
+- **Q-21** Saldatore e stagno: hai una punta per inserti a temperatura regolabile? Che lega è lo stagno "a bassa temperatura"? Che temperatura consigliano le istruzioni per il 14 AWG? Sblocca P-058, P-079. RISPOSTA: MASSI NON E ESSENZIALE MI ARRANGIO. RISOLVI IN AUTONOMIA.
+- **Q-22** Pulsante da 12 mm: ce l'hai? Diametro massimo dei contatti a saldare, ed è aperto a riposo? Sblocca P-010. RISPOSTA: NON CE LHO.
 - **Q-23** Portafusibile impermeabile: lunghezza, larghezza, altezza e lati da cui escono i cavi. Sblocca P-011.
-- **Q-24** Fili siliconici: diametro esterno del 14 AWG (previsto 3,3 mm) e dei 28 e 30 AWG di FSR e luci. Sblocca P-028, P-063.
-- **Q-25** Hai in casa nastro Kapton, colla a caldo o biadesivo sottile? Sblocca P-072, P-008.
-- **Q-26** Attrezzi: hai un tester dei servo a manopola, un alimentatore da banco regolabile con limite di corrente, una bilancia da almeno 5 kg e un termometro a infrarossi? Sblocca P-070, P-071, P-117, P-050.
-- **Q-27** Nel set di resistenze B10 c'è il 22 kΩ? Sblocca P-024.
-- **Q-28** Su un MG996R appena aperto: i gommini sono già nelle alette? Ci sono tubetti di ottone dentro? Sblocca P-134.
-- **Q-29** Con la v1, ogni quanto dovevi stringere le viti o sostituire un servo? Sblocca P-101.
+- **Q-24** Fili siliconici: diametro esterno del 14 AWG (previsto 3,3 mm) e dei 28 e 30 AWG di FSR e luci. Sblocca P-028, P-063. NON LO SO, è ESSENZIALE? BASATI SULLE SPECIFICHE E NEL CASO STAI LEGGERMENTE LARGO,
+- **Q-25** Hai in casa nastro Kapton, colla a caldo o biadesivo sottile? Sblocca P-072, P-008. RISPOSTA: COLLA A CALDO SI, BIADESIVO LO COMPRO PERSONALMENTE SE SEERVE. QUESTO TIPO DI COSE A COMNSUMO GENERAL PURPOSE NON DEVI PREOCCUPARTI DI COMPRAREL SONO COSE CHE IN CASA SI HANNO.
+- **Q-26** Attrezzi: hai un tester dei servo a manopola, un alimentatore da banco regolabile con limite di corrente, una bilancia da almeno 5 kg e un termometro a infrarossi? Sblocca P-070, P-071, P-117, P-050. RISPOSTA: HO SOLO LA BILANCIA.
+- **Q-27** Nel set di resistenze B10 c'è il 22 kΩ? Sblocca P-024. RISPOSTA: NON LO SO.
+- **Q-28** Su un MG996R appena aperto: i gommini sono già nelle alette? Ci sono tubetti di ottone dentro? Sblocca P-134. RISPOSTA: CI SONO DEI GOMMINI RONDELLINI ROTONDI CON BUCO, E ANCHE I TUBETTI DI OTTONE. TUTTO A PARTE.
+- **Q-29** Con la v1, ogni quanto dovevi stringere le viti o sostituire un servo? Sblocca P-101. RISPOSTA: NON NE HO IDEA. CREDO CHE IN RELATA LO STRINGEVO CON DEI DADI DALL'ALTRA PARTE.
 
 **Quando arrivano i pezzi o al banco**
 - **Q-30** INA260: il 14 AWG entra nella morsettiera? Sblocca P-025.
@@ -122,7 +122,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: i cavi del pacco salgono al T-plug (sopra F1) solo dalle due fessure del tetto, 13 × 4,5 mm, chiuse verso la coda da un ponte di 2 mm. La spina T-plug (circa 30 × 16 × 8,5 la coppia) e la JST-XH di bilanciamento (circa 10 × 5,8) non passano da 4,5 mm: il pacco non si sfila per caricarlo come dice D-054. La verifica di D-051 riguardava solo la scatola, senza cavi.
 - **Opzioni**: (1) fessure aperte verso la coda, togliendo il ponte da 2 mm (da verificare con la fascetta di F1, D-055, e la rigidezza del tetto); (2) una fessura larga quanto la spina (circa 17 × 9) accanto a F1; (3) caricare il pacco dentro il robot, nessuna modifica; (4) prolunga di bilanciamento infilata prima di saldare (solo il bilanciamento).
 - **Consiglio**: fessure aperte verso la coda nella 2.1.7, provate con la spina vera. Intanto 11.03 fa provare a secco e fermare se la spina non passa; la sezione 15 (cambio batteria) segue la stessa scelta.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): fessure del tetto aperte verso la coda nella 2.1.7 con il dentino per la fascetta di F1 (modifica 11); niente caricatore integrato, si carica con il caricatore USB 2S dell'utente alle spine in coda; sacchetto LiPo da comprare (B20).
 - **Domanda**: con la v1 caricavi il pacco fuori dal robot, ogni volta?
 
 ### P-002 La testata 2 × 8 con la spina IDC non sta sotto la scheda del carapace (S-01)
@@ -131,7 +131,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: sotto la scheda (faccia alta a z 30,9) c'è l'ESP32 fino a z 20,8: restano circa 10 mm. Testata dritta più spina IDC fanno 16-18 mm; il CAD le dà 9 (sch_sp, S). Una testata a 90° copre le viti di coda o quasi tutta la scheda. I collegamenti dello schema valgono, la posizione della testata no; ponticelli e fili 101-112 si saldano sui pin di J2, quindi al banco si fanno solo taglio, fori e CE1 (anche il taglio dipende da S-01).
 - **Opzioni**: (1) CAD 2.1.7: scheda fuori dall'ingombro dell'ESP32 o cose sotto più basse, 18 mm liberi; (2) CAD 2.1.7: testata a 90° con chiave (da comprare) sul bordo verso l'ottagono, viti di coda a |y| ≥ 15, scheda allargata; (3) testata piegata dalla strip in casa, chiave togliendo il pin 14 (costo zero, protezione parziale).
 - **Consiglio**: opzione 1 o 2 nel CAD prima di stampare il carapace; nel CAD anche qualche foro libero in più. Fino ad allora 4.06 e 13.16-13.17 non fanno saldare J2 (marcati [C]); 13.16 deve riportare le prove 6 e 8 di schemi.md 2.6.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): soluzione A, testata 2 × 8 a 90° con chiave sul bordo posteriore della scheda, comprata con X2 (modifica 12); la guida resta sulle millefori, PCB stampato in una versione futura.
 - **Domanda**: preferisci spostare la scheda del carapace (più spazio sotto) o passare a una testata a 90° da comprare? Hai già una millefori tagliata per la scheda e una testata 2 × 8 dritta o a 90°?
 
 ### P-003 Le teste M3 del vassoio stanno 0,3 mm sotto la basetta, sotto tre pin dell'ESP32 (S-19)
@@ -140,7 +140,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: quattro M3 × 6 DIN 912 (testa 5,5 × 3) a (30; ±12,5) e (75; ±12,5): teste a z 5,6, basetta da z 5,9. Sotto le teste cadono T-2 (3V3), D-12 (GPIO21, TX verso la SSC-32) e al limite B-2 (GPIO14), tutti necessari; una saldatura è alta 0,5-1 mm e una testa sotto C-12 e D-12 li unirebbe.
 - **Opzioni**: (1) teste basse: DIN 7984 (lascia 1,3 mm) o ISO 7380 (1,65 mm), più Kapton sulle teste, code tagliate a filo, giunti piatti; (2) CAD 2.1.7: viti del vassoio fuori dalla basetta (|y| > 17,5 o x fuori da 22-78) o colonnine più alte (cor_bas_luce).
 - **Consiglio**: opzione 1 se il kit Temu ha M3 a testa bassa (già fra le cose da guardare in `CLAUDE.md`), altrimenti opzione 2. Le zone vietate dello schema valgono in tutti e due i casi.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): soluzione e: colonne della base con inserti M2 e M2 × 5 svasate a filo, B18 esce dal BOM (modifica 1).
 - **Domanda**: nel kit Temu da 918 viti ci sono M3 × 6 a testa bassa (DIN 7984) o bombata (ISO 7380)? Se no, preferisci comprarle o spostare le viti del vassoio nel CAD?
 
 ### P-004 La squadretta di prova non è comprata: senza le sue quote non si prova il giunto né si stampa la zampa
@@ -149,7 +149,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: la squadretta a 25 denti (D3) è da comprare (domanda 4 del BOM aperta). Le sue quote (sq_d 20, sq_sp 2,5, sq_h 5,5, sq_mozzo_d 9, sq_fori_pcd 14, sq_fori_d 3) sono tutte C, da rivenditori discordanti; sq_h e sq_sp spostano lungo Y tutti i pezzi della zampa (zy_orlo, zy_disco, zy_A_est). Il provino 4 e la chiusura della sezione 1 aspettano la misura.
 - **Opzioni**: (1) 1-2 squadrette AliExpress da 0,42 € (misure non dichiarate); (2) diymore 10,99 € per 6, con Ø20 e fori M3 a 14 dichiarati; (3) tutte e due.
 - **Consiglio**: una AliExpress e una confezione diymore; si misura la prima che arriva e le quote vanno nel CAD prima della zampa.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): squadretta di prova approvata (una AliExpress e una confezione diymore), già nel BOM.
 - **Domanda**: va bene comprare ora una squadretta di prova (D3, domanda 4 del BOM)? Quale: AliExpress da 0,42 € o diymore da 10,99 €?
 
 ### P-005 Interasse delle due file di pin dell'ESP32: 24,7 nel CAD, 25,4 sulla millefori (S-02)
@@ -158,7 +158,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: sulla millefori le strip femmina stanno solo a multipli di 2,54: lo schema le mette a 25,4 (standard DevKitC). Il CAD usa 24,7 (esp_file, C, letto sul disegno del venditore). Se la scheda vera è a 24,7 non entra (0,7 mm di troppo) e lo schema della basetta va rifatto.
 - **Opzioni**: (1) misurare centro-centro sui pin prima di tagliare la basetta; (2) se 25,4: schema valido, esp_file a 25,4 nella 2.1.7 e D-053 corretta (|y| 12,7); (3) se 24,7: strip su due striscioline separate, collegate con fili, schema da rifare.
 - **Consiglio**: misurare per prima cosa: è la quota da cui dipende tutta la basetta.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): interasse 25,4 (S), condizione per saldare la prova a secco (modifica 2).
 - **Domanda**: con il calibro, quanto misura la distanza fra le due file di pin dell'ESP32, da centro a centro?
 
 ### P-006 Gli schemi della basetta e della scheda del carapace non esistevano (resta la striscia dei partitori)
@@ -179,7 +179,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: fra la battuta anteriore del tunnel (X 79) e la punta dei rebbi (X -68,4) ci sono 147,4 mm; il pacco è lungo 137-139 (V): restano 8,4-10,4 mm. La schiuma EVA del BOM (D10) è da 3 mm: con uno strato il pacco scorre di 5-7 mm. D-051 e corpo.py non dicono dove va la schiuma; la bozza mette 3-4 strati sulla faccia anteriore del pacco [C].
 - **Opzioni**: (1) strati sulla faccia anteriore, CAD invariato; (2) rebbi più lunghi nella 2.1.7 (cor_sport_rebbio da 17 a circa 22) sul pacco misurato, per un solo strato; (3) tasselli di schiuma sulle punte dei rebbi (poco stabili).
 - **Consiglio**: misurare il pacco e allungare i rebbi nella 2.1.7; intanto gli strati sulla faccia anteriore.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): rebbi più lunghi nella 2.1.7 (modifica 16), pacco misurato 139,65 mm.
 - **Domanda**: quanto è lungo il tuo pacco OVONIC, misurato con il calibro?
 
 ### P-008 Altoparlante, microfoni e ToF posteriore non hanno un fissaggio definito
@@ -188,7 +188,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: l'altoparlante Ø15 sta fra due guide e un fermo davanti, dietro niente (sporge 3,3 mm); i microfoni poggiano sull'anello attorno al foro Ø1 senza ritegno verso il dorso, e la guarnizione di D-066 non ha materiale né voce del BOM; il ToF posteriore ha solo il piano inclinato a 35°, senza fori né perni (predisposizioni.md diceva "due perni o un inserto M2"). La bozza dice colla a caldo o biadesivo [C], fuori dal percorso del suono.
 - **Opzioni**: (1) colla a caldo o biadesivo, reversibili; (2) due fori Ø1,7 per viti M2 (o perni) sul piano del ToF, nella 2.1.7; (3) linguetta o due costole dietro l'altoparlante, nella 2.1.7.
 - **Consiglio**: ora colla o nastro, un punto solo fuori dal suono; nella 2.1.7 viti del ToF e ritegno dell'altoparlante.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): ToF posteriore avvitato (due fori pilota per M2) e ritegno dell'altoparlante nella 2.1.7 (modifica 15); microfoni con colla a caldo.
 - **Domanda**: hai colla a caldo o biadesivo sottile in casa? Il ToF posteriore lo preferisci avvitato (due fori nel carapace) o incollato?
 
 ### P-009 La catena LED non ha un percorso disegnato fra i lobi; il README dice un pixel per sede del fondo dell'anello
@@ -205,7 +205,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il fondo dell'anello ha un foro Ø12,2 e si infila dal basso sul corpo del pulsante; se le linguette a saldare sporgono oltre Ø12,2 il fondo non passa. Il BOM (B3b) dice "NO o NC non dichiarato": la 2813 vuole un contatto aperto a riposo. La bozza fa misurare il pulsante in 13.02.
 - **Opzioni**: (1) misurare il pulsante vero prima di stampare il fondo; (2) fondo diviso o con foro a chiave nella 2.1.7; (3) saldare i fili prima del fondo e infilarlo da sopra (cambia l'ordine).
 - **Consiglio**: misurare adesso; se le linguette passano la bozza resta.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): il pulsante non è in casa: si compra (B3b) e si misura all'arrivo, prima di stampare il fondo dell'anello.
 - **Domanda**: hai già il pulsante da 12 mm? Diametro massimo dei contatti a saldare, ed è aperto a riposo?
 
 ### P-011 Sedi di Wago e portafusibile costruite su misure stimate, con 0,2 mm di gioco
@@ -223,7 +223,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: nel CAD due file da sei spine JR a passo 2,54 (Rif_Prese_Piedi, 15,5 × 2,6 × 8,5, S), ma una spina JR è spessa 2,75: sei affiancate non stanno in 15,5. Nessun pezzo nel BOM (X5 elenca le spine femmina dalle prolunghe C5), niente su come la fila si tiene nella scanalatura, né su come i contatti vanno a partitori, ADS7830 e 5 V dei LED. Servono 12 contatti per gli FSR e 18 per le luci. cablaggio.md 3.3 non dice quale polo resta libero sulla presa dei piedi né da che capo parte l'ordine AS...PD (C); le prolunghe avanzate sono 16 per 12 spine.
 - **Opzioni**: (1) progettare le prese come un pezzo (millefori con pettine 6 × 3 e fili), insieme agli schemi; (2) spine JR sciolte sul tetto finché le zampe non sono montate; (3) togliere le prese e portare gli FSR alla basetta con un connettore piccolo.
 - **Consiglio**: progettarle con il prossimo giro degli schemi, insieme alla striscia dei partitori (P-006, P-017), con la misura vera della spina JR; poli e ordine in cablaggio.md. Fino ad allora 7.10 le posa senza fissarle ("anche dopo").
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): come da registro: prese progettate con lo schema della striscia dei partitori; fino ad allora posate senza fissarle (Q-04, nessuna preferenza); non nella 2.1.7.
 - **Domanda**: come vuoi fare le prese dei piedi e delle luci: un pettine a 3 poli per zampa o un connettore diverso? Hai già qualcosa in casa?
 
 ### P-013 Come si premono i cuscinetti nella culla del ginocchio e nelle gondole, e come si tiene la base
@@ -298,7 +298,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il provino 7 vuole 3 pixel comandati dall'ESP32 su GPIO48 e il 6 un FSR 400 Short con il doppino. Il firmware non ha codice per i pixel (vedi P-055); FSR (X5) e striscia a 120 LED/m (X9) sono predisposizioni approvate nel CAD ma non per l'acquisto.
 - **Opzioni**: (1) programma di banco S1 con un comando per N pixel; (2) tester di strisce WS2812 comprato; (3) un pixel diretto da un pin senza buffer (livello a 3,3 V da valutare).
 - **Consiglio**: programma S1 prima del provino 7; acquisti X5 e X9 approvati con il BOM.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): 2 FSR 400 Short (X5) e un tratto di striscia con buffer e resistenze (X9) approvati per i provini 6 e 7.
 - **Domanda**: approvi l'acquisto di 2 FSR 400 Short (X5) e di un tratto di striscia a 120 LED/m con buffer e resistenze (X9) per i provini 6 e 7?
 
 ### P-022 La SSC-32 clone non è mai stata vista: ponticelli, micro-USB, retro e lato dei canali dal disegno del venditore
@@ -351,7 +351,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: F2 da 2 A protegge il ramo logica in 26 AWG (D-073). Il piano elettronico calcola 1,35 A (voci alte e medie), 1,81 A (tutto) e 2,04 A con la Radxa ZERO 3W dello zaino: oltre 2 A, e scrive "F2 da 3 A (da approvare)". Un 3 A sul 26 AWG non protegge il cavo. Nessun documento dice da dove prende corrente il regolatore dello zaino.
 - **Opzioni**: (1) ramo proprio per lo zaino dai Wago, con fusibile e cavo suoi; (2) F2 da 3 A e tratto logica in 22 AWG (B6 e B17 da riapprovare); (3) niente zaino.
 - **Consiglio**: F2 da 2 A finché lo zaino non si compra; se si compra, opzione 1.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): niente zaino per ora, F2 resta da 2 A.
 - **Domanda**: monti lo zaino con il computer di bordo? Se sì, da dove lo alimenti?
 
 ### P-028 Percorso e ordine dei cavi di potenza intorno alla SSC-32
@@ -360,7 +360,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il Wago + sta a sinistra e il − a destra: un filo per rail attraversa il tunnel. Le fonti dicono solo "sotto la SSC-32 dal lato posteriore" (D-050), con 6 mm sotto la scheda per barre e cavi. Non è scritto se le barre si saldano prima o dopo aver avvitato la scheda; con la scheda sulle bugne il 14 AWG (circa 3,3 mm, S) entra solo di fianco.
 - **Opzioni**: (1) fili e barre saldati con la SSC-32 fuori, poi avvitarla (la guida, 8.02-8.05); (2) saldare dal fianco a scheda avvitata, non verificato; (3) fessure o canale per i cavi nel tetto (2.1.7).
 - **Consiglio**: opzione 1, confermata alla prima prova; se il 14 AWG non passa, opzione 3.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): fili da specifiche stando larghi (Q-24): opzione 1, canali nel tetto solo se alla prima prova il 14 AWG non passa.
 - **Domanda**: hai già il filo 14 AWG siliconico per misurarne il diametro (previsto circa 3,3 mm)?
 
 ### P-029 Fra T-plug e F1 non c'è un connettore, e F2 non ha una sede
@@ -369,7 +369,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: cablaggio.md dice "T-plug → F1 → Wago +" senza dire come si uniscono (entrambi con codino 14 AWG, D-073); la guida scrive saldatura e termorestringente [S]. F2 (MINI) è in linea fra Wago e 2813 senza sede nel CAD. Sesso e polarità del T-plug sul pacco sono C (BOM B12).
 - **Opzioni**: (1) saldatura e termorestringente; (2) un connettore fra T-plug e F1 (non nel BOM); (3) F2 fermato con una fascetta D11 sul fianco del tunnel.
 - **Consiglio**: saldatura per T-plug e F1, fascetta per F2; leggere sesso e polarità sul pacco prima di saldare.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): saldatura e termorestringente fra T-plug e F1, fascetta per F2; T-plug femmina e positivo sul lato verticale (misurati).
 - **Domanda**: sul pacco OVONIC il T-plug è femmina? Quale lato è il +?
 
 ### P-030 Sulla 2813, nel corpo, si saldano nove fili; piazzole e pulsantino non sono nel CAD
@@ -386,7 +386,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il pulsante Ø12 sta sul carapace (sezione 13); nella 12 la bozza accende con il pulsantino della 2813, che non si sa se si raggiunge [C]. Il pulsante è anche l'arresto (software.md 2.6): finché manca resta solo il T-plug.
 - **Opzioni**: (1) pulsantino della 2813, se si raggiunge; (2) pulsante provvisorio sui pin A e B, il B3b di scorta, fuori dal robot; (3) pulsante del carapace collegato al banco con il cavo piatto.
 - **Consiglio**: opzione 2.
-- **Stato**: aperto.
+- **Stato**: deciso (D-076): opzione 2: pulsante provvisorio sui pin A e B, il secondo B3b (si comprano due pulsanti); testi 12.01 e 12.07 dopo la 2.1.7.
 
 ### P-032 Ordine dei pin del D24V22F5 (e del D24V5F3) non letto (S-03)
 - **Gravità e tema**: importante · elettronica e schemi
@@ -470,7 +470,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il BOM descrive l'OVONIC solo per la scarica (50C) e i connettori: nessun caricatore, corrente di carica, tensione di conservazione, né cosa fare se il pacco scalda, fuma o si gonfia. La bozza scrive 8,4 V e 4,20 V per cella [V] e regole generali LiPo [S]; nulla su come spegnere un incendio. La riconciliazione ha già messo le regole solo in 0.06-0.07, richiamate da 4, 11.01 e 12.01.
 - **Opzioni**: (1) leggere il manuale OVONIC e scrivere carica e conservazione in `docs/dimensioni-componenti.md`, poi la guida le copia; (2) sacchetto ignifugo per LiPo nel BOM (voce nuova); (3) regole generali [S] senza fonte.
 - **Consiglio**: opzione 1 prima della guida 2.1.7; il sacchetto se l'utente non ne ha uno.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): regole di carica e conservazione in `docs/dimensioni-componenti.md` (modifica 11) e sacchetto LiPo (B20); carica con il caricatore USB 2S dell'utente.
 - **Domanda**: che caricatore usavi con la v1? Ha la carica bilanciata 2S e la modalità storage? Hai un sacchetto o contenitore per LiPo?
 
 ### P-042 Nessun documento fissa i criteri di accettazione (tolleranze delle tensioni, soglie di corrente e temperatura)
@@ -511,7 +511,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: software.md 6.7 dice "a terra in assetto basso". Gli assetti sono 130/25, 110/40, 100/45, 80/60, 70/70; a 70/70 il tripode porta il femore al 75 % dello stallo, oltre il rifiuto al 70 %. L'andatura di base è a coppie (41 % a 100/45). La bozza usa 100/45, a coppie e poi in tripode lento [C].
 - **Opzioni**: (1) 100/45 a coppie, poi tripode; (2) 130/25, il più alto, e poi scendere.
 - **Consiglio**: 100/45 a coppie per la prima camminata; correggere software.md 6.7.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): 100/45 a coppie per la prima camminata, poi il tripode lento; `software.md` 6.7 corretto con la 2.1.7.
 - **Domanda**: da quale assetto vuoi far partire il robot a terra: 100/45 (punto di progetto) o più alto?
 
 ### P-047 Viti lato coda del servo di coxa: accostate in 7.05, strette in 9.08
@@ -544,7 +544,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il piano mette B3 nella 8 e B5 (una zampa sul cavalletto, taratura con le dime) nella 9, ma la batteria entra nella 11 e la prima accensione per gradi è la 12; `tools/hexa banco` non esiste. Le sezioni proponevano cose diverse: la 12 voleva tutto il rail nella 12; la 9 voleva B5 sulla prima zampa con batteria fuori o alimentatore. La riconciliazione ha applicato la prima: B5 è nei rinviati della 9, e 9.08 gira la coxa con il tester dei servo (P-070), staccando la spina dalla SSC-32.
 - **Opzioni**: (1) tutto ciò che accende il rail nella 12, nelle 8 e 9 solo prove a freddo e tester (applicato); (2) B5 sulla prima zampa nella 9, con la prima parte di B3 nella 8 e batteria fuori o alimentatore; (3) B3 e B5 nelle 8 e 9 con l'alimentatore limitato, la 12 controlla soltanto.
 - **Consiglio**: opzione 1 (già nella bozza); l'opzione 2 solo se l'utente vuole provare una zampa intera prima di montare le altre e ha un alimentatore.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): opzione 1: rail acceso solo nella sezione 12 con la batteria nel robot, nessun alimentatore da banco; tester dei servo per le prove a freddo.
 - **Domanda**: per la prima prova della zampa sul corpo, ti va bene aspettare la sezione 12 (batteria nel robot), o vuoi provarla prima con la batteria appoggiata fuori o con un alimentatore da banco?
 
 ### P-051 Le sei zampe si montano tutte nella sezione 6, prima del corpo
@@ -601,7 +601,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: `ins_m3_d` 4,2 e `ins_m2_d` 3,4 sono i fori degli inserti CNC Kitchen; gli inserti del kit Temu sono M3 Ø4,2 e M2 Ø3,2: un foro grande quanto l'inserto non dà interferenza. Il provino di `CLAUDE.md` (M3 3,9/4,0/4,1, M2 2,9/3,0/3,1) non ha un pezzo in `cad/stl/attrezzi/` né in `attrezzi.py`. I valori trovati vanno in `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l`, e `ins_m3_d` muove le bugne delle culle: serve la verifica completa.
 - **Opzioni**: (1) blocco del provino nella 2.1.7 con i sei fori di `CLAUDE.md` più i due valori di oggi come controllo; (2) provare direttamente su tibie e coxe (più filamento); (3) tenere i fori di oggi (rischio: inserti che girano).
 - **Consiglio**: opzione 1, poi i valori nel CAD con la verifica completa; nei passi la guida non scrive il diametro.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): opzione 1: blocco del provino nella 2.1.7 (modifica 7); inserti del kit con zigrinatura Ø4,2 e invito Ø4,0 (M3), Ø3,2 e Ø3,0 (M2), il foro si sceglie sul provino.
 - **Domanda**: che misure hanno gli inserti del kit Temu (diametro esterno e lunghezza di ogni misura)?
 
 ### P-058 I 94 inserti M3 non stanno in una sola lunghezza del kit, e nessuna fonte dice quale foro prende quale
@@ -610,7 +610,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il kit ha 50 inserti per misura (BOM D4, D5): per 94 M3 servono due lunghezze (gli M2, 28, stanno tutti in M2 × 3). Fori profondi 6,7: con M3 × 5 restano 1,7 mm di fondo, con × 6 0,7. Catalogo (INS_M3 l 5,0) e CAD contano tutti da 5. Due divisioni proposte: sezione 3, M3 × 6 ad alette e ponte (48) e × 5 agli altri (46); appendici, per presa, × 6 a guscio, ponte, chiglia davanti, colonnine, sportello e blocco del femore (50) e × 5 agli altri (44). Il BOM dice kit da 800 pezzi, `CLAUDE.md` "da 500". Mancano anche temperatura della punta e tempo di posa (più bassa per il PLA).
 - **Opzioni**: (1) divisione della sezione 3; (2) divisione per presa; (3) comprare altri M3 e usare una sola lunghezza (contro "niente acquisti in più").
 - **Consiglio**: provino 1.03 con M3 × 5 e × 6 sul foro più sottile (ponte, fondo 0,55) e temperatura per PETG-CF e PLA; poi una divisione scritta una sola volta in 3.01 (le appendici la copiano) e in `ins_m3_l`.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): provino 1.03 con M3 × 5 e × 6 e divisione scritta una volta in 3.01, dopo il provino; temperatura e tempo di posa dal provino.
 - **Domanda**: quanti inserti M3 e M2 ha davvero ogni misura del kit (50 per misura?), e il kit è da 800 o da 500 pezzi? Hai già un saldatore con punta per inserti a temperatura regolabile?
 
 ### P-059 Il provino del giunto non ha pezzi dedicati
@@ -655,7 +655,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: la gola è larga 4,0 con 1,1 mm sotto i ponticelli; doppino FSR (2 × 28 AWG) e tre fili da 30 AWG occupano 3,3-4,05 mm: con i 30 AWG più grossi non entrano.
 - **Opzioni**: misurare i fili comprati e, se serve, ponticelli 0,4 più alti o gola da 4,5 nella 2.1.7.
 - **Consiglio**: misurare i fili prima di stampare le tibie.
-- **Stato**: deciso (esito: approvato l'11 ottobre 2026); resta la domanda.
+- **Stato**: deciso (D-076): esito dell'11 ottobre confermato: l'utente non può misurare i fili, gola da 4,5 nella 2.1.7 (modifica 14).
 - **Domanda**: che diametro esterno hanno i fili siliconici da 28 e 30 AWG per FSR e luci?
 
 ### P-064 Linguette e tasca dell'FSR: le linguette finirebbero fuori dal piedino, e le quote della tasca differiscono fra documenti e CAD
@@ -680,7 +680,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il collare è tagliato su 40 × 25 × 11 mm stimati (cic_*), aperto in coda; il BOM (B9) dice "posizione dei pin da guardare sul pezzo". Se i pin stanno sul lato lungo, la spina di bilanciamento non arriva alla prolunga. La bozza imposta la soglia a 3,5 V per cella [C], che sotto carico può suonare a ogni passo.
 - **Opzioni**: (1) misurare il BX100 e stampare un provino del collare; (2) quote cic_* corrette nella 2.1.7; soglia: 3,5 V (come il firmware) o 3,3 V (ultimo livello indipendente).
 - **Consiglio**: misurare prima di stampare il carapace; soglia a 3,3 V per cella.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): soglia a 3,3 V per cella; quote del BX100 da leggere sul pezzo (Q-34 resta aperta).
 - **Domanda**: lunghezza, larghezza e altezza del BX100, da che lato stanno i pin della presa di bilanciamento e dove sta il display? Soglia del cicalino a 3,3 o 3,5 V per cella?
 
 ### P-067 Presa Qwiic ed espansore TCA9534 senza posto sulla scheda del carapace (S-17)
@@ -713,7 +713,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: la sezione 6 può usare il banco della sezione 5 (SSC-32 dal Mac), ma dopo la sezione 8 il regolatore e la SSC-32 sono nel corpo: 9.08 (P-050) e la 15 muovono un servo solo con un tester, che non è nel BOM, più un alimentatore a 6 V o un pacco a parte.
 - **Opzioni**: (1) tester a manopola nel BOM (pochi euro); (2) banco della sezione 5 per la 6, e in 0.20 l'alimentatore regolabile fra gli attrezzi.
 - **Consiglio**: tester a manopola nel BOM, salvo che l'utente l'abbia già.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): tester dei servo a manopola da comprare (C9); nessun alimentatore da banco nella guida.
 - **Domanda**: hai un tester dei servo a manopola e un alimentatore da banco regolabile con limite di corrente?
 
 ### P-071 Attrezzi del collaudo non nel BOM, e la massa attesa vale con tutte le predisposizioni
@@ -722,7 +722,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: la guida chiede bilancia da 5 kg, termometro a infrarossi o a termocoppia e alimentatore regolabile: nessuno è nel BOM. I 3045 g contano tutte le predisposizioni (circa 45 g, D-066); il CAD non dà la massa per configurazione.
 - **Opzioni**: (1) usare quelli dell'utente; (2) massa per configurazione da `esporta_robot.py`.
 - **Consiglio**: chiedere cosa c'è in casa; massa per configurazione se il robot non le monta tutte.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): l'utente ha solo la bilancia: niente termometro a infrarossi né alimentatore nella guida; massa per configurazione solo se serve.
 - **Domanda**: hai una bilancia da cucina da almeno 5 kg e un termometro a infrarossi?
 
 ### P-072 Il nastro Kapton non è nel BOM, e disegno e testo degli schemi discordano per U2
@@ -731,7 +731,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: lo schema mette Kapton sotto il PTC (oltre 100 °C scattato), sotto U2 e sulle teste M3 basse (P-003); non è nel BOM né fra le cose in casa. `basetta.svg` scrive U2 "su nastro isolante", schemi.md 1.4 "su Kapton": la guida segue il disegno per U2 e usa il Kapton sotto il PTC.
 - **Opzioni**: (1) un rotolo di Kapton da 10-20 mm (voce nuova); (2) nastro in PVC sotto U2 e sulle teste, PTC in linea fuori dalla basetta (P-035); disegno e testo allineati nella prossima versione degli schemi.
 - **Consiglio**: Kapton, se non c'è già; allineare disegno e testo.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): Kapton fuori dal BOM (consumabile generico): Kapton o nastro in PVC, quello che c'è in casa.
 - **Domanda**: hai del nastro Kapton in casa?
 
 ### P-073 Il 470 µF della scheda del carapace: diametro, altezza e fili di A-4 e B-4 (S-18)
@@ -740,7 +740,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: CE1 sdraiato sta con Ø6,3, non con Ø8. Con 6,3 × 11 il fondo arriva a 0,4 mm dai fori A-4 e B-4 (SDA e SCL), i cui fili si saldano in 13.16, molto dopo CE1. La 100 kΩ dei microfoni (R8) non sta sulla scheda: si salda al microfono, in guaina.
 - **Opzioni**: (1) saldare i quattro fili Qwiic (A-3...B-4) al banco, prima di CE1; (2) ordinare il 470 µF 10 V in Ø6,3 alto al più 8 mm.
 - **Consiglio**: Ø6,3 all'ordine di X2 (corto, se si trova); fili Qwiic prima di CE1 quando si riscrive il passo della scheda.
-- **Stato**: aperto.
+- **Stato**: deciso (D-076): 470 µF basso (Ø6,3, alto al più 8 mm) nell'ordine di X2.
 
 ### P-074 Nessun condensatore sul ramo delle luci delle tibie (S-23)
 - **Gravità e tema**: minore · BOM e acquisti
@@ -748,7 +748,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: 36 pixel su fili sottili di circa 0,5 m, dal 5 V dopo il PTC, senza condensatore vicino alle prese (il 470 µF sta sul carapace).
 - **Opzioni**: (1) elettrolitico 220-470 µF 10 V sulla fila delle prese delle luci (voce nuova di X31); (2) niente, e prova al massimo in P4.
 - **Consiglio**: prova in P4; condensatore solo se i pixel sfarfallano.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): condensatore solo se i pixel sfarfallano in P4, con quelli che l'utente ha già.
 - **Domanda**: vuoi aggiungere un condensatore sulle prese delle luci delle tibie (voce nuova, pochi centesimi)?
 
 ### P-075 La testata 2 × 8 del BOM non è identificata; il verso della chiave viene dalla spina (S-26)
@@ -757,7 +757,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il link di X2 (Würth 61201623021) è la spina IDC con fermacavo, non la testata. Sul disegno della spina polo 1 e chiave stanno sulla stessa fila: la tacca della testata va dal lato dei poli dispari (colonna D) [V].
 - **Opzioni**: controllare il verso con la spina in mano prima di saldare J2.
 - **Consiglio**: codice della testata nel BOM insieme alla decisione di S-01 (P-002).
-- **Stato**: aperto.
+- **Stato**: deciso (D-076): testata 2 × 8 a 90° con chiave nell'ordine di X2 (Würth 61201621721, da confermare sul disegno).
 
 ### P-076 Filo della batteria verso la basetta: siliconico, non nel BOM in 26 AWG (S-27)
 - **Gravità e tema**: minore · BOM e acquisti
@@ -773,7 +773,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: X31 è approvata come predisposizione (D-069) ma l'utente non ha deciso se montare le luci né il colore del diffusore (PLA bianco o PETG fumé, provino X10). La bozza le tratta come "meglio ora" (striscia e fili) e "anche dopo" (diffusore).
 - **Opzioni**: decidere prima di montare la prima zampa.
 - **Consiglio**: decidere prima della sezione 6; il colore dopo il provino di luce. È già fra gli aperti di `CLAUDE.md`.
-- **Stato**: domanda (consiglio approvato l'11 ottobre 2026: decidere prima della sezione 6).
+- **Stato**: deciso (D-076): luci delle tibie opzionali, diffusore bianco; se si cambia si modifica dopo.
 - **Domanda**: monti le luci nelle tibie? Se sì, diffusore bianco o fumé (dopo il provino di luce)?
 
 ### P-078 Il colore delle lunette dei microfoni non è dato
@@ -782,7 +782,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il README dice solo "PLA"; il BOM non le elenca in E2b (nero); nel CAD hanno l'aspetto "Esa PLA nero". La bozza scrive PLA nero [S].
 - **Opzioni**: PLA nero (come il CAD) o bianco (stanno sotto il carapace).
 - **Consiglio**: PLA nero; lunette aggiunte alla riga E2b del BOM.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): lunette in PLA, colore libero.
 - **Domanda**: le lunette dei microfoni vanno in PLA nero o bianco?
 
 ### P-079 Quale scheda è la RE1.3, la lega dello stagno e la temperatura del saldatore
@@ -800,7 +800,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il BOM dà le scorte di servo, squadrette, cuscinetti e perni, FSR, piedini, prolunghe, fusibili; non quanti pezzi stampati o filamento tenere, né quanti inserti restano (P-058). La striscia LED comprata (1 m) è circa il doppio del necessario (0,43 m, S).
 - **Opzioni**: (1) ristampare quando serve; (2) stampare subito un carapace, una tibia e un femore di scorta.
 - **Consiglio**: ristampare quando serve; tenere in casa PETG-CF, PLA e TPU per un ricambio.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): ristampa quando serve; nessuna scorta nel BOM.
 - **Domanda**: vuoi una scorta di pezzi stampati (carapace, tibia, femore, piedini) o ristampi quando serve?
 
 ### P-081 Canali della SSC-32, lato di VS1 e VS2 e ordine delle prese sono ancora una proposta
@@ -842,7 +842,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il D24V5F3 (13 × 10) non trova posto sotto l'ESP32. Lo schema prepara J1 (filo 19): con J1 i sensori prendono il 3,3 V dell'ESP32; con X3, J1 si toglie e il regolatore va nel vano sotto il vassoio o in linea. Mai J1 e X3 insieme.
 - **Opzioni**: X3 solo se la prova del 3,3 V fallisce; posto da trovare allora.
 - **Consiglio**: come lo schema; X3 non si compra finché la prova non lo chiede.
-- **Stato**: aperto.
+- **Stato**: deciso (D-076): X3 esce dal BOM; negli schemi resta J1.
 
 ### P-086 Verso del flat e connettore FPC dell'ESP32 non documentati
 - **Gravità e tema**: minore · elettronica e schemi
@@ -867,7 +867,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: `progetto-meccanico.md` dice "in PETG"; README, D-065, BOM E2 e il CAD dicono PLA bianco ("sotto l'antenna: niente carbonio"). D-065 segna il PLA fra le proposte non confermate. La bozza scrive PLA [S].
 - **Opzioni**: PLA bianco; PETG-CF nero (il carbonio può schermare l'antenna); PETG senza carbonio.
 - **Consiglio**: PLA bianco; correggere `progetto-meccanico.md` nella 2.1.7.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): vassoio in PLA, colore libero; `progetto-meccanico.md` corretto con la 2.1.7.
 - **Domanda**: il vassoio dell'ESP32 va in PLA bianco (BOM E2) o in PETG?
 
 ### P-089 progetto-meccanico.md descrive ancora il T-plug dietro il pacco, sotto i rebbi
@@ -972,7 +972,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: la tabella dei controlli usa fatti dei documenti (PLA a 55-60 °C, budget termico dei servo, taratura dopo ogni smontaggio) e intervalli a eventi proposti dalla guida; nessuna coppia di serraggio per le viti dei giunti.
 - **Opzioni**: (1) intervalli a eventi, numeri dopo le prime ore; (2) una pagina "Manutenzione" in `progetto-meccanico.md`.
 - **Consiglio**: bozza; numeri dall'usura vera.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): intervalli a eventi, numeri dall'uso vero dopo le prime ore.
 - **Domanda**: con la v1, ogni quanto dovevi stringere le viti o sostituire un servo?
 
 ### P-102 Il verso della coxa contro il braccio della dima ("antiorario") non diceva da dove si guarda
@@ -1053,7 +1053,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: nessun documento dà il tempo di montaggio; le durate sono [S] (5 minuti a passo dove la sezione non dice niente). La F3c ha copiato in 0.22-0.23 le durate scritte nelle aperture delle sezioni 4, 8, 13 e 14 (e allineato X2 e X31 in 0.15-0.16), ma il totale "circa 45 ore" non è ricalcolato: con le durate nuove viene circa 48 [S].
 - **Opzioni**: totale a circa 48 ore, o rivedere le durate delle sezioni 4 e 13; i tempi veri dalla guida 1.1.
 - **Consiglio**: totale a circa 48 ore [S]; i tempi veri dopo la prima zampa.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): le durate non importano: tolto il totale delle ore da 0.23.
 - **Domanda**: il totale di 0.23 va portato a circa 48 ore, o le durate delle sezioni 4 e 13 sono da rivedere?
 
 ### P-112 La chiave per le M2 svasate è da 1,5 mm nel BOM e da 1,3 mm nel catalogo della guida
@@ -1103,7 +1103,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: pulsante, T-plug, perdita del collegamento e batteria bassa si provano sul cavalletto; caduta, inclinazione oltre 50° e capovolgimento non hanno una prova sicura. La soglia di batteria vuole un alimentatore regolabile ("utile ma non indispensabile"); il "firmware bloccato" di P3 non ha procedura.
 - **Opzioni**: solo i guasti elencati sul cavalletto, caduta e inclinazione al simulatore; prestare o comprare un alimentatore.
 - **Consiglio**: bozza; alimentatore solo se si vuole provare la soglia di batteria.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): niente alimentatore: le soglie di batteria si provano in simulazione, i guasti elencati sul cavalletto.
 - **Domanda**: hai un alimentatore regolabile con limite di corrente (vedi P-070), o ti basta provare le soglie di batteria in simulazione?
 
 ### P-118 La sezione 2 ha due passi in più per dima 2 e cavalletto
@@ -1240,7 +1240,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il progetto toglie i gommini; nessun documento dice se sono già nelle alette né se ci sono collari di ottone che cambiano il gioco della M3 nel foro da 4,2. È una cosa da guardare, non una misura.
 - **Opzioni**: l'utente guarda un servo; "se ci sono" [C] nella bozza.
 - **Consiglio**: come la bozza finché l'utente non ha guardato.
-- **Stato**: domanda.
+- **Stato**: deciso (D-076): gommini e tubetti di ottone vengono a parte e non si montano.
 - **Domanda**: su un MG996R appena aperto, i gommini sono già nelle alette o nel sacchetto? Ci sono tubetti di ottone dentro i gommini?
 
 ### P-135 Come si sfila la lama A e quanta forza serve

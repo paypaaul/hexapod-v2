@@ -242,9 +242,9 @@ passi:
     testo:
       - "Controlla che il T-plug del pacco sia staccato da quello del robot."
       - "Sfila il pacco dal tunnel, verso la coda, con i suoi cavi."
-      - "Carica il pacco fuori dal robot, con il caricatore a carica bilanciata [C]."
+      - "Carica il pacco fuori dal robot, nel sacchetto per LiPo, con il caricatore USB per 2S che hai già (passo 0.06) [C]."
     avvisi:
-      - {tipo: importante, testo: "Le spine del pacco potrebbero non passare dalle fessure del tetto (13 × 4,5 mm): se non passano, fermati e leggi il primo problema di guida/problemi/batteria.yaml [C]."}
+      - {tipo: importante, testo: "Le fessure del tetto sono aperte verso la coda dalla versione 2.1.7 (D-076): T-plug e presa di bilanciamento scorrono nelle tacche. Provalo a secco prima di caricare il pacco: se le spine non passano, fermati [C]."}
       - {tipo: attenzione, testo: "Un pacco gonfio, caldo o ammaccato non si carica e non si rimonta: mettilo su una superficie che non brucia e allontanati (12.01) [S]."}
     attrezzi: [caricatore_lipo]
     fonti: ["D-054: cambio della batteria", "docs/BOM.md A5, B9", "guida/problemi/batteria.yaml (primo problema)", "guida/passi/11-batteria.yaml 11.01 e 11.03"]

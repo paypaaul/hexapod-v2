@@ -46,7 +46,7 @@ sezione:
     - "Prove a freddo dell'elettronica fatte (sezione 8, passo 8.26)."
     - "Inserti a caldo: 2 nella testa dell'anima, 2 lato coda in ogni gondola (sezione 3)."
     - "Cavalletto stampato (sezione 2)."
-    - "Tester dei servo, alimentato a 6 V (passo 9.08)."
+    - "Tester dei servo a manopola (BOM C9, passo 9.08), alimentato a 6,0 V dal regolatore come al banco 5.01, con la batteria appoggiata fuori e F1 da 3 A: non serve un alimentatore da banco. Come si collega nel corpo si riscrive dopo la 2.1.7 [C]."
   tempo: "circa 45 minuti la prima volta [S]"
   stato_elettrico: "T-plug staccato. Nel passo 9.08 il servo di coxa si muove con il tester, non con il rail."
   fonti: [D-075, docs/piano-guida.md "Struttura della guida"]
@@ -233,7 +233,7 @@ passi:
     vista: {direzione: [0.15, 0.25, 0.95], su: [0, 0, 1]}
     etichette: [{testo: coxa a 30°, chiave: zampa/Coxa_Ponte@AS}]
     testo:
-      - "Stacca la spina della coxa dalla SSC-32 e collegala al tester dei servo [C]."
+      - "Stacca la spina della coxa dalla SSC-32 e collegala al tester dei servo a manopola (C9) [C]."
       - "Porta la coxa a 30° con il tester, da una parte o dall'altra: le teste lato coda si scoprono."
       - "Stringi le due viti M3 × 8 lato coda, accostate nel passo 7.05."
       - "Stringi le due viti lato albero, accostate nel passo 7.05."

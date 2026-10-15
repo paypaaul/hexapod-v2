@@ -16,7 +16,7 @@ sezione:
   presenti_iniziali: []
   obiettivo: >-
     Provare, numerare e portare a metà corsa i 18 servo MG996R, più 2 di scorta, prima di metterli in una culla: un
-    servo alla volta, senza carico, a 6,0 V con un fusibile da 3 A. Si tolgono i gommini, si scrive il numero sul cavo,
+    servo alla volta, senza carico, a 6,0 V con un fusibile da 3 A. I gommini e i tubetti di ottone non si montano (stanno a parte nel sacchetto del servo), si scrive il numero sul cavo,
     si prova centro, verso ed escursione, si scartano i difettosi. Gli esiti vanno nel registro (sezioni 6, 7 e 12).
   prima:
     - "Sezione 4 fatta: SSC-32 configurata (4.29), regolatore sinistro con i fili e la R3, provato a 6,0 V (4.32)."
@@ -29,7 +29,7 @@ sezione:
   fonti: [D-045, D-049, "docs/software.md 6.7 (B2) e 2.7", docs/dimensioni-componenti.md, "robot/robot.yaml (servo)"]
   attrezzi: [nastro_pennarello]
   controllo:
-    - "I 20 servo non hanno più i gommini; i fori delle alette sono nudi."
+    - "I 20 servo hanno i fori delle alette nudi: gommini e tubetti di ottone restano da parte, non si montano."
     - "Ogni servo ha il suo numero, da 1 a 20, scritto sul cavo."
     - "Ogni servo va al centro a 1500 µs, si muove di circa 9° a 1400 e 1600 µs e arriva a 700 e 2300 µs, senza ronzio e senza scatti."
     - "Il verso (antiorario o orario) è annotato per ogni servo, e il verso è lo stesso per tutti."
@@ -65,38 +65,38 @@ passi:
     avvisi:
       - {tipo: attenzione, testo: "Con il rail a 6,0 V ogni servo può prendere fino a 2,5 A di stallo [V]. Il fusibile da 3 A protegge il filo, non il servo: stacca subito il filo dell'ENA se il servo scalda o non gira."}
       - {tipo: importante, testo: "Non infilare né togliere la spina del servo con il rail acceso."}
-      - {tipo: nota, testo: "In giallo la morsettiera (VS1, VL) e la micro-USB. La potenza passa dal morsetto, che regge 8–10 A [S]: per un servo basta. In alternativa al regolatore: alimentatore da banco a 6,0 V limitato a 1 A (docs/software.md 6.7, B2)."}
+      - {tipo: nota, testo: "In giallo la morsettiera (VS1, VL) e la micro-USB. La potenza passa dal morsetto, che regge 8–10 A [S]: per un servo basta. Il banco usa il regolatore e F1 da 3 A: non serve un alimentatore da banco (D-076)."}
     attrezzi: [multimetro, mac_seriale, cacciavite_piatto]
     fonti:
-      - "docs/software.md 6.7 (B2: rail a 6 V con fusibile da 3 A o alimentatore limitato a 1 A)"
+      - "docs/software.md 6.7 (B2: rail a 6 V con fusibile da 3 A; l'alimentatore limitato non serve, D-076)"
       - "docs/dimensioni-componenti.md, 'Servo controller SSC32-V2.5' (morsettiera)"
       - "docs/BOM.md A1 (stallo 2,5 A a 6 V), B1, B4"
       - "guida/schemi/schemi.md 1.6 (ENA dei D42V110F6, R3 sul regolatore); guida/problemi/schemi.yaml S-05"
       - "guida/passi/04-banco.yaml 4.26, 4.29, 4.31, 4.32"
 
   - id: "5.02"
-    titolo: Gommini tolti
+    titolo: Alette nude, gommini da parte
     formato: grande
     in_evidenza: [zampa/Servo_femore]
     vista: {direzione: [0.3, 0.85, 0.4], su: [0, 0, 1]}
     volte: 20
     etichette:
-      - {testo: Gommino, punto: [50, 12, 13.8]}
-      - {testo: Gommino, punto: [60, 12, 13.8]}
-      - {testo: Gommino, punto: [50, 12, -34.2]}
-      - {testo: Gommino, punto: [60, 12, -34.2]}
+      - {testo: Foro nudo, punto: [50, 12, 13.8]}
+      - {testo: Foro nudo, punto: [60, 12, 13.8]}
+      - {testo: Foro nudo, punto: [50, 12, -34.2]}
+      - {testo: Foro nudo, punto: [60, 12, -34.2]}
     testo:
-      - "Togli i gommini dalle quattro alette del servo."
-      - "Togli anche i collari di ottone, se ci sono [C]."
+      - "Nel sacchetto del servo ci sono i gommini (rondelline rotonde di gomma con il foro) e i tubetti di ottone: non si montano. Mettili da parte."
+      - "Non infilarli nelle alette."
       - "Controlla che i quattro fori delle alette siano nudi, Ø 4,2 mm [S]."
       - "Ripeti per tutti i servo: 18 più 2 di scorta."
     avvisi:
-      - {tipo: importante, testo: "Il servo si avvita rigido sulle alette: con i gommini il giunto avrebbe gioco e le viti non starebbero a filo (docs/dimensioni-componenti.md, docs/studio-componenti.md)."}
-      - {tipo: nota, testo: "Non sappiamo se i gommini sono già montati sui servo AZDelivery o stanno nel sacchetto: se ci sono, si tolgono; se mancano, il passo è fatto [C]."}
+      - {tipo: importante, testo: "Il servo si avvita rigido sulle alette nude: con i gommini il giunto avrebbe gioco e le viti non starebbero a filo (docs/dimensioni-componenti.md, docs/studio-componenti.md)."}
+      - {tipo: nota, testo: "Nei servo AZDelivery dell'utente gommini e tubetti di ottone vengono a parte, non montati (verificato dall'utente il 15 ottobre 2026, D-076, P-134). Se un servo li avesse già nelle alette, toglili."}
       - {tipo: nota, testo: "La figura mostra il servo del femore: i 18 sono uguali. Nella culla le alette poggiano sul pezzo (docs/dimensioni-componenti.md)."}
     extra: [{nome: "servo MG996R AZDelivery, uno per volta: 18 più 2 di scorta", qta: 1, bom: A1}]
     fonti:
-      - "docs/dimensioni-componenti.md, 'Servo MG996R' (gommini si tolgono; fori 4 × Ø 4,2: S)"
+      - "docs/dimensioni-componenti.md, 'Servo MG996R' (gommini non montati; fori 4 × Ø 4,2: S)"
       - "docs/studio-componenti.md ('Fissaggio': i gommini si tolgono e il servo si avvita rigido)"
       - "cad/stl/README.md ('Provino della culla': provare con un MG996R vero, senza gommini)"
       - "guida/passi/06-zampa.yaml 6.03 (gommini)"

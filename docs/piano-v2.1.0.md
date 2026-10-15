@@ -342,9 +342,9 @@ L'utente ha scelto i moduli che ha già (D-073):
 
 ## Seguito: versione 2.1.7 — correzioni dalla guida di montaggio (BOZZA, 15 ottobre 2026)
 
-> Bozza: non si parte senza il via dell'utente. Mancano le scelte di P-001 e P-002 (segnaposto più sotto).
+> Bozza: non si parte senza il via dell'utente. Le scelte di P-001 e P-002 sono arrivate il 15 ottobre 2026 (D-076) e sono nelle modifiche 11 e 12; dalle risposte dell'arresto 2 nascono anche le modifiche 14-16, i documenti della 17 e l'elenco dei testi della guida da rifare dopo la 2.1.7.
 
-Origine: arresto 2 della guida (`guida/problemi.md`). Decisioni prese in autonomia su richiesta dell'utente per P-003 e P-005, con il ragionamento in `docs/ricerca/bloccanti-arresto2.md`; modifiche CAD del gruppo 4 delle decisioni in blocco (P-009, P-014, P-015, P-016, P-019, P-057, P-062, P-065), approvate dall'utente. Chiusura con una decisione nuova (D-076).
+Origine: arresto 2 della guida (`guida/problemi.md`). Decisioni prese in autonomia su richiesta dell'utente per P-003 e P-005, con il ragionamento in `docs/ricerca/bloccanti-arresto2.md`; modifiche CAD del gruppo 4 delle decisioni in blocco (P-009, P-014, P-015, P-016, P-019, P-057, P-062, P-065), approvate dall'utente. Le scelte dell'utente sono in D-076; la chiusura della versione aggiunge D-077 con i risultati e le verifiche.
 
 Ogni modifica dice: script e funzione, parametri, verifica dopo la modifica (procedure di `cad/CLAUDE.md`), impatto su BOM, guida e documenti. Le verifiche comuni a tutte sono in fondo ("Verifiche a valle").
 
@@ -451,23 +451,97 @@ Decisione e fonti: `docs/ricerca/bloccanti-arresto2.md`, P-005.
 - **Guida**: 6.14 (perni con la bussola), sezione 9, 15.10, 15.11 (estrazione).
 - **Documenti**: `cad/stl/README.md`. L'attrezzo dei cuscinetti di P-013 non è nel gruppo 4: resta fuori, a meno che l'utente lo chieda (P-013 dice "solo se il pollice non basta").
 
-### 11. P-001: carica del pacco e fessure del tetto (SEGNAPOSTO)
+### 11. P-001: fessure del tetto aperte verso la coda, con il dentino per la fascetta di F1
 
-In attesa: un altro agente sta studiando la carica via USB-C; poi decide l'utente (Q-17). Opzioni di oggi (`guida/problemi.md`, P-001): fessure aperte verso la coda togliendo il ponte da 2 mm (`corpo.py` → `fai_base`, `fessura_cavi_*`, righe 408-410, con la fascetta di F1 di D-055 e la rigidezza del tetto da verificare), fessura larga quanto la spina accanto a F1, carica dentro il robot, prolunga di bilanciamento. Collegati: P-007, P-029, P-041 e le sezioni 11 e 15 della guida. Quando c'è la scelta: script, parametri, verifiche (`base`, `base_predisposizioni`, `interferenze`, `sfilamento` del pacco con le spine, D-054), BOM, guida.
+Decisione (D-076): fessure aperte, nessun caricatore integrato; si carica con il caricatore USB 2S lento che l'utente ha già, collegato alle spine in coda. Ricerca: `docs/ricerca/carica-usbc.md`, sezioni 5 e 9. Il pacco si deve poter sfilare con T-plug e JST-XH attaccati.
+- **Script**: `corpo.py` → `fai_base`, `fessura_cavi_*` (righe 408-410, da rileggere: il piano cita i numeri di riga della 2.1.6):
+  - si toglie il ponte da 2 mm che chiude verso la coda le due fessure 13 × 4,5 (|y| 20,5…25) accanto a F1: diventano due tacche aperte verso la coda;
+  - sulla lingua centrale fra le due tacche, dove passa la fascetta di F1 (D-055, x circa −76), un **dentino** (o una tacca) che impedisce alla fascetta di scivolare via dall'estremità aperta. Il dentino è largo quanto la fascetta da 2,5 mm (D11) più il gioco; l'altezza e la posizione si scelgono nel modello, non sono fissate qui.
+- **Parametri**: il parametro del ponte (nome da leggere nello script) va a 0 o sparisce; nuovo `cor_fes_dente_*` (larghezza, altezza) con la misura della fascetta e il gioco usati, scritti accanto al valore.
+- **Verifica**:
+  - `base`, `base_predisposizioni`, `giunti_coxa`, `istanze_corpo`; `controllo`, `interferenze`;
+  - **sfilamento del pacco con le spine e i cavi** (la prova di D-051 era senza cavi): T-plug (coppia circa 30 × 16 × 8,5), JST-XH (circa 10 × 5,8), cavi 12 AWG (Ø circa 3,5-4) nelle tacche, corsa di 140 mm; caso di controllo con la spina più alta di un millimetro;
+  - tetto senza il ponte (2 mm): sezione chiusa o nervata, e la lingua centrale a sbalzo con il dentino;
+  - costole di F1 e sua fascetta; linguetta dello sportello (D-054, 0,4 mm dal tetto) e sportello che non pizzica i cavi;
+  - sentinella sui volumi: cambia solo la base.
+- **Da provare** con la spina vera prima di stampare la base (11.03): T-plug e JST-XH scorrono nelle tacche; il cavo del caricatore esce dalla porta di coda senza tirare il pacco.
+- **BOM**: nessun impatto sul modello; sacchetto LiPo (B20) già in D-076.
+- **Guida**: 11.01 (carica con il caricatore dell'utente, sorvegliata), 11.03, 11.04, 11.05, 15.04, 15.05; apertura della sezione 11; 0.06 e 0.07 (la riga "il caricabatterie non è nel BOM" diventa "il caricatore USB 2S dell'utente; corrente e conservazione dal manuale");  passo nuovo "Carica" con le regole della ricerca (sezione 2: superficie che non brucia, presenza, pacco a temperatura ambiente, robot spento, corrente al massimo 1C, mai pacco gonfio o caldo).
+- **Documenti**: D-051 e D-054 (rimando a D-076: il pacco si sfila dalle tacche aperte); D-055 (dentino); `docs/cablaggio.md` sezione 4 (porta di coda come porta di carica); `docs/progetto-meccanico.md`; `docs/dimensioni-componenti.md`: carica e conservazione dell'OVONIC (P-041, opzione 1: corrente 0,5C = 2,6 A consigliata, 1C = 5,2 A al massimo, conservazione a 3,85 V per cella: valori da leggere sull'etichetta del pacco [C], i divieti dai manuali ElectriFly / Great Planes e Flyzone citati nella ricerca).
+- Collegati: P-007 (modifica 16), P-029 (saldatura e termorestringente fra T-plug e F1, fascetta per F2: solo guida), P-041.
 
-### 12. P-002: testata della scheda del carapace (SEGNAPOSTO)
+### 12. P-002: testata 2 × 8 a 90° con chiave sul bordo posteriore della scheda del carapace
 
-In attesa della scelta dell'utente fra A (testata a 90° con chiave verso l'ottagono, raccomandata), B (cavo saldato con giunzione IDC volante) e C (testata piegata dalla strip, chiave col polo 14): quote, CAD, BOM e guida in `docs/ricerca/bloccanti-arresto2.md`, P-002. In ogni caso cambiano `rif_componenti.py` (`sch_l`, `sch_w`, `sch_sp` con l'ingombro vero di testata e spina) e `corpo.py` → `fai_carapace_predisposizioni` (bugne `sch_a…d`, righe 1080-1086, e `sch_x`); verifiche: `carapace_predisposizioni`, `interferenze` della spina contro ESP32, USB-C, SSC-32 e ottagono, `sfilamento`; poi `scheda_carapace*.svg` (J2), 4.06, 13.16, 13.17, voce X2 del BOM. Con A o C la scheda guadagna i fori liberi chiesti da S-01; P-067 e P-075 seguono la stessa scelta.
+Decisione (D-076): soluzione A. Quote e confronto con B e C: `docs/ricerca/bloccanti-arresto2.md`, P-002. La spina entra ed esce orizzontale verso −X, dentro l'ottagono. In una versione futura l'utente vorrà un PCB stampato al posto della millefori: non è in questa versione; per ora J2 al bordo e le quote della scheda restano le stesse che servirebbero a un PCB.
+- **Script**:
+  - `rif_componenti.py`: `sch_l` da 20 a circa 23 e `sch_w` se serve; `sch_sp` diventa l'ingombro vero (testata a 90° circa 9 [S] + scheda 1,6) invece di 1,6 + 2;
+  - `corpo.py` → `fai_carapace_predisposizioni` (bugne `sch_a…d`, righe 1080-1086, e `sch_x` 39,5): le viti di coda si spostano davanti alla testata (x ≥ 41,5, oggi 32), la scheda si allunga verso la coda fino a x 29,5, bordo della testata.
+- **Parametri**: `sch_l`, `sch_sp`, `sch_x`, posizioni delle bugne; nuovo parametro per l'ingombro della testata e della spina (misure dal disegno del pezzo scelto, non stime).
+- **Prima del CAD**: leggere il disegno della testata scelta (Würth 61201621721 o equivalente, codice da confermare) e della spina IDC 61201623021: altezza della scatola, posizione della chiave e del polo 1, lunghezza della spina con il cavo piegato. I valori della ricerca (scatola circa 9, spina 10-12) sono [S].
+- **Verifica**:
+  - `carapace_predisposizioni`, `carapace`, `interferenze`: spina e testata contro il PCB dell'ESP32 (z 16,0…17,6; atteso 2,7 mm sopra il PCB sotto la testata), contro la **USB-C dell'ESP32 (x 12,7…20,1, fino a z 20,9)** e contro SSC-32 e ottagono. Attenzione: il fondo della spina orizzontale sta a circa z 20,3 [S], cioè 0,6 mm sotto la cima della USB-C nel tratto x 17,5…20,1: è il primo punto da verificare; se tocca, si alza la scheda, si accorcia la spina o si passa a B (riserva dichiarata nella ricerca);
+  - connettore FPC della camera (x da 40,75, fino a z 19,6): non sotto la testata (x 29,5…38,5);
+  - `sfilamento` del carapace con la spina innestata e con la spina staccata; `campo`;
+  - caso di controllo: spina alta 2 mm in più, deve toccare.
+- **BOM**: X2 (fatto in D-076): testata a 90° con chiave e 470 µF basso, stesso ordine.
+- **Guida**: 4.06, 4.22-4.25, 13.16, 13.17, 13.19, A.17, A.18 (testata sul bordo, verso della chiave, fori liberi in più perché la scatola non copre più le colonne C-F); nota che l'alternativa PCB stampato arriverà in una versione successiva; Q-02 e P-075 chiusi.
+- **Schemi**: `scheda_carapace*.svg`: J2 si sposta sul bordo, reti e prove (schemi.md 2.2, 2.6) restano; con i fori liberi in più si decide il posto dell'espansore TCA9534 e della presa Qwiic (P-067).
+- **Documenti**: `docs/predisposizioni.md` 2.3 e 2.8; D-074 (scheda).
 
 ### 13. Testi rimandati qui da altre voci
 
 - P-092: in questo piano (versione 2.1.5) la base del provino delle tasche è descritta diversamente dal CAD: correggere il testo come il CAD (foro pilota Ø2,5 autofilettante, D-072).
 - P-099 e P-100: `cad/stl/README.md`, orientamento delle slitte (faccia piana sul piatto, bugne in alto [C]) e "le due slitte sono lo stesso pezzo, la destra ruotata". Nessuna modifica al CAD.
 
+### 14. P-063: gola del fermo dei fili della tibia da 4,5
+
+L'utente non può misurare i fili (Q-24): si progetta sulle specifiche stando larghi (D-076).
+- **Script**: `zampa.py` → `fai_tibia`, gola del fermo dei fili (oggi 4,0 con 1,1 mm sotto i ponticelli): larghezza da 4,0 a **4,5**.
+- **Parametri**: la larghezza della gola (nome da leggere nello script); il valore 4,5 viene da P-063 (doppino FSR 2 × 28 AWG e tre fili da 30 AWG occupano 3,3-4,05 mm; 0,45 mm di margine).
+- **Verifica**: procedura della zampa; parete residua accanto alla gola e ponticelli; sentinella sui volumi della tibia.
+- **BOM**: nessun impatto. **Guida**: 6.08. **Documenti**: `docs/predisposizioni.md` (X5, X31) se riporta la larghezza.
+
+### 15. P-008: ToF posteriore avvitato, ritegno dell'altoparlante
+
+Decisione (D-076, Q-09): il ToF posteriore si avvita (non essenziale, ma meglio); microfoni con colla a caldo fuori dal percorso del suono.
+- **Script**: `corpo.py` → `fai_carapace_predisposizioni`, piano del ToF posteriore a 35°: **due fori pilota Ø1,7** per viti M2 (come la piastrina IMU), nelle posizioni dei fori della Pololu VL53L1X #3415, **da leggere sul disegno del produttore** prima del CAD (le quote di Q-33 sono del VL53L7CX, un'altra scheda). Dietro la guancia dell'altoparlante (sporge 3,3 mm): una linguetta o due costole di ritegno, senza chiudere il corridoio di 25 mm con cui si infila da dietro (D-074).
+- **Parametri**: interasse e diametro dei fori del ToF; spessore della linguetta.
+- **Verifica**: `carapace_predisposizioni`, `interferenze` (ToF, vite, altoparlante, ritegno), `sfilamento`; la testa della vite M2 e la sede del ToF non toccano la feritoia né il fascio; sentinella sui volumi del carapace.
+- **BOM**: viti M2 dal kit (D8); nessun acquisto. **Guida**: 13.09, 13.11-13.13 (viti del ToF; colla solo per i microfoni).
+- **Documenti**: `docs/predisposizioni.md` (X19: "due perni o un inserto M2" diventa "due fori pilota per M2").
+
+### 16. P-007: rebbi dello sportello più lunghi sul pacco misurato
+
+Il pacco misura 139,65 mm (Q-17): fra la battuta anteriore del tunnel (X 79) e la punta dei rebbi (X −68,4) ci sono 147,4 mm, quindi 7,75 mm di corsa.
+- **Script**: `corpo.py` → `fai_sportellino`, `cor_sport_rebbio` da 17 a circa **22**: per un solo strato di schiuma EVA da 3 mm (D10) sulla faccia anteriore del pacco restano 147,4 − 5 = 142,4 mm contro 142,65 con la schiuma (compressione richiesta 0,25 mm [S]; il valore esatto si sceglie nel modello).
+- **Verifica**: `sportello`, `controllo`, `interferenze`; che i rebbi allungati non tocchino T-plug e F1 (x −83…−61) né i cavi del pacco nelle tacche aperte della modifica 11; sfilamento dello sportello con il pacco dentro.
+- **BOM**: D10 resta (un solo strato). **Guida**: 11.02, 11.05. **Documenti**: D-051.
+
+### 17. Documenti da correggere con la 2.1.7 (dalle risposte)
+
+- `docs/progetto-meccanico.md`: vassoio in PLA (oggi "in PETG", P-088); T-plug come in P-089 (già in `decisioni-arresto2.md`); colonne del vassoio (modifica 1).
+- `docs/software.md` 6.7: assetto di partenza 100/45 a coppie, poi tripode lento (P-046); soglia del cicalino a 3,3 V per cella (P-066).
+- `cad/stl/README.md`: lunette dei microfoni in PLA, colore libero.
+- `docs/dimensioni-componenti.md`: dati misurati della batteria (139,65 mm, cavo 110 mm, T-plug femmina, positivo sul lato verticale) e inserti del kit (zigrinatura Ø4,2 e invito Ø4,0 per l'M3, Ø3,2 e Ø3,0 per l'M2).
+- `CLAUDE.md`: stato e aperti alla chiusura della versione (voci già risolte dall'utente tolte da "Aperti": carica, scheda del carapace, lunghezza del pacco, sesso del T-plug, inserti, squadretta di prova).
+
+### Testi della guida dopo la 2.1.7
+
+Fatti con le immagini nuove e solo dopo il CAD (la guida segue ancora i distanziali, la testata dritta e le fessure chiuse):
+- **P-003**: 4.04 (colonne e M2 svasate, niente M3 e distanziali, giunti piatti anche sotto T-2, D-12, B-2), catalogo `giunzioni.yaml` (`vassoio`: vite M2x5 svasata, punta `inserto_m2`) e `viteria.yaml` (`DIST_M3_5` non usato; totali M3 × 6 48, M2 × 5 svasate 16, inserti M3 90 e M2 32), 03-inserti (quattro M2 in più sulle colonne), 08 elettronica, riga B18 dell'inventario in 00-prima 0.17, glossario "vassoio".
+- **P-005**: 4.04 ("file a 24,7 [C]" diventa "25,4, 10 passi [S]" con la prova a secco prima di tagliare e saldare).
+- **P-002**: 4.06, 4.22-4.25, 13.16, 13.17, 13.19, A.17, A.18, con la nota sul PCB stampato futuro.
+- **P-001, P-007**: sezione 11 e 15 come nella modifica 11 e nella 16.
+- **P-008**: 13.09, 13.11-13.13.
+- **P-031**: 12.01 e 12.07, con il secondo pulsante B3b come pulsante provvisorio sui pin A e B (arresto d'emergenza prima del carapace).
+- **P-050**: 8, 9 e 12 come in D-076: rail acceso solo nella 12, con la batteria nel robot; la sezione 9.08 dice come si alimenta il tester dei servo (6,0 V dal regolatore del banco o dal rail, da decidere: oggi "alimentato a 6 V [C]").
+- **P-088, P-078**: 02-stampa (vassoio e lunette in PLA, colore libero). **P-072**: 4.04-4.09 (Kapton o nastro in PVC, non nel BOM). **P-066**: 12.04, 13.14 (soglia 3,3 V). **P-046**: 14.07, 14.08. **P-085**: 4.05 (J1; X3 non si compra). **P-077**: 6.05, 6.08, 6.22 (luci opzionali, diffusore bianco). **P-111**: durate dei passi senza totale. **P-010**: 13.02 (misura il pulsante all'arrivo). **P-058**: 3.01 (divisione M3 × 5 e × 6 dopo il provino 1.03). **P-117**: 14.06 (soglie di batteria in simulazione).
+- **Gommini**: niente nel CAD; nella guida è già fatto con D-076 (5.02).
+
 ### Verifiche a valle (una volta, alla fine)
 
-- Corpo (modifiche 1, 3, 8, e 11-12 quando decise): `controllo`, `interferenze`; coxe a ±35° e a 30,5° fra vicine; `carapace_zampe`, `sfilamento`, `campo`; `ciclo` a 100/45 e 70/70 a gruppi di fasi.
-- Zampa (modifiche 4, 6, 9): `giunti`, `limiti`, `misura`, `interferenze`, `scansione` (81 libere, 17 controlli su 20 che toccano).
+- Corpo (modifiche 1, 3, 8, 11, 12, 15, 16): `controllo`, `interferenze`; coxe a ±35° e a 30,5° fra vicine; `carapace_zampe`, `sfilamento`, `campo`; `ciclo` a 100/45 e 70/70 a gruppi di fasi.
+- Zampa (modifiche 4, 6, 9, 14): `giunti`, `limiti`, `misura`, `interferenze`, `scansione` (81 libere, 17 controlli su 20 che toccano).
 - Attrezzi (5, 7, 10): `verifica_dime` e verifiche dei pezzi nuovi; tutti in libreria e nascosti.
 - Sentinella sui volumi delle parti non toccate; caso di controllo per ogni interferenza nuova.
 - A valle: `colori.py`, `esporta_stl.py` (con le varianti del piedino), `esporta_mesh.py`, `esporta_robot.py` (`geometria`, `mesh`, `pose`), `tools/descrizione.py --aggiorna-hash`, generatori; ruff, pytest, ctest, `npm test`.
@@ -476,10 +550,10 @@ In attesa della scelta dell'utente fra A (testata a 90° con chiave verso l'otta
 
 ### Ordine e arresti
 
-1. Via dell'utente su questo piano; scelte di P-001 e P-002 (possono arrivare dopo: la 2.1.7 può chiudersi senza e prenderle in una 2.1.8, oppure aspettarle).
+1. Via dell'utente su questo piano (le scelte di P-001 e P-002 ci sono: D-076).
 2. Copia del file Fusion di lavoro per la versione (regola delle versioni).
-3. Corpo: 1, 8, 3 (poi 11, 12); verifiche del corpo.
-4. Zampa: 9, 4, 6; verifiche della zampa.
+3. Corpo: 1, 8, 3, 11, 12, 15, 16; verifiche del corpo.
+4. Zampa: 9, 4, 6, 14; verifiche della zampa.
 5. Attrezzi: 7, 5, 10.
 6. Riferimenti: 2.
 7. Verifiche a valle, documenti, BOM, guida.
@@ -488,4 +562,4 @@ Blocchi che lasciano repo e Fusion in uno stato da cui ripartire: un commit e un
 
 ### Chiusura
 
-D-076 (P-003, P-005, gruppo 4, e P-001 / P-002 se decise), `docs/versioni.md`, `CLAUDE.md` ("Stato attuale" e "Aperti"), `VERSIONE` in `versione.py` e `versione` in `robot.yaml` a 2.1.7, salvataggio in Fusion, `geometria` riletta, hash e generatori, tag `v2.1.7`, push, CI verde. Riepilogo all'utente diviso in verificato / assunzione / aperto.
+D-077 (risultati e verifiche; le scelte di P-001, P-002, P-003, P-005 e le risposte dell'arresto 2 sono in D-076), `docs/versioni.md`, `CLAUDE.md` ("Stato attuale" e "Aperti"), `VERSIONE` in `versione.py` e `versione` in `robot.yaml` a 2.1.7, salvataggio in Fusion, `geometria` riletta, hash e generatori, tag `v2.1.7`, push, CI verde. Riepilogo all'utente diviso in verificato / assunzione / aperto.

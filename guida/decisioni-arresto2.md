@@ -116,3 +116,60 @@ Accettati e rimandati alla fase F7 della guida (`docs/piano-guida.md`). Nessuna 
 - P-133: già nella guida (provino 3 misura il gioco, nervature "da disegnare" dopo la prova). Rimandato: nervature nella 2.1.7.
 - P-136: rimandato: il numero di rondelle di registro dipende dalla squadretta vera (dopo P-004); si misura la luce sul provino del giunto e si scrive nel passo 6.18.
 - P-137: già nella guida (13.23: prova a mano, con il ripiego di una linguetta di nastro). Nessuna modifica.
+
+## Scelte finali dell'utente (15 ottobre 2026, D-076)
+
+Dopo le decisioni in blocco l'utente ha risposto alle domande e deciso i bloccanti. Il perché è in `docs/decisioni.md` D-076; le modifiche al CAD in `docs/piano-v2.1.0.md` ("Versione 2.1.7"). Le voci qui sotto sostituiscono le righe "da decidere" delle sezioni precedenti (P-031, P-073, P-075, P-085).
+
+### Bloccanti
+
+- P-001: fessure del tetto aperte verso la coda nella 2.1.7, con il dentino per la fascetta di F1 (modifica 11). Niente caricatore integrato: si carica con il caricatore USB 2S lento dell'utente, alle spine in coda. Sacchetto LiPo da comprare (B20).
+- P-002: soluzione A, testata 2 × 8 a 90° con chiave sul bordo posteriore della scheda, comprata con X2 (modifica 12). La guida resta sulle millefori; nota che l'alternativa PCB stampato arriverà in una versione successiva.
+- P-003: soluzione e di `bloccanti-arresto2.md` (colonne della base, inserti M2, M2 × 5 svasate). B18 esce dal BOM (modifica 1).
+- P-004: squadretta di prova approvata (già nel BOM).
+- P-005: interasse 25,4 (S) con prova a secco prima di saldare (modifica 2).
+
+### Voci che erano "da decidere"
+
+- P-031: opzione 2, pulsante provvisorio sui pin A e B della 2813, il secondo B3b. L'utente non ha pulsanti: si comprano due (B3b "1 + 1", già nel BOM). Testi 12.01 e 12.07 dopo la 2.1.7.
+- P-073: condensatore da 470 µF basso (Ø6,3, alto al più 8 mm) nell'ordine di X2.
+- P-075: testata 2 × 8 a 90° con chiave nell'ordine di X2 (Würth 61201621721, da confermare sul disegno).
+- P-085: X3 esce dal BOM; negli schemi resta J1 come ritorno possibile.
+
+### Dalle risposte
+
+- P-004, P-059, P-069, P-136: squadretta di prova approvata (Q-01).
+- P-021: 2 FSR 400 Short e un tratto di striscia a 120 LED/m con buffer e resistenze approvati per i provini 6 e 7 (Q-05).
+- P-077, P-062, P-063, P-064, P-138: luci delle tibie opzionali, diffusore bianco (Q-06). P-063: gola da 4,5 (modifica 14).
+- P-074: condensatore sulle prese delle luci solo se serve, con quelli in casa (Q-07).
+- P-027: niente zaino per ora (Q-08); F2 resta da 2 A.
+- P-008: ToF posteriore avvitato, ritegno dell'altoparlante, microfoni con colla a caldo (Q-09, modifica 15).
+- P-088, P-078: vassoio e lunette in PLA, colore libero (Q-10, Q-11).
+- P-066: soglia del cicalino a 3,3 V per cella (Q-12). P-046: 100/45 a coppie (Q-13).
+- P-050: prima prova della zampa con la batteria, nessun alimentatore da banco (Q-14).
+- P-080: ristampa quando serve (Q-15). P-111: le durate non importano, si toglie il totale delle ore (Q-16).
+- P-007, P-029, P-041, P-001: dati misurati della batteria (Q-17): 139,65 mm, cavo 110 mm, T-plug femmina, positivo sul lato verticale; rebbi più lunghi (modifica 16).
+- P-057, P-058: inserti del kit, zigrinatura Ø4,2 e invito Ø4,0 per l'M3, Ø3,2 e Ø3,0 per l'M2 (Q-20); il provino resta (Q-21: il resto in autonomia).
+- P-010: pulsante non in casa (Q-22): si misura all'arrivo, prima del fondo dell'anello.
+- P-028: fili da specifiche, stando larghi (Q-24).
+- P-072, P-008: consumabili generici fuori dal BOM (Q-25).
+- P-070, P-071, P-117: l'utente ha solo la bilancia (Q-26): la guida non chiede alimentatore da banco né termometro a infrarossi; tester dei servo da comprare (C9).
+- P-134: gommini e tubetti di ottone vengono a parte e non si montano (Q-28).
+- P-101: intervalli di manutenzione a eventi, numeri dall'uso (Q-29).
+- P-012: prese dei piedi e delle luci come da registro, con lo schema dei partitori (Q-04, "non lo so").
+
+### Aperte
+
+Q-18, Q-19, Q-23, Q-27, Q-30 … Q-37: da chiedere quando arrivano i pezzi. P-067 (espansore e presa Qwiic sulla scheda del carapace) si decide con i fori liberi della modifica 12.
+
+### Testi della guida cambiati in questa passata
+
+- 5.02, apertura e controllo della sezione 5, 6.03, 6.04 e 1.08: gommini e tubetti di ottone non si montano.
+- 0.20 e attrezzi della sezione 0: niente alimentatore da banco; tester dei servo e sacchetto LiPo nell'inventario.
+- 14 (collaudo): niente termometro a infrarossi.
+- 9.08 e apertura della sezione 9: tester dei servo per le pose (come lo si alimenta nel corpo resta [C]); 5.01 senza l'alternativa dell'alimentatore da banco; 14.06 con le soglie di batteria in simulazione.
+- 0.06, 11.01 e 15.04: carica con il caricatore dell'utente; 0.06 con il T-plug femmina verificato.
+- 0.08 e opzioni X (0.15): niente zaino per ora, X3 non si compra.
+- 6.22, 02-stampa (diffusore), 0.15 e provino 7 della sezione 1: diffusore bianco, niente PETG fumé.
+- 0.23: tolto il totale delle ore.
+- Tutto il resto, che dipende dal CAD 2.1.7, è elencato nel piano ("Testi della guida dopo la 2.1.7").

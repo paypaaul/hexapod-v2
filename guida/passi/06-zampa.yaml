@@ -24,7 +24,7 @@ sezione:
   prima:
     - "Provini fatti, valori nel CAD (sezione 1); pezzi stampati e controllati (sezione 2)."
     - "Inserti messi (sezione 3): tibia 3 M3, coxa 4 M3, femore B 4 M3 e 2 M2."
-    - "Servo numerati, a metà corsa, senza gommini; banco dei servo pronto (sezione 5)."
+    - "Servo numerati, a metà corsa, con le alette nude (gommini e tubetti non si montano); banco dei servo pronto (sezione 5)."
     - "Deciso se montare FSR (X5) e luci (X31): vanno nella tibia."
   tempo: "circa 2 ore la prima volta; 15 minuti in più con FSR e luci [S]"
   stato_elettrico: "Banco dei servo (sezione 5) solo in 6.16, 6.20, 6.21 e 6.25, un servo alla volta."
@@ -85,8 +85,7 @@ passi:
       - {tipo: attenzione, testo: "Spingi solo sulla flangia: col pollice, o con un tubetto Ø 8–11,5 e dal lato A un distanziale ≥ 45 mm attorno al foro da 7,2 [C]."}
     fonti: ["D-049: foro dietro la sede da 7,2", docs/progetto-meccanico.md "Architettura", cad/script/zampa.py _sede, cad/stl/README.md "Provino della culla"]
 
-  # I gommini si tolgono a tutti i servo nella sezione 5 (5.02 e controllo della sezione 5): qui
-  # resta un controllo (correzione della F3).
+  # Gommini e tubetti di ottone non si montano (5.02, D-076): qui resta un controllo (correzione della F3).
   - id: "6.03"
     titolo: Servo del ginocchio nella culla
     formato: mezzo
@@ -95,7 +94,7 @@ passi:
     vista: zampa_A
     evidenzia: [{chiave: zampa/Tibia, lav: fessura_cavo}, {chiave: zampa/Tibia, lav: finestra_cavo}]
     testo:
-      - "Controlla che le alette siano senza gommini (sezione 5)."
+      - "Controlla che le alette siano nude: niente gommini né tubetti di ottone (sezione 5)."
       - "Annota il numero del servo nella scheda della zampa."
       - "Infila la spina del cavo nella finestra della testata, da dentro la culla."
       - "Infila il servo nella culla dal lato A, coda verso il piede e passacavo nella fessura."
@@ -249,7 +248,7 @@ passi:
     vista: zampa_A
     evidenzia: [{chiave: zampa/Coxa, lav: fessura_cavo}, {chiave: zampa/Coxa, lav: finestra_cavo}]
     testo:
-      - "Controlla che le alette siano senza gommini (sezione 5)."
+      - "Controlla che le alette siano nude: niente gommini né tubetti di ottone (sezione 5)."
       - "Annota il numero del servo nella scheda della zampa."
       - "Infila la spina del cavo nella finestra della testata, da dentro la culla."
       - "Infila il servo nella culla dal lato A, coda in basso e passacavo nella fessura."
@@ -458,7 +457,7 @@ passi:
       - "Premi il bordino del diffusore nella finestra del guscio, da dentro."
       - "Controlla che il bordino resti sotto il fronte, senza sporgere."
     avvisi:
-      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Solo con le luci: il guscio si toglie con una vite. Bianco o PETG fumé: si decide con il provino di luce, X10 [C]."}
+      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Solo con le luci: il guscio si toglie con una vite. Il diffusore è bianco (D-076); lo spessore si controlla con il provino di luce, X10 [C]."}
     fonti: ["D-066, blocco A: diffusore", D-069, cad/stl/README.md "Cover_Tibia_Diffusore.stl", cad/script/zampa.py fai_cover_tibia_diffusore]
 
   - id: "6.23"

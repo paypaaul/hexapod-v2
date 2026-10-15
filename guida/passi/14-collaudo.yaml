@@ -82,7 +82,7 @@ sezione:
   stato_elettrico: "Rail dei servo acceso dal passo 14.03. Mano sul T-plug e sul pulsante del carapace per tutto il collaudo."
   note: "I valori marcati V o S vengono dal CAD, dal calcolo o dalla simulazione: sul robot vero possono scostarsi. Annota sempre il valore misurato."
   fonti: [D-066, D-069, D-074, D-075, "docs/software.md 2.5, 2.6, 4.2, 6.7", "docs/piano-elettronica-software.md 4 (P3-P6)", docs/predisposizioni.md, firmware/README.md, guida/problemi/collaudo.yaml]
-  attrezzi: [cavalletto, computer_usb, multimetro, bilancia, termometro_ir]
+  attrezzi: [cavalletto, computer_usb, multimetro, bilancia]
   controllo:
     - "Il robot pesa quanto atteso e tutte le viti del BOM sono al loro posto."
     - "Tensioni dei rail, uscite 5 V e partitore della batteria come in tabella."
@@ -263,13 +263,13 @@ passi:
         - ["Togli il comando per un secondo", "dopo 300 ms si ferma in piedi [C]", ""]
         - ["Togli il comando per 30 s", "si siede, poi il rail si spegne [C]", ""]
         - ["Stacca il filo TX della SSC-32", "dopo 3 interrogazioni senza risposta: GUASTO e rail spento [C]", ""]
-        - ["Alimentatore al posto del pacco, tensione che cala", "sotto 3,6 V a cella avviso; sotto 3,5 V per 5 s seduta; sotto 3,3 V spegnimento [C]", ""]
+        - ["Soglie di batteria: provate in simulazione, non con un alimentatore (l'utente non lo ha)", "sotto 3,6 V a cella avviso; sotto 3,5 V per 5 s seduta; sotto 3,3 V spegnimento [C]", ""]
         - ["Cicalino", "suona sotto la soglia impostata (12.04) [S]", ""]
     avvisi:
       - {tipo: attenzione, testo: "A terra queste prove fanno cadere il robot: mai sul pavimento."}
       - {tipo: importante, testo: "Soglie del firmware da tarare: se scattano diversamente annota il valore, non cambiare il firmware qui (software.md 2.6) [C]."}
       - {tipo: nota, testo: "Pulsante: arresto d'emergenza. T-plug: sezionamento dei servo (software.md 2.6)."}
-    attrezzi: [cavalletto, computer_usb, alimentatore_limitato]
+    attrezzi: [cavalletto, computer_usb]
     fonti: ["docs/software.md 2.6 'Sicurezza e macchina a stati'", "docs/BOM.md 'Schema di alimentazione', B9", "docs/piano-elettronica-software.md 4 (P3: rail spento in ogni guasto provato)", "guida/passi/12-accensione.yaml 12.01, 12.04", guida/problemi/collaudo.yaml]
 
   - id: "14.07"
@@ -347,13 +347,13 @@ passi:
       - {testo: pacco, punto: [-77.9, 0.0, -25.0]}
     testo:
       - "Cammina per 10 minuti in marcia classica, poi fermati [S]."
-      - "Misura subito le temperature della tabella."
+      - "Controlla subito le temperature della tabella: le NTC dei regolatori dal firmware, il resto al tatto (niente termometro a infrarossi)."
       - "Leggi e annota la tensione del pacco sotto carico."
       - "Lascia riposare il robot circa 30 minuti prima di una nuova marcia continua [S]."
     tabella:
       intestazione: [Punto, Atteso, Misurato]
       righe:
-        - ["Carapace, sopra le baie anteriori", "sotto 55 °C: oltre, il PLA rammollisce e il carapace si ristampa in PETG [S]", ""]
+        - ["Carapace, sopra le baie anteriori, al tatto", "il palmo regge 5 secondi: oltre circa 55 °C il PLA rammollisce e il carapace si ristampa in PETG; se non regge, fermati e annota [S]", ""]
         - ["Regolatori dei servo (NTC, X14)", "annota: una soglia non è definita [C]", ""]
         - ["Servo di femore e ginocchio, al tatto", "tiepidi; se scottano, fermati [S]", ""]
         - ["Pacco", "non scotta e non si gonfia [S]", ""]
@@ -361,7 +361,7 @@ passi:
     avvisi:
       - {tipo: attenzione, testo: "Un pacco che scalda, si gonfia o sibila: stacca il T-plug solo se puoi farlo senza toccare il pacco e allontanati (12.01)."}
       - {tipo: nota, testo: "Il budget termico segue l'indicazione Lynxmotion: circa 10 minuti di sforzo continuo, poi circa 30 di riposo (software.md 2.6) [S]."}
-    attrezzi: [termometro_ir]
+    attrezzi: [computer_usb]
     fonti: ["D-065 e D-066 (PLA a 55–60 °C, ristampa in PETG)", "docs/software.md 2.6", "docs/piano-elettronica-software.md 4 (P4: temperatura sotto il carapace)", "docs/predisposizioni.md X14", "guida/passi/12-accensione.yaml 12.01", guida/problemi/collaudo.yaml]
 
   - id: "14.10"
