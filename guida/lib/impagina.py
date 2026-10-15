@@ -148,15 +148,17 @@ def freccia_path(da, a, larg):
 
 
 # ---------------------------------------------------------------------------------------------- immagini
-def piatta(src, dst, colori=96):
-    """Alfa su bianco e colori quantizzati senza dithering: i colori piatti si comprimono bene (prova F0)."""
+def piatta(src, dst, colori=64):
+    """Alfa su bianco e colori quantizzati senza dithering: i colori piatti si comprimono bene (prova F0). Con gli
+    ottetti (15 ottobre 2026, 8 render della guida): 40 KB a immagine contro 183 del taglio mediano a 96 colori, errore
+    medio 1 su 255 e massimo 14, invisibile; da 96 a 32 colori il peso non cambia."""
     if os.path.exists(dst) and os.path.getmtime(dst) >= os.path.getmtime(src):
         return
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     im = Image.open(src).convert('RGBA')
     fondo = Image.new('RGBA', im.size, (255, 255, 255, 255))
     fondo.alpha_composite(im)
-    fondo.convert('RGB').quantize(colors=colori, dither=Image.Dither.NONE).save(dst, optimize=True)
+    fondo.convert('RGB').quantize(colors=colori, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE).save(dst, optimize=True)
 
 
 def verifica(png, info, nuovi, bordo=3):
@@ -413,6 +415,39 @@ class Impaginatore:
         return p, len(pagine)
 
 
+def comprimi(pdf_path):
+    """Riscrive le immagini del PDF come indicizzate (palette), senza perdite. Chrome reincapsula le PNG a palette come
+    RGB pieno: sulla guida completa del 12 ottobre 2026 le immagini erano 60 MB e il PDF 98 MB. Le immagini della guida
+    hanno al massimo 96 colori (piatta()), quindi la palette le rappresenta esattamente; quelle con piu' colori restano."""
+    import zlib
+
+    import numpy as np
+    import pikepdf
+    with pikepdf.open(pdf_path, allow_overwriting_input=True) as doc:
+        # tutti gli oggetti immagine: Chrome le richiama da pattern e form, che page.images non vede
+        for img in [o for o in doc.objects if isinstance(o, pikepdf.Stream) and o.get('/Subtype') == '/Image']:
+            if img.get('/SMask') is not None:
+                continue
+            if '/Indexed' in str(img.get('/ColorSpace')):
+                continue
+            pil = pikepdf.PdfImage(img).as_pil_image()
+            if pil.mode != 'RGB':
+                continue
+            # palette esatta: i colori unici dell'immagine e il loro indice (una quantizzazione li sposterebbe)
+            px = np.asarray(pil).reshape(-1, 3)
+            colori, indici = np.unique(px, axis=0, return_inverse=True)
+            if len(colori) > 256:
+                continue                            # piu' di 256 colori: resta com'e'
+            img.write(zlib.compress(indici.astype(np.uint8).tobytes(), 9), filter=pikepdf.Name.FlateDecode)
+            img.ColorSpace = pikepdf.Array([pikepdf.Name.Indexed, pikepdf.Name.DeviceRGB, len(colori) - 1,
+                                            pikepdf.String(colori.astype(np.uint8).tobytes())])
+            img.BitsPerComponent = 8
+            for k in ('/DecodeParms', '/Decode'):
+                if k in img:
+                    del img[k]
+        doc.save(pdf_path, compress_streams=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
+
+
 def pdf(html_path, pdf_path):
     """Stampa con Chrome via Playwright; torna i contenitori che debordano (testo che non sta nella pagina)."""
     from playwright.sync_api import sync_playwright
@@ -430,6 +465,7 @@ def pdf(html_path, pdf_path):
             .map(t => 'pagina ' + t.closest('.pagina').dataset.numero + ": tabella piu' larga della colonna"))""")
         pagina.pdf(path=pdf_path, prefer_css_page_size=True, print_background=True, outline=True, tagged=True)
         browser.close()
+    comprimi(pdf_path)
     return deborda
 
 

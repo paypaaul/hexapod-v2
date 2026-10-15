@@ -216,8 +216,10 @@ Tempo stimato: circa 10–13 giorni di lavoro in più sessioni, fra pipeline (5�
 - La F4 va dimensionata con l'utente prima di partire: meno agenti (per dimensione, non per sezione), Sonnet dove basta, Opus solo per ordine e accessi e per la sicurezza.
 - Caso di controllo della F4: le 8 incongruenze note di "Contesto" non vanno nei prompt.
 
+**15 ottobre 2026**: PDF completo da 98 a 25,4 MB. Le immagini si appiattiscono con gli ottetti a 64 colori (errore medio
+1 su 255) e il PDF di Chrome si riscrive con pikepdf, con le immagini indicizzate esatte (`impagina.comprimi`).
+
 **Difetti della pipeline ancora aperti** (dai rapporti degli agenti, da sistemare prima della F7):
-- PDF da 98 MB contro i 30 previsti: risoluzione e colori delle immagini, forse JPEG per i render grandi.
 - Le etichette su un punto non seguono l'esploso del pezzo e non evitano le altre etichette.
 - Un extra con `qta` in un passo con `volte` si moltiplica due volte se l'autore ha gia' scritto il totale. Va deciso e scritto in `schema.md` che `qta` e' per una volta.
 - `assiemi` entrano sempre con quantita' 1.
