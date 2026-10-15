@@ -77,7 +77,7 @@ passi:
     immagine: false
     testo:
       - "Controlla il pacco: niente gonfiori, crepe nel guscio o cavi spellati. Se è gonfio, non usarlo."
-      - "Carica il pacco come nel passo 0.06, con il caricatore USB per 2S che hai già, fino a 8,4 V [V]: nel sacchetto per LiPo se lo hai sfilato, oppure collegato alle spine in coda a robot spento, restando presente."
+      - "Carica il pacco come nel passo 0.06, con il caricatore USB per 2S che hai già, che si attacca solo alla presa di bilanciamento (JST-XH), fino a 8,4 V [V]: nel sacchetto per LiPo se lo hai sfilato, oppure collegato alla presa di bilanciamento in coda a robot spento, restando presente."
       - "Misura e annota la tensione delle due celle sulla presa di bilanciamento e del pacco sul T-plug."
       - "Misura e annota lunghezza, larghezza e altezza del pacco."
     tabella:

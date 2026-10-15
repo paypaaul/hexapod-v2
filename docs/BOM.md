@@ -213,7 +213,7 @@ Viteria in più se si montano tutte, da contare a robot deciso: inserti M2 (D5) 
 
 ## Ordine degli acquisti consigliato
 
-1. **Una squadretta metallica di prova** (D3, approvata il 15 ottobre 2026: una AliExpress e una confezione diymore), qualche cuscinetto e perno (D1, D2), inserti e viti M3: servono per il provino stampato della culla e del giunto, che conferma le quote del servo prima di tutto il resto. Con queste, i due pulsanti (B3b), il tester dei servo (C9) e, per i provini 6 e 7, 2 FSR (X5) e un tratto di striscia con buffer (X9).
+1. **Una squadretta metallica di prova** (D3, approvata il 15 ottobre 2026: una AliExpress oppure una confezione diymore, alternative), qualche cuscinetto e perno (D1, D2), inserti e viti M3: servono per il provino stampato della culla e del giunto, che conferma le quote del servo prima di tutto il resto. Con queste, i due pulsanti (B3b), il tester dei servo (C9) e, per i provini 6 e 7, 2 FSR (X5) e un tratto di striscia con buffer (X9).
 2. Alimentazione (B1–B19) e controllo (C1–C4): per la prova al banco della SSC-32 con un lato di servo.
 3. Il resto delle squadrette, cuscinetti e perni nella lunghezza decisa dal CAD.
 4. Filamento quando si stampano le parti vere; prolunghe e prolunga di bilanciamento dopo il CAD.
@@ -255,7 +255,7 @@ Rispetto alla versione 2.1 (495,94 €, prima di contare quello che l'utente ha 
 | 1 | ESP32-S3-CAM e camera OV3660: le hai già? | **Risposto l'11 ottobre 2026** (dagli ordini): sì, 4 schede ESP32-S3 N16R8 CAM e la camera OV3660 da 75 mm, 120°, "GOOD". Resta da leggere sulla scheda quale sia la RE1.3: voci A2, A3 |
 | 2 | Quanti MG996R hai? | **Risposto l'11 ottobre 2026** (dagli ordini): 20, più 4 MG995: voce A1 |
 | 3 | Hai già prolunghe servo, inserti, viteria, filamento o attrezzi dalla v1? | **Risposto l'11 ottobre 2026** (dagli ordini, D-073): tolte 15 voci; restano da guardare il kit di viti da 918 pezzi (testa e lunghezze delle M3), la lega dello stagno e quanto resta del PETG-CF nero: si tolgono dal BOM |
-| 4 | Squadrette metalliche: va bene comprarne una per prova prima delle altre 19? | **Risposto il 15 ottobre 2026** (arresto 2 della guida, P-004): sì, una AliExpress (0,42 €) e una confezione diymore da 6 (10,99 €), da comprare prima delle altre; la misura sblocca il provino del giunto, le quote `sq_*` e la lunghezza delle viti centrali | voce D3 |
+| 4 | Squadrette metalliche: va bene comprarne una per prova prima delle altre 19? | **Risposto il 15 ottobre 2026** (arresto 2 della guida, P-004): sì, una AliExpress (0,42 €) oppure, in alternativa, una confezione diymore da 6 (10,99 €), da comprare prima delle altre; la misura sblocca il provino del giunto, le quote `sq_*` e la lunghezza delle viti centrali | voce D3 |
 | 5 | Pulsante d'accensione | **Risposto il 9 ottobre 2026**: pulsante da pannello Ø12 sul coperchio, voce B3b |
 | 6 | Cicalino di sottotensione | **Risposto il 9 ottobre 2026**: (c), sotto il coperchio in coda sopra il T-plug, display da una finestra del dorso, spinotto di bilanciamento dal retro; serve un modello con i pin sul lato lungo (da scegliere all'ordine) | voci B9, C7, coperchio |
 | 7 | Filamenti e colori della passata estetica | **Risposto il 9 ottobre 2026**: PETG-CF nero per le parti funzionali, PLA colorato (bianco per ora) per le placche, TPU arancio per i piedini; proposto PLA nero per fascia, visiera, gonne e sportellino | voci E1, E2, E2b, E3 |

@@ -158,7 +158,7 @@ passi:
     formato: mezzo
     immagine: false
     testo:
-      - "Carica con il caricatore USB per batterie 2S che hai già (lento), sulla presa JST-XH e sul T-plug: deve essere per LiPo 2S e fermarsi a 8,4 V [C]."
+      - "Carica con il caricatore USB per batterie 2S che hai già (lento), solo sulla presa bianca di bilanciamento (JST-XH a 3 poli), il T-plug resta libero: deve essere per LiPo 2S e fermarsi a 8,4 V [C]."
       - "Imposta 2 celle: 8,4 V a fine carica [V], cioè 4,20 V per cella [S]."
       - "Imposta la corrente di carica dal manuale OVONIC [C]."
       - "Carica su una superficie che non brucia, e resta presente."

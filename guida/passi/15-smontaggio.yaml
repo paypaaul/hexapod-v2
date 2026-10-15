@@ -242,7 +242,7 @@ passi:
     testo:
       - "Controlla che il T-plug del pacco sia staccato da quello del robot."
       - "Sfila il pacco dal tunnel, verso la coda, con i suoi cavi."
-      - "Carica il pacco fuori dal robot, nel sacchetto per LiPo, con il caricatore USB per 2S che hai già (passo 0.06) [C]."
+      - "Carica il pacco fuori dal robot, nel sacchetto per LiPo, con il caricatore USB per 2S che hai già, sulla presa di bilanciamento (passo 0.06) [V]."
     avvisi:
       - {tipo: importante, testo: "Le fessure del tetto sono aperte verso la coda dalla versione 2.1.7 (D-076): T-plug e presa di bilanciamento scorrono nelle tacche. Provalo a secco prima di caricare il pacco: se le spine non passano, fermati [C]."}
       - {tipo: attenzione, testo: "Un pacco gonfio, caldo o ammaccato non si carica e non si rimonta: mettilo su una superficie che non brucia e allontanati (12.01) [S]."}

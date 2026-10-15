@@ -1,5 +1,5 @@
 # Attrezzi in piu' della sezione 11, batteria e sportello (D-075).
 # caricatore_lipo: nessuna voce del BOM; la batteria e' quella della v1 (D-045), il caricatore si presume in casa
 #   (guida/problemi/batteria.yaml, domanda). forbici: tasselli di schiuma EVA (BOM D10).
-caricatore_lipo: {nome: "Caricatore USB per batterie 2S (lento, quello della v1)", icona: "", uso: "carica della batteria (BOM A5, D-045)"}
+caricatore_lipo: {nome: "Caricatore USB per batterie 2S (lento, quello della v1)", icona: "", uso: "carica della batteria dalla sola presa di bilanciamento JST-XH (BOM A5, D-045, D-076)"}
 forbici:         {nome: "Forbici o taglierino", icona: "", uso: "schiuma EVA del fermo della batteria (BOM D10)"}
