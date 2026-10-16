@@ -639,3 +639,15 @@ Blocchi che lasciano repo e Fusion in uno stato da cui ripartire: un commit e un
 ### Chiusura
 
 D-077 (risultati e verifiche; le scelte di P-001, P-002, P-003, P-005 e le risposte dell'arresto 2 sono in D-076), `docs/versioni.md`, `CLAUDE.md` ("Stato attuale" e "Aperti"), `VERSIONE` in `versione.py` e `versione` in `robot.yaml` a 2.1.7, salvataggio in Fusion, `geometria` riletta, hash e generatori, tag `v2.1.7`, push, CI verde. Riepilogo all'utente diviso in verificato / assunzione / aperto.
+- **Esito (16 ottobre 2026)**: fatta. File Fusion salvato come versione 16 ("2.1.7: correzioni dalla guida di montaggio (D-076, D-077)"); `VERSIONE` e `robot.yaml` a 2.1.7; `geometria` riletta (`cad.json`: "Hexapod v2.1.0 v16", cambia solo l'intestazione), hash e generatori; ruff, pytest (72), ctest (4 su 4), `npm test` (3 su 3), `guida.costruisci controlla` verde con l'avviso noto del vassoio. D-077, `docs/versioni.md`, `CLAUDE.md`, tag `v2.1.7`.
+
+## Seguito: versione 2.1.8 (proposte, 16 ottobre 2026)
+
+> Proposte: non si parte senza il via dell'utente. Il piano dettagliato si scrive qui prima di partire.
+
+**Minori della seconda verifica geometrica della 2.1.7** (D-077, registro `guida/problemi.md`):
+1. **P-139, reofori dei LED delle spie (X13) a 0,6 mm da F1**: spostare F1, la coppia di T-plug e le costole di +2,5 verso la testa (oggi 3,0 mm dal 2813), oppure leggere prima il portafusibile Neuftech vero (Q-23). Il ripiego di `cablaggio.md` 5, punto 8 ("si piegano lungo la linguetta") non è fattibile: va corretto.
+2. **P-140, cavo piatto in due strisce a 0,25 mm dal PCB dell'ESP32 e a 0,3 dalla battuta dell'ottagono**: far scendere le strisce 1,0 mm più verso l'esterno, con `cavo_piatto` e i suoi casi di controllo; nei testi della guida (4.15, 13.19) la divisione in due strisce e la crimpatura.
+3. **P-141 (P-012), prese dei piedi**: quando si disegnano, l'ingombro delle spine JR (circa 7,6 × 2,5) resta a y ≥ 17,6; verifica con `spine_prese`.
+
+**Testi della guida dopo la 2.1.7, ancora da fare**: tutto l'elenco della sezione 2.1.7 ("Testi della guida dopo la 2.1.7": P-003, P-005, P-002, P-001, P-007, P-008, P-031, P-050, P-088, P-078, P-072, P-066, P-046, P-085, P-077, P-111, P-010, P-058, P-117 e i dubbi della revisione dell'arresto 2), con le immagini rifatte sulla 2.1.7. Nella 2.1.7 sono cambiati solo i dati che seguono il CAD (catalogo, totali, 8.07, 8.09, 8.11, 11.03, 15.10, 15.11). In più la convenzione della guida per le viti svasate (testa sul fondo del cono: avviso del vassoio, `piastrina_imu`, `lama_b`), da correggere nella pipeline con i testi.

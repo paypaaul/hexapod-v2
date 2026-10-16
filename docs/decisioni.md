@@ -731,3 +731,76 @@ L'utente ha letto il registro dei problemi (`guida/problemi.md`: 138 voci, 6 blo
 **Aperte** (da chiedere quando arrivano i pezzi): Q-18 (scheda ESP32: sigla e misure; la prova a secco di P-005 sostituisce il calibro), Q-19 (foto della SSC-32), Q-23 (portafusibile), Q-27 (22 kΩ nel set B10), Q-30 … Q-37.
 
 **Cosa cambia**: BOM (B18 e X3 tolti, due voci nuove (B20, C9), X2 con testata a 90° e 470 µF basso, totale circa 367,14 €); piano della 2.1.7 (modifiche 11, 12, 14-17); testi della guida per gommini, alimentatore da banco, termometro, tester, carica, zaino e diffusore. I testi che dipendono dal CAD 2.1.7 si fanno dopo la 2.1.7 (elenco nel piano, "Testi della guida dopo la 2.1.7").
+
+## D-077 — Versione 2.1.7: correzioni dalla guida di montaggio (2026-10-16)
+
+La 2.1.7 applica al CAD le scelte dell'arresto 2 della guida (D-076) e le decisioni in blocco approvate (P-009, P-014, P-015, P-016, P-019, P-057, P-062, P-065). Piano ed esiti modifica per modifica in `docs/piano-v2.1.0.md`, sezione 2.1.7; qui i risultati, le deviazioni dal piano con il perché e le verifiche. File Fusion "Hexapod v2.1.0", versione 16 ("2.1.7: correzioni dalla guida di montaggio (D-076, D-077)"); copia di ripristino della 2.1.6 in "Hexapod v2.1.0 - ripristino 2.1.6 (prima della 2.1.7)" (lineage `urn:adsk.wipprod:dm.lineage:o79LLOHlSzmXdBn2HiYE1A`).
+
+**Cosa è stato fatto** (numeri del piano)
+- **Corpo**:
+  - 1, P-003: vassoio su quattro colonne della base con inserto M2 in cima e M2 × 5 svasate a filo; B18 (distanziali) esce. Testa a 3,4 mm sotto la basetta, come voleva D-053.
+  - 3, P-009: ganci della catena LED anche a x ±75 e tre ganci nel passaggio davanti (x 75, y −24 / 0 / 24): tratti liberi della catena al più 40 mm (prima 76-105).
+  - 8, P-019: asola del bus 7 × 4 fuori dalla basetta, su un'ala del vassoio.
+  - 11, P-001: fessure del tetto aperte verso la coda (via il ponte da 2 mm), il pacco si sfila con T-plug e JST-XH attaccati.
+  - 12, P-002: scheda del carapace con la testata Würth 61201621721 a 90° sul bordo di coda (x 29,5) e la spina 61201623021 orizzontale verso la coda; `Rif_Scheda_Carapace` con quattro corpi (millefori, testata, spina, chiave).
+  - 15, P-008: ToF posteriore (Pololu #3415) con due fori pilota Ø1,7 per M2 × 5, perpendicolari al piano a 35°; due costole di ritegno dell'altoparlante a filo, che si infila ancora da dietro.
+  - 16, P-007: rebbi dello sportello lunghi 22,5 sul pacco misurato (139,65) con 3 mm di schiuma.
+- **Riferimenti**: 2, P-005: file di pin dell'ESP32 a 25,4 (S, con la prova a secco prima di saldare).
+- **Zampa**:
+  - 4, P-014: lamatura piana Ø6 sotto la testa della vite del guscio della tibia (la testa appoggia su tutta la corona).
+  - 6, P-016: stretta del piedino come parametro (`pied_stretta`, 0) e tre STL del provino (0 / 0,2 / 0,4).
+  - 9, P-062: sede delle luci della tibia lunga 50,5 (Z −32,95…−83,53) per la striscia da 50.
+  - 14, P-063: gola del fermo dei fili della tibia da 4,5.
+- **Attrezzi** (in libreria, nascosti): 7, P-057: provino degli inserti con otto fori e i diametri incisi; 5, P-015: `Dima_Calettamento` (α +20°, γ 100°, letta da `robot.yaml`); 10, P-065: bussola di battuta dei perni ed estrattore (asta e tubo d'appoggio).
+- **Documenti** (13, 17): P-092, P-099, P-100; `progetto-meccanico.md`, `software.md`, README degli STL, `dimensioni-componenti.md` (batteria misurata, inserti del kit, Würth, Pololu #3415), `cablaggio.md`, `predisposizioni.md`, BOM (viteria e inserti: M3 × 6 48, M2 × 5 svasate 16, inserti M3 90 e M2 32; M2 × 4 per la scheda del carapace, due M2 × 5 per il ToF posteriore) e rimandi a questa versione in D-051, D-053, D-054, D-055, D-064, D-066, D-071 e D-074. Nella guida sono cambiati solo i dati che seguono il CAD (catalogo, totali, 8.07, 8.09, 8.11, 11.03, 15.10, 15.11, inventario); i testi restano a "Testi della guida dopo la 2.1.7" nel piano.
+- **Correzioni della verifica geometrica** (sezione 18 del piano: 3 rilievi importanti e 8 minori, tutti corretti):
+  - ala e asola del vassoio a x 25–35 / 26,5–33,5, fuori dalle prese dei piedi; la spina Qwiic va nella presa di coda dell'ADC (x 39);
+  - scheda del carapace alzata di 0,6 (bugne da 2,9, `sch_bugna_h`), inserti in fori da 3,4, viti M2 × 4; chiave della spina 0,54 sopra le USB-C;
+  - percorso del cavo piatto in due strisce (`cablaggio.md` 3.5bis);
+  - rebbi fino a z −19,9 (`cor_sport_rebbio_luce` 8,5) per due cavi Ø4 uno sull'altro;
+  - pacco da 139,65 con la schiuma da 2,25 nel modello;
+  - lamatura Ø4,2 × 1 dei LED delle spie, fuori da F1;
+  - colonne del vassoio Ø6,6;
+  - carapace rifatto: il ricalcolo dopo lo spostamento di due istanze aveva tolto raccordi e smusso (lobo PD a spigolo vivo, +677 mm³) senza errori.
+
+**Deviazioni dal piano** (e perché)
+- **Dentino della fascetta di F1 fatto come due tacche** sui bordi della lingua (2,9 × 1 a x −76): un dente dentro la fessura fermerebbe i cavi che escono, uno sotto il tetto starebbe nei 2,6 mm sopra il pacco.
+- **Linguette delle spie (X13) a |y| 14–20** invece di 16–22: fermavano i cavi del pacco che escono dalle fessure aperte (trovato dalla prova di sfilamento). Poi la lamatura dei LED (Ø4,2 × 1) per stare fuori dall'ingombro di F1.
+- **Scheda del carapace larga 21,5 e non 23**: l'amplificatore comincia a x 51,85 (resta 0,85). Viti di coda a x 41,5 e anteriori a 48,0; `sch_sp` = 10,6.
+- **Asola del bus a x 30** invece di 50: a x 45–55 l'ala copriva la fila delle prese dei piedi (le spine JR infilate dall'alto toccavano il vassoio); a x ≈ 70, la proposta della verifica, la spina Qwiic nella presa di testa dell'ADC tocca la colonna (75; 12,5). A x 30 il cavetto va nella presa di coda dell'ADC, a circa 9 mm invece di 31.
+- **Cavo piatto in due strisce da 8** dopo il fermacavo: il nastro intero (20,3) non ha un percorso libero fra USB-C, testata e spine dei servo. Le pieghe sono S, da provare sul pezzo; la riserva è la soluzione B di P-002, da far scegliere all'utente.
+- **Viti della scheda del carapace M2 × 4**: con la scheda alzata di 0,6 il foro dell'inserto è profondo 3,4 e la M2 × 5 arriverebbe sul fondo.
+- **Rebbi da 22,5** (non 22: compressione della schiuma 0,75 invece di 0,25, dentro la tolleranza di stampa) e **cima a z −19,9** invece di −19,5, che lasciava i due cavi a contatto.
+- **Colonne del vassoio Ø6,6** invece di 6,0: 1,6 di parete attorno all'inserto M2, come nelle bugne. I giochi scendono a 1,2 (IMU e piastrina) e 2,2 (ADC).
+- **Bussola appoggiata al mozzo** e non al rialzo: una tasca Ø6,8 × 0,7 lascia libero il rialzo da 0,4, che fissa il gioco del cuscinetto e non va schiacciato dalla morsa. La sporgenza resta 1,40.
+- **Foro dell'inserto del guscio della tibia più profondo di 1** (`tib_ins_guscio_l` 7,7) invece della M3 × 8: con la testa sul piano della lamatura la M3 × 10 andava 0,34 oltre il fondo; così vite, BOM e viteria non cambiano (dietro restano 5,85 mm di stinco).
+- **Ganci del passaggio davanti a x 75**, cavo lungo Y, fra l'ampli e le paratie della testa: il piano lasciava la posizione al modello.
+- **Dima del calettamento costruita con `solo`**: rifare le altre due dime ne avrebbe cancellato i componenti.
+
+**Verifiche** (a fine versione, sul file salvato come versione 15 con le correzioni)
+- **Assieme**: `controllo` 0 su 39 istanze del corpo, nessuna interferenza, coxe a 0, nessuno snapshot pendente, timeline senza problemi, schizzi vincolati.
+- **Coxe**: libere a ±35° una alla volta; fra vicine libere a 30,5° e **a contatto a 31° su quattro coppie su quattro** (AS–MS e MD–PD 19,06 + 15,56 mm³, MS–PS e AD–MD 18,94 + 13,55). La riga "AD–MD libere anche a 31°" di D-071 non si ritrova (nota in D-071).
+- **Carapace contro le zampe**: 3,96 mm sulle medie a +35°, 4,76 a −35°, 7,1 sulle altre, come nella 2.1.6. Sfilamento del carapace libero a 5, 10, 20 e 40 mm, anche con la spina IDC innestata; campo della camera libero (controllo a +8° tocca visiera e fascia).
+- **Ciclo a tripode** libero a 100/45 (8 fasi) e a 70/70 (16 fasi).
+- **Zampa**: 23 giunti (21 rigidi, 2 di rotazione), `misura` 0/90; `scansione` 81 pose libere su 81, 17 controlli su 20 toccano.
+- **Verifiche nuove con corpi o scatole provvisorie** (`assieme.py`), ognuna con il suo caso di controllo:
+  - `sfilamento_pacco`: pacco e cavi liberi; con la spina a destra libero da 0 a 165 mm, a sinistra tocca il ToF posteriore fra 10 e 20 mm (si esce dal lato destro, `cablaggio.md` 4);
+  - `spine_prese`, `qwiic_adc`, `qwiic_asola`: spine JR e Qwiic libere; spina 7,2 × 4,2 tocca il vassoio;
+  - `spina_staccata`: spina sfilata 2–8 mm libera con 0 / ±0,3 / ±0,5 di scarto; con la scheda all'altezza di prima tocca la USB-C;
+  - `cavo_piatto`: libero; 0,4 più in alto tocca l'ottagono, 0,3 verso il centro il PCB dell'ESP32;
+  - `cavi_rebbi`: liberi; 0,5 più in basso il secondo cavo tocca i rebbi (1,60 mm³);
+  - `led_spie`: libero; LED senza lamatura tocca F1 (4,54 mm³);
+  - bussola: sporgenza del perno 1,40; estrattore: spalla a 0,501 dal foro Ø7,2, punta a 0,199 dal cuscinetto;
+  - `verifica_dime` (tre dime): urti solo con la lama B, che si toglie per montarle.
+- **Sentinella sui volumi**: cambiano solo base, vassoio, carapace, sportello, tibia, guscio della tibia, `Rif_Scheda_Carapace`, `Rif_Batteria_2S5200` e i cinque attrezzi nuovi, ognuno con il volume del calcolo a mano; il resto è invariato.
+- **A valle**: STL (41 file più tre piedini), mesh, `cad.json` (74 parti), pose, hash e generatori; `guida.costruisci controlla` verde (resta l'avviso noto della vite svasata del vassoio, un artefatto della convenzione della guida); ruff, pytest (72), ctest (4 su 4), `npm test` (3 su 3).
+- La seconda verifica geometrica, sulle correzioni, non ha trovato rilievi bloccanti né importanti; i 3 minori sono qui sotto.
+
+**Massa**: attesa **3046,2 g** (2.1.6: 3045,0; corpo 1070,6 g, modellato 2686,2 + non modellato 360,0); femore a 5,85 kgf·cm, sempre al 53 % dello stallo a 100/45. Aggiornati `calc/statica_tripode.py` e `robot.yaml`, la regressione passa.
+
+**P-015, calettamento del ginocchio** (scelta dell'utente del 16 ottobre 2026): il calettamento resta a **γ 100**. Con il dente più vicino resta un errore fino a ±7,2°, e nel caso peggiore il ginocchio arriva a 172,8 invece di 177. Dopo la taratura a due punti la guardia prende `gamma_max = min(177, γ di calettamento misurato + 80)` (`software.md` 2.5, nota per il firmware S2; commento su `guardia.gamma_max` in `robot.yaml`). Il ginocchio perde al più 4,2° di distensione; le andature dei quattro assetti arrivano al più a γ 103,3 in appoggio. La proposta di portare il calettamento a 104,5 non è stata scelta: avrebbe cambiato la dima, la tabella di `software.md`, i generatori e la guida.
+
+**Aperti per la 2.1.8** (minori della seconda verifica; l'utente li porta alla versione successiva, registro `guida/problemi.md` P-139…P-141):
+- **Reofori dei LED delle spie (X13) a 0,6 mm da F1**: con la lamatura il corpo del LED è fuori dall'ingombro di F1 (40 × 22 × 15, S), i reofori no. Proposta: spostare F1, la coppia di T-plug e le costole di +2,5 verso la testa (oggi ci sono 3,0 mm dal 2813), oppure prima leggere il portafusibile Neuftech vero. Il ripiego di `cablaggio.md` 5, punto 8 ("si piegano lungo la linguetta") non è fattibile.
+- **Cavo piatto in due strisce a 0,25 mm dal PCB dell'ESP32 e a 0,3 dalla battuta dell'ottagono**: proposta di far scendere le strisce 1,0 mm più verso l'esterno; nei testi della guida vanno la divisione in due strisce e la crimpatura.
+- **P-012, prese dei piedi**: quando si disegnano le prese, l'ingombro delle spine JR (circa 7,6 × 2,5) deve restare a y ≥ 17,6.

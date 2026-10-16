@@ -13,6 +13,8 @@ Stato di ogni voce:
 
 207 problemi registrati, 138 voci dopo l'unione dei doppioni.
 
+Dopo la 2.1.7 (D-077) si aggiungono in fondo tre voci minori della seconda verifica geometrica, aperte per la 2.1.8: P-139, P-140, P-141.
+
 | Tema | Bloccanti | Importanti | Minori | Totale |
 |---|---:|---:|---:|---:|
 | CAD (2.1.7) | 3 | 13 | 7 | 23 |
@@ -1276,3 +1278,27 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Consiglio**: provino del piedino con un FSR vero prima delle sei tibie.
 - **Stato**: deciso (esito: approvato l'11 ottobre 2026); resta la domanda.
 - **Domanda**: la striscia e gli FSR che hai (o comprerai) hanno l'adesivo sul retro?
+
+### P-139 I reofori dei LED delle spie (X13) passano a 0,6 mm dal portafusibile F1
+- **Gravità e tema**: minore · CAD (2.1.8)
+- **Dove**: 7.09, 11. Seconda verifica geometrica della 2.1.7 (D-077); `docs/cablaggio.md` 5, punto 8.
+- **Cosa**: con la lamatura Ø4,2 × 1 della 2.1.7 il corpo del LED resta fuori dall'ingombro di F1 (40 × 22 × 15, S), ma i reofori passano a 0,6 mm. La forma vera del Neuftech non è pubblicata. Il ripiego di `cablaggio.md` 5 punto 8 ("si piegano lungo la linguetta verso |y| 20") non è fattibile.
+- **Opzioni**: (1) spostare F1, la coppia di T-plug e le costole di +2,5 verso la testa (oggi ci sono 3,0 mm dal 2813); (2) leggere prima il portafusibile Neuftech in casa (Q-23) e decidere sulla forma vera.
+- **Consiglio**: (2) prima, poi (1) se le estremità del portafusibile sono larghe quanto l'ingombro; correggere il punto 8 di `cablaggio.md`.
+- **Stato**: aperto, per la 2.1.8.
+
+### P-140 Il cavo piatto in due strisce passa a 0,25 mm dal PCB dell'ESP32 e a 0,3 dall'ottagono
+- **Gravità e tema**: minore · CAD (2.1.8)
+- **Dove**: 4.15, 13.19. Seconda verifica geometrica della 2.1.7 (D-077); `docs/cablaggio.md` 3.5bis.
+- **Cosa**: il percorso libero del cavo piatto della 2.1.7 (nastro diviso in due strisce da 8 dopo il fermacavo) ha 0,25 mm dal PCB dell'ESP32 e 0,3 dalla battuta dell'ottagono: pochi per pieghe fatte a mano. I testi della guida non dicono ancora della divisione in due strisce né della crimpatura della spina IDC.
+- **Opzioni**: far scendere le strisce 1,0 mm più verso l'esterno (−Y); lasciare il percorso e provarlo sul pezzo; soluzione B di P-002 (riserva, da far scegliere all'utente).
+- **Consiglio**: strisce 1,0 mm più verso l'esterno, con la verifica `cavo_piatto` e i suoi casi di controllo; nei testi di 4.15 e 13.19 la divisione in due strisce e la crimpatura.
+- **Stato**: aperto, per la 2.1.8.
+
+### P-141 Prese dei piedi: l'ingombro delle spine JR deve restare a y ≥ 17,6
+- **Gravità e tema**: minore · CAD (2.1.8)
+- **Dove**: 7.10. Seconda verifica geometrica della 2.1.7 (D-077); collegata a P-012.
+- **Cosa**: le prese dei piedi e delle luci non sono ancora disegnate (P-012, D-076). Con l'ala del vassoio della 2.1.7 le spine JR infilate (circa 7,6 × 2,5 in pianta, S) sono libere solo se il loro ingombro resta a y ≥ 17,6.
+- **Opzioni**: rispettare il vincolo quando si disegnano le prese; spostare l'ala.
+- **Consiglio**: rispettare il vincolo, con la verifica `spine_prese` sulle prese nuove.
+- **Stato**: aperto, per la 2.1.8.

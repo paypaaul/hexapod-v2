@@ -13,14 +13,15 @@ Robot esapode a 18 gradi di libertà (6 zampe × 3 servo MG996R), stampato in 3D
 | 1. Studio | fatta (8 ottobre 2026): `docs/studio-componenti.md`, `docs/dimensionamento.md`, `docs/dimensioni-componenti.md` |
 | 2. BOM | v2.0 approvata; v2.1 con prezzi, link e foto (D-068) in `docs/BOM.md` |
 | 3. Modelli 3D | fatta: parametri, STEP e ingombri in libreria (`cad/script/rif_componenti.py`, D-046) |
-| 4. CAD | **versione 2.1.6** (11 ottobre 2026, D-074): predisposizioni con i pezzi in casa, IMU e microfoni con doppia sede. Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
+| 4. CAD | **versione 2.1.7** (16 ottobre 2026, D-077, file Fusion versione 16): correzioni dalla guida di montaggio (arresto 2, D-076). Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
 | 5. BOM finale | v2.3: circa 367 € consegnati per le voci approvate, tolto quello che l'utente ha già in casa (D-073, D-076); predisposizioni X a parte (D-068) |
 | 6. Verifica del movimento | da fare |
 
 Numeri di oggi:
-- massa attesa 3045,0 g, con il femore al 53 % dello stallo a 100/45;
-- carapace a 3,96 mm dalle zampe medie a +35° (D-074: il 4,58 di D-071 non si ritrova), 7,1 dalle altre;
-- zampe vicine libere a 30,5° e a contatto a 31° ciascuna su tre coppie su quattro; AD–MD libere anche a 31° (D-071);
+- massa attesa 3046,2 g, con il femore al 53 % dello stallo a 100/45;
+- carapace a 3,96 mm dalle zampe medie a +35° e 4,76 a −35° (D-074: il 4,58 di D-071 non si ritrova), 7,1 dalle altre;
+- zampe vicine libere a 30,5° e a contatto a 31° su quattro coppie su quattro (D-077);
+- ginocchio calettato a γ 100; dopo la taratura `gamma_max` = min(177, γ misurato + 80) (P-015, D-077);
 - il firmware limita la coxa a ±30° e la somma fra vicine a 56°. Il valore sta in `robot.yaml` ed è ancora una proposta da approvare: D-050 e D-061 dicono 60°.
 
 ## Cosa è deciso dall'utente (non si cambia senza chiederlo)
@@ -88,7 +89,7 @@ Numeri di oggi:
 | `guida/` | guida di montaggio illustrata (D-075, piano in `docs/piano-guida.md`): passi in YAML, catalogo, immagini con Blender, PDF con Chrome; output in `build/guida/` |
 | `docs/decisioni.md` | registro delle decisioni (D-041 e successive) |
 | `docs/backlog.md` | lavori decisi o studiati ma non ancora in una versione |
-| `docs/versioni.md`, `docs/piano-v2.1.0.md` | storico delle versioni e piani dalla 2.1.0 alla 2.1.6 |
+| `docs/versioni.md`, `docs/piano-v2.1.0.md` | storico delle versioni e piani dalla 2.1.0 alla 2.1.7 |
 | `docs/progetto-meccanico.md` | architettura, quote, verifiche, masse e render |
 | `docs/BOM.md` | distinta base con prezzi, carrelli, foto e domande aperte |
 | `docs/cablaggio.md` | tutti i cavi, connettori, piedinature e punti aperti |
@@ -109,7 +110,7 @@ Numeri di oggi:
   - `Hexapod v2 - MG996R - ripristino tibia asimmetrica (v22)`, lineage `2kd8UmqPSSqdH-nUiwVWhw`;
   - `Hexapod v2 - MG996R` (versione 2.0.0, congelata, tag `v2.0.0`), lineage `AVxbp0QWS5m_QEugpeB99A`.
   - I lineage hanno tutti il prefisso `urn:adsk.wipprod:dm.lineage:`.
-- **Design di lavoro**: "Hexapod v2.1.0", lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Ha le versioni dalla 2.1.0 alla 2.1.6 (versione 14 del file).
+- **Design di lavoro**: "Hexapod v2.1.0", lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Ha le versioni dalla 2.1.0 alla 2.1.7 (versione 16 del file).
   - Struttura (D-046): un solo file; la zampa è un componente istanziato sei volte; le parti comprate `Rif_*` stanno in libreria (y ≥ 250 mm).
   - Gli attrezzi stanno anche loro in libreria e sono nascosti.
 
@@ -139,22 +140,22 @@ Numeri di oggi:
 ## Aperti e prossimi passi
 
 1. **Da far decidere all'utente**:
-   - domanda 4 del BOM (una squadretta di prova) e voci X da comprare;
-   - se montare le luci nelle tibie (la sede X31 è approvata, D-069) e il colore del diffusore: bianco o PETG traslucido fumé. Lo zaino è approvato, resta l'acquisto;
+   - voci X da comprare (luci delle tibie opzionali con il diffusore bianco, niente zaino per ora: D-076);
    - somma fra vicine a 56° invece di 60° (proposta in `docs/software.md`);
    - eventuali viti DIN 7984 a testa bassa sotto la lama A: la lama passa da 4,0 a 3,0 mm, il contatto fra vicine sale verso 31,25° e la massa cala di pochi grammi. Cambiano 72 viti del BOM (D-070).
 2. **Aperti tecnici**:
    - coppia a 70/70 oltre la soglia della guardia (`docs/software.md`);
    - fori e chip dei circuiti marcati C;
    - cablaggio, sezione 5: ramo delle tibie e tetto di corrente;
-   - T-plug da provare a mano sul primo carapace, con il ToF posteriore montato.
+   - T-plug da provare a mano sul primo carapace, con il ToF posteriore montato; spina vera nelle tacche aperte del tetto prima di stampare la base (guida 11.03);
+   - cavo piatto del carapace in due strisce: pieghe da provare sul pezzo prima di saldare la basetta (`cablaggio.md` 3.5bis); la riserva è la soluzione B di P-002, da far scegliere all'utente.
 3. **Da guardare sui pezzi in casa** (D-073): chiederli all'utente quando servono, non sono misure dei servo.
    - Quale delle 4 schede ESP32-S3 CAM è la RE1.3: la sigla è stampata sulla scheda. Serve prima di stampare il vassoio.
    - Diametro e altezza dei condensatori da 2200 µF (B7). Previsti 12,5–13 × 20–22 mm.
    - Kit Temu da 918 viti M2–M5: tipo di testa e lunghezze delle M3. Se ci sono M3 × 6 e × 8 a testa cilindrica, D6 si riduce.
-   - Set Temu da 500 inserti in ottone: misure.
    - Lega dello stagno "a bassa temperatura": se non è al bismuto, B19 perde anche lo stagno.
    - Quanto resta della bobina FlashForge di PETG-CF nero: se è quasi intera, E1 scende a una bobina.
+   - Portafusibile Neuftech di F1 (Q-23): forma delle estremità, per i reofori delle spie (2.1.8).
    - Quote dei moduli della 2.1.6 (D-074), prese dalle foto dei venditori; prima di stampare base, piastrina e carapace:
      - GY-6500: 26 × 15,5, fori Ø3 a 20,6 di interasse e 2,3 dal bordo (`sen_mpu_*`);
      - MS3625: Ø13,5 con i lati piatti a 12,6 (`aud_ms_*`);
@@ -164,11 +165,12 @@ Numeri di oggi:
    - culla e giunto: passacavo, fori pilota, forzamenti di cuscinetti e perni, gioco d'imbardata;
    - luce (X10, D-069);
    - tasche della lama A (D-072): il risultato va in `cov_testa_d` o si passa alle costole;
-   - inserti del kit Temu: fori M3 da 3,9 / 4,0 / 4,1 e M2 da 2,9 / 3,0 / 3,1 in PETG-CF. Poi `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` in `rif_componenti.py` e verifica completa, perché `ins_m3_d` muove anche le bugne delle culle.
-   - Dopo i provini: nervature di schiacciamento delle culle e stretta del piedino.
+   - inserti del kit Temu con `Attrezzo_Provino_Inserti` (M3 Ø3,9…4,2, M2 Ø2,9…3,4, in PETG-CF). Poi `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` in `rif_componenti.py` e verifica completa, perché `ins_m3_d` muove anche le bugne delle culle.
+   - piedino con le tre strette (0 / 0,2 / 0,4): il valore scelto va in `pied_stretta`.
+   - Dopo i provini: nervature di schiacciamento delle culle.
 5. **Guida di montaggio** (D-075): in corso secondo `docs/piano-guida.md`, con quattro arresti per l'utente.
-   Fatte F2 (arresto 1 approvato), F3 (bozze di tutte le sezioni), F3b (schemi delle schede, `guida/schemi/`) e F3c (passata di qualita'). Problemi in `guida/problemi/*.yaml`.
-   **In pausa dal 12 ottobre 2026** per l'uso settimanale: per ripartire leggere `docs/piano-guida.md`, "Stato e ripresa". La F4 (verifica avversaria) si dimensiona con l'utente prima di lanciarla.
+   Fatte F2 (arresto 1 approvato), F3, F3b (schemi, `guida/schemi/`), F3c, F5 con l'arresto 2 (registro `guida/problemi.md`, D-076) e il CAD della 2.1.7 (D-077).
+   Prossimi: i testi della guida dopo la 2.1.7 e le proposte della 2.1.8 (tre minori, P-139…P-141), elenco in `docs/piano-v2.1.0.md` ("Seguito: versione 2.1.8"); poi F4 e F8, da dimensionare con l'utente. Per ripartire: `docs/piano-guida.md`, "Stato e ripresa".
 6. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
 7. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 

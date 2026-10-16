@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="esapode">
-  <!-- Generato da tools/genera_modelli.py (versione 2.1.6, Hexapod v2.1.0 v15): non modificare a mano. -->
+  <!-- Generato da tools/genera_modelli.py (versione 2.1.7, Hexapod v2.1.0 v16): non modificare a mano. -->
   <material name="scuro">
     <color rgba="0.18 0.18 0.2 1" />
   </material>

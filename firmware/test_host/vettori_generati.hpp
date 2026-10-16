@@ -5,7 +5,7 @@
 
 namespace vettori {
 
-inline constexpr const char* cad_sha256 = "ae24aa0a934af293fed2ab652114fc0d124227fab5348f7a710974ca26ffdc7f";
+inline constexpr const char* cad_sha256 = "a1b098452680752e78c4975c1d67ce6ad842632b510a9d541010c3480b84179e";
 
 // Punta del piede letta dal CAD con i giunti veri (robot/pose_cad.json): angoli comandati e punta nella terna
 // del robot. imbardata = segno_imbardata * G_coxa.

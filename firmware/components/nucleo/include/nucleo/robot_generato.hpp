@@ -9,9 +9,9 @@
 namespace nucleo::robot {
 
 // Origine dei dati
-inline constexpr const char* versione = "2.1.6";
-inline constexpr const char* documento_cad = "Hexapod v2.1.0 v15";
-inline constexpr const char* cad_sha256 = "ae24aa0a934af293fed2ab652114fc0d124227fab5348f7a710974ca26ffdc7f";
+inline constexpr const char* versione = "2.1.7";
+inline constexpr const char* documento_cad = "Hexapod v2.1.0 v16";
+inline constexpr const char* cad_sha256 = "a1b098452680752e78c4975c1d67ce6ad842632b510a9d541010c3480b84179e";
 
 // Zampe nell'ordine di robot.yaml -> zampe
 inline constexpr int N_ZAMPE = 6;
