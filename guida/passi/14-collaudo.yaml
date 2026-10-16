@@ -135,15 +135,15 @@ passi:
     tabella:
       intestazione: [Punto, Atteso, Misurato]
       righe:
-        - ["Massa del robot completo", "fino a 3045 g con tutte le predisposizioni [S]", ""]
+        - ["Massa del robot completo", "fino a 3047 g con tutte le predisposizioni [S]", ""]
         - ["Viti del BOM", "tutte al loro posto e strette [V]", ""]
         - ["Carapace e sportellino", "quattro viti strette; sportellino a filo [V]", ""]
         - ["Piedini e lame", "piedini in fondo e dritti; lame A e B ferme [S]", ""]
         - ["T-plug", "si stacca e si ricollega con due dita, carapace montato (13.23) [V]", ""]
         - ["Cicalino", "display visibile dalla finestra; staccato dalla prolunga a fine uso [V]", ""]
     avvisi:
-      - {tipo: importante, testo: "A 3045 g il femore è al 53 % dello stallo e l'avviso scatta al 55 %: oltre circa 3150 g l'avviso scatta già in piedi [S, la coppia è proporzionale alla massa]. Pesa prima di camminare; oltre 3150 g annota il peso e fermati: decidi con chi progetta come alleggerire (per esempio il guscio della tibia, D-063)."}
-      - {tipo: nota, testo: "3045 g è la massa attesa di D-074 con tutte le predisposizioni montate: senza di loro il robot pesa meno (docs/software.md 6.3)."}
+      - {tipo: importante, testo: "A 3047 g il femore è al 53 % dello stallo e l'avviso scatta al 55 %: oltre circa 3150 g l'avviso scatta già in piedi [S, la coppia è proporzionale alla massa]. Pesa prima di camminare; oltre 3150 g annota il peso e fermati: decidi con chi progetta come alleggerire (per esempio il guscio della tibia, D-063)."}
+      - {tipo: nota, testo: "3047 g è la massa attesa della 2.1.7 (3045 g in D-074) con tutte le predisposizioni montate: senza di loro il robot pesa meno (docs/software.md 6.3)."}
     attrezzi: [bilancia]
     fonti: ["D-074: massa attesa 3045,0 g", "docs/software.md 6.3 test 6 (regressione 53 % ± 1)", "robot/robot.yaml guardia (avviso al 55 %)", "docs/BOM.md 'Viteria e inserti contati dal modello'", "guida/passi/13-carapace.yaml 13.23", guida/problemi/collaudo.yaml]
 
@@ -322,8 +322,8 @@ passi:
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
-        - ["Coppia, a coppie a 100/45", "41 % dello stallo con 2945 g [S, da rifare con 3045 g]", ""]
-        - ["Coppia, tripode a 100/45", "53 % con 3045 g [V]; avviso oltre il 55 %", ""]
+        - ["Coppia, a coppie a 100/45", "41 % dello stallo con 2945 g [S, da rifare con 3047 g]", ""]
+        - ["Coppia, tripode a 100/45", "53 % con 3047 g [V]; avviso oltre il 55 %", ""]
         - ["Velocità in tripode", "circa 105–115 mm/s con il limite di 250°/s [S]", ""]
         - ["Corrente dei rail, marcia classica", "10–12 A a 6 V, cioè 60–72 W [S]", ""]
         - ["Piedi d'appoggio che scivolano", "al più qualche millimetro all'atterraggio; in simulazione 0,5 mm [S]", ""]

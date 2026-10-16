@@ -1,8 +1,8 @@
 # Attrezzi in piu' della sezione 14, collaudo (D-075). Nessuna voce del BOM: sono cose che l'utente ha in casa o compra
 # per poco (guida/problemi/collaudo.yaml, "Attrezzi del collaudo non nel BOM").
-# bilancia: peso del robot completo, atteso fino a 3045 g (D-074); portata di almeno 5 kg e' una scelta mia (S) per
+# bilancia: peso del robot completo, atteso fino a 3047 g (2.1.7; 3045 g in D-074); portata di almeno 5 kg e' una scelta mia (S) per
 #   avere margine sul pacco carico e sulle predisposizioni.
 # termometro_ir: temperatura del carapace sopra le baie anteriori (PLA a 55-60 gradi, D-065) e dei servo; il
 #   BOM ha gli NTC dei regolatori (X14) ma non un termometro: serve per il carapace e per i servo, che non hanno sensore.
-bilancia:      {nome: "Bilancia da cucina, portata almeno 5 kg", icona: peso, uso: "peso del robot completo, atteso fino a 3045 g (D-074)"}
+bilancia:      {nome: "Bilancia da cucina, portata almeno 5 kg", icona: peso, uso: "peso del robot completo, atteso fino a 3047 g (2.1.7; 3045 g in D-074)"}
 termometro_ir: {nome: "Termometro a infrarossi (o a termocoppia)", icona: multimetro, uso: "temperatura di carapace, regolatori e servo dopo la marcia (D-065)"}

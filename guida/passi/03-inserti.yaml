@@ -15,7 +15,7 @@ sezione:
   terna: robot
   istanza: AS
   obiettivo: >-
-    Mettere tutti gli inserti a caldo nei pezzi stampati, prima di qualsiasi montaggio: 94 inserti M3 e 28 inserti M2,
+    Mettere tutti gli inserti a caldo nei pezzi stampati, prima di qualsiasi montaggio: 90 inserti M3 e 32 inserti M2,
     più 18 M2 se monti le predisposizioni. Ogni passo dice quale pezzo, dove vanno gli inserti e di che misura.
   prima:
     - "Provino degli inserti fatto (1.02 e 1.03): temperatura della punta e misura dei fori annotate, valori nel CAD (sezione 1)."
@@ -27,7 +27,7 @@ sezione:
     Nel CAD gli inserti stanno in fori Ø4,2 (M3) e Ø3,4 (M2), profondi 6,7 e 4,0 mm [V]. Le misure definitive vengono
     dal provino della sezione 1 [C].
   controllo:
-    - "94 inserti M3 e 28 M2 messi, tutti a filo e dritti."
+    - "90 inserti M3 e 32 M2 messi, tutti a filo e dritti."
     - "Una vite M3 o M2 di prova entra a mano in ogni inserto e esce senza forzare."
     - "I 36 fori pilota Ø2,5 delle alette (lato albero) sono vuoti, senza inserto."
     - "Con le predisposizioni: i 18 inserti M2 in più messi nei pezzi che hai deciso di montare."
@@ -46,7 +46,7 @@ passi:
     avvisi:
       - {tipo: importante, testo: "Mai inserti nei fori pilota Ø2,5 delle alette, lato albero dei servo: la vite si fa il filetto nella plastica. Sono 36, un'immagine più avanti li mostra (D-049)."}
       - {tipo: nota, testo: "Gli inserti sono del kit Temu dell'utente: M3 Ø4,2 lunghi 3, 4, 5 o 6 mm (BOM D4), M2 Ø3,2 lunghi 2, 3, 4 o 5 mm (BOM D5), 50 per misura. Misure e lunghezze vanno confermate sul pezzo [C]."}
-      - {tipo: nota, testo: "I 94 M3 sono più dei 50 di una misura: servono due lunghezze, per esempio M3 × 5 e M3 × 6. Quale foro prende quale è da decidere [C]; gli M2 (28) stanno in una sola misura, M2 × 3."}
+      - {tipo: nota, testo: "I 90 M3 sono più dei 50 di una misura: servono due lunghezze, per esempio M3 × 5 e M3 × 6. Quale foro prende quale è da decidere [C]; gli M2 (32) stanno in una sola misura, M2 × 3."}
     fonti: [D-049, D-065, "docs/BOM.md D4 e D5", "docs/BOM.md, domanda 8", "CLAUDE.md, 'Provini da stampare prima dei pezzi'"]
 
   - id: "3.02"
@@ -459,7 +459,7 @@ passi:
       - "Controlla che ogni inserto sia a filo, dritto, e che nessuno sporga."
       - "Prova ogni inserto con una vite M3 o M2 a mano: entra e esce liscia."
       - "Controlla che i 36 fori pilota siano vuoti."
-      - "Conta gli inserti rimasti nel kit: devono mancare 94 M3 e 28 M2, più le predisposizioni."
+      - "Conta gli inserti rimasti nel kit: devono mancare 90 M3 e 32 M2, più le predisposizioni."
     avvisi:
-      - {tipo: prova, testo: "Inserti messi: M3 94 e M2 28 senza predisposizioni; con tutte le predisposizioni M2 46 [V]."}
+      - {tipo: prova, testo: "Inserti messi: M3 90 e M2 32 senza predisposizioni; con tutte le predisposizioni M2 50 [V]."}
     fonti: [D-065, "docs/BOM.md 'Viteria in più se si montano tutte'", guida/catalogo/viteria.yaml]

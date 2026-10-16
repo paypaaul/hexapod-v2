@@ -605,7 +605,7 @@ La repo è **pubblica** su GitHub (*verificato oggi*): credenziali Wi-Fi e chiav
 3. **Pose verificate in Fusion** (ciclo a tripode 100/45, 130/25, 80/60, 70/70; rotazione sul posto di 30°): devono passare la guardia.
 4. **Casi d'urto del CAD** (femore a −60°, vicine a 40°, ginocchio sotto la tabella): la guardia li deve rifiutare.
 5. **Regole del firmware**: imbardata, somma tra vicine, ginocchio minimo più 3° con l'interpolazione prudente, velocità.
-6. **Regressione della statica**: femore al 53 % ± 1 a 100/45 (5,84 kgf·cm con 3045,0 g, D-074; era 51 % con 2945 g) e margine di stabilità 59 mm.
+6. **Regressione della statica**: femore al 53 % ± 1 a 100/45 (5,85 kgf·cm con 3047,2 g, 2.1.7; 5,84 con 3045,0 g, D-074; era 51 % con 2945 g) e margine di stabilità 59 mm.
 7. **Andature**: niente salti tra fasi e transizioni, piedi in appoggio fermi entro 0,5 mm, nucleo C++ uguale al Python entro 0,01° sugli stessi vettori.
 
 L'esportazione delle pose da Fusion si rifà a ogni cambio di zampa o corpo: è un passo in più nella procedura del CAD.

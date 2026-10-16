@@ -507,7 +507,7 @@ passi:
         - ["Tibia", "sede del servo, lung. × largh.", "41,4 × 20,9 [V]", ""]
         - ["Tibia", "sede del cuscinetto Ø", "10,0 [V]", ""]
         - ["Tibia, coxa", "foro pilota Ø", "2,5 [V]", ""]
-        - ["Tibia, coxa, femore B", "inserti M3, Ø × prof.", "4,2 × 6,7 [V]", ""]
+        - ["Tibia, coxa, femore B", "inserti M3, Ø × prof.", "4,2 × 6,7 (foro del guscio della tibia: 7,7) [V]", ""]
         - ["Coxa, femore B", "foro del perno Ø", "5,0 [V]", ""]
         - ["Ponte", "fori teste Ø; sede disco Ø", "5,6; 20,4 [V]", ""]
         - ["Femore A", "fori passanti M3 Ø", "3,4 [V]", ""]
@@ -567,15 +567,15 @@ passi:
         - ["Coxa", "4 (2 coda, 2 ponte)", "—", "2", "6 coxe: 24 M3, 12 pilota"]
         - ["Tibia", "3 (2 coda, 1 guscio)", "—", "2", "6 tibie: 18 M3, 12 pilota"]
         - ["Femore B", "4 (blocco)", "2 (lama B)", "—", "6 femori: 24 M3, 12 M2"]
-        - ["Base", "26", "8 (4 SSC-32, 2 IMU, 2 ADC)", "12", "26 M3, 4 M2 senza X4 e X6"]
+        - ["Base", "22", "12 (4 SSC-32, 4 colonne del vassoio, 2 IMU, 2 ADC)", "12", "22 M3, 8 M2 senza X4 e X6"]
         - ["Chiglia", "2", "—", "—", "2 M3"]
         - ["Slitta ×2", "—", "4 + 4", "—", "8 M2"]
         - ["Vassoio", "—", "4", "—", "4 M2"]
         - ["Supporti INA260 (X7)", "—", "2 + 2", "—", "predisposizione"]
         - ["Carapace", "—", "10 (X2, X17, zaino)", "—", "predisposizioni"]
     avvisi:
-      - {tipo: nota, testo: "Totale senza predisposizioni: 94 inserti M3 e 28 M2, come il BOM (D-065, D-073): i conti vengono dai fori del CAD (guida/dati/fori.json) [V]."}
-      - {tipo: importante, testo: "Il BOM elenca i 94 M3 come «30 nel corpo, 24, 18, 24» = 96: nel corpo sono 28 (26 base + 2 chiglia) [V]."}
+      - {tipo: nota, testo: "Totale senza predisposizioni: 90 inserti M3 e 32 M2, come il BOM (D-065, D-073): i conti vengono dai fori del CAD (guida/dati/fori.json) [V]."}
+      - {tipo: importante, testo: "Il BOM elencava gli M3 come «30 nel corpo, 24, 18, 24» = 96: nel corpo sono 24 (22 base + 2 chiglia) [V]."}
     fonti: [D-065, D-073, D-049, "docs/BOM.md (riga 'Inserti a caldo')", "guida/dati/fori.json", "docs/piano-guida.md sezione 3"]
 
   - id: "2.26"

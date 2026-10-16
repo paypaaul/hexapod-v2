@@ -314,7 +314,7 @@ passi:
         - ["Alette lato coda (base, coxe, tibie)", "36", "M3 × 8", "5,6 mm [V]"]
         - ["Ponte della coxa", "12", "M3 × 10", "6,1 mm [V]"]
         - ["Blocco del femore lato B", "24", "M3 × 8", "4,6 mm [V]"]
-        - ["Guscio della tibia", "6", "M3 × 10", "6,7 mm [V]"]
+        - ["Guscio della tibia", "6", "M3 × 10", "7,0 mm [V]"]
         - ["Chiglia davanti", "2", "M3 × 16", "6,55 mm [V]"]
         - ["Chiglia dietro", "2", "M3 × 8", "5,0 mm [V]"]
         - ["Colonnine del coperchio", "4", "M3 × 8", "6,4 mm [V]"]
@@ -349,7 +349,7 @@ passi:
       - "Metti questi inserti solo per le voci X che monti."
       - "Aggiungili ai 32 M2 della tabella precedente."
     avvisi:
-      - {tipo: nota, testo: "In tutto 46 inserti M2 con tutte le predisposizioni. Il carapace è in PLA: usa la temperatura del provino per il PLA (D-065)."}
+      - {tipo: nota, testo: "In tutto 50 inserti M2 con tutte le predisposizioni. Il carapace è in PLA: usa la temperatura del provino per il PLA (D-065)."}
     fonti: [docs/BOM.md "Viteria in più se si montano tutte", guida/passi/03-inserti.yaml 3.18-3.20, guida/catalogo/viteria.yaml inserti_predisposizioni, D-065]
 
   - id: "A.15"
