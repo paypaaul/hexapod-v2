@@ -277,6 +277,21 @@ class Parte:
         sk = self.sk_rett_obl(asse, q_expr, nome, p0, p1, a0, a1, b0, b1)
         return self.estrudi(sk, asse, dist_expr, verso, op, nome)
 
+    def foro_obl(self, asse, q_expr, nome, p0, p1, a0, a1, d_expr, op=TAGLIA):
+        """Foro (o perno) cilindrico di asse inclinato p0 -> p1 nel piano `asse = q`: mezza sezione a in [a0, a1],
+        b in [0, d/2] fatta con sk_rett_obl e rivoluzione di 360 gradi attorno all'asse di costruzione."""
+        sk = self.sk_rett_obl(asse, q_expr, nome, p0, p1, a0, a1, '0 mm', '(%s) / 2' % d_expr)
+        asse_l = [ln for ln in sk.sketchCurves.sketchLines if ln.isConstruction][0]
+        rev = self.c.features.revolveFeatures
+        inp = rev.createInput(sk.profiles.item(0), asse_l, op)
+        inp.setAngleExtent(False, VI.createByString('360 deg'))
+        if op == TAGLIA or (op == UNISCI and self.c.bRepBodies.count):
+            inp.participantBodies = [b for b in self.c.bRepBodies]
+        f = rev.add(inp)
+        f.name = nome
+        self.n += 1
+        return f
+
     def specchia(self, lavorazioni, asse, nome):
         """Specchia un gruppo di lavorazioni rispetto al piano base perpendicolare a `asse`."""
         col = adsk.core.ObjectCollection.create()

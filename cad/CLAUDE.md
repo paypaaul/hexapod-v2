@@ -153,3 +153,12 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 - **Modificare senza rifare il pezzo**: per spostare un elemento si cambia l'espressione della quota nello schizzo (`sketchDimensions` → `parameter.expression`). Lo si è fatto per l'inserto della lama B in `Femore_B`: rifare il pezzo avrebbe cancellato i giunti.
 - **Smusso a due distanze** (`addTwoDistancesChamferEdgeSet`): Fusion sceglie lui quale distanza va su quale faccia. Si controlla la faccia che resta e, se è sbagliato, si rifà con `isFlipped`. Così fa `_cover_femore`.
 - **Parametri utente non più usati**: si cancellano con `deleteMe()` dopo aver controllato `dependentParameters`.
+
+## Lezioni del 16 ottobre 2026 (versione 2.1.7, blocco corpo)
+
+- **`DataFile.copy(cartella)` nella stessa cartella dà alla copia lo stesso nome** dell'originale ("Hexapod v2.1.0"): rinominarla subito (`DataFile.name`, in una chiamata a parte, cercandola per `id`), altrimenti due file hanno il nome che controlla `versione.py`.
+- **Cambiare un ingombro già istanziato**: `rif_componenti.py` → `ingombri` con `solo=[...]` e `sostituisci=True` aggiorna i corpi nella BaseFeature (`updateBody`, `bRepBodies.add`, `deleteMe` in modo modifica): le istanze nel corpo restano e il nome non prende " (1)".
+- **Istanza spostata da un parametro**: `istanze_nuove` con la vecchia istanza ancora presente ha creato la nuova fuori posto (88,5; −11; 35,4 invece di 40,25; 0; 20,3), e `pulisci_istanze` le ha tolte tutte e due. Rifatto `istanze_nuove` senza la vecchia: posto giusto. Ordine: `pulisci_istanze`, poi `istanze_nuove`, poi `controllo`.
+- **Fori di asse inclinato**: `Parte.foro_obl` (mezza sezione con `sk_rett_obl` e rivoluzione di 360° attorno all'asse di costruzione). Provato sui fori del ToF posteriore: un gambo Ø2 nel foro Ø1,7 interseca 1,31 mm³, come un foro tondo.
+- **Verifiche con corpi temporanei** (`assieme.py` → `_urti_temporanei`, `_corpi_mondo`, `sfilamento_pacco`): non toccano il modello e girano in sola lettura. I giochi si misurano per bisezione ingrandendo il corpo provvisorio; il contatto al passo dopo il gioco è il caso di controllo. `_corpi_mondo` con `salta_comp` contenente "Corpo" salta tutto (errore del 16 ottobre: prova passata senza corpi fissi).
+- Dopo `base` le chiamate di sola lettura successive sono andate in timeout per alcuni minuti (Fusion al 100 %): aspettare che il file JSON dell'esito compaia (`until [ -f ... ]` in background) invece di rilanciare.

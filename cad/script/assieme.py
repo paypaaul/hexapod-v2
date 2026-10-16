@@ -556,6 +556,102 @@ def campo(des, root, piu_gradi=0.0):
         occ.deleteMe()
 
 
+def _corpi_mondo(occorrenze, salta_comp=(), salta_corpi=('flat', 'linguetta', 'uscita_cavi')):
+    """[(componente, corpo proxy)] delle occorrenze e dei loro figli, nella terna del robot."""
+    out = []
+    def raccogli(o):
+        if o.component.name in salta_comp:
+            return
+        for b in o.bRepBodies:
+            if b.name not in salta_corpi:
+                out.append((o.component.name, b))
+        for c in o.childOccurrences:
+            raccogli(c)
+    for o in occorrenze:
+        raccogli(o)
+    return out
+
+
+def _urti_temporanei(mobili, fissi):
+    """Intersezioni (mm3) fra corpi temporanei [(nome, brep)] e corpi del modello [(componente, corpo)]."""
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    urti = []
+    for nm, t in mobili:
+        bb = t.boundingBox
+        for nome, cb in fissi:
+            q = cb.boundingBox
+            if (q.maxPoint.x < bb.minPoint.x or q.minPoint.x > bb.maxPoint.x or q.maxPoint.y < bb.minPoint.y or
+                    q.minPoint.y > bb.maxPoint.y or q.maxPoint.z < bb.minPoint.z or q.minPoint.z > bb.maxPoint.z):
+                continue
+            c1 = tbm.copy(t)
+            if tbm.booleanOperation(c1, tbm.copy(cb), adsk.fusion.BooleanTypes.IntersectionBooleanType) and c1.volume > 1e-6:
+                urti.append('%s/%s:%s %.2f' % (nm, nome, cb.name, c1.volume * 1000))
+    return urti
+
+
+def _box_mm(x0, y0, z0, x1, y1, z1):
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    c = adsk.core.Point3D.create((x0 + x1) / 20, (y0 + y1) / 20, (z0 + z1) / 20)
+    obb = adsk.core.OrientedBoundingBox3D.create(c, adsk.core.Vector3D.create(1, 0, 0), adsk.core.Vector3D.create(0, 1, 0),
+                                                 (x1 - x0) / 10, (y1 - y0) / 10, (z1 - z0) / 10)
+    return tbm.createBox(obb)
+
+
+def _cil_z_mm(x, y, z0, z1, d):
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    return tbm.createCylinderOrCone(adsk.core.Point3D.create(x / 10, y / 10, z0 / 10), d / 20,
+                                    adsk.core.Point3D.create(x / 10, y / 10, z1 / 10), d / 20)
+
+
+def pacco_mobile(des, root, lato_spina=-1, cavo_d=4.0, piu_alta=0.0):
+    """Pacco con quello che si sfila con lui (P-001, D-076), come corpi temporanei: il pacco, due cavi da 12 AWG (Ø cavo_d)
+    nella fessura sinistra e il bilanciamento (Ø3) nella destra, dal pacco a 3 mm sopra il tetto; con lato_spina (+1 / -1)
+    anche la meta' femmina del T-plug (15 x 16 x 8,5, staccata, sopra F1 da quella parte) e la JST-XH a 3 poli
+    (9,9 x 5,75 x 6 S) appesa nella porta di coda. Con lato_spina = 0 le spine sono gia' fuori dalla porta di coda e si sfilano
+    solo pacco e cavi. piu_alta alza la cima della spina (caso di controllo)."""
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    corpo = _corpo(root)
+    bat = _istanze_corpo(corpo)['Batteria']
+    mob = [('pacco', tbm.copy(b)) for b in bat.bRepBodies if b.name == 'pacco']
+    zt, zp = -_mm(des, 'cor_tetto'), max(b.boundingBox.maxPoint.z for _, b in mob) * 10
+    yc = _mm(des, 'cor_cavi_y0') + (_mm(des, 'cor_tun_semi') - _mm(des, 'cor_parete') - _mm(des, 'cor_cavi_y0')) / 2
+    for k, x in (('cavo_piu', -79.0), ('cavo_meno', -74.0)):
+        mob.append((k, _cil_z_mm(x, yc, zp, zt + 3.0, cavo_d)))
+    mob.append(('bilanciamento', _cil_z_mm(-79.0, -yc, zp, zt + 3.0, 3.0)))
+    x_f = -_mm(des, 'cor_tun_x0') + 2 + _mm(des, 'fus_w') / 2
+    z_f = zt + _mm(des, 'fus_h')
+    if lato_spina:
+        y0, y1 = (0.5, 15.5) if lato_spina > 0 else (-15.5, -0.5)
+        mob.append(('tplug_femmina', _box_mm(x_f - 8, y0, z_f, x_f + 8, y1, z_f + 8.5 + piu_alta)))
+        # JST-XH staccata dalla prolunga del cicalino, appesa nella porta di coda dietro il tetto (fra F1 e la guancia
+        # restano 5,4 mm, sopra il T-plug 3,3 sotto il cicalino: li' non ci sta)
+        ya, yb = sorted((-lato_spina * 2.0, -lato_spina * 7.75))
+        xc = -_mm(des, 'cor_tun_x0') - 0.5
+        mob.append(('jst_xh', _box_mm(xc - 9.9, ya, zt + 2.0, xc, yb, zt + 8.0)))
+    return mob
+
+
+def sfilamento_pacco(des, root, corse, lato_spina=-1, cavo_d=4.0, piu_alta=0.0):
+    """Il pacco sfilato verso la coda di d mm (sportello tolto, carapace montato) con cavi e spine attaccati: urti con
+    tutti i pezzi del corpo tranne la coppia di T-plug (la meta' maschio resta su F1 come corpo a parte)."""
+    corpo = _corpo(root)
+    fissi = _corpi_mondo([corpo], salta_comp=('Corpo_Sportello', 'Rif_Batteria_2S5200', 'Rif_Tplug'))
+    x_f = -_mm(des, 'cor_tun_x0') + 2 + _mm(des, 'fus_w') / 2
+    z_f = -_mm(des, 'cor_tetto') + _mm(des, 'fus_h')
+    y0, y1 = (-15.5, -0.5) if lato_spina > 0 else (0.5, 15.5)
+    maschio = ('tplug_maschio', _box_mm(x_f - 8, y0, z_f, x_f + 8, y1, z_f + 8.5))      # resta su F1, saldato
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    out = {}
+    for d in corse:
+        mob = pacco_mobile(des, root, lato_spina, cavo_d, piu_alta)
+        m = adsk.core.Matrix3D.create()
+        m.translation = adsk.core.Vector3D.create(-d / 10, 0, 0)
+        for _, t in mob:
+            tbm.transform(t, m)
+        out['%g' % d] = _urti_temporanei(mob, fissi + [('T-plug', maschio[1])]) or 'nessuno'
+    return out
+
+
 def stato(des, root):
     out = {'zampe': {n: o.name for n, o in mappa_zampe(des, root).items()},
            'giunti_coxa': {j.name: round(A['valore_giunto'](j), 2) for j in root.asBuiltJoints if j.name.startswith('G_coxa_')},
@@ -602,6 +698,9 @@ def main(passi, **kw):
             out['ripristina'] = A['ripristina'](des)
         if 'varianti' in passi:
             out['varianti'] = varianti(des, root)
+        if 'sfilamento_pacco' in passi:
+            out['sfilamento_pacco'] = sfilamento_pacco(des, root, kw.get('corse', (0.0, 10.0, 20.0)), kw.get('lato_spina', -1),
+                                                       kw.get('cavo_d', 4.0), kw.get('piu_alta', 0.0))
         if 'stato' in passi:
             out['stato'] = stato(des, root)
     except Exception:

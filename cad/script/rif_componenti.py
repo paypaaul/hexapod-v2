@@ -11,7 +11,8 @@ Passi:
   step        importa i modelli STEP (servo, regolatori Pololu) e rinomina i componenti
   orienta     riporta il servo nella terna di progetto con una lavorazione Sposta (vedi TERNA_SERVO)
   posiziona   mette i componenti STEP nella zona "libreria" e cattura la posizione
-  ingombri    crea gli ingombri semplificati in una BaseFeature (rigenera=True li cancella e ricrea)
+  ingombri    crea gli ingombri semplificati in una BaseFeature (rigenera=True li cancella e ricrea; con solo=[...] e
+              sostituisci=True cambia i corpi dei componenti esistenti e lascia le istanze)
   stato       rilegge componenti, corpi, ingombri nella terna propria e li confronta con ATTESI
 
 Le quote vengono da docs/dimensioni-componenti.md (fonte e stato di ogni quota sono li').
@@ -96,7 +97,7 @@ PARAMETRI = [
     ('esp_w', '28.3 mm', 'mm', 'ESP32: larghezza del PCB (inserzione) S'),
     ('esp_sp', '1.6 mm', 'mm', 'ESP32: spessore del PCB C'),
     ('esp_antenna', '4.8 mm', 'mm', 'ESP32: sporgenza del modulo con l antenna oltre il PCB (4,7-4,9) S'),
-    ('esp_file', '24.7 mm', 'mm', 'ESP32: interasse delle due file di pin C'),
+    ('esp_file', '25.4 mm', 'mm', 'ESP32: interasse delle due file di pin, 10 passi da 2,54 (Keyestudio MB0200, Freenove); il 24,7 del disegno e fra le facce interne dei pin (P-005, D-076) S'),
     # --- camera OV3660-75MM. Origine sull'asse ottico al retro della testa, asse ottico +Z, flat verso -X.
     ('cam_testa', '8.5 mm', 'mm', 'Camera: lato della testa (disegno del venditore) S'),
     ('cam_alt', '6 mm', 'mm', 'Camera: altezza della testa compatta con lente 120 GOOD C'),
@@ -181,9 +182,17 @@ PARAMETRI = [
     ('zai_sp', '5 mm', 'mm', 'Computer di bordo: spessore con i componenti S'),
     ('zai_fori_l', '58 mm', 'mm', 'Computer di bordo: interasse dei fori sul lato lungo (formato Raspberry Pi Zero) V'),
     ('zai_fori_w', '23 mm', 'mm', 'Computer di bordo: interasse dei fori sul lato corto V'),
-    ('sch_l', '30 mm', 'mm', 'Scheda del carapace (X2): lunghezza S'),
-    ('sch_w', '20 mm', 'mm', 'Scheda del carapace: larghezza S'),
-    ('sch_sp', '9 mm', 'mm', 'Scheda del carapace: spessore con la spina IDC S'),
+    ('sch_l', '30 mm', 'mm', 'Scheda del carapace (X2): lunghezza (lungo Y) S'),
+    ('sch_w', '21.5 mm', 'mm', 'Scheda del carapace: larghezza lungo X, dal bordo della testata (P-002) a 0,85 dall amplificatore S'),
+    ('sch_pcb', '1.6 mm', 'mm', 'Scheda del carapace: spessore della millefori S'),
+    ('sch_test_l', '27.98 mm', 'mm', 'Testata 2 x 8 a 90 gradi Wurth 61201621721 (WR-BHD): lunghezza (disegno Wurth) V'),
+    ('sch_test_p', '8.85 mm', 'mm', 'Testata a 90 gradi: profondita della scatola dal bordo della scheda (disegno Wurth) V'),
+    ('sch_test_h', '9 mm', 'mm', 'Testata a 90 gradi: altezza sotto la scheda (disegno Wurth) V'),
+    ('sch_sp', 'sch_pcb + sch_test_h', 'mm', 'Scheda del carapace: ingombro in altezza, millefori e testata a 90 gradi sotto (P-002)'),
+    ('sch_spina_l', '25 mm', 'mm', 'Spina IDC 2 x 8 Wurth 61201623021: lunghezza (disegno Wurth) V'),
+    ('sch_spina_sp', '6 mm', 'mm', 'Spina IDC: spessore del corpo, 7 con la chiave larga 3,7 (disegno Wurth) V'),
+    ('sch_spina_fuori', '10 mm', 'mm', 'Spina IDC: sporgenza dalla testata verso la coda, corpo con fermacavo 11,4 meno l innesto, piu il cavo piegato S'),
+    ('sch_spina_z', '4.5 mm', 'mm', 'Spina IDC: asse sotto la scheda (meta della testata; file dei pin a circa 3,2 e 5,8, lette sul disegno Wurth) S'),
     ('pre_l', '15.5 mm', 'mm', 'Prese dei piedi: sei spine JR a 3 poli piegate, passo 2,54 S'),
     ('pre_w', '2.6 mm', 'mm', 'Prese dei piedi: spessore della fila S'),
     ('pre_h', '8.5 mm', 'mm', 'Prese dei piedi: altezza del circuito con le spine S'),
@@ -297,6 +306,8 @@ def componente(root, nome, corpi):
     """
     if SOLO and nome not in SOLO:
         return None
+    if SOSTITUISCI:
+        return _sostituisci(root, nome, corpi)
     occ = root.occurrences.addNewComponent(traslazione(LIBRERIA[nome]))
     comp = occ.component
     comp.name = nome
@@ -306,6 +317,30 @@ def componente(root, nome, corpi):
     for nome_corpo, brep in corpi:
         b = comp.bRepBodies.add(brep, bf)
         b.name = nome_corpo
+    bf.finishEdit()
+    return occ
+
+
+SOSTITUISCI = []
+
+
+def _sostituisci(root, nome, corpi):
+    """Cambia i corpi di un ingombro gia' istanziato senza cancellarlo: le istanze nel corpo restano e il nome del
+    componente non cambia (un componente rifatto nasce con " (1)", cad/CLAUDE.md). Corpi con lo stesso nome aggiornati,
+    nuovi aggiunti, mancanti cancellati, tutti nella BaseFeature "Ingombro"."""
+    occ = occorrenze_per_nome(root)[nome]
+    comp = occ.component
+    bf = [f for f in comp.features.baseFeatures if f.name == 'Ingombro'][0]
+    bf.startEdit()
+    vecchi = {b.name: b for b in bf.bodies}
+    for nome_corpo, brep in corpi:
+        if nome_corpo in vecchi:
+            if not bf.updateBody(vecchi.pop(nome_corpo), brep):
+                raise RuntimeError('%s: corpo %s non aggiornato' % (nome, nome_corpo))
+        else:
+            comp.bRepBodies.add(brep, bf).name = nome_corpo
+    for b in vecchi.values():
+        b.deleteMe()
     bf.finishEdit()
     return occ
 
@@ -418,7 +453,8 @@ def fai_posiziona(des, root):
 
 
 def fai_ingombri(des, root, rigenera, solo=None):
-    """Crea gli ingombri; con solo = [nomi] cancella e ricrea soltanto quelli."""
+    """Crea gli ingombri; con solo = [nomi] cancella e ricrea soltanto quelli (con sostituisci=True cambia i corpi
+    dei componenti esistenti e lascia le istanze)."""
     def p(nome):
         return des.userParameters.itemByName(nome).value * 10.0
 
@@ -426,7 +462,9 @@ def fai_ingombri(des, root, rigenera, solo=None):
     nomi = list(solo) if solo else GENERATI
     if solo:
         rigenera = True
-    if rigenera:
+    if SOSTITUISCI:
+        pass
+    elif rigenera:
         for n in nomi:
             if n in presenti:
                 presenti[n].deleteMe()
@@ -523,7 +561,17 @@ def fai_ingombri(des, root, rigenera, solo=None):
     fatti.append(componente(root, 'Rif_Microfono_I2S', [('scheda', box(0, 0, 0, p('aud_mic_l'), p('aud_mic_w'), p('aud_mic_sp')))]))
     # FSR: solo la testa, sotto la punta della tibia (la coda si piega nella tasca sulla faccia +X)
     fatti.append(componente(root, 'Rif_FSR_400', [('testa', cyl(0, 0, 0, p('sen_fsr_testa_d'), p('sen_fsr_sp')))]))
-    fatti.append(componente(root, 'Rif_Scheda_Carapace', [('scheda', box(0, 0, 0, p('sch_l'), p('sch_w'), p('sch_sp')))]))
+    # scheda del carapace (P-002, D-076): origine al centro del lato inferiore dell'ingombro, millefori in alto, testata a
+    # 90 gradi sotto la millefori sul bordo di coda (+Y locale, -X del robot) e spina IDC innestata che esce verso la coda,
+    # con la chiave (larga 3,7, 1 mm) dalla parte opposta alla millefori
+    sw, ssp, tp, th = p('sch_w'), p('sch_sp'), p('sch_test_p'), p('sch_test_h')
+    sf, zs_ = p('sch_spina_fuori'), ssp - p('sch_pcb') - p('sch_spina_z')
+    sps = p('sch_spina_sp')
+    fatti.append(componente(root, 'Rif_Scheda_Carapace', [
+        ('scheda', box(0, 0, ssp - p('sch_pcb'), p('sch_l'), sw, p('sch_pcb'))),
+        ('testata', box(0, sw / 2 - tp / 2, ssp - p('sch_pcb') - th, p('sch_test_l'), tp, th)),
+        ('spina', box(0, sw / 2 + sf / 2, zs_ - sps / 2, p('sch_spina_l'), sf, sps)),
+        ('chiave_spina', box(0, sw / 2 + sf / 2, zs_ - sps / 2 - 1.0, 3.7, sf, 1.0))]))
     fatti.append(componente(root, 'Rif_Prese_Piedi', [('prese', box(0, 0, 0, p('pre_l'), p('pre_w'), p('pre_h')))]))
     fatti.append(componente(root, 'Rif_Computer_Zaino', [('scheda', box(0, 0, 0, p('zai_l'), p('zai_w'), p('zai_sp')))]))
     # versione 2.1.6 (D-074): moduli in casa dell'utente, montati al posto di Pololu e Adafruit (che restano predisposti)
@@ -570,7 +618,7 @@ def stato(des, root):
     return out
 
 
-def main(passi, rigenera=False, solo=None):
+def main(passi, rigenera=False, solo=None, sostituisci=False):
     out = {'passi': passi}
     try:
         app = adsk.core.Application.get()
@@ -590,6 +638,7 @@ def main(passi, rigenera=False, solo=None):
             out['posiziona'] = fai_posiziona(des, root)
         if 'ingombri' in passi:
             SOLO[:] = list(solo or [])
+            SOSTITUISCI[:] = [True] if sostituisci else []
             out['ingombri'] = fai_ingombri(des, root, rigenera, solo)
         if 'stato' in passi:
             out['stato'] = stato(des, root)
