@@ -396,6 +396,12 @@ Decisione e fonti: `docs/ricerca/bloccanti-arresto2.md`, P-005.
 - **BOM**: forse M3 × 10 → M3 × 8 (sopra), dentro gli assortimenti già previsti.
 - **Guida**: 6.23 (togliere "stringi piano"; vite giusta).
 - **Documenti**: `docs/progetto-meccanico.md` (guscio della tibia), riga di viteria del BOM se cambia la vite.
+- **Esito (16 ottobre 2026, blocco zampa)**: fatta, con il foro più profondo e non con la M3 × 8.
+  - Lamatura Ø6 (`cov_tib_lam_d`) con il fondo piano a X 132,09, dove il fronte è più basso sotto la lamatura (bordo verso il piede, Z −91): la testa ora appoggia su tutta la corona (19,2 mm², Ø6 − Ø3,4); la parete asportata arriva a 1,34 sul bordo alto. Sotto il piano restano 2,72 mm di fronte e bossolo (da X 129,37). Funzione `_lamatura_vite`, usata da `fai_cover_tibia`; sul modello aggiunta con il passo `lamatura` (gruppo `Cover_Tibia_lamatura`).
+  - Con la testa sul piano la punta della M3 × 10 andava 0,34 oltre il fondo del foro dell'inserto (calcolo e prova). Il foro dell'inserto nella tibia passa da `ins_m3_l` (6,7) a `tib_ins_guscio_l` = `ins_m3_l` + 1 (7,7; dietro restano 5,85 mm di stinco, 2,9 dalla fessura bassa, 2,39 dalla sede delle luci): punta 0,66 sopra il fondo, presa 7,04 (l'inserto da 5,7 è preso tutto). Così vite, BOM e viteria non cambiano.
+  - Volumi: guscio −13,06 mm³ (differenza booleana fra prima e dopo; calcolo a mano 13,13; il `volume` dei corpi dà 14,77, è meno preciso), tibia −13,85 (calcolo 13,85).
+  - Vite provata con corpi temporanei (testa Ø5,5 × 3 sul piano, gambo Ø3): M3 × 10 libera; lunga 10,65 libera, 10,68 tocca il fondo (0,12 mm³): il gioco è 0,66. Controlli: testa abbassata di 0,1 tocca il guscio (1,47 mm³, come la corona × 0,1), testa Ø6,2 tocca la parete della lamatura.
+  - Resta alle verifiche a valle il controllo "lunghezze" della guida (`esporta_guida.py` → `fori`).
 
 ### 5. P-015: dima del calettamento (α +20°, γ 100°)
 
@@ -414,6 +420,7 @@ Decisione e fonti: `docs/ricerca/bloccanti-arresto2.md`, P-005.
 - **BOM**: nessun impatto (TPU di qualche provino in più).
 - **Guida**: 1.14 (provino 6 con tre piedini), 2.12; dopo la prova, il valore scelto in `pied_stretta`.
 - **Documenti**: `cad/stl/README.md` (tre STL del provino, uno solo per le zampe), D-064 (rimando).
+- **Esito (16 ottobre 2026, blocco zampa)**: fatta. `pied_stretta` = 0 (spessore interno dello svuotamento `calza`; fuori resta `tib_piede_sp`). Con un valore nullo Fusion non tiene il parametro nello svuotamento: `_collega_stretta` lo collega con 0,2 provvisorio e poi rimette il valore (lo usano il passo `calza` sul modello e `fai_piedino`, quest'ultimo non provato perché rifare il piedino cancellerebbe il giunto). Verifiche con sonde 1 × 1 mm attraverso la compenetrazione piedino-stinco: a 0,2 spessore 0,2001 sul fianco −X (0,2066 sui fianchi Y, inclinati di 14,6°: 0,2 / cos), compenetrazione 117,7 mm³; a 0,4 spessore 0,4002 (0,4133), 231,9 mm³; a 0 nessuna compenetrazione (il caso di controllo: toccano). Esterno, suola (Z −110) e pistoncino (Z −108,4…−107,9) invariati; con la stretta la suola interna sale e il pistoncino sporge di meno. A 0 il piedino ha il volume della 2.1.6. `esporta_stl.py` → `varianti_piedino`: `cad/stl/attrezzi/Piedino_stretta_0.stl`, `_0.2.stl`, `_0.4.stl` (provati in una cartella di prova: volumi degli STL 1554,4, 1710,8 e 1860,3 mm³, come il modello), poi rimette `pied_stretta`; `Piedino.stl` resta quello del valore del modello. README degli STL con i documenti.
 
 ### 7. P-057: blocco del provino degli inserti
 
@@ -442,6 +449,7 @@ Decisione e fonti: `docs/ricerca/bloccanti-arresto2.md`, P-005.
 - **BOM**: nessun impatto.
 - **Guida**: 6.05 (la striscia entra tutta nella sede).
 - **Documenti**: testo di D-066 ("fino a Z −80" diventa la quota vera) con rimando dalla D-076.
+- **Esito (16 ottobre 2026, blocco zampa)**: fatta. `luc_tib_z1` = `cov_tib_fin_z1` + 3: sede da Z −32,95 a −83,53 (il fondo sulla corda cambia pendenza con la quota d'arrivo). Tibia −36,03 mm³ (calcolo 36,03). Fra la sede e il foro dell'inserto del guscio 2,39 mm (atteso 2,4), dalla fessura bassa 3,87. I sei LED (passo 8,33) stanno fra Z −37,1 e −78,8 nella finestra (fino a −80); il diffusore segue la finestra e non cambia. Parametro aggiornato senza rifare la tibia (rifarla cancella i giunti).
 
 ### 10. P-065: bussola di battuta dei perni e attrezzo d'estrazione
 
@@ -511,6 +519,7 @@ L'utente non può misurare i fili (Q-24): si progetta sulle specifiche stando la
 - **Parametri**: la larghezza della gola (nome da leggere nello script); il valore 4,5 viene da P-063 (doppino FSR 2 × 28 AWG e tre fili da 30 AWG occupano 3,3-4,05 mm; 0,45 mm di margine).
 - **Verifica**: procedura della zampa; parete residua accanto alla gola e ponticelli; sentinella sui volumi della tibia.
 - **BOM**: nessun impatto. **Guida**: 6.08. **Documenti**: `docs/predisposizioni.md` (X5, X31) se riporta la larghezza.
+- **Esito (16 ottobre 2026, blocco zampa)**: fatta. `tib_fermo_w` 4,5 (centro `tib_fermo_y` 6,4 invariato): gola da Y 4,15 a 8,65, profonda 0,8 (sotto restano 1,2 di parete); dalle punte dei rombi (Y 3,49) 0,66; verso l'orlo (Y 9,45) resta una fascia di 0,8. I ponticelli vanno da Y 3,35 a 9,45, a filo dell'orlo, e sotto hanno ancora 1,1. Tibia −15,76 mm³ (gola 0,5 × 0,8 × 45,4 = 18,16, ponticelli più larghi +2,4). Parametro aggiornato senza rifare la tibia.
 
 ### 15. P-008: ToF posteriore avvitato, ritegno dell'altoparlante
 
@@ -557,6 +566,7 @@ Fatti con le immagini nuove e solo dopo il CAD (la guida segue ancora i distanzi
 - Corpo (modifiche 1, 3, 8, 11, 12, 15, 16): `controllo`, `interferenze`; coxe a ±35° e a 30,5° fra vicine; `carapace_zampe`, `sfilamento`, `campo`; `ciclo` a 100/45 e 70/70 a gruppi di fasi.
   - **Esito (16 ottobre 2026, blocco corpo)**: copia di ripristino "Hexapod v2.1.0 - ripristino 2.1.6 (prima della 2.1.7)" (lineage `urn:adsk.wipprod:dm.lineage:o79LLOHlSzmXdBn2HiYE1A`, versione 1, copia della 14). `controllo` 0 su tutte le istanze; nessuna interferenza; timeline senza problemi, schizzi vincolati. Coxe libere a ±35° una alla volta; fra vicine libere a 30,5° su tutte e quattro le coppie e **a contatto a 31° su tutte e quattro** (D-071 diceva AD–MD libere a 31°: le zampe non sono cambiate, da guardare con la zampa). `carapace_zampe` come nella 2.1.6: 3,96 mm sulle medie a +35°, 4,76 a −35°, 7,1 sulle altre. `sfilamento` e `campo` liberi. `ciclo` libero a 100/45 (8 fasi) e a 70/70 (16 fasi). Sentinella: cambiano solo base (+743,92 mm³), vassoio (+109,89), carapace (+200,08), sportello (+598,40) e `Rif_Scheda_Carapace` (4797,61, quattro corpi), tutti uguali al calcolo a mano; zampe, attrezzi e le altre parti invariate. Il documento non è salvato (lo salva la chiusura).
 - Zampa (modifiche 4, 6, 9, 14): `giunti`, `limiti`, `misura`, `interferenze`, `scansione` (81 libere, 17 controlli su 20 che toccano).
+  - **Esito (16 ottobre 2026, blocco zampa)**: nessuna parte rifatta, quindi i giunti sono quelli di prima: `giunti_mancanti` vuoto, 23 giunti nella zampa (21 rigidi, 2 di rotazione), `calibra` come prima (+10 sul femore dà α −10, sul ginocchio γ 80), limiti rimessi, `misura` 0/90, `controllo` 0 su tutte le istanze. Interferenze: nessuna nella zampa e nessuna nell'assieme (`controllo` 0 sulle 39 istanze del corpo). `scansione`: 81 pose libere su 81; 17 controlli su 20 toccano (14 contro la coxa, 3 fermati dai limiti), liberi 0/41, 15/37 e 20/35, come prima. Sentinella: cambiano solo la tibia (−65,65 mm³ = 36,03 + 13,85 + 15,76) e il guscio (−13,06 per differenza booleana); piedino a stretta zero uguale alla 2.1.6; il resto invariato; timeline senza problemi, schizzi vincolati, nessuno snapshot pendente. Massa: guscio 16,5 → 16,4 g a zampa, il resto uguale. Documento non salvato.
 - Attrezzi (5, 7, 10): `verifica_dime` e verifiche dei pezzi nuovi; tutti in libreria e nascosti.
 - Sentinella sui volumi delle parti non toccate; caso di controllo per ogni interferenza nuova.
 - A valle: `colori.py`, `esporta_stl.py` (con le varianti del piedino), `esporta_mesh.py`, `esporta_robot.py` (`geometria`, `mesh`, `pose`), `tools/descrizione.py --aggiorna-hash`, generatori; ruff, pytest, ctest, `npm test`.

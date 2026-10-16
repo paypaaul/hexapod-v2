@@ -22,6 +22,33 @@ PARTI = ('Coxa', 'Coxa_Ponte', 'Femore_A', 'Femore_B', 'Tibia', 'Cover_Femore_A'
 # attrezzi da banco (attrezzi.py): in cad/stl/attrezzi/
 ATTREZZI = ('Dima_Posa_1', 'Dima_Posa_2', 'Attrezzo_Cavalletto', 'Attrezzo_Provino_Luce_Nero', 'Attrezzo_Provino_Luce_Bianco',
             'Attrezzo_Provino_Tasche_Base', 'Attrezzo_Provino_Tasche_Lama')
+# provino 6 (D-064, P-016): il piedino con tre strette, in cad/stl/attrezzi/Piedino_stretta_<mm>.stl; Piedino.stl resta
+# quello del valore del modello
+STRETTE_PIEDINO = ('0', '0.2', '0.4')
+
+
+def _esporta(em, comp, f):
+    op = em.createSTLExportOptions(comp, f)
+    op.meshRefinement = adsk.fusion.MeshRefinementSettings.MeshRefinementMedium
+    op.isOneFilePerBody = False
+    op.sendToPrintUtility = False
+    em.execute(op)
+    return round(os.path.getsize(f) / 1024)
+
+
+def varianti_piedino(des, out=OUT):
+    """Esporta il piedino con ogni valore di STRETTE_PIEDINO e rimette pied_stretta com'era."""
+    par = des.userParameters.itemByName('pied_stretta')
+    comp = des.allComponents.itemByName('Piedino')
+    prima = par.expression
+    esito = {}
+    try:
+        for v in STRETTE_PIEDINO:
+            par.expression = v + ' mm'
+            esito['Piedino_stretta_' + v] = _esporta(des.exportManager, comp, os.path.join(out, 'attrezzi', 'Piedino_stretta_%s.stl' % v))
+    finally:
+        par.expression = prima
+    return esito
 
 
 def main(out=OUT):
@@ -42,12 +69,8 @@ def main(out=OUT):
             esito[nome] = 'assente'
             continue
         f = os.path.join(out, 'attrezzi' if nome in ATTREZZI else '', nome + '.stl')
-        op = em.createSTLExportOptions(comp, f)
-        op.meshRefinement = adsk.fusion.MeshRefinementSettings.MeshRefinementMedium
-        op.isOneFilePerBody = False
-        op.sendToPrintUtility = False
-        em.execute(op)
-        esito[nome] = round(os.path.getsize(f) / 1024)
+        esito[nome] = _esporta(em, comp, f)
+    esito.update(varianti_piedino(des, out))
     for o in spenti:
         o.isLightBulbOn = False
     esito['s'] = round(time.time() - t0, 1)

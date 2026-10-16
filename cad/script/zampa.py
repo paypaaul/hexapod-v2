@@ -207,7 +207,7 @@ PARAMETRI = [
     ('tib_gola_y', '4.5 mm', 'mm', 'Tibia: centro in Y della gola, fuori dalla finestra del guscio (|Y| <= 3,5)'),
     ('pied_tacca', '2 mm', 'mm', 'Piedino: tacca per i fili nel bordo alto sul lato +X, sopra la gola'),
     ('tib_fermo_y', '6.4 mm', 'mm', 'Tibia: centro in Y della gola dei fili sulla parete +X della culla (fuori dai rombi, |Y+5| > 8,5, sotto l orlo a 9,45)'),
-    ('tib_fermo_w', '4 mm', 'mm', 'Tibia: larghezza della gola dei fili (doppino dell FSR 28 AWG siliconico, Ø0,9 S, e 3 fili della striscia da 30 AWG, Ø0,5-0,75: 3,3-4,05)'),
+    ('tib_fermo_w', '4.5 mm', 'mm', 'Tibia: larghezza della gola dei fili (doppino dell FSR 28 AWG siliconico, Ø0,9 S, e 3 fili della striscia da 30 AWG, Ø0,5-0,75: 3,3-4,05; 4,5 con 0,45 di margine, P-063, D-076)'),
     ('tib_fermo_p', '0.8 mm', 'mm', 'Tibia: profondita della gola dei fili (la parete della culla e di 2: ne restano 1,2)'),
     ('tib_ponte_luce', '0.3 mm', 'mm', 'Tibia: ponticelli staccati dalla parete sopra la gola: sotto restano 1,1 per i fili da 0,9'),
     ('tib_ponte_sp', '0.8 mm', 'mm', 'Tibia: spessore dei ponticelli sopra la gola (sporgono 1,1 dalla parete; il guscio e a 4-5,7)'),
@@ -215,7 +215,7 @@ PARAMETRI = [
     ('luc_tib_w', '5.4 mm', 'mm', 'Tibia: sede piana della striscia LED WS2812B-2020 larga 5 (C), sotto la finestra del guscio'),
     ('luc_tib_p', '0.5 mm', 'mm', 'Tibia: profondita della sede della striscia alle estremita (al centro circa 1,3: sede piana su faccia ad arco)'),
     ('luc_tib_z0', 'cul_coda', 'mm', 'Tibia: inizio della sede della striscia, al fondo della culla'),
-    ('luc_tib_z1', 'cov_tib_fin_z1', 'mm', 'Tibia: fine della sede della striscia, con la finestra del guscio'),
+    ('luc_tib_z1', 'cov_tib_fin_z1 + 3 mm', 'mm', 'Tibia: fine della sede della striscia (Z -83,5 con lo 0,5 del taglio: 50,5 per i 6 pixel da 50 a 120 LED/m, P-062); i LED restano nella finestra'),
     ('luc_dif_sp', '0.6 mm', 'mm', 'Diffusore della tibia: spessore della lastra (0,6-0,8 dal provino di luce X10)'),
     ('luc_dif_bordo', '2 mm', 'mm', 'Diffusore: lastra oltre il bordo della finestra'),
     ('luc_dif_h', '1 mm', 'mm', 'Diffusore: altezza del bordino a incastro dentro la finestra (resta 0,6 sotto il fronte)'),
@@ -237,6 +237,10 @@ PARAMETRI = [
     ('cov_tib_fin_z0', '32 mm', 'mm', 'Guscio della tibia: inizio della finestra sotto il ginocchio (sotto i tappi)'),
     ('cov_tib_fin_z1', '80 mm', 'mm', 'Guscio della tibia: fine della finestra'),
     ('cov_tib_vite_z', '88 mm', 'mm', 'Guscio della tibia: vite M3 in basso nello stinco, sotto la finestra'),
+    ('cov_tib_lam_d', '6 mm', 'mm', 'Guscio della tibia: lamatura piana sotto la testa della vite (testa DIN 912 Ø5,5 + 0,25 per lato, P-014)'),
+    ('tib_ins_guscio_l', 'ins_m3_l + 1 mm', 'mm', 'Tibia: profondita del foro dell inserto del guscio (con la lamatura la testa scende: la punta della M3 x 10 resta 0,66 sopra il fondo, P-014)'),
+    # --- piedino (D-064, P-016)
+    ('pied_stretta', '0 mm', 'mm', 'Piedino: stretta della calza sullo stinco (spessore verso l interno); da tarare sul provino 6 con 0 / 0,2 / 0,4'),
 ]
 
 
@@ -792,7 +796,7 @@ def fai_tibia(zampa):
     # inserto M3 per la vite in basso del guscio, dalla faccia +X dello stinco (sull'arco) verso -X; parte dalla faccia
     # all'altezza del bordo alto del foro: dal centro, la meta' alta restava coperta da una pelle di 0,3 mm
     xv = _x_faccia(xk, 'cov_tib_vite_z - ins_m3_d / 2')
-    p.cilindro('x', xv, 'ins_guscio', 'tib_y_c', '-(cov_tib_vite_z)', 'ins_m3_d', 'ins_m3_l', -1, TAGLIA)
+    p.cilindro('x', xv, 'ins_guscio', 'tib_y_c', '-(cov_tib_vite_z)', 'ins_m3_d', 'tib_ins_guscio_l', -1, TAGLIA)
     # FSR (X5, D-066): tasca per linguette e saldature dentro il piedino, poi gola dei fili fino al fondo della culla
     # (non oltre: la parete della culla e' di 2), fatta a corde dell'arco; solo nella Tibia, non in _stinco, altrimenti
     # il piedino le copierebbe e il TPU schiaccerebbe i fili
@@ -810,6 +814,14 @@ def fai_tibia(zampa):
     _fermo_fili(p, xk)
     p.info = {'spigoli_punta': n_punta, 'spigoli_smussati': n_smussi, 'corpi': occ.component.bRepBodies.count}
     return occ, p
+
+
+def _lamatura_vite(p, xk):
+    """Lamatura piana sotto la testa della vite del guscio (P-014): il fronte e' inclinato di circa 12,6 gradi e la testa
+    toccava solo sul bordo alto. Il piano sta dove il fronte e' piu' basso sotto la lamatura (bordo verso il piede): da
+    li' il cilindro asporta verso l'esterno; sotto restano fronte e bossolo."""
+    xl = '(%s + cul_semi + cov_tib_sporgenza - cov_tib_R + sqrt(cov_tib_R ^ 2 - (cov_tib_vite_z + cov_tib_lam_d / 2 - cov_tib_zmax) ^ 2))' % xk
+    return p.cilindro('x', xl, 'lamatura_vite', 'tib_y_c', '-(cov_tib_vite_z)', 'cov_tib_lam_d', '5 mm', 1, TAGLIA)
 
 
 def fai_cover_tibia(zampa):
@@ -868,6 +880,7 @@ def fai_cover_tibia(zampa):
     xs = xk + ' + cul_semi - tib_arco_R + sqrt(tib_arco_R ^ 2 - (cov_tib_vite_z - 3.5 mm - bug_coda) ^ 2) + 0.05 mm'
     p.cilindro('x', xs, 'bossolo_vite', 'tib_y_c', '-(cov_tib_vite_z)', '7 mm', '2.5 mm', 1)        # finisce dentro la parete del fronte
     p.cilindro('x', xs, 'foro_vite', 'tib_y_c', '-(cov_tib_vite_z)', 'vite_m3_pass', '12 mm', 1, TAGLIA)
+    _lamatura_vite(p, xk)
     # finestra lunga sul fronte
     yc = '-(cov_tib_fin_y)'
     xf = xk + ' + 8 mm'
@@ -881,8 +894,9 @@ def fai_cover_tibia(zampa):
 
 def fai_piedino(zampa):
     """Piedino in TPU 95A arancio (D9): calza la punta dello stinco dal bordo del guscio in giu'. Si rifa' lo stinco con le
-    stesse lavorazioni, si toglie tutto sopra il bordo e si svuota verso l'esterno: dentro e' lo stinco esatto (stretta da
-    tarare sul provino), fuori una parete uniforme che porta la suola a zam_Lt."""
+    stesse lavorazioni, si toglie tutto sopra il bordo e si svuota verso l'esterno: dentro e' lo stinco ristretto di
+    pied_stretta (0 = stinco esatto; si tara sul provino 6, P-016), fuori una parete uniforme che porta la suola a zam_Lt.
+    Il pistoncino resta alla stessa quota: con la stretta la suola interna sale e lui sporge di meno."""
     occ = _nuovo_comp(zampa, 'Piedino')
     p = Parte(occ.component)
     xk = 'zam_Lc + zam_Lf'
@@ -894,11 +908,13 @@ def fai_piedino(zampa):
              and abs(fa.pointOnFace.z * 10 - z0) < 0.01]
     sh = occ.component.features.shellFeatures
     inp = sh.createInput(_collezione(bocca), False)
-    inp.insideThickness = adsk.core.ValueInput.createByString('0 mm')
+    inp.insideThickness = adsk.core.ValueInput.createByString('pied_stretta')       # P-016: la calza stringe lo stinco
     inp.outsideThickness = adsk.core.ValueInput.createByString('tib_piede_sp')
     f = sh.add(inp)
     f.name = 'calza'
     p.n += 1
+    if f.insideThickness is None:              # pied_stretta a zero: il parametro non e' rimasto (_collega_stretta)
+        _collega_stretta(occ.component.parentDesign, f)
     # FSR (D-066): la punta della tibia finisce 0,8 sopra il fondo (FSR 0,3 + pistoncino 0,5); il pistoncino sta sulla
     # suola sotto il centro della testa. Fuori i raccordi sono quelli dello svuotamento (1,6 sul lato -X, 2,6 sul +X):
     # piu' grandi assottiglierebbero la parete sotto 1,2 allo spigolo vivo -X della punta
@@ -955,6 +971,67 @@ def fai_cover_tibia_diffusore(zampa):
     corpo = comp.bRepBodies.item(0)
     p.info = {'corpi': comp.bRepBodies.count, 'volume_cm3': round(corpo.volume, 4)}
     return occ, p
+
+
+def _voce_timeline(des, feat):
+    """(voce della timeline, gruppo chiuso che la contiene o None). Dentro un gruppo chiuso la voce non ha indice e
+    rollTo fallisce ("Associated feature is invalid", 16 ottobre 2026): il gruppo va aperto prima e richiuso dopo."""
+    tl = des.timeline
+    for i in range(tl.timelineGroups.count):
+        g = tl.timelineGroups.item(i)
+        for k in range(g.count):
+            v = g.item(k)
+            if v.name == feat.name and v.entity == feat:
+                return v, g
+    return feat.timelineObject, None
+
+
+def _collega_stretta(des, f):
+    """Spessore interno dello svuotamento `calza` = pied_stretta. Con un valore nullo Fusion non tiene il parametro
+    (insideThickness resta None, provato il 16 ottobre 2026): lo si collega con 0,2 provvisorio e poi si rimette il
+    valore, e il parametro resta collegato anche a zero. setThicknesses vuole la timeline subito prima della lavorazione."""
+    par = des.userParameters.itemByName('pied_stretta')
+    expr = par.expression
+    if abs(par.value) < 1e-9:
+        par.expression = '0.2 mm'
+    fuori = f.outsideThickness.expression
+    voce, gruppo = _voce_timeline(des, f)
+    chiuso = gruppo is not None and gruppo.isCollapsed
+    if chiuso:
+        gruppo.isCollapsed = False
+    voce.rollTo(True)
+    ok = f.setThicknesses(adsk.core.ValueInput.createByString('pied_stretta'), adsk.core.ValueInput.createByString(fuori))
+    des.timeline.moveToEnd()
+    if chiuso:
+        gruppo.isCollapsed = True
+    par.expression = expr
+    dentro = f.insideThickness
+    return {'ok': ok, 'dentro': dentro.expression if dentro else None, 'fuori': f.outsideThickness.expression,
+            'pied_stretta': par.expression}
+
+
+def aggiorna_217(des, zampa, quale):
+    """Versione 2.1.7 sul modello della 2.1.6, una volta, senza rifare le parti (rifarle cancella i giunti):
+    'lamatura' aggiunge la lamatura al guscio della tibia (P-014), 'foro_guscio' porta il foro dell'inserto del guscio
+    a tib_ins_guscio_l, 'calza' da' al piedino la stretta pied_stretta (P-016). fai_* lo fanno gia'."""
+    if quale == 'lamatura':
+        occ = L['trova_occ'](zampa.component, 'Cover_Tibia')[0]
+        T0['Cover_Tibia_lamatura'] = des.timeline.count
+        p = Parte(occ.component)
+        f = _lamatura_vite(p, 'zam_Lc + zam_Lf')
+        L['raggruppa'](des, T0['Cover_Tibia_lamatura'], 'Cover_Tibia_lamatura')
+        return {'lavorazioni': p.n, 'schizzi_non_vincolati': p.non_vincolati, 'salute': str(f.healthState)}
+    if quale == 'foro_guscio':
+        comp = L['trova_occ'](zampa.component, 'Tibia')[0].component
+        f = comp.features.extrudeFeatures.itemByName('ins_guscio')
+        d = adsk.fusion.DistanceExtentDefinition.cast(f.extentOne).distance
+        # Fusion salva il verso nel segno ("-( ins_m3_l )"): positiva, il taglio va nel vuoto e perde il corpo
+        d.expression = '-(tib_ins_guscio_l)' if d.value < 0 else 'tib_ins_guscio_l'
+        return {'espressione': d.expression, 'mm': round(d.value * 10, 3), 'salute': str(f.healthState)}
+    if quale == 'calza':
+        comp = L['trova_occ'](zampa.component, 'Piedino')[0].component
+        return _collega_stretta(des, comp.features.shellFeatures.itemByName('calza'))
+    raise ValueError(quale)
 
 
 # ----------------------------------------------------------------------------------- istanze e giunti
@@ -1265,7 +1342,9 @@ def main(passi, **kw):
         V['controlla'](app)
         root = des.rootComponent
         if 'parametri' in passi:
-            out['parametri'] = L['aggiungi_parametri'](des, PARAMETRI)
+            # solo=[nomi]: aggiorna soltanto quei parametri (una modifica alla volta, con la sua verifica)
+            lista = [x for x in PARAMETRI if not kw.get('solo') or x[0] in kw['solo']]
+            out['parametri'] = L['aggiungi_parametri'](des, lista)
         zampa = _zampa(root)
         for nome, f in (('coxa', fai_coxa), ('ponte', fai_ponte), ('femore_b', fai_femore_b), ('femore_a', fai_femore_a),
                         ('tibia', fai_tibia), ('teste_a', fai_teste_a), ('cover_femore_a', fai_cover_femore_a),
@@ -1284,6 +1363,9 @@ def main(passi, **kw):
             p = Parte(occ.component)
             _fermo_fili(p, 'zam_Lc + zam_Lf')
             out['fermo_fili'] = _chiudi(des, 'Tibia_fermo_fili', p)
+        for nome in ('lamatura', 'foro_guscio', 'calza'):
+            if nome in passi:
+                out[nome] = aggiorna_217(des, zampa, nome)
         if 'punti' in passi:
             out['punti'] = {o.component.name: _punti(o.component) for o in zampa.component.occurrences if o.component.name in PUNTI}
         if 'istanze' in passi:

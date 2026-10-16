@@ -162,3 +162,13 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 - **Fori di asse inclinato**: `Parte.foro_obl` (mezza sezione con `sk_rett_obl` e rivoluzione di 360° attorno all'asse di costruzione). Provato sui fori del ToF posteriore: un gambo Ø2 nel foro Ø1,7 interseca 1,31 mm³, come un foro tondo.
 - **Verifiche con corpi temporanei** (`assieme.py` → `_urti_temporanei`, `_corpi_mondo`, `sfilamento_pacco`): non toccano il modello e girano in sola lettura. I giochi si misurano per bisezione ingrandendo il corpo provvisorio; il contatto al passo dopo il gioco è il caso di controllo. `_corpi_mondo` con `salta_comp` contenente "Corpo" salta tutto (errore del 16 ottobre: prova passata senza corpi fissi).
 - Dopo `base` le chiamate di sola lettura successive sono andate in timeout per alcuni minuti (Fusion al 100 %): aspettare che il file JSON dell'esito compaia (`until [ -f ... ]` in background) invece di rilanciare.
+
+## Lezioni del 16 ottobre 2026 (versione 2.1.7, blocco zampa)
+
+- **Modificare una lavorazione senza rifare la parte** (rifarla cancella i giunti): `zampa.py` → `aggiorna_217`.
+  - Il verso di un'estrusione sta nel segno della distanza (`-( ins_m3_l )`): una espressione positiva gira il taglio nel vuoto ("Nessun corpo di destinazione", il foro sparisce). Tenere il segno.
+  - Lo svuotamento con spessore interno nullo non tiene il parametro (`insideThickness` è None): `setThicknesses` con un valore provvisorio non nullo, poi il parametro torna a zero e resta collegato (`_collega_stretta`). `setThicknesses` e `participantBodies` vogliono la timeline subito prima della lavorazione.
+  - Dentro un gruppo chiuso della timeline `rollTo` dà "Associated feature is invalid": aprire il gruppo (`isCollapsed = False`), lavorare, `moveToEnd`, richiuderlo.
+- **Precisione dei volumi**: `BRepBody.volume` sbaglia di 1-2 mm³ su 12 cm³ (lamatura: 14,77 contro 13,06). Per le differenze piccole usare la differenza booleana fra il corpo prima e dopo (`markerPosition` indietro, `TemporaryBRepManager.copy`, `moveToEnd`) o `getPhysicalProperties(VeryHighCalculationAccuracy)`.
+- `measureManager.measureMinimumDistance` sulle facce di un componente annidato vuole i proxy (`createForAssemblyContext`), altrimenti "invalid argument geometryOne".
+- Uno spessore di compenetrazione si misura con una sonda 1 × 1 mm intersecata con l'intersezione dei due corpi: il volume in mm³ è lo spessore.
