@@ -13,7 +13,7 @@
 
 versione: 2.1.6
 cad: cad.json
-cad_sha256: aab061b55d73302ec936340fc1f842c1d9c6a46ca2db1bba61683c69cde96ce5  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
+cad_sha256: ae24aa0a934af293fed2ab652114fc0d124227fab5348f7a710974ca26ffdc7f  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
 
 zampe: [AS, MS, PS, AD, MD, PD]          # A anteriore, M media, P posteriore; S sinistra, D destra
 tripodi: [[AS, PS, MD], [AD, PD, MS]]    # calc/statica_tripode.py -> TRIPODI
@@ -54,6 +54,8 @@ guardia:
   # per zampa come al ginocchio. Da approvare: cambia D-050 e D-061 (oggi 60)
   somma_vicine: 56.0
   alpha: [-45.0, 82.0]                   # campo libero -49...85 meno 3; la tabella del ginocchio parte da -45
+  # P-015 (scelta del 16 ottobre 2026): dopo la taratura il firmware usa min(gamma_max, gamma misurato con il servo
+  # a centro_us + corsa_servo), software.md 2.5; il calettamento resta 100
   gamma_max: 177.0
   gamma_margine: 3.0                     # sopra cad.json -> limiti_meccanici.gamma_min(alpha)
   # fra due righe della tabella vale il massimo dei due valori: la tabella non e' monotona (-40 -> 55, -35 -> 45)
@@ -76,10 +78,10 @@ andatura:
   giro_max: 30.0                         # gradi a passo nella rotazione sul posto (verificato nel CAD)
 
 massa:
-  attesa_g: 3047.2                       # 2.1.7 (2.1.6: 3045,0, D-074): modellato + non modellato (cad.json); calc/statica_tripode.py -> CONFIG
+  attesa_g: 3046.2                       # 2.1.7 con le correzioni della verifica (2.1.6: 3045,0, D-074): modellato + non modellato (cad.json); calc/statica_tripode.py -> CONFIG
   non_modellato_sul_corpo: true          # cavi e viteria (cad.json -> masse.non_modellato_g) aggiunti al corpo
 
 regressione_statica:                     # software.md 6.3, test 6
-  femore_frazione_stallo: [0.525, 0.545] # 53 % +- 1 a 100/45 con 3047,2 g (2.1.7; 3045 g D-074; 51 % con 2945 g)
+  femore_frazione_stallo: [0.525, 0.545] # 53 % +- 1 a 100/45 con 3046,2 g (2.1.7; 3045 g D-074; 51 % con 2945 g)
   femore_kgfcm: 5.85
   margine_stabilita_mm: 59.0

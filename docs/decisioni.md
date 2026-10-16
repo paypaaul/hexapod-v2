@@ -558,6 +558,8 @@ Verifiche nel CAD:
   - atteso **3043,5 g**;
   - femore al 53 % dello stallo a 100/45 (5,84 kgf·cm).
 
+> **Nota del 16 ottobre 2026** (verifica della 2.1.7): rifacendo la prova delle coxe vicine sul modello della 2.1.7, con le zampe uguali a quelle di questa versione, a 31° toccano **tutte e quattro le coppie**, anche AD–MD: lama B contro lama A per 18,94 mm³ e feritoia della B contro la lama A per 13,55 mm³ (32,49 in tutto), come MS–PS; AS–MS e MD–PD toccano per 19,06 + 15,56. A 30,5° sono libere tutte e quattro. La riga "AD–MD libere anche a 31°" qui sopra non si ritrova; i versi provati sono quelli di `cad/CLAUDE.md` (a destra AD −, MD +). Il limite del firmware (somma 56° o 60° fra vicine, ±30° a coxa) non cambia.
+
 ## D-072 — Versione 2.1.5: provino delle tasche della lama A e render notturno (2026-10-11)
 
 Richieste dell'utente:

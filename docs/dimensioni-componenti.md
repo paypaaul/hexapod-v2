@@ -181,7 +181,7 @@ Tutti i componenti stanno nella zona libreria, a y ≥ 250 mm. Terna propria di 
 | `Rif_SSC32_V25` | ingombro | origine al centro; lato inferiore del PCB a z = 0; lato lungo lungo X; morsettiera a +X | PCB 72 × 55; zona spine 25 mm sopra i lati lunghi; zona barre 6 mm sotto |
 | `Rif_ESP32_S3_CAM` | ingombro | origine al centro del PCB; antenna a +X; USB a −X | 68,4 × 28,3; pin fino a −8,5 |
 | `Rif_Camera_OV3660_75` | ingombro | origine sull'asse ottico al retro della testa; asse ottico +Z; flat verso −X | testa 8,5 × 8,5 × 6; flat fino a x = −70,75 |
-| `Rif_Batteria_2S5200` | ingombro | origine al centro del fondo; cavi verso +X | 139 × 47,3 × 25,4 più 25 mm per i cavi |
+| `Rif_Batteria_2S5200` | ingombro | origine al centro del fondo; cavi verso +X | 139,65 (misurato) × 47,3 × 25,4 più 25 mm per i cavi e la schiuma EVA da 2,25 (3 compressi di 0,75) sulla faccia opposta ai cavi (dalla verifica della 2.1.7, `bat_l`, `bat_schiuma`) |
 | `Rif_Squadretta_25T` | ingombro (valori tipici, C) | origine sull'asse alla faccia superiore del disco; mozzo verso −Z | Ø20; z −5,5…0 |
 | `Rif_Cuscinetto_LF1050ZZ` | ingombro | origine al centro della faccia lato flangia; corpo verso +Z | Ø11,6 flangia; z 0…4 |
 | `Rif_Perno_5` | ingombro | asse Z da z = 0 | Ø5 × 18 |

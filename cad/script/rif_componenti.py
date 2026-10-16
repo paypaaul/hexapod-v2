@@ -75,7 +75,8 @@ PARAMETRI = [
     ('perno_d', '5 mm', 'mm', 'Perno: diametro'),
     ('perno_l', '12 mm', 'mm', 'Perno: lunghezza (D-047: 5,2 nella piastra, 0,4 rialzo, 4 cuscinetto, 1 nel fondo, 1,4 sporgente)'),
     # --- batteria OVONIC 2S 5200 mAh hardcase. Origine al centro del fondo, cavi verso +X.
-    ('bat_l', '139 mm', 'mm', 'Batteria: lunghezza, la maggiore delle schede (137-139) V'),
+    ('bat_l', '139.65 mm', 'mm', 'Batteria: lunghezza misurata dall utente sul pacco (Q-17, D-076), oltre i 137-139 delle schede V'),
+    ('bat_schiuma', '2.25 mm', 'mm', 'Batteria: schiuma EVA da 3 (D10) sulla faccia anteriore, compressa di 0,75 dai rebbi dello sportello (P-007) S'),
     ('bat_w', '47.3 mm', 'mm', 'Batteria: larghezza, la maggiore delle schede (46-47,3) V'),
     ('bat_h', '25.4 mm', 'mm', 'Batteria: altezza, la maggiore delle schede (24-25,4) V'),
     ('bat_tol_l', '5 mm', 'mm', 'Batteria: tolleranza dichiarata sulla lunghezza V'),
@@ -513,10 +514,11 @@ def fai_ingombri(des, root, rigenera, solo=None):
         ('flat', box(-t / 2 - lung_flat / 2, 0, 0, lung_flat, p('cam_flat_w'), 0.15)),
         ('linguetta', box(-t / 2 - lung_flat - p('cam_ling_l') / 2, 0, 0, p('cam_ling_l'), p('cam_ling_w'), 0.3))]))
 
-    # Batteria OVONIC 2S 5200 hardcase (quote massime delle schede, senza tolleranza)
-    bl, bw, bh, cl = p('bat_l'), p('bat_w'), p('bat_h'), p('bat_cavi_l')
+    # Batteria OVONIC 2S 5200 hardcase (lunghezza misurata, larghezza e altezza massime delle schede) con la schiuma davanti
+    bl, bw, bh, cl, bs = p('bat_l'), p('bat_w'), p('bat_h'), p('bat_cavi_l'), p('bat_schiuma')
     fatti.append(componente(root, 'Rif_Batteria_2S5200', [
         ('pacco', box(0, 0, 0, bl, bw, bh)),
+        ('schiuma', box(-bl / 2 - bs / 2, 0, 0, bs, bw, bh)),          # faccia anteriore (-X locale, +X del robot)
         ('uscita_cavi', box(bl / 2 + cl / 2, 0, bh / 2 - 6, cl, 24, 12))]))
 
     # Squadretta metallica a disco: disco sotto la faccia superiore, mozzo verso -Z

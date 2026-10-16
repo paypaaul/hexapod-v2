@@ -11,6 +11,8 @@ regole:
   - {componente: "Rif_Reg_Servo_D42V110F6", tipo: foro_pcb}
   - {componente: "Rif_SSC32_V25", tipo: foro_pcb}
   - {componente: "Rif_*", tipo: ignora}
+  # lamatura del colletto dei LED delle spie (verifica della 2.1.7): ha il diametro dell'inserto M3 ma non lo e'
+  - {lav: "lamatura_spia_*", tipo: foro_led}
   # i fori degli inserti hanno il diametro del parametro del CAD (manifest.parametri): cambia con il provino degli inserti
   - {d: ins_m3_d, cieco: true, tipo: inserto_m3}
   - {d: ins_m2_d, cieco: true, tipo: inserto_m2}

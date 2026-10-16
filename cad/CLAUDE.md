@@ -20,7 +20,7 @@ Si carica quando si lavora in `cad/`. Il `CLAUDE.md` della radice rimanda qui: v
   - poi `assieme.py` → `giunti_coxa` (se è cambiata la base) e `istanze_corpo` (vanno in timeout ma finiscono: rileggere);
   - controllo:
     - `controllo`, `interferenze`;
-    - coxe a ±35° e a 30,5° tra vicine (contatto a 31° su tre coppie su quattro, D-071);
+    - coxe a ±35° e a 30,5° tra vicine (contatto a 31° su tutte e quattro le coppie: nota del 16 ottobre in D-071);
     - `carapace_zampe`, `sfilamento`, `campo`;
     - `ciclo` (100/45 e 70/70, a gruppi di 4–8 fasi per stare sotto il timeout).
   - Il carapace si rifà con `carapace`, `carapace_dettagli` e `carapace_predisposizioni`: tre chiamate, le ultime due vanno in timeout ma finiscono.
@@ -184,3 +184,15 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 - **Esportazioni dal connettore**: `esporta_stl`, `esporta_mesh`, `esporta_robot` e `esporta_guida` stampano l'esito; per aggirare la ricorsione di `print` si lancia il `main` dentro `contextlib.redirect_stdout(io.StringIO())` e si scrive il testo in un file JSON da leggere dalla shell. Durano da 3 a 21 s: una chiamata ciascuna.
 - Dopo `esporta_robot` → `pose` e `esporta_stl` (che gira `pied_stretta`) si rilegge la sentinella: coxe a 0, nessuno snapshot pendente, `pied_stretta` a 0 mm.
 - **Guida e CAD**: se un'esportazione cambia i fori dei pezzi, `guida.costruisci controlla` e due test di `tests/test_guida.py` (giunzioni complete, totali inserti) diventano rossi finché catalogo (`giunzioni.yaml`, `viteria.yaml`) e totali non seguono il CAD: la CI `ci` li esegue, quindi vanno corretti prima del push. L'avviso `lunghezze` per le viti svasate conta la testa sul fondo del cono (0,9 più in basso di quella vera): per il vassoio la presa vera è 3,5 e il fondo libero 0,5.
+
+## Lezioni del 16 ottobre 2026 (versione 2.1.7, correzioni della verifica)
+
+- **Istanze spostate meno di 1 mm** da un parametro: `pulisci_istanze` e `istanze_nuove` con `tolleranza=0.1`. La trasformata sul proxy dalla radice di un'istanza dentro `Corpo` resta pendente, ma `des.snapshots.add()` la riporta alla posizione nativa senza errori: non serve a spostare.
+- **Dopo aver tolto e ricreato istanze nel corpo** il ricalcolo ha messo in avviso i raccordi in pianta e lo smusso del carapace (riferimenti agli spigoli persi): il lobo PD è diventato uno spigolo vivo (x −112,3, +677 mm³) e le interferenze non lo vedono. Dopo ogni lavoro su istanze o parti del corpo rileggere la timeline (anche gli avvisi) e l'ingombro del carapace (±110,44). Rimedio: rifare il carapace con i tre passi.
+- **Il segno delle distanze vale anche per le bugne**: le bugne del carapace scendono dal dorso con `-( 3.5 mm )`; scrivere un'espressione positiva le ha girate verso l'alto, dentro la sede della fascia (57 mm³ di interferenza con la fascia).
+- **Sotto la fascia il dorso è spesso 1,0** (`car_sp − car_fascia_h`), non 1,6: i fori ciechi da dentro (inserti delle bugne) vanno contati da lì.
+- **Undo dopo script di sola lettura**: `fusion_mcp_update` → `undo` ha tolto voci invisibili invece dell'ultimo script che modificava; dopo letture non fidarsi dell'undo, rileggere lo stato e semmai rifare con gli script.
+- Uno script del connettore con un `deleteMe` di occorrenze scritto al momento è stato fermato dal classificatore dei permessi; i passi della repo che cancellano (`pulisci_istanze`, `carapace`) sono passati.
+- Un'eccezione fuori dal `try` (qui `res = main(...)` di uno script che non ritorna nulla) annulla tutto lo script, anche quello che era andato a buon fine.
+- **Guida e fori**: un foro con il diametro di un inserto che non è un inserto (la lamatura del LED Ø4,2) fa sbagliare `totali_inserti`: si aggiunge una regola per nome in `guida/catalogo/fori.yaml`.
+- **Verifiche con scatole provvisorie** (`assieme.py` → `urti_scatole` e le funzioni sopra): spine, cavi, LED e percorsi si provano come scatole o cilindri contro tutti i corpi del corpo; il caso di controllo è lo stato di prima della correzione o lo stesso corpo spostato di un passo.

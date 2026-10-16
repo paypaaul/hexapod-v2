@@ -78,7 +78,7 @@ striscia LED (6 pixel) ─ capo in alto a z −33 ──────────
 | Abilitazione del rail | GPIO42 → D2 (1N4148) in linea nella guaina, anodo dal lato della basetta → ENA dei due regolatori; R3 da 22 kΩ fra ENA e massa su ogni regolatore | dalla basetta alle due baie | saldati; D2 e R3 non stanno sulla basetta (`guida/schemi/schemi.md`, S-20: con la R3 sul regolatore un filo staccato lascia il rail spento) | 26 AWG, tre fili dopo il diodo | S, valori da provare al banco |
 | Spegnimento | GPIO41 → OFF della 2813 | dalla basetta alla 2813 | saldato; 100 kΩ a massa se scatta da sola (C) | 26 AWG | S |
 | Pulsante | pulsante (x −40) → scheda del carapace → poli 15-16 → basetta → A e B della 2813 | sotto il dorso, poi nel cavo piatto | contatti a saldare sul pulsante; spina IDC | 2 fili | S |
-| Spie dei rail (X13) | file VS1 e VS2 della SSC-32 → 1 kΩ → LED giallo → massa | dalla SSC-32 alla linguetta in coda sotto il cicalino | saldati | 2 + 2 fili, 26 AWG | S |
+| Spie dei rail (X13) | file VS1 e VS2 della SSC-32 → 1 kΩ → LED giallo → massa | dalla SSC-32 alla linguetta in coda sotto il cicalino; il LED si infila da dentro con il colletto nella lamatura Ø4,2 × 1 della linguetta e la cupola sporge di circa 4 verso la porta (dalla verifica della 2.1.7: prima entrava di 3,3 mm nell'ingombro di F1). I reofori si piegano subito verso l'esterno (\|y\| > 17): fra la linguetta e l'ingombro di F1 restano 0,6 mm | saldati | 2 + 2 fili, 26 AWG | S; C reofori contro F1 vero |
 | Bilanciamento | presa JST-XH del pacco → prolunga C7 → cicalino BX100 | dal tunnel alla coda | JST-XH 3 poli | 3 fili | S; si stacca a fine uso |
 
 ### 3.2 Servo
@@ -117,10 +117,10 @@ Bus I2C0: GPIO47 SDA, GPIO3 SCL, 3,3 V, 400 kHz. Ogni ramo ha 4 fili: massa, 3,3
 
 | Ramo | Da → a | Percorso | Stato |
 |---|---|---|---|
-| Vano sotto il vassoio | basetta → IMU (GY-6500 a 0x68, oppure la Pololu predisposta a 0x6B; 4 fili saldati sulle piazzole, senza pin: sotto il vassoio non c'è altezza, D-074) e ADS7830 (0x48) | dall'asola del vassoio (dalla 2.1.7 7 × 4, fuori dalla basetta a y 18–22: la spina Qwiic 6 × 2,9 passa; i fili non passano più sotto la basetta, D-076) | S |
+| Vano sotto il vassoio | basetta → IMU (GY-6500 a 0x68, oppure la Pololu predisposta a 0x6B; 4 fili saldati sulle piazzole, senza pin: sotto il vassoio non c'è altezza, D-074) e ADS7830 (0x48) | dall'asola del vassoio (dalla 2.1.7 7 × 4, fuori dalla basetta a x 26,5–33,5, y 18–22: la spina Qwiic 6 × 2,9 passa; i fili non passano più sotto la basetta, D-076). Il cavetto dell'ADC va nella presa STEMMA QT di coda (x 39): quella di testa è chiusa dalla colonna del vassoio a (75; 12,5). La spina con 2 mm di fili dritti resta a 0,7 dalla colonna di (30; 12,5) (verifica della 2.1.7) | S |
 | Baie anteriori | basetta → INA260 sinistro (0x44) e destro (0x45) | passaggio fra SSC-32 e vassoio, clip sul tetto | S |
 | ToF frontale (X8) | basetta → VL53L7CX nella mensola della camera | lungo la torretta. Alimentato dal pin VDD a 3,3 V con VIN scollegato. Prende 0x30 a ogni accensione mentre il posteriore è tenuto spento | V alimentazione; S percorso |
-| Carapace | basetta → poli 5–8 del connettore → scheda del carapace | cavo piatto | S |
+| Carapace | basetta → poli 5–8 del connettore → scheda del carapace | cavo piatto (percorso in 3.5bis) | S |
 | NTC dei regolatori (X14) | NTC sulla bobina di ogni regolatore → partitore (10 kΩ 1 %) → ADS7830, canali 6 e 7 | dalle baie al vano sotto il vassoio, fuori dal camino dei regolatori | S |
 
 Il bus misura in tutto circa 1,1 m: 0,8 nel corpo e 0,3 nel carapace (S). Sta almeno 10 mm lontano dai cavi da 12–16 AWG e li incrocia a 90°.
@@ -128,6 +128,16 @@ Il bus misura in tutto circa 1,1 m: 0,8 nel corpo e 0,3 nel carapace (S). Sta al
 ### 3.5 Carapace
 
 Tutto quello che sta sul carapace passa dalla **scheda del carapace** (X2): una striscia di millefori sotto il dorso, 21,5 × 30 a x 29,5…51 (dalla 2.1.7, D-076: la testata 2 × 8 sta a 90° sul bordo di coda e la spina esce orizzontale verso la coda, dentro l'ottagono; la chiave è sul lato lontano dalla scheda; la scheda finisce prima dell'amplificatore, che comincia a x 51,85). La collega alla basetta un **cavo piatto a 16 vie**, lungo circa 15 cm, saldato sulla basetta e con la spina IDC sulla scheda; la spina si sfila dall'ottagono.
+
+**3.5bis Percorso del cavo piatto** (verifica della 2.1.7, `assieme.py` → `cavo_piatto`, scatole provvisorie, misure S). Il nastro intero (20,3 × 1,3) dalla spina non arriva alla basetta: sotto ci sono le USB-C dell'ESP32, davanti la testata, dietro le spine dei servo della SSC-32, e una piega a 45 gradi larga 20,3 non sta fra la spina e la testata. Funziona così:
+1. dopo il fermacavo il nastro sale sul dorso della spina (x 18,2…19,5) e piega in avanti sopra la spina (z 28,5…29,8);
+2. subito dopo il fermacavo si divide in **due strisce da 8 conduttori** (10,16), tagliando fra i conduttori 8 e 9;
+3. ogni striscia gira a 45 gradi verso destra (−Y) davanti alla testata (x 19,2…29,4). La striscia destra resta sotto, la sinistra passa sopra la piega della destra (z 31,2…32,5, a 0,3 sotto la battuta dell'ottagono, z 32,8);
+4. le due strisce scendono una dietro l'altra di fianco all'ESP32 (y −14,4…−17,0; il PCB finisce a y −14,15) fino alla basetta;
+5. in basso i conduttori si aprono a ventaglio verso i fori della riga 13 (x 23,8…59,3).
+Nessun urto con il modello; casi di controllo: tutto 0,4 più in alto tocca la battuta dell'ottagono, 0,3 verso il centro tocca il PCB dell'ESP32. Le pieghe, lo spessore del fermacavo e il raggio di curva vanno provati sul pezzo (C).
+
+**Scheda alzata di 0,6** (verifica della 2.1.7): bugne della scheda alte 2,9 (`sch_bugna_h`, erano 3,5 come quelle dell'ampli), faccia bassa della millefori a z 29,9. Così la chiave della spina (fondo a z 21,4) passa 0,54 sopra le USB-C (z 20,86): sfilando la spina verso la coda per 2–8 mm con 0,3 o 0,5 di scarto di fianco non tocca (prima, a 0,3 di fianco, toccava). Il foro dell'inserto M2 è profondo 3,4 (`sch_ins_l`: inserto da 3 più 0,4) e sotto la fascia restano 0,5 di dorso come prima: le viti della scheda diventano **M2 × 4** (2,4 nell'inserto; con la M2 × 5 la punta arriverebbe sul fondo).
 
 Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 
@@ -164,7 +174,7 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 ## 4. Smontaggio
 
 - **Carapace**: si toglie lo sportellino, si sfila la spina IDC dall'ottagono, si svitano le 4 viti, si stacca il cicalino dalla presa di bilanciamento e si solleva. Anello, fondo, lobi, microfoni, ampli, altoparlante e ToF posteriore restano sul carapace con i loro fili.
-- **T-plug** (sezionamento d'emergenza): sta 7 mm dentro la porta di coda, appoggiato al portafusibile, con 3,3 mm sotto il cicalino. Si prende con la punta delle dita sul retro e sui fianchi: 7 mm d'aria verso l'altoparlante, 10,4 mm verso la guancia sinistra. Il ToF posteriore copre solo l'angolo in alto a sinistra (3 × 3 mm) visto da dietro e sta 8 mm più indietro (verifica della 2.1.2). Dalla 2.1.7 le fessure del tetto sono aperte verso la coda e il pacco si sfila con T-plug e JST-XH attaccati (prova con corpi temporanei, sportello tolto, carapace montato: libero da 0 a 165 mm con la metà femmina del T-plug sul lato destro; **con la spina sul lato sinistro tocca il ToF posteriore fra 10 e 20 mm**, quindi si porta fuori dal lato dell'altoparlante o inclinata; con la spina 1 mm più alta passa). Si prova a mano sul primo carapace (guida 11.03); se è scomodo, una linguetta di nastro sulla metà lato batteria.
+- **T-plug** (sezionamento d'emergenza): sta 7 mm dentro la porta di coda, appoggiato al portafusibile, con 3,3 mm sotto il cicalino. Si prende con la punta delle dita sul retro e sui fianchi: 7 mm d'aria verso l'altoparlante, 10,4 mm verso la guancia sinistra. Il ToF posteriore copre solo l'angolo in alto a sinistra (3 × 3 mm) visto da dietro e sta 8 mm più indietro (verifica della 2.1.2). Dalla 2.1.7 le fessure del tetto sono aperte verso la coda e il pacco si sfila con T-plug e JST-XH attaccati (prova con corpi temporanei, sportello tolto, carapace montato: libero da 0 a 165 mm con la metà femmina del T-plug sul lato destro; **con la spina sul lato sinistro tocca fra 10 e 20 mm il ToF posteriore (fino a 20,6 mm³) e anche il carapace (16,7 mm³)**, quindi la metà femmina si porta fuori dal lato destro, quello dell'altoparlante; con la spina 1 mm più alta, a destra, passa. Rifatta con le correzioni della verifica della 2.1.7: pacco da 139,65 con la schiuma da 2,25 davanti). Si prova a mano sul primo carapace (guida 11.03); se è scomodo, una linguetta di nastro sulla metà lato batteria.
 - **Zampa**: si staccano dalla SSC-32 le tre spine dei servo, poi la spina dell'FSR dalle prese dei piedi e quella delle luci dalle sue prese. Tutti questi fili restano sulla zampa.
 
 ## 5. Aperti
@@ -175,3 +185,5 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 4. **Lunghezze dei fili** (S): si misurano sulla prima zampa montata, prima di tagliare gli altri cinque.
 5. **Pettini delle anse** nelle baie posteriori: in backlog, come pezzi separati sulla parete del tunnel, da disegnare dopo il montaggio di una zampa con le lunghezze misurate (`CLAUDE.md`, Backlog).
 6. **Wago**: il positivo sta sul lato sinistro (+Y), il negativo, massa a stella di tutti i rami, sul destro (−Y), come nell'assieme (`assieme.py` → `Wago_piu`, `Wago_meno`).
+7. **Cavo piatto del carapace** (verifica della 2.1.7, 3.5bis): il percorso libero c'è solo con il nastro diviso in due strisce da 8 dopo il fermacavo. Va provato sul pezzo prima di saldare la basetta (pieghe, fermacavo, raggio); se non va, la riserva è la soluzione B di P-002 (cavo saldato sulla scheda e giunzione IDC volante nell'ottagono), da far scegliere all'utente.
+8. **Reofori delle spie (X13) e F1**: con la lamatura il corpo del LED resta fuori dall'ingombro di F1 (40 × 22 × 15, S), i reofori no. Da guardare sul portafusibile Neuftech in casa: se le estremità verso i cavi sono più strette dell'ingombro, i reofori passano; se no, si piegano lungo la linguetta verso \|y\| 20.

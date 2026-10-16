@@ -248,7 +248,7 @@ passi:
     evidenzia:
       - {chiave: corpo/Corpo_Vassoio, lav: asola_bus}
     etichette:
-      - {testo: asola, punto: [50, 14.5, 4]}
+      - {testo: asola, punto: [30, 20, 4]}
       - {testo: "riga 1", punto: [40, 17, 9]}
     testo:
       - "Prendi la basetta e il vassoio, senza montarli."
@@ -306,7 +306,7 @@ passi:
     testo:
       - "Posa l'ADS7830 sulle due bugne a sinistra dell'IMU, ingressi verso il bordo sinistro [C]."
       - "Avvita la scheda con due viti M2 × 5 negli inserti [C], piano."
-      - "Collega alla presa Qwiic il cavetto dell'ADC, passato nell'asola."
+      - "Collega il cavetto dell'ADC, passato nell'asola, alla presa Qwiic verso la coda: quella verso la testa è chiusa dalla colonna del vassoio (verifica della 2.1.7)."
     avvisi:
       - {tipo: opzionale, x: X6, quando: meglio_ora, testo: "Senza ADC salta questo passo e l'8.10."}
       - {tipo: importante, testo: "Fori e viti dell'ADS7830 non sono nel CAD né nel BOM [C]: prova sul pezzo."}

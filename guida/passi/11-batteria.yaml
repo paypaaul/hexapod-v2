@@ -153,7 +153,8 @@ passi:
       - {tipo: importante, testo: "Prova prima a secco: le fessure del tetto sono larghe 4,5 mm e lunghe 13 [V]. Se la spina del T-plug o quella di bilanciamento non passa, fermati: è il primo problema di questa sezione."}
       - {tipo: attenzione, testo: "Tieni le spine del pacco lontane da F1 e dalle parti metalliche: i due poli non devono toccarsi."}
       - {tipo: nota, testo: "Il pacco ha 1,3 mm d'aria per lato: se si impunta, non forzare; controlla che non ci siano bave nel tunnel (D-056)."}
-    fonti: [D-050, "D-051 (fessure nel tetto, batteria sfilabile dal retro)", D-055, D-056, docs/cablaggio.md 3.1, "cad/script/corpo.py fessura_cavi_s, fessura_cavi_d", docs/progetto-meccanico.md "Dentro Corpo"]
+      - {tipo: importante, testo: "Tieni la metà femmina del T-plug del pacco sul lato destro (−Y, quello dell'altoparlante): per sfilare il pacco con le spine attaccate deve uscire da lì. Dal lato sinistro, fra 10 e 20 mm di corsa, tocca il ToF posteriore e il carapace (prova con corpi provvisori della 2.1.7, docs/cablaggio.md 4) [S]. Provalo a mano sul primo carapace."}
+    fonti: [D-050, "D-051 (fessure nel tetto, batteria sfilabile dal retro)", "docs/cablaggio.md 4 'T-plug' (sfilamento del pacco, verifica della 2.1.7)", D-055, D-056, docs/cablaggio.md 3.1, "cad/script/corpo.py fessura_cavi_s, fessura_cavi_d", docs/progetto-meccanico.md "Dentro Corpo"]
 
   - id: "11.04"
     titolo: Prolunga di bilanciamento

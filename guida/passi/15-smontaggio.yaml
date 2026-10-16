@@ -380,6 +380,7 @@ passi:
       - {tipo: importante, testo: "La sequenza per separare tibia e femore non è nei documenti: ripercorri al contrario la sezione 6, dal femore alle squadrette [C]."}
       - {tipo: nota, testo: "Le viti lato albero fanno il filetto nei fori pilota e a ogni rimontaggio lo consumano: se una non prende, ristampa il pezzo [S]."}
       - {tipo: importante, testo: "Dopo il rimontaggio rifai la taratura con le dime (12.11): ripetibile entro 1° [S]."}
+      - {tipo: attenzione, testo: "Se togli un cuscinetto della culla con l'estrattore (attrezzi, P-065), l'asta spinge sull'anello interno e la forza passa dalle sfere: controlla il cuscinetto estratto (gira libero, senza punti duri e senza gioco) oppure sostituiscilo (BOM D1) prima di rimontarlo."}
     attrezzi: [brugola_dritta_2_5, tester_servo]
     fonti: ["D-047, D-049", "guida/problemi/zampa.yaml (viti delle alette, esiti approvati l'11 ottobre 2026)", "docs/software.md 2.7 e 2.8", "guida/problemi/smontaggio.yaml"]
 
@@ -409,6 +410,7 @@ passi:
       - {tipo: importante, testo: "La procedura di sostituzione del servo di coxa sta solo nella ricerca (docs/ricerca/corpo-v0-revisione.json) e non è provata sul modello attuale [C] (guida/problemi/smontaggio.yaml)."}
       - {tipo: attenzione, testo: "Non girare l'albero a mano. Se la coxa non gira libera, il ponte è ancora montato."}
       - {tipo: nota, testo: "Il cavo del servo esce da una fessura della gondola verso il centro: la spina passa dalla finestra (D-049)."}
+      - {tipo: attenzione, testo: "Se per togliere il servo devi estrarre un cuscinetto con l'estrattore (P-065), l'asta spinge sull'anello interno e la forza passa dalle sfere: controlla il cuscinetto estratto (gira libero, senza punti duri e senza gioco) oppure sostituiscilo (BOM D1). Per i cuscinetti delle coxe nella base l'estrattore non è verificato [C]."}
     attrezzi: [brugola_dritta_2_5]
     fonti: ["docs/ricerca/corpo-v0-revisione.json (difetto sul servo di coxa)", "guida/problemi/corpo.yaml (viti lato coda)", "guida/passi/09-zampa-corpo.yaml 9.08", "D-049"]
 

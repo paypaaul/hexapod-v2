@@ -55,7 +55,8 @@ def pose_corpo(des):
         out['Servo_Coxa_' + n] = ('Rif_Servo_MG996R', _rz(x, y, z_al, d))
         out['Cuscinetto_Coxa_' + n] = ('Rif_Cuscinetto_LF1050ZZ', _rz(x, y, z_cus, 0.0))
     fondo_int = -_mm(des, 'cor_chiglia') + _mm(des, 'cor_chiglia_sp')
-    x_bat = _mm(des, 'cor_tun_x1') - _mm(des, 'cor_parete') - _mm(des, 'bat_l') / 2
+    # pacco contro la schiuma, schiuma contro la battuta anteriore del tunnel (x 79)
+    x_bat = _mm(des, 'cor_tun_x1') - _mm(des, 'cor_parete') - _mm(des, 'bat_schiuma') - _mm(des, 'bat_l') / 2
     out['Batteria'] = ('Rif_Batteria_2S5200', _rz(x_bat, 0, fondo_int, 180.0))           # cavi verso la coda
     z_ssc = -_mm(des, 'cor_tetto') + _mm(des, 'ssc_dist')
     out['SSC32'] = ('Rif_SSC32_V25', _rz(_mm(des, 'cor_ssc_x'), 0, z_ssc, 0.0))          # morsettiera in avanti
@@ -111,7 +112,7 @@ def pose_corpo(des):
     zs = _mm(des, 'car_top') - _mm(des, 'car_sp')
     # amplificatore generico (D-074): morsettiera e fori verso +X, pin verso la scheda del carapace
     out['Ampli'] = ('Rif_Ampli_Generico', _rz(_mm(des, 'aud_amp_x'), 0, zs - 3.5 - _mm(des, 'aud_amp_sp'), -90.0))
-    out['Scheda_carapace'] = ('Rif_Scheda_Carapace', _rz(_mm(des, 'sch_x'), 0, zs - 3.5 - _mm(des, 'sch_sp'), 90.0))
+    out['Scheda_carapace'] = ('Rif_Scheda_Carapace', _rz(_mm(des, 'sch_x'), 0, zs - _mm(des, 'sch_bugna_h') - _mm(des, 'sch_sp'), 90.0))
     for lato, s in (('S', 1), ('D', -1)):
         # scheda capovolta: la porta del microfono (sul fondo) guarda il foro, appoggiata all'anello della guarnizione
         # MS3625 montate (D-074): lati piatti lungo Y, centrate dalle lunette nel telaio della Adafruit 3421
@@ -214,9 +215,9 @@ def fai_istanze_corpo(des, root):
     return fatte
 
 
-def fai_istanze_nuove(des, root):
-    """Crea solo le istanze di pose_corpo che mancano (nessuna istanza dello stesso componente entro 1 mm): per i
-    componenti aggiunti dopo, senza rifare le altre (fai_istanze_corpo va in timeout)."""
+def fai_istanze_nuove(des, root, tolleranza=1.0):
+    """Crea solo le istanze di pose_corpo che mancano (nessuna istanza dello stesso componente entro `tolleranza` mm): per
+    i componenti aggiunti dopo, senza rifare le altre (fai_istanze_corpo va in timeout)."""
     corpo = _corpo(root)
     lib = {o.component.name: o for o in root.occurrences if o.component.name.startswith('Rif_')}
     fatte = []
@@ -224,7 +225,7 @@ def fai_istanze_nuove(des, root):
         t = m.translation
         cand = [o for o in corpo.component.occurrences if o.component.name == nome_lib]
         if cand and math.dist([v * 10 for v in (t.x, t.y, t.z)],
-                              [v * 10 for v in (lambda q: (q.x, q.y, q.z))(A['piu_vicina'](cand, (t.x * 10, t.y * 10, t.z * 10)).transform2.translation)]) < 1.0:
+                              [v * 10 for v in (lambda q: (q.x, q.y, q.z))(A['piu_vicina'](cand, (t.x * 10, t.y * 10, t.z * 10)).transform2.translation)]) < tolleranza:
             continue
         o = A['aggiungi_istanza'](root, lib[nome_lib], m, dentro=corpo)
         o.isLightBulbOn = True
@@ -234,9 +235,10 @@ def fai_istanze_nuove(des, root):
     return fatte
 
 
-def pulisci_istanze(des, root):
-    """Cancella le istanze Rif_ dentro Corpo che non stanno entro 1 mm da una posa di pose_corpo per lo stesso
-    componente (restano dopo aver spostato un posto con i parametri e rifatto istanze_nuove)."""
+def pulisci_istanze(des, root, tolleranza=1.0):
+    """Cancella le istanze Rif_ dentro Corpo che non stanno entro `tolleranza` mm da una posa di pose_corpo per lo stesso
+    componente (restano dopo aver spostato un posto con i parametri e rifatto istanze_nuove). Per gli spostamenti sotto
+    1 mm si passa una tolleranza piu' piccola (0,1)."""
     corpo = _corpo(root)
     attese = {}
     for nome_lib, m in pose_corpo(des).values():
@@ -250,7 +252,7 @@ def pulisci_istanze(des, root):
                 continue
             t = o.transform2.translation
             p = (t.x * 10, t.y * 10, t.z * 10)
-            if not any(math.dist(p, q) < 1.0 for q in attese.get(n, [])):
+            if not any(math.dist(p, q) < tolleranza for q in attese.get(n, [])):
                 tolte.append('%s %s' % (n, [round(v, 1) for v in p]))
                 o.deleteMe()
                 break
@@ -652,6 +654,132 @@ def sfilamento_pacco(des, root, corse, lato_spina=-1, cavo_d=4.0, piu_alta=0.0):
     return out
 
 
+def urti_scatole(des, root, scatole, salta_comp=()):
+    """Scatole temporanee [(nome, x0, y0, z0, x1, y1, z1)] in mm, nella terna del robot, contro tutti i corpi del corpo
+    (carapace compreso) tranne i componenti in salta_comp: urti in mm3. Per spine, cavi e LED (sola lettura)."""
+    mob = [(n, _box_mm(*q)) for n, *q in scatole]
+    return _urti_temporanei(mob, _corpi_mondo([_corpo(root)], salta_comp=salta_comp)) or 'nessuno'
+
+
+def spine_prese(des, root, alta=14.0, margine=0.5, dy=0.0):
+    """Spine JR femmina infilate dall'alto sulle due file di prese del tetto (P-019, verifica della 2.1.7): l'ingombro della
+    fila allargato di `margine` per lato (corpo della spina, S), dalla cima dei pin per `alta` mm (spina e curva dei fili, S).
+    dy sposta le spine verso l'esterno (caso di controllo)."""
+    zt = -_mm(des, 'cor_tetto')
+    x, y = _mm(des, 'cor_pre_x'), _mm(des, 'cor_pre_y') + dy
+    sl, sw = _mm(des, 'pre_l') / 2 + margine, _mm(des, 'pre_w') / 2 + margine
+    z0 = zt + 0.5 + _mm(des, 'pre_h')
+    return urti_scatole(des, root, [('spine_piedi', x - sl, y - sw, z0, x + sl, y + sw, z0 + alta),
+                                    ('spine_luci', x - sl, -y - sw, z0, x + sl, -y + sw, z0 + alta)], ('Rif_Prese_Piedi',))
+
+
+def qwiic_adc(des, root, lato=-1, sporge=3.0, fili=2.0, piu=0.0):
+    """Spina Qwiic (JST SH 4 poli) nella presa STEMMA QT di un lato corto dell'ADS7830 (Q-32: una per lato, a meta' del
+    lato; lato -1 verso la coda, +1 verso la testa): larga 6, alta 2,9 sulla faccia della scheda, sporge di `sporge` dal
+    bordo, piu' `fili` mm di fili dritti prima della curva (S). piu allunga la spina (caso di controllo)."""
+    xa, ya, la = _mm(des, 'cor_ads_x'), _mm(des, 'cor_ads_y'), _mm(des, 'sen_ads_l')
+    ztop = -_mm(des, 'cor_tetto') + _mm(des, 'cor_sen_bugna_h') + _mm(des, 'sen_ads_sp')
+    xe = xa + lato * la / 2
+    x0, x1 = sorted((xe, xe + lato * (sporge + fili + piu)))
+    return urti_scatole(des, root, [('qwiic_adc', x0, ya - 3.0, ztop - 2.9, x1, ya + 3.0, ztop)], ('Rif_ADC_ADS7830',))
+
+
+def _cil_mm(p0, p1, d):
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    return tbm.createCylinderOrCone(adsk.core.Point3D.create(*(v / 10 for v in p0)), d / 20,
+                                    adsk.core.Point3D.create(*(v / 10 for v in p1)), d / 20)
+
+
+def qwiic_asola(des, root, w=6.0, t=2.9):
+    """Spina Qwiic (w x t in pianta, S) che passa in piedi nell'asola del bus del vassoio (P-019), da 4 sotto a 6 sopra
+    il vassoio. Caso di controllo: una spina piu' larga dell'asola (7,2 x 4,2) tocca."""
+    x, y = _mm(des, 'cor_vas_asola_x'), _mm(des, 'cor_vas_asola_y0') + _mm(des, 'cor_vas_asola_w') / 2
+    z = _mm(des, 'cor_vas_z')
+    return urti_scatole(des, root, [('qwiic_asola', x - w / 2, y - t / 2, z - 4.0, x + w / 2, y + t / 2, z + 6.0)])
+
+
+def spina_staccata(des, root, corse=(2.0, 4.0, 6.0, 8.0), dy=0.0, dz=0.0):
+    """Spina IDC della scheda del carapace sfilata verso la coda di d mm (P-002), spostata di dy di fianco e di dz in
+    alto: urti di spina e chiave con il resto del corpo (la testata resta). Caso di controllo: dz negativo."""
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    corpo = _corpo(root)
+    sch = _istanze_corpo(corpo)['Scheda_carapace']
+    fissi = _corpi_mondo([corpo], salta_comp=('Rif_Scheda_Carapace',))
+    out = {}
+    for d in corse:
+        mob = [(b.name, tbm.copy(b)) for b in sch.bRepBodies if b.name in ('spina', 'chiave_spina')]
+        m = adsk.core.Matrix3D.create()
+        m.translation = adsk.core.Vector3D.create(-d / 10, dy / 10, dz / 10)
+        for _, t in mob:
+            tbm.transform(t, m)
+        out['%g' % d] = _urti_temporanei(mob, fissi) or 'nessuno'
+    return out
+
+
+def cavo_piatto(des, root, dz=0.0, dy=0.0):
+    """Percorso del cavo piatto a 16 vie dalla spina IDC alla riga 13 della basetta (P-002, verifica della 2.1.7), come
+    scatole (S: nastro 1,3 x 20,3, pieghe a 45 gradi a due strati). Il nastro intero non ha un percorso libero (davanti la
+    testata, sotto le USB-C, dietro le spine dei servo; una piega a 45 gradi larga 20,3 non sta fra la spina e la
+    testata): dopo il fermacavo si divide in due strisce da 8 conduttori (10,16; quali poli dipende dal verso del polo 1). Il nastro sale sul dorso della spina e
+    piega in avanti sopra la spina; ogni striscia gira a 45 gradi verso -Y davanti alla testata; la destra (y < 0) scende
+    di fianco all'ESP32 (y -15,7...-14,4), la sinistra passa sopra la piega della destra, sotto la battuta dell'ottagono
+    (z 32,8), e scende dietro di lei (y -17,0...-15,7). In basso i conduttori corrono sulla basetta fino ai fori della
+    riga 13 (x 23,8...59,3). dz e dy spostano tutto (casi di controllo)."""
+    corpo = _corpo(root)
+    sch = _istanze_corpo(corpo)['Scheda_carapace']
+    sp = [b for b in sch.bRepBodies if b.name == 'spina'][0].boundingBox
+    xb, zp = sp.minPoint.x * 10, sp.maxPoint.z * 10
+    xt = _mm(des, 'sch_x0') - 0.1                       # davanti alla testata
+    t, w = 1.3, 10.16
+    zb = _mm(des, 'cor_vas_z') + _mm(des, 'cor_vas_sp') + _mm(des, 'cor_bas_luce') + _mm(des, 'bas_sp') + 0.1
+    zr = zp + 0.1                                       # strisce sopra la spina
+    zl = zr + 2 * t + 0.1                               # tratto verso -Y della sinistra, sopra la piega della destra
+    yr0, yr1, yl0 = -15.7, -14.4, -17.0
+    sc = [('dorso_spina', xb - t, -w, zp - 3.0, xb, w, zr + t),
+          ('destra_sopra', xb - t, -w, zr, xt, 0.0, zr + t),
+          ('destra_piega', xt - w, -w, zr, xt, 0.0, zr + 2 * t),
+          ('destra_verso_y', xt - w, yr0, zr, xt, -w, zr + t),
+          ('destra_scende', xt - w, yr0, zb, xt, yr1, zr + t),
+          ('destra_basetta', xt - w, yr0, zb, 60.0, yr1, zb + t),
+          ('sinistra_sopra', xb - t, 0.0, zr, xt, w, zr + t),
+          ('sinistra_piega', xt - w, 0.0, zr, xt, w, zr + 2 * t),
+          ('sinistra_verso_y', xt - w, yl0, zl, xt, 0.0, zl + t),
+          ('sinistra_scende', xt - w, yl0, zb + t, xt, yr0, zl + t),
+          ('sinistra_basetta', xt - w, yl0, zb, 60.0, yr0, zb + t)]
+    sc = [(n, x0, y0 + dy, z0 + dz, x1, y1 + dy, z1 + dz) for n, x0, y0, z0, x1, y1, z1 in sc]
+    return {'quote': {'dorso_x': round(xb, 2), 'cima_spina': round(zp, 2), 'piega_x': [round(xt - w, 2), round(xt, 2)],
+                      'cima_sinistra': round(zl + t, 2), 'basetta_z': round(zb, 2)},
+            'urti': urti_scatole(des, root, sc)}
+
+
+def cavi_rebbi(des, root, dz=0.0):
+    """Cavi del pacco (12 AWG Ø4 e bilanciamento Ø3, come scatole, S) piegati dall'uscita al centro alla fessura del tetto
+    (|y| 22,75), sopra i rebbi dello sportello (P-007): sotto la linguetta dello sportello (|y| <= 8, fino a x -79,4)
+    passano a 0,2 sotto di lei, poi salgono sotto il tetto; il secondo cavo del piu' sta sotto il primo. dz abbassa i
+    cavi (caso di controllo)."""
+    zt = -_mm(des, 'cor_tetto') - _mm(des, 'cor_tetto_sp') - 0.1 + dz          # 0,1 sotto il tetto
+    zl = zt - 1.6 - 0.1                                                          # 0,2 sotto la linguetta
+    yc = _mm(des, 'cor_cavi_y0') + (_mm(des, 'cor_tun_semi') - _mm(des, 'cor_parete') - _mm(des, 'cor_cavi_y0')) / 2
+    sc = [('cavo_piu_centro', -81.0, 0.0, zl - 4.0, -77.0, 9.0, zl), ('cavo_piu', -81.0, 8.5, zt - 4.0, -77.0, yc + 2.0, zt),
+          ('cavo_piu_sotto', -81.0, 8.5, zt - 8.0, -77.0, yc + 2.0, zt - 4.0),
+          ('cavo_meno', -76.0, 0.0, zt - 4.0, -72.0, yc + 2.0, zt),
+          ('bilanciamento_centro', -80.5, -9.0, zl - 3.0, -77.5, 0.0, zl),
+          ('bilanciamento', -80.5, -yc - 1.5, zt - 3.0, -77.5, -8.5, zt)]
+    return urti_scatole(des, root, sc, ('Rif_Batteria_2S5200',))
+
+
+def led_spie(des, root, dx=0.0):
+    """LED delle spie dei rail (X13, Ø3 x 5,3 con il colletto Ø3,8 x 1, S) con il colletto nella lamatura della linguetta e
+    la cupola verso la porta di coda; dx lo sposta verso F1 (caso di controllo: dx 1,4 = LED senza lamatura)."""
+    xi = -_mm(des, 'cor_tun_x0') + 1.4 + dx                     # faccia interna della linguetta
+    hc = _mm(des, 'luc_spia_col_h')
+    out = []
+    for y in (17.0, -17.0):
+        out.append(('led_colletto', _cil_mm((xi - hc, y, 0.0), (xi - hc + 1.0, y, 0.0), 3.8)))
+        out.append(('led_corpo', _cil_mm((xi - hc - 4.3, y, 0.0), (xi - hc, y, 0.0), 3.0)))
+    return _urti_temporanei(out, _corpi_mondo([_corpo(root)])) or 'nessuno'
+
+
 def stato(des, root):
     out = {'zampe': {n: o.name for n, o in mappa_zampe(des, root).items()},
            'giunti_coxa': {j.name: round(A['valore_giunto'](j), 2) for j in root.asBuiltJoints if j.name.startswith('G_coxa_')},
@@ -669,9 +797,9 @@ def main(passi, **kw):
         if 'istanze_corpo' in passi:
             out['istanze_corpo'] = fai_istanze_corpo(des, root)
         if 'pulisci_istanze' in passi:
-            out['pulisci_istanze'] = pulisci_istanze(des, root)
+            out['pulisci_istanze'] = pulisci_istanze(des, root, kw.get('tolleranza', 1.0))
         if 'istanze_nuove' in passi:
-            out['istanze_nuove'] = fai_istanze_nuove(des, root)
+            out['istanze_nuove'] = fai_istanze_nuove(des, root, kw.get('tolleranza', 1.0))
         if 'controllo' in passi:
             out['controllo'] = controllo_corpo(des, root)
         if 'zampe' in passi:

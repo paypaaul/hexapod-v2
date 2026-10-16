@@ -76,7 +76,7 @@ PARAMETRI = [
     ('cor_vas_sp', '1.6 mm', 'mm', 'Vassoio: spessore del piano'),
     ('cor_vas_x0', '26 mm', 'mm', 'Vassoio: estremo posteriore (davanti alla SSC-32)'),
     ('cor_vas_x1', '82 mm', 'mm', 'Vassoio: estremo anteriore'),
-    ('cor_vas_col_d', '6 mm', 'mm', 'Vassoio: colonne della base sotto il vassoio con inserto M2 in cima (P-003, D-076: al posto dei distanziali B18, esagono 5,5 = Ø6,35)'),
+    ('cor_vas_col_d', '6.6 mm', 'mm', 'Vassoio: colonne della base sotto il vassoio con inserto M2 in cima (P-003, D-076): parete 1,6 (cul_ins_parete) attorno al foro Ø3,4; 1,2 dall IMU e 2,2 dall ADC'),
     ('cor_vas_svas', '0.9 mm', 'mm', 'Vassoio: svasatura a 90 gradi sui fori da 2,4 (testa M2 svasata Ø4,0 a 0,1 sotto la faccia, come cor_pimu_svas; P-003)'),
     # --- Wago in piedi sul ripiano delle baie posteriori, portafusibile F1 sul tetto in coda
     ('cor_wago_x', '31 mm', 'mm', 'Wago: X (negativa) del centro, sul ripiano della baia posteriore'),
@@ -96,6 +96,7 @@ PARAMETRI = [
     ('cor_fes_dente_h', '1 mm', 'mm', 'Tetto: profondita delle tacche della fascetta nei bordi della lingua (fascetta spessa circa 1 S)'),
     ('cor_sport_sp', '2 mm', 'mm', 'Sportello della batteria: spessore'),
     ('cor_sport_rebbio', '22.5 mm', 'mm', 'Sportello: rebbi che premono il pacco contro la battuta: pacco misurato 139,65 (Q-17) piu schiuma EVA da 3 (D10) compressa di 0,75 (P-007)'),
+    ('cor_sport_rebbio_luce', '8.5 mm', 'mm', 'Sportello: luce fra la cima dei rebbi e il tetto (rebbi fino a z -19,9), per i cavi del pacco dal centro alle fessure: due 12 AWG Ø4 S uno sull altro piu 0,5'),
     ('cor_sport_vite_y', '28.5 mm', 'mm', 'Sportello: Y delle due viti in basso, nei blocchetti della chiglia (2,3 mm dal mozzo della coxa posteriore)'),
     ('cor_sport_vite_z', '36.7 mm', 'mm', 'Sportello: Z (negativa) delle viti, a meta altezza della chiglia'),
     ('cor_sport_blocco', '8 mm', 'mm', 'Chiglia: lunghezza lungo X dei blocchetti delle viti dello sportello'),
@@ -183,11 +184,11 @@ PARAMETRI = [
     ('cor_ads_y', '9.6 mm', 'mm', 'ADC: Y del centro (0,5 dalla colonnina del carapace a x 40)'),
     ('cor_pre_x', '56 mm', 'mm', 'Prese dei piedi (X5): X del centro della fila, fuori dal vassoio (si raggiungono a carapace tolto)'),
     ('cor_pre_y', '23.4 mm', 'mm', 'Prese dei piedi: Y del centro della fila, verso il fianco del tunnel; a -Y le prese delle luci delle tibie (D-069)'),
-    ('cor_vas_asola_x', '50 mm', 'mm', 'Vassoio: centro dell asola dei fili del bus dei sensori'),
+    ('cor_vas_asola_x', '30 mm', 'mm', 'Vassoio: centro dell asola dei fili del bus dei sensori, dietro la colonnina del carapace (40; 22,5) e fuori dalla fila delle prese dei piedi (da x 48,25); la spina Qwiic va nella presa di coda dell ADC (x 39), quella di testa e chiusa dalla colonna (75; 12,5)'),
     ('cor_vas_asola_y0', '18 mm', 'mm', 'Vassoio: inizio dell asola del bus, fuori dalla basetta (bordo a y 17,5; P-019)'),
     ('cor_vas_asola_l', '7 mm', 'mm', 'Vassoio: lunghezza dell asola del bus lungo X (spina Qwiic JST SH 4 poli circa 6 x 4,3 x 2,9 S; P-019)'),
     ('cor_vas_asola_w', '4 mm', 'mm', 'Vassoio: larghezza dell asola del bus lungo Y (P-019)'),
-    ('cor_vas_ala_bordo', '1.5 mm', 'mm', 'Vassoio: bordo dell ala attorno all asola del bus (il piano finisce a y 16,5; colonnina del carapace a x 43,7)'),
+    ('cor_vas_ala_bordo', '1.5 mm', 'mm', 'Vassoio: bordo dell ala attorno all asola del bus (il piano finisce a y 16,5; colonnina del carapace da x 36,3)'),
     ('cor_tof_ang', '20 deg', 'deg', 'ToF frontale (X8): inclinazione verso il basso (vede il pavimento davanti ai piedi anteriori)'),
     ('cor_tof_x', '94.4 mm', 'mm', 'ToF frontale: X del centro del retro della scheda (cima davanti a 0,4 dalla bugna dell occhio)'),
     ('cor_tof_z', '9.5 mm', 'mm', 'ToF frontale: Z del centro del retro della scheda (cima 0,2 sotto la testa della camera)'),
@@ -223,6 +224,8 @@ PARAMETRI = [
     ('luc_lobo_l', '22 mm', 'mm', 'Luce dei lobi: lunghezza della sede (striscia di 2 pixel)'),
     ('luc_lobo_w', '5 mm', 'mm', 'Luce dei lobi: larghezza della sede'),
     ('luc_spia_d', '3.1 mm', 'mm', 'Spie dei rail (X13): fori dei LED da 3 mm nelle linguette di coda'),
+    ('luc_spia_col_d', '4.2 mm', 'mm', 'Spie dei rail: lamatura del colletto del LED da 3 (Ø3,8 S) sulla faccia interna della linguetta'),
+    ('luc_spia_col_h', '1 mm', 'mm', 'Spie dei rail: profondita della lamatura (colletto 1,0 S): il LED sporge verso la porta e resta fuori da F1'),
     ('zai_x', '2 mm', 'mm', 'Zaino: X del centro dei fori, sopra l ottagono (lontano dall antenna dell ESP32, da x 55,6)'),
     ('zai_bugna_d', '5.5 mm', 'mm', 'Zaino: bugne degli inserti M2 sotto la pelle (fori 2,7 del Radxa: viti M2)'),
     ('aud_mic_x', '89.3 mm', 'mm', 'Microfoni (X16): X dei fori nella fascia, sopra la testa (scheda fra le paratie, a x 82,6, e lo smusso del viso)'),
@@ -234,6 +237,8 @@ PARAMETRI = [
     ('sch_x', 'sch_x0 + sch_w / 2', 'mm', 'Scheda del carapace: X del centro, appesa al dorso davanti all ottagono'),
     ('sch_vite_xp', 'sch_x0 + sch_test_p + 3.15 mm', 'mm', 'Scheda del carapace: X delle viti di coda, davanti alla testata (testa M2 Ø3,8 a 1,25 dalla scatola)'),
     ('sch_vite_xa', 'sch_x0 + sch_w - 3 mm', 'mm', 'Scheda del carapace: X delle viti anteriori (bugna Ø5,5 dentro la scheda)'),
+    ('sch_bugna_h', '2.9 mm', 'mm', 'Scheda del carapace: bugne (erano 3,5 come l ampli): la scheda sale di 0,6 e la chiave della spina IDC passa 0,54 sopra le USB-C dell ESP32 (z 20,86)'),
+    ('sch_ins_l', 'sch_bugna_h + car_sp - car_fascia_h - 0.5 mm', 'mm', 'Scheda del carapace: foro dell inserto M2 (3 + 0,4): sotto la fascia restano 0,5 di dorso come prima; vite M2 x 4 (2,4 nell inserto)'),
     # versione 2.1.6 (D-074): doppia predisposizione di IMU e microfoni, amplificatore generico, altoparlante tondo
     ('cor_mpu_y', '-(7.6 mm)', 'mm', 'IMU GY-6500 (X4): Y del centro, pin verso +Y (0,6 dal bordo dell ADC, 0,65 dalla parete del vano) S'),
     ('cor_pimu_sp', '2.5 mm', 'mm', 'Piastrina della GY-6500: spessore (M2 x 5 svasate: restano 2,5 nell inserto della bugna)'),
@@ -513,7 +518,7 @@ def fai_sportello(corpo):
     p.blocco('z', zt + ' - 1.6 mm', 'linguetta', '-(cor_tun_x0)', '-(8 mm)', '-(cor_tun_x0) + cor_sport_ling', '8 mm', '1.2 mm')
     # rebbi che premono il pacco (con la schiuma) contro la battuta anteriore; tra i due passano i cavi della batteria
     for lato, y in (('s', '12 mm'), ('d', '-(12 mm)')):
-        p.blocco('x', '-(cor_tun_x0)', 'rebbio_' + lato, y + ' - 2 mm', '-(29 mm)', y + ' + 2 mm', zt + ' - 4 mm',
+        p.blocco('x', '-(cor_tun_x0)', 'rebbio_' + lato, y + ' - 2 mm', '-(29 mm)', y + ' + 2 mm', zt + ' - cor_sport_rebbio_luce',
                  'cor_sport_rebbio', 1)
     # smusso 1 x 45 sul contorno della faccia esterna: con le guance del carapace fa la cornice della porta (D-061)
     xe = -(p.val('cor_tun_x0') + p.val('cor_sport_sp'))
@@ -1005,6 +1010,24 @@ def _prese(p, zt, y, suffisso):
              'cor_pre_x + pre_l / 2 + 0.2 mm', '%s + pre_w / 2 + 0.2 mm' % y, '2.5 mm', 1, TAGLIA)
 
 
+def _lamature_spie(p):
+    """Lamature del colletto dei LED delle spie (X13) sulla faccia interna delle linguette: il LED sporge verso la porta di
+    coda e resta fuori dall'ingombro di F1 (da x -83,4; verifica della 2.1.7, prima entrava per 23,3 mm3)."""
+    for lato, yc in (('s', '17 mm'), ('d', '-(17 mm)')):
+        p.cilindro('x', '-(cor_tun_x0) + 1.4 mm', 'lamatura_spia_' + lato, yc, '0 mm', 'luc_spia_col_d', 'luc_spia_col_h', -1, TAGLIA)
+
+
+def fai_lamature_spie(corpo):
+    """Solo per la base della 2.1.7, una volta: aggiunge le lamature delle spie, che fai_base_predisposizioni fa gia'."""
+    occ = L['trova_occ'](corpo.component, 'Corpo_Base')[0]
+    T0['Corpo_Base_lamature_spie'] = corpo.component.parentDesign.timeline.count
+    p = Parte(occ.component)
+    p.gruppo = 'Corpo_Base_lamature_spie'
+    _lamature_spie(p)
+    p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 3)}
+    return occ, p
+
+
 def fai_prese_luci(corpo):
     """Solo per la base della 2.1.0, una volta (D-069): aggiunge la fila delle prese delle luci delle tibie, che
     fai_base_predisposizioni fa gia'."""
@@ -1050,6 +1073,7 @@ def fai_base_predisposizioni(corpo):
     for lato, (y0, y1, yc) in (('s', ('14 mm', '20 mm', '17 mm')), ('d', ('-(20 mm)', '-(14 mm)', '-(17 mm)'))):
         p.blocco('x', '-(cor_tun_x0)', 'linguetta_spia_' + lato, y0, zt, y1, '4 mm', '1.4 mm')
         p.cilindro('x', '-(cor_tun_x0)', 'foro_spia_' + lato, yc, '0 mm', 'luc_spia_d', '1.4 mm', 1, TAGLIA)
+    _lamature_spie(p)
     p.info = {'corpi': occ.component.bRepBodies.count, 'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 2)}
     return occ, p
 
@@ -1128,11 +1152,14 @@ def fai_carapace_predisposizioni(corpo):
     # scheda del carapace e amplificatore: bugne con inserti M2 (fori C), inserti messi da sotto. L'amplificatore ha i fori
     # sul lato della morsettiera, verso +X (D-074: prima erano in diagonale, sbagliati anche per la Adafruit)
     # scheda: le viti di coda stanno davanti alla testata a 90 gradi sul bordo di coda (P-002, D-076)
+    # le bugne della scheda sono piu' basse (sch_bugna_h, verifica della 2.1.7): il foro dell'inserto parte dal piano
+    # delle bugne dell'ampli (3,5), che e' lo stesso schizzo, e arriva a sch_ins_l sopra la bugna
     for nome, x, y in (('sch_a', 'sch_vite_xp', '12.5 mm'), ('sch_b', 'sch_vite_xa', '12.5 mm'),
                        ('sch_c', 'sch_vite_xp', '-(12.5 mm)'), ('sch_d', 'sch_vite_xa', '-(12.5 mm)'),
                        ('amp_a', 'aud_amp_x + aud_amp_fori_x', '-(aud_amp_fori / 2)'), ('amp_b', 'aud_amp_x + aud_amp_fori_x', 'aud_amp_fori / 2')):
-        p.cilindro('z', zs, 'bugna_' + nome, x, y, '5.5 mm', '3.5 mm', -1)
-        p.cilindro('z', zs + ' - 3.5 mm', 'ins_' + nome, x, y, 'ins_m2_d', 'ins_m2_l', 1, TAGLIA)
+        sch = nome.startswith('sch')
+        p.cilindro('z', zs, 'bugna_' + nome, x, y, '5.5 mm', 'sch_bugna_h' if sch else '3.5 mm', -1)
+        p.cilindro('z', zs + ' - 3.5 mm', 'ins_' + nome, x, y, 'ins_m2_d', '3.5 mm - sch_bugna_h + sch_ins_l' if sch else 'ins_m2_l', 1, TAGLIA)
     # altoparlante tondo sulla guancia destra (due guide, si infila da dietro fino al fermo; D-074); ToF posteriore su
     # un piano inclinato a sinistra
     for k, (z0, z1) in (('basso', ('aud_alt_z - aud_altt_d / 2 - 1 mm', 'aud_alt_z - aud_altt_d / 2 - 0.2 mm')),
@@ -1315,7 +1342,7 @@ def main(passi, **kw):
                         ('carapace', fai_carapace), ('carapace_dettagli', fai_carapace_dettagli), ('fascia', fai_fascia),
                         ('visiera', fai_visiera), ('gonne', fai_gonne), ('tappo_tof', fai_tappo_tof),
                         ('supporto_ina_s', lambda c: fai_supporto_ina(c, 1)), ('supporto_ina_d', lambda c: fai_supporto_ina(c, -1)),
-                        ('sportellino_zaino', fai_sportellino_zaino), ('fondo_anello', fai_fondo_anello), ('prese_luci', fai_prese_luci),
+                        ('sportellino_zaino', fai_sportellino_zaino), ('fondo_anello', fai_fondo_anello), ('prese_luci', fai_prese_luci), ('lamature_spie', fai_lamature_spie),
                         ('base_predisposizioni', fai_base_predisposizioni),
                         ('carapace_predisposizioni', fai_carapace_predisposizioni),
                         ('piastrina_imu', fai_piastrina_imu), ('lunette_microfoni', fai_lunette_microfoni)):
