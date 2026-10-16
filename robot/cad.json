@@ -1,7 +1,7 @@
 {
  "versione": "2.1.6",
  "documento": "Hexapod v2.1.0 v14",
- "esportato": "2026-10-11T18:55:10",
+ "esportato": "2026-10-16T12:54:08",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -201,14 +201,14 @@
  },
  "masse": {
   "segmenti_g": {
-   "corpo": 1069.4,
+   "corpo": 1071.5,
    "coxa": 94.1,
    "femore": 63.3,
    "tibia": 111.9
   },
-  "modellato_g": 2685.0,
+  "modellato_g": 2687.2,
   "non_modellato_g": 360.0,
-  "atteso_g": 3045.0,
+  "atteso_g": 3047.2,
   "nota": "stampate con pareti 1,2 mm e riempimento 25 %, comprate con la massa dichiarata; il non modellato (cavi, viteria) va distribuito sul corpo"
  },
  "parti": {
@@ -266,55 +266,28 @@
    "materiale": "PETG-CF",
    "segmento": "corpo"
   },
-  "Corpo_Base": {
-   "massa_g": 199.24,
-   "baricentro_mm": [
-    0.78,
-    0.0,
-    -16.502
-   ],
-   "inerzia_gmm2": [
-    [
-     434306.1,
-     -12.9,
-     1730.9
-    ],
-    [
-     -12.9,
-     814640.4,
-     -1.0
-    ],
-    [
-     1730.9,
-     -1.0,
-     1193236.8
-    ]
-   ],
-   "materiale": "PETG-CF",
-   "segmento": "corpo"
-  },
   "Corpo_Sportello": {
-   "massa_g": 7.11,
+   "massa_g": 7.89,
    "baricentro_mm": [
-    -83.091,
+    -81.37,
     -0.0,
-    -24.316
+    -24.107
    ],
    "inerzia_gmm2": [
     [
-     2011.5,
+     2139.6,
      -0.0,
-     -55.3
+     -81.2
     ],
     [
      -0.0,
-     666.3,
-     -0.0
+     896.7,
+     0.0
     ],
     [
-     -55.3,
-     -0.0,
-     1748.0
+     -81.2,
+     0.0,
+     2076.3
     ]
    ],
    "materiale": "PETG-CF",
@@ -761,7 +734,7 @@
    ],
    "inerzia_gmm2": [
     [
-     1082.6,
+     1113.6,
      -0.0,
      -82.3
     ],
@@ -773,7 +746,7 @@
     [
      -82.3,
      -0.0,
-     5272.8
+     5303.8
     ]
    ],
    "materiale": "comprato",
@@ -1049,33 +1022,6 @@
    "materiale": "PETG-CF",
    "segmento": "corpo"
   },
-  "Corpo_Vassoio": {
-   "massa_g": 7.6,
-   "baricentro_mm": [
-    70.961,
-    -0.068,
-    7.018
-   ],
-   "inerzia_gmm2": [
-    [
-     699.1,
-     -10.9,
-     -661.8
-    ],
-    [
-     -10.9,
-     3648.7,
-     -2.7
-    ],
-    [
-     -661.8,
-     -2.7,
-     3692.2
-    ]
-   ],
-   "materiale": "PLA",
-   "segmento": "corpo"
-  },
   "Rif_Prese_Piedi": {
    "massa_g": 3.0,
    "baricentro_mm": [
@@ -1179,33 +1125,6 @@
      -0.0,
      27.3,
      124.3
-    ]
-   ],
-   "materiale": "comprato",
-   "segmento": "corpo"
-  },
-  "Rif_Scheda_Carapace": {
-   "massa_g": 5.0,
-   "baricentro_mm": [
-    39.5,
-    0.0,
-    26.4
-   ],
-   "inerzia_gmm2": [
-    [
-     408.7,
-     -0.0,
-     0.0
-    ],
-    [
-     -0.0,
-     200.4,
-     0.0
-    ],
-    [
-     0.0,
-     0.0,
-     541.7
     ]
    ],
    "materiale": "comprato",
@@ -1400,33 +1319,6 @@
    "materiale": "PETG-CF",
    "segmento": "corpo"
   },
-  "Corpo_Carapace": {
-   "massa_g": 63.19,
-   "baricentro_mm": [
-    1.297,
-    0.144,
-    32.101
-   ],
-   "inerzia_gmm2": [
-    [
-     109753.8,
-     855.8,
-     236.0
-    ],
-    [
-     855.8,
-     277781.5,
-     97.8
-    ],
-    [
-     236.0,
-     97.8,
-     381571.0
-    ]
-   ],
-   "materiale": "PLA",
-   "segmento": "corpo"
-  },
   "Rif_IMU_MPU6500": {
    "massa_g": 1.5,
    "baricentro_mm": [
@@ -1587,6 +1479,114 @@
     ]
    ],
    "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Corpo_Vassoio": {
+   "massa_g": 7.74,
+   "baricentro_mm": [
+    70.598,
+    0.215,
+    6.925
+   ],
+   "inerzia_gmm2": [
+    [
+     746.6,
+     34.3,
+     -676.4
+    ],
+    [
+     34.3,
+     3719.4,
+     8.5
+    ],
+    [
+     -676.4,
+     8.5,
+     3802.8
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Corpo_Carapace": {
+   "massa_g": 63.43,
+   "baricentro_mm": [
+    1.191,
+    0.095,
+    32.063
+   ],
+   "inerzia_gmm2": [
+    [
+     110031.7,
+     560.3,
+     -11.7
+    ],
+    [
+     560.3,
+     279740.3,
+     37.2
+    ],
+    [
+     -11.7,
+     37.2,
+     383687.8
+    ]
+   ],
+   "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Rif_Scheda_Carapace": {
+   "massa_g": 5.0,
+   "baricentro_mm": [
+    32.266,
+    0.0,
+    25.913
+   ],
+   "inerzia_gmm2": [
+    [
+     358.7,
+     -0.0,
+     -46.6
+    ],
+    [
+     -0.0,
+     286.6,
+     -0.0
+    ],
+    [
+     -46.6,
+     -0.0,
+     555.2
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Corpo_Base": {
+   "massa_g": 200.2,
+   "baricentro_mm": [
+    1.071,
+    0.0,
+    -16.441
+   ],
+   "inerzia_gmm2": [
+    [
+     434580.0,
+     -12.9,
+     1055.6
+    ],
+    [
+     -12.9,
+     817630.9,
+     -1.0
+    ],
+    [
+     1055.6,
+     -1.0,
+     1196180.2
+    ]
+   ],
+   "materiale": "PETG-CF",
    "segmento": "corpo"
   },
   "Rif_Servo_MG996R_7": {
@@ -2076,27 +2076,27 @@
    "segmento": "tibia"
   },
   "Cover_Tibia": {
-   "massa_g": 15.7,
+   "massa_g": 15.68,
    "baricentro_mm": [
-    133.824,
-    -0.715,
-    -34.887
+    133.827,
+    -0.716,
+    -34.826
    ],
    "inerzia_gmm2": [
     [
-     16620.5,
+     16570.6,
      4.6,
-     -1034.7
+     -1032.8
     ],
     [
      4.6,
-     13148.9,
-     261.9
+     13098.9,
+     261.2
     ],
     [
-     -1034.7,
-     261.9,
-     4315.8
+     -1032.8,
+     261.2,
+     4315.6
     ]
    ],
    "materiale": "PLA",
@@ -2157,27 +2157,27 @@
    "segmento": "tibia"
   },
   "Tibia": {
-   "massa_g": 36.5,
+   "massa_g": 36.52,
    "baricentro_mm": [
-    121.682,
-    -3.51,
-    -47.352
+    121.67,
+    -3.518,
+    -47.333
    ],
    "inerzia_gmm2": [
     [
-     36009.1,
-     -195.3,
-     841.2
+     36021.0,
+     -193.2,
+     842.7
     ],
     [
-     -195.3,
-     32855.5,
-     3977.7
+     -193.2,
+     32858.9,
+     3987.4
     ],
     [
-     841.2,
-     3977.7,
-     6544.8
+     842.7,
+     3987.4,
+     6553.1
     ]
    ],
    "materiale": "PETG-CF",
@@ -4827,10 +4827,10 @@
    "commento": "ESP32: sporgenza del modulo con l antenna oltre il PCB (4,7-4,9) S"
   },
   "esp_file": {
-   "valore": 24.7,
+   "valore": 25.4,
    "unita": "mm",
-   "espressione": "24.7 mm",
-   "commento": "ESP32: interasse delle due file di pin C"
+   "espressione": "25.4 mm",
+   "commento": "ESP32: interasse delle due file di pin, 10 passi da 2,54 (Keyestudio MB0200, Freenove); il 24,7 del disegno e fra le facce interne dei pin (P-005, D-076) S"
   },
   "cam_testa": {
    "valore": 8.5,
@@ -5820,7 +5820,7 @@
    "valore": 6.0,
    "unita": "mm",
    "espressione": "6 mm",
-   "commento": "Vassoio: diametro delle colonnine"
+   "commento": "Vassoio: colonne della base sotto il vassoio con inserto M2 in cima (P-003, D-076: al posto dei distanziali B18, esagono 5,5 = Ø6,35)"
   },
   "cor_cam_x": {
    "valore": 92.5,
@@ -5853,10 +5853,10 @@
    "commento": "Sportello della batteria: spessore"
   },
   "cor_sport_rebbio": {
-   "valore": 17.0,
+   "valore": 22.5,
    "unita": "mm",
-   "espressione": "17 mm",
-   "commento": "Sportello: lunghezza dei rebbi che premono il pacco (con schiuma) contro la battuta"
+   "espressione": "22.5 mm",
+   "commento": "Sportello: rebbi che premono il pacco contro la battuta: pacco misurato 139,65 (Q-17) piu schiuma EVA da 3 (D10) compressa di 0,75 (P-007)"
   },
   "cor_gonna_sp": {
    "valore": 1.2,
@@ -5904,7 +5904,7 @@
    "valore": 20.5,
    "unita": "mm",
    "espressione": "20.5 mm",
-   "commento": "Tetto: fessure dei cavi accanto ai capi del portafusibile F1 (|y| da 20,5 a 25)"
+   "commento": "Tetto: fessure dei cavi accanto ai capi del portafusibile F1 (|y| da 20,5 a 25), aperte verso la coda (P-001, D-076)"
   },
   "cor_serv_x0": {
    "valore": -20.0,
@@ -5988,7 +5988,7 @@
    "valore": 3.3,
    "unita": "mm",
    "espressione": "3.3 mm",
-   "commento": "Basetta: luce sopra il vassoio (sotto ci sono le teste M3 alte 3 e le saldature)"
+   "commento": "Basetta: luce sopra il vassoio per le saldature (D-053; le viti del vassoio sono svasate a filo, P-003)"
   },
   "cor_bas_col_d": {
    "valore": 5.8,
@@ -6675,10 +6675,10 @@
    "commento": "Tibia: inizio della sede della striscia, al fondo della culla"
   },
   "luc_tib_z1": {
-   "valore": 80.0,
+   "valore": 83.0,
    "unita": "mm",
-   "espressione": "cov_tib_fin_z1",
-   "commento": "Tibia: fine della sede della striscia, con la finestra del guscio"
+   "espressione": "cov_tib_fin_z1 + 3 mm",
+   "commento": "Tibia: fine della sede della striscia (Z -83,5 con lo 0,5 del taglio: 50,5 per i 6 pixel da 50 a 120 LED/m, P-062); i LED restano nella finestra"
   },
   "luc_dif_sp": {
    "valore": 0.6,
@@ -6921,16 +6921,16 @@
    "commento": "Scheda del carapace (X2): lunghezza S"
   },
   "sch_w": {
-   "valore": 20.0,
+   "valore": 21.5,
    "unita": "mm",
-   "espressione": "20 mm",
-   "commento": "Scheda del carapace: larghezza S"
+   "espressione": "21.5 mm",
+   "commento": "Scheda del carapace: larghezza lungo X, dal bordo della testata (P-002) a 0,85 dall amplificatore S"
   },
   "sch_sp": {
-   "valore": 9.0,
+   "valore": 10.6,
    "unita": "mm",
-   "espressione": "9 mm",
-   "commento": "Scheda del carapace: spessore con la spina IDC S"
+   "espressione": "sch_pcb + sch_test_h",
+   "commento": "Scheda del carapace: ingombro in altezza, millefori e testata a 90 gradi sotto (P-002)"
   },
   "pre_l": {
    "valore": 15.5,
@@ -7221,10 +7221,10 @@
    "commento": "Amplificatore (X17): X del centro, appeso al dorso davanti alla scheda del carapace, sopra il flat"
   },
   "sch_x": {
-   "valore": 39.5,
+   "valore": 40.25,
    "unita": "mm",
-   "espressione": "39.5 mm",
-   "commento": "Scheda del carapace (X2): X del centro, appesa al dorso davanti all ottagono"
+   "espressione": "sch_x0 + sch_w / 2",
+   "commento": "Scheda del carapace: X del centro, appesa al dorso davanti all ottagono"
   },
   "att_sp": {
    "valore": 3.0,
@@ -7383,10 +7383,10 @@
    "commento": "Tibia: centro in Y della gola dei fili sulla parete +X della culla (fuori dai rombi, |Y+5| > 8,5, sotto l orlo a 9,45)"
   },
   "tib_fermo_w": {
-   "valore": 4.0,
+   "valore": 4.5,
    "unita": "mm",
-   "espressione": "4 mm",
-   "commento": "Tibia: larghezza della gola dei fili (doppino dell FSR 28 AWG siliconico, Ø0,9 S, e 3 fili della striscia da 30 AWG, Ø0,5-0,75: 3,3-4,05)"
+   "espressione": "4.5 mm",
+   "commento": "Tibia: larghezza della gola dei fili (doppino dell FSR 28 AWG siliconico, Ø0,9 S, e 3 fili della striscia da 30 AWG, Ø0,5-0,75: 3,3-4,05; 4,5 con 0,45 di margine, P-063, D-076)"
   },
   "tib_fermo_p": {
    "valore": 0.8,
@@ -7669,6 +7669,276 @@
    "unita": "mm",
    "espressione": "6 mm",
    "commento": "Lunette dei microfoni: meta larghezza (a 6,45 toccavano lo smusso del viso da x 95,3)"
+  },
+  "sch_pcb": {
+   "valore": 1.6,
+   "unita": "mm",
+   "espressione": "1.6 mm",
+   "commento": "Scheda del carapace: spessore della millefori S"
+  },
+  "sch_test_l": {
+   "valore": 27.98,
+   "unita": "mm",
+   "espressione": "27.98 mm",
+   "commento": "Testata 2 x 8 a 90 gradi Wurth 61201621721 (WR-BHD): lunghezza (disegno Wurth) V"
+  },
+  "sch_test_p": {
+   "valore": 8.85,
+   "unita": "mm",
+   "espressione": "8.85 mm",
+   "commento": "Testata a 90 gradi: profondita della scatola dal bordo della scheda (disegno Wurth) V"
+  },
+  "sch_test_h": {
+   "valore": 9.0,
+   "unita": "mm",
+   "espressione": "9 mm",
+   "commento": "Testata a 90 gradi: altezza sotto la scheda (disegno Wurth) V"
+  },
+  "sch_spina_l": {
+   "valore": 25.0,
+   "unita": "mm",
+   "espressione": "25 mm",
+   "commento": "Spina IDC 2 x 8 Wurth 61201623021: lunghezza (disegno Wurth) V"
+  },
+  "sch_spina_sp": {
+   "valore": 6.0,
+   "unita": "mm",
+   "espressione": "6 mm",
+   "commento": "Spina IDC: spessore del corpo, 7 con la chiave larga 3,7 (disegno Wurth) V"
+  },
+  "sch_spina_fuori": {
+   "valore": 10.0,
+   "unita": "mm",
+   "espressione": "10 mm",
+   "commento": "Spina IDC: sporgenza dalla testata verso la coda, corpo con fermacavo 11,4 meno l innesto, piu il cavo piegato S"
+  },
+  "sch_spina_z": {
+   "valore": 4.5,
+   "unita": "mm",
+   "espressione": "4.5 mm",
+   "commento": "Spina IDC: asse sotto la scheda (meta della testata; file dei pin a circa 3,2 e 5,8, lette sul disegno Wurth) S"
+  },
+  "cor_vas_svas": {
+   "valore": 0.9,
+   "unita": "mm",
+   "espressione": "0.9 mm",
+   "commento": "Vassoio: svasatura a 90 gradi sui fori da 2,4 (testa M2 svasata Ø4,0 a 0,1 sotto la faccia, come cor_pimu_svas; P-003)"
+  },
+  "cor_fes_dente_x": {
+   "valore": 76.0,
+   "unita": "mm",
+   "espressione": "76 mm",
+   "commento": "Tetto: X (negativa) della fascetta di F1 sulla lingua fra le fessure (D-055)"
+  },
+  "cor_fes_dente_w": {
+   "valore": 2.9,
+   "unita": "mm",
+   "espressione": "2.9 mm",
+   "commento": "Tetto: tacche della fascetta di F1 sui bordi della lingua, lungo X (fascetta D11 da 2,5 piu 0,2 per lato; P-001)"
+  },
+  "cor_fes_dente_h": {
+   "valore": 1.0,
+   "unita": "mm",
+   "espressione": "1 mm",
+   "commento": "Tetto: profondita delle tacche della fascetta nei bordi della lingua (fascetta spessa circa 1 S)"
+  },
+  "cor_vas_asola_y0": {
+   "valore": 18.0,
+   "unita": "mm",
+   "espressione": "18 mm",
+   "commento": "Vassoio: inizio dell asola del bus, fuori dalla basetta (bordo a y 17,5; P-019)"
+  },
+  "cor_vas_asola_l": {
+   "valore": 7.0,
+   "unita": "mm",
+   "espressione": "7 mm",
+   "commento": "Vassoio: lunghezza dell asola del bus lungo X (spina Qwiic JST SH 4 poli circa 6 x 4,3 x 2,9 S; P-019)"
+  },
+  "cor_vas_asola_w": {
+   "valore": 4.0,
+   "unita": "mm",
+   "espressione": "4 mm",
+   "commento": "Vassoio: larghezza dell asola del bus lungo Y (P-019)"
+  },
+  "cor_vas_ala_bordo": {
+   "valore": 1.5,
+   "unita": "mm",
+   "espressione": "1.5 mm",
+   "commento": "Vassoio: bordo dell ala attorno all asola del bus (il piano finisce a y 16,5; colonnina del carapace a x 43,7)"
+  },
+  "sch_x0": {
+   "valore": 29.5,
+   "unita": "mm",
+   "espressione": "29.5 mm",
+   "commento": "Scheda del carapace (X2): bordo di coda, con la testata a 90 gradi a filo (P-002, D-076); la spina esce verso l ottagono"
+  },
+  "sch_vite_xp": {
+   "valore": 41.5,
+   "unita": "mm",
+   "espressione": "sch_x0 + sch_test_p + 3.15 mm",
+   "commento": "Scheda del carapace: X delle viti di coda, davanti alla testata (testa M2 Ø3,8 a 1,25 dalla scatola)"
+  },
+  "sch_vite_xa": {
+   "valore": 48.0,
+   "unita": "mm",
+   "espressione": "sch_x0 + sch_w - 3 mm",
+   "commento": "Scheda del carapace: X delle viti anteriori (bugna Ø5,5 dentro la scheda)"
+  },
+  "aud_rit_sp": {
+   "valore": 1.2,
+   "unita": "mm",
+   "espressione": "1.2 mm",
+   "commento": "Altoparlante tondo: spessore delle costole di ritegno sulle guide (P-008, D-076)"
+  },
+  "aud_rit_h": {
+   "valore": 1.5,
+   "unita": "mm",
+   "espressione": "1.5 mm",
+   "commento": "Altoparlante tondo: quanto le costole di ritegno coprono il bordo dell altoparlante"
+  },
+  "cor_tofp_fori": {
+   "valore": 12.7,
+   "unita": "mm",
+   "espressione": "12.7 mm",
+   "commento": "ToF posteriore Pololu VL53L1X #3415: interasse dei fori lungo il lato da 17,78 (0,5 pollici, disegno Pololu) V"
+  },
+  "cor_tofp_fori_y": {
+   "valore": 3.81,
+   "unita": "mm",
+   "espressione": "3.81 mm",
+   "commento": "ToF posteriore: fori dal centro della scheda verso il lato opposto ai pin (a 2,54 dal bordo, disegno Pololu) S"
+  },
+  "cor_tofp_pilota": {
+   "valore": 1.7,
+   "unita": "mm",
+   "espressione": "1.7 mm",
+   "commento": "ToF posteriore: fori pilota per le due M2 (come la piastrina della GY-6500; P-008)"
+  },
+  "cov_tib_lam_d": {
+   "valore": 6.0,
+   "unita": "mm",
+   "espressione": "6 mm",
+   "commento": "Guscio della tibia: lamatura piana sotto la testa della vite (testa DIN 912 Ø5,5 + 0,25 per lato, P-014)"
+  },
+  "tib_ins_guscio_l": {
+   "valore": 7.7,
+   "unita": "mm",
+   "espressione": "ins_m3_l + 1 mm",
+   "commento": "Tibia: profondita del foro dell inserto del guscio (con la lamatura la testa scende: la punta della M3 x 10 resta 0,66 sopra il fondo, P-014)"
+  },
+  "pied_stretta": {
+   "valore": 0.0,
+   "unita": "mm",
+   "espressione": "0 mm",
+   "commento": "Piedino: stretta della calza sullo stinco (spessore verso l interno); da tarare sul provino 6 con 0 / 0,2 / 0,4"
+  },
+  "att_bus_d": {
+   "valore": 5.5,
+   "unita": "mm",
+   "espressione": "5.5 mm",
+   "commento": "Bussola del perno: foro cieco (perno 5, gioco 0,25 per lato, P-065)"
+  },
+  "att_bus_prof": {
+   "valore": 5.4,
+   "unita": "mm",
+   "espressione": "perno_l - perno_sporge - fem_B_mozzo",
+   "commento": "Bussola del perno: fondo del foro dalla faccia del mozzo (sporgenza perno_sporge fuori)"
+  },
+  "att_bus_D": {
+   "valore": 20.0,
+   "unita": "mm",
+   "espressione": "20 mm",
+   "commento": "Bussola del perno: diametro (dentro la testa del femore, raggio fem_testa_r 13)"
+  },
+  "att_bus_fondo": {
+   "valore": 3.0,
+   "unita": "mm",
+   "espressione": "3 mm",
+   "commento": "Bussola del perno: fondo sotto il foro"
+  },
+  "att_bus_gio": {
+   "valore": 0.3,
+   "unita": "mm",
+   "espressione": "0.3 mm",
+   "commento": "Bussola del perno: gioco radiale e assiale della tasca del rialzo"
+  },
+  "att_estr_pilota_gio": {
+   "valore": 0.2,
+   "unita": "mm",
+   "espressione": "0.2 mm",
+   "commento": "Estrattore: gioco per lato della punta nel foro del cuscinetto (cus_d) e del perno (perno_foro)"
+  },
+  "att_estr_pilota_d": {
+   "valore": 4.6,
+   "unita": "mm",
+   "espressione": "cus_d - 2 * att_estr_pilota_gio",
+   "commento": "Estrattore: diametro della punta"
+  },
+  "att_estr_pilota_l": {
+   "valore": 6.0,
+   "unita": "mm",
+   "espressione": "fem_B_mozzo + cus_rialzo_h + 0.4 mm",
+   "commento": "Estrattore: lunghezza della punta (oltre il foro del perno da 5,6)"
+  },
+  "att_estr_d": {
+   "valore": 6.2,
+   "unita": "mm",
+   "espressione": "cus_rialzo_d",
+   "commento": "Estrattore: spalla che spinge solo l anello interno (come il rialzo; passa nel foro cus_passo_d)"
+  },
+  "att_estr_spalla_l": {
+   "valore": 10.0,
+   "unita": "mm",
+   "espressione": "10 mm",
+   "commento": "Estrattore: lunghezza della spalla (attraversa i 1,2 dietro la sede e entra nella sede del servo)"
+  },
+  "att_estr_gambo_d": {
+   "valore": 8.0,
+   "unita": "mm",
+   "espressione": "8 mm",
+   "commento": "Estrattore: gambo nella sede del servo (semilarghezza cul_sede_semi 10,45); si ferma sul fondo della culla"
+  },
+  "att_estr_gambo_l": {
+   "valore": 32.2,
+   "unita": "mm",
+   "espressione": "zy_orlo - zy_fondo_int + 3 mm",
+   "commento": "Estrattore: gambo; a fine corsa la testa resta 3 mm sopra l orlo della culla"
+  },
+  "att_estr_testa_d": {
+   "valore": 20.0,
+   "unita": "mm",
+   "espressione": "20 mm",
+   "commento": "Estrattore: testa su cui si preme"
+  },
+  "att_estr_testa_h": {
+   "valore": 5.0,
+   "unita": "mm",
+   "espressione": "5 mm",
+   "commento": "Estrattore: spessore della testa"
+  },
+  "att_tubo_gio": {
+   "valore": 0.4,
+   "unita": "mm",
+   "espressione": "0.4 mm",
+   "commento": "Estrattore: gioco per lato fra tubo e flangia del cuscinetto (cus_flangia_d, generici fino a 11,7)"
+  },
+  "att_tubo_d": {
+   "valore": 12.4,
+   "unita": "mm",
+   "espressione": "cus_flangia_d + 2 * att_tubo_gio",
+   "commento": "Estrattore: diametro interno del tubo d appoggio"
+  },
+  "att_tubo_D": {
+   "valore": 16.0,
+   "unita": "mm",
+   "espressione": "cul_mozzo_d",
+   "commento": "Estrattore: diametro esterno del tubo (il mozzo piano attorno al cuscinetto nella culla)"
+  },
+  "att_tubo_h": {
+   "valore": 15.0,
+   "unita": "mm",
+   "espressione": "perno_l + 3 mm",
+   "commento": "Estrattore: altezza del tubo (dentro ci cade un perno intero)"
   }
  }
 }

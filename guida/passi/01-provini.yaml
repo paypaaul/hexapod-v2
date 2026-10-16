@@ -95,7 +95,7 @@ passi:
     avvisi:
       - {tipo: attenzione, testo: "La punta e la plastica fusa scottano: appoggia il saldatore sul suo supporto."}
       - {tipo: importante, testo: "Mai inserti nei fori pilota Ø2,5 delle alette lato albero: lì la vite si fa il filetto da sola (D-049)."}
-      - {tipo: nota, testo: "Il CAD ha fori M3 profondi 6,7, pensati per inserti da 5,7. Con gli M3 × 5 o × 6 del kit restano 1,7 o 0,7 mm di fondo [V]. I 94 inserti M3 chiedono due lunghezze: il kit ne ha 50 per misura [V]."}
+      - {tipo: nota, testo: "Il CAD ha fori M3 profondi 6,7, pensati per inserti da 5,7. Con gli M3 × 5 o × 6 del kit restano 1,7 o 0,7 mm di fondo [V]. I 90 inserti M3 chiedono due lunghezze: il kit ne ha 50 per misura [V]."}
       - {tipo: nota, testo: "Nessuna fonte dà temperatura e tempo di posa per il PETG-CF: li trovi qui e li riusi nella sezione 3 [C]."}
     attrezzi: [saldatore_inserti, brugola_2_5, croce_ph0, calibro]
     fonti: [D-065, D-049, D-073, "docs/BOM.md D4, D5", "docs/dimensioni-componenti.md 'Regole per il CAD ereditate dalla prima versione'", "guida/problemi/provini.yaml"]

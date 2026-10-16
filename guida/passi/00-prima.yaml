@@ -109,7 +109,7 @@ passi:
     avvisi:
       - {tipo: importante, testo: "Le viti M3 × 8 delle alette lato albero non vanno in un inserto: si fanno il filetto da sole nei fori pilota Ø2,5 (D-049)."}
       - {tipo: nota, testo: "Le misure dei disegni sono quelle della norma (guida/catalogo/viteria.yaml); le viti del tuo kit possono differire di qualche decimo [C]."}
-    fonti: [guida/catalogo/viteria.yaml, docs/BOM.md D4 D5 D6 D7 D8 D8b B18, D-049, D-073]
+    fonti: [guida/catalogo/viteria.yaml, docs/BOM.md D4 D5 D6 D7 D8 D8b, D-049, D-073, D-076]
 
   - id: "0.04"
     titolo: Avvisi e dati marcati
@@ -392,13 +392,12 @@ passi:
         - ["Squadretta in alluminio a 25 denti", "18 + 2", "D3", ""]
         - ["Cuscinetto flangiato LF-1050ZZ 5 × 10 × 4", "18 + 6", "D1", ""]
         - ["Perno Ø5 × 12", "18 + 6", "D2", ""]
-        - ["Inserti a caldo M3 Ø4,2", "94", "D4", ""]
-        - ["Inserti a caldo M2 Ø3,2", "28 (46 con le predisposizioni)", "D5", ""]
-        - ["Viti M3 ISO 4762", "× 5: 12; × 6: 52; × 8: 106; × 10: 18; × 16: 2", "D6", ""]
+        - ["Inserti a caldo M3 Ø4,2", "90", "D4", ""]
+        - ["Inserti a caldo M2 Ø3,2", "32 (50 con le predisposizioni)", "D5", ""]
+        - ["Viti M3 ISO 4762", "× 5: 12; × 6: 48; × 8: 106; × 10: 18; × 16: 2", "D6", ""]
         - ["Rondelle M3 DIN 125", "48", "D7", ""]
         - ["Viti M2 × 5 a croce", "16", "D8", ""]
-        - ["Viti M2 × 5 svasate", "12 + 4", "D8b", ""]
-        - ["Distanziali M3 maschio-femmina da 5 mm", "4", "B18", ""]
+        - ["Viti M2 × 5 svasate", "16 + 4", "D8b", ""]
         - ["Fascette 2,5 mm e guaina spiralata", "1 conf. + 2 m", "D11", ""]
         - ["Schiuma EVA adesiva 3 mm", "1", "D10", ""]
     testo:
@@ -406,7 +405,7 @@ passi:
       - "Conta le viti per lunghezza: ne servono più di un assortimento normale."
     avvisi:
       - {tipo: nota, testo: "Cuscinetti e perni li procuri tu. Le quantità sono quelle del BOM 2.2 e dei totali contati dal modello (BOM, \"Viteria e inserti contati dal modello\")."}
-      - {tipo: importante, testo: "Il kit di inserti ha 50 pezzi per ogni lunghezza: per 94 M3 servono due lunghezze. Vedi l'appendice, inserti a caldo [C]."}
+      - {tipo: importante, testo: "Il kit di inserti ha 50 pezzi per ogni lunghezza: per 90 M3 servono due lunghezze. Vedi l'appendice, inserti a caldo [C]."}
     fonti: [docs/BOM.md A1 D1 D2 D3 D4 D5 D6 D7 D8 D8b D10 D11 B18, D-073, guida/catalogo/viteria.yaml totali_bom, guida/problemi/appendici.yaml]
 
   - id: "0.18"
@@ -492,7 +491,7 @@ passi:
       intestazione: [Cosa guardare, Perché, Prima di]
       righe:
         - ["Quale scheda ESP32-S3 CAM è la RE1.3", "La sigla è stampata sulla scheda", "stampare il vassoio"]
-        - ["Quanti inserti per lunghezza ci sono nel kit", "Servono 94 M3 e 28 M2 [C]", "sezione 3"]
+        - ["Quanti inserti per lunghezza ci sono nel kit", "Servono 90 M3 e 32 M2 [C]", "sezione 3"]
         - ["Misure degli inserti del kit Temu", "Fori da tarare sul provino", "sezione 1"]
         - ["Tipo di testa e lunghezze delle M3 nel kit da 918 viti", "Con M3 × 6 e × 8 cilindriche, D6 si riduce", "sezione 6"]
         - ["Diametro e altezza dei condensatori da 2200 µF", "Previsti 12,5–13 × 20–22 mm [S]", "montarli"]

@@ -1,5 +1,229 @@
 {
 "componenti": {
+"Attrezzo_Bussola_Perno": {
+"fori": [
+{
+"corpo": "Corpo1",
+"d": 5.5,
+"e0": [
+"fondo",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "foro",
+"origine": "estrusione",
+"p0": [
+0.0,
+0.0,
+7.7
+],
+"p1": [
+0.0,
+0.0,
+3.0
+]
+}
+]
+},
+"Attrezzo_Provino_Inserti": {
+"fori": [
+{
+"corpo": "Corpo1",
+"d": 2.9,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "foro_m2_2_9",
+"origine": "estrusione",
+"p0": [
+-13.5,
+-8.0,
+8.7
+],
+"p1": [
+-13.5,
+-8.0,
+4.7
+]
+},
+{
+"corpo": "Corpo1",
+"d": 3.0,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "foro_m2_3_0",
+"origine": "estrusione",
+"p0": [
+-4.5,
+-8.0,
+8.7
+],
+"p1": [
+-4.5,
+-8.0,
+4.7
+]
+},
+{
+"corpo": "Corpo1",
+"d": 3.1,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "foro_m2_3_1",
+"origine": "estrusione",
+"p0": [
+4.5,
+-8.0,
+8.7
+],
+"p1": [
+4.5,
+-8.0,
+4.7
+]
+},
+{
+"corpo": "Corpo1",
+"d": 3.4,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "foro_m2_3_4",
+"origine": "estrusione",
+"p0": [
+13.5,
+-8.0,
+8.7
+],
+"p1": [
+13.5,
+-8.0,
+4.7
+]
+},
+{
+"corpo": "Corpo1",
+"d": 3.9,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "foro_m3_3_9",
+"origine": "estrusione",
+"p0": [
+-13.5,
+4.0,
+8.7
+],
+"p1": [
+-13.5,
+4.0,
+2.0
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.0,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "foro_m3_4_0",
+"origine": "estrusione",
+"p0": [
+-4.5,
+4.0,
+8.7
+],
+"p1": [
+-4.5,
+4.0,
+2.0
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.1,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "foro_m3_4_1",
+"origine": "estrusione",
+"p0": [
+4.5,
+4.0,
+8.7
+],
+"p1": [
+4.5,
+4.0,
+2.0
+]
+},
+{
+"corpo": "Corpo1",
+"d": 4.2,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "foro_m3_4_2",
+"origine": "estrusione",
+"p0": [
+13.5,
+4.0,
+8.7
+],
+"p1": [
+13.5,
+4.0,
+2.0
+]
+}
+]
+},
 "Attrezzo_Provino_Tasche_Base": {
 "fori": [
 {
@@ -481,12 +705,12 @@ null
 "origine": "estrusione",
 "p0": [
 -85.4,
--19.0,
+-17.0,
 0.0
 ],
 "p1": [
 -84.0,
--19.0,
+-17.0,
 0.0
 ]
 },
@@ -505,12 +729,12 @@ null
 "origine": "estrusione",
 "p0": [
 -85.4,
-19.0,
+17.0,
 0.0
 ],
 "p1": [
 -84.0,
-19.0,
+17.0,
 0.0
 ]
 },
@@ -1332,7 +1556,7 @@ null
 },
 {
 "corpo": "Corpo1",
-"d": 4.2,
+"d": 3.4,
 "e0": [
 "aperto",
 null
@@ -1346,17 +1570,17 @@ null
 "p0": [
 75.0,
 12.5,
--4.0
+1.0
 ],
 "p1": [
 75.0,
 12.5,
--10.7
+-3.0
 ]
 },
 {
 "corpo": "Corpo1",
-"d": 4.2,
+"d": 3.4,
 "e0": [
 "aperto",
 null
@@ -1370,17 +1594,17 @@ null
 "p0": [
 75.0,
 -12.5,
--4.0
+1.0
 ],
 "p1": [
 75.0,
 -12.5,
--10.7
+-3.0
 ]
 },
 {
 "corpo": "Corpo1",
-"d": 4.2,
+"d": 3.4,
 "e0": [
 "aperto",
 null
@@ -1394,17 +1618,17 @@ null
 "p0": [
 30.0,
 12.5,
--4.0
+1.0
 ],
 "p1": [
 30.0,
 12.5,
--10.7
+-3.0
 ]
 },
 {
 "corpo": "Corpo1",
-"d": 4.2,
+"d": 3.4,
 "e0": [
 "aperto",
 null
@@ -1418,18 +1642,66 @@ null
 "p0": [
 30.0,
 -12.5,
--4.0
+1.0
 ],
 "p1": [
 30.0,
 -12.5,
--10.7
+-3.0
 ]
 }
 ]
 },
 "Corpo_Carapace": {
 "fori": [
+{
+"corpo": "Corpo1",
+"d": 1.7,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "",
+"origine": "",
+"p0": [
+-95.504,
+22.21,
+25.349
+],
+"p1": [
+-97.142,
+22.21,
+24.202
+]
+},
+{
+"corpo": "Corpo1",
+"d": 1.7,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "",
+"origine": "",
+"p0": [
+-88.219,
+22.21,
+14.946
+],
+"p1": [
+-89.858,
+22.21,
+13.798
+]
+},
 {
 "corpo": "Corpo1",
 "d": 3.4,
@@ -1492,12 +1764,12 @@ null
 "lav": "ins_sch_a",
 "origine": "estrusione",
 "p0": [
-32.0,
+41.5,
 12.5,
 30.9
 ],
 "p1": [
-32.0,
+41.5,
 12.5,
 34.9
 ]
@@ -1516,12 +1788,12 @@ null
 "lav": "ins_sch_b",
 "origine": "estrusione",
 "p0": [
-47.0,
+48.0,
 12.5,
 30.9
 ],
 "p1": [
-47.0,
+48.0,
 12.5,
 34.9
 ]
@@ -1540,12 +1812,12 @@ null
 "lav": "ins_sch_c",
 "origine": "estrusione",
 "p0": [
-32.0,
+41.5,
 -12.5,
 30.9
 ],
 "p1": [
-32.0,
+41.5,
 -12.5,
 34.9
 ]
@@ -1564,12 +1836,12 @@ null
 "lav": "ins_sch_d",
 "origine": "estrusione",
 "p0": [
-47.0,
+48.0,
 -12.5,
 30.9
 ],
 "p1": [
-47.0,
+48.0,
 -12.5,
 34.9
 ]
@@ -2492,13 +2764,13 @@ null
 },
 {
 "corpo": "Corpo1",
-"d": 3.4,
+"d": 2.4,
 "e0": [
 "aperto",
 null
 ],
 "e1": [
-"aperto",
+"svasato",
 null
 ],
 "lav": "foro_aa",
@@ -2511,18 +2783,18 @@ null
 "p1": [
 75.0,
 12.5,
-2.6
+1.7
 ]
 },
 {
 "corpo": "Corpo1",
-"d": 3.4,
+"d": 2.4,
 "e0": [
 "aperto",
 null
 ],
 "e1": [
-"aperto",
+"svasato",
 null
 ],
 "lav": "foro_ab",
@@ -2535,18 +2807,18 @@ null
 "p1": [
 75.0,
 -12.5,
-2.6
+1.7
 ]
 },
 {
 "corpo": "Corpo1",
-"d": 3.4,
+"d": 2.4,
 "e0": [
 "aperto",
 null
 ],
 "e1": [
-"aperto",
+"svasato",
 null
 ],
 "lav": "foro_pa",
@@ -2559,18 +2831,18 @@ null
 "p1": [
 30.0,
 12.5,
-2.6
+1.7
 ]
 },
 {
 "corpo": "Corpo1",
-"d": 3.4,
+"d": 2.4,
 "e0": [
 "aperto",
 null
 ],
 "e1": [
-"aperto",
+"svasato",
 null
 ],
 "lav": "foro_pb",
@@ -2583,7 +2855,7 @@ null
 "p1": [
 30.0,
 -12.5,
-2.6
+1.7
 ]
 }
 ]
@@ -3053,7 +3325,31 @@ null
 -88.0
 ],
 "p1": [
-132.388,
+132.086,
+0.0,
+-88.0
+]
+},
+{
+"corpo": "Corpo1",
+"d": 6.0,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "lamatura_vite",
+"origine": "estrusione",
+"p0": [
+132.086,
+0.0,
+-88.0
+],
+"p1": [
+132.086,
 0.0,
 -88.0
 ]
@@ -3404,6 +3700,58 @@ null
 38.6,
 5.5,
 23.5
+]
+}
+]
+},
+"Dima_Calettamento": {
+"fori": [
+{
+"corpo": "Corpo1",
+"d": 5.3,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "foro_perno_anca",
+"origine": "estrusione",
+"p0": [
+55.0,
+-33.55,
+0.0
+],
+"p1": [
+55.0,
+-30.55,
+0.0
+]
+},
+{
+"corpo": "Corpo1",
+"d": 5.3,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "foro_perno_ginocchio",
+"origine": "estrusione",
+"p0": [
+120.0,
+-33.55,
+0.0
+],
+"p1": [
+120.0,
+-30.55,
+0.0
 ]
 }
 ]
@@ -4938,7 +5286,7 @@ null
 -88.0
 ],
 "p1": [
-122.423,
+121.423,
 0.0,
 -88.0
 ]

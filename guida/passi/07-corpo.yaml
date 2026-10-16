@@ -97,7 +97,7 @@ passi:
         - ["B", "4 M3, fondo della base, aperti in basso (si vedono girando la base)", "passo 7.04"]
         - ["C", "4 M3, colonnine del tetto", "sezione 13"]
         - ["D", "2 M3, pareti delle baie anteriori", "sezione 8"]
-        - ["E", "4 M3, bugne del vassoio", "sezione 8"]
+        - ["E", "4 M2, colonne del vassoio, in cima alle bugne", "sezione 8"]
         - ["F", "4 M2, bugne della SSC-32", "sezione 8"]
         - ["G", "4 M2, sotto il vassoio, per IMU e ADC", "sezione 8, X4 e X6"]
     avvisi:

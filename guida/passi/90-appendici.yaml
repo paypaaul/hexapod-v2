@@ -289,19 +289,19 @@ passi:
         - ["Tibia (6)", "3 M3, in tutto 18", "2 alette lato coda (M3 × 8); 1 guscio (M3 × 10)", "prima della sezione 6"]
         - ["Coxa (6)", "4 M3, in tutto 24", "2 alette lato coda; 2 ponte M3 × 10", "prima della sezione 6"]
         - ["Femore lato B (6)", "4 M3 e 2 M2, in tutto 24 e 12", "4 per il femore lato A (M3 × 8); 2 per la lama B (M2 × 5 svasate)", "prima della sezione 6"]
-        - ["Base", "26 M3 e 4 M2", "12 alette dei servo di coxa; 4 chiglia; 4 colonnine del coperchio; 2 slitte; 4 vassoio; 4 SSC-32", "prima della sezione 7"]
+        - ["Base", "22 M3 e 8 M2", "12 alette dei servo di coxa; 4 chiglia; 4 colonnine del coperchio; 2 slitte; 4 SSC-32; 4 M2 sulle colonne del vassoio", "prima della sezione 7"]
         - ["Chiglia", "2 M3", "sportello della batteria M3 × 8", "prima della sezione 7"]
         - ["Slitte dei regolatori (2)", "4 M2 ciascuna, in tutto 8", "regolatori M2 × 5", "prima della sezione 4"]
         - ["Vassoio", "4 M2", "basetta M2 × 5", "prima della sezione 8"]
-        - ["Totale", "94 M3 e 28 M2", "", "tutti nella sezione 3"]
+        - ["Totale", "90 M3 e 32 M2", "", "tutti nella sezione 3"]
         - ["Alette lato albero", "mai inserti: 36 fori pilota Ø2,5", "M3 × 8 autofilettanti", "–"]
     testo:
       - "Metti ogni inserto nella sezione 3, prima di montare il pezzo."
       - "Lascia vuoti i 36 fori pilota delle alette lato albero."
-      - "Controlla il totale: 94 M3 e 28 M2."
+      - "Controlla il totale: 90 M3 e 32 M2."
     avvisi:
       - {tipo: importante, testo: "Dopo il montaggio la maggior parte dei fori non si raggiunge: gli inserti vanno messi prima."}
-      - {tipo: nota, testo: "Per zampa: 3 + 4 + 4 = 11 inserti M3, in tutto 66; nel corpo 28. Il BOM scrive 30 nel corpo, ma 30 + 24 + 18 + 24 fa 96, non 94: il CAD ne ha 28 (D-065)."}
+      - {tipo: nota, testo: "Per zampa: 3 + 4 + 4 = 11 inserti M3, in tutto 66; nel corpo 24 (dal 2.1.7, D-076, i 4 del vassoio sono M2). Il BOM scriveva 30 nel corpo, ma il CAD ne aveva 28 (D-065)."}
     fonti: [docs/BOM.md "Viteria e inserti contati dal modello", D-049, D-065, guida/passi/03-inserti.yaml, guida/lib/controlli.py totali_inserti, guida/problemi/appendici.yaml]
 
   - id: "A.13"
@@ -319,12 +319,11 @@ passi:
         - ["Chiglia dietro", "2", "M3 × 8", "5,0 mm [V]"]
         - ["Colonnine del coperchio", "4", "M3 × 8", "6,4 mm [V]"]
         - ["Slitte dei regolatori", "2", "M3 × 8", "5,6 mm [V]"]
-        - ["Bugne del vassoio", "4", "M3 × 6", "4,4 mm [V]"]
         - ["Sportello della batteria", "2", "M3 × 8", "6,0 mm [V]"]
-        - ["Totale M3", "94", "", ""]
+        - ["Totale M3", "90", "", ""]
     testo:
       - "Conta gli inserti M3 del kit per lunghezza prima di cominciare."
-      - "Dividi i 94 in due lunghezze (× 5 e × 6), con non più di 50 per lunghezza [C]."
+      - "Dividi i 90 in due lunghezze (× 5 e × 6), con non più di 50 per lunghezza [C]."
       - "Dai l'inserto più lungo ai gruppi con la presa più profonda."
       - "Tieni gli M3 × 4 e × 3 come scorta."
     avvisi:
@@ -348,7 +347,7 @@ passi:
         - ["Totale", "", "18 M2", ""]
     testo:
       - "Metti questi inserti solo per le voci X che monti."
-      - "Aggiungili ai 28 M2 della tabella precedente."
+      - "Aggiungili ai 32 M2 della tabella precedente."
     avvisi:
       - {tipo: nota, testo: "In tutto 46 inserti M2 con tutte le predisposizioni. Il carapace è in PLA: usa la temperatura del provino per il PLA (D-065)."}
     fonti: [docs/BOM.md "Viteria in più se si montano tutte", guida/passi/03-inserti.yaml 3.18-3.20, guida/catalogo/viteria.yaml inserti_predisposizioni, D-065]

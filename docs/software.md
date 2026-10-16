@@ -245,6 +245,7 @@ Spegnimento: seduta sulla chiglia, parcheggio, rail spento, impulso su GPIO41.
 | Batteria bassa | sotto 3,6 V/cella, filtrata sotto carico | avviso, velocità ridotta |
 | Batteria scarica | sotto 3,5 V/cella per 5 s (soglia dello studio dei componenti; più livelli come in D-011) | seduta, parcheggio, rail spento |
 | Batteria critica | sotto 3,3 V/cella | rail spento e spegnimento |
+| Cicalino | 3,3 V/cella, l'ultimo livello, indipendente dal firmware (D-076, P-066: a 3,5 V sotto carico suonerebbe a ogni passo) | suono continuo |
 | Nessun comando | 300 ms | decelera e si ferma in piedi |
 | Nessun collegamento | 30 s | seduta sulla chiglia, poi rail spento |
 | Inclinazione del piano dei piedi (IMU meno l'inclinazione comandata al corpo) | dipende dall'assetto: angolo di ribaltamento, atan(margine di stabilità / altezza del baricentro), meno 6°. Circa 15° a 130/25, 21° a 110/40, 25° a 100/45 | posa sicura |
@@ -651,7 +652,7 @@ Script `tools/hexa banco` più una lista di controllo, un elemento nuovo alla vo
 | B3 | catena di potenza | abilitazione bassa = 0 V; GPIO42 alto = 6,0 V e power-good; poi un lato con 9 servo, F1 da 15 A |
 | B4 | calettamento delle squadrette | servo a metà corsa, dente più vicino all'angolo di progetto, residuo entro ±7,2° |
 | B5 | una zampa sul cavalletto | limiti, tabella del ginocchio, taratura con le dime |
-| B6 | robot sul cavalletto con le zampe in aria, poi a terra in assetto basso | andatura in aria, poi alzarsi e sedersi |
+| B6 | robot sul cavalletto con le zampe in aria, poi a terra in assetto basso: si parte da 100/45 con l'andatura a coppie, poi il tripode lento (D-076, P-046) | andatura in aria, poi alzarsi e sedersi |
 
 Sempre attivi: limite di velocità, tempo massimo di sforzo, battito dal PC (300 ms), arresto da app, pulsante e T-plug.
 

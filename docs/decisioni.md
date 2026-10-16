@@ -143,6 +143,7 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - **Copie nascoste** lasciate alla radice da ogni lancio di `istanze_corpo`: ora si cancellano.
 - **Da fare o da provare**, non corretti: smussi o supporti sotto le 12 bugne delle gondole (le bugne sono sbalzi piatti a 25,6 mm dal piatto: supporti con interfaccia), chiglia avvitata solo in quattro punti (sezione chiusa del tunnel solo dove le viti la stringono), denti a scatto di sportello e sportellino, fermagli di F1, T-plug e Wago, feritoie, percorso dei cavi; micro-USB della SSC-32 non raggiungibile a corpo montato (la scheda si configura al banco, come previsto); ginocchi anteriori nel campo della camera (fase 6); viteria nella stima di massa probabilmente bassa.
 - **BOM**: B18 diventa "4 distanziali M3 maschio-femmina da 5 mm" per il vassoio; D10 (cinghie a strappo) non serve più (lo sportello tiene il pacco con i rebbi e la schiuma).
+- **Aggiornato dalla 2.1.7 (D-076)**: il vassoio non sta più su distanziali M3 ma su quattro colonne della base con inserti M2 e M2 × 5 svasate (P-003, B18 tolto); le fessure del tetto sono aperte verso la coda, così il pacco si sfila con T-plug e JST-XH attaccati (P-001); i rebbi dello sportello sono da 22,5 per il pacco misurato di 139,65 mm (P-007).
 
 ## D-052 — Dettagli del corpo (v0.4, 2026-10-09)
 
@@ -155,6 +156,7 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - La millefori 50 × 70 (voce C2) si **taglia a 56 × 35** e sta sul vassoio da x 22 a 78, |y| fino a 17,5, da z 5,9 a 7,5: intera non entra (le colonnine del coperchio sono a 18,8 dall'asse). Porta i due strip femmina dell'ESP32 (file dei pin da x 22,5 a 73,3, a |y| 12,35) e, tra le due file, sotto il circuito dell'ESP32, regolatore 5 V (B2), traslatore (C1), partitore (B10) e accensione del rail (B11): 8,5 mm d'altezza (6,6 sotto la sede della microSD, da x 22,5 a 37,5).
 - Si fissa con **4 viti M2 × 5** in inserti M2 su quattro colonnine del vassoio (Ø5,8, alte 3,3: la luce copre le teste delle viti M3 del vassoio e le saldature). Colonnine tra le due file di pin, a (29, ±6,8) e (75,5, ±6,5), fuori dalle teste M3 del vassoio; i quattro fori nella basetta si trapanano a Ø2,2 sulle colonnine.
 - Verificato sul modello: nessuna interferenza; 3,1 mm dalla morsettiera della SSC-32, 1,0 dalla base, appoggio sulle colonnine e sotto gli strip dell'ESP32.
+- **Aggiornato dalla 2.1.7 (D-076)**: l'interasse delle file di pin dell'ESP32 è 25,4 (10 passi, P-005), quindi le file stanno a \|y\| 12,7; il vassoio sta su colonne della base e le teste delle viti svasate restano a 3,4 mm sotto la basetta; l'asola del bus è fuori dalla basetta (P-019).
 
 ## D-054 — Fissaggio dello sportello della batteria (2026-10-09)
 
@@ -162,6 +164,7 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - Scartate: guide verticali con lo sportello che scende dall'alto (a robot capovolto si sfila da solo), aggancio nelle fessure dei cavi più viti in basso (i rebbi non escono ruotando), viti in alto (nessun posto: tetto da 2 mm, F1 a 2 mm dalla coda, sedi dei servo posteriori accanto al tunnel), denti a scatto (forza di sgancio da tarare, nessuna leva raggiungibile).
 - Cambio della batteria: due viti, si sfila lo sportello, si sfila il pacco. T-plug e F1 restano raggiungibili dal retro senza togliere lo sportello.
 - Verificato: nessuna interferenza; distanza minima dalla coxa posteriore che ruota: chiglia 2,35 mm (1,83 a +35°), sportello 3,98 mm (2,16 a +35°): per questo le viti sono a |y| 28,5 e non 29. Coxe libere a ±35° e tra vicine a 31°, ciclo a tripode libero a 70/70.
+- **Aggiornato dalla 2.1.7 (D-076)**: il pacco si sfila dalle tacche aperte del tetto con le spine attaccate (P-001); rebbi da 22,5 (P-007); la linguetta resta a 0,4 mm dal tetto.
 
 ## D-055 — Wago in piedi, fissaggio di F1 (2026-10-09)
 
@@ -169,6 +172,7 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - **Sede dei Wago** stampata con la base: due spalle alle estremità (alte 6, gioco 0,2) e due labbri da 1,6 che coprono 1 mm delle estremità della faccia delle leve, fuori dalle leve. Il Wago entra dall'alto e resta fermo tra spalle, labbri e fianco del tunnel; se al banco balla, una goccia di colla a caldo.
 - **F1**: due costole sul tetto (alte 3, larghe 24, gioco 0,2) lo fermano lungo X; lo stringe al tetto una fascetta da 2,5 mm (voce D11) che passa nelle due fessure dei cavi a x ≈ −76, fuori dalla linguetta dello sportello e dalle uscite dei fili del portafusibile. La coppia di T-plug resta appoggiata sopra F1, tenuta dai suoi cavi.
 - Verificato: nessuna interferenza; coxe libere a ±35° e tra vicine a 31°, ciclo a tripode libero a 70/70.
+- **Aggiornato dalla 2.1.7 (D-076)**: il dentino per la fascetta di F1 è fatto come due tacche sui bordi della lingua (2,9 lungo X, profonde 1, a x −76), perché un dente nella fessura fermerebbe i cavi in uscita.
 
 ## D-056 — Sportellino di servizio e note di stampa del corpo (2026-10-09)
 
@@ -272,6 +276,7 @@ Quattro revisori (montaggio, stampa e struttura, quote, sistema) hanno controlla
 - **Lo stinco finisce a 108,4 invece che a 110**, così la suola resta a `zam_Lt` (110) e la cinematica non cambia; `tib_z_arco` segue (104,4).
 - Nel modello la stretta sullo stinco è zero; la presa vera (TPU elastico su uno stinco che si stringe verso la punta) si tara sul provino con 0, −0,2 e −0,4 mm. Stampa con la bocca sul piatto e la punta in alto.
 - Verificato: zampa senza interferenze, 54 pose libere e 17 controlli su 20 come prima; assieme senza interferenze; ciclo a tripode 100/45 e 70/70 libero. Massa attesa circa 2905 g (i piedini erano già stimati fra le parti non modellate).
+- **Aggiornato dalla 2.1.7 (D-076)**: la stretta del piedino sullo stinco è il parametro `pied_stretta` (oggi 0) e il provino 6 stampa tre piedini, 0 / 0,2 / 0,4 (`cad/stl/attrezzi/Piedino_stretta_*.stl`, P-016).
 
 ## D-065 — Tibia sull'asse del femore, lama B avvitata, materiali e inserti (2026-10-09)
 
@@ -368,6 +373,7 @@ Decisioni dell'utente del 9 ottobre: audio a bordo senza la microSD dell'ESP32, 
   - culla sotto la chiglia fra x −30 e +30, con labbri sui fianchi alti 8 mm, sotto il ripiano delle baie; resta lontana dallo sportello della batteria e dalle viti;
   - colonna cava 60 × 40 e base 160 × 120. Il tavolo sta a z −170, perché il piede più basso arriva a −159 con femore −49 e ginocchio 139.
   - Verificato: nessun urto con il robot, né con le zampe AS, MS e PS in 18 pose basse e ripiegate (imbardata −35, 0, +35; femore −45 e −49, ginocchio al minimo e a 139).
+- **Aggiornato dalla 2.1.7 (D-076)**: la sede delle luci della tibia arriva a Z −83,5 (50,5 di lunghezza, P-062); la gola del fermo dei fili è larga 4,5 (P-063); l'asola del bus è 7 × 4 fuori dalla basetta, in un'ala del vassoio (P-019); le linguette delle spie dei rail (X13) stanno a \|y\| 14–20.
 
 ## D-067 — Versione 2.1.1: camera dell'anello, fermo dei fili della tibia, cablaggio (2026-10-10)
 
@@ -658,6 +664,7 @@ Piano in `docs/piano-v2.1.0.md`, sezione 2.1.6. Prima del via sono stati control
   - X4, X16 e X17 sono in possesso;
   - le predisposizioni approvate costano circa 42 € in meno (220,26 € invece di 262,12, senza il computer di bordo);
   - il carrello DigiKey scende a 51,22 € e paga 25 € di spedizione, mentre sparisce l'ordine da pololu.com.
+- **Aggiornato dalla 2.1.7 (D-076)**: la scheda del carapace ha la testata 2 × 8 a 90° sul bordo di coda e misura 21,5 × 30 da x 29,5 (P-002); il ToF posteriore è avvitato con due fori pilota Ø1,7 e l'altoparlante ha due costole di ritegno a filo (P-008); restano da confermare lo spessore dell'altoparlante (`aud_altt_sp`) e la posizione dei fori del #3415 dai bordi.
 
 ## D-075 — Guida di montaggio illustrata: strumenti, formato e regole (2026-10-11)
 

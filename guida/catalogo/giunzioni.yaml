@@ -135,14 +135,14 @@ corpo:
     testa: {chiave: corpo/SSC32, tipo: foro_pcb}
     attesi: 4
     decisione: D-051
+  # 2.1.7 (D-076, P-003): colonne della base con inserto M2 e viti svasate a filo, niente distanziali (B18 tolto)
   vassoio:
-    descrizione: vassoio sui quattro distanziali maschio-femmina
-    vite: M3x6
-    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m3, lav: "vas_bugna_*"}
-    testa: {chiave: corpo/Corpo_Vassoio, tipo: passante_m3}
-    distanziale: DIST_M3_5
+    descrizione: vassoio sulle quattro colonne della base, viti svasate a filo
+    vite: M2x5S
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m2, lav: "vas_bugna_*"}
+    testa: {chiave: corpo/Corpo_Vassoio, tipo: passante_m2}
     attesi: 4
-    decisione: D-051
+    decisione: D-076
   basetta:
     descrizione: basetta sulle colonnine del vassoio
     vite: M2x5

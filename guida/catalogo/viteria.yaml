@@ -28,9 +28,9 @@ distanziali:
 
 # Totali del BOM (riga "Totale viti" di docs/BOM.md): il controllo viti_bom li confronta con i passi
 totali_bom:
-  viti: {M3x5: 12, M3x6: 52, M3x8: 106, M3x10: 18, M3x16: 2, M2x5: 16, M2x5S: 12}
+  viti: {M3x5: 12, M3x6: 48, M3x8: 106, M3x10: 18, M3x16: 2, M2x5: 16, M2x5S: 16}
   rondelle: {R_M3: 48}
-  inserti: {INS_M3: 94, INS_M2: 28}
+  inserti: {INS_M3: 90, INS_M2: 32}
 
 # Inserti delle predisposizioni: fuori dai totali del BOM (BOM.md, "Viteria in piu' se si montano tutte")
 inserti_predisposizioni:

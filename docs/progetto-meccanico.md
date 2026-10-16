@@ -91,7 +91,7 @@ Verifiche della zampa v0, prima della revisione (9 ottobre 2026):
 
 ### Predisposizioni della versione 2.1.0 (D-066)
 
-Punta dello stinco piana per un sensore di forza FSR 400 Short sotto il piedino (tasca per le saldature e gola dei fili sulla faccia +X fino al fondo della culla), piedino con pistoncino e tacca, sede piana per una striscia di 3 LED sotto la finestra del guscio e diffusore `Cover_Tibia_Diffusore` a incastro nella finestra (si monta solo con le luci), punti con nome per il software (`P_Asse_*`, `P_Punta_piede`). Quote e verifiche in D-066.
+Punta dello stinco piana per un sensore di forza FSR 400 Short sotto il piedino (tasca per le saldature e gola dei fili larga 4,5 sulla faccia +X fino al fondo della culla, dalla 2.1.7 per i fili da 28 e 30 AWG: D-076, P-063), piedino con pistoncino e tacca, sede piana per una striscia di 3 LED sotto la finestra del guscio (dalla 2.1.7 lunga 50,5, da Z −33 a −83,5: la striscia da 50 entra tutta, D-076; restano 2,4 mm fino al foro dell'inserto del guscio) e diffusore `Cover_Tibia_Diffusore` a incastro nella finestra (si monta solo con le luci), punti con nome per il software (`P_Asse_*`, `P_Punta_piede`). Quote e verifiche in D-066.
 
 ### Da fare nella zampa
 
@@ -114,11 +114,18 @@ Disposizione "compatto" (D-050, confronto in `ricerca/corpo-disposizioni.json`).
 | `Corpo_Chiglia` | fondo e parte bassa del tunnel, da −41,4 a −31,95 | 24 cm³ |
 | `Corpo_Coperchio` | fino a D-062: dorso da +28,4 a +30 con i lobi sopra le coxe, gonne laterali sulle pareti delle baie; **sostituito dal carapace** (D-063) | 40 cm³ |
 | `Corpo_Sportello` | sportello della batteria sul retro: piastra e due rebbi alti che premono il pacco (con schiuma) contro la battuta anteriore; la coppia di T-plug non passa da qui: sta sopra F1 (D-051) | 5 cm³ |
-| `Corpo_Vassoio` | in PETG: piano per la basetta dell'ESP32 su quattro colonnine dal tetto, torretta e mensola della camera con una fessura di 0,5 mm per il flat | 9 cm³ |
+| `Corpo_Vassoio` | in PLA (colore libero, D-076): piano per la basetta dell'ESP32 su quattro colonne della base (Ø6, cima a z 1, inserto M2 in cima), fissato con quattro M2 × 5 svasate a filo (teste a 0,1 sotto la faccia, 3,4 mm sotto la basetta); asola del bus 7 × 4 fuori dalla basetta, in un'ala del piano (x 45–55, y 16–23,5); torretta e mensola della camera con una fessura di 0,5 mm per il flat | 9 cm³ |
+
+Cambiamenti del corpo nella 2.1.7 (D-076, piano in `piano-v2.1.0.md`):
+- vassoio sulle colonne della base e asola del bus fuori dalla basetta (sopra);
+- scheda del carapace con testata 2 × 8 a 90° (Würth 61201621721) e spina IDC (61201623021) sul bordo di coda: scheda da x 29,5 a 51,0 (21,5 × 30; l'amplificatore comincia a x 51,85), viti di coda a x 41,5 e anteriori a 48,0, altezza 1,6 + 9;
+- ganci della catena LED anche a x ±75 e tre ganci per il passaggio davanti (x 75, y −24, 0, 24); linguette delle spie dei rail (X13) a |y| 14–20 perché non fermino i cavi del pacco;
+- ToF posteriore avvitato con due fori pilota Ø1,7 (Pololu #3415, fori a 0,5 pollici) e due costole di ritegno a filo per l'altoparlante, che si infila ancora da dietro;
+- fessure del tetto aperte verso la coda e rebbi dello sportello da 22,5, come sopra.
 
 Quote: assi delle coxe d'angolo (±80, ±44) a ±30° e ±150°, medie (0, ±48); base 235 × 173 (da z −31,95 a +7), tunnel interno 162 × 50, chiglia fino a −41,4.
 
-Vano di coda (corpo v0.2): fessura nel tetto per i cavi della batteria; portafusibile F1 di traverso sul tetto dietro la SSC-32 (raggiungibile senza togliere il coperchio, dal retro); coppia di T-plug sopra F1, nel vano di coda, raggiungibile dal retro senza aprire lo sportello (D-051, D-054, D-055); Wago sul tetto sotto il vassoio, ingressi verso l'esterno.
+Vano di coda (corpo v0.2; dalla 2.1.7, D-076, le due fessure 13 × 4,5 sono aperte verso la coda, senza il ponte da 2 mm: il pacco si sfila con T-plug e JST-XH attaccati e si carica fuori dal robot; sulla lingua centrale due tacche da 2,9 × 1 a x −76 trattengono la fascetta di F1; lo sportello ha rebbi da 22,5 per il pacco misurato di 139,65 mm): fessura nel tetto per i cavi della batteria; portafusibile F1 di traverso sul tetto dietro la SSC-32 (raggiungibile senza togliere il coperchio, dal retro); coppia di T-plug sopra F1, nel vano di coda, raggiungibile dal retro senza aprire lo sportello (D-051, D-054, D-055); Wago sul tetto sotto il vassoio, ingressi verso l'esterno.
 
 ![Assieme v0 con il coperchio](immagini/assieme-v0-coperchio.png)
 
@@ -171,8 +178,8 @@ Parti nuove (specifica in `ricerca/estetica-specifica.md`, scelte e varianti in 
 | `Corpo_Sportello` | PETG-CF nero | come D-054, più smusso 1 × 45 sul contorno esterno | 5,5 cm³ |
 | `Cover_Femore_A`, `_B` | PLA bianco | lame come il guscio della tibia (D-070) con la sagoma del femore (D-071): fascia a Z ±14,5, teste esagonali sui giunti, rialzo fino a Z 20 sopra il blocco; faccia piana con smusso 3 × 2, spigoli vivi; chiuse su teste e mozzi con tasche cieche (A spessa 4,0 fino a \|y\| 34,55, a incastro sulle teste del blocco; B spessa 2,6 con due viti M2 svasate a Z 1,5, X 81 e 89, in inserti di Femore_B). Prima: lame bombate con finestre esagonali sui giunti (D-061) | 9,1 / 6,1 cm³ |
 | `Cover_Femore_A_Feritoia`, `_B_Feritoia` | PLA nero | intarsio della feritoia (asola 37 × 7 a Z 1,5) a filo della faccia, stampato con la lama: 0,6 sulla A, 1,0 sulla B con le svasature delle viti (D-070, D-071) | 0,15 / 0,23 cm³ |
-| `Cover_Tibia` | PLA bianco | guscio lungo dal ginocchio fin quasi al piede, fronte convesso, sezione a C, finestra lunga; simmetrico sul piano della zampa, i fianchi passano fuori dalla cassa del servo del ginocchio (D-065) | 12,7 cm³ |
-| `Piedino` | TPU 95A arancio | cappuccio sulla punta dello stinco da 0,5 sotto il guscio fino al piede, parete e suola da 1,6; lo stinco finisce a 108,4 e la suola a 110 (D-064) | 1,4 cm³ |
+| `Cover_Tibia` | PLA bianco | guscio lungo dal ginocchio fin quasi al piede, fronte convesso, sezione a C, finestra lunga; dalla 2.1.7 una lamatura piana Ø6 sotto la testa della vite M3 × 10 (fondo a X 132,09: la testa appoggia su tutta la corona) e il foro dell'inserto nella tibia profondo 7,7 (`tib_ins_guscio_l`) perché la punta resti 0,66 sopra il fondo, con presa 7,04 (P-014); simmetrico sul piano della zampa, i fianchi passano fuori dalla cassa del servo del ginocchio (D-065) | 12,7 cm³ |
+| `Piedino` | TPU 95A arancio | cappuccio sulla punta dello stinco da 0,5 sotto il guscio fino al piede, parete e suola da 1,6, con la stretta sullo stinco come parametro (`pied_stretta`, oggi 0; provino 6 con 0 / 0,2 / 0,4, P-016); lo stinco finisce a 108,4 e la suola a 110 (D-064) | 1,4 cm³ |
 
 Tibia (D-065): stinco simmetrico sul piano della zampa, largo in alto quanto lo zoccolo (±24,15: sul lato +Y passa sotto le alette del servo, a 0,8 mm) e 14 mm alla fine dell'arco, 39,3 cm³. Materiali (scelta dell'utente, D-065): PETG-CF nero per le parti funzionali, PLA per le placche (bianco per ora) e per fascia, visiera, gonne e sportellino (nero), TPU arancio per i piedini. Il carapace, la fascia, la visiera e le gonne si stampano in un solo pezzo a due colori (capovolto, senza supporti); cicalino e pulsante salgono con il carapace. Fissaggio: 4 viti M3 × 8 nei pozzetti, sulle colonnine di D-052.
 
@@ -215,7 +222,7 @@ Di notte, con le luci accese (D-072: anello del pulsante, lobi, finestre delle t
 
 Parti stampate con il fattore di riempimento stimato (pareti e fondi 1,2 mm, riempimento 25 %; PETG-CF 1,3 g/cm³, PLA 1,24, TPU 1,21 pieno); comprate con la massa dichiarata. Baricentro del modellato nella posa di riferimento: (+1,6; 0; −13,0) mm. Con la tibia simmetrica sul piano della zampa (D-065) la massa sale di altri 40 g circa: femore sempre al **51 %** dello stallo. Rispetto alla stima prima della passata estetica (2730 g) ci sono 180 g in più: 139 di cover (le lame sono piene e il guscio della tibia è lungo, mentre la specifica ne prevedeva 49), 21 di tibie più larghe, 19 di carapace. Con 2910 g il femore arriva al **51 % dello stallo** al punto di progetto 100/45 (48 % con 2750), il ginocchio al 47 %: sopra la soglia del 50 % che ci si era dati, dentro quanto accettato dall'utente (D-063).
 
-Dalla 2.1.4 (D-070, D-071) le lame del femore sono più pesanti delle lame bombate: il segmento del femore passa da 54,4 a 63,3 g e il totale atteso, con le predisposizioni della 2.1.0, da circa 2990 a 3043,5 g; con i moduli in casa della 2.1.6 (D-074) è **3045,0 g** (`robot/cad.json`). Al punto di progetto 100/45 il femore sale al **53 %** dello stallo (5,84 kgf·cm), la tibia al 49 %.
+Dalla 2.1.4 (D-070, D-071) le lame del femore sono più pesanti delle lame bombate: il segmento del femore passa da 54,4 a 63,3 g e il totale atteso, con le predisposizioni della 2.1.0, da circa 2990 a 3043,5 g; con i moduli in casa della 2.1.6 (D-074) è **3045,0 g** (`robot/cad.json`). Al punto di progetto 100/45 il femore sale al **53 %** dello stallo (5,84 kgf·cm), la tibia al 49 %. Con la 2.1.7 (colonne del vassoio, scheda del carapace, ganci della catena, rebbi dello sportello, costole dell'altoparlante) il segmento del corpo passa da 1069,4 a 1071,5 g e il totale atteso a **3047,2 g** (2687,2 modellati più 360 stimati, `robot/cad.json`): femore 5,85 kgf·cm, sempre al 53 %; le zampe perdono circa 0,6 g in tutto (guscio della tibia da 16,5 a 16,4 g a zampa).
 
 ### Predisposizioni della versione 2.1.0 nel corpo (D-066)
 

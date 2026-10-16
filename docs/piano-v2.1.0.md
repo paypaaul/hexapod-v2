@@ -248,7 +248,7 @@ Sullo stesso design "Hexapod v2.1.0", tag `v2.1.5`, decisione D-072. Il modello 
 
 1. **Provino delle tasche** (`attrezzi.py` → `provino_tasche`), da stampare con gli altri provini prima dei pezzi.
    - Serve a tarare l'incastro della lama A sulle teste M3 del blocco (`cov_testa_d`, oggi 5,6, D-063).
-   - **Base** in PETG-CF: blocchetto con un foro passante per una vite M3 × 6 ISO 4762 e la trappola del dado sotto; viti e dadi dal kit D6/D7.
+   - **Base** in PETG-CF: blocchetto 24 × 16 × 8 con una vite M3 × 6 ISO 4762 in un foro pilota Ø2,5 autofilettante, come le alette lato albero (D-049, D-072): niente dado né trappola; vite dal kit D6 (testo corretto il 16 ottobre 2026, P-092).
    - **Lamina** in PLA bianco, spessa come la lama A (4,0), stampata come la lama con le tasche sul piatto:
      - sei tasche profonde 3,2;
      - quattro lisce da Ø5,4, 5,5, 5,6 e 5,7;
@@ -524,6 +524,7 @@ Decisione (D-076): soluzione A. Quote e confronto con B e C: `docs/ricerca/blocc
 
 - P-092: in questo piano (versione 2.1.5) la base del provino delle tasche è descritta diversamente dal CAD: correggere il testo come il CAD (foro pilota Ø2,5 autofilettante, D-072).
 - P-099 e P-100: `cad/stl/README.md`, orientamento delle slitte (faccia piana sul piatto, bugne in alto [C]) e "le due slitte sono lo stesso pezzo, la destra ruotata". Nessuna modifica al CAD.
+- **Esito (16 ottobre 2026, blocco a valle)**: fatta. P-092 corretto qui sopra (2.1.5, base del provino con foro pilota Ø2,5, come D-072); P-099 e P-100 nella riga di `Corpo_Slitta_Regolatore.stl` del README degli STL.
 
 ### 14. P-063: gola del fermo dei fili della tibia da 4,5
 
@@ -559,6 +560,12 @@ Il pacco misura 139,65 mm (Q-17): fra la battuta anteriore del tunnel (X 79) e l
 - `cad/stl/README.md`: lunette dei microfoni in PLA, colore libero.
 - `docs/dimensioni-componenti.md`: dati misurati della batteria (139,65 mm, cavo 110 mm, T-plug femmina, positivo sul lato verticale) e inserti del kit (zigrinatura Ø4,2 e invito Ø4,0 per l'M3, Ø3,2 e Ø3,0 per l'M2).
 - `CLAUDE.md`: stato e aperti alla chiusura della versione (voci già risolte dall'utente tolte da "Aperti": carica, scheda del carapace, lunghezza del pacco, sesso del T-plug, inserti, squadretta di prova).
+- **Esito (16 ottobre 2026, blocco a valle)**: fatta, tranne `CLAUDE.md` (chiusura).
+  - `docs/progetto-meccanico.md`: vassoio in PLA su colonne con asola e ala, fessure aperte e rebbi da 22,5, elenco dei cambiamenti del corpo, lamatura e foro da 7,7 del guscio, sede luci 50,5, gola 4,5, stretta del piedino, massa 3047,2 g. T-plug come in P-089: la riga di `Corpo_Sportello` e il vano di coda lo dicevano già.
+  - `docs/software.md`: B6 con l'assetto di partenza 100/45 a coppie e poi il tripode lento (P-046); riga del cicalino a 3,3 V per cella (P-066). Il testo non aveva una sezione 6.7 con quell'assetto: l'ho messo nella tabella delle procedure di banco, che è `6.7`.
+  - `cad/stl/README.md`: lunette in PLA colore libero, i tre STL del piedino, la dima, il provino degli inserti, bussola ed estrattore, slitte (P-099, P-100), fondo dell'anello a due pixel per sede.
+  - `docs/dimensioni-componenti.md`: batteria misurata (139,65 mm, cavo 110, T-plug femmina, positivo sul lato verticale), inserti del kit (Ø4,2 / 4,0 e Ø3,2 / 3,0), 25,4 dei pin, testata e spina Würth, Pololu #3415.
+  - Rimandi a D-076 in D-051, D-053, D-054, D-055, D-064, D-066 e D-074; `docs/cablaggio.md` (3.4, 3.5, 4: scheda, catena con le lunghezze dei tratti, ToF, sfilamento del pacco), `docs/predisposizioni.md` (2.3, 2.8, X2, X13, X19, X31 e i punti del CAD), `docs/BOM.md` (B18 già tolto; viteria e inserti riconteggiati: M3 × 6 48, M2 svasate 16, inserti M3 90 e M2 32).
 
 ### Testi della guida dopo la 2.1.7
 
@@ -584,8 +591,19 @@ Fatti con le immagini nuove e solo dopo il CAD (la guida segue ancora i distanzi
   - **Esito (16 ottobre 2026, blocco attrezzi)**: cinque componenti nuovi in libreria (y 1000), tutti nascosti, quattro gruppi nella timeline (343 voci, nessun problema, nessuno snapshot pendente): `Attrezzo_Provino_Inserti`, `Dima_Calettamento`, `Attrezzo_Bussola_Perno`, `Attrezzo_Estrattore_Asta` e `_Tubo`. 18 parametri nuovi `att_bus_*`, `att_estr_*`, `att_tubo_*`. `verifica_dime` per le tre dime (urti solo con la lama B, che si toglie), `verifica_bussola`, `verifica_estrattore`, con i casi di controllo nelle modifiche 5, 7 e 10. Sentinella: rispetto alla fine del blocco zampa cambiano solo i cinque componenti nuovi; il resto è invariato. Documento non salvato.
 - Sentinella sui volumi delle parti non toccate; caso di controllo per ogni interferenza nuova.
 - A valle: `colori.py`, `esporta_stl.py` (con le varianti del piedino), `esporta_mesh.py`, `esporta_robot.py` (`geometria`, `mesh`, `pose`), `tools/descrizione.py --aggiorna-hash`, generatori; ruff, pytest, ctest, `npm test`.
+  - **Esito (16 ottobre 2026, blocco a valle)**: fatto sul documento "Hexapod v2.1.0 v14" non salvato (nessun giunto mosso: coxe a 0, snapshot non pendente, `pied_stretta` a 0, timeline di 343 voci senza problemi).
+    - `colori.py`: tutti i componenti, compresi i cinque attrezzi nuovi e i quattro corpi della scheda del carapace.
+    - `esporta_stl.py`: 41 file fra parti e attrezzi più i tre del piedino (`Piedino_stretta_0.stl`, `_0.2.stl`, `_0.4.stl`: volumi calcolati dagli STL 1554,4 / 1710,8 / 1860,3 mm³, come il modello; `Piedino.stl` uguale al primo). Cambiano `Corpo_Base`, `Corpo_Carapace`, `Corpo_Sportello`, `Corpo_Vassoio`, `Cover_Tibia`, `Tibia`; nuovi i cinque attrezzi e i tre piedini.
+    - `esporta_mesh.py`, `esporta_robot.py` (`geometria`: 74 parti, `mesh`, `pose`: 75 pose, l'unica differenza è il nome del documento) e hash `aab061b55d73`; generatori rifatti dopo l'aggiornamento di `robot.yaml`.
+    - Test: `ruff` pulito, `pytest tests sim/tests` 72 passati, `ctest` 4 su 4, `npm test` 3 su 3.
 - Massa: cambia di pochi grammi (via 4 distanziali da 5 e 4 M3, più 4 colonne di PETG-CF e 4 M2): aggiornare `calc/statica_tripode.py` e `robot.yaml` (`massa.attesa_g`, `regressione_statica`) solo se la differenza si vede nel totale.
+  - **Esito (16 ottobre 2026, blocco a valle)**: il modellato passa da 2685,0 a 2687,2 g (solo il segmento del corpo: 1069,4 → 1071,5; le zampe perdono circa 0,6 g in tutto, sotto il decimo di grammo per segmento) e il totale atteso da 3045,0 a **3047,2 g**: +2,2 g, come le 1,5 g di D-071 → D-074 che si erano riportate. Aggiornati `calc/statica_tripode.py` (`CONFIG['massa_g']`) e `robot.yaml` (`massa.attesa_g`, `femore_kgfcm` 5,84 → 5,85; la frazione resta al 53 %, dentro 52,5–54,5 %); i generatori ne hanno preso la massa. La regressione passa (`test_statica`).
 - Guida: `esporta_guida.py` (`manifest`, `mesh`, `fori`, `zone`, `controllo`), poi `.venv/bin/python -m guida.costruisci controlla`; registro dei problemi aggiornato dall'utente (non da qui).
+  - **Esito (16 ottobre 2026, blocco a valle)**: `manifest` (71 componenti, 96 occorrenze), `mesh` (tutti, compresi i cinque attrezzi nuovi), `fori`, `zone` (246, nessuna mancante) e `controllo` (nessuna mesh mancante, nessuno scarto) fatti. Con i dati nuovi `controlla` e due test di `tests/test_guida.py` davano rosso, come previsto: la guida seguiva ancora i distanziali. Corretti **solo i dati** che il CAD ha cambiato, senza rifare i testi della guida (che restano al punto "Testi della guida dopo la 2.1.7"):
+    - catalogo: `giunzioni.yaml` (`vassoio`: M2 × 5 svasata nell'inserto M2 della colonna, foro passante M2 nel vassoio, niente distanziale) e `viteria.yaml` (M3 × 6 48, M2 × 5 svasate 16, inserti M3 90 e M2 32, come `docs/BOM.md`);
+    - passi: 8.11 (colonne e M2 svasate, senza l'avviso bloccante di S-19), tabella e note di 3.12 e 3.x degli inserti, appendici A.12 e A.13 (la riga delle bugne M3 del vassoio esce), inventario di 0.17 (B18 e i totali), 7.0x (lettera E), 15 (tabella dello smontaggio), glossario ("vassoio").
+    - `controlla`: tutti i controlli verdi (giunzioni complete, totali viti e inserti, teste del lato A con il caso negativo, montaggio unico, giunzioni usate, decisioni). **Controllo lunghezze**: `guscio_tibia` presa 7,04 e fondo libero 0,66, come atteso. Vassoio: l'avviso "vite a −0,30 dal fondo" è un artefatto della convenzione della guida, che mette la testa delle svasate sul fondo del cono (0,9 più in basso della testa vera): con la testa a 0,1 sotto la faccia la punta resta 0,5 sopra il fondo del foro (4,0) e la presa è 3,5 (3,4 e 0,6 con la testa a filo, come nel piano). Stessa convenzione per `piastrina_imu` e `lama_b`: da correggere nella pipeline quando si rifanno i testi.
+    - Restano da rifare i testi e le immagini di 4.04 e delle altre voci dell'elenco "Testi della guida dopo la 2.1.7" (le note di S-19 in 04-banco parlano ancora delle teste M3 del vassoio).
 
 ### Ordine e arresti
 

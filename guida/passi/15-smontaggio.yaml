@@ -433,7 +433,7 @@ passi:
     tabella:
       intestazione: [Parte, Come si toglie, Viti]
       righe:
-        - ["Vassoio con basetta, ESP32, torretta e mensola", "stacca fili e flat; sfila il vassoio", "4 M3 × 6 sui distanziali, 4 M2 × 5 per la basetta"]
+        - ["Vassoio con basetta, ESP32, torretta e mensola", "stacca fili e flat; sfila il vassoio", "4 M2 × 5 svasate sulle colonne, 4 M2 × 5 per la basetta"]
         - ["SSC-32", "stacca spine e barre; svita", "4 M2 × 5 negli inserti del tetto"]
         - ["Regolatore con la sua slitta", "svita il regolatore; sfila la slitta dalle guide", "4 M2 × 5 per il regolatore, 1 M3 × 8 per la slitta"]
         - ["Chiglia", "capovolgi il robot sul cavalletto", "2 M3 × 16 davanti, 2 M3 × 8 dietro"]

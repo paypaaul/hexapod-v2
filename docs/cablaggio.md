@@ -117,7 +117,7 @@ Bus I2C0: GPIO47 SDA, GPIO3 SCL, 3,3 V, 400 kHz. Ogni ramo ha 4 fili: massa, 3,3
 
 | Ramo | Da → a | Percorso | Stato |
 |---|---|---|---|
-| Vano sotto il vassoio | basetta → IMU (GY-6500 a 0x68, oppure la Pololu predisposta a 0x6B; 4 fili saldati sulle piazzole, senza pin: sotto il vassoio non c'è altezza, D-074) e ADS7830 (0x48) | dall'asola del vassoio | S |
+| Vano sotto il vassoio | basetta → IMU (GY-6500 a 0x68, oppure la Pololu predisposta a 0x6B; 4 fili saldati sulle piazzole, senza pin: sotto il vassoio non c'è altezza, D-074) e ADS7830 (0x48) | dall'asola del vassoio (dalla 2.1.7 7 × 4, fuori dalla basetta a y 18–22: la spina Qwiic 6 × 2,9 passa; i fili non passano più sotto la basetta, D-076) | S |
 | Baie anteriori | basetta → INA260 sinistro (0x44) e destro (0x45) | passaggio fra SSC-32 e vassoio, clip sul tetto | S |
 | ToF frontale (X8) | basetta → VL53L7CX nella mensola della camera | lungo la torretta. Alimentato dal pin VDD a 3,3 V con VIN scollegato. Prende 0x30 a ogni accensione mentre il posteriore è tenuto spento | V alimentazione; S percorso |
 | Carapace | basetta → poli 5–8 del connettore → scheda del carapace | cavo piatto | S |
@@ -127,7 +127,7 @@ Il bus misura in tutto circa 1,1 m: 0,8 nel corpo e 0,3 nel carapace (S). Sta al
 
 ### 3.5 Carapace
 
-Tutto quello che sta sul carapace passa dalla **scheda del carapace** (X2): una striscia di millefori sotto il dorso, a x 29…49. La collega alla basetta un **cavo piatto a 16 vie**, lungo circa 15 cm, saldato sulla basetta e con la spina IDC sulla scheda; la spina si sfila dall'ottagono.
+Tutto quello che sta sul carapace passa dalla **scheda del carapace** (X2): una striscia di millefori sotto il dorso, 21,5 × 30 a x 29,5…51 (dalla 2.1.7, D-076: la testata 2 × 8 sta a 90° sul bordo di coda e la spina esce orizzontale verso la coda, dentro l'ottagono; la chiave è sul lato lontano dalla scheda; la scheda finisce prima dell'amplificatore, che comincia a x 51,85). La collega alla basetta un **cavo piatto a 16 vie**, lungo circa 15 cm, saldato sulla basetta e con la spina IDC sulla scheda; la spina si sfila dall'ottagono.
 
 Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 
@@ -144,13 +144,13 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 
 | Cavo | Da → a | Percorso | Connettore | Fili | Stato |
 |---|---|---|---|---|---|
-| Catena LED (X9, X11, X12) | scheda → anello del pulsante → lobi PS, MS, AS, AD, MD, PD | dalla scheda lungo il lato sinistro dell'ottagono fino alla camera dell'anello. Entra dalla tacca verso la coda ed esce dalla stessa tacca. Poi lungo i fianchi nei ganci sotto il dorso (x −40, 0, 40, \|y\| 41,8–47,2), con il passaggio da sinistra a destra davanti | saldati sulle piazzole della striscia | 3 × 30 AWG (5 V, dato, massa) | S percorso; 16 pixel in tutto (D-068) |
+| Catena LED (X9, X11, X12) | scheda → anello del pulsante → lobi PS, MS, AS, AD, MD, PD | dalla scheda lungo il lato sinistro dell'ottagono fino alla camera dell'anello. Entra dalla tacca verso la coda ed esce dalla stessa tacca. Poi lungo i fianchi nei ganci sotto il dorso (x −40, 0, 40 e, dalla 2.1.7, ±75, \|y\| 41,8–47,2), con il passaggio da sinistra a destra davanti, lungo Y a x 75, in tre ganci (y −24, 0, 24) fra l'amplificatore e le paratie della testa. Tratti dritti dal CAD (dai centri dei ganci, in pianta): al più 40 mm sui fianchi, circa 10 dal gancio a x ±75 alla luce del lobo d'angolo, circa 25 per tratto davanti: la striscia si taglia sommando questi tratti più le scorte, sul primo carapace | saldati sulle piazzole della striscia | 3 × 30 AWG (5 V, dato, massa) | S percorso; 16 pixel in tutto (D-068) |
 | Dentro la camera dell'anello | due pezzi da due pixel (16,7 mm a 120 LED/m, D-068) nelle sedi del fondo, a Y ±(6,5…11,9) | entra al capo DIN del pezzo +Y, dalla parte della coda. Dal capo DOUT un ponticello di 3 fili gira attorno al corpo del pulsante sul lato della testa e va al capo DIN del pezzo −Y. Dal capo DOUT del pezzo −Y esce verso la tacca | saldati | 3 + 3 + 3 fili da 30 AWG | V spazio nel CAD (camera Ø32 × 6, D-067) |
 | Pulsante | pulsante → scheda → poli 15-16 | sotto il dorso, circa 9 cm | saldati | 2 fili | S |
 | Microfoni (X16) | due schede (x 83…96, \|y\| 3…19) → scheda | sotto il dorso, circa 8 cm [S]: dal CAD 42,6–45,1 mm in linea retta, più la scorta; si taglia a misura sul primo carapace | saldati | 5 per scheda: 3,3 V, massa, BCLK, WS, dati. I dati dei due microfoni sono uniti sul polo 12, con un pull-down da 100 kΩ verso massa sulla scheda del carapace (D-074); L/R (SEL sulla Adafruit) a massa su uno e a 3,3 V sull'altro. MS3625: VDD, GND, SCK, WS, SD, L/R | S |
 | Amplificatore (X17) | scheda → ampli generico (x 51…70, pin verso la scheda, D-074) | sotto il dorso | saldati | 5: 5 V, massa, BCLK, WS, dati | S |
 | Altoparlante | ampli → altoparlante tondo da 15 mm sulla guancia destra di coda | sotto il dorso, dalla testa alla coda, circa 17 cm | il cavetto dell'altoparlante si taglia (connettore da 1,25) e si allunga; nella morsettiera o saldato | 2 | S |
-| ToF posteriore (X19) | scheda → VL53L1X sulla guancia sinistra di coda | sotto il dorso, circa 20 cm [S]: dal CAD circa 126–129 mm in pianta più 12 di quota, con il cavo che gira fuori dall'ottagono; si taglia a misura sul primo carapace | saldati | 5: 3,3 V, massa, SDA, SCL, XSHUT (dal TCA9534) | S |
+| ToF posteriore (X19) | scheda → VL53L1X sulla guancia sinistra di coda, avvitato con due viti M2 × 5 in fori pilota Ø1,7 (dalla 2.1.7) | sotto il dorso, circa 20 cm [S]: dal CAD circa 126–129 mm in pianta più 12 di quota, con il cavo che gira fuori dall'ottagono; si taglia a misura sul primo carapace | saldati | 5: 3,3 V, massa, SDA, SCL, XSHUT (dal TCA9534) | S |
 | Espansione | presa Qwiic sulla scheda | si raggiunge dall'ottagono | JST SH 4 poli | 4 | V standard Qwiic |
 
 ### 3.6 Comandi dei servo e camera
@@ -164,7 +164,7 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 ## 4. Smontaggio
 
 - **Carapace**: si toglie lo sportellino, si sfila la spina IDC dall'ottagono, si svitano le 4 viti, si stacca il cicalino dalla presa di bilanciamento e si solleva. Anello, fondo, lobi, microfoni, ampli, altoparlante e ToF posteriore restano sul carapace con i loro fili.
-- **T-plug** (sezionamento d'emergenza): sta 7 mm dentro la porta di coda, appoggiato al portafusibile, con 3,3 mm sotto il cicalino. Si prende con la punta delle dita sul retro e sui fianchi: 7 mm d'aria verso l'altoparlante, 10,4 mm verso la guancia sinistra. Il ToF posteriore copre solo l'angolo in alto a sinistra (3 × 3 mm) visto da dietro e sta 8 mm più indietro (verifica della 2.1.2). Si prova a mano sul primo carapace; se è scomodo, una linguetta di nastro sulla metà lato batteria.
+- **T-plug** (sezionamento d'emergenza): sta 7 mm dentro la porta di coda, appoggiato al portafusibile, con 3,3 mm sotto il cicalino. Si prende con la punta delle dita sul retro e sui fianchi: 7 mm d'aria verso l'altoparlante, 10,4 mm verso la guancia sinistra. Il ToF posteriore copre solo l'angolo in alto a sinistra (3 × 3 mm) visto da dietro e sta 8 mm più indietro (verifica della 2.1.2). Dalla 2.1.7 le fessure del tetto sono aperte verso la coda e il pacco si sfila con T-plug e JST-XH attaccati (prova con corpi temporanei, sportello tolto, carapace montato: libero da 0 a 165 mm con la metà femmina del T-plug sul lato destro; **con la spina sul lato sinistro tocca il ToF posteriore fra 10 e 20 mm**, quindi si porta fuori dal lato dell'altoparlante o inclinata; con la spina 1 mm più alta passa). Si prova a mano sul primo carapace (guida 11.03); se è scomodo, una linguetta di nastro sulla metà lato batteria.
 - **Zampa**: si staccano dalla SSC-32 le tre spine dei servo, poi la spina dell'FSR dalle prese dei piedi e quella delle luci dalle sue prese. Tutti questi fili restano sulla zampa.
 
 ## 5. Aperti

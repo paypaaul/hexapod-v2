@@ -46,7 +46,7 @@ def stallo_kgfcm(v):
 # Configurazione di riferimento = punto di progetto PRELIMINARE (vedi docs/dimensionamento.md).
 # Lunghezze e posizioni degli assi sono stime da confermare con il CAD.
 CONFIG = {
-    "massa_g": 3045.0,          # massa attesa della 2.1.6 (D-074: 2685,0 g modellati + 360 stimati); D-071 3043,5, D-065 2945
+    "massa_g": 3047.2,          # massa attesa della 2.1.7 (2687,2 g modellati + 360 stimati, cad.json); 2.1.6 3045,0 (D-074), D-071 3043,5, D-065 2945
     "com_xy": (0.0, 0.0),       # baricentro nel piano, terna corpo
     "v_servo": 6.0,             # tensione del rail servo
     # assi coxa: nome -> (x, y, direzione neutra della zampa in gradi dall'asse longitudinale +x)

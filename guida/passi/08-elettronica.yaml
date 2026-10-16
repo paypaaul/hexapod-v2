@@ -40,7 +40,7 @@ sezione:
     - "Banco finito: basetta con tutti i fili e provata, SSC-32, ESP32 e regolatori sulle slitte pronti (sezione 4)."
     - "Corpo finito: Wago, 2813, F1 e prese montati (sezione 7); inserti a filo (sezione 3)."
     - "Scelto se montare X4, X6, X7, X8, X13, X2, X5 e X31: sotto il vassoio non si arriva più."
-    - "Viti del vassoio decise (S-19): con le DIN 912 la basetta non si monta."
+    - "Viti del vassoio: M2 × 5 svasate a filo (D-076, S-19 chiuso)."
     - "Batteria fuori dal corpo (sezione 11)."
   tempo: "circa 5 ore la prima volta [S]"
   stato_elettrico: "T-plug staccato per tutta la sezione, F1 e F2 vuoti. Solo saldatore e multimetro in continuità."
@@ -344,7 +344,7 @@ passi:
 
   # ------------------------------------------------------------------------------------------------ vassoio e basetta
   - id: "8.11"
-    titolo: Vassoio sui distanziali
+    titolo: Vassoio sulle colonne della base
     formato: grande
     nuovi: [corpo/Corpo_Vassoio]
     giunzioni: [vassoio]
@@ -355,18 +355,16 @@ passi:
       - {chiave: corpo/Corpo_Base, lav: "vas_bugna_*_ins"}
       - {chiave: corpo/Corpo_Vassoio, lav: asola_bus}
     testo:
-      - "Avvita a mano i quattro distanziali maschio-femmina negli inserti delle bugne del tetto."
-      - "Cala il vassoio sui distanziali, torretta della camera verso la testa, con i fili dell'asola a sinistra."
-      - "Accosta le quattro viti M3 × 6 dall'alto, nei distanziali, poi stringile piano."
+      - "Cala il vassoio sulle quattro colonne della base, torretta della camera verso la testa, con i fili dell'asola a sinistra."
+      - "Avvita le quattro viti M2 × 5 svasate dall'alto, negli inserti in cima alle colonne, poi stringile piano: le teste restano a filo del vassoio."
       - "Controlla che i fili dell'IMU e dell'ADC non restino schiacciati sotto il vassoio."
     avvisi:
-      - {tipo: importante, testo: "Bloccante: con le viti DIN 912 disegnate qui le teste restano a 0,3 mm sotto la basetta, proprio sotto tre pin dell'ESP32. Usa le viti decise per S-19: teste basse, o viti spostate nel CAD 2.1.7 [C]."}
-      - {tipo: nota, testo: "Fra tetto e vassoio restano 10,4 mm [V]: bugna, distanziale da 5 mm e vassoio. Dopo ogni smontaggio la calibrazione camera–IMU si rifà (predisposizioni.md 2.9)."}
-    attrezzi: [brugola_2_5]
+      - {tipo: nota, testo: "Le teste svasate stanno a 0,1 mm sotto la faccia del vassoio: la basetta, 3,4 mm sopra le teste [V], non le tocca (D-076, P-003). Dopo ogni smontaggio la calibrazione camera–IMU si rifà (predisposizioni.md 2.9)."}
+    attrezzi: [brugola_1_3]
     fonti:
-      - "D-051: vassoio su quattro distanziali M3 maschio-femmina da 5 mm"
+      - "D-076, P-003: vassoio su quattro colonne della base con inserti M2 e M2 × 5 svasate (prima D-051: distanziali M3)"
       - "D-066, blocco B: asola 6 × 3 per i fili del bus"
-      - "guida/problemi/schemi.yaml S-19 (bloccante)"
+      - "guida/problemi/schemi.yaml S-19 (chiuso dal CAD 2.1.7)"
       - "docs/predisposizioni.md 2.8 e 2.9"
       - "guida/catalogo/giunzioni.yaml, vassoio"
 

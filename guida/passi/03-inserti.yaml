@@ -2,8 +2,8 @@
 # Nessun pezzo montato: ogni passo mostra un pezzo a colori pieni (in_evidenza) con i suoi inserti (campo inserti, fori
 # del CAD classificati inserto_m3 / inserto_m2 da guida/catalogo/fori.yaml). Pezzi della zampa nella terna della zampa
 # (x6), pezzi del corpo nella terna del robot.
-# Conteggi dal CAD (controlli.totali_inserti): M3 94 = zampa 11 x 6 (tibia 3, coxa 4, Femore_B 4) + corpo 28 (base 26,
-# chiglia 2); M2 28 = lama B 2 x 6 + slitte 8 + SSC-32 4 + vassoio 4. Predisposizioni (fuori dai totali del BOM): 18 M2.
+# Conteggi dal CAD (controlli.totali_inserti): M3 90 = zampa 11 x 6 (tibia 3, coxa 4, Femore_B 4) + corpo 24 (base 22,
+# chiglia 2); M2 32 = lama B 2 x 6 + slitte 8 + SSC-32 4 + colonne della base 4 (2.1.7, D-076) + vassoio 4. Predisposizioni (fuori dai totali del BOM): 18 M2.
 # Il BOM scrive "30 nel corpo": non torna con il CAD (guida/problemi/inserti.yaml).
 # I fori a destra della base sono specchi: hanno lo stesso nome degli originali e si scelgono con lato: destro.
 # Chiglia della base (4 inserti dal fondo) al passo 3.22, base capovolta: dall'alto non si vedono (guida/problemi/inserti.yaml).
@@ -93,18 +93,18 @@ passi:
         - ["Tibia (3.06)", "6", "3", "–", "18", "–"]
         - ["Coxa (3.07)", "6", "4", "–", "24", "–"]
         - ["Femore lato B (3.08, 3.09)", "6", "4", "2", "24", "12"]
-        - ["Base (3.10–3.13, 3.22)", "1", "26", "4", "26", "4"]
+        - ["Base (3.10–3.13, 3.22)", "1", "22", "8", "22", "8"]
         - ["Chiglia (3.14)", "1", "2", "–", "2", "–"]
         - ["Slitte dei regolatori (3.15, 3.16)", "2", "–", "4", "–", "8"]
         - ["Vassoio dell'ESP32 (3.17)", "1", "–", "4", "–", "4"]
-        - ["Totale senza predisposizioni", "", "", "", "94", "28"]
+        - ["Totale senza predisposizioni", "", "", "", "90", "32"]
         - ["Predisposizioni (3.18–3.21)", "", "", "", "–", "18"]
     testo:
-      - "Conta gli inserti del kit: 94 M3 (BOM D4) e 28 M2 (BOM D5)."
+      - "Conta gli inserti del kit: 90 M3 (BOM D4) e 32 M2 (BOM D5)."
       - "Aggiungi 18 M2 se monti le predisposizioni."
       - "Segui i passi nell'ordine: la zampa si fa sei volte, il corpo una."
     avvisi:
-      - {tipo: nota, testo: "Totali del CAD e del BOM uguali: 94 M3 (66 nelle zampe, 28 nel corpo) e 28 M2 (BOM, viteria e inserti contati dal modello) [V]."}
+      - {tipo: nota, testo: "Totali del CAD e del BOM uguali: 90 M3 (66 nelle zampe, 24 nel corpo) e 32 M2 (BOM, viteria e inserti contati dal modello) [V]."}
       - {tipo: nota, testo: "Predisposizioni: IMU 2 (X4), ADC 2 (X6), supporti INA260 4 (X7), amplificatore 2 (X17), scheda del carapace 4 (X2), zaino 4."}
     fonti: [D-065, D-074, "docs/BOM.md 'Viteria e inserti contati dal modello' e 'Viteria in più se si montano tutte'", guida/catalogo/viteria.yaml]
 
@@ -286,9 +286,9 @@ passi:
     inserti: [{chiave: corpo/Corpo_Base, lav: "vas_bugna_*"}]
     vista: {direzione: [0.15, 0.6, 0.78], su: [0, 0, 1]}
     testo:
-      - "Metti 4 inserti M3 dall'alto nelle bugne del tetto del tunnel."
+      - "Metti 4 inserti M2 dall'alto in cima alle colonne del tetto del tunnel."
     avvisi:
-      - {tipo: nota, testo: "Qui si avvitano i 4 distanziali M3 maschio-femmina che reggono il vassoio (D-051)."}
+      - {tipo: nota, testo: "Qui si avvitano le 4 viti M2 × 5 svasate che fissano il vassoio alle colonne (D-076, P-003)."}
     fonti: [D-051, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
 
   - id: "3.13"

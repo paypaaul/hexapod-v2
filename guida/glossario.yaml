@@ -347,7 +347,7 @@ tunnel:
   definizione: "Vano chiuso al centro della base, interno 162 × 50 × 28 mm, in cui sta la batteria; si apre solo in coda."
   fonte: "D-050 (sezione batteria)"
 vassoio:
-  definizione: "Piano stampato sopra il tetto del tunnel, su quattro distanziali: porta la basetta, la torretta e la mensola della camera."
+  definizione: "Piano stampato sopra il tetto del tunnel, su quattro colonne della base: porta la basetta, la torretta e la mensola della camera."
   fonte: "D-051, D-053 (sezione elettronica)"
 viti-spina:
   definizione: "Le due viti M3 × 5 avvitate nella squadretta di coxa senza rondella: le teste entrano nei fori del ponte e portano la coppia del servo."

@@ -43,12 +43,12 @@ Fonti primarie lette l'8 ottobre 2026 (us.ovonicshop.com e ampow.com, più inser
 
 | Quota / dato | Valore | Stato |
 |---|---|---|
-| Ingombro | 137–139 × 46–47,3 × 24–25,4 mm | V (più schede), C calibro sul pacco |
+| Ingombro | 137–139 × 46–47,3 × 24–25,4 mm dichiarati; **lunghezza misurata dall'utente: 139,65 mm** (16 ottobre 2026, Q-17) | V (più schede), M lunghezza |
 | Tolleranza dichiarata | ±5 / ±2 / ±2 mm → inviluppo massimo 144 × 49,3 × 27,4 mm | V |
 | Massa | 245–259 g ± 20 | V, da pesare |
 | Scarica | 50C continui (260 A), 100C di picco | V |
-| Cavi | 12 AWG; escono tutti da un lato corto; lunghezza non dichiarata (circa 120 mm dalle immagini) | V sezione, S il resto |
-| Connettori | T-plug (dalle immagini femmina sul pacco: C), bilanciamento JST-XH 3 poli | V tipo, C genere |
+| Cavi | 12 AWG; escono tutti da un lato corto; **lunghezza misurata 110 mm** (Q-17) | V sezione, M lunghezza |
+| Connettori | T-plug **femmina** sul pacco (il robot porta il maschio, B12), con il **positivo sul lato verticale** (Q-17: polarità da ricontrollare col multimetro prima di saldare); bilanciamento JST-XH 3 poli | V tipo, M genere e polarità |
 
 Il vano si disegna sull'inviluppo massimo con battuta, schiuma e fermo; le quote definitive si prendono con il calibro sul pacco reale.
 
@@ -59,7 +59,7 @@ Fonte: immagini dell'inserzione AliExpress 1005008519401021 (venditore "Uncle El
 | Quota / dato | Valore | Stato |
 |---|---|---|
 | PCB | 62,6 × 28,3 mm | V inserzione, C calibro |
-| Quota "24,7" sul disegno | probabile interasse tra le due file di pin (da confermare; lo standard DevKitC è 25,4) | C |
+| Quota "24,7" sul disegno | distanza fra le facce interne dei pin; l'**interasse delle file è 25,4** (10 passi da 2,54; Keyestudio MB0200 dichiara 25,4), `esp_file` dalla 2.1.7 (D-076, P-005); condizione: prova a secco delle strip sulla millefori | S |
 | Passo pin | 2,54 mm, 2 × 20 pin | V inserzione |
 | USB | 2 × USB-C sul lato corto opposto all'antenna: "OTG" (USB nativa, GPIO19/20) e "TTL" (CH340, GPIO43/44) | V inserzione |
 | Modulo | ESP32-S3-N16R8 (16 MB flash, 8 MB PSRAM), connettore antenna IPEX | V inserzione |
@@ -148,6 +148,7 @@ Modello 3D: non trovato. Ingombro semplificato con altezza della testa e diametr
 | Pololu D24V22F5 (5 V logica) | 17,8 × 17,8 × 8; 2 fori M2 | Pololu | V |
 | Interruttore Pololu #2813 | 20,3 × 25,4 × 4,1 | Pololu | V |
 | Inserto a caldo M2 (CNC Kitchen) | Ø3,6 × 3,0; foro 3,2; parete minima 1,3 | produttore / rivenditore | V / S |
+| Inserti a caldo M2 e M3 del kit Temu dell'utente | M3: zigrinatura Ø4,2, invito liscio Ø4,0; M2: zigrinatura Ø3,2, invito Ø3,0 (Q-20); il foro nel PETG-CF non può essere 4,2 / 3,2: valori da tarare sul provino degli inserti (M3 Ø3,9 / 4,0 / 4,1 / 4,2, M2 Ø2,9 / 3,0 / 3,1 / 3,4, `attrezzi.py` → `fai_provino_inserti`) | risposta dell'utente, foto del kit | M / C |
 | Inserto a caldo M3 (CNC Kitchen) | Ø4,6 × 5,7; foro 4,0; parete minima 1,6 | idem | V / S |
 | Spina servo JR femmina | 7,90 × 2,75 × 14,0; passo 2,54 | disegno Pololu 0J9699 | V |
 | Collare maschio della prolunga | 10,30 × 4,00 × 18,0 | disegno Pololu 0J9700 | V |
@@ -156,6 +157,15 @@ Modello 3D: non trovato. Ingombro semplificato con altezza della testa e diametr
 | Fusibile a lama standard (ATO) | 19,1 × 5,1 × 18,5 | standard | S |
 
 Regole per il CAD ereditate dalla prima versione: foro per inserto = diametro di datasheet + 0,2 mm, profondità = inserto + 1 mm; gioco di stampa di partenza 0,15–0,2 mm per lato sulle sedi dei servo, da tarare con un provino; sedi dei cuscinetti nominali, forzamento da provino; sull'anello interno appoggia solo un rialzo.
+
+## Testata e spina della scheda del carapace, ToF posteriore (letti per la 2.1.7)
+
+| Quota / dato | Valore | Stato |
+|---|---|---|
+| Testata Würth 61201621721 (WR-BHD 2 × 8, 90°, 2,54) | lunga 27,98, scatola profonda 8,85 dal bordo, alta 9,0; file dei pin a 1,84 e 4,38 dietro la scatola; chiave al centro sul lato lontano dalla scheda | V (disegno del produttore, 16 ottobre 2026) |
+| Spina IDC Würth 61201623021 | lunga 25, spessa 6,0 (7,0 con la chiave larga 3,7); 11,4 con il fermacavo; nel CAD sporge 10 oltre il bordo (`sch_spina_fuori`) e ha l'asse a 4,5 (`sch_spina_z`) | V disegno, S sporgenza e asse |
+| Pololu VL53L1X #3415 (carrier, vista dal basso) | scheda 0,5 × 0,7 pollici (12,7 × 17,8); due fori Ø2,18 a 0,5 pollici fra loro, sul lato opposto ai pin, a circa 2,54 dai bordi | V disegno, S posizione dai bordi |
+| Altoparlante da 15 | spessore 4 (`aud_altt_sp`); da cui dipendono le costole di ritegno a filo | C |
 
 ## Componenti nel design Fusion
 
