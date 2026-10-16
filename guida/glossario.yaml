@@ -20,8 +20,8 @@ ansa:
   definizione: "Tratto di cavo lasciato lento fra due fermi perché un giunto possa girare senza tirarlo."
   fonte: "D-058 (sezione zampa)"
 asola:
-  definizione: "Apertura 6 × 3 mm nel vassoio, a sinistra, da cui passano i fili di IMU e ADC."
-  fonte: "D-066 (sezione elettronica)"
+  definizione: "Apertura 7 × 4 mm nel vassoio, fuori dal bordo sinistro della basetta e verso la coda, da cui passano i fili dell'IMU e il cavetto Qwiic dell'ADC."
+  fonte: "D-066, D-077 (sezione elettronica)"
 assetto:
   definizione: "Coppia altezza/distanza in mm: altezza dell'asse dei femori da terra e distanza del piede dall'asse della coxa; 100/45 è il punto di progetto."
   fonte: "docs/software.md 4.2, robot.yaml (sezione collaudo)"
@@ -110,8 +110,8 @@ fronte:
   definizione: "Quanto il ponte della coxa può ruotare attorno alla squadretta: teste M3 Ø5,5 in fori Ø5,6."
   fonte: "D-048, D-049; cad/script/zampa.py cox_testa_vite_d (sezione provini)"
 gola:
-  definizione: "Scanalatura poco profonda in cui corrono i fili: sullo stinco (2 × 2, fili dell'FSR) e sulla parete della culla dal lato del fronte (gola del fermo, larga 4, sotto i ponticelli)."
-  fonte: "D-066 'Blocco A'; D-067 'Fermo dei fili della tibia'"
+  definizione: "Scanalatura poco profonda in cui corrono i fili: sullo stinco (2 × 2, fili dell'FSR) e sulla parete della culla dal lato del fronte (gola del fermo, larga 4,5, sotto i ponticelli)."
+  fonte: "D-066 'Blocco A'; D-067 'Fermo dei fili della tibia'; D-076 (P-063)"
 gondola:
   definizione: "Culla del servo di coxa, ricavata nella base: uguale a quella della zampa, con l'albero in alto, la coda verso l'esterno e il cuscinetto nel fondo."
   fonte: "D-047; cad/script/corpo.py gondola (sezione corpo)"
@@ -251,8 +251,8 @@ rail:
   definizione: "Alimentazione a 6,0 V dei servo, una per lato (VS1 a sinistra, VS2 a destra), dai due regolatori D42V110F6; spenta finché l'ESP32 non la accende."
   fonte: "BOM B1, B11 (sezione accensione)"
 rebbi:
-  definizione: "I due denti dello sportello della batteria, lunghi 17 mm, che entrano nel tunnel e premono il pacco con la schiuma."
-  fonte: "D-054, cad/script/corpo.py cor_sport_rebbio (sezione batteria)"
+  definizione: "I due denti dello sportello della batteria, lunghi 22,5 mm, che entrano nel tunnel e premono il pacco con la schiuma."
+  fonte: "D-054, D-077, cad/script/corpo.py cor_sport_rebbio (sezione batteria)"
 registro delle misure:
   definizione: "Tabelle delle appendici in cui scrivi i valori misurati: forzamenti, provini, tensioni, calettamenti, numeri dei servo, taratura."
   fonte: "guida, appendici (sezione prima)"

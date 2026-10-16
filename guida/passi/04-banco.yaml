@@ -11,8 +11,14 @@
 # sezione 8 la basetta sta sulle colonnine con le saldature in basso. La sezione 8 salda solo l'altro capo dei fili
 # (2813, regolatori, prese delle luci) e innesta i connettori. I fili dei moduli del carapace sulla scheda del carapace
 # restano nel passo 13.16 (schemi.md 2.5, punto 5), con la scheda ancora fuori dal carapace.
-# Bloccanti degli schemi, con avviso e [C] nei passi: S-02 (passo fra le file dei pin dell'ESP32, 4.04, 4.06, 4.10),
-# S-19 (teste M3 del vassoio sotto i pin B-2, T-2, D-12, 4.10, 4.11), S-01 (testata della scheda del carapace, 4.25).
+# Bloccanti degli schemi chiusi dal CAD 2.1.7 (D-076, D-077):
+#  - S-02 / P-005: file dei pin dell'ESP32 a 25,4 (S); la condizione per tagliare e saldare e' la prova a secco (4.04);
+#  - S-19 / P-003: vassoio su colonne della base con M2 x 5 svasate a filo, niente distanziali: sotto la basetta non ci
+#    sono piu' teste M3 e B-2, T-2, D-12 si saldano con gli altri, giunti piatti (4.06, 4.10, 4.11, 4.14);
+#  - S-01 / P-002: testata 2 x 8 a 90 gradi sul bordo di coda della scheda del carapace, scheda 21,5 x 30, viti spostate
+#    (4.22-4.25). Le figure basetta*.svg e scheda_carapace*.svg e schemi.md restano della 2.1.6 e non si toccano qui
+#    (le rifara' il circuito stampato futuro): i passi dicono cosa e' cambiato, il resto e' in guida/problemi/banco.yaml.
+# P-140: cavo piatto in due strisce da 8 dopo il fermacavo (4.15; percorso in 13.19).
 # Le immagini delle slitte mostrano i due lati insieme, di fronte, con gli esplosi simmetrici: la slitta destra e' la
 # sinistra ruotata (D-066, X7) e le viti dei due lati stanno nella stessa giunzione (regolatori, 8 viti).
 sezione:
@@ -28,20 +34,21 @@ sezione:
     montato non si raggiunge (D-051); ESP32; basetta e scheda del carapace saldate secondo gli schemi, con i fili che
     vanno nel corpo; ramo logica; regolatori dei servo sulle slitte, con gli INA260.
   prima:
-    - "Pezzi stampati (sezione 2), inserti M2 nelle slitte e nei supporti (sezione 3); S-02 e S-19 decisi (schemi)."
+    - "Pezzi stampati (sezione 2) e inserti M2 di slitte, supporti e carapace (sezione 3)."
     - "Pezzi qui a destra in casa; batteria carica (0.06); cavi USB-C e micro-USB per dati; Mac con ESP-IDF."
   tempo: "circa 12 ore la prima volta, 6–7 di saldature [S]"
   stato_elettrico: >-
     Batteria solo nei passi di prova, per ultima: F2 da 2 A sulla logica, F1 da 3 A sul regolatore; prima, continuità fra
-    + e −. Mai la USB dell'ESP32 insieme al 5 V della basetta, finché il pin 5V con la sola USB (4.05) non dice che la scheda ha un diodo.
+    + e −. Mai la USB dell'ESP32 insieme al 5 V della basetta: il pin 5V è legato alla USB (4.05).
   fonti: [D-051, D-053, D-073, "docs/software.md 6.7", "docs/piano-elettronica-software.md 4 (P2)", docs/cablaggio.md, guida/schemi/schemi.md]
   attrezzi: []
   controllo:
     - "SSC-32: ponticelli VS VL e VS1 VS2 tolti; quattro barre saldate sul retro, senza corti; annotato se VL− è unito alle masse dei servo."
     - "SSC-32: dalla micro-USB risponde a VER, e la risposta è annotata. Da qui in poi non si configura più."
-    - "ESP32: sigla, serigrafia, passo fra le file dei pin e GPIO40–3V3 annotati; flash fatto dalla porta TTL; GPIO42 a 0 V."
-    - "Basetta: saldata come basetta.svg e basetta_saldature.svg, fili verso il robot compresi; le 20 prove dei passi 4.20 e 4.21 tornano."
-    - "Scheda del carapace: CE1, ponticelli e fili 101–112 saldati; testata solo dopo S-01; prove del passo 4.25 tornate."
+    - "ESP32: sigla, serigrafia e GPIO40–3V3 annotati; strip entrate a secco nelle righe 2 e 12; flash dalla porta TTL; GPIO42 a 0 V."
+    - "Basetta: saldata come basetta.svg e basetta_saldature.svg, B-2, T-2 e D-12 compresi, fili verso il robot compresi; le 20 prove dei passi 4.20 e 4.21 tornano."
+    - "Scheda del carapace: 21,5 × 30 con i fori sulle bugne; testata a 90°, CE1, ponticelli e fili 101–112 saldati sul disegno della 2.1.7; prove del passo 4.25 tornate."
+    - "Cavo piatto: spina IDC crimpata, nastro diviso in due strisce da 8 dopo il fermacavo."
     - "Ramo logica: prima accensione senza ESP32 tornata; con l'ESP32 5,0 V su R-4, 4,55–4,7 V sul pin 5V, 3,3 V su T-2."
     - "Regolatori: ognuno sulla sua slitta con 4 viti M2 e la sua R3 da 22 kΩ; 0 V con l'ENA a riposo e 6,0 V con l'ENA alto."
     - "INA260, se montati: sinistro con il ponticello A1, destro con A0 e A1; supporti posati sulle slitte."
@@ -153,26 +160,30 @@ passi:
       - {chiave: corpo/ESP32, lav: "corpo:slot_tf"}
     etichette:
       - {testo: scheda TF, punto: [30, 0, 12]}
-      - {testo: "25,4?", punto: [60, 0, 6]}
+      - {testo: "25,4 [S]", punto: [60, 0, 6]}
     testo:
       - "Gira l'ESP32: pin e sede della scheda TF in alto."
-      - "Misura e annota con il calibro la distanza fra i centri delle due file di pin."
+      - "Infila le due strip femmina 1 × 20 sui pin."
+      - "Prova a secco: infila le strip nelle righe 2 e 12 della millefori ancora intera, 10 passi fra le file [S]."
+      - "Controlla che entrino senza forzare, con i pin dritti; poi togli la millefori."
       - "Controlla che nella sede TF non ci sia una microSD, e guarda se sotto la scheda ci sono altri componenti."
       - "Misura e annota, a scheda spenta, la resistenza fra il pin GPIO40 e il pin 3V3."
     tabella:
       intestazione: [Misura, Atteso, Misurato]
       righe:
-        - ["Distanza fra le file di pin", "25,4 mm, 10 passi della millefori [C]", ""]
+        - ["Prova a secco, strip nelle righe 2 e 12", "entrano senza forzare: file a 25,4 mm [S]", ""]
         - ["Sotto la scheda, oltre la sede TF", "niente [C]", ""]
-        - ["GPIO40 contro 3V3, scheda spenta", "da annotare: circa 10 kΩ se c'è il pull-up della microSD [S]", ""]
+        - ["GPIO40 contro 3V3, scheda spenta", "circa 10 kΩ, il pull-up della microSD [S]", ""]
     avvisi:
-      - {tipo: importante, testo: "Bloccante: la basetta è disegnata con le file a 25,4 mm; il CAD dice 24,7 [C]. Con 24,7 non tagliare la millefori: lo schema va rifatto (S-02)."}
-      - {tipo: nota, testo: "Niente microSD: GPIO38, 39 e 40 sono anche le linee della sede TF, e qui portano microfoni e audio. Con il pull-up la R8 dei microfoni non porta la linea a 0 (S-21). Componenti sotto la scheda: S-08."}
+      - {tipo: importante, testo: "Se le strip non entrano nelle righe 2 e 12, fermati e non tagliare la millefori: lo schema della basetta va rifatto (D-076, P-005)."}
+      - {tipo: nota, testo: "File a 25,4 mm anche nel CAD dalla 2.1.7 [S]: il 24,7 di prima era fra le facce interne dei pin. Decide la prova a secco, non il calibro (D-076). Niente microSD: GPIO38–40 portano microfoni e audio (S-21)."}
     attrezzi: [calibro, multimetro]
     fonti:
-      - "guida/problemi/schemi.yaml S-02 (bloccante), S-08, S-21"
-      - "docs/dimensioni-componenti.md:62 (24,7 probabile interasse; DevKitC 25,4) e :82-84 (GPIO38-40 della microSD)"
-      - "cad/script/rif_componenti.py esp_file (24,7, C)"
+      - "D-076 e guida/problemi.md P-005 (25,4 mm, 10 passi, S; prova a secco al posto del calibro)"
+      - "cad/script/rif_componenti.py esp_file (25,4, S, dalla 2.1.7)"
+      - "docs/ricerca/dati-moduli.md, Q-18 (interasse 25,4; 10 kΩ su GPIO40 verso 3V3)"
+      - "guida/problemi/schemi.yaml S-08, S-21"
+      - "docs/dimensioni-componenti.md:82-84 (GPIO38-40 della microSD)"
       - "guida/schemi/schemi.md 1.1 (U1, file a 25,4) e sezione 3, riga 4.03"
 
   - id: "4.05"
@@ -192,17 +203,18 @@ passi:
         - ["Porta seriale sul Mac", "nuova, ls /dev/cu.* [C]", ""]
         - ["Flash con idf.py", "senza errori [C]", ""]
         - ["GPIO42 contro GND", "0 V: il firmware lo tiene basso [V]", ""]
-        - ["Pin 5V contro GND, con la sola USB", "da annotare: a 5 V la USB arriva al pin [C]", ""]
+        - ["Pin 5V contro GND, con la sola USB", "4,7–5,0 V: la USB arriva al pin dal PTC [S]", ""]
         - ["Pin 3V3 contro GND", "3,3 V [V]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Una alimentazione alla volta: mai la USB con l'ESP32 negli strip della basetta accesa. Il diodo D1 della basetta protegge il regolatore, ma non sappiamo se la porta USB del Mac riceverebbe il 5 V del pin (S-07) [C]."}
-      - {tipo: nota, testo: "Se il pin 5V resta a 0 V, la scheda ha già un diodo sulla USB: D1 si potrebbe sostituire con un ponticello (S-07)."}
+      - {tipo: attenzione, testo: "Una alimentazione alla volta: mai la USB con l'ESP32 negli strip della basetta accesa. Il pin 5V è legato alla VBUS della USB da un PTC da 0,5 A, senza diodo [S]: D1 protegge U2, non la porta USB (S-07)."}
+      - {tipo: nota, testo: "Dato dello schema Freenove, stesso modulo; sulla UICPAL lo dice questa misura. Se il pin 5V resta a 0 V, la scheda ha un diodo: annotalo (S-07)."}
       - {tipo: nota, testo: "Lo scheletro del firmware non è mai stato provato sul chip e non accende il LED né legge GPIO1: si provano con il programma di banco S1, che non c'è ancora. Se il flash non parte: tieni BOOT, premi RST, rilascia BOOT [S]."}
     attrezzi: [multimetro, mac_seriale]
     fonti:
       - "docs/software.md 6.7 (B0: flash, LED, ADC su GPIO1, GPIO42 con il multimetro)"
       - "firmware/README.md ('Compilare il firmware', 'Non provato sul chip') e firmware/main/main.cpp (GPIO42 basso)"
       - "guida/problemi/schemi.yaml S-07; guida/schemi/schemi.md sezione 3, righe 4.03 e 4.08"
+      - "docs/ricerca/dati-moduli.md, tabella dell'ESP32 (pin 5V legato alle VBUS da un PTC MF-PSMF050X-2, nessun diodo: V Freenove, S UICPAL)"
       - "guida/problemi/banco.yaml (programma di banco; diodo fra USB e pin 5V)"
 
   # ------------------------------------------------------------------------------------------------ basetta (schemi.md 1.4)
@@ -215,17 +227,18 @@ passi:
       - "Posa la basetta sulle colonnine del vassoio, usato come dima, e segna i quattro fori (D-053)."
       - "Trapana i quattro fori Ø 2,2."
       - "Pulisci le piazzole con alcol."
-      - "Segna con il pennarello, sul lato saldature, i fori con la croce del disegno: lì non va stagno."
+      - "Segna con il pennarello, sul lato saldature, i fori con la croce sopra le quattro colonnine: lì non va stagno."
     avvisi:
-      - {tipo: importante, testo: "Bloccante: taglia solo se il passo 4.04 ha misurato 25,4 mm fra le file di pin dell'ESP32. Con 24,7 lo schema va rifatto (S-02) [C]."}
-      - {tipo: nota, testo: "Il disegno è il lato saldature, specchiato: riga 1 in basso, colonne A–U da sinistra (coda) a destra (testa). Le croci sono le quattro teste M3 del vassoio e le quattro colonnine sotto la basetta (schemi.md 1.0)."}
+      - {tipo: importante, testo: "Taglia solo dopo la prova a secco del passo 4.04: le strip entrano nelle righe 2 e 12 (D-076, P-005)."}
+      - {tipo: nota, testo: "Dalla 2.1.7 il vassoio si avvita con M2 svasate a filo e sotto la basetta non ci sono più teste M3 (D-076, P-003). Le croci delle teste (C e D nelle righe 1–3 e 11–13, T-2, T-12, U-1…U-3, U-11…U-13) non valgono più; restano quelle delle colonnine, con C-3, C-11, U-3 e U-11."}
+      - {tipo: nota, testo: "Il disegno è il lato saldature, specchiato: riga 1 in basso, colonne A–U da sinistra (coda) a destra (testa). Un circuito stampato al posto della millefori arriverà in una versione successiva (D-076)."}
     extra: [{nome: "millefori 50 × 70 a doppia faccia (taglio 56 × 35) e 2 strip femmina 1 × 20", qta: 1, bom: C2}]
     attrezzi: [seghetto, trapanino, nastro_pennarello]
     fonti:
-      - "guida/schemi/schemi.md 1 (griglia), 1.0 (zone vietate), 1.4 punto 1"
-      - "D-053 (basetta 56 × 35 su quattro colonnine)"
+      - "guida/schemi/schemi.md 1 (griglia), 1.0 (zone vietate, della 2.1.6), 1.4 punto 1"
+      - "D-053 (basetta 56 × 35 su quattro colonnine); D-076 (P-003, P-005); D-077"
+      - "guida/dati/fori.json: Corpo_Vassoio foro_pa/pb/aa/ab svasati M2, bas_col_* (colonnine a (29; ±6,8) e (75,5; ±6,5))"
       - "docs/BOM.md C2 (millefori a doppia faccia, una piazzola per foro)"
-      - "guida/problemi/schemi.yaml S-02"
 
   - id: "4.07"
     titolo: Basetta, prova a secco
@@ -234,19 +247,19 @@ passi:
     testo:
       - "Infila le due strip femmina 1 × 20 sui pin dell'ESP32."
       - "Infila sulla basetta, senza saldare, U3, U4 sulle sue strip, D1 e le resistenze, ognuno nei fori del disegno."
-      - "Posa U2 su un quadrato di nastro isolante, e un quadrato di Kapton su U3 con PTC1 sdraiato sopra."
+      - "Posa U2 su un quadrato di nastro, e un quadrato di nastro su U3 con PTC1 sdraiato sopra: Kapton o nastro isolante in PVC."
       - "Posa l'ESP32 con le strip nelle righe 2 e 12, antenna verso la colonna U."
       - "Controlla che l'ESP32 vada in fondo, senza toccare U2, U4 e PTC1."
     avvisi:
       - {tipo: importante, testo: "Se l'ESP32 non va in fondo, fermati: il PTC passa in linea fuori dalla basetta (S-08) [C]. Sotto l'ESP32 restano 8,5 mm: PTC1 su U3 arriva a 8,1 [S]."}
-      - {tipo: nota, testo: "Il disegno è il lato componenti, visto dall'alto: testa del robot a destra, sinistra del robot (+Y) in alto. Il Kapton (S-24) non è nel BOM: PTC1 scattato supera 100 °C [S]."}
+      - {tipo: nota, testo: "Il disegno è il lato componenti, visto dall'alto: testa del robot a destra, sinistra del robot (+Y) in alto. Kapton o nastro in PVC, quello che hai in casa: non sono nel BOM (D-076, P-072)."}
     extra:
       - {nome: "D24V22F5, traslatore KAmod, 1N5819, 4,7 kΩ (2), 47 kΩ 1 %, 100 nF SMD (2)", qta: 1, bom: "B2, C1, C3, B10, B8"}
       - {nome: "luci: SN74AHCT125N, 10 kΩ, 330 Ω (2), PTC MF-R075", qta: 1, bom: X9}
-      - {nome: "nastro Kapton, 3 quadrati da 15 mm (non nel BOM, S-24)", qta: 1}
+      - {nome: "nastro Kapton o in PVC, 2 quadrati da 15 mm (in casa, non nel BOM)", qta: 1}
     fonti:
       - "guida/schemi/schemi.md 1.1 (componenti) e 1.4 punto 2"
-      - "guida/problemi/schemi.yaml S-08, S-24"
+      - "guida/problemi/schemi.yaml S-08, S-24; D-076 (P-072: Kapton o PVC, consumabile fuori dal BOM)"
       - "D-053 (8,5 mm sotto l'ESP32)"
 
   - id: "4.08"
@@ -286,7 +299,7 @@ passi:
       - "Taglia a filo i pin delle sue strip, sopra il modulo e sotto la basetta, e salda U4."
       - "Leggi la serigrafia di U2 e posalo sul nastro isolante: N-4 PG, O-4 EN, P-4 VIN, Q-4 GND, R-4 VOUT [C]."
       - "Salda i cinque pin di U2."
-      - "Salda PTC1 sdraiato sul Kapton sopra U3, con i reofori piegati in L-8 e L-10."
+      - "Salda PTC1 sdraiato sul nastro sopra U3, con i reofori piegati in L-8 e L-10."
     avvisi:
       - {tipo: attenzione, testo: "Ordine dei pin di U2 da confermare (S-03): un ordine sbagliato porta la batteria, fino a 8,4 V, sul 5 V e sull'ESP32. Se la serigrafia non è come qui, fermati."}
       - {tipo: importante, testo: "Sigle e passo fra le file del traslatore (7,62 mm) da confermare (S-04) [C]: se non coincidono, il modulo non entra nei fori. Sotto il modulo non va niente."}
@@ -301,19 +314,19 @@ passi:
     formato: grande
     figura: schemi/basetta.svg
     testo:
-      - "Taglia a filo le code dei pin non usati e quelle di B-2, T-2 e D-12."
+      - "Taglia a filo le code dei pin non usati."
       - "Infila le strip sull'ESP32 e posa l'insieme nelle righe 2 e 12."
       - "Salda prima un pin ai due capi di ogni strip; controlla che le strip siano dritte e in battuta."
-      - "Salda gli altri pin usati: A-2, I-2, A-12, E-12, F-12 e da L-12 a R-12."
-      - "Togli l'ESP32."
+      - "Salda gli altri pin usati, con giunti piatti: A-2, B-2, I-2, T-2, A-12, D-12, E-12, F-12 e da L-12 a R-12."
+      - "Taglia le code a 1 mm sotto la basetta e togli l'ESP32."
     avvisi:
-      - {tipo: importante, testo: "Bloccante: B-2, T-2 e D-12 stanno sopra le teste M3 del vassoio, a 0,3 mm. Saldali, con un giunto piatto, solo dopo la scelta di S-19: teste basse o viti spostate nel CAD 2.1.7 [C]."}
-      - {tipo: importante, testo: "Strip a 25,4 mm, 10 passi: valgono solo con la misura del passo 4.04 (S-02) [C]."}
-      - {tipo: nota, testo: "I pin non usati restano senza stagno: meno giunti accanto alle piazzole delle righe 1, 3, 11 e 13, niente stagno sopra le teste M3 (schemi.md 1.7, scelta 12)."}
+      - {tipo: nota, testo: "Dalla 2.1.7 sotto B-2, T-2 e D-12 non ci sono più le teste M3 del vassoio: si saldano con gli altri pin. Sotto la basetta restano 3,3 mm fino al vassoio, con le teste svasate a filo [V] (D-076, P-003)."}
+      - {tipo: importante, testo: "Strip a 25,4 mm, 10 passi: solo dopo la prova a secco del passo 4.04 (P-005)."}
+      - {tipo: nota, testo: "I pin non usati restano senza stagno: meno giunti accanto alle piazzole delle righe 1, 3, 11 e 13 (schemi.md 1.7, scelta 12)."}
     attrezzi: [saldatore, tronchesino]
     fonti:
       - "guida/schemi/schemi.md 1.0, 1.1 (U1: pin usati) e 1.4 punto 8"
-      - "guida/problemi/schemi.yaml S-02, S-19 (bloccanti)"
+      - "D-076 (P-003, P-005); D-077 (testa delle svasate a 3,4 mm sotto la basetta)"
 
   - id: "4.11"
     titolo: Basetta, ponticelli e barra di massa
@@ -329,18 +342,18 @@ passi:
       righe:
         - ["massa, sotto U3", "E-8…E-10, H-8…H-10, K-8…K-10, F-10–F-11, I-10–I-11, F-11–G-11, I-11–J-11"]
         - ["massa", "J-4…J-7, Q-4…Q-6, R-10–Q-10–Q-11, A-1–B-1, E-1–F-1"]
-        - ["3,3 V", "M-3–N-3, K-1…N-1; T-2–T-3 dopo S-19"]
+        - ["3,3 V", "M-3–N-3, K-1…N-1, T-2–T-3"]
         - ["SCL, SDA", "I-1–I-2, G-1…J-1; Q-1…T-1"]
         - ["seriale", "F-3–F-4, H-3–H-4"]
         - ["5 V LED", "A-13–B-13"]
         - ["audio", "L-12–L-13, M-12–M-13, N-12–N-13"]
         - ["GPIO1, GPIO42", "R-13–R-12–R-11–S-11–T-11; P-12–P-13"]
     avvisi:
-      - {tipo: importante, testo: "Niente stagno sui fori con la croce: T-2–T-3 si fa con T-2, dopo la scelta di S-19 [C]."}
+      - {tipo: importante, testo: "Niente stagno sui fori con la croce delle colonnine. Le croci delle teste M3 non valgono più: T-2–T-3 si fa ora (D-076, P-003)."}
     attrezzi: [saldatore, tronchesino, multimetro]
     fonti:
       - "guida/schemi/schemi.md 1.3 (ponticelli) e 1.4 punto 9"
-      - "guida/problemi/schemi.yaml S-19"
+      - "D-076 (P-003: niente teste M3 sotto la basetta)"
 
   - id: "4.12"
     titolo: Basetta, fili 1–12 di massa
@@ -392,9 +405,9 @@ passi:
         - ["21", "M-3 → E-7", "30", "3,3 V → LV di U4"]
         - ["22", "N-3 → I-13", "30", "3,3 V → polo 7"]
     avvisi:
-      - {tipo: opzionale, x: X3, quando: anche_dopo, testo: "Il filo 19 è J1: con il regolatore D24V5F3 si toglie. Mai J1 e X3 insieme (S-12)."}
+      - {tipo: nota, testo: "Il filo 19 è J1: i sensori prendono il 3,3 V dell'ESP32. X3, il regolatore dei sensori, non si compra finché la prova del 3,3 V non lo chiede; se arriva, J1 si toglie: mai J1 e X3 insieme (D-076, P-085)."}
     attrezzi: [saldatore, spelafili, multimetro]
-    fonti: ["guida/schemi/schemi.md 1.3 (fili 13-22)", "guida/problemi/schemi.yaml S-12"]
+    fonti: ["guida/schemi/schemi.md 1.3 (fili 13-22)", "guida/problemi/schemi.yaml S-12", "D-076 (P-085: X3 fuori dal BOM, resta J1)"]
 
   - id: "4.14"
     titolo: Basetta, fili 23–37 dei segnali, CS1 e CS2
@@ -409,17 +422,17 @@ passi:
       righe:
         - ["23, 24", "J-3 → J-1, J-3 → H-13", "SCL → bus, polo 6"]
         - ["25, 26, 27", "Q-3 → Q-1, E-12 → J-13, E-12 → Q-3", "SDA → bus, polo 8, R5"]
-        - ["28", "D-12 → F-7", "TX3 → L1, dopo S-19"]
-        - ["29", "B-2 → H-7", "RX3 ← L3, dopo S-19"]
+        - ["28", "D-12 → F-7", "TX3 → L1"]
+        - ["29", "B-2 → H-7", "RX3 ← L3"]
         - ["30, 31, 32", "F-12 → F-8, F-8 → I-8, D-8 → F-8", "GPIO48 → 1A, 2A, R1"]
         - ["33, 34", "G-8 → L-7, L-4 → F-13", "1Y → R2 → polo 4"]
         - ["35", "J-8 → T-13", "2Y → tibie"]
         - ["36", "Q-12 → O-13", "GPIO2 → polo 13"]
         - ["37", "O-12 → Q-13", "GPIO41 → OFF"]
     avvisi:
-      - {tipo: importante, testo: "I fili 28 e 29 partono da D-12 e B-2, sopra le teste M3: si saldano con quei pin, dopo la scelta di S-19 [C]."}
+      - {tipo: nota, testo: "I fili 28 e 29 partono da D-12 e B-2: dalla 2.1.7 sotto non ci sono più teste M3 e si saldano con gli altri (D-076, P-003)."}
     attrezzi: [saldatore, spelafili, pinzetta, multimetro]
-    fonti: ["guida/schemi/schemi.md 1.1 (CS1, CS2) e 1.3 (fili 23-37)", "guida/problemi/schemi.yaml S-19"]
+    fonti: ["guida/schemi/schemi.md 1.1 (CS1, CS2) e 1.3 (fili 23-37)", "D-076 (P-003)"]
 
   - id: "4.15"
     titolo: Basetta, cavo piatto
@@ -427,27 +440,20 @@ passi:
     figura: schemi/basetta.svg
     testo:
       - "Taglia 15 cm di cavo piatto a 16 vie [S] e separa i conduttori per 25 mm, a ventaglio."
-      - "Salda i conduttori nei fori della tabella, filo rosso nel polo 1; il 14 si taglia."
+      - "Salda in ordine i conduttori 1–13 in A-13, B-13 ed E-13…O-13 (salta C e D), filo rosso in A-13; taglia il 14."
       - "Separa i conduttori 15 e 16 per 10 cm e giuntali a due fili 26 AWG, con guaina: vanno ad A e B della 2813."
-      - "Crimpa la spina IDC all'altro capo, triangolo del polo 1 sul filo rosso [S]."
+      - "Crimpa in morsa la spina IDC all'altro capo, polo 1 sul filo rosso; chiudi il fermacavo [S]."
+      - "Dividi il nastro fra i conduttori 8 e 9, dal fermacavo al ventaglio: due strisce da 8."
       - "Controlla in continuità ogni polo dalla spina al suo foro."
-    tabella:
-      intestazione: [Polo, Foro, Polo, Foro]
-      righe:
-        - ["1", "A-13 (salta C, D)", "2", "B-13"]
-        - ["3", "E-13", "4", "F-13"]
-        - ["5", "G-13", "6", "H-13"]
-        - ["7", "I-13", "8", "J-13"]
-        - ["9", "K-13", "10", "L-13"]
-        - ["11", "M-13", "12", "N-13"]
-        - ["13", "O-13", "14", "tagliato"]
     avvisi:
-      - {tipo: opzionale, x: X2, quando: meglio_ora, testo: "Senza scheda del carapace salta questo passo. Nel corpo il cavo non si salda più."}
-    extra: [{nome: "carapace: cavo piatto a 16 vie, spina IDC, testata 2 × 8 con chiave, 470 µF", qta: 1, bom: X2}]
-    attrezzi: [saldatore, tronchesino, morsa_morbida, termorestringente, multimetro]
+      - {tipo: importante, testo: "Taglia lungo il solco fra 8 e 9, senza scoprire il rame: il nastro intero non passa fra USB-C, testata e spine dei servo (D-077, P-140). Pieghe nel passo 13.19 [C]; riserva: soluzione B di P-002."}
+      - {tipo: opzionale, x: X2, quando: meglio_ora, testo: "Senza scheda del carapace salta il passo: nel corpo non si salda più."}
+    extra: [{nome: "carapace: cavo piatto a 16 vie, spina IDC, testata 2 × 8 a 90° con chiave, 470 µF basso", qta: 1, bom: X2}]
+    attrezzi: [saldatore, tronchesino, seghetto, morsa_morbida, termorestringente, multimetro]
     fonti:
       - "guida/schemi/schemi.md 1.1 (cavo piatto), 1.6 (poli 1-13, 15-16) e 1.4 punto 10"
-      - "docs/cablaggio.md 3.5 (piedinatura 2 × 8)"
+      - "docs/cablaggio.md 3.5 (piedinatura 2 × 8) e 3.5bis (percorso in due strisce da 8 dopo il fermacavo)"
+      - "D-077 (cavo piatto in due strisce); guida/problemi.md P-140, P-002"
       - "guida/problemi/riconciliazione.yaml (cavo piatto saldato al banco)"
 
   - id: "4.16"
@@ -468,13 +474,13 @@ passi:
         - ["4, ToF frontale (4 fili)", "F-1", "J-1", "N-1", "T-1"]
     avvisi:
       - {tipo: opzionale, x: X1, quando: meglio_ora, testo: "Un ramo per modulo montato: INA260 (X7), ADC (X6), IMU (X4), ToF (X8). Nel corpo la basetta non si gira più."}
-      - {tipo: importante, testo: "Ramo 3: due fili per foro. Il cavetto dell'ADC e i fili dell'IMU passano poi nell'asola del vassoio (8.07): la spina Qwiic deve entrare in 6 × 3 mm [C]."}
+      - {tipo: nota, testo: "Ramo 3: due fili per foro. Il cavetto dell'ADC e i fili dell'IMU scendono poi nell'asola del vassoio, 7 × 4 mm fuori dal bordo sinistro della basetta, verso la coda (8.07): la spina Qwiic ci passa [V] e va nella presa di coda dell'ADC (D-077)."}
     extra: [{nome: "cavetti Qwiic 100 mm (3) e Dupont femmina (3)", qta: 1, bom: "X1, C4"}]
     attrezzi: [saldatore, spelafili, multimetro]
     fonti:
       - "guida/schemi/schemi.md 1.6 (riga 1: bus I2C0) e 1.4 punto 10"
       - "docs/cablaggio.md 3.4 (rami del bus) e 116-124"
-      - "guida/problemi/banco.yaml, F3c: spina Qwiic nell'asola"
+      - "D-077 e cad/script/corpo.py cor_vas_asola_x/_y0/_l/_w (asola 7 × 4 a x 26,5–33,5, y 18–22; spina Qwiic 6 × 2,9 libera, verifica qwiic_asola)"
 
   - id: "4.17"
     titolo: Basetta, seriale e luci delle tibie
@@ -537,7 +543,7 @@ passi:
       - "Infila sul tratto lungo la basetta una guaina termorestringente (BOM B19) e restringila."
       - "Posalo sul lato saldature lungo il bordo sinistro, fuori dalle piazzole della riga 1."
       - "Fallo entrare fra le colonne O e P, sopra P-1, P-2 e P-3, e saldalo su P-4."
-      - "Fermalo al bordo con un punto di colla a caldo o di Kapton."
+      - "Fermalo al bordo con un punto di colla a caldo o di nastro."
     avvisi:
       - {tipo: attenzione, testo: "È la batteria, 6,0–8,4 V: per ultimo, dopo tutte le altre saldature, e nessun altro filo vicino a P-4. Un ponte qui porta la batteria sull'ESP32."}
       - {tipo: nota, testo: "L'isolamento del 26 AWG non è dichiarato siliconico: la guaina lo protegge dal saldatore accanto alle saldature fatte (S-27). L'altro capo va all'uscita della 2813 (sezione 8)."}
@@ -592,87 +598,117 @@ passi:
         - ["17", "OFF (Q-13) contro massa", "aperto", ""]
         - ["18", "ogni filo 1–37 e ogni polo del cavo piatto, dal capo al pin", "0 Ω", ""]
         - ["19", "massa: Q-4, S-13, A-12, K-8, E-13, A-1, E-3 fra loro", "0 Ω", ""]
-        - ["20", "fori con la croce, lato saldature", "niente stagno né fili, salvo B-2, T-2, D-12", ""]
+        - ["20", "fori con la croce delle colonnine, lato saldature", "niente stagno né fili", ""]
     avvisi:
       - {tipo: nota, testo: "Prova 13: un ponte su GPIO42 accenderebbe il rail dei servo o spegnerebbe la 2813 (S-25). Prova 17: la 100 kΩ di OFF sta sulla 2813 (passo 4.26)."}
     attrezzi: [multimetro]
     fonti: ["guida/schemi/schemi.md 1.5 (prove 11-20)", "guida/problemi/schemi.yaml S-13, S-25"]
 
   # ------------------------------------------------------------------------------------------------ scheda del carapace (schemi.md 2)
+  # Dalla 2.1.7 (D-076 P-002, D-077): scheda 21,5 x 30 a x 29,5...51, |y| <= 15, millefori da z 29,9; testata 2 x 8 a 90
+  # gradi (Wurth 61201621721) sotto la millefori sul bordo di coda, spina IDC orizzontale verso la coda con la chiave in
+  # basso; viti M2 x 4 negli inserti delle bugne del carapace a (41,5; +-12,5) e (48,0; +-12,5), bugne alte 2,9. Il
+  # disegno scheda_carapace*.svg e' ancora quello della 2.1.6 (testata dritta in D/E, 20 x 30, viti agli angoli): i passi
+  # danno le reti per polo, che non cambiano, e rimandano il posto dei pezzi al disegno nuovo (guida/problemi/banco.yaml).
   - id: "4.22"
-    titolo: Scheda del carapace, taglio e CE1
+    titolo: Scheda del carapace, taglio e fori
     formato: grande
-    figura: schemi/scheda_carapace.svg
+    in_evidenza: [corpo/Scheda_carapace]
+    vista: {direzione: [0.25, -0.45, 0.86], su: [0, 0, 1]}
+    etichette:
+      - {testo: "foro a 12,0 dal bordo", punto: [41.5, 12.5, 31.5]}
+      - {testo: "foro a 18,5 dal bordo", punto: [48.0, -12.5, 31.5]}
+      - {testo: "bordo della testata, verso la coda", punto: [29.5, 0, 31.5]}
     testo:
-      - "Taglia dall'avanzo di millefori una striscia di 20 × 30 mm: 7 colonne (A–G) e 11 righe di fori."
-      - "Allarga a Ø 2,6 i quattro fori d'angolo A-1, G-1, A-11 e G-11."
-      - "Segna con il pennarello i 16 fori con la croce: appoggiano sulle bugne."
-      - "Salda CE1 sdraiato sul lato componenti, + in A-9 e − in B-9, verso la riga 5."
+      - "Taglia dall'avanzo di millefori una striscia di 21,5 × 30 mm, con i bordi lungo le file di fori [S]."
+      - "Segna i quattro fori: a 12,0 e 18,5 mm da un lato lungo, il bordo della testata, e a 2,5 mm dai lati corti [V]."
+      - "Trapana i quattro fori Ø 2,2."
+      - "Posa la striscia sulle quattro bugne del carapace, bordo della testata verso la coda: i fori cadono sugli inserti."
+      - "Pulisci le piazzole con alcol."
     avvisi:
-      - {tipo: importante, testo: "Taglia solo se la decisione di S-01 non cambia la scheda nel CAD 2.1.7 [C]. CE1 in Ø 6,3 (S-18); se è lungo 11 mm il fondo arriva a 0,4 mm da A-4 e B-4, i fili dei moduli del passo 13.16."}
-      - {tipo: nota, testo: "Il disegno è il lato componenti visto da sotto, come pende dal dorso: ottagono a sinistra. I fori d'angolo sono a 0,23 mm dalle bugne del CAD: per questo Ø 2,6."}
-    attrezzi: [seghetto, trapanino, nastro_pennarello, saldatore]
-    fonti: ["guida/schemi/schemi.md 2 (griglia, zone delle bugne), 2.1 (CE1) e 2.5 punti 1-2", "guida/problemi/schemi.yaml S-18"]
+      - {tipo: importante, testo: "Il disegno della scheda (A.17, A.18) è ancora della 2.1.6: testata dritta, scheda da 20 mm, viti agli angoli. Saldare richiede il disegno della 2.1.7 [C]; le reti per polo dei passi 4.23–4.25 restano."}
+      - {tipo: nota, testo: "Dalla 2.1.7 la testata 2 × 8 sta a 90° sul bordo di coda e la spina esce verso la coda, nell'ottagono (D-076, D-077). Bugne alte 2,9: la scheda si avvita con M2 × 4 (13.17). Un circuito stampato arriverà in una versione successiva."}
+    attrezzi: [seghetto, trapanino, nastro_pennarello, calibro]
+    fonti:
+      - "D-076 (P-002: testata 2 × 8 a 90° con chiave sul bordo di coda; guida sulle millefori, PCB futuro senza dettagli)"
+      - "D-077 (scheda larga 21,5; viti a x 41,5 e 48,0; bugne da 2,9; M2 × 4)"
+      - "guida/dati/fori.json, Corpo_Carapace ins_sch_a…d a (41,5; ±12,5) e (48,0; ±12,5)"
+      - "cad/script/rif_componenti.py sch_l, sch_w, sch_test_*, sch_spina_*"
+      - "docs/cablaggio.md 3.5"
 
   - id: "4.23"
-    titolo: Scheda del carapace, testata
+    titolo: Scheda del carapace, testata a 90° e CE1
     formato: grande
-    figura: schemi/scheda_carapace.svg
+    in_evidenza: [corpo/Scheda_carapace]
+    vista: {direzione: [-0.35, -0.85, -0.3], su: [0, 0, 1]}
+    etichette:
+      - {testo: "millefori", punto: [45, -15, 30.7]}
+      - {testo: "testata 2 × 8 a 90°", punto: [34, -14, 25]}
+      - {testo: "spina IDC, verso la coda", punto: [24.5, -12.5, 25.4]}
+      - {testo: "chiave in basso", punto: [24.5, 0, 21.9]}
     testo:
-      - "Controlla con la spina in mano il verso della tacca della testata: la sporgenza della spina entra nella tacca (S-26)."
-      - "Infila J2 con i poli dispari in colonna D e i pari in colonna E, righe 2–9, tacca verso la colonna D."
-      - "Salda J2 solo dopo la decisione di S-01."
+      - "Controlla con la spina in mano il verso della chiave: la sporgenza della spina entra nella tacca della testata (S-26)."
+      - "Posa la testata sul lato componenti, lungo il bordo di coda: imbocco verso l'esterno, tacca lontano dalla scheda."
+      - "Controlla che i poli 1 e 2 stiano dal lato sinistro del robot (+Y) e i 15 e 16 dal destro [C]."
+      - "Salda la testata e CE1 sdraiato solo sul disegno della 2.1.7 [C]."
     avvisi:
-      - {tipo: importante, testo: "Bloccante: con la testata dritta e la spina servono 16–18 mm sotto la scheda, sopra l'ESP32 ne restano circa 10. Il posto della testata si decide nel CAD 2.1.7 (S-01) [C]. Collegamenti e fili del disegno restano validi."}
+      - {tipo: importante, testo: "Il disegno della 2.1.6 mette J2 dritta nelle colonne D ed E e CE1 in A-9 e B-9: con la testata a 90° le prime colonne verso la coda vanno alla testata e CE1 cambia posto. Aspetta il disegno nuovo (guida/problemi/banco.yaml) [C]."}
       - {tipo: attenzione, testo: "Testata con la chiave: girata di 180° la spina porterebbe il +5 V dei poli 1–2 sui poli 15–16, il pulsante della 2813."}
+      - {tipo: nota, testo: "Testata Würth 61201621721, 2 × 8 a 90°, e spina 61201623021 (S, C). CE1 basso: 470 µF 10 V, Ø 6,3, alto al più 8 mm (D-076, P-073)."}
     attrezzi: [saldatore]
-    fonti: ["guida/schemi/schemi.md 2.1 (J2), 2.5 punto 3, 2.7 scelta 1", "guida/problemi/schemi.yaml S-01 (bloccante), S-26"]
+    fonti:
+      - "D-076 (P-002, P-073, P-075); D-077"
+      - "docs/cablaggio.md 3.5 (chiave sul lato lontano dalla scheda) e piedinatura 2 × 8"
+      - "cad/script/rif_componenti.py Rif_Scheda_Carapace (testata, spina, chiave_spina)"
+      - "guida/schemi/schemi.md 2.1 (J2, polo 1 dalla parte della riga 2, +Y), 2.7 scelta 1"
+      - "guida/problemi/schemi.yaml S-26"
 
   - id: "4.24"
     titolo: Scheda del carapace, ponticelli e fili 101–112
     formato: grande
     figura: schemi/scheda_carapace_saldature.svg
     testo:
-      - "Gira la scheda sul lato saldature, come nel disegno."
-      - "Fai i ponticelli D-2–E-2, D-3–D-4, E-6…G-6 ed E-7…G-7."
-      - "Salda i fili della tabella in ordine, sulla saldatura del pin."
-      - "Controlla in continuità ogni filo, e che niente stia sui fori con la croce."
+      - "Gira la scheda sul lato saldature."
+      - "Fai i ponticelli della prima riga della tabella."
+      - "Salda i fili 101–112 in ordine, sulla saldatura del pin, ai fori del disegno della 2.1.7 [C]."
+      - "Controlla in continuità ogni filo, e che niente stia sulle bugne."
     tabella:
-      intestazione: [N., Da → a, Rete, AWG]
+      intestazione: [N., Da → a, AWG]
       righe:
-        - ["101", "D-2 → A-9", "+5 V", "26"]
-        - ["102", "E-2 → G-3", "+5 V", "30"]
-        - ["103", "D-4 → B-9", "massa", "26"]
-        - ["104, 105", "D-6 → G-4, D-4 → D-6", "massa", "30"]
-        - ["106", "D-3 → A-3", "massa", "30"]
-        - ["107, 108", "D-5 → B-3, D-5 → G-5", "+3,3 V", "30"]
-        - ["109", "E-4 → B-4", "SCL", "30"]
-        - ["110", "E-5 → A-4", "SDA", "30"]
-        - ["111", "D-7 → G-8", "WS", "30"]
-        - ["112", "D-8 → G-9", "dati ampli", "30"]
+        - ["ponticelli", "polo 1–polo 2 (+5 V), polo 3–polo 5 (massa); poli 10 e 12 alle loro piazzole", "—"]
+        - ["101, 102", "polo 1 → + di CE1; polo 2 → +5 V dei moduli", "26, 30"]
+        - ["103", "polo 5 → − di CE1", "26"]
+        - ["104, 105", "polo 9 → massa dei moduli; polo 5 → polo 9", "30"]
+        - ["106", "polo 3 → massa di ToF e Qwiic", "30"]
+        - ["107, 108", "polo 7 → 3,3 V di ToF e Qwiic e dei moduli", "30"]
+        - ["109, 110", "poli 6 e 8 → SCL e SDA di ToF e Qwiic", "30"]
+        - ["111, 112", "polo 11 → WS dei moduli; polo 13 → dati dell'ampli", "30"]
     avvisi:
-      - {tipo: importante, testo: "Bloccante: ponticelli e fili si saldano sui pin di J2, quindi dopo il passo 4.23 e la decisione di S-01 [C]. I fili dei moduli, il dato dei LED e il pulsante si saldano nel passo 13.16."}
+      - {tipo: importante, testo: "Disegno della 2.1.6 (J2 dritta in D-2…E-9): valgono le reti per polo, non i fori [C]. Fili dei moduli, dato dei LED e pulsante: passo 13.16."}
     attrezzi: [saldatore, spelafili, multimetro]
-    fonti: ["guida/schemi/schemi.md 2.2, 2.3 e 2.5 punto 4", "guida/problemi/schemi.yaml S-01"]
+    fonti:
+      - "guida/schemi/schemi.md 2.2, 2.3 e 2.5 punto 4 (fili 101-112; poli da D-2 = polo 1 a E-9 = polo 16)"
+      - "docs/cablaggio.md 3.5 (piedinatura 2 × 8)"
+      - "D-076 (P-002)"
 
   - id: "4.25"
     titolo: Scheda del carapace, prove
     formato: grande
     immagine: false
     testo:
-      - "Misura ogni riga sui pin della testata."
+      - "Misura ogni riga sui pin della testata, dal lato saldature."
       - "Annota il valore. Le prove con i moduli si fanno nel passo 13.16."
     tabella:
       intestazione: [N., Punto, Atteso, Misurato]
       righe:
-        - ["1", "polo 1 (D-2) contro polo 3 (D-3)", "non 0 Ω; sale mentre CE1 si carica", ""]
-        - ["2", "polo 7 (D-5) contro poli 3, 5, 9", "non 0 Ω", ""]
+        - ["1", "polo 1 contro polo 3", "non 0 Ω; sale mentre CE1 si carica", ""]
+        - ["2", "polo 7 contro poli 3, 5, 9", "non 0 Ω", ""]
         - ["3", "polo 1 contro polo 7", "aperto", ""]
         - ["4", "poli 1 e 4 contro poli 6, 8, 10, 11, 12, 13", "aperto", ""]
         - ["5", "poli 15 e 16 contro tutti gli altri", "aperto", ""]
-        - ["7", "polo 14 (E-8) contro tutti", "aperto", ""]
+        - ["7", "polo 14 contro tutti", "aperto", ""]
         - ["8", "ogni filo 101–112, dal polo alla piazzola", "0 Ω", ""]
-        - ["9", "fori con la croce, lato saldature", "niente stagno né fili", ""]
+        - ["9", "zone delle bugne, lato saldature", "niente stagno né fili", ""]
     avvisi:
       - {tipo: attenzione, testo: "Prova 3: 5 V sul 3,3 V brucerebbe i sensori e l'ESP32. Prova 4: 5 V su un GPIO."}
       - {tipo: nota, testo: "Prova 6 (polo 12 contro massa, 100 kΩ di R8) e la seconda metà della 8 vogliono i moduli: si fanno nel passo 13.16 (schemi.md 2.6)."}
@@ -745,7 +781,7 @@ passi:
         - ["P-13, GPIO42", "0 V [V]", ""]
         - ["Corrente dopo F2", "meno di 0,5 A [S]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Se U2 scalda, il 5 V è lontano da 5,0 V o la corrente supera 1 A: premi il pulsantino e stacca il T-plug. USB staccata finché l'ESP32 prende il 5 V dalla basetta (S-07)."}
+      - {tipo: attenzione, testo: "Se U2 scalda, il 5 V è lontano da 5,0 V o la corrente supera 1 A: premi il pulsantino e stacca il T-plug. USB staccata: il pin 5V è legato alla USB, senza diodo (4.05, S-07)."}
     attrezzi: [multimetro]
     fonti:
       - "guida/schemi/schemi.md 1.5 (dopo la prima accensione) e sezione 3, riga 4.08"

@@ -3,6 +3,7 @@
 # e servo; poi cosa controllare ogni tanto e quali ricambi tenere. Le fonti per lo smontaggio sono poche (cablaggio.md 4,
 # D-054, D-056, D-065, D-070, D-072, progetto-meccanico.md, i problemi gia' approvati della zampa): quello che manca
 # e' marcato [C] e va in guida/problemi/smontaggio.yaml. Gli intervalli dei controlli sono proposte, non misure.
+# CAD 2.1.7 (D-076, D-077): fessure del tetto aperte, il pacco si sfila con le spine attaccate (15.05); rebbi da 22,5.
 # Il robot intero e' presente all'inizio; i passi con la zampa usano la terna della zampa (AS) e mostra solo i suoi
 # pezzi, gli altri la terna del robot. Nessuna giunzione disegnata: le viti si indicano con le etichette.
 sezione:
@@ -216,13 +217,13 @@ passi:
       - {testo: "2 viti M3 × 8", punto: [-131.0, 28.5, -45.0]}
       - {testo: T-plug, chiave: corpo/Tplug}
     testo:
-      - "Controlla che T-plug e prolunga di bilanciamento siano staccati."
+      - "Controlla che il T-plug sia staccato e il cicalino staccato dalla prolunga di bilanciamento."
       - "Svita le due viti M3 × 8 dai blocchetti della chiglia."
-      - "Sfila lo sportello lungo X, verso la coda."
+      - "Sfila lo sportello lungo X, verso la coda, senza tirare i cavi del pacco che passano sopra i rebbi."
     avvisi:
-      - {tipo: importante, testo: "Lo sportello si sfila solo lungo il tunnel: i rebbi entrano per 17 mm dietro il pacco e la linguetta sta sotto il tetto (D-054). Non farlo ruotare."}
+      - {tipo: importante, testo: "Lo sportello si sfila solo lungo il tunnel: i rebbi entrano per 22,5 mm dietro il pacco e la linguetta sta sotto il tetto (D-054, D-077). Non farlo ruotare."}
       - {tipo: nota, testo: "T-plug e F1 restano raggiungibili dal retro anche con lo sportello montato (D-054)."}
-    fonti: ["D-054: fissaggio e cambio della batteria", "docs/cablaggio.md 3.1", "guida/passi/11-batteria.yaml 11.05"]
+    fonti: ["D-054: fissaggio e cambio della batteria", D-076, D-077, "docs/cablaggio.md 3.1", "guida/passi/11-batteria.yaml 11.05"]
 
   - id: "15.05"
     titolo: Pacco della batteria
@@ -237,17 +238,23 @@ passi:
       - corpo/Portafusibile_F1
       - corpo/Tplug
       - "corpo/Servo_Coxa_P*"
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "fessura_cavi_*"}
     etichette:
       - {testo: T-plug, chiave: corpo/Tplug}
+      - {testo: "fessure aperte", punto: [-84, 22.7, -9.4]}
     testo:
       - "Controlla che il T-plug del pacco sia staccato da quello del robot."
-      - "Sfila il pacco dal tunnel, verso la coda, con i suoi cavi."
-      - "Carica il pacco fuori dal robot, nel sacchetto per LiPo, con il caricatore USB per 2S che hai già, sulla presa di bilanciamento (passo 0.06) [V]."
+      - "Stacca la prolunga di bilanciamento dalla presa JST-XH del pacco."
+      - "Porta la metà femmina del T-plug del pacco sul lato destro, quello dell'altoparlante."
+      - "Inclina il robot con la coda in giù e lascia scivolare il pacco fuori; accompagnalo senza tirare i cavi [C]."
+      - "Carica il pacco fuori dal robot, nel sacchetto per LiPo, dalla sola presa di bilanciamento (0.06)."
     avvisi:
-      - {tipo: importante, testo: "Le fessure del tetto sono aperte verso la coda dalla versione 2.1.7 (D-076): T-plug e presa di bilanciamento scorrono nelle tacche. Provalo a secco prima di caricare il pacco: se le spine non passano, fermati [C]."}
-      - {tipo: attenzione, testo: "Un pacco gonfio, caldo o ammaccato non si carica e non si rimonta: mettilo su una superficie che non brucia e allontanati (12.01) [S]."}
+      - {tipo: importante, testo: "Le fessure del tetto sono aperte verso la coda (D-076): i cavi escono dall'estremità aperta con le spine attaccate. Con la metà femmina a sinistra, fra 10 e 20 mm di corsa, la spina tocca il ToF posteriore [S]."}
+      - {tipo: importante, testo: "Il pacco sta 22,5 mm dentro il tunnel, con 1,35 mm per lato: non si afferra. Non tirarlo dai cavi da 12 AWG; se non scivola, fermati (guida/problemi/batteria.yaml) [C]."}
+      - {tipo: attenzione, testo: "Un pacco gonfio, caldo o ammaccato non si carica e non si rimonta: mettilo su una superficie che non brucia e allontanati (0.07, 12.01) [S]."}
     attrezzi: [caricatore_lipo]
-    fonti: ["D-054: cambio della batteria", "docs/BOM.md A5, B9", "guida/problemi/batteria.yaml (primo problema)", "guida/passi/11-batteria.yaml 11.01 e 11.03"]
+    fonti: ["D-054: cambio della batteria", "D-076 (fessure aperte, carica dalla presa di bilanciamento)", "docs/cablaggio.md 4 'T-plug' (sfilamento del pacco)", "cad/script/assieme.py sfilamento_pacco", "docs/BOM.md A5, B9, B20", "guida/passi/11-batteria.yaml 11.01, 11.03 e 11.06"]
 
   - id: "15.06"
     titolo: Lama B
@@ -373,14 +380,13 @@ passi:
     tabella:
       intestazione: [Servo, Culla, Viti da togliere]
       righe:
-        - ["Femore", "coxa", "2 M3 × 8 lato coda (inserti), 2 lato albero (fori pilota) [V]"]
-        - ["Ginocchio", "tibia", "2 M3 × 8 lato coda (inserti), 2 lato albero (fori pilota) [V]"]
+        - ["Femore / ginocchio", "coxa / tibia", "2 M3 × 8 lato coda (inserti), 2 lato albero (fori pilota) [V]"]
     avvisi:
       - {tipo: attenzione, testo: "Non girare l'albero a mano: trascini il riduttore. Porta il giunto in posa solo a servo alimentato."}
-      - {tipo: importante, testo: "La sequenza per separare tibia e femore non è nei documenti: ripercorri al contrario la sezione 6, dal femore alle squadrette [C]."}
-      - {tipo: nota, testo: "Le viti lato albero fanno il filetto nei fori pilota e a ogni rimontaggio lo consumano: se una non prende, ristampa il pezzo [S]."}
+      - {tipo: importante, testo: "Come separare tibia e femore non è scritto: ripercorri al contrario la sezione 6 [C]."}
+      - {tipo: nota, testo: "Le viti lato albero rifanno il filetto nei fori pilota: se una non prende, ristampa il pezzo [S]."}
       - {tipo: importante, testo: "Dopo il rimontaggio rifai la taratura con le dime (12.11): ripetibile entro 1° [S]."}
-      - {tipo: attenzione, testo: "Se togli un cuscinetto della culla con l'estrattore (attrezzi, P-065), l'asta spinge sull'anello interno e la forza passa dalle sfere: controlla il cuscinetto estratto (gira libero, senza punti duri e senza gioco) oppure sostituiscilo (BOM D1) prima di rimontarlo."}
+      - {tipo: attenzione, testo: "Cuscinetto tolto con l'estrattore (P-065): l'asta spinge sull'anello interno e carica le sfere. Prima di rimontarlo controlla che giri libero, senza punti duri né gioco, o sostituiscilo (BOM D1)."}
     attrezzi: [brugola_dritta_2_5, tester_servo]
     fonti: ["D-047, D-049", "guida/problemi/zampa.yaml (viti delle alette, esiti approvati l'11 ottobre 2026)", "docs/software.md 2.7 e 2.8", "guida/problemi/smontaggio.yaml"]
 
@@ -399,18 +405,18 @@ passi:
     testo:
       - "Togli il carapace e la zampa dal corpo (15.03, 15.09)."
       - "Stacca la spina del servo dalla SSC-32."
-      - "Con la zampa tolta le viti lato coda sono scoperte; se la lasci sul corpo, togli il ponte e porta la coxa a circa 33° [C]."
+      - "Con la zampa sul corpo, togli il ponte e porta la coxa a circa 33° [C]; a zampa tolta le viti lato coda sono scoperte."
       - "Svita le quattro viti M3 × 8 e sfila il servo verso l'alto, con il passacavo nella fessura."
     tabella:
-      intestazione: [Viti del servo di coxa, "Dove stanno", "Come si raggiungono"]
+      intestazione: [Viti, "Dove stanno", "Come si raggiungono"]
       righe:
         - ["2 M3 × 8 lato albero, in fori pilota", "gondola, verso l'albero", "dall'alto, a coxa diritta [C]"]
         - ["2 M3 × 8 lato coda, in inserti", "gondola, sotto la testa dell'anima", "dall'alto, a zampa tolta; con la zampa sul corpo, coxa a +30° o −30° [C]"]
     avvisi:
-      - {tipo: importante, testo: "La procedura di sostituzione del servo di coxa sta solo nella ricerca (docs/ricerca/corpo-v0-revisione.json) e non è provata sul modello attuale [C] (guida/problemi/smontaggio.yaml)."}
-      - {tipo: attenzione, testo: "Non girare l'albero a mano. Se la coxa non gira libera, il ponte è ancora montato."}
-      - {tipo: nota, testo: "Il cavo del servo esce da una fessura della gondola verso il centro: la spina passa dalla finestra (D-049)."}
-      - {tipo: attenzione, testo: "Se per togliere il servo devi estrarre un cuscinetto con l'estrattore (P-065), l'asta spinge sull'anello interno e la forza passa dalle sfere: controlla il cuscinetto estratto (gira libero, senza punti duri e senza gioco) oppure sostituiscilo (BOM D1). Per i cuscinetti delle coxe nella base l'estrattore non è verificato [C]."}
+      - {tipo: importante, testo: "Sostituzione del servo di coxa non provata sul modello attuale: è solo nella ricerca (corpo-v0-revisione.json) [C]."}
+      - {tipo: attenzione, testo: "Non girare l'albero a mano. Se la coxa non gira libera, il ponte è montato."}
+      - {tipo: nota, testo: "Il cavo esce dalla fessura della gondola verso il centro; la spina passa dalla finestra (D-049)."}
+      - {tipo: attenzione, testo: "Cuscinetto tolto con l'estrattore (P-065): l'asta spinge sull'anello interno e carica le sfere; controlla che giri libero, senza punti duri né gioco, o sostituiscilo (BOM D1). Sulle coxe nella base l'estrattore non è verificato [C]."}
     attrezzi: [brugola_dritta_2_5]
     fonti: ["docs/ricerca/corpo-v0-revisione.json (difetto sul servo di coxa)", "guida/problemi/corpo.yaml (viti lato coda)", "guida/passi/09-zampa-corpo.yaml 9.08", "D-049"]
 

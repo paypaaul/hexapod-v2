@@ -9,6 +9,9 @@
 # i numeri e i casi di controllo sono in guida/problemi/zampa.yaml.
 # Inserti a caldo: si mettono tutti nella sezione 3 (pezzo per pezzo, prima di qualsiasi montaggio); qui si controllano
 # sul pezzo appena preso (6.01 tibia, 6.09 coxa, 6.13 Femore_B).
+# Dalla 2.1.7 (D-076, D-077): calettamento con la dima (6.16, 6.17, 6.19, P-015), perni con la bussola (6.14, P-065), sede
+# delle luci da 50,5 (6.05, P-062), gola dei fili da 4,5 (6.08, P-063), lamatura piana sotto la vite del guscio (6.23,
+# P-014), luci delle tibie opzionali con il diffusore bianco (6.05, 6.08, 6.22, P-077), piedino con la stretta scelta (6.07).
 sezione:
   id: zampa
   numero: 6
@@ -22,19 +25,19 @@ sezione:
     Montare una zampa completa, senza il ponte della coxa: tibia, coxa, femore con le squadrette calettate, guscio, cavi
     e lama A. Sei volte uguale, una zampa alla volta; le differenze vanno nella scheda in fondo alla sezione.
   prima:
-    - "Provini fatti, valori nel CAD (sezione 1); pezzi stampati e controllati (sezione 2)."
+    - "Provini fatti, valori nel CAD (sezione 1); pezzi stampati e controllati (sezione 2), con dima del calettamento e bussola del perno."
     - "Inserti messi (sezione 3): tibia 3 M3, coxa 4 M3, femore B 4 M3 e 2 M2."
-    - "Servo numerati, a metà corsa, con le alette nude (gommini e tubetti non si montano); banco dei servo pronto (sezione 5)."
-    - "Deciso se montare FSR (X5) e luci (X31): vanno nella tibia."
+    - "Servo numerati, a metà corsa, con le alette nude; banco dei servo pronto (sezione 5)."
+    - "Deciso se montare FSR (X5) e luci (X31, opzionali): vanno nella tibia."
   tempo: "circa 2 ore la prima volta; 15 minuti in più con FSR e luci [S]"
   stato_elettrico: "Banco dei servo (sezione 5) solo in 6.16, 6.20, 6.21 e 6.25, un servo alla volta."
-  fonti: [D-075, docs/piano-guida.md "Struttura della guida"]
+  fonti: [D-075, D-076, D-077, docs/piano-guida.md "Struttura della guida"]
   controllo:
     - "I due cuscinetti girano liberi, con la flangia sulla faccia della culla."
     - "I due servo stanno in culla con il passacavo nella fessura; le spine escono dalle testate."
     - "Con l'FSR: il doppino esce dalla tacca del piedino. Con le luci: striscia incollata, freccia verso il piede. I fili passano sotto i tre ponticelli."
     - "I perni sporgono 1,4 mm da Femore B; coxa e tibia girano sui perni."
-    - "A metà corsa il femore sta a circa +20° e il ginocchio a circa 100°."
+    - "Squadrette calettate con la dima: femore +20° e ginocchio 100° con la dima a contatto; dima tolta dopo 6.19."
     - "Strette: 8 viti delle squadrette, 4 del blocco con le rondelle, 8 delle alette."
     - "Guscio con la vite stretta piano; con le luci, diffusore nella finestra."
     - "Cavo del ginocchio nella fascetta del blocco; i cavi oltre la coxa sono liberi. Lama A in battuta sulle teste."
@@ -82,7 +85,7 @@ passi:
       - "Premi fino a quando la flangia appoggia sulla faccia della tibia."
       - "Controlla che l'anello interno giri libero con un dito."
     avvisi:
-      - {tipo: attenzione, testo: "Spingi solo sulla flangia: col pollice, o con un tubetto Ø 8–11,5 e dal lato A un distanziale ≥ 45 mm attorno al foro da 7,2 [C]."}
+      - {tipo: attenzione, testo: "Spingi solo sulla flangia: col pollice, o con un tubetto Ø 8–11,5 e dal lato A un distanziale ≥ 45 mm attorno al foro da 7,2 [C]. Per toglierlo: estrattore (2.31, 2.32)."}
     fonti: ["D-049: foro dietro la sede da 7,2", docs/progetto-meccanico.md "Architettura", cad/script/zampa.py _sede, cad/stl/README.md "Provino della culla"]
 
   # Gommini e tubetti di ottone non si montano (5.02, D-076): qui resta un controllo (correzione della F3).
@@ -121,7 +124,7 @@ passi:
     evidenzia: [{chiave: zampa/Tibia, lav: sede_luce}]
     etichette:
       - {testo: "capo dei fili", punto: [132, 0, -35]}
-      - {testo: "verso il piede", punto: [132, 0, -78]}
+      - {testo: "verso il piede", punto: [132, 0, -82]}
     testo:
       - "Taglia 6 pixel di striscia sulle linee di taglio: 50 mm [S]."
       - "Salda 3 fili 30 AWG al capo d'ingresso: massa, +5 V e dato."
@@ -129,14 +132,14 @@ passi:
       - "Controlla che il capo dei fili stia in alto, contro la culla."
       - "Controlla che la freccia della striscia punti verso il piede."
     avvisi:
-      - {tipo: opzionale, x: X31, quando: meglio_ora, testo: "Dopo costa togliere guscio e fascette della zampa. Senza luci salta questo passo."}
-      - {tipo: nota, testo: "La sede è lunga 47,5 mm [V], la striscia 50: il capo basso ne esce di 2,5 mm."}
+      - {tipo: opzionale, x: X31, quando: meglio_ora, testo: "Le luci delle tibie sono opzionali (D-076, P-077). Dopo costa togliere guscio e fascette della zampa. Senza luci salta questo passo."}
+      - {tipo: nota, testo: "La sede è lunga 50,5 mm, da Z −32,95 a −83,5 [V]: la striscia da 50 mm ci sta tutta (D-077, P-062)."}
       - {tipo: nota, testo: "Colori proposti: nero massa, rosso +5 V, il terzo dato [S]. Solo 30 AWG: sotto i ponticelli restano 1,1 mm (D-067, D-073)."}
     extra:
       - {nome: "striscia WS2812B-2020 a 120 LED/m, 6 pixel", qta: 1, bom: X9}
       - {nome: "fili siliconici 30 AWG, 3 colori, da 0,4–0,5 m", qta: 3, bom: X31}
     attrezzi: [saldatore, spelafili, tronchesino]
-    fonti: ["D-066, blocco A: luci nelle tibie", "D-068: 6 pixel, 50 mm", D-069, docs/cablaggio.md 3.3, docs/predisposizioni.md X9 e X31, cad/script/zampa.py sede_luce]
+    fonti: ["D-066, blocco A: luci nelle tibie", "D-068: 6 pixel, 50 mm", D-069, D-076, D-077, docs/cablaggio.md 3.3, docs/predisposizioni.md X9 e X31, cad/script/zampa.py sede_luce]
 
   - id: "6.06"
     titolo: Sensore del piede
@@ -174,7 +177,7 @@ passi:
     etichette: [{testo: tacca, punto: [131, 16, -128]}]
     nascondi: [zampa/Cuscinetto_ginocchio]
     testo:
-      - "Cala il piedino sulla punta, con la tacca sul fronte."
+      - "Cala sulla punta il piedino con la stretta scelta (sezione 1), con la tacca sul fronte."
       - "Premi il piedino fino in fondo, dritto."
       - "Controlla che il doppino dell'FSR esca dalla tacca senza essere schiacciato."
     avvisi:
@@ -197,7 +200,8 @@ passi:
       - "Posa i fili accanto al cavo del servo, sopra la testata."
     avvisi:
       - {tipo: opzionale, x: X5 X31, quando: meglio_ora, testo: "Senza FSR e luci salta questo passo. Le spine all'altro capo si mettono dopo: sotto i ponticelli passano solo i fili."}
-    fonti: [D-067, D-058, docs/cablaggio.md 3.3 "Gola del fermo"]
+      - {tipo: nota, testo: "La gola è larga 4,5 mm: doppino dell'FSR (2 × 28 AWG) e tre fili da 30 AWG occupano 3,3–4,05 mm e ci stanno con gioco [S] (D-077, P-063)."}
+    fonti: [D-067, D-058, D-077, docs/cablaggio.md 3.3 "Gola del fermo"]
 
 
   # ------------------------------------------------------------------------------------------------- coxa
@@ -236,7 +240,7 @@ passi:
       - "Premi fino a quando la flangia appoggia sulla faccia della coxa."
       - "Controlla che l'anello interno giri libero con un dito."
     avvisi:
-      - {tipo: attenzione, testo: "Spingi solo sulla flangia: col pollice, o con un tubetto Ø 8–11,5 e dal lato A un distanziale ≥ 45 mm attorno al foro da 7,2 [C]."}
+      - {tipo: attenzione, testo: "Spingi solo sulla flangia: col pollice, o con un tubetto Ø 8–11,5 e dal lato A un distanziale ≥ 45 mm attorno al foro da 7,2 [C]. Per toglierlo: estrattore (2.31, 2.32)."}
     fonti: ["D-049: foro dietro la sede da 7,2", docs/progetto-meccanico.md "Architettura", "cad/script/zampa.py _sede (la culla della coxa e' quella della tibia)", "guida/problemi/zampa.yaml 'Come si preme il cuscinetto del ginocchio' (esito)"]
 
   - id: "6.11"
@@ -298,13 +302,15 @@ passi:
     vista: zampa_B
     evidenzia: [{chiave: zampa/Femore_B, lav: "foro_perno_*"}]
     testo:
-      - "Infila i due perni nei fori dal lato esterno della piastra."
-      - "Premi ogni perno con la morsa finché fuori ne restano 1,4 mm [V]."
-      - "Misura e annota quanto sporgono dall'altro lato: 5,0 mm [V]."
+      - "Posa Femore B sulla bussola, faccia interna in basso: il rialzo del mozzo entra nella tasca."
+      - "Infila il perno nel foro dal lato esterno, sopra il foro cieco della bussola."
+      - "Premi il perno con la morsa finché tocca il fondo: fuori ne restano 1,4 mm [V]."
+      - "Ripeti per l'altro perno."
     avvisi:
-      - {tipo: attenzione, testo: "In morsa appoggia la piastra su un distanziale forato alto più di 5 mm, mai sul blocco [C]."}
+      - {tipo: attenzione, testo: "Premi con le ganasce sulla bussola e sul perno, mai sul blocco del femore [C]."}
+    extra: [{nome: "bussola del perno, PETG-CF nero (2.30)", qta: 1, bom: E1}]
     attrezzi: [morsa_morbida, calibro]
-    fonti: ["D-047: perni Ø5 × 12", "D-049: perni forzati senza ritegno assiale", D-070, "cad/script/rif_componenti.py perno_l (5,2 nella piastra, 0,4 rialzo, 4 cuscinetto, 1 nel fondo, 1,4 sporgente)", "cad/script/zampa.py perno_sporge", "docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 1"]
+    fonti: ["D-047: perni Ø5 × 12", "D-049: perni forzati senza ritegno assiale", D-070, D-077, "cad/script/rif_componenti.py perno_l (5,2 nella piastra, 0,4 rialzo, 4 cuscinetto, 1 nel fondo, 1,4 sporgente)", "cad/script/attrezzi.py fai_bussola_perno", "cad/script/zampa.py perno_sporge", "docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 1"]
 
   - id: "6.15"
     titolo: Femore B sulla coxa e sulla tibia
@@ -327,26 +333,29 @@ passi:
   - id: "6.16"
     titolo: Posa del calettamento
     formato: grande
-    posa: {alfa: 20, gamma: 100, coxa: 0}
-    vista: {direzione: [0.25, -0.93, 0.27], su: [0, 0, 1]}
+    terna: zampa
+    in_evidenza: [attrezzo/Dima_Calettamento]
+    # la dima e' nella terna del femore come costruito (femore 0): la coxa, girata di 20 gradi rispetto al femore, non si disegna (come 12.12)
+    mostra: [zampa/Femore_B, "zampa/Perno_*", zampa/Tibia, zampa/Cuscinetto_ginocchio, zampa/Servo_ginocchio, zampa/Piedino]
+    posa: {alfa: 0, gamma: 100, coxa: 0}
+    vista: zampa_B
     etichette:
-      - {testo: "femore +20°", punto: [75, -31, 32]}
-      - {testo: "ginocchio 100°", punto: [140, -20, -10]}
+      - {testo: "dima del calettamento", punto: [87.5, -33.5, 8]}
+      - {testo: "dente: coxa", punto: [60.3, -27, -30]}
+      - {testo: "dente: tibia", punto: [110.4, -27, -29]}
     testo:
       - "Controlla che i due servo siano ancora a metà corsa; se hai girato un albero, riportalo a 1500 µs con il banco della sezione 5."
-      - "Ruota il femore sulla coxa fino a +20°: ginocchio in alto, 20° sopra la squadra con la culla [V]."
-      - "Ruota la tibia fino a 100° dal femore: 10° oltre la squadra, piede verso l'esterno [V]."
-      - "Tieni la zampa in questa posa fino alla fine del passo 6.17."
-    tabella:
-      intestazione: [Giunto, Servo, Posa, Come la riconosci]
-      righe:
-        - ["Anca", "metà corsa, 1500 µs", "α +20° [V]", "femore 20° sopra la squadra con la culla della coxa"]
-        - ["Ginocchio", "metà corsa, 1500 µs", "γ 100° [V]", "tibia 10° oltre la squadra con il femore"]
+      - "Infila la dima del calettamento sui due perni del femore, dal lato B."
+      - "Ruota il femore sulla coxa finché il dente della dima tocca la coxa: femore +20° [V]."
+      - "Ruota la tibia finché il suo dente tocca la tibia: ginocchio 100° [V]."
+      - "Tieni la zampa e la dima così fino alla fine del passo 6.19."
     avvisi:
-      - {tipo: importante, testo: "Non c'è un riferimento stampato per questi angoli: tienili a occhio, entro circa ±5° [C]. Lo scarto lo misura e lo corregge la taratura (sezione 12)."}
-      - {tipo: nota, testo: "Con ±80° di corsa attorno a questa posa il servo copre tutto il campo libero: femore da −49° a +85°, ginocchio da 29° a 180° (robot.yaml, progetto-meccanico.md)."}
+      - {tipo: importante, testo: "La dima dà i due angoli (D-077, P-015). Il terzo dente, imbardata 0°, qui non serve: la coxa non è ancora sul corpo."}
+      - {tipo: nota, testo: "Resta lo scarto della squadretta: al più un dente su 25, ±7,2° [V]. Lo misura la taratura (sezione 12); dopo la taratura il firmware limita il ginocchio a γ max = min(177°, γ misurato + 80°), quindi perde al più 4,2° di distensione (D-077, software.md 2.5)."}
+      - {tipo: nota, testo: "Nell'immagine il femore è fermo come nella dima: la coxa non è disegnata perché è girata di 20° rispetto al femore."}
+    extra: [{nome: "dima del calettamento, PLA o PETG (2.29)", qta: 1, bom: E1}]
     attrezzi: [tester_servo]
-    fonti: ["robot/robot.yaml servo.calettamento (alpha 20, gamma 100), corsa_servo 80", docs/progetto-meccanico.md "Modello in Fusion (zampa v0)", "docs/software.md 2.7 e 6.7 (B4)", "guida/problemi/zampa.yaml 'Calettamento senza riferimento'"]
+    fonti: ["robot/robot.yaml servo.calettamento (alpha 20, gamma 100), corsa_servo 80", D-077, "guida/problemi.md P-015", docs/progetto-meccanico.md "Modello in Fusion (zampa v0)", "docs/software.md 2.5, 2.7 e 6.7 (B4)", "guida/problemi/zampa.yaml 'Calettamento senza riferimento'"]
 
   - id: "6.17"
     titolo: Squadrette sugli alberi
@@ -356,6 +365,7 @@ passi:
     esploso: {asse: [0, 1, 0], distanza: 30}
     vista: {direzione: [0.3, 0.78, 0.5], su: [0, 0, 1]}
     testo:
+      - "Tieni la dima del calettamento sui perni, con i due denti a contatto."
       - "Infila la squadretta sull'albero del femore, al dente che mette due fori opposti sulla linea anca–ginocchio."
       - "Infila allo stesso modo la squadretta sull'albero del ginocchio."
       - "Stringi le due viti centrali tenendo ferme le squadrette."
@@ -395,9 +405,10 @@ passi:
       - "Accosta le otto viti M3 × 6 nei fori filettati delle due squadrette."
       - "Stringi le otto viti delle squadrette, a croce."
       - "Stringi le quattro viti del blocco."
+      - "Togli la dima del calettamento."
     avvisi:
       - {tipo: nota, testo: "Le teste restano nelle sedi della piastra: la lama A ci si incastra sopra (D-070)."}
-    fonti: [D-047, D-061, D-070, guida/catalogo/giunzioni.yaml femore_a_squadrette]
+    fonti: [D-047, D-061, D-070, D-077, guida/catalogo/giunzioni.yaml femore_a_squadrette]
 
   # --------------------------------------------------------------------------------------- alette strette per ultime
   - id: "6.20"
@@ -457,7 +468,7 @@ passi:
       - "Premi il bordino del diffusore nella finestra del guscio, da dentro."
       - "Controlla che il bordino resti sotto il fronte, senza sporgere."
     avvisi:
-      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Solo con le luci: il guscio si toglie con una vite. Il diffusore è bianco (D-076); lo spessore si controlla con il provino di luce, X10 [C]."}
+      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Solo con le luci, che sono opzionali (D-076, P-077): il guscio si toglie con una vite. Il diffusore è bianco; se cambi colore si modifica dopo. Lo spessore si controlla con il provino di luce, X10 [C]."}
     fonti: ["D-066, blocco A: diffusore", D-069, cad/stl/README.md "Cover_Tibia_Diffusore.stl", cad/script/zampa.py fai_cover_tibia_diffusore]
 
   - id: "6.23"
@@ -471,10 +482,12 @@ passi:
     testo:
       - "Posa il guscio sul fronte: i due tappi a rombo nelle finestre della culla."
       - "Controlla che nessun filo resti schiacciato sotto i bordi."
-      - "Stringi piano la vite M3 × 10 nell'inserto dello stinco."
+      - "Stringi la vite M3 × 10 nell'inserto dello stinco."
+    etichette:
+      - {testo: "lamatura Ø6", punto: [132.1, 0, -88]}
     avvisi:
-      - {tipo: attenzione, testo: "La testa appoggia su una faccia inclinata di circa 12° [V]: stringi piano, il PLA si segna."}
-    fonti: ["D-061, B3: guscio lungo, tappi, vite", D-065, "D-066, inserto del guscio", D-049, cad/script/zampa.py fai_cover_tibia, "guida/problemi/zampa.yaml, primo problema (esito)"]
+      - {tipo: attenzione, testo: "La testa appoggia su una lamatura piana Ø6 (D-077, P-014) [V]: stringi senza forzare, il PLA si segna."}
+    fonti: ["D-061, B3: guscio lungo, tappi, vite", D-065, "D-066, inserto del guscio", D-049, D-077, cad/script/zampa.py fai_cover_tibia, "guida/problemi/zampa.yaml, primo problema (esito)"]
 
   # ------------------------------------------------------------------------------------------------- cavi
   - id: "6.24"

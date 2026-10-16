@@ -1,16 +1,20 @@
 # Sezione 13, il carapace (D-075, docs/piano-guida.md "Struttura della guida"). F3, estrattore delle sezioni 13-15;
 # F3c: allineata agli schemi della scheda del carapace (guida/schemi/scheda_carapace*.svg, schemi.md sezione 2).
+# Rifatta sulla 2.1.7 (D-076, D-077): testata 2 x 8 a 90 gradi sul bordo di coda della scheda (P-002), cavo piatto in due
+# strisce (P-140), ToF posteriore avvitato e ritegno dell'altoparlante (P-008), pulsante misurato all'arrivo (P-010),
+# soglia del cicalino a 3,3 V (P-066).
 # Terna del robot. Il carapace si prepara al banco, capovolto su un panno, e poi si porta sul corpo: i passi 13.01-13.18
 # non toccano il robot (nascondi: il corpo e le zampe non si disegnano), da 13.19 il carapace sale sul corpo.
 # Pezzi della sezione: carapace, fascia, visiera e gonne (un solo pezzo stampato a due colori), pulsante, anello di
 # stato (X11), luci dei lobi (X12), altoparlante e amplificatore (X17), lunette e microfoni (X16), ToF posteriore (X19),
 # cicalino, tappo del ToF frontale (alternativa di X8), scheda del carapace (X2), sportellino. Lo sportellino con lo
 # zaino e' un'alternativa: solo avviso. Il pulsante e la scheda arrivano alla basetta con il cavo piatto a 16 vie.
-# La scheda si prepara in 4.22-4.25 (taglio, CE1, testata, ponticelli, fili 101-112) e qui si completa con i fili dei moduli
-# (13.16); i fori e i fili sono nella notazione colonna-riga degli schemi (D-2, G-8). S-01 (la testata con la spina non
-# sta sotto la scheda) e' bloccante: 13.16, 13.17 e 13.19 lo dicono e marcano [C] quello che ne dipende
-# (guida/problemi/schemi.yaml, guida/problemi/carapace.yaml). Il CAD non ha strisce LED, fili, spine e nastri: li
-# mostrano le etichette. Il carapace sale sul corpo con 13.21, quando anche T-plug e batteria sono a posto.
+# La scheda (21,5 x 30, da x 29,5 a 51,0) si prepara in 4.22-4.25 (taglio, CE1, testata a 90 gradi, ponticelli, fili
+# 101-112) e qui si completa con i fili dei moduli (13.16). Gli schemi A.17 e A.18 sono ancora quelli della scheda 20 x 30
+# con la testata dritta: finche' non sono ridisegnati i nomi dei fori (colonna-riga) non valgono, e questa sezione
+# nomina le piazzole per rete e per polo (guida/problemi/carapace.yaml, guida/problemi/schemi.yaml). Il CAD non ha strisce
+# LED, fili, spine e nastri: li mostrano le etichette. Il carapace sale sul corpo con 13.21, quando anche T-plug e batteria
+# sono a posto.
 sezione:
   id: carapace
   numero: 13
@@ -62,26 +66,26 @@ sezione:
     - "zampa/Cover_Femore_B@*"
     - "zampa/Cover_Femore_B_Feritoia@*"
   obiettivo: >-
-    Preparare il carapace al banco, capovolto, con pulsante, luci, audio, ToF e scheda; provarlo; collegarlo al corpo
-    con il cavo piatto e avvitarlo; chiudere l'ottagono con lo sportellino; provare il T-plug a mano.
+    Preparare il carapace al banco, con pulsante, luci, audio, ToF e scheda; provarlo; collegarlo al corpo con il
+    cavo piatto e avvitarlo; chiudere l'ottagono; provare il T-plug a mano.
   prima:
     - "Pezzo a due colori stampato e controllato (sezione 2)."
     - "Inserti M2 di scheda e amplificatore messi (sezione 3, 3.20)."
-    - "Scheda del carapace con CE1 e fili 101–112 (4.22–4.25) e cavo piatto sulla basetta (4.15); J2 dopo S-01 [C]."
+    - "Scheda con testata a 90° (4.22–4.25) e cavo piatto in due strisce (4.15)."
     - "Zampe, batteria e cicalino provati (sezioni 9–12)."
     - "Scelte le predisposizioni X2, X11, X12, X16, X17, X19."
-    - "Pronti: striscia LED 133 mm (X9), fili 30 AWG 2,5 m e 26 AWG 2 m, 6 viti M2 × 5."
+    - "Pronti: striscia LED 133 mm (X9), fili 30 AWG 2,5 m e 26 AWG 2 m, 4 viti M2 × 4 e 4 × 5, colla a caldo."
   tempo: "circa 2 ore e mezza, la prima volta [S]"
-  stato_elettrico: "Nessuno fino a 13.18. Con T-plug collegato solo in 13.20, rail dei servo spento."
+  stato_elettrico: "Nessuno fino a 13.18; T-plug solo in 13.20, rail spento."
   note: "Il PLA rammollisce verso 55–60 °C: il saldatore non tocca mai il carapace (D-065)."
-  fonti: [D-052, D-056, D-063, D-065, D-066, D-067, D-068, D-069, D-074, D-075, docs/cablaggio.md 3.5 e 4, docs/predisposizioni.md 2.3 e 5, "cad/stl/README.md", guida/problemi/carapace.yaml, "guida/schemi/schemi.md sezione 2", guida/problemi/schemi.yaml]
+  fonti: [D-052, D-056, D-063, D-065, D-066, D-067, D-068, D-069, D-074, D-075, D-076, D-077, docs/cablaggio.md 3.5 3.5bis e 4, docs/predisposizioni.md 2.3 e 5, "cad/stl/README.md", guida/problemi/carapace.yaml, "guida/schemi/schemi.md sezione 2", guida/problemi/schemi.yaml]
   attrezzi: [multimetro, saldatore, spelafili, tronchesino, croce_ph0, brugola_2_5, termorestringente]
   controllo:
     - "Il pulsante è fermo dal dado, l'anello bianco è centrato e i fili dei pixel escono dalla tacca."
     - "Nelle luci dei lobi: sei pezzi da 2 pixel nelle piastrine, fra i ganci, con la freccia nel verso della catena."
-    - "Altoparlante, amplificatore, microfoni con le lunette, ToF posteriore e cicalino sono fermi; nessun filo è teso o schiacciato."
-    - "La scheda è avvitata con tutti i fili saldati (101–112 e moduli) e le nove prove di 13.18 sono passate."
-    - "Il carapace è sul corpo con le quattro viti M3 × 8 strette; lo sportellino è a filo e si toglie con l'unghia."
+    - "Altoparlante sotto le costole, amplificatore, microfoni con le lunette, ToF posteriore avvitato e cicalino sono fermi; nessun filo è teso o schiacciato."
+    - "La scheda è avvitata con tutti i fili saldati (101–112 e moduli), la testata a 90° guarda la coda e le nove prove di 13.18 sono passate."
+    - "La spina IDC è nella testata, le due strisce del cavo piatto stanno nel loro percorso; il carapace è sul corpo con le quattro viti M3 × 8 strette; lo sportellino è a filo e si toglie con l'unghia."
     - "Il T-plug e lo spinotto di bilanciamento si afferrano dalla porta di coda con il carapace montato."
   vista_finale: {direzione: [0.55, -0.6, 0.55], su: [0, 0, 1]}
 
@@ -123,14 +127,16 @@ passi:
     etichette:
       - {testo: anello, punto: [-40.0, 10.0, 36.0]}
     testo:
+      - "Misura con il calibro il diametro massimo dei contatti a saldare: deve stare nel foro Ø 12,2 del fondo [C]. Annota il valore."
       - "Controlla con il multimetro: i due contatti sono aperti a riposo e chiusi premendo [C]."
       - "Infila il pulsante dall'esterno nel foro Ø 12,2 al centro dell'anello bianco."
       - "Tienilo con un dito e capovolgi il carapace sul panno."
     avvisi:
+      - {tipo: importante, testo: "Il pulsante non è in casa: si compra (BOM B3b) e si misura appena arriva, prima di stampare il fondo dell'anello. Se i contatti sporgono oltre Ø 12,2, non stampare il fondo e non allargare il foro: fermati e chiedi a chi progetta (P-010, D-076)."}
       - {tipo: importante, testo: "Se i contatti sono chiusi a riposo il pulsante è normalmente chiuso: non va bene per la 2813, che vuole un contatto normalmente aperto. Non montarlo (BOM B3b) [C]."}
-      - {tipo: nota, testo: "Pulsante da pannello Ø 12, testa Ø 15 alta 2 mm, corpo lungo circa 20 mm sotto il dorso [C]: le misure vere si guardano sul pezzo (BOM B3b)."}
-    attrezzi: [multimetro]
-    fonti: [D-059, "D-066 blocco B", "docs/BOM.md B3b", "cad/script/corpo.py _fori_dorso (foro_pulsante)", "cad/script/rif_componenti.py Rif_Pulsante_12", guida/problemi/carapace.yaml]
+      - {tipo: nota, testo: "Pulsante da pannello Ø 12, testa Ø 15 alta 2 mm, corpo lungo circa 20 mm sotto il dorso [C]: le misure vere si guardano sul pezzo. I pulsanti sono due (B3b): l'altro è il provvisorio dell'accensione al banco (sezione 12)."}
+    attrezzi: [calibro, multimetro]
+    fonti: [D-059, D-076, "D-066 blocco B", "docs/BOM.md B3b", "cad/script/corpo.py _fori_dorso (foro_pulsante)", "cad/script/rif_componenti.py Rif_Pulsante_12", guida/problemi/carapace.yaml, "guida/problemi.md P-010"]
 
   - id: "13.03"
     titolo: Dado del pulsante
@@ -195,7 +201,7 @@ passi:
       - "Premi il fondo finché la gonna calza la parete della camera."
       - "Controlla che i fili escano dalla tacca senza essere schiacciati."
     avvisi:
-      - {tipo: importante, testo: "Se i contatti del pulsante non passano nel foro del fondo, non allargarlo: fermati e leggi il problema in guida/problemi/carapace.yaml [C]."}
+      - {tipo: importante, testo: "Se i contatti del pulsante, misurati in 13.02, non passano nel foro del fondo, non allargarlo: fermati e leggi il problema in guida/problemi/carapace.yaml [C]."}
       - {tipo: nota, testo: "Forzamento leggero: 0,05 mm di gioco per lato nel modello, da tarare con il provino di luce (X10) [C] (D-067)."}
     fonti: ["D-067", "cad/script/corpo.py fai_fondo_anello", "cad/stl/README.md Corpo_Fondo_Anello.stl", guida/problemi/carapace.yaml]
 
@@ -209,7 +215,7 @@ passi:
       - {testo: contatti, punto: [-40.0, 0.0, 14.4]}
     testo:
       - "Salda due fili da 26 AWG ai contatti del pulsante, lunghi circa 9 cm [S]."
-      - "Lascia liberi gli altri capi: si saldano sui pin D-9 ed E-9 della testata, poli 15 e 16 (13.16)."
+      - "Lascia liberi gli altri capi: si saldano alle piazzole dei poli 15 e 16 della scheda (13.16)."
     avvisi:
       - {tipo: nota, testo: "Il pulsante è in parallelo al pulsantino della 2813: dalla scheda i due fili vanno, con il cavo piatto, ai pin A e B (BOM B3b, docs/cablaggio.md 3.1)."}
       - {tipo: importante, testo: "La tensione dei pin A e B della 2813 non è scritta da nessuna parte: si misura al banco (4.27) prima di collegare la spina IDC (S-10) [C]."}
@@ -263,7 +269,7 @@ passi:
     tabella:
       intestazione: [Tratto, "Da → a", "Fili da tagliare, 3 × 30 AWG [S]"]
       righe:
-        - ["1", "scheda (A-9 +5 V, B-9 massa, pin E-3 dato) → anello (tacca)", "misura sul carapace + 20 mm"]
+        - ["1", "scheda (piazzole 5 V e massa, polo 4 dato) → anello (tacca)", "misura sul carapace + 20 mm"]
         - ["2", "anello → lobo PS", "circa 100 mm"]
         - ["3", "lobo PS → lobo MS", "circa 115 mm"]
         - ["4", "lobo MS → lobo AS", "circa 115 mm"]
@@ -292,19 +298,19 @@ passi:
       - {chiave: corpo/Corpo_Carapace, lav: "guida_altoparlante_*"}
       - {chiave: corpo/Corpo_Carapace, lav: fermo_altoparlante}
     etichette:
-      - {testo: guide, punto: [-94.0, -24.0, 4.0]}
-      - {testo: fermo, punto: [-88.0, 20.0, 28.0]}
+      - {testo: "guide e costole", punto: [-94.0, -22.9, 4.0]}
     testo:
       - "Allunga i due fili dell'altoparlante fino a circa 17 cm [S]; guaina termorestringente sulle giunzioni."
-      - "Infila l'altoparlante da dietro, fra le due guide gialle della guancia destra."
+      - "Infila l'altoparlante da dietro, fra le due guide gialle e sotto le costole di ritegno."
       - "Spingilo fino al fermo giallo, davanti: dietro la guancia ne sporgono 3,3 mm."
+      - "Controlla che le costole lo tengano contro la guancia."
       - "Porta i fili sotto il dorso, verso l'amplificatore."
     avvisi:
       - {tipo: opzionale, x: X17, quando: meglio_ora, testo: "Altoparlante tondo da 15 mm. Dopo, i fili non si portano più sotto il dorso."}
-      - {tipo: importante, testo: "Nessuna sede lo tiene all'indietro: fermalo con colla a caldo o nastro [C]."}
-      - {tipo: nota, testo: "Guide a 15,4 mm, spessore 4 mm non dichiarato [C] (D-074). Limita il volume nel firmware: a 5 V l'amplificatore arriva a circa 1,4 W, l'altoparlante regge 1 W."}
+      - {tipo: importante, testo: "Le costole sono a filo: la stretta la dà la stampa [C] (D-056). Se non entra, non forzare: togli un velo di plastica. Se scivola, un punto di colla a caldo sul bordo, mai sulla membrana."}
+      - {tipo: nota, testo: "Spessore 4 mm non dichiarato [C] (D-074, D-077). Limita il volume nel firmware: a 5 V l'amplificatore arriva a circa 1,4 W, l'altoparlante regge 1 W."}
     attrezzi: [saldatore, termorestringente]
-    fonti: [D-066, "D-074: guide, fermo, altoparlante tondo", "docs/cablaggio.md 3.5 'Altoparlante'", "docs/predisposizioni.md X17", "cad/script/corpo.py fai_carapace_predisposizioni (guide_altoparlante, fermo_altoparlante)", guida/problemi/carapace.yaml]
+    fonti: [D-066, "D-074: guide, fermo, altoparlante tondo", "D-076 e D-077: costole di ritegno (modifica 15)", "docs/cablaggio.md 3.5 'Altoparlante'", "docs/predisposizioni.md X17", "cad/script/corpo.py fai_carapace_predisposizioni (guide_altoparlante, fermo_altoparlante, ritegno_altoparlante)", guida/problemi/carapace.yaml]
 
   - id: "13.10"
     titolo: Amplificatore
@@ -327,7 +333,7 @@ passi:
       - {tipo: opzionale, x: X17, quando: meglio_ora, testo: "Amplificatore MAX98357A generico. Senza X17 salta questo passo e quello dell'altoparlante."}
       - {tipo: importante, testo: "Sta sopra l'antenna dell'ESP32, a una decina di mm: l'effetto sul Wi-Fi è da provare [C] (D-066)."}
       - {tipo: nota, testo: "Fori sul lato della morsettiera: 13 mm di interasse, 2,2 mm dal bordo [C] (D-074)."}
-      - {tipo: nota, testo: "I capi liberi dei cinque fili vanno alla scheda in 13.16: 5 V in G-3, massa in G-4, BCLK in G-6, WS in G-8, dati in G-9 (schemi/scheda_carapace.svg)."}
+      - {tipo: nota, testo: "I capi liberi dei cinque fili vanno alle piazzole della scheda in 13.16: 5 V, massa, BCLK (polo 10), WS (polo 11), dati (polo 13)."}
     attrezzi: [saldatore, croce_ph0]
     fonti: ["D-066 blocco B: bugne dell'amplificatore", "D-074: fori sul lato della morsettiera", "docs/cablaggio.md 3.5 'Amplificatore'", "docs/predisposizioni.md X17", "cad/script/corpo.py fai_carapace_predisposizioni (bugna_amp_*)", guida/problemi/carapace.yaml]
 
@@ -348,7 +354,8 @@ passi:
       - "Lascia libero il foro Ø 1 con il suo anello."
     avvisi:
       - {tipo: opzionale, x: X16, quando: meglio_ora, testo: "Solo per gli MS3625 tondi: con i microfoni Adafruit si tolgono (D-074)."}
-    fonti: ["D-074: lunette dei microfoni", "cad/stl/README.md Corpo_Lunette_Microfoni.stl", "cad/script/corpo.py fai_lunette_microfoni"]
+      - {tipo: nota, testo: "Le lunette tengono il microfono di lato; verso il dorso lo ferma un punto di colla a caldo (13.12), fuori dal percorso del suono (D-076, P-008)."}
+    fonti: ["D-074: lunette dei microfoni", "D-076: microfoni con colla a caldo", "cad/stl/README.md Corpo_Lunette_Microfoni.stl", "cad/script/corpo.py fai_lunette_microfoni"]
 
   - id: "13.12"
     titolo: Microfoni
@@ -365,17 +372,18 @@ passi:
       - {testo: D, chiave: corpo/Microfono_D}
     testo:
       - "Unisci i due microfoni con cinque fili corti, pin con pin: 3,3 V, massa, BCLK, WS, dati."
-      - "Collega L/R a massa sul microfono S e a 3,3 V sul D."
+      - "Collega L/R a massa sul microfono S, a 3,3 V sul D."
       - "Salda R8, 100 kΩ, fra dati e massa sul microfono S, con la guaina."
-      - "Salda al microfono S cinque fili, circa 8 cm [S], per G-4…G-8 della scheda (13.16)."
+      - "Salda al microfono S cinque fili, circa 8 cm [S], per le piazzole della scheda (13.16)."
       - "Posa la guarnizione sull'anello giallo attorno al foro Ø 1 [C]."
-      - "Posa ogni microfono con la porta sul foro, fra le sue lunette, i lati piatti lungo il telaio."
+      - "Posa ogni microfono con la porta sul foro, fra le lunette; fermalo con colla a caldo sul bordo."
     avvisi:
-      - {tipo: opzionale, x: X16, quando: meglio_ora, testo: "Udito stereo: due MS3625 che hai già. Senza X16 salta questo passo e il precedente."}
-      - {tipo: nota, testo: "MS3625: Ø 13,5, due lati piatti a 12,6, porta al centro della faccia senza componenti (D-074)."}
-      - {tipo: importante, testo: "GPIO40 è anche la linea dati della microSD: con un pull-up R8 non la porta a 0 V; nessuna microSD, misura in 4.04 (S-21) [C]. Guarnizione e fermo non sono definiti [C]."}
+      - {tipo: opzionale, x: X16, quando: meglio_ora, testo: "Due MS3625 che hai già. Senza X16 salta questo passo e 13.11."}
+      - {tipo: nota, testo: "MS3625: Ø 13,5, lati piatti a 12,6 lungo il telaio, porta al centro (D-074)."}
+      - {tipo: importante, testo: "Colla solo sul bordo, mai sulla porta né sull'anello del foro Ø 1 (D-076). Guarnizione: materiale da definire [C]."}
+      - {tipo: importante, testo: "GPIO40 è anche il dato della microSD: con R8 non va a 0 V; nessuna microSD, misura in 4.04 (S-21) [C]."}
     attrezzi: [saldatore, spelafili]
-    fonti: ["D-074: MS3625, pull-down da 100 kΩ", "docs/cablaggio.md 3.5 'Microfoni'", "docs/predisposizioni.md X16 e 5 'Corpo_Carapace e Corpo_Fascia (X16)'", "cad/script/corpo.py fai_carapace_predisposizioni (mic_*)", guida/problemi/carapace.yaml]
+    fonti: ["D-074: MS3625, pull-down da 100 kΩ", "D-076: colla a caldo per i microfoni", "docs/cablaggio.md 3.5 'Microfoni'", "docs/predisposizioni.md X16 e 5 'Corpo_Carapace e Corpo_Fascia (X16)'", "cad/script/corpo.py fai_carapace_predisposizioni (mic_*)", guida/problemi/carapace.yaml]
 
   - id: "13.13"
     titolo: ToF posteriore
@@ -386,19 +394,19 @@ passi:
     vista: {direzione: [-0.55, 0.6, -0.5], su: [0, 0, -1]}
     evidenzia: [{chiave: corpo/Corpo_Carapace, lav: piano_tof_posteriore}]
     etichette:
-      - {testo: piano a 35°, punto: [-93.5, 18.4, 19.0]}
+      - {testo: "2 fori Ø 1,7", punto: [-95.5, 22.2, 25.3]}
     testo:
       - "Salda cinque fili: 3,3 V, massa, SDA, SCL, XSHUT; circa 20 cm [S]."
-      - "Posa la scheda sul piano giallo inclinato della guancia sinistra, con il sensore verso il basso e indietro."
-      - "Fermala [C]."
-      - "Porta i fili sotto il dorso, verso la scheda del carapace: 3,3 V in B-3, massa in A-3, SDA in A-4, SCL in B-4 (13.16)."
+      - "Posa la scheda sul piano giallo inclinato della guancia sinistra, sensore in basso e indietro, pin verso il centro."
+      - "Avvita due viti M2 × 5 a croce nei fori Ø 1,7, senza inserti; stringi piano."
+      - "Porta i fili sotto il dorso, verso la scheda: 3,3 V, massa, SDA, SCL alla presa Qwiic (13.16)."
     avvisi:
-      - {tipo: opzionale, x: X19, quando: meglio_ora, testo: "ToF posteriore: Pololu VL53L1X. Serve l'espansore TCA9534 (X20) sulla presa Qwiic, che comanda l'XSHUT. Senza X19 salta questo passo."}
+      - {tipo: opzionale, x: X19, quando: meglio_ora, testo: "ToF posteriore: Pololu VL53L1X, con l'espansore TCA9534 (X20) per l'XSHUT. Senza X19 salta questo passo."}
       - {tipo: importante, testo: "La scheda sporge circa 13 mm nella porta di coda: provala con il T-plug a carapace montato (13.23) (D-069)."}
-      - {tipo: importante, testo: "XSHUT va all'espansore TCA9534 (X20), non alla scheda: l'espansore si innesta sulla spina Qwiic libera. Dove appoggiarlo sotto il dorso non è deciso [C] (S-17)."}
-      - {tipo: nota, testo: "Inclinato di 35° verso il basso, centro del retro a x −93,5 e z 19 (D-066). Prende l'indirizzo 0x31 dal firmware (docs/predisposizioni.md X19)."}
-    attrezzi: [saldatore, spelafili]
-    fonti: ["D-066 blocco B: ToF posteriore", "D-069: T-plug con il ToF", "docs/cablaggio.md 3.5 'ToF posteriore'", "docs/predisposizioni.md X19 e X20", "cad/script/corpo.py fai_carapace_predisposizioni (piano_tof_posteriore)", guida/problemi/carapace.yaml]
+      - {tipo: importante, testo: "XSHUT va all'espansore TCA9534 (X20), non alla scheda; il suo posto sotto il dorso non è deciso [C] (S-17)."}
+      - {tipo: nota, testo: "Piano a 35° (D-066), indirizzo 0x31. La vite fa il filetto nel PLA [C]; teste fuori dal fascio (D-077). Alternativa: colla a caldo (D-076)."}
+    attrezzi: [saldatore, spelafili, croce_ph0]
+    fonti: ["D-066 blocco B: ToF posteriore", "D-069: T-plug con il ToF", "D-076 e D-077: ToF avvitato (modifica 15)", "docs/cablaggio.md 3.5 'ToF posteriore'", "docs/predisposizioni.md X19 e X20", "cad/script/corpo.py fai_carapace_predisposizioni (piano_tof_posteriore)", guida/problemi/carapace.yaml]
 
   - id: "13.14"
     titolo: Cicalino nel collare
@@ -414,13 +422,17 @@ passi:
       - {testo: finestra, punto: [-74.5, 6.0, 36.0]}
       - {testo: collare, punto: [-66.0, -21.0, 28.0]}
     testo:
+      - "Misura il cicalino con il calibro e confrontalo con l'ingombro del collare, 40 × 25 × 11 mm [C]. Annota le misure."
       - "Premi il cicalino nel collare giallo, dal basso, con il display verso la finestra del dorso."
       - "Controlla che i pin guardino la coda."
       - "Scuoti piano il carapace: il cicalino non deve muoversi."
     avvisi:
       - {tipo: nota, testo: "Il collare ha due nervature per lato, a filo del cicalino nel modello: la stretta la dà la stampa. Il collare segue l'ingombro stimato 40 × 25 × 11 mm [C] (D-063, cad/stl/README.md 'Provini della passata estetica')."}
+      - {tipo: nota, testo: "Il cicalino suona sotto 3,3 V per cella: è l'ultimo livello, indipendente dal firmware, che spegne il rail sotto 3,5 V per 5 s (12.04, software.md 2.6, D-076)."}
+      - {tipo: importante, testo: "Il verso dei pin e il posto del display si guardano sul pezzo, non sul CAD: le quote del BX100 non sono scritte [C] (Q-34). Se i pin stanno sul lato lungo, la spina di bilanciamento non arriva alla prolunga: fermati."}
       - {tipo: importante, testo: "Il cicalino resta staccato dalla prolunga di bilanciamento fino a 13.19."}
-    fonti: [D-059, D-063, "docs/cablaggio.md 4 'Carapace'", "cad/stl/README.md", "cad/script/corpo.py fai_carapace_dettagli (collare_*)", guida/problemi/carapace.yaml]
+    attrezzi: [calibro]
+    fonti: [D-059, D-063, D-076, "docs/cablaggio.md 4 'Carapace'", "cad/stl/README.md", "cad/script/corpo.py fai_carapace_dettagli (collare_*)", guida/problemi/carapace.yaml]
 
   - id: "13.15"
     titolo: Tappo del ToF frontale
@@ -439,27 +451,34 @@ passi:
   - id: "13.16"
     titolo: Fili sulla scheda
     formato: grande
-    figura: schemi/scheda_carapace.svg
+    nascondi: *robot
+    in_evidenza: [corpo/Scheda_carapace]
+    vista: {direzione: [0.45, 0.55, -0.7], su: [0, 0, -1]}
+    etichette:
+      - {testo: scheda, punto: [40.25, 0.0, 28.0]}
+      - {testo: ampli, punto: [60.7, 0.0, 28.0]}
+      - {testo: microfoni, punto: [89.3, 0.0, 34.0]}
+      - {testo: ToF, punto: [-93.5, 18.4, 19.0]}
+      - {testo: anello, punto: [-40.0, 0.0, 31.0]}
     tabella:
-      intestazione: [Modulo, Fori, Fili]
+      intestazione: [Modulo, Reti, Fili]
       righe:
-        - ["ToF e Qwiic", "A-3 GND, B-3 3,3 V, A-4 SDA, B-4 SCL", "2 per foro; ToF 20 cm [S]"]
-        - ["Catena LED", "A-9 5 V, B-9 GND, pin E-3", "3 × 30 AWG"]
-        - ["Pulsante", "pin D-9, E-9", "2 × 26 AWG"]
-        - ["Microfoni", "G-4, G-5, G-6, G-7, G-8", "5, 8 cm [S]"]
-        - ["Amplificatore", "G-3, G-4, G-6, G-8, G-9", "5, 5 cm [S]"]
+        - ["ToF e Qwiic", "massa, 3,3 V, SDA, SCL", "2 per piazzola; ToF 20 cm [S]"]
+        - ["Catena LED", "5 V, massa, dato (polo 4)", "3 × 30 AWG"]
+        - ["Pulsante", "poli 15 e 16", "2 × 26 AWG"]
+        - ["Microfoni", "3,3 V, massa, BCLK, WS, dati", "5, 8 cm [S]"]
+        - ["Amplificatore", "5 V, massa, BCLK, WS, dati", "5, 5 cm [S]"]
     testo:
-      - "Taglia a metà il cavo Qwiic: salda i quattro fili in A-3, B-3, A-4, B-4 e lascia libera la spina."
-      - "Salda i fili di ogni modulo ai fori della tabella, dal lato componenti, al più due per foro."
-      - "Salda DIN e i due fili del pulsante sul pin della testata, dal lato saldature (A.18)."
+      - "Taglia a metà il cavo Qwiic e salda i quattro fili alle piazzole di massa, 3,3 V, SDA e SCL; la spina resta libera."
+      - "Salda i fili di ogni modulo alla piazzola della sua rete, dal lato componenti, al più due per foro."
+      - "Salda dato dei LED e pulsante ai poli 4, 15 e 16 della testata, dal lato saldature (A.18)."
       - "Controlla in continuità ogni filo."
     avvisi:
-      - {tipo: attenzione, testo: "BLOCCANTE (S-01): la testata con la spina sta 16–18 mm sotto la scheda, sopra l'ESP32 ne restano circa 10. Non saldare J2 né i fili sui suoi pin finché il CAD 2.1.7 non decide [C]."}
-      - {tipo: importante, testo: "Salda tutto prima di avvitare: il lato saldature poggia sulle bugne. Niente stagno né fili sui fori con la ×."}
-      - {tipo: importante, testo: "Il 470 µF da 11 mm arriva a 0,4 mm da A-4 e B-4: se i fili non entrano, prendine uno più corto (S-18) [C]."}
-      - {tipo: opzionale, x: X20, quando: anche_dopo, testo: "XSHUT dal TCA9534 sulla spina Qwiic libera; posto da decidere [C] (S-17)."}
+      - {tipo: importante, testo: "Gli schemi A.17 e A.18 sono ancora quelli della scheda 20 × 30 con la testata dritta: i nomi dei fori non valgono per la scheda 21,5 × 30. Segui le reti [C] (P-002)."}
+      - {tipo: importante, testo: "Salda tutto prima di avvitare: il lato saldature poggia sulle bugne. Se il 470 µF è da 11 mm, salda prima SDA e SCL (S-18) [C]."}
+      - {tipo: nota, testo: "Un PCB stampato sostituirà la millefori in una versione futura; la guida resta sulla millefori (D-076)."}
     attrezzi: [saldatore, multimetro, spelafili]
-    fonti: ["guida/schemi/schemi.md 2.1, 2.4 e 2.5", "guida/schemi/scheda_carapace.svg", "docs/cablaggio.md 3.5 'Carapace' (piedinatura e cavi)", "docs/predisposizioni.md 2.3", "D-074: pull-down da 100 kΩ", "guida/passi/04-banco.yaml 4.22-4.25", "guida/problemi/schemi.yaml S-01 S-17 S-18", guida/problemi/carapace.yaml]
+    fonti: ["guida/schemi/schemi.md 2.1, 2.4 e 2.5", "docs/cablaggio.md 3.5 'Carapace' (piedinatura e cavi)", "docs/predisposizioni.md 2.3", "D-074: pull-down da 100 kΩ", "D-076: testata a 90° (P-002), PCB stampato in una versione futura", "guida/passi/04-banco.yaml 4.22-4.25", "guida/problemi/schemi.yaml S-01 S-17 S-18", guida/problemi/carapace.yaml]
 
   - id: "13.17"
     titolo: Scheda sulle bugne
@@ -470,19 +489,20 @@ passi:
     vista: {direzione: [0.45, 0.55, -0.7], su: [0, 0, -1]}
     evidenzia: [{chiave: corpo/Corpo_Carapace, lav: "bugna_sch_*"}]
     etichette:
-      - {testo: "colonna A", punto: [30.0, 13.0, 22.0]}
-      - {testo: testata, punto: [41.0, -13.0, 22.0]}
+      - {testo: testata, punto: [34.0, 0.0, 2.0]}
+      - {testo: bugne, punto: [48.0, -12.5, 31.0]}
     testo:
-      - "Allarga a Ø 2,6 i quattro fori d'angolo A-1, G-1, A-11, G-11, se non lo sono [C]."
-      - "Posa la scheda sulle quattro bugne gialle, lato saldature sulle bugne, colonna A verso l'ottagono; la tacca di J2 guarda l'ottagono [C]."
-      - "Avvita quattro viti M2 × 5 negli inserti."
+      - "Controlla i quattro fori Ø 2,2 del passo 4.22: 12 e 18,5 mm dal bordo di coda, 2,5 mm dai lati corti [V, CAD]."
+      - "Posa la scheda sulle quattro bugne gialle, lato saldature sulle bugne, testata a 90° dal lato della coda: la sua apertura guarda l'ottagono."
+      - "Avvita quattro viti M2 × 4 negli inserti, a croce."
       - "Controlla che i fili siano liberi e non tocchino le viti."
     avvisi:
       - {tipo: opzionale, x: X2, quando: meglio_ora, testo: "Senza X2 il pulsante e le luci non hanno il cavo a 16 poli. Dopo costa smontare il carapace."}
-      - {tipo: attenzione, testo: "BLOCCANTE (S-01): la testata con la spina non sta sotto la scheda: sopra l'ESP32 ne restano circa 10 e servono 16–18. Non montare la scheda con J2 finché il CAD 2.1.7 non decide la posizione [C]."}
-      - {tipo: nota, testo: "Tacca di J2 dal lato dei poli dispari, colonna D, come sul disegno della spina Würth 61201623021 [V] (S-26)."}
+      - {tipo: importante, testo: "Bugne alte 2,9 mm: la chiave della spina passa 0,54 mm sopra la USB-C dell'ESP32. Niente rondelle sotto la scheda (D-077)."}
+      - {tipo: nota, testo: "Viti M2 × 4, inserto profondo 3,4 mm. Se il kit non ha le M2 × 4: M2 × 5 con una rondella sotto la testa (BOM) [C]."}
+      - {tipo: nota, testo: "Testata Würth 61201621721, alta 9,0 mm, chiave al centro sul lato lontano dalla scheda; spina IDC 61201623021 (D-076) [S]. Il PCB stampato futuro la terrà nello stesso posto."}
     attrezzi: [croce_ph0]
-    fonti: ["D-066 blocco B: bugne della scheda del carapace", "docs/cablaggio.md 3.5", "docs/predisposizioni.md 2.3 e 5", "cad/script/corpo.py fai_carapace_predisposizioni (bugna_sch_*)", guida/problemi/carapace.yaml]
+    fonti: ["D-066 blocco B: bugne della scheda del carapace", "D-076 e D-077: testata a 90° sul bordo di coda, bugne da 2,9, viti M2 × 4 (modifica 12)", "docs/cablaggio.md 3.5", "docs/predisposizioni.md 2.3 e 5", "cad/script/corpo.py fai_carapace_predisposizioni (bugna_sch_*)", "guida/dati/fori.json ins_sch_a…d", guida/problemi/carapace.yaml]
 
   - id: "13.18"
     titolo: Prova al banco, senza corrente
@@ -491,26 +511,26 @@ passi:
     tabella:
       intestazione: [Punto, Atteso, Misurato]
       righe:
-        - ["1. Polo 1 (D-2) contro polo 3 (D-3)", "non 0 Ω; la lettura sale mentre il 470 µF si carica [S]", ""]
-        - ["2. Polo 7 (D-5) contro poli 3, 5, 9", "non 0 Ω", ""]
+        - ["1. Polo 1 contro polo 3", "non 0 Ω; la lettura sale mentre il 470 µF si carica [S]", ""]
+        - ["2. Polo 7 contro poli 3, 5, 9", "non 0 Ω", ""]
         - ["3. Polo 1 contro polo 7", "aperto", ""]
         - ["4. Poli 1 e 4 (5 V, dato) contro poli 6, 8, 10, 11, 12, 13", "aperto", ""]
         - ["5. Poli 15 e 16 contro tutti gli altri", "aperto", ""]
         - ["5. Poli 15 e 16 fra loro", "aperto a riposo; chiuso, vicino a 0 Ω, a pulsante premuto [C]", ""]
-        - ["6. Polo 12 (E-7) contro massa, con i microfoni collegati", "circa 100 kΩ, R8 [S]", ""]
-        - ["7. Polo 14 (E-8) contro tutti", "aperto", ""]
+        - ["6. Polo 12 contro massa, con i microfoni collegati", "circa 100 kΩ, R8 [S]", ""]
+        - ["7. Polo 14 contro tutti", "aperto", ""]
         - ["8. Ogni filo 101–112 dal polo alla piazzola, e ogni piazzola al pin del suo modulo", "0 Ω [S]", ""]
         - ["8. Polo 4 contro il DIN del primo pixel dell'anello; poli 15 e 16 contro i contatti del pulsante", "0 Ω [S]", ""]
-        - ["9. I fori con la × sul lato saldature", "nessuno stagno, nessun filo sopra", ""]
+        - ["9. I fori vicini alle quattro viti, sul lato saldature", "nessuno stagno, nessun filo sopra", ""]
     testo:
       - "Posa il carapace capovolto sul panno, senza spina IDC né batteria."
       - "Misura con il multimetro ogni riga della tabella e annota il valore."
       - "Se una riga non torna, torna al passo del suo modulo o a 4.22–4.25 e ripara: non proseguire."
     avvisi:
       - {tipo: attenzione, testo: "Un corto fra +5 V e massa fa scattare PTC1 e può bruciare il regolatore da 5 V: non collegare la spina IDC finché le righe 1–4 non tornano (BOM B2)."}
-      - {tipo: nota, testo: "Sono le nove prove di schemi.md 2.6, sul disegno A.17. Le righe sui poli si misurano sui pin di J2 o, se non c'è ancora (S-01), sui fori D-2…E-9 [C]."}
+      - {tipo: nota, testo: "Sono le nove prove di schemi.md 2.6, sul disegno A.17. I poli si misurano sulle saldature dei pin della testata a 90°, sul lato saldature, che con il carapace capovolto sta in alto [C]. I nomi dei fori dello schema non valgono finché non è ridisegnato (13.16)."}
     attrezzi: [multimetro]
-    fonti: ["guida/schemi/schemi.md 2.6", "docs/cablaggio.md 3.5", "docs/predisposizioni.md 2.3", "D-074", "guida/passi/12-accensione.yaml 12.03 (stesso stile di prova)", guida/problemi/carapace.yaml]
+    fonti: ["guida/schemi/schemi.md 2.6", "docs/cablaggio.md 3.5", "docs/predisposizioni.md 2.3", "D-074", "D-076: testata a 90°", "guida/passi/12-accensione.yaml 12.03 (stesso stile di prova)", guida/problemi/carapace.yaml]
 
   - id: "13.19"
     titolo: Spina IDC e cicalino
@@ -548,21 +568,25 @@ passi:
           - "corpo/Corpo_Sportello_Servizio*"
         nome: Carapace con i suoi moduli (13.01-13.17)
     esploso: {asse: [0, 0, 1], distanza: 70}
-    vista: {direzione: [-0.6, -0.55, 0.45], su: [0, 0, 1]}
+    nascondi: [corpo/Corpo_Carapace, corpo/Corpo_Fascia, corpo/Corpo_Visiera, corpo/Corpo_Gonne]
+    vista: {direzione: [-0.8, -0.5, 0.3], su: [0, 0, 1]}
     etichette:
-      - {testo: spina IDC, punto: [39.5, 0.0, 95.0]}
+      - {testo: testata e spina, punto: [30.0, 0.0, 95.0]}
+      - {testo: "2 strisce", punto: [24.0, -9.0, 31.0]}
       - {testo: cicalino, punto: [-74.5, 0.0, 88.0]}
     testo:
       - "Solleva il carapace di circa 10 cm sopra il corpo, senza tirare i cavi."
-      - "Infila la spina IDC del cavo piatto nella testata della scheda: la sporgenza della spina nella tacca, il triangolo del polo 1, filo rosso, verso D-2 [C]."
-      - "Infila la prolunga di bilanciamento nel cicalino, nero sul polo −."
+      - "Infila la spina IDC, orizzontale, nella testata a 90° sotto la scheda, verso il viso, con la chiave in basso."
+      - "Controlla che il filo rosso, polo 1, sia dal lato del polo 1 della testata [C]."
+      - "Piega il nastro sopra la spina; le due strisce girano a 45° a destra, la sinistra sopra la destra, e scendono a destra dell'ESP32 [C]."
+      - "Infila la prolunga di bilanciamento nel cicalino, nero sul polo −; il verso dei pin si guarda sul pezzo [C]."
       - "Controlla che il display mostri le due celle."
     avvisi:
       - {tipo: attenzione, testo: "Il cicalino assorbe sempre: a fine uso staccalo dalla prolunga (BOM B9)."}
-      - {tipo: attenzione, testo: "Spina IDC al contrario: il +5 V dei poli 1–2 arriva sui poli 15–16, cioè sui pin A e B della 2813. La tacca della testata impedisce l'errore: controlla che J2 sia quella con la chiave (S-26)."}
-      - {tipo: importante, testo: "Il verso dei pin del cicalino si guarda sul pezzo, non sul CAD: al contrario non legge o si rompe [C] (BOM B9). La posizione della testata sotto la scheda è bloccata da S-01 [C]."}
-      - {tipo: nota, testo: "Il cavo piatto è lungo circa 15 cm, la spina si sfila dall'ottagono (docs/cablaggio.md 3.5): per questo il carapace si solleva solo di circa 10 cm [S]."}
-    fonti: ["docs/cablaggio.md 3.5 e 4 'Carapace'", "docs/predisposizioni.md 2.3 'Come si toglie il carapace'", "docs/BOM.md B9, C7", "guida/passi/12-accensione.yaml 12.04"]
+      - {tipo: attenzione, testo: "Spina IDC al contrario: il +5 V arriva sui pin A e B della 2813. La chiave della testata lo impedisce: se la spina non entra, non forzare (S-26)."}
+      - {tipo: importante, testo: "Il cavo piatto non passa intero: dopo il fermacavo è in due strisce da 8 conduttori, fra l'8 e il 9 (4.15). Il percorso lascia 0,25 mm dal PCB dell'ESP32 e 0,3 dalla battuta dell'ottagono [S]. Se non passa: soluzione B di P-002, a scelta di chi progetta (P-140)."}
+      - {tipo: nota, testo: "Cavo di circa 15 cm: il carapace si solleva di circa 10 cm. La spina si sfila dall'ottagono [S]."}
+    fonti: ["docs/cablaggio.md 3.5, 3.5bis e 4 'Carapace'", "docs/predisposizioni.md 2.3 'Come si toglie il carapace'", "docs/BOM.md B9, C7", "D-076: testata a 90° (P-002)", "D-077: cavo piatto in due strisce (P-140)", "guida/passi/12-accensione.yaml 12.04"]
 
   - id: "13.20"
     titolo: Prova con la logica accesa

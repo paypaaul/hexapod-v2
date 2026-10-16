@@ -143,3 +143,29 @@
   opzioni:
     - "Correggere il testo di D4: '36 nelle alette lato coda'."
   consiglio: "Correggerlo con la 2.1.7."
+
+- titolo: Come si alimenta il tester dei servo nel corpo, senza alimentatore da banco e senza il rail acceso
+  gravita: importante
+  dove: "9.08, 10.01 (passo 9.08 delle altre zampe), 15 (smontaggio)"
+  cosa: >-
+    Per stringere le viti delle alette di coxa a zampa montata (D-049) il servo di coxa va portato a 30° (9.08). Dopo la
+    sezione 8 il regolatore e la SSC-32 sono nel corpo e la batteria non c'e' (sezione 11): non c'e' un'alimentazione
+    per il tester dei servo (BOM C9, ingresso 4,8-6 V). D-076 (P-050) dice che il rail si accende solo nella sezione 12
+    e che le sezioni 8 e 9 restano prove a freddo e tester; l'utente non ha un alimentatore da banco (Q-26). La bozza della
+    F3 alimentava il tester a 6,0 V dal regolatore "come al banco 5.01, con la batteria appoggiata fuori e F1 da 3 A": e'
+    in contrasto con "T-plug staccato" e anticiperebbe la prima accensione della 12 senza le sue misure a gradi (12.03-12.08).
+    Nella 5.01 il rail si accende con un Dupont dal 3V3 dell'ESP32 sull'ENA del regolatore; nel corpo l'ENA e' saldato alla
+    basetta (D2, GPIO42) e non e' raggiungibile con un Dupont senza aprire il vassoio.
+    Scelta del testo (prudente): il tester ha una fonte sua, separata dal robot (quattro pile AA o un powerbank USB a 5 V),
+    il robot resta spento. A 5 V l'MG996R ha meno coppia (9,4 kgf*cm a 4,8 V contro 11 a 6 V, BOM A1), ma
+    la coxa senza il peso del robot non la chiede [S]. Marcato [C] in 9.08.
+  prove:
+    - "guida/passi/09-zampa-corpo.yaml 9.08 (prima e dopo la 2.1.7); guida/passi/05-servo.yaml 5.01 (rail al banco, ENA con Dupont)"
+    - "docs/BOM.md C9 (tester, 4,8-6 V, da controllare che accetti 6,0 V) e A1 (stallo 2,5 A a 6 V); docs/software.md 2.7 (circa 11 us per grado)"
+    - "D-076 (P-050, Q-14, Q-26); guida/problemi.md P-050 e P-070"
+  opzioni:
+    - "(1) Fonte separata da 4,8-6 V per il tester: quattro pile AA con il portapile, oppure un powerbank USB a 5 V con un cavetto adatto (applicata nel testo)."
+    - "(2) Rail del corpo con la batteria appoggiata fuori, F1 da 3 A e l'ENA forzato: nessun acquisto, ma il rail si accende prima della 12 e l'ENA va forzato nel vassoio."
+    - "(3) Spostare la stretta delle viti di coxa nella sezione 12, dopo 12.08 (rail acceso, senza servo), con la coxa portata a 30 gradi dalla SSC-32 o dal firmware: nessun acquisto, ma i servo di coxa girano con le viti solo accostate."
+  consiglio: "Opzione 1: non tocca il robot e non compra niente se l'utente ha le pile o un powerbank; la (3) solo se non ci sono ne' pile ne' powerbank."
+  domanda: "Hai quattro pile AA con un portapile, oppure un powerbank USB e un cavo USB da tagliare? In alternativa vuoi stringere le viti di coxa nella sezione 12?"

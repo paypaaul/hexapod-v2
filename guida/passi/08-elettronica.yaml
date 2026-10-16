@@ -14,7 +14,10 @@
 #  - il ToF va nella mensola PRIMA della camera: la cima della sua scheda passa a 0,2 mm sotto la testa della camera;
 #  - F3c: ESP32 e camera vengono DOPO le prove a freddo: le prove del bus si fanno con l'ESP32 fuori dagli strip
 #    (schemi.md 1.5) e, con il flat della camera innestato, l'ESP32 non si toglie piu'.
-# T-plug staccato in tutta la sezione: la batteria non e' nel corpo (sezione 11) e nessun passo accende niente.
+# T-plug staccato in tutta la sezione: la batteria non e' nel corpo (sezione 11) e nessun passo accende niente (P-050, D-076:
+# rail acceso solo nella sezione 12, con la batteria nel robot; niente alimentatore da banco).
+# Dalla 2.1.7 (D-076, D-077): vassoio sulle colonne della base con M2 x 5 svasate (8.11); asola del bus 7 x 4 a x 30, fuori
+# dalla basetta, con il cavetto nella presa di coda dell'ADC (8.07, 8.09); cavo piatto in due strisce da 8 (4.15, 13.19).
 sezione:
   id: elettronica
   numero: 8
@@ -256,10 +259,10 @@ passi:
       - "Tira i fili sotto il vassoio per circa 8 cm [S]."
       - "Posa vassoio e basetta accanto al corpo, a sinistra."
     avvisi:
-      - {tipo: importante, testo: "La spina Qwiic deve passare nell'asola 6 × 3 mm [C]: provala prima (guida/problemi/elettronica.yaml)."}
+      - {tipo: nota, testo: "Dalla 2.1.7 l'asola è 7 × 4 mm, fuori dal bordo sinistro della basetta e verso la coda (x 30): la spina Qwiic, 6 × 2,9 [S], ci passa [V]. Da lì alla presa di coda dell'ADC ci sono circa 9 mm (D-077)."}
       - {tipo: opzionale, x: X4, quando: meglio_ora, testo: "Senza IMU (X4) e ADC (X6) salta questo passo."}
     fonti:
-      - "D-066, blocco B: asola 6 × 3 per i fili del bus"
+      - "D-077 (asola 7 × 4 a x 26,5–33,5, y 18–22, su un'ala del vassoio; verifiche qwiic_asola e qwiic_adc); D-066, blocco B"
       - "guida/schemi/schemi.md 1.6 (ramo 3: E-1, I-1, M-1, S-1, due fili per foro)"
       - "guida/passi/04-banco.yaml 4.16"
       - "guida/problemi/elettronica.yaml, F3c: fili del bus saldati al banco e asola del vassoio"
@@ -363,7 +366,7 @@ passi:
     attrezzi: [brugola_1_3]
     fonti:
       - "D-076, P-003: vassoio su quattro colonne della base con inserti M2 e M2 × 5 svasate (prima D-051: distanziali M3)"
-      - "D-066, blocco B: asola 6 × 3 per i fili del bus"
+      - "D-077: asola del bus 7 × 4 a x 30, fuori dalla basetta"
       - "guida/problemi/schemi.yaml S-19 (chiuso dal CAD 2.1.7)"
       - "docs/predisposizioni.md 2.8 e 2.9"
       - "guida/catalogo/giunzioni.yaml, vassoio"
@@ -385,7 +388,7 @@ passi:
       - "Porta i fili della riga 13 e quello della batteria verso la coda, i rami del bus verso le baie."
       - "Accosta le quattro viti M2 × 5 negli inserti delle colonnine, poi stringile piano, in diagonale."
     avvisi:
-      - {tipo: importante, testo: "Sotto la basetta restano 3,3 mm per saldature e teste M3 (D-053, S-19): solo i fili del ramo 3 vanno dal bordo sinistro all'asola, che sta sotto il bordo [C]."}
+      - {tipo: nota, testo: "Sotto la basetta restano 3,3 mm per le saldature; le teste svasate del vassoio stanno 3,4 mm più in basso, a filo (D-053, D-076). I fili del ramo 3 scendono dal bordo sinistro nell'asola, fuori dalla basetta [V]."}
       - {tipo: nota, testo: "Da qui le saldature della basetta non si raggiungono: tutti i fili sono stati saldati al banco (4.15–4.19)."}
     attrezzi: [croce_ph0]
     fonti:
@@ -656,7 +659,7 @@ passi:
     testo:
       - "Controlla il cavo piatto saldato al banco (4.15): il filo rosso è il polo 1."
       - "Porta i due fili dei poli 15 e 16 alla 2813 e saldali sui pin A e B [C]."
-      - "Posa la spina IDC di lato sulla basetta, fuori dagli strip: si innesta nella scheda del carapace (sezione 13)."
+      - "Posa di lato sulla basetta, fuori dagli strip, la spina IDC con le due strisce: si innesta nel passo 13.19."
     tabella:
       intestazione: [Polo, Segnale, Polo, Segnale]
       righe:
@@ -671,7 +674,7 @@ passi:
     avvisi:
       - {tipo: opzionale, x: X2, quando: meglio_ora, testo: "Senza scheda del carapace salta questo passo: niente pulsante, luci del carapace né audio. Dopo costa smontare il carapace."}
       - {tipo: importante, testo: "Tensione dei pin A e B misurata al banco (4.27, S-10): se supera 3,6 V, guarda S-10 prima di innestare la spina."}
-      - {tipo: nota, testo: "Il pulsante del carapace è in parallelo al pulsantino della 2813 (D-059). I poli 10–13 sono l'I2S: GPIO38, 39, 40 e 2."}
+      - {tipo: nota, testo: "Pulsante del carapace in parallelo al pulsantino della 2813 (D-059). Poli 10–13: I2S, GPIO38, 39, 40 e 2."}
     attrezzi: [saldatore, spelafili, multimetro]
     fonti:
       - "guida/schemi/schemi.md 1.6 (poli 1-13; 15 e 16 alla 2813) e sezione 3, riga 8.23"
@@ -805,7 +808,7 @@ passi:
         - ["GPIO1 (presa R-12) contro massa", "32–47 kΩ [S]", ""]
         - ["GPIO41 (presa O-12) contro massa", "circa 100 kΩ, sulla 2813 [S]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Nessuna batteria: tutte le misure sono a freddo. La prima accensione è nella sezione 12, con F1 da 15 A."}
+      - {tipo: attenzione, testo: "Nessuna batteria: tutte le misure sono a freddo. Il rail si accende solo nella sezione 12, con la batteria nel robot e F1 da 15 A (D-076, P-050)."}
       - {tipo: prova, testo: "Con il pull-up sotto 0,97 kΩ stacca per primi i pull-up dei moduli Pololu e dell'espansore e misura di nuovo (S-13). GPIO1 scende sotto 47 kΩ per R6 verso l'uscita della 2813."}
     attrezzi: [multimetro]
     fonti:

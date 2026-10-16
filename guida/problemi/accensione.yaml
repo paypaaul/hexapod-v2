@@ -151,3 +151,23 @@
     - "Pipeline: un attrezzo con un segmento (le dime: femore) segue la posa del suo segmento; allora 12.12 mostra tutta la zampa in posa 2."
     - "Lasciare l'immagine com'e', con la nota."
   consiglio: "Far seguire alle dime la posa del femore nella pipeline e rifare 12.12 con la zampa intera."
+
+- titolo: Il pulsante provvisorio si salda sulla 2813 a corpo montato, e nessun passo dice quando toglierlo
+  gravita: minore
+  dove: "12.03, 12.15; sezione 8 (8.21) e sezione 13"
+  cosa: >-
+    D-076 (P-031) vuole il secondo B3b come pulsante provvisorio sui pin A e B della 2813 fino al carapace. Nella
+    guida 12.03 lo salda sui pin A e B accanto ai fili dei poli 15 e 16, ma nella 12 la 2813 e' in piedi nelle guide
+    in coda e P-030 dice che non si sa se le sue piazzole si raggiungono con il saldatore: il ripiego scritto e' la
+    giunta dei poli 15 e 16 (4.15). Sarebbe piu' semplice saldarlo in 8.21, quando si saldano A e B. Inoltre la
+    sezione 13 non dice di toglierlo quando il pulsante del carapace funziona: 12.15 lo lascia collegato "fino alla
+    sezione 13".
+  prove:
+    - "docs/decisioni.md D-076 (pulsanti B3b, P-031); guida/problemi.md P-030 (aperto), P-031"
+    - "guida/passi/08-elettronica.yaml 8.21 (fili dei poli 15 e 16 sui pin A e B)"
+    - "grep di 'provvisorio' in guida/passi/13-carapace.yaml: nessun passo"
+  opzioni:
+    - "Saldare i fili del pulsante provvisorio in 8.21, insieme a quelli dei poli 15 e 16, e lasciarli arrotolati fino alla 12."
+    - "Lasciare 12.03 com'e' (con il ripiego sulla giunta di 4.15)."
+    - "Sezione 13: un passo dopo la prova del pulsante del carapace che dissalda il pulsante provvisorio o ne isola i fili."
+  consiglio: "Fili del pulsante provvisorio in 8.21; nella sezione 13, dopo la prova del pulsante, toglierlo."

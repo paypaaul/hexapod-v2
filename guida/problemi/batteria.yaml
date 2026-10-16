@@ -99,3 +99,58 @@
   opzioni:
     - "Aggiornare le due righe con la 2.1.7."
   consiglio: "Aggiornarle con la 2.1.7, insieme al primo problema."
+
+- titolo: Il pacco sfilabile non ha una presa per tirarlo fuori dal tunnel
+  gravita: importante
+  dove: "11.03 (prova), 15.05; ogni carica fuori dal robot"
+  cosa: >-
+    Dalla 2.1.7 (D-076) le fessure del tetto sono aperte e il pacco esce con le spine attaccate, ma nessuna fonte dice
+    come lo si afferra. Tolto lo sportello, la faccia di coda del pacco sta 22,5 mm dentro il tunnel (X -62,9, coda
+    del tunnel a X -85,4): ai lati restano 1,35 mm (tunnel largo 50, pacco 47,3), sopra 2,6 mm fino al tetto, sotto
+    il pacco poggia sul fondo della chiglia (Z -39,4). Le dita non arrivano: l'unico appiglio sono i cavi da 12 AWG,
+    e tirare un pacco LiPo dai cavi stressa le saldature sulle celle (rischio di corto). La verifica
+    sfilamento_pacco ha provato che il pacco esce libero, non come lo si prende.
+  prove:
+    - "cad/script/corpo.py cor_tun_x0 85,4, cor_sport_rebbio 22,5, cor_tetto 9,4, cor_tetto_sp 2, cor_chiglia 41,4, cor_chiglia_sp 2"
+    - "cad/script/assieme.py:59 (x_bat: pacco da X -62,9 a 76,75, schiuma fino a 79); rif_componenti.py bat_w 47,3, bat_h 25,4"
+    - "D-054 ('si sfila il pacco'), D-076, docs/cablaggio.md 4 (sfilamento del pacco)"
+  opzioni:
+    - "Inclinare il robot con la coda in giu' e lasciar scivolare il pacco, accompagnandolo (scritto oggi in 15.05 come [C], da provare sul pezzo)."
+    - "Una linguetta di nastro (consumabile, non nel BOM) attorno al pacco, sotto, che esce in coda sotto i rebbi: da verificare con lo sportello chiuso."
+    - "CAD (2.1.8): una tacca o un invito nel fondo della chiglia alla coda del tunnel per un dito, o rebbi piu' corti con un tassello di schiuma sul retro."
+  consiglio: >-
+    Provare l'inclinazione sul primo pacco infilato (prova di 11.03). Se il pacco non scivola, linguetta di nastro come
+    ripiego e tacca nella chiglia nella versione successiva.
+
+- titolo: La prova delle tacche con la spina vera "prima di stampare la base" non ha un passo prima della stampa
+  gravita: minore
+  dove: "11.03; sezioni 1 e 2 (provini e stampa)"
+  cosa: >-
+    D-076 e il piano della 2.1.7 (modifica 11, "Da provare") chiedono di provare con la spina vera, prima di stampare
+    la base, che T-plug e JST-XH scorrano nelle tacche aperte e che il cavo del caricatore esca dalla porta di coda
+    senza tirare il pacco. Nella guida la prova e' in 11.03, cioe' a base gia' stampata e corpo montato: se fallisce
+    si ristampa la base intera. Nessun provino delle sezioni 1 e 2 riproduce la coda del tetto.
+  prove:
+    - "docs/piano-v2.1.0.md, versione 2.1.7, modifica 11 ('Da provare')"
+    - "docs/decisioni.md D-076 (P-001, 'Da provare con la spina vera prima di stampare la base (passo 11.03)')"
+    - "grep di 'fessur' e 'spina vera' in guida/passi/01-provini.yaml e 02-stampa.yaml: nessun passo"
+  opzioni:
+    - "Provino della coda del tetto (striscia con le due tacche da 4,5 e la lingua) nella sezione 1, con i cavi veri del pacco."
+    - "Accettare la prova a valle in 11.03 (cavi da 12 AWG, Ø 3,5-4 S, in tacche da 4,5: margine piccolo ma la verifica del CAD e' passata)."
+  consiglio: "Provino della coda del tetto nella sezione 1, a carico di chi scrive i provini."
+
+- titolo: Le regole di carica e conservazione dell'OVONIC non sono in docs/dimensioni-componenti.md
+  gravita: minore
+  dove: "0.06, 11.01, 11.06"
+  cosa: >-
+    P-041 e il piano della 2.1.7 (modifica 11, "Documenti") dicono di scrivere in docs/dimensioni-componenti.md carica
+    e conservazione dell'OVONIC: corrente 0,5C = 2,6 A consigliata, 1C = 5,2 A al massimo, conservazione a 3,85 V per
+    cella, valori da leggere sull'etichetta [C], e i divieti dei manuali ElectriFly e Flyzone. La sezione "Batteria
+    OVONIC" del documento ha ingombro, cavi e connettori misurati, ma nessuna riga di carica o conservazione. La guida
+    li prende quindi da docs/ricerca/carica-usbc.md, sezione 2.
+  prove:
+    - "docs/dimensioni-componenti.md, sezione 'Batteria OVONIC 2S 5200 mAh 50C hardcase' (nessuna riga 'carica')"
+    - "docs/piano-v2.1.0.md, modifica 11, riga 'Documenti'; guida/problemi.md P-041 (Stato)"
+  opzioni:
+    - "Aggiungere le righe di carica e conservazione a docs/dimensioni-componenti.md e far citare quello alla guida."
+  consiglio: "Aggiungere le righe nel documento (fuori dalla guida) e cambiare le fonti di 0.06 e 11.06."

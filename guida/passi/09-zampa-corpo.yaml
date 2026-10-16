@@ -3,6 +3,8 @@
 # percorso sono raggi e prove di contenimento sulle mesh di build/guida/cad/mesh/ con le trasformate di
 # guida/dati/manifest.json (posa di riferimento): guida/problemi/zampa_corpo.yaml le riporta con i numeri.
 # Imbardata positiva = antioraria vista dall'alto, attorno all'asse della coxa.
+# Dalla 2.1.7 (D-076, D-077): perno della coxa con la bussola (9.03, P-065); tester dei servo con una fonte sua, robot
+# spento (9.08, P-050: niente alimentatore da banco, rail acceso solo nella sezione 12).
 sezione:
   id: zampa_corpo
   numero: 9
@@ -38,18 +40,17 @@ sezione:
     - "corpo/INA260_*"
     - "corpo/Corpo_Supporto_INA260_*"
   obiettivo: >-
-    Montare sul corpo la zampa della sezione 6: squadretta, coxa sul cuscinetto della gondola, ponte, cavi, viti
-    delle alette di coxa strette per ultime. Poi fili di FSR e luci e misure dei cavi.
+    Montare sul corpo la zampa della sezione 6: squadretta, coxa sul cuscinetto, ponte, cavi, viti delle alette di coxa
+    strette per ultime. Poi fili di FSR e luci e misure dei cavi.
   prima:
     - "Zampa montata, lama B non montata (sezione 6)."
-    - "Servo di coxa nelle gondole, quattro viti delle alette accostate (sezione 7, passo 7.05)."
+    - "Servo di coxa nelle gondole, viti delle alette accostate (7.05)."
     - "Prove a freddo dell'elettronica fatte (sezione 8, passo 8.26)."
-    - "Inserti a caldo: 2 nella testa dell'anima, 2 lato coda in ogni gondola (sezione 3)."
-    - "Cavalletto stampato (sezione 2)."
-    - "Tester dei servo a manopola (BOM C9, passo 9.08), alimentato a 6,0 V dal regolatore come al banco 5.01, con la batteria appoggiata fuori e F1 da 3 A: non serve un alimentatore da banco. Come si collega nel corpo si riscrive dopo la 2.1.7 [C]."
+    - "Inserti a caldo: 2 nella testa dell'anima, 2 in ogni gondola (sezione 3)."
+    - "Cavalletto e bussola (sezione 2); tester dei servo con fonte sua da 4,8–6 V, a parte (9.08) [C]."
   tempo: "circa 45 minuti la prima volta [S]"
-  stato_elettrico: "T-plug staccato. Nel passo 9.08 il servo di coxa si muove con il tester, non con il rail."
-  fonti: [D-075, docs/piano-guida.md "Struttura della guida"]
+  stato_elettrico: "Robot spento: T-plug staccato, F1 e F2 vuoti. In 9.08 la coxa si muove con il tester, alimentato a parte."
+  fonti: [D-075, D-076, D-077, docs/piano-guida.md "Struttura della guida"]
   controllo:
     - "La coxa sta in linea con la gondola, il perno nel cuscinetto e il ponte stretto sulla testa dell'anima."
     - "Le teste delle viti-spina entrano nei fori del ponte; la coxa ha appena 0,3 mm di gioco verticale."
@@ -110,17 +111,18 @@ passi:
     terna: zampa
     nuovi: [zampa/Perno_coxa@AS]
     mostra: [zampa/Coxa@AS]
-    esploso: {asse: [0, 0, 1], distanza: 35}
-    vista: zampa_A
+    esploso: {asse: [0, 0, -1], distanza: 35}
+    vista: zampa_sotto
     evidenzia: [{chiave: zampa/Coxa@AS, lav: foro_perno}]
     testo:
-      - "Infila il perno nel foro del braccio, dal lato del rialzo."
-      - "Premi il perno finché sotto il braccio ne sporgono 1,4 mm [V]."
-      - "Misura e annota quanto sporge sopra il rialzo: 5 mm [V]."
+      - "Infila il perno nel foro del braccio, dal basso, dal lato opposto al rialzo."
+      - "Posa la bussola sul braccio: la tasca sul rialzo, il foro cieco sopra il perno."
+      - "Premi bussola e perno con la morsa finché il perno tocca il fondo: sotto il braccio ne sporgono 1,4 mm [V]."
     avvisi:
-      - {tipo: attenzione, testo: "In morsa appoggia il braccio vicino al foro, non la nervatura. Forzamento dal provino del giunto (sezione 1) [C]."}
+      - {tipo: attenzione, testo: "Premi con le ganasce sulla bussola e sul perno, non sulla nervatura del braccio. Forzamento dal provino (sezione 1) [C]."}
+    extra: [{nome: "bussola del perno, PETG-CF nero (2.30)", qta: 1, bom: E1}]
     attrezzi: [morsa_morbida, calibro]
-    fonti: ["D-047: perni Ø5 × 12", "D-049 (perni forzati senza ritegno assiale)", "docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 1 (1,4 mm sporgenti)", "cad/script/zampa.py ISTANZE (Perno_Coxa) e fai_coxa (foro_perno)", "guida/dati/fori.json Coxa foro_perno da Z -38,35 a -32,75"]
+    fonti: ["D-047: perni Ø5 × 12", "D-049 (perni forzati senza ritegno assiale)", D-077, "docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 1 (1,4 mm sporgenti)", "cad/script/zampa.py ISTANZE (Perno_Coxa) e fai_coxa (foro_perno)", "guida/dati/fori.json Coxa foro_perno da Z -38,35 a -32,75"]
 
   - id: "9.04"
     titolo: Zampa sotto la gondola
@@ -233,17 +235,19 @@ passi:
     vista: {direzione: [0.15, 0.25, 0.95], su: [0, 0, 1]}
     etichette: [{testo: coxa a 30°, chiave: zampa/Coxa_Ponte@AS}]
     testo:
-      - "Stacca la spina della coxa dalla SSC-32 e collegala al tester dei servo a manopola (C9) [C]."
-      - "Porta la coxa a 30° con il tester, da una parte o dall'altra: le teste lato coda si scoprono."
-      - "Stringi le due viti M3 × 8 lato coda, accostate nel passo 7.05."
-      - "Stringi le due viti lato albero, accostate nel passo 7.05."
-      - "Riporta la coxa a 1500 µs, stacca il tester e rimetti la spina sul suo canale (9.07)."
+      - "Stacca la spina della coxa dalla SSC-32 e collegala al tester dei servo (C9), filo marrone verso il bordo [S]."
+      - "Alimenta il tester con la sua fonte da 4,8–6 V, separata dal robot, e portalo al neutro [C]."
+      - "Porta la coxa a 30° con la manopola, da una parte o dall'altra: le teste lato coda si scoprono."
+      - "Stringi le due viti M3 × 8 lato coda e le due lato albero, accostate nel passo 7.05."
+      - "Riporta il tester al neutro: la coxa torna a 0°."
+      - "Spegni il tester, stacca la spina e rimettila sul suo canale (9.07)."
     avvisi:
-      - {tipo: importante, testo: "Non girare la coxa a mano: trascineresti il riduttore. Con la coxa a 0° la testa dell'anima copre le viti lato coda [V]."}
-      - {tipo: attenzione, testo: "Con il tester acceso tieni le dita fuori dalla zampa."}
-      - {tipo: nota, testo: "Strette per ultime, a zampa montata: il servo si allinea al cuscinetto (D-049). A 30° tutte e due le teste sono libere; da 15–20° una sola [V]."}
+      - {tipo: attenzione, testo: "Il robot resta spento: T-plug staccato, F1 e F2 vuoti. Il tester non prende corrente dalla SSC-32 né dal rail (D-076, P-050) [C]. Tieni le dita fuori dalla zampa."}
+      - {tipo: importante, testo: "Non girare la coxa a mano: trascineresti il riduttore. A 0° la testa dell'anima copre le viti lato coda [V]."}
+      - {tipo: nota, testo: "Fonte del tester: quattro pile AA o un powerbank USB a 5 V [C]; a 5 V il servo ha meno coppia, ma la coxa scarica non la chiede [S]. Non si compra niente finché non scegli."}
+      - {tipo: nota, testo: "30° sono circa 330 µs dal centro (11 µs per grado): poco più di tre quarti della corsa della manopola, da 1,0 a 2,0 ms [S]. A 30° tutte e due le teste sono libere; da 15–20° una sola [V]."}
     attrezzi: [brugola_dritta_2_5, tester_servo]
-    fonti: ["D-049: viti delle alette strette per ultime", "docs/ricerca/corpo-v0-revisione.json (viti lato coda sotto la testa dell'anima, coxa a ±20–30°)", "docs/ricerca/corpo-disposizioni.json (procedura del servo di coxa)", guida/catalogo/giunzioni.yaml, "guida/problemi/zampa_corpo.yaml (accessi misurati)"]
+    fonti: ["D-049: viti delle alette strette per ultime", D-076, "guida/problemi.md P-050, P-070", "docs/BOM.md C9", "docs/ricerca/corpo-v0-revisione.json (viti lato coda sotto la testa dell'anima, coxa a ±20–30°)", "docs/ricerca/corpo-disposizioni.json (procedura del servo di coxa)", guida/catalogo/giunzioni.yaml, "guida/problemi/zampa_corpo.yaml (accessi misurati)"]
 
   - id: "9.09"
     titolo: Fili di FSR e luci alle prese

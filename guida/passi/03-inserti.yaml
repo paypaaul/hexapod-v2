@@ -4,6 +4,8 @@
 # (x6), pezzi del corpo nella terna del robot.
 # Conteggi dal CAD (controlli.totali_inserti): M3 90 = zampa 11 x 6 (tibia 3, coxa 4, Femore_B 4) + corpo 24 (base 22,
 # chiglia 2); M2 32 = lama B 2 x 6 + slitte 8 + SSC-32 4 + colonne della base 4 (2.1.7, D-076) + vassoio 4. Predisposizioni (fuori dai totali del BOM): 18 M2.
+# Lunghezze M3 (P-058, D-076): x 6 per le alette lato coda (36) e il ponte della coxa (12), x 5 per gli altri (42); il guscio
+# della tibia ha il foro da 7,7 e prende un x 5 (con x 6 il kit, 50 per misura, non basterebbe).
 # Il BOM scrive "30 nel corpo": non torna con il CAD (guida/problemi/inserti.yaml).
 # I fori a destra della base sono specchi: hanno lo stesso nome degli originali e si scelgono con lato: destro.
 # Chiglia della base (4 inserti dal fondo) al passo 3.22, base capovolta: dall'alto non si vedono (guida/problemi/inserti.yaml).
@@ -35,19 +37,30 @@ sezione:
 passi:
   - id: "3.01"
     titolo: Quando e con cosa
-    formato: mezzo
+    formato: grande
     immagine: false
     testo:
       - "Controlla che tutti i pezzi siano stampati e controllati (sezione 2)."
-      - "Controlla di avere il provino degli inserti con i valori trovati (sezione 1)."
+      - "Controlla di avere i valori del provino degli inserti: fori, temperatura e tempo (sezione 1)."
       - "Prepara il saldatore con la punta per inserti, alla temperatura del provino [C]."
       - "Metti gli inserti adesso, prima di qualsiasi montaggio: dopo, la maggior parte dei fori non si raggiunge."
+      - "Prendi la lunghezza dalla tabella: M3 × 6 o M3 × 5, M2 × 3."
       - "Lavora un pezzo alla volta, appoggiato su un piano duro e piano."
+    tabella:
+      intestazione: ["Dove", "Inserti", "Lunghezza", "Passi"]
+      righe:
+        - ["Alette dei servo, lato coda: tibia, coxa, gondole della base", "36", "M3 × 6", "3.06, 3.07, 3.10, 3.11"]
+        - ["Ponte della coxa", "12", "M3 × 6", "3.07"]
+        - ["Guscio della tibia, blocco del femore B", "6 + 24", "M3 × 5", "3.06, 3.08"]
+        - ["Colonnine del coperchio, slitte, chiglia", "4 + 2 + 6", "M3 × 5", "3.10, 3.11, 3.14, 3.22"]
+        - ["Tutti i fori M2", "32", "M2 × 3", "3.09, 3.12–3.17"]
+        - ["Totale", "90 M3, 32 M2", "48 × 6, 42 × 5", ""]
     avvisi:
       - {tipo: importante, testo: "Mai inserti nei fori pilota Ø2,5 delle alette, lato albero dei servo: la vite si fa il filetto nella plastica. Sono 36, un'immagine più avanti li mostra (D-049)."}
-      - {tipo: nota, testo: "Gli inserti sono del kit Temu dell'utente: M3 Ø4,2 lunghi 3, 4, 5 o 6 mm (BOM D4), M2 Ø3,2 lunghi 2, 3, 4 o 5 mm (BOM D5), 50 per misura. Misure e lunghezze vanno confermate sul pezzo [C]."}
-      - {tipo: nota, testo: "I 90 M3 sono più dei 50 di una misura: servono due lunghezze, per esempio M3 × 5 e M3 × 6. Quale foro prende quale è da decidere [C]; gli M2 (32) stanno in una sola misura, M2 × 3."}
-    fonti: [D-049, D-065, "docs/BOM.md D4 e D5", "docs/BOM.md, domanda 8", "CLAUDE.md, 'Provini da stampare prima dei pezzi'"]
+      - {tipo: nota, testo: "Il kit ha 50 inserti per misura: per i 90 M3 servono due lunghezze, 48 da 6 mm e 42 da 5 mm. Il guscio della tibia ha il foro da 7,7 e prende un × 5; con un × 6 ne servirebbero 54 (D-076, P-058)."}
+      - {tipo: nota, testo: "Gli inserti sono del kit Temu dell'utente: M3 Ø4,2 lunghi 3, 4, 5 o 6 mm (BOM D4), M2 Ø3,2 lunghi 2, 3, 4 o 5 mm (BOM D5). Zigrinatura Ø4,2 e invito Ø4,0 per l'M3, Ø3,2 e Ø3,0 per l'M2 (D-076) [V]."}
+      - {tipo: nota, testo: "La divisione vale fino al provino 1.03 e 1.09: se un M3 × 6 non regge nel ponte della coxa, il ponte prende un × 5 e i conti si rifanno qui [C]."}
+    fonti: [D-049, D-065, D-076, "docs/BOM.md D4 e D5", "guida/problemi.md P-057, P-058", "CLAUDE.md, 'Provini da stampare prima dei pezzi'"]
 
   - id: "3.02"
     titolo: Come si mette un inserto
@@ -63,9 +76,9 @@ passi:
     avvisi:
       - {tipo: attenzione, testo: "Appoggia il saldatore sul suo supporto fra un inserto e l'altro: la punta ustiona e fonde la plastica."}
       - {tipo: nota, testo: "Carapace e vassoio sono in PLA, che si ammorbidisce verso 55–60 °C (D-065): usa la temperatura del provino per il PLA, più bassa di quella del PETG-CF [C]."}
-      - {tipo: nota, testo: "Il foro è più profondo dell'inserto di almeno 1 mm: sotto resta un vuoto per la plastica spostata. Non spingere l'inserto oltre il filo (docs/dimensioni-componenti.md, regole per il CAD)."}
+      - {tipo: nota, testo: "Il foro è più profondo dell'inserto: sotto resta un vuoto per la plastica spostata, 1,7 mm con un M3 × 5 e 0,7 con un × 6 (nel guscio della tibia 2,7 con un × 5). Non spingere l'inserto oltre il filo (docs/dimensioni-componenti.md, regole per il CAD)."}
       - {tipo: prova, testo: "Vite di prova a mano fino in fondo: nessun gioco, nessun punto duro [S]."}
-    fonti: [D-065, "docs/dimensioni-componenti.md, 'Regole per il CAD ereditate dalla prima versione'", "docs/BOM.md D4 e D5", D-063]
+    fonti: [D-065, D-076, "docs/dimensioni-componenti.md, 'Regole per il CAD ereditate dalla prima versione'", "docs/BOM.md D4 e D5", D-063]
 
   - id: "3.03"
     titolo: Se l'inserto entra storto
@@ -104,7 +117,8 @@ passi:
       - "Aggiungi 18 M2 se monti le predisposizioni."
       - "Segui i passi nell'ordine: la zampa si fa sei volte, il corpo una."
     avvisi:
-      - {tipo: nota, testo: "Totali del CAD e del BOM uguali: 90 M3 (66 nelle zampe, 24 nel corpo) e 32 M2 (BOM, viteria e inserti contati dal modello) [V]."}
+      - {tipo: nota, testo: "Totali del CAD e del BOM uguali: 90 M3 (66 nelle zampe, 24 nel corpo) e 32 M2 (BOM, viteria e inserti contati dal modello) [V]. Dalla 2.1.7 il vassoio non ha più distanziali: le quattro colonne della base portano 4 inserti M2 in più (3.12, D-076)."}
+      - {tipo: nota, testo: "Lunghezze M3: × 6 per le alette lato coda e il ponte (48), × 5 per gli altri (42): tabella in 3.01 [C]."}
       - {tipo: nota, testo: "Predisposizioni: IMU 2 (X4), ADC 2 (X6), supporti INA260 4 (X7), amplificatore 2 (X17), scheda del carapace 4 (X2), zaino 4."}
     fonti: [D-065, D-074, "docs/BOM.md 'Viteria e inserti contati dal modello' e 'Viteria in più se si montano tutte'", guida/catalogo/viteria.yaml]
 
@@ -288,7 +302,7 @@ passi:
     testo:
       - "Metti 4 inserti M2 dall'alto in cima alle colonne del tetto del tunnel."
     avvisi:
-      - {tipo: nota, testo: "Qui si avvitano le 4 viti M2 × 5 svasate che fissano il vassoio alle colonne (D-076, P-003)."}
+      - {tipo: nota, testo: "Le colonne sono Ø6,6, con 1,6 mm di parete attorno all'inserto. Qui si avvitano le 4 viti M2 × 5 svasate che fissano il vassoio alle colonne (D-076, P-003)."}
     fonti: [D-051, guida/catalogo/giunzioni.yaml, cad/script/corpo.py]
 
   - id: "3.13"
@@ -412,7 +426,7 @@ passi:
       - "Metti 4 inserti M2 per la scheda del carapace, dall'interno."
       - "Metti 2 inserti M2 per l'amplificatore, dall'interno."
     avvisi:
-      - {tipo: opzionale, x: X2, quando: meglio_ora, testo: "Scheda del carapace: se la monti nella sezione 13, metti ora gli inserti. Dopo vanno tolti i moduli (13.01)."}
+      - {tipo: opzionale, x: X2, quando: meglio_ora, testo: "Scheda del carapace: se la monti nella sezione 13, metti ora gli inserti. Dopo vanno tolti i moduli (13.01). I fori sono profondi 3,4: un M2 × 3 a filo, e la scheda si avvita con M2 × 4 (D-077)."}
       - {tipo: opzionale, x: X17, quando: meglio_ora, testo: "Amplificatore MAX98357A: due inserti M2, come per la scheda. Senza queste predisposizioni salta il passo."}
       - {tipo: attenzione, testo: "Il carapace è in PLA: usa la temperatura del provino per il PLA, più bassa di quella del PETG-CF [C]."}
     fonti: [D-063, D-066, D-074, docs/predisposizioni.md X2 e X17, guida/catalogo/viteria.yaml "inserti_predisposizioni"]

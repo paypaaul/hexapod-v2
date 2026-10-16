@@ -15,13 +15,12 @@ sezione:
     Sapere come si legge la guida, quali regole di sicurezza valgono, come si chiamano le zampe e i lati, quali opzioni
     montare e in che ordine fare le sezioni. Poi controllare di avere tutto prima di cominciare.
   prima:
-    - "Guida stampata in A4 orizzontale al 100 %, senza adattare alla pagina: le viti del riquadro dei pezzi sono a grandezza vera."
-    - "docs/BOM.md, versione 2.2, a portata di mano per i codici delle voci (A1, B5, D4, X5)."
+    - "Guida stampata in A4 orizzontale al 100 %, senza adattarla: le viti 1:1 sono a grandezza vera."
+    - "docs/BOM.md, versione 2.3, a portata di mano per i codici delle voci (A1, B5, D4, X5)."
   tempo: "circa 1 ora per leggere e controllare l'inventario [S]"
   stato_elettrico: "nessuno: batteria e T-plug staccati, niente collegato."
   note: >-
-    Questa sezione non monta niente. Le immagini mostrano il robot intero solo per dare i nomi delle zampe, dei lati e
-    degli assi.
+    Questa sezione non monta niente: le immagini danno solo i nomi delle zampe, dei lati e degli assi.
   attrezzi: [brugola_2_5, brugola_1_3, croce_ph0, saldatore_inserti, saldatore, calibro, multimetro, tronchesino, spelafili, termorestringente, coccodrilli, tester_servo]
   fonti: [D-075, docs/piano-guida.md "Struttura della guida", guida/stile.md]
   controllo:
@@ -101,7 +100,6 @@ passi:
         - ["Vite M2 × 5 svasata", "Testa piana a cono, nera (ISO 10642). La lunghezza comprende la testa.", "brugola 1,3"]
         - ["Rondella M3", "Piatta, Ø7 con foro da 3,2 (DIN 125).", "–"]
         - ["Inserto M3 o M2", "Bussola di ottone, Ø4,2 o Ø3,2, filettata dentro.", "saldatore per inserti"]
-        - ["Distanziale M3", "Maschio-femmina da 5 mm.", "a mano"]
     testo:
       - "Appoggia la vite vera sul suo disegno 1:1: lunghezza e testa devono coincidere."
       - "Misura la lunghezza sotto la testa; per le svasate, tutta."
@@ -158,16 +156,15 @@ passi:
     formato: mezzo
     immagine: false
     testo:
-      - "Carica con il caricatore USB per batterie 2S che hai già (lento), solo sulla presa bianca di bilanciamento (JST-XH a 3 poli), il T-plug resta libero: deve essere per LiPo 2S e fermarsi a 8,4 V [C]."
-      - "Imposta 2 celle: 8,4 V a fine carica [V], cioè 4,20 V per cella [S]."
-      - "Imposta la corrente di carica dal manuale OVONIC [C]."
-      - "Carica su una superficie che non brucia, e resta presente."
-      - "Stacca il pacco quando la carica è finita."
+      - "Carica con il caricatore USB per 2S che hai già, solo sulla presa bianca di bilanciamento (JST-XH a 3 poli); il T-plug resta staccato."
+      - "Controlla sull'etichetta del caricatore: LiPo 2S, fine carica a 8,4 V, cioè 4,20 V per cella [C]."
+      - "Sfila il pacco e caricalo nel sacchetto per LiPo, su una superficie che non brucia (15.04–15.05)."
+      - "Resta presente per tutta la carica; stacca il caricatore quando ha finito."
     avvisi:
-      - {tipo: importante, testo: "Si carica con il caricatore USB 2S lento che hai già (D-076): corrente di carica e conservazione vanno lette sull'etichetta e sul manuale OVONIC [C]. Il pacco si sfila dal tunnel con le spine attaccate e si carica nel sacchetto per LiPo (BOM B20). Dentro il robot si carica solo con il robot spento e restando presente, su una superficie che non brucia; il sacchetto non si usa con il pacco dentro il robot. Le altre regole di questa pagina sono regole generali sulle LiPo [S]."}
-      - {tipo: attenzione, testo: "Non caricare un pacco gonfio, ammaccato o caldo."}
-      - {tipo: nota, testo: "Per lasciare il pacco fermo per giorni portalo a metà carica, con la modalità di conservazione del caricabatterie [S]."}
-    fonti: [docs/BOM.md A5, docs/studio-componenti.md "Batteria", D-045, guida/problemi/prima.yaml, guida/problemi/batteria.yaml]
+      - {tipo: attenzione, testo: "Non caricare un pacco gonfio, ammaccato o caldo: dopo l'uso aspetta che torni a temperatura ambiente."}
+      - {tipo: attenzione, testo: "I produttori dicono di non caricare mai il pacco dentro il modello [V]. Nel robot solo se serve, sorvegliato, a robot spento e T-plug staccato, su una superficie che non brucia: il sacchetto non si usa con il pacco dentro (11.06, D-076)."}
+      - {tipo: nota, testo: "Corrente al massimo quella dell'etichetta del pacco, 1C = 5,2 A [C]. Fermo per giorni: circa 3,85 V per cella [C] (docs/ricerca/carica-usbc.md 2)."}
+    fonti: [docs/BOM.md A5 B20, docs/studio-componenti.md "Batteria", D-045, D-076, "docs/ricerca/carica-usbc.md 2 e 5", guida/problemi/prima.yaml, guida/problemi/batteria.yaml]
 
   - id: "0.07"
     titolo: Sicurezza, pacco caldo o gonfio
@@ -327,10 +324,10 @@ passi:
     testo:
       - "Leggi i versi nel disegno: X avanti, Y a sinistra, Z in alto."
       - "Nei passi della zampa leggi X verso l'esterno e Y verso il lato A."
-      - "Guarda la zampa AS: femore α +20°, ginocchio γ 100°, come nel calettamento proposto [C]."
+      - "Guarda la zampa AS: femore α +20°, ginocchio γ 100°, come nel calettamento."
     avvisi:
-      - {tipo: nota, testo: "Il calettamento proposto per le squadrette è α +20°, γ 100°, imbardata 0° [C]: si verifica al banco (sezione 12, registro delle misure)."}
-    fonti: [robot/robot.yaml intestazione e calettamento, docs/progetto-meccanico.md "Architettura", D-050]
+      - {tipo: nota, testo: "Il calettamento delle squadrette è α +20°, γ 100°, imbardata 0° (robot.yaml) [V]: la dima del calettamento lo dà nel passo 6.16. Lo scarto che resta, al più un dente (±7,2°), lo misura la taratura (sezione 12, registro delle misure)."}
+    fonti: [robot/robot.yaml intestazione e calettamento, docs/progetto-meccanico.md "Architettura", D-050, D-077]
 
   - id: "0.15"
     titolo: Opzioni X, nel corpo e nella zampa
@@ -348,7 +345,7 @@ passi:
         - ["X8", "ToF frontale nella testa", "8, 13", "meglio ora", ""]
         - ["X13", "Spie dei rail in coda", "7, 8", "meglio ora", ""]
         - ["X14", "NTC sulle bobine dei regolatori", "4, 8", "meglio ora", ""]
-        - ["X31", "Luci nelle tibie", "4, 6–9", "meglio ora (diffusore: anche dopo)", ""]
+        - ["X31", "Luci nelle tibie (opzionali, diffusore bianco, D-076)", "4, 6–9", "meglio ora (diffusore: anche dopo)", ""]
     testo:
       - "Decidi per ogni voce se la monti, e segna Sì o No."
       - "Rileggi la colonna Quando: dice se puoi rimandare."
@@ -392,7 +389,7 @@ passi:
         - ["Squadretta in alluminio a 25 denti", "18 + 2", "D3", ""]
         - ["Cuscinetto flangiato LF-1050ZZ 5 × 10 × 4", "18 + 6", "D1", ""]
         - ["Perno Ø5 × 12", "18 + 6", "D2", ""]
-        - ["Inserti a caldo M3 Ø4,2", "90", "D4", ""]
+        - ["Inserti a caldo M3 Ø4,2", "90: 48 × 6 mm e 42 × 5 mm [C]", "D4", ""]
         - ["Inserti a caldo M2 Ø3,2", "32 (50 con le predisposizioni)", "D5", ""]
         - ["Viti M3 ISO 4762", "× 5: 12; × 6: 48; × 8: 106; × 10: 18; × 16: 2", "D6", ""]
         - ["Rondelle M3 DIN 125", "48", "D7", ""]
@@ -404,9 +401,9 @@ passi:
       - "Conta ogni voce e spunta la colonna ✓."
       - "Conta le viti per lunghezza: ne servono più di un assortimento normale."
     avvisi:
-      - {tipo: nota, testo: "Cuscinetti e perni li procuri tu. Le quantità sono quelle del BOM 2.2 e dei totali contati dal modello (BOM, \"Viteria e inserti contati dal modello\")."}
-      - {tipo: importante, testo: "Il kit di inserti ha 50 pezzi per ogni lunghezza: per 90 M3 servono due lunghezze. Vedi l'appendice, inserti a caldo [C]."}
-    fonti: [docs/BOM.md A1 D1 D2 D3 D4 D5 D6 D7 D8 D8b D10 D11 B18, D-073, guida/catalogo/viteria.yaml totali_bom, guida/problemi/appendici.yaml]
+      - {tipo: nota, testo: "Cuscinetti e perni li procuri tu. Le quantità sono quelle del BOM 2.3 e dei totali contati dal modello (BOM, \"Viteria e inserti contati dal modello\")."}
+      - {tipo: importante, testo: "Il kit di inserti ha 50 pezzi per ogni lunghezza: per 90 M3 servono due lunghezze, M3 × 6 e M3 × 5. La divisione è nel passo 3.01 [C]."}
+    fonti: [docs/BOM.md A1 D1 D2 D3 D4 D5 D6 D7 D8 D8b D10 D11, D-073, D-076, guida/catalogo/viteria.yaml totali_bom, guida/problemi/appendici.yaml]
 
   - id: "0.18"
     titolo: Inventario, alimentazione
@@ -471,12 +468,13 @@ passi:
         - ["PETG-CF nero", "circa 860 g di pezzi, più provini e scarti [S]", "E1", ""]
         - ["PLA bianco", "circa 230 g [S]", "E2", ""]
         - ["PLA nero", "circa 15 g [S]", "E2b", ""]
+        - ["PLA di un colore qualsiasi", "vassoio e lunette: il colore è libero (D-076)", "E2, E2b", ""]
         - ["TPU 95A arancio", "circa 10 g [S]", "E3", ""]
         - ["Tester dei servo a manopola", "1", "C9", ""]
         - ["Sacchetto per LiPo", "1", "B20", ""]
         - ["Bilancia da cucina, almeno 5 kg", "1, in casa", "Attrezzi", ""]
     testo:
-      - "Controlla di avere i quattro filamenti."
+      - "Controlla di avere i quattro filamenti: PETG-CF, PLA, PLA nero, TPU."
       - "Controlla di avere gli attrezzi in basso: servono quasi tutti."
     avvisi:
       - {tipo: nota, testo: "Se la bobina FlashForge di PETG-CF nero è quasi intera, ne basta una [C]. Il PLA nero è una proposta dell'estetica, non confermata (D-065)."}
@@ -491,14 +489,14 @@ passi:
       intestazione: [Cosa guardare, Perché, Prima di]
       righe:
         - ["Quale scheda ESP32-S3 CAM è la RE1.3", "La sigla è stampata sulla scheda", "stampare il vassoio"]
-        - ["Quanti inserti per lunghezza ci sono nel kit", "Servono 90 M3 e 32 M2 [C]", "sezione 3"]
-        - ["Misure degli inserti del kit Temu", "Fori da tarare sul provino", "sezione 1"]
+        - ["Quanti inserti per lunghezza ci sono nel kit", "Servono 48 M3 × 6, 42 M3 × 5 e 32 M2 × 3 [C]", "sezione 3"]
+        - ["Misure degli inserti del kit Temu", "M3: Ø4,2 con invito Ø4,0; M2: Ø3,2 con invito Ø3,0 (D-076). I fori si tarano sul provino", "sezione 1"]
         - ["Tipo di testa e lunghezze delle M3 nel kit da 918 viti", "Con M3 × 6 e × 8 cilindriche, D6 si riduce", "sezione 6"]
         - ["Diametro e altezza dei condensatori da 2200 µF", "Previsti 12,5–13 × 20–22 mm [S]", "montarli"]
         - ["Lega dello stagno a bassa temperatura", "Se non è al bismuto, B19 perde lo stagno", "saldare"]
         - ["Quanto resta della bobina FlashForge di PETG-CF", "Se è quasi intera, E1 scende a una bobina", "stampare"]
         - ["Moduli della 2.1.6: GY-6500, MS3625, MAX98357A, altoparlante da 15", "Quote dalle foto del venditore [S]", "stampare base, piastrina, carapace"]
-        - ["Una squadretta di prova", "Provarne 1–2 prima delle altre 19 (BOM, domanda 4)", "sezione 1"]
+        - ["Una squadretta di prova", "Approvata (D-076): provarne 1–2 prima delle altre 19", "sezione 1"]
     testo:
       - "Guarda ogni voce sul pezzo vero."
       - "Scrivi il risultato accanto alla voce."

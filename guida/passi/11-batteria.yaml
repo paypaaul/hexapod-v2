@@ -2,7 +2,9 @@
 # Il pacco entra dal retro nel tunnel, cavi verso la coda (D-050, D-051); lo sportello si infila lungo X, rebbi nel
 # tunnel e linguetta sotto il tetto, e si ferma con due viti M3 x 8 negli inserti dei blocchetti della chiglia (D-054).
 # Il T-plug resta staccato e F1 resta vuoto: il fusibile da 15 A, il cicalino e la prima accensione sono nella
-# sezione 12. Problemi in guida/problemi/batteria.yaml (il primo e' bloccante: le spine del pacco e le fessure del tetto).
+# sezione 12. CAD 2.1.7 (D-076, D-077): fessure del tetto aperte verso la coda, il pacco si sfila con le spine attaccate
+# (P-001); rebbi da 22,5 e un solo strato di schiuma da 3 mm sul pacco misurato di 139,65 (P-007); carica dalla sola
+# presa di bilanciamento, con il caricatore USB 2S dell'utente. Problemi in guida/problemi/batteria.yaml.
 sezione:
   id: batteria
   numero: 11
@@ -50,8 +52,8 @@ sezione:
     - "zampa/Cover_Femore_A@*"
     - "zampa/Cover_Femore_A_Feritoia@*"
   obiettivo: >-
-    Caricare e controllare la batteria, infilarla nel tunnel dal retro e chiuderla con lo sportello. Alla fine il
-    pacco è fermo nel tunnel, i suoi cavi arrivano in coda accanto al T-plug del robot e il T-plug resta staccato.
+    Caricare la batteria, infilarla nel tunnel dal retro e chiuderla con lo sportello. Alla fine il pacco è fermo,
+    i suoi cavi salgono dalle fessure del tetto e il T-plug resta staccato.
   prima:
     - "Corpo montato, con F1, T-plug e Wago al loro posto (sezioni 7 e 8)."
     - "Le sei zampe sul corpo (sezioni 9 e 10), senza le lame B: vanno dopo la taratura (sezione 12)."
@@ -59,16 +61,18 @@ sezione:
   tempo: "circa 30 minuti, più la carica della batteria [S]"
   stato_elettrico: "T-plug staccato e F1 senza fusibile per tutta la sezione."
   note: >-
-    La batteria è la OVONIC 2S 5200 mAh hardcase della v1 (D-045): niente acquisti. Si toglie e si rimette allo
-    stesso modo per ogni carica: due viti, si sfila lo sportello, si sfila il pacco (D-054).
-  fonti: [D-045, D-050, D-051, D-054, D-055, docs/piano-guida.md "Struttura della guida", docs/BOM.md A5 C7 D10]
+    Batteria OVONIC 2S 5200 mAh della v1 (D-045). Il pacco si sfila con le spine attaccate e si carica fuori dal
+    robot, dalla presa di bilanciamento (D-076, 0.06).
+  fonti: [D-045, D-050, D-051, D-054, D-055, D-076, D-077, docs/piano-guida.md "Struttura della guida", docs/BOM.md A5 B20 C7 D10, "docs/ricerca/carica-usbc.md 2 e 5"]
   attrezzi: [calibro, multimetro]
   controllo:
-    - "Il pacco tocca la battuta anteriore e non si muove scuotendo piano il robot."
-    - "I cavi del pacco e la prolunga di bilanciamento escono in coda, accanto a F1; nessun filo è schiacciato."
+    - "Il pacco tocca la battuta anteriore con la schiuma e non si muove scuotendo piano il robot."
+    - "I cavi del pacco salgono dalle due fessure del tetto, sopra i rebbi; nessun filo è schiacciato."
+    - "La metà femmina del T-plug del pacco sta sul lato destro, staccata."
     - "Lo sportello è a filo, la linguetta sta sotto il tetto, le due viti M3 × 8 sono strette."
     - "Il T-plug è staccato e F1 è vuoto."
   vista_finale: {direzione: [-0.9, 0.3, 0.3], su: [0, 0, 1]}
+
 
 passi:
   - id: "11.01"
@@ -77,9 +81,9 @@ passi:
     immagine: false
     testo:
       - "Controlla il pacco: niente gonfiori, crepe nel guscio o cavi spellati. Se è gonfio, non usarlo."
-      - "Carica il pacco come nel passo 0.06, con il caricatore USB per 2S che hai già, che si attacca solo alla presa di bilanciamento (JST-XH), fino a 8,4 V [V]: nel sacchetto per LiPo se lo hai sfilato, oppure collegato alla presa di bilanciamento in coda a robot spento, restando presente."
+      - "Carica il pacco fuori dal robot, nel sacchetto per LiPo, come nel passo 0.06: caricatore USB 2S sulla sola presa di bilanciamento (JST-XH), fino a 8,4 V [V]."
       - "Misura e annota la tensione delle due celle sulla presa di bilanciamento e del pacco sul T-plug."
-      - "Misura e annota lunghezza, larghezza e altezza del pacco."
+      - "Misura e annota la lunghezza del pacco, senza i cavi."
     tabella:
       intestazione: [Misura, Atteso, Misurato]
       righe:
@@ -87,13 +91,16 @@ passi:
         - ["Cella 2 (centrale – rosso)", "4,20 V a fine carica [S]", ""]
         - ["Pacco, sul T-plug", "8,4 V a fine carica [V]", ""]
         - ["Differenza fra le celle", "pochi centesimi di volt [S]", ""]
-        - ["Lunghezza × larghezza × altezza", "139,65 mm di lunghezza, misurata dall'utente il 15 ottobre 2026 × 46–47,3 × 24–25,4 mm [V]", ""]
+        - ["Lunghezza del pacco", "139,65 mm, misurata sul tuo pacco (Q-17) [V]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Carica su una superficie che non brucia e non lasciare il caricatore da solo: le regole sono nel passo 0.06 [S]."}
+      - {tipo: attenzione, testo: "Carica su una superficie che non brucia e non lasciare il caricatore da solo: le regole sono nel passo 0.06 [V]."}
       - {tipo: attenzione, testo: "Se il pacco scalda, si gonfia o fa odore durante la carica, stacca il caricatore e fai come nel passo 0.07 [S]."}
-      - {tipo: nota, testo: "Il tunnel è largo 50 mm dentro: con il pacco da 47,3 restano 1,3 mm per lato (D-056). Il vano è disegnato sull'ingombro massimo dichiarato."}
+      - {tipo: importante, testo: "Se il pacco non è lungo 139,65 ± 0,5 mm (un altro pacco), fermati prima di 11.02: lo sportello e la schiuma sono disegnati su quella lunghezza (D-076, P-007) [V]."}
+      - {tipo: nota, testo: "Il tunnel è largo 50 mm dentro: con il pacco da 47,3 restano 1,35 mm per lato (D-056). Il vano è disegnato sull'ingombro massimo dichiarato."}
     attrezzi: [caricatore_lipo, multimetro, calibro]
-    fonti: ["docs/BOM.md A5", "docs/dimensioni-componenti.md 'Batteria OVONIC 2S 5200 mAh'", "docs/studio-componenti.md 'Batteria' (8,4 V a piena carica)", D-056, guida/problemi/batteria.yaml]
+    extra:
+      - {nome: "sacchetto per LiPo, oltre 40 Wh", qta: 1, bom: B20}
+    fonti: [docs/BOM.md A5 B20, "docs/dimensioni-componenti.md 'Batteria OVONIC 2S 5200 mAh' (lunghezza misurata)", "docs/studio-componenti.md 'Batteria' (8,4 V a piena carica)", D-056, D-076, "docs/ricerca/carica-usbc.md 2", guida/problemi/batteria.yaml]
 
   - id: "11.02"
     titolo: Schiuma sulla testa del pacco
@@ -102,33 +109,26 @@ passi:
     mostra: []
     in_evidenza: [corpo/Batteria]
     etichette:
-      - {testo: "schiuma qui: faccia senza cavi", punto: [79, 0, -26.7]}
+      - {testo: "schiuma: 3 mm, faccia senza cavi", punto: [78, 0, -26.7]}
       - {testo: "cavi: verso la coda", punto: [-60, 0, -14]}
     testo:
-      - "Calcola lo spessore della schiuma: 148 mm meno la lunghezza del pacco [S]."
-      - "Taglia tasselli di schiuma EVA larghi quanto la faccia del pacco senza cavi."
-      - "Incolla i tasselli su quella faccia, uno sull'altro, fino allo spessore calcolato [C]."
-      - "Controlla che nessun tassello sporga dai bordi del pacco."
-    tabella:
-      intestazione: [Lunghezza del pacco, Schiuma, Strati da 3 mm]
-      righe:
-        - ["137 mm", "11 mm", "4 [S]"]
-        - ["138 mm", "10 mm", "3 [S]"]
-        - ["139 mm", "9 mm", "3 [S]"]
+      - "Taglia un tassello di schiuma EVA da 3 mm largo quanto la faccia del pacco senza cavi."
+      - "Incolla il tassello su quella faccia: un solo strato."
+      - "Controlla che il tassello non sporga dai bordi del pacco."
     avvisi:
-      - {tipo: nota, testo: "Fra la battuta anteriore del tunnel e la punta dei rebbi dello sportello ci sono 147,4 mm [V]: la schiuma riempie il resto, schiacciata di circa 1 mm [S]. Lo sportello preme il pacco con i rebbi e la schiuma (D-051)."}
-      - {tipo: nota, testo: "Sulla faccia senza cavi la schiuma sta contro la battuta e non schiaccia i cavi; i rebbi premono sull'altra faccia [C]."}
+      - {tipo: nota, testo: "Fra la battuta anteriore del tunnel e la punta dei rebbi dello sportello ci sono 141,9 mm [V]: con il pacco da 139,65 la schiuma da 3 mm si schiaccia di 0,75 mm [S]. Lo sportello preme il pacco con i rebbi da 22,5 (D-076, D-077)."}
+      - {tipo: importante, testo: "Non mettere un secondo strato: lo sportello non si chiuderebbe. Se il pacco si muove dopo 11.05, guarda la prova di quel passo."}
     attrezzi: [calibro, forbici]
     extra:
       - {nome: "schiuma EVA adesiva da 3 mm", qta: 1, bom: D10}
-    fonti: [D-051, D-054, docs/BOM.md D10, "cad/script/corpo.py cor_tun_x1, cor_parete, cor_tun_x0, cor_sport_rebbio", guida/problemi/batteria.yaml]
+    fonti: [D-051, D-054, D-077, docs/BOM.md D10, "cad/script/corpo.py cor_sport_rebbio (22,5), cor_tun_x0, cor_tun_x1, cor_parete", "cad/script/rif_componenti.py bat_l, bat_schiuma", guida/problemi/batteria.yaml]
 
   - id: "11.03"
     titolo: Pacco nel tunnel
     formato: grande
     nuovi: [corpo/Batteria]
     esploso: {asse: [-1, 0, 0], distanza: 150}
-    vista: {direzione: [-0.6, 0.4, 0.7], su: [0, 0, 1]}
+    vista: {direzione: [-0.45, 0.2, 0.87], su: [0, 0, 1]}
     mostra:
       - corpo/Corpo_Base
       - corpo/Corpo_Chiglia
@@ -139,22 +139,20 @@ passi:
       - {chiave: corpo/Corpo_Base, lav: interno_tunnel}
       - {chiave: corpo/Corpo_Base, lav: "fessura_cavi_*"}
     etichette:
-      - {testo: "F1", chiave: corpo/Portafusibile_F1}
       - {testo: "T-plug", chiave: corpo/Tplug}
-      - {testo: "fessura", punto: [-77, 22.7, -10.4]}
-      - {testo: "fessura", punto: [-77, -22.7, -10.4]}
+      - {testo: "fessura: cavi del T-plug", punto: [-84, 22.7, -9.4]}
+      - {testo: "fessura: bilanciamento", punto: [-84, -22.7, -9.4]}
     testo:
       - "Controlla che il T-plug del robot sia staccato e che F1 sia vuoto."
-      - "Infila il pacco nel tunnel dal retro, con la schiuma davanti e i cavi verso la coda."
-      - "Infila il pacco fino a quando la schiuma tocca la battuta anteriore."
-      - "Infila i cavi del T-plug e di bilanciamento del pacco nelle due fessure del tetto ai lati di F1 [C]."
-      - "Posa le spine del pacco sopra F1, accanto al T-plug del robot, senza collegarle."
+      - "Infila il pacco nel tunnel dal retro, schiuma davanti e cavi verso la coda, fino alla battuta."
+      - "Infila dalla coda i due cavi del T-plug nella fessura sinistra e il cavo di bilanciamento nella destra [S]."
+      - "Posa le spine sopra F1, con la metà femmina del T-plug sul lato destro, senza collegarle."
     avvisi:
-      - {tipo: importante, testo: "Prova prima a secco: le fessure del tetto sono larghe 4,5 mm e lunghe 13 [V]. Se la spina del T-plug o quella di bilanciamento non passa, fermati: è il primo problema di questa sezione."}
+      - {tipo: importante, testo: "Fessure aperte verso la coda, larghe 4,5 mm [V]: i cavi da 12 AWG ci scorrono senza forza. Se un cavo non entra, fermati (D-076) [C]."}
+      - {tipo: importante, testo: "Metà femmina del T-plug a destra (−Y, lato dell'altoparlante): a sinistra, sfilando il pacco, tocca il ToF posteriore fra 10 e 20 mm (docs/cablaggio.md 4) [S]."}
       - {tipo: attenzione, testo: "Tieni le spine del pacco lontane da F1 e dalle parti metalliche: i due poli non devono toccarsi."}
-      - {tipo: nota, testo: "Il pacco ha 1,3 mm d'aria per lato: se si impunta, non forzare; controlla che non ci siano bave nel tunnel (D-056)."}
-      - {tipo: importante, testo: "Tieni la metà femmina del T-plug del pacco sul lato destro (−Y, quello dell'altoparlante): per sfilare il pacco con le spine attaccate deve uscire da lì. Dal lato sinistro, fra 10 e 20 mm di corsa, tocca il ToF posteriore e il carapace (prova con corpi provvisori della 2.1.7, docs/cablaggio.md 4) [S]. Provalo a mano sul primo carapace."}
-    fonti: [D-050, "D-051 (fessure nel tetto, batteria sfilabile dal retro)", "docs/cablaggio.md 4 'T-plug' (sfilamento del pacco, verifica della 2.1.7)", D-055, D-056, docs/cablaggio.md 3.1, "cad/script/corpo.py fessura_cavi_s, fessura_cavi_d", docs/progetto-meccanico.md "Dentro Corpo"]
+      - {tipo: prova, testo: "Sfila il pacco come in 15.05 e rimettilo: esce con le spine attaccate. Se si impunta o va tirato dai cavi, fermati: niente forza, cerca bave nel tunnel (D-056) [C]."}
+    fonti: [D-050, "D-051 (fessure nel tetto, batteria sfilabile dal retro)", "D-076 (fessure aperte, P-001)", D-077, "docs/cablaggio.md 4 'T-plug' (sfilamento del pacco, verifica della 2.1.7)", D-055, D-056, docs/cablaggio.md 3.1, "cad/script/corpo.py fessura_cavi_s, fessura_cavi_d", "cad/script/assieme.py pacco_mobile (cavi del T-plug a sinistra, bilanciamento a destra)"]
 
   - id: "11.04"
     titolo: Prolunga di bilanciamento
@@ -177,11 +175,11 @@ passi:
       - "Misura e annota la tensione fra i poli esterni della prolunga: è quella del pacco."
     avvisi:
       - {tipo: importante, testo: "La spina JST-XH entra in un verso solo: non forzarla al contrario."}
-      - {tipo: nota, testo: "La prolunga porta la presa di bilanciamento dove si raggiunge senza togliere il pacco: lì si collega il cicalino (sezione 12, BOM C7 e B9)."}
+      - {tipo: nota, testo: "La prolunga porta la presa di bilanciamento dove si raggiunge senza togliere il pacco: lì si collegano il cicalino (sezione 12, BOM C7 e B9) e, se carichi nel robot, il caricatore (11.06)."}
     extra:
       - {nome: "prolunga di bilanciamento JST-XH a 3 poli", qta: 1, bom: C7}
     attrezzi: [multimetro, saldatore, termorestringente]
-    fonti: [docs/BOM.md C7 B9, docs/cablaggio.md 3.1 "Bilanciamento", "docs/BOM.md 'Schema di alimentazione'"]
+    fonti: [docs/BOM.md C7 B9, docs/cablaggio.md 3.1 "Bilanciamento", "docs/BOM.md 'Schema di alimentazione'", D-076]
 
   - id: "11.05"
     titolo: Sportello della batteria
@@ -193,7 +191,7 @@ passi:
       - {chiave: corpo/Corpo_Sportello, lav: "rebbio_*"}
       - {chiave: corpo/Corpo_Sportello, lav: linguetta}
     etichette:
-      - {testo: "rebbi: nel tunnel", punto: [-147, 12, -22]}
+      - {testo: "rebbi: nel tunnel, sotto i cavi", punto: [-144, 12, -24]}
       - {testo: "linguetta: sotto il tetto", punto: [-152.4, 0, -12.4]}
     vista: {direzione: [-0.55, 0.7, 0.45], su: [0, 0, 1]}
     mostra:
@@ -204,11 +202,39 @@ passi:
       - corpo/Tplug
     testo:
       - "Controlla i due inserti M3 nei blocchetti della chiglia: a filo e dritti."
-      - "Infila lo sportello lungo il tunnel: rebbi dentro, linguetta sotto il tetto."
-      - "Controlla che nessun cavo resti schiacciato fra rebbi, pacco e tetto."
+      - "Infila lo sportello lungo il tunnel: rebbi dentro, sotto i cavi del pacco, linguetta sotto il tetto."
+      - "Controlla che nessun cavo resti schiacciato fra rebbi, linguetta e tetto."
       - "Stringi le due viti M3 × 8 negli inserti della chiglia."
     avvisi:
-      - {tipo: nota, testo: "Lo sportello si infila e si sfila solo lungo il tunnel: i rebbi entrano per 17 mm dietro il pacco (D-054)."}
-      - {tipo: prova, testo: "Scuoti piano il robot: il pacco non si muove. Se si muove, aggiungi uno strato di schiuma (11.02) [C]."}
+      - {tipo: nota, testo: "Lo sportello si infila e si sfila solo lungo il tunnel: i rebbi entrano per 22,5 mm e premono il pacco (D-054, D-077). Sopra i rebbi restano 8,5 mm per i cavi del pacco, due uno sull'altro [V]."}
+      - {tipo: prova, testo: "Scuoti piano il robot: il pacco non si muove. Se si muove, fermati: controlla la schiuma e la lunghezza del pacco (11.01, 11.02) [C]."}
       - {tipo: importante, testo: "Se lo sportello posa storto o una vite non prende, controlla l'inserto (sezione 3, passo 3.14) prima di forzare."}
-    fonti: [D-054, D-056, guida/catalogo/giunzioni.yaml sportello, "cad/script/corpo.py fai_sportello", cad/stl/README.md "Corpo_Sportello.stl"]
+    fonti: [D-054, D-056, D-077, guida/catalogo/giunzioni.yaml sportello, "cad/script/corpo.py fai_sportello (cor_sport_rebbio 22,5, cor_sport_rebbio_luce 8,5)", cad/stl/README.md "Corpo_Sportello.stl"]
+
+  - id: "11.06"
+    titolo: Carica con il pacco nel robot
+    formato: grande
+    vista: {direzione: [-0.6, 0.4, 0.7], su: [0, 0, 1]}
+    mostra:
+      - corpo/Corpo_Base
+      - corpo/Corpo_Chiglia
+      - corpo/Corpo_Sportello
+      - corpo/Batteria
+      - corpo/Portafusibile_F1
+      - "corpo/Servo_Coxa_P*"
+    in_evidenza: [corpo/Tplug]
+    etichette:
+      - {testo: "T-plug: staccato", chiave: corpo/Tplug}
+      - {testo: "caricatore: sul capo della prolunga", punto: [-92, 12, 24]}
+    testo:
+      - "Sfila il pacco e caricalo fuori, nel sacchetto (15.04–15.05): è il modo normale."
+      - "Spegni, stacca il T-plug e posa il robot su una superficie che non brucia, se carichi nel robot."
+      - "Stacca il cicalino dalla prolunga di bilanciamento e collega al suo posto il caricatore (0.06)."
+      - "Resta presente per tutta la carica; stacca il caricatore quando ha finito."
+      - "Ricollega il cicalino solo quando usi il robot."
+    avvisi:
+      - {tipo: attenzione, testo: "I produttori di LiPo dicono di non caricare mai il pacco dentro il modello [V]: il tunnel in PETG-CF non contiene un incendio e il sacchetto non si usa con il pacco nel robot (docs/ricerca/carica-usbc.md, 2). Nel robot solo sorvegliato, mai di notte o da solo (D-076)."}
+      - {tipo: attenzione, testo: "Non caricare il pacco caldo dopo l'uso: aspetta che torni a temperatura ambiente. Se scalda, si gonfia o fa odore, stacca il caricatore e fai come nel passo 0.07 [S]."}
+      - {tipo: nota, testo: "Con il carapace montato la presa della prolunga si prende dalla porta di coda, dietro il cicalino (D-076): provala in 13.23 [C]."}
+    attrezzi: [caricatore_lipo]
+    fonti: [D-076, "docs/ricerca/carica-usbc.md 2 (regole dei produttori)", docs/BOM.md A5 B9 C7, docs/cablaggio.md 3.1 "Bilanciamento", "guida/passi/00-prima.yaml 0.06 e 0.07"]

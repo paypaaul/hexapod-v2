@@ -326,3 +326,82 @@
     - "Come la bozza: sezione 4 fino ai fili 101-112, moduli in 13.16."
     - "Fili dei moduli saldati sulla scheda al banco con le lunghezze dal CAD, saldati ai moduli in 13."
   consiglio: Prima opzione; 13.16 deve riportare le prove 6 e 8 (chi ha la sezione 13).
+
+# Testi della guida dopo la 2.1.7 (16 ottobre 2026): sezioni 4, 5, 8 e appendici A.15-A.19. Gli schemi
+# (guida/schemi/schemi.md, basetta*.svg, scheda_carapace*.svg) non si toccano: li sostituira' il circuito stampato futuro
+# (D-076). I passi dicono cosa e' cambiato; qui quello che negli schemi va aggiornato.
+
+- titolo: "Schemi della basetta: le zone vietate delle teste M3 non valgono piu' dalla 2.1.7"
+  gravita: minore
+  dove: "4.06, 4.10, 4.11, 4.14, 4.21, A.15, A.16; guida/schemi/schemi.md 1.0, 1.4, 1.7; basetta.svg, basetta_saldature.svg"
+  cosa: >-
+    Dalla 2.1.7 (D-076, P-003) il vassoio si avvita con quattro M2 x 5 svasate negli inserti in cima alle colonne della
+    base: la testa sta 0,1 sotto la faccia del vassoio (z 2,5) e la basetta resta a z 5,9, cioe' 3,4 mm sopra. Non ci sono
+    piu' le quattro teste M3 DIN 912 a z 5,6. schemi.md 1.0 e i due disegni hanno ancora le croci e le zone tratteggiate
+    delle teste M3 (20 fori: C-1, D-1, C-2, D-2, C-3, D-3, T-2, U-1, U-2, U-3 e gli speculari nelle righe 11-13), il
+    bloccante S-19 e le note "dopo S-19" su B-2, T-2, D-12, sul ponticello T-2-T-3 e sui fili 28 e 29. Restano valide le
+    croci delle quattro colonnine (29; +-6,8) e (75,5; +-6,5), comprese C-3, C-11, U-3 e U-11, che stanno anche sopra le
+    colonnine (C-3 a 3,36 mm dal centro della colonnina contro 3,8 di zona). Anche il Kapton sulle teste M3 (schemi.md 1.4,
+    S-24) non serve piu', e Kapton o nastro in PVC vanno bene sotto U2 e PTC1 (D-076, P-072). I passi della guida dicono gia'
+    tutto questo con un avviso; i disegni mostrano ancora le zone vecchie, la legenda "testa M3 del vassoio sotto (0,3 mm)"
+    e la riga rossa "Non saldare prima che i problemi bloccanti ... (S-01, S-02, S-19) siano chiusi", ora chiusi dal CAD
+    2.1.7. Anche scheda_carapace.svg ha la riga "BLOCCANTE (S-01)" (voce seguente).
+  prove:
+    - "guida/dati/fori.json: Corpo_Vassoio foro_pa/pb/aa/ab (Ø 2,4, svasati, z 1,0-1,7), bas_col_*_ins (z 1,9-5,9); Corpo_Base vas_bugna_*_ins (inserti M2 a (30; +-12,5) e (75; +-12,5))"
+    - "cad/script/corpo.py cor_bas_luce 3,3 e cor_vas_col_d 6,6; D-077 (testa a 3,4 mm sotto la basetta)"
+    - "guida/lib/fori.py piazza (testa delle svasate in cima al cono, commit 1bad5c4): vassoio presa 3,5, fondo libero 0,5"
+    - "guida/schemi/schemi.md 1.0 (fori vietati, 40), 1.4 punto 8, 1.7 scelta 12"
+  opzioni:
+    - "Aggiornare schemi.md 1.0 e i due disegni (generatori in guida/schemi/sorgenti): solo le 24 croci delle colonnine."
+    - "Lasciarli come sono fino al circuito stampato, con gli avvisi nei passi (oggi)."
+  consiglio: >-
+    Prima opzione al prossimo giro degli schemi, se la millefori resta per piu' di un esemplare; altrimenti la seconda: i
+    passi sono gia' corretti e lo schema elettrico non cambia.
+
+- titolo: "Scheda del carapace: il disegno e' della 2.1.6, con la testata a 90 gradi della 2.1.7 va rifatto"
+  gravita: importante
+  dove: "4.22-4.25, 13.16, A.17-A.19; guida/schemi/schemi.md 2, 2.1-2.7; scheda_carapace.svg, scheda_carapace_saldature.svg"
+  cosa: >-
+    Il disegno della scheda del carapace mette J2, testata 2 x 8 dritta, nelle colonne D ed E (righe 2-9), CE1 in A-9 e
+    B-9, la scheda da 20 x 30 a x 29,5-49,5 e le viti sui fori d'angolo A-1, G-1, A-11, G-11 (bugne a (32; +-12,5) e
+    (47; +-12,5)). Nella 2.1.7 (D-076 P-002, D-077) la scheda e' 21,5 x 30 a x 29,5-51, la testata e' a 90 gradi
+    (Wurth 61201621721, scatola profonda 8,85 dal bordo e alta 9 sotto la millefori) sul bordo di coda, con la spina che
+    esce verso la coda e la chiave in basso; le bugne sono a (41,5; +-12,5) e (48,0; +-12,5), alte 2,9, con M2 x 4. Con
+    la griglia di prima (colonna A a x 31,88, riga 1 a y +12,7) i fori delle viti cadono a 0,54 mm dalla colonna E e a 0,88
+    dalla G: non sono piu' fori della griglia e vanno trapanati a parte (la guida dice Ø 2,2 a 12,0 e 18,5 mm dal bordo
+    della testata e 2,5 dai lati corti). I pin della testata a 90 gradi vanno nelle prime colonne verso la coda, dove oggi
+    stanno CE1 (A-9, B-9) e le piazzole del ToF posteriore e del Qwiic (A-3, B-3, A-4, B-4); le zone delle bugne si spostano
+    sopra la colonna E e fra G e H, dove oggi passano E-2 (polo 2) e i fili verso la colonna G. Le reti (polo -> rete) di
+    schemi.md 2.2 e i fili 101-112 per polo restano validi. I passi 4.22-4.25 danno taglio e fori dal CAD, le reti per polo
+    e dicono di saldare J2, CE1 e i fili solo sul disegno nuovo; anche 13.16 (fili dei moduli) ne dipende.
+  prove:
+    - "guida/dati/fori.json: Corpo_Carapace ins_sch_a...d a (41,5; +-12,5) e (48,0; +-12,5), z 31,5-34,9"
+    - "cad/script/rif_componenti.py righe 186-196 (sch_l 30, sch_w 21,5, sch_test_l 27,98, sch_test_p 8,85, sch_test_h 9) e 566-576 (Rif_Scheda_Carapace)"
+    - "docs/cablaggio.md 3.5 (scheda a x 29,5-51, chiave sul lato lontano dalla scheda) e 3.5bis"
+    - "guida/schemi/schemi.md 2 (griglia, fori vietati delle bugne) e 2.1 (J2 in D/E, CE1 in A-9 e B-9)"
+    - "D-076 (P-002, P-073: CE1 basso Ø 6,3, alto al piu' 8), D-077"
+  opzioni:
+    - "Ridisegnare la scheda sulla griglia della 2.1.7 (testata sul bordo di coda, CE1 e piazzole spostati, zone delle bugne nuove), con i generatori di guida/schemi/sorgenti e un verificatore elettrico, prima di saldare la scheda."
+    - "Saltare la millefori della scheda e passare direttamente al circuito stampato futuro (D-076), lasciando X2 da montare dopo: nel frattempo il pulsante del carapace manca e resta il pulsante provvisorio sui pin A e B della 2813 (P-031)."
+    - "Saldare a mano seguendo le reti per polo dei passi 4.24 e A.19, senza disegno (sconsigliato: e' la scheda con il 5 V vicino al 3,3 V)."
+  consiglio: >-
+    Prima opzione, piccola (una scheda da 16 poli e 12 fili), prima della sezione 4 o almeno prima del passo 4.23; il
+    pin della testata a 90 gradi va letto sul disegno Wurth (passo e distanza delle file dal bordo). Se il circuito
+    stampato arriva prima, seconda opzione.
+  domanda: >-
+    Vuoi la scheda del carapace ridisegnata su millefori per la 2.1.7, o aspetti il circuito stampato e monti X2 dopo?
+
+- titolo: "Catalogo degli attrezzi della sezione 4: misure della scheda del carapace della 2.1.6"
+  gravita: minore
+  dove: "guida/catalogo/attrezzi.d/banco.yaml (seghetto, trapanino); 4.15, 4.22"
+  cosa: >-
+    Le voci seghetto e trapanino dicono "scheda del carapace 20 x 30" e "punte Ø 2,2 e 2,6 ... fori d'angolo della
+    scheda del carapace": dalla 2.1.7 la scheda e' 21,5 x 30 e i fori, fuori griglia, si fanno Ø 2,2 (4.22). Nel
+    passo 4.15 il seghetto (che e' anche il taglierino) serve a dividere il nastro del cavo piatto fra i conduttori 8 e 9.
+    Il file non e' fra quelli delle sezioni e qui non l'ho cambiato.
+  prove:
+    - "guida/catalogo/attrezzi.d/banco.yaml righe 13-14"
+    - "guida/passi/04-banco.yaml 4.15, 4.22"
+  opzioni:
+    - "Aggiornare l'uso delle due voci (21,5 x 30; punta Ø 2,2; taglio del cavo piatto)."
+  consiglio: Prima opzione, con il prossimo giro del catalogo.

@@ -135,17 +135,17 @@ passi:
     tabella:
       intestazione: [Punto, Atteso, Misurato]
       righe:
-        - ["Massa del robot completo", "fino a 3047 g con tutte le predisposizioni [S]", ""]
+        - ["Massa del robot completo", "fino a 3046 g con tutte le predisposizioni [S]", ""]
         - ["Viti del BOM", "tutte al loro posto e strette [V]", ""]
         - ["Carapace e sportellino", "quattro viti strette; sportellino a filo [V]", ""]
         - ["Piedini e lame", "piedini in fondo e dritti; lame A e B ferme [S]", ""]
         - ["T-plug", "si stacca e si ricollega con due dita, carapace montato (13.23) [V]", ""]
         - ["Cicalino", "display visibile dalla finestra; staccato dalla prolunga a fine uso [V]", ""]
     avvisi:
-      - {tipo: importante, testo: "A 3047 g il femore è al 53 % dello stallo e l'avviso scatta al 55 %: oltre circa 3150 g l'avviso scatta già in piedi [S, la coppia è proporzionale alla massa]. Pesa prima di camminare; oltre 3150 g annota il peso e fermati: decidi con chi progetta come alleggerire (per esempio il guscio della tibia, D-063)."}
-      - {tipo: nota, testo: "3047 g è la massa attesa della 2.1.7 (3045 g in D-074) con tutte le predisposizioni montate: senza di loro il robot pesa meno (docs/software.md 6.3)."}
+      - {tipo: importante, testo: "A 3046 g il femore è al 53 % dello stallo e l'avviso scatta al 55 %: oltre circa 3150 g l'avviso scatta già in piedi [S, la coppia è proporzionale alla massa]. Pesa prima di camminare; oltre 3150 g annota il peso e fermati: decidi con chi progetta come alleggerire (per esempio il guscio della tibia, D-063)."}
+      - {tipo: nota, testo: "3046 g (3046,2) è la massa attesa della 2.1.7 (3045 g nella 2.1.6, D-074) con tutte le predisposizioni montate: senza di loro il robot pesa meno (docs/software.md 6.3)."}
     attrezzi: [bilancia]
-    fonti: ["D-074: massa attesa 3045,0 g", "docs/software.md 6.3 test 6 (regressione 53 % ± 1)", "robot/robot.yaml guardia (avviso al 55 %)", "docs/BOM.md 'Viteria e inserti contati dal modello'", "guida/passi/13-carapace.yaml 13.23", guida/problemi/collaudo.yaml]
+    fonti: ["D-077: massa attesa 3046,2 g (2.1.6: 3045,0 g, D-074)", "docs/software.md 6.3 test 6 (regressione 53 % ± 1)", "robot/robot.yaml guardia (avviso al 55 %)", "docs/BOM.md 'Viteria e inserti contati dal modello'", "guida/passi/13-carapace.yaml 13.23", guida/problemi/collaudo.yaml]
 
   - id: "14.03"
     titolo: Accensione e rail
@@ -252,25 +252,24 @@ passi:
       - {testo: cicalino, chiave: corpo/Cicalino}
       - {testo: cavalletto, punto: [0.0, -55.0, -168.0]}
     testo:
-      - "Fai le prove solo sul cavalletto, zampe in aria."
+      - "Fai le prove sul robot solo sul cavalletto, zampe in aria."
       - "Con il tripode in moto, provale una alla volta, in ordine."
       - "Dopo ognuna rimetti il robot in RIPOSO [C]."
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
-        - ["Premi il pulsante del carapace", "la logica si spegne e il rail dei servo si spegne [V]", ""]
+        - ["Premi il pulsante", "logica e rail dei servo si spengono [V]", ""]
         - ["Stacca il T-plug", "tutto si spegne, servo compresi [V]", ""]
-        - ["Togli il comando per un secondo", "dopo 300 ms si ferma in piedi [C]", ""]
-        - ["Togli il comando per 30 s", "si siede, poi il rail si spegne [C]", ""]
-        - ["Stacca il filo TX della SSC-32", "dopo 3 interrogazioni senza risposta: GUASTO e rail spento [C]", ""]
-        - ["Soglie di batteria: provate in simulazione, non con un alimentatore (l'utente non lo ha)", "sotto 3,6 V a cella avviso; sotto 3,5 V per 5 s seduta; sotto 3,3 V spegnimento [C]", ""]
-        - ["Cicalino", "suona sotto la soglia impostata (12.04) [S]", ""]
+        - ["Comando tolto 1 s", "dopo 300 ms si ferma in piedi [C]", ""]
+        - ["Comando tolto 30 s", "si siede, poi il rail si spegne [C]", ""]
+        - ["Stacca il filo TX della SSC-32", "dopo 3 interrogazioni mute: GUASTO, rail spento [C]", ""]
+        - ["Cicalino", "display con le due celle; suona sotto 3,3 V a cella (12.04) [S]", ""]
     avvisi:
       - {tipo: attenzione, testo: "A terra queste prove fanno cadere il robot: mai sul pavimento."}
       - {tipo: importante, testo: "Soglie del firmware da tarare: se scattano diversamente annota il valore, non cambiare il firmware qui (software.md 2.6) [C]."}
-      - {tipo: nota, testo: "Pulsante: arresto d'emergenza. T-plug: sezionamento dei servo (software.md 2.6)."}
+      - {tipo: importante, testo: "In simulazione sul PC, non sul robot: soglie di batteria (3,6 V avviso, 3,5 V per 5 s seduta, 3,3 V spegnimento), caduta oltre 50° e inclinazione. Niente alimentatore regolabile (D-076, P-117) [C]."}
     attrezzi: [cavalletto, computer_usb]
-    fonti: ["docs/software.md 2.6 'Sicurezza e macchina a stati'", "docs/BOM.md 'Schema di alimentazione', B9", "docs/piano-elettronica-software.md 4 (P3: rail spento in ogni guasto provato)", "guida/passi/12-accensione.yaml 12.01, 12.04", guida/problemi/collaudo.yaml]
+    fonti: ["D-076: soglie in simulazione, cicalino a 3,3 V (P-117, P-066)", "docs/software.md 2.6 'Sicurezza e macchina a stati'", "docs/BOM.md 'Schema di alimentazione', B9", "docs/piano-elettronica-software.md 4 (P3: rail spento in ogni guasto provato)", "guida/passi/12-accensione.yaml 12.01, 12.04", guida/problemi/collaudo.yaml]
 
   - id: "14.07"
     titolo: A terra, alzarsi e sedersi
@@ -288,19 +287,19 @@ passi:
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
-        - ["Sequenza di accensione", "parcheggio, rail, controllo del calo di tensione, alzata lenta [C]", ""]
+        - ["Sequenza di accensione", "parcheggio, rail, calo di tensione, alzata lenta [C]", ""]
         - ["Altezza dell'asse dei femori da terra", "100 mm [V]; in simulazione fra 97,7 e 99,2 mm [S]", ""]
         - ["Inclinazione del corpo", "vicina a 0°; in simulazione 0,2° [S]", ""]
         - ["Piedi a terra", "tutti e sei [S]", ""]
-        - ["Coppia stimata del femore", "53 % dello stallo (5,84 kgf·cm), avviso oltre 55 % [V]", ""]
+        - ["Coppia stimata del femore", "53 % dello stallo in tripode (5,85 kgf·cm), avviso oltre 55 % [V]", ""]
         - ["Corrente in piedi fermo", "circa 6 A a 6 V, circa 42 W [S]", ""]
         - ["Seduto", "appoggia sulla chiglia, rail spento a fine seduta [C]", ""]
     avvisi:
       - {tipo: attenzione, testo: "Se un servo non spinge o la zampa cede, spegni con il pulsante e tieni il corpo: a terra cade sulla chiglia."}
       - {tipo: nota, testo: "Il margine di stabilità a 100/45 è 59 mm [V, calcolo] (robot.yaml regressione_statica)."}
-      - {tipo: importante, testo: "B6 non dice quale 'assetto basso': la bozza usa 100/45 [C] (problemi/collaudo.yaml)."}
+      - {tipo: importante, testo: "Assetto basso di B6 = 100/45, il punto di progetto: femore al 53 % in tripode, 75 % a 70/70 (D-076, P-046)."}
     attrezzi: [computer_usb]
-    fonti: ["docs/software.md 2.6 (accensione, spegnimento), 6.7 (B6)", "robot/robot.yaml andatura e regressione_statica", "docs/studio-componenti.md 'Batteria' (fermo in piedi)", "D-074: 3045 g, 53 %", "docs/software.md 'Stato di S0' (simulazione)", guida/problemi/collaudo.yaml]
+    fonti: ["docs/software.md 2.6 (accensione, spegnimento), 6.7 (B6)", "robot/robot.yaml andatura e regressione_statica", "docs/studio-componenti.md 'Batteria' (fermo in piedi)", "D-074 e D-077: 53 % a 100/45", "D-076: assetto di partenza 100/45 (P-046)", "docs/software.md 'Stato di S0' (simulazione)", guida/problemi/collaudo.yaml]
 
   - id: "14.08"
     titolo: A terra, camminare
@@ -316,24 +315,24 @@ passi:
       - {testo: T2, chiave: zampa/Piedino@MS}
     testo:
       - "Comanda l'andatura a coppie a 100/45, lenta, poi più veloce [C]."
-      - "Poi il tripode, sempre a 100/45 (T1 e T2: i due gruppi di piedi)."
+      - "Poi il tripode lento, sempre a 100/45 (T1 e T2: i due gruppi di piedi)."
       - "Cammina un minuto in linea retta e annota la tabella."
       - "Fermati e siediti."
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
-        - ["Coppia, a coppie a 100/45", "41 % dello stallo con 2945 g [S, da rifare con 3047 g]", ""]
-        - ["Coppia, tripode a 100/45", "53 % con 3047 g [V]; avviso oltre il 55 %", ""]
+        - ["Coppia, a coppie a 100/45", "41 % dello stallo con 2945 g [S, da rifare con 3046 g]", ""]
+        - ["Coppia, tripode a 100/45", "53 % con 3046 g [V]; avviso oltre il 55 %", ""]
         - ["Velocità in tripode", "circa 105–115 mm/s con il limite di 250°/s [S]", ""]
         - ["Corrente dei rail, marcia classica", "10–12 A a 6 V, cioè 60–72 W [S]", ""]
-        - ["Piedi d'appoggio che scivolano", "al più qualche millimetro all'atterraggio; in simulazione 0,5 mm [S]", ""]
+        - ["Piedi d'appoggio che scivolano", "al più qualche mm; in simulazione 0,5 mm [S]", ""]
         - ["Fotogrammi rifiutati", "0 in un minuto, dalla guardia [S]", ""]
         - ["Urti con carapace o zampe", "nessuno [V, CAD]", ""]
     avvisi:
-      - {tipo: nota, testo: "L'andatura a coppie è la base: a 100/45 ha la coppia più bassa; il tripode serve per andare veloci (software.md 4.2)."}
-      - {tipo: importante, testo: "A 70/70 il tripode porta il femore al 75 % dello stallo, oltre il rifiuto al 70 %: lì serve un'andatura con più piedi a terra (software.md 'Stato di S0')."}
+      - {tipo: nota, testo: "A coppie la coppia del femore è più bassa; il tripode serve per andare veloci (software.md 4.2). Ordine della prima camminata: D-076, P-046."}
+      - {tipo: importante, testo: "A 70/70 il tripode porta il femore al 75 % dello stallo, oltre il rifiuto al 70 %: serve un'andatura con più piedi a terra (software.md)."}
     attrezzi: [computer_usb]
-    fonti: ["docs/software.md 4.2 (tabella delle coppie, velocità)", "docs/studio-componenti.md 'Batteria' (marcia classica)", "docs/software.md 'Stato di S0' (scivolamento 0,5 mm)", "robot/robot.yaml", "firmware/README.md (70/70)", guida/problemi/collaudo.yaml]
+    fonti: ["D-076: prima camminata a coppie a 100/45, poi il tripode lento (P-046)", "docs/software.md 4.2 (tabella delle coppie, velocità) e 6.7", "docs/studio-componenti.md 'Batteria' (marcia classica)", "docs/software.md 'Stato di S0' (scivolamento 0,5 mm)", "robot/robot.yaml", "firmware/README.md (70/70)", guida/problemi/collaudo.yaml]
 
   - id: "14.09"
     titolo: Dopo la marcia, calore e batteria
@@ -353,16 +352,16 @@ passi:
     tabella:
       intestazione: [Punto, Atteso, Misurato]
       righe:
-        - ["Carapace, sopra le baie anteriori, al tatto", "il palmo regge 5 secondi: oltre circa 55 °C il PLA rammollisce e il carapace si ristampa in PETG; se non regge, fermati e annota [S]", ""]
-        - ["Regolatori dei servo (NTC, X14)", "annota: una soglia non è definita [C]", ""]
-        - ["Servo di femore e ginocchio, al tatto", "tiepidi; se scottano, fermati [S]", ""]
+        - ["Regolatori (NTC, X14)", "annota il massimo; il PLA rammollisce verso 55–60 °C: se ci arriva, carapace in PETG [S]. Soglia del firmware non definita [C]", ""]
+        - ["Carapace sopra le baie, al tatto", "tiepido, non caldo; senza fonte per i °C. Se non tieni il palmo, fermati [S]", ""]
+        - ["Servo femore e ginocchio", "al tatto tiepidi; se scottano, fermati [S]", ""]
         - ["Pacco", "non scotta e non si gonfia [S]", ""]
         - ["Tensione del pacco sotto carico", "sopra 3,6 V a cella, la soglia d'avviso [V]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Un pacco che scalda, si gonfia o sibila: stacca il T-plug solo se puoi farlo senza toccare il pacco e allontanati (12.01)."}
-      - {tipo: nota, testo: "Il budget termico segue l'indicazione Lynxmotion: circa 10 minuti di sforzo continuo, poi circa 30 di riposo (software.md 2.6) [S]."}
+      - {tipo: attenzione, testo: "Un pacco che scalda, si gonfia o sibila: stacca il T-plug solo se non tocchi il pacco, e allontanati (12.01)."}
+      - {tipo: nota, testo: "Budget termico (indicazione Lynxmotion): circa 10 minuti di sforzo, poi circa 30 di riposo (software.md 2.6) [S]."}
     attrezzi: [computer_usb]
-    fonti: ["D-065 e D-066 (PLA a 55–60 °C, ristampa in PETG)", "docs/software.md 2.6", "docs/piano-elettronica-software.md 4 (P4: temperatura sotto il carapace)", "docs/predisposizioni.md X14", "guida/passi/12-accensione.yaml 12.01", guida/problemi/collaudo.yaml]
+    fonti: ["D-065 e D-066 (PLA a 55–60 °C, ristampa in PETG: la decisione segue l'NTC, il tatto è solo un controllo)", "docs/software.md 2.6", "docs/piano-elettronica-software.md 4 (P4: temperatura sotto il carapace)", "docs/predisposizioni.md X14", "guida/passi/12-accensione.yaml 12.01", guida/problemi/collaudo.yaml]
 
   - id: "14.10"
     titolo: Sensori
@@ -451,6 +450,6 @@ passi:
         - ["80/60", "66 %", "52 %", "54 %", "femore"]
         - ["70/70", "75 %", "59 %", "62 %", "femore"]
     avvisi:
-      - {tipo: nota, testo: "Percentuali dello stallo, calcolate con 2945 g: con 3045 g salgono di circa due punti (a 100/45 il tripode è al 53 %) [S]."}
+      - {tipo: nota, testo: "Percentuali dello stallo, calcolate con 2945 g: con 3046 g salgono di circa due punti (a 100/45 il tripode è al 53 %) [S]."}
       - {tipo: importante, testo: "L'utente accetta di superare il 50 % dello stallo; l'assetto si sceglie a robot costruito (CLAUDE.md, 'Cosa è deciso dall'utente'). Il firmware rifiuta oltre il 70 %."}
-    fonti: ["docs/software.md 4.2 (tabella)", "robot/robot.yaml guardia", "CLAUDE.md 'Assetto'", "D-074: 53 % a 100/45"]
+    fonti: ["docs/software.md 4.2 (tabella)", "robot/robot.yaml guardia", "CLAUDE.md 'Assetto'", "D-074 e D-077: 53 % a 100/45"]

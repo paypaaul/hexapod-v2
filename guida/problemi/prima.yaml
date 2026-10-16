@@ -110,3 +110,18 @@
     - "Guardare il kit dell'utente: la chiave in dotazione con le M2 svasate."
   consiglio: "Guardare la chiave del kit e correggere il catalogo."
   domanda: "Che chiave a brugola serve alle tue viti M2 svasate nere?"
+
+- titolo: Il glossario ha tre voci ferme alla 2.1.6 (asola, gola, dima di posa)
+  gravita: minore
+  dove: "appendice A.20-A.25 (guida/glossario.yaml)"
+  cosa: >-
+    Dopo la 2.1.7 tre definizioni non tornano con il CAD e con i testi nuovi: "asola" dice 6 × 3 mm nel vassoio, a
+    sinistra (ora e' 7 × 4, fuori dalla basetta, in un'ala del piano, P-019); "gola" dice "larga 4" (ora 4,5, P-063);
+    "dima di posa" dice "ce ne sono due" (con la dima del calettamento, P-015, sono tre) e non cita la bussola del perno e
+    l'estrattore (P-065), che nei testi della sezione 2 hanno i passi 2.29-2.32. Il glossario non e' di una sezione: le
+    sezioni 0, 1, 2, 3, 6 e 9 non lo toccano.
+  prove:
+    - "guida/glossario.yaml righe 22-24, 112-113, 82-84; guida/passi/02-stampa.yaml 2.26-2.32; docs/decisioni.md D-076 e D-077"
+  opzioni:
+    - "Correggere le tre voci e aggiungere 'bussola' ed 'estrattore'."
+  consiglio: "Correggerle insieme al resto del glossario quando si ricompone la guida."

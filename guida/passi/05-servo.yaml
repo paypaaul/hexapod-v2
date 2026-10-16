@@ -7,6 +7,8 @@
 # F3c, schemi delle schede: il rail si accende portando l'ENA del regolatore a 3,3 V con un Dupont dal pin 3V3 dell'ESP32
 # (sulla sola USB, fuori dalla basetta); la R3 da 22 kOhm saldata sul regolatore nel passo 4.31 lo tiene spento a riposo
 # (guida/schemi/schemi.md 1.6, guida/problemi/schemi.yaml S-05, S-20). Prima c'erano un 47 kOhm e un diodo volanti.
+# P-050 (D-076): nessun alimentatore da banco; il banco dei servo usa la batteria sul tavolo con il regolatore e F1 da
+# 3 A. Le sezioni 8 e 9 restano prove a freddo e tester, il rail nel robot si accende solo nella sezione 12.
 sezione:
   id: servo
   numero: 5
@@ -24,9 +26,10 @@ sezione:
     - "Nastro di carta e pennarello per i numeri."
   tempo: "circa 5 minuti per servo, dopo il primo [S]"
   stato_elettrico: >-
-    Rail a 6,0 V da un regolatore, con F1 da 3 A; logica dalla 2813 come nel passo 4.26, basetta staccata. Il rail si
-    accende dopo l'impulso di centro e si spegne prima di toccare una spina. Un servo alla volta, albero libero.
-  fonti: [D-045, D-049, "docs/software.md 6.7 (B2) e 2.7", docs/dimensioni-componenti.md, "robot/robot.yaml (servo)"]
+    Batteria sul tavolo, fuori dal robot; rail a 6,0 V da un regolatore, con F1 da 3 A; logica dalla 2813 come nel passo
+    4.26, basetta staccata. Il rail si accende dopo l'impulso di centro e si spegne prima di toccare una spina. Un servo
+    alla volta, albero libero. Niente alimentatore da banco; nel robot il rail si accende solo nella sezione 12 (D-076).
+  fonti: [D-045, D-049, D-076, "docs/software.md 6.7 (B2) e 2.7", docs/dimensioni-componenti.md, "robot/robot.yaml (servo)"]
   attrezzi: [nastro_pennarello]
   controllo:
     - "I 20 servo hanno i fori delle alette nudi: gommini e tubetti di ottone restano da parte, non si montano."

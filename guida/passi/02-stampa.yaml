@@ -1,6 +1,8 @@
 # Sezione 2, stampa e controllo dei pezzi (D-075, docs/piano-guida.md "Struttura della guida"). F3: bozza dell'estrattore.
 # Fonte principale: cad/stl/README.md (orientamento, materiale, note di ogni STL), con D-056, D-063, D-064, D-065,
-# D-066, D-067, D-068, D-070, D-071, D-073, D-074. Quantita': manifest (guida/dati/manifest.json) e BOM.
+# D-066, D-067, D-068, D-070, D-071, D-073, D-074, D-076, D-077. Quantita': manifest (guida/dati/manifest.json) e BOM.
+# Dalla 2.1.7: vassoio e lunette in PLA di colore libero (P-088, P-078), piedino con la stretta scelta (P-016), dima del
+# calettamento, bussola del perno ed estrattore (2.29-2.32, P-015, P-065).
 # I pezzi si mostrano con in_evidenza (nessuno si monta qui: la sezione non ha giunzioni). Le immagini sono nella terna
 # del CAD con la vista dal lato che va sul piatto (etichetta PIATTO) o dal lato in vista (etichetta IN ALTO).
 # Quello che le fonti non dicono e' marcato [C] e sta in guida/problemi/stampa.yaml.
@@ -19,7 +21,7 @@ sezione:
     - "Ugello temprato da 0,4, toolchanger a 4 testine per i supporti nell'altro materiale."
   tempo: "una stampa a pezzo; la zampa 6 volte [S]"
   stato_elettrico: "nessuno"
-  fonti: [D-075, D-065, "cad/stl/README.md", "docs/piano-guida.md, sezione 2"]
+  fonti: [D-075, D-065, D-076, D-077, "cad/stl/README.md", "docs/piano-guida.md, sezione 2"]
   attrezzi: [calibro, tronchesino, pennarello]
   controllo:
     - "Ogni pezzo della tabella ha i suoi esemplari: la zampa ×6, il corpo una volta."
@@ -42,14 +44,15 @@ passi:
     tabella:
       intestazione: ["Materiale", "Colore", "Voce BOM", "Per cosa"]
       righe:
-        - ["PETG-CF", "nero", "E1", "tutte le parti funzionali: zampa, base, chiglia, slitte, sportello, supporti, piastrina IMU"]
-        - ["PLA", "bianco", "E2", "placche: carapace, lame, guscio, diffusore, vassoio"]
-        - ["PLA", "nero", "E2b", "fascia, visiera, gonne, intarsi, sportellini, tappo, fondo dell'anello, lunette"]
+        - ["PETG-CF", "nero", "E1", "tutte le parti funzionali: zampa, base, chiglia, slitte, sportello, supporti, piastrina IMU, bussola, estrattore"]
+        - ["PLA", "bianco", "E2", "placche: carapace, lame, guscio, diffusore"]
+        - ["PLA", "nero", "E2b", "fascia, visiera, gonne, intarsi, sportellini, tappo, fondo dell'anello"]
+        - ["PLA", "libero", "E2, E2b", "vassoio dell'ESP32 e lunette dei microfoni (D-076)"]
         - ["TPU 95A", "arancio", "E3", "piedini"]
     avvisi:
-      - {tipo: nota, testo: "Stampa e supporti li decidi tu nello slicer. Il bianco è «per ora» e il PLA nero per le parti nere è una proposta non confermata (D-065, BOM domanda 7)."}
+      - {tipo: nota, testo: "Stampa e supporti li decidi tu nello slicer. Il bianco è «per ora» e il PLA nero per le parti nere è una proposta non confermata (D-065, BOM domanda 7). Vassoio e lunette sono in PLA e il colore non conta (D-076, P-088, P-078)."}
       - {tipo: nota, testo: "Pareti, strati e riempimento del PETG-CF sono quelli di cad/stl/README.md; per gli altri materiali l'unico valore dato è il piedino a 4 perimetri (D-064)."}
-    fonti: ["cad/stl/README.md (premessa e ultima riga)", D-065, D-064, "docs/BOM.md E1, E2, E2b, E3 e domanda 7"]
+    fonti: ["cad/stl/README.md (premessa e ultima riga)", D-065, D-064, D-076, "docs/BOM.md E1, E2, E2b, E3 e domanda 7"]
 
   - id: "2.02"
     titolo: Quanti pezzi, la zampa
@@ -70,11 +73,11 @@ passi:
         - ["Lama A con intarsio", "Cover_Femore_A.stl + _Feritoia.stl", "PLA bianco + nero", "1", "6"]
         - ["Lama B con intarsio", "Cover_Femore_B.stl + _Feritoia.stl", "PLA bianco + nero", "1", "6"]
         - ["Guscio della tibia", "Cover_Tibia.stl", "PLA bianco", "1", "6"]
-        - ["Diffusore (solo X31)", "Cover_Tibia_Diffusore.stl", "PLA bianco", "1", "6"]
-        - ["Piedino", "Piedino.stl", "TPU 95A arancio", "1", "6 + 2 di scorta"]
+        - ["Diffusore (opzionale, X31)", "Cover_Tibia_Diffusore.stl", "PLA bianco", "1", "6"]
+        - ["Piedino", "Piedino_stretta_*.stl, la scelta", "TPU 95A arancio", "1", "6 + 2 di scorta"]
     avvisi:
       - {tipo: nota, testo: "Le sei zampe sono la stessa zampa, ruotata: nessun pezzo è destro o sinistro (manifest, trasformate senza specchio) [V]."}
-      - {tipo: nota, testo: "Piedini: 6 più 2 di scorta (BOM D9). Il diffusore si stampa solo se monti le luci nelle tibie (X31)."}
+      - {tipo: nota, testo: "Piedini: 6 più 2 di scorta (BOM D9). Il diffusore si stampa solo se monti le luci nelle tibie (X31, opzionali: D-076, P-077)."}
     fonti: ["cad/stl/README.md 'Zampa (sei di ognuna)'", "guida/dati/manifest.json (istanze: rotazioni)", "docs/BOM.md D9", "docs/predisposizioni.md X31"]
 
   - id: "2.03"
@@ -92,13 +95,13 @@ passi:
         - ["Chiglia", "Corpo_Chiglia.stl", "PETG-CF", "1", "E1"]
         - ["Sportello della batteria", "Corpo_Sportello.stl", "PETG-CF", "1", "E1"]
         - ["Slitta del regolatore", "Corpo_Slitta_Regolatore.stl", "PETG-CF", "2", "E1"]
-        - ["Vassoio dell'ESP32", "Corpo_Vassoio.stl", "PLA bianco [S]", "1", "E2"]
+        - ["Vassoio dell'ESP32", "Corpo_Vassoio.stl", "PLA, colore libero", "1", "E2"]
         - ["Carapace + fascia + visiera + gonne", "4 file, un pezzo a due colori", "PLA bianco + nero", "1", "E2, E2b"]
         - ["Sportellino di servizio", "Corpo_Sportello_Servizio.stl", "PLA nero", "1", "E2b"]
         - ["Fondo dell'anello", "Corpo_Fondo_Anello.stl", "PLA nero", "1", "E2b"]
         - ["Tappo del ToF", "Corpo_Tappo_ToF.stl", "PLA nero", "1", "E2b"]
         - ["Piastrina dell'IMU", "Corpo_Piastrina_IMU.stl", "PETG-CF", "1", "X4"]
-        - ["Lunette dei microfoni", "Corpo_Lunette_Microfoni.stl (4 lunette)", "PLA nero [S]", "1 file", "X16"]
+        - ["Lunette dei microfoni", "Corpo_Lunette_Microfoni.stl (4 lunette)", "PLA, colore libero", "1 file", "X16"]
         - ["Supporto INA260 sinistro e destro", "Corpo_Supporto_INA260_S.stl e _D.stl", "PETG-CF", "1 + 1", "X7"]
         - ["Sportellino con lo zaino", "Corpo_Sportello_Servizio_Zaino.stl", "PLA nero", "1, al posto dello sportellino", "zaino"]
     avvisi:
@@ -122,7 +125,8 @@ passi:
       - "Stampa in PETG-CF nero, 6 volte."
     avvisi:
       - {tipo: nota, testo: "È il pezzo del provino della culla (sezione 1): con il CAD invariato, quello è già una delle sei."}
-    fonti: ["cad/stl/README.md 'Tibia.stl'", D-065, D-067]
+      - {tipo: nota, testo: "Dalla 2.1.7 la gola dei fili è larga 4,5, la sede delle luci è lunga 50,5 e il foro dell'inserto del guscio è profondo 7,7 (D-077, P-063, P-062): una tibia stampata con gli STL di prima non va."}
+    fonti: ["cad/stl/README.md 'Tibia.stl'", D-065, D-067, D-077]
 
   - id: "2.05"
     titolo: Coxa e ponte
@@ -231,9 +235,11 @@ passi:
       - "Posa il guscio con il retro aperto sul piatto e il fronte in alto."
       - "Metti supporti piccoli sotto i due tappi a rombo e sotto il bossolo della vite."
       - "Stampa in PLA bianco, 6 volte."
+      - "Controlla che la lamatura sotto la testa della vite sia piana, Ø6."
     avvisi:
       - {tipo: nota, testo: "Il fronte fa da ponte fra i due smussi: nessun supporto lì (cad/stl/README.md)."}
-    fonti: ["cad/stl/README.md 'Cover_Tibia.stl'", D-061, D-065]
+      - {tipo: nota, testo: "Dalla 2.1.7 la testa della M3 × 10 appoggia su una lamatura piana Ø6, non più sulla faccia inclinata (D-077, P-014)."}
+    fonti: ["cad/stl/README.md 'Cover_Tibia.stl'", D-061, D-065, D-077]
 
   - id: "2.11"
     titolo: Diffusore della tibia
@@ -264,11 +270,11 @@ passi:
       - "Posa il piedino con la bocca sul piatto e la punta in alto."
       - "Imposta 4 perimetri: parete e suola da 1,6 mm [V]."
       - "Stampa in TPU 95A arancio: 6 piedini più 2 di scorta."
-      - "Usa lo STL con la stretta scelta nel provino 6."
+      - "Usa lo STL della stretta scelta nel provino 6: Piedino_stretta_0.stl, _0.2.stl o _0.4.stl."
     avvisi:
       - {tipo: nota, testo: "Dalla 2.1.0 la suola è piana, con il pistoncino per l'FSR e la tacca dei fili (D-066)."}
-      - {tipo: importante, testo: "Nel CAD di oggi la stretta sullo stinco è zero: se il provino dà −0,2 o −0,4, lo STL va riesportato prima di stampare [C]."}
-    fonti: ["cad/stl/README.md 'Piedino.stl'", D-064, D-066, "docs/BOM.md D9"]
+      - {tipo: importante, testo: "I tre file sono il piedino del modello con pied_stretta a 0, 0,2 e 0,4 (D-077, P-016). Dopo la scelta riporta il valore in pied_stretta (passo 1.18): Piedino.stl del modello diventa uguale a quello che stampi."}
+    fonti: ["cad/stl/README.md 'Piedino.stl'", D-064, D-066, D-077, "docs/BOM.md D9"]
 
   - id: "2.13"
     titolo: Base
@@ -291,7 +297,8 @@ passi:
     avvisi:
       - {tipo: nota, testo: "Il tetto del tunnel è un ponte di 50 mm lungo 162; le 12 bugne sono sbalzi piatti a 25,6 mm dal piatto (D-056)."}
       - {tipo: nota, testo: "Con il toolchanger i supporti vanno nell'altro materiale: lo decidi nello slicer. La base pesa circa 198 g (D-063)."}
-    fonti: ["cad/stl/README.md 'Corpo_Base.stl'", D-056, D-063]
+      - {tipo: nota, testo: "Dalla 2.1.7 sul tetto del tunnel ci sono quattro colonne Ø6,6 con l'inserto M2 in cima, per il vassoio, e le fessure del tetto sono aperte verso la coda, per sfilare il pacco con le spine attaccate (D-076, P-003, P-001)."}
+    fonti: ["cad/stl/README.md 'Corpo_Base.stl'", D-056, D-063, D-076, D-077]
 
   - id: "2.14"
     titolo: Chiglia
@@ -326,7 +333,8 @@ passi:
       - "Controlla i 2 fori passanti M3."
     avvisi:
       - {tipo: nota, testo: "Regge il pacco con due rebbi e la schiuma: per questo è in PETG-CF e non in PLA (D-065)."}
-    fonti: ["cad/stl/README.md 'Corpo_Sportello.stl'", D-065, D-054]
+      - {tipo: nota, testo: "I rebbi sono lunghi 22,5, per il pacco misurato di 139,65 mm (D-076, D-077, P-007)."}
+    fonti: ["cad/stl/README.md 'Corpo_Sportello.stl'", D-065, D-054, D-076, D-077]
 
   - id: "2.16"
     titolo: Slitte dei regolatori
@@ -376,11 +384,13 @@ passi:
       - {testo: PIATTO, punto: [60, 0, 1]}
     testo:
       - "Posa il vassoio con il piano sul piatto."
-      - "Stampa in PLA bianco: sta sotto l'antenna, niente carbonio."
-      - "Controlla i 4 inserti M2 e i 4 fori passanti M3."
+      - "Stampa in PLA, di un colore qualsiasi: sta sotto l'antenna, niente carbonio."
+      - "Controlla i 4 fori Ø2,4 con la svasatura in alto, per le colonne della base."
+      - "Controlla i 4 fori per gli inserti M2 in cima alle colonnine, per la basetta."
     avvisi:
-      - {tipo: importante, testo: "docs/progetto-meccanico.md lo dà in PETG; BOM E2, D-065 e README lo danno in PLA [C]."}
-    fonti: ["cad/stl/README.md 'Corpo_Vassoio.stl'", D-065, "docs/BOM.md E2"]
+      - {tipo: nota, testo: "Il vassoio è in PLA e il colore è libero (D-076, P-088): sotto l'antenna niente carbonio."}
+      - {tipo: nota, testo: "Dalla 2.1.7 si avvita alle quattro colonne della base con M2 × 5 svasate, e ha l'asola del bus 7 × 4 in un'ala del piano (D-076, P-003, P-019)."}
+    fonti: ["cad/stl/README.md 'Corpo_Vassoio.stl'", D-065, D-076, D-077, "docs/BOM.md E2"]
 
   - id: "2.19"
     titolo: Fondo dell'anello
@@ -424,10 +434,10 @@ passi:
         - ["Sportellino con lo zaino", "PLA nero", "come lo sportellino", "al posto dell'altro; tacca per l'USB-C"]
         - ["Tappo del ToF", "PLA nero", "flangia sul piatto", "chiude la finestra finché il sensore manca"]
         - ["Piastrina dell'IMU (X4)", "PETG-CF", "faccia inferiore sul piatto, svasature in alto", "due M2 × 5 svasate a filo; scheda su due M2 × 6 nei fori pilota Ø1,7 (D-074)"]
-        - ["Lunette dei microfoni (X16)", "PLA nero [S]", "piatte sul piatto", "4 lunette in un file, simmetriche; con la Adafruit 3421 si tolgono"]
+        - ["Lunette dei microfoni (X16)", "PLA, colore libero", "piatte sul piatto", "4 lunette in un file, simmetriche; con la Adafruit 3421 si tolgono"]
     avvisi:
       - {tipo: nota, testo: "Le nervature dello sportellino sono a filo nel modello: stampate vengono più strette di 0,1–0,2 mm e fanno l'attrito (D-056)."}
-    fonti: ["cad/stl/README.md 'Corpo'", D-056, D-074, "guida/dati/manifest.json (colore PLA nero delle lunette)"]
+    fonti: ["cad/stl/README.md 'Corpo'", D-056, D-074, D-076, "guida/problemi.md P-078"]
 
   - id: "2.21"
     titolo: Carapace a due colori
@@ -446,7 +456,8 @@ passi:
     avvisi:
       - {tipo: nota, testo: "Fascia (3 corpi) e gonne (4 corpi) restano a pezzi nello slicer: tutti nel nero [V]. L'intarsio della fascia è profondo 0,6 mm: PLA su PLA si attacca senza interlocking (D-065)."}
       - {tipo: attenzione, testo: "Il PLA del carapace rammollisce verso 55–60 °C e sotto ci sono i regolatori. Se a robot montato l'interno scalda, il carapace si ristampa in PETG (D-065)."}
-    fonti: ["cad/stl/README.md 'Corpo_Carapace.stl + …'", D-063, D-065, D-074]
+      - {tipo: nota, testo: "Dalla 2.1.7 il carapace ha la sede della scheda con la testata a 90°, più ganci per la catena LED, i fori pilota del ToF posteriore e le costole dell'altoparlante (D-077)."}
+    fonti: ["cad/stl/README.md 'Corpo_Carapace.stl + …'", D-063, D-065, D-074, D-077]
 
   - id: "2.22"
     titolo: Destri e sinistri
@@ -499,20 +510,18 @@ passi:
       - {chiave: zampa/Cover_Femore_A, lav: "tasca_testa_*"}
     testo:
       - "Misura e annota con il calibro le quote della tabella, su un pezzo per tipo."
-      - "Confronta con il CAD: i fori stampati vengono più stretti di 0,1–0,2 mm [S]."
-      - "Se un foro è fuori di più, ristampa il pezzo."
+      - "Confronta con il CAD: i fori stampati vengono più stretti di 0,1–0,2 mm [S]; se uno è fuori di più, ristampa il pezzo."
     tabella:
       intestazione: ["Pezzo", "Quota", "CAD", "Misurato"]
       righe:
-        - ["Tibia", "sede del servo, lung. × largh.", "41,4 × 20,9 [V]", ""]
-        - ["Tibia", "sede del cuscinetto Ø", "10,0 [V]", ""]
+        - ["Tibia", "sede servo; sede cuscinetto Ø", "41,4 × 20,9; 10,0 [V]", ""]
         - ["Tibia, coxa", "foro pilota Ø", "2,5 [V]", ""]
-        - ["Tibia, coxa, femore B", "inserti M3, Ø × prof.", "4,2 × 6,7 (foro del guscio della tibia: 7,7) [V]", ""]
+        - ["Tibia, coxa, femore B", "inserti M3, Ø × prof.", "4,2 × 6,7 (guscio: 7,7) [V]", ""]
+        - ["Tibia", "gola fili; sede luci", "4,5; 50,5 [V]", ""]
         - ["Coxa, femore B", "foro del perno Ø", "5,0 [V]", ""]
         - ["Ponte", "fori teste Ø; sede disco Ø", "5,6; 20,4 [V]", ""]
         - ["Femore A", "fori passanti M3 Ø", "3,4 [V]", ""]
-        - ["Lama A", "spessore; intarsio; tasche Ø", "4,0; 0,6; 5,6 [V]", ""]
-        - ["Lama B", "spessore; intarsio", "2,6; 1,0 [V]", ""]
+        - ["Lame A e B", "spessore; intarsio; tasche Ø (A)", "A 4,0; 0,6; 5,6. B 2,6; 1,0 [V]", ""]
         - ["Piedino", "parete e suola", "1,6 [V]", ""]
     avvisi:
       - {tipo: nota, testo: "I valori dei provini (sezione 1) valgono al posto di quelli del CAD, se sono cambiati."}
@@ -544,7 +553,9 @@ passi:
         - ["Base", "fori delle spie dei rail", "Ø3,1 [V]", ""]
         - ["Chiglia", "fori passanti M3", "3,4, ±0,2 [V]", ""]
         - ["Sportello", "fori passanti M3", "3,4 [V]", ""]
-        - ["Slitte, vassoio", "inserti M2; fori passanti M3", "Ø3,4; 3,4 [V]", ""]
+        - ["Slitte", "inserti M2; foro passante M3", "Ø3,4; 3,4 [V]", ""]
+        - ["Vassoio", "inserti M2; fori delle viti svasate", "Ø3,4; 2,4 [V]", ""]
+        - ["Base", "colonne del vassoio, diametro", "6,6 [V]", ""]
         - ["Fondo dell'anello", "gioco della gonna sulla camera", "0,05 per lato [V]", ""]
         - ["Fascia, camera nera", "diametro × altezza", "Ø32 × 6 [V]", ""]
         - ["Sportellino", "nervature", "1 mm, a filo [V]", ""]
@@ -585,20 +596,24 @@ passi:
     mostra: []
     vista: zampa_B
     testo:
-      - "Stampa le due dime e il cavalletto: servono alla taratura (sezione 12)."
+      - "Stampa le tre dime e il cavalletto: la dima del calettamento serve alla sezione 6, le altre alla taratura (sezione 12)."
       - "Posa le dime con la piastra sul piatto e i denti in alto, il cavalletto con la base sul piatto."
-      - "Stampa le dime in PLA o PETG, il cavalletto in PETG-CF."
+      - "Stampa le dime in PLA o PETG; cavalletto, bussola ed estrattore in PETG-CF."
       - "Controlla che i fori delle dime calzino i perni del femore con 0,15 mm di gioco per lato."
     tabella:
-      intestazione: ["Attrezzo", "File", "Materiale"]
+      intestazione: ["Attrezzo", "File"]
       righe:
-        - ["Dima di posa 1 (imbardata 0, femore 0, ginocchio 90)", "Dima_Posa_1.stl", "PLA o PETG"]
-        - ["Dima di posa 2 (30, 45, 135)", "Dima_Posa_2.stl", "PLA o PETG"]
-        - ["Cavalletto, alto 137 mm", "Attrezzo_Cavalletto.stl", "PETG-CF"]
+        - ["Dima 1 (0, 0, 90)", "Dima_Posa_1.stl"]
+        - ["Dima 2 (30, 45, 135)", "Dima_Posa_2.stl"]
+        - ["Dima del calettamento (0, 20, 100)", "Dima_Calettamento.stl"]
+        - ["Cavalletto, alto 137 mm", "Attrezzo_Cavalletto.stl"]
+        - ["Bussola del perno", "Attrezzo_Bussola_Perno.stl"]
+        - ["Estrattore, asta", "Attrezzo_Estrattore_Asta.stl"]
+        - ["Estrattore, tubo", "Attrezzo_Estrattore_Tubo.stl"]
     avvisi:
-      - {tipo: nota, testo: "Le dime si infilano sui perni del femore dal lato B, con la lama B tolta (sezione 12). Gli STL stanno in cad/stl/attrezzi/."}
+      - {tipo: nota, testo: "Le dime si infilano sui perni del femore dal lato B, con la lama B tolta (sezione 12). Bussola ed estrattore: passi 2.30–2.32. Gli STL stanno in cad/stl/attrezzi/."}
     attrezzi: [calibro]
-    fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-066, "cad/script/attrezzi.py (att_gio_perno 0,15)"]
+    fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-066, D-077, "cad/script/attrezzi.py (att_gio_perno 0,15)"]
 
   - id: "2.27"
     titolo: Dima di posa 2
@@ -633,3 +648,61 @@ passi:
       - {tipo: nota, testo: "Il cavalletto serve alla taratura (sezione 12). Nell'immagine regge la base e la chiglia del robot."}
     attrezzi: [calibro]
     fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-066]
+
+  - id: "2.29"
+    titolo: Dima del calettamento
+    formato: grande
+    in_evidenza: [attrezzo/Dima_Calettamento, zampa/Femore_B, zampa/Perno_femore, zampa/Perno_ginocchio]
+    mostra: []
+    vista: zampa_B
+    testo:
+      - "Stampa la dima del calettamento in PLA o PETG, con la piastra sul piatto e i denti in alto."
+      - "Controlla che i due fori calzino i perni del femore con 0,15 mm di gioco per lato."
+      - "Segna la dima con il pennarello: calettamento."
+    avvisi:
+      - {tipo: nota, testo: "La dima fissa femore +20° e ginocchio 100°, il calettamento di robot.yaml (D-077, P-015): si usa nel passo 6.16. Il terzo dente, imbardata 0°, serve solo con il servo di coxa nel corpo."}
+      - {tipo: nota, testo: "Come le altre dime si infila sui perni del femore dal lato B, con la lama B tolta. Se il calettamento cambia in robot.yaml, la dima si rifà."}
+    attrezzi: [calibro, pennarello]
+    fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-077, "guida/problemi.md P-015", "cad/script/attrezzi.py (POSE, att_gio_perno 0,15)"]
+
+  - id: "2.30"
+    titolo: Bussola del perno
+    formato: mezzo
+    in_evidenza: [attrezzo/Bussola_Perno]
+    mostra: []
+    vista: {direzione: [0.4, -0.7, 0.6], su: [0, 0, 1]}
+    testo:
+      - "Posa la bussola con la faccia della tasca sul piatto."
+      - "Stampa in PETG-CF nero."
+      - "Controlla che il foro cieco Ø5,5 sia aperto e che un perno Ø5 ci scenda a mano."
+    avvisi:
+      - {tipo: nota, testo: "Il foro ferma il perno quando fuori ne restano 1,4 mm: serve nei passi 1.11, 6.14 e 9.03 (D-077, P-065). La tasca Ø6,8 lascia libero il rialzo del mozzo."}
+    attrezzi: [calibro]
+    fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-077, "guida/problemi.md P-065", "cad/script/attrezzi.py fai_bussola_perno"]
+
+  - id: "2.31"
+    titolo: Estrattore, asta
+    formato: mezzo
+    in_evidenza: [attrezzo/Estrattore_Asta]
+    mostra: []
+    vista: {direzione: [0.5, -0.8, 0.45], su: [0, 0, 1]}
+    testo:
+      - "Stampa l'asta in PETG-CF nero, in piedi sulla testa."
+      - "Stampala solo se un cuscinetto o un perno non si leva a mano."
+    avvisi:
+      - {tipo: nota, testo: "L'asta passa nel foro Ø7,2 della culla e spinge l'anello interno del cuscinetto o il perno, mai la flangia (D-077, P-065). Si usa nei passi 15.10 e 15.11."}
+      - {tipo: nota, testo: "Il provino del giunto (1.11) dice se il forzamento è leggero: se lo è, asta e tubo non servono."}
+    fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-077, "guida/problemi.md P-065", "cad/script/attrezzi.py fai_estrattore"]
+
+  - id: "2.32"
+    titolo: Estrattore, tubo d'appoggio
+    formato: mezzo
+    in_evidenza: [attrezzo/Estrattore_Tubo]
+    mostra: []
+    vista: {direzione: [0.5, -0.8, 0.45], su: [0, 0, 1]}
+    testo:
+      - "Stampa il tubo in PETG-CF nero, sul piatto."
+      - "Stampalo solo con l'asta."
+    avvisi:
+      - {tipo: nota, testo: "Il tubo si appoggia al mozzo e riceve il cuscinetto o il perno spinto dall'asta; dentro ci cade un perno intero (D-077, P-065)."}
+    fonti: ["cad/stl/README.md 'Attrezzi da banco'", D-077, "guida/problemi.md P-065", "cad/script/attrezzi.py fai_estrattore"]

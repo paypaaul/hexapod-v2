@@ -8,6 +8,9 @@
 # non seguono la posa: in 12.12 il femore resta fermo, la tibia va a 135 gradi e la coxa non si disegna.
 # Comandi della console e stato CALIBRAZIONE vengono da software.md 2.6, 2.7 e 2.9: il firmware S2 non c'e' ancora,
 # per questo sono marcati [C] (guida/problemi/accensione.yaml).
+# Dopo l'arresto 2 (D-076): pulsante provvisorio sui pin A e B della 2813, il secondo B3b, come accensione e arresto
+# d'emergenza fino al carapace (P-031, 12.03); rail acceso per la prima volta qui, con la batteria nel robot, senza
+# alimentatore da banco (P-050); soglia del cicalino a 3,3 V per cella (P-066, 12.04).
 sezione:
   id: accensione
   numero: 12
@@ -67,16 +70,19 @@ sezione:
     - "Cavalletto e dime 1 e 2 stampati (sezione 2)."
   tempo: "circa 2 ore, metà per la taratura [S]"
   stato_elettrico: >-
-    T-plug collegato da 12.06 a 12.13, F1 da 15 A fino a 12.15. Si accende con il pulsantino della 2813; il T-plug è
-    il sezionamento d'emergenza.
-  note: "Un elemento nuovo alla volta (software.md 6.7). Lama B e viti: per una zampa, 6 volte."
+    T-plug collegato da 12.06 a 12.13, F1 da 15 A fino a 12.15. Pulsante provvisorio (12.03) per accendere e
+    spegnere; il T-plug è il sezionamento d'emergenza.
+  note: >-
+    Un elemento nuovo alla volta (software.md 6.7). Il rail si accende qui la prima volta, con la batteria nel robot
+    (D-076). Lama B: 6 volte.
   attrezzi: [multimetro, cavalletto, computer_usb]
-  fonti: [D-066, D-073, D-075, "docs/software.md 2.6, 2.7, 6.7", "docs/BOM.md 'Schema di alimentazione', B4, B9", docs/piano-guida.md "Struttura della guida"]
+  fonti: [D-066, D-073, D-075, D-076, "docs/software.md 2.6, 2.7, 6.7", "docs/BOM.md 'Schema di alimentazione', B4, B9", docs/piano-guida.md "Struttura della guida"]
   controllo:
     - "Le tensioni annotate da 12.06 a 12.10 sono quelle attese; nessun pezzo scalda."
     - "Taratura salvata: 18 servo, due pose ciascuno; il rail si accende solo con la taratura valida."
     - "Le sei lame B sono avvitate, con le teste a filo nell'intarsio nero."
     - "In F1 c'è il fusibile da 30 A; T-plug e cicalino sono staccati."
+    - "Il pulsante provvisorio è ancora sui pin A e B: resta fino al pulsante del carapace (sezione 13)."
   vista_finale: {direzione: [0.55, -0.6, 0.55], su: [0, 0, 1]}
 
 passi:
@@ -86,19 +92,19 @@ passi:
     immagine: false
     testo:
       - "Leggi questa tabella prima di collegare la batteria e tienila aperta per tutta la sezione."
-      - "Tieni il T-plug a portata di mano: staccarlo toglie la corrente a tutto il robot."
+      - "Tieni a portata di mano il pulsante provvisorio (12.03) e il T-plug: staccare il T-plug toglie la corrente a tutto il robot."
     tabella:
       intestazione: [Cosa succede, Cosa fai]
       righe:
-        - ["Un servo si muove da solo, urta o ronza fermo", "Premi il pulsantino della 2813: la logica si spegne e il rail dei servo si spegne con lei [V]. Poi stacca il T-plug."]
+        - ["Un servo si muove da solo, urta o ronza fermo", "Premi il pulsante provvisorio: la logica si spegne e il rail dei servo si spegne con lei [V]. Poi stacca il T-plug."]
         - ["Odore di bruciato, una scheda o un cavo scalda, fumo", "Stacca subito il T-plug [V]. Non toccare la scheda finché non è fredda; non riaccendere prima di aver trovato la causa."]
         - ["La batteria scalda, si gonfia, sibila o fuma", "Stacca il T-plug e la prolunga di bilanciamento solo se puoi farlo senza toccare il pacco; allontanati. Non usare acqua sul pacco; se puoi farlo senza rischi, porta il robot all'aperto su una superficie che non brucia [S]."]
         - ["Il cicalino suona", "Pacco scarico o cella sbilanciata: spegni, stacca il T-plug e ricarica (11.01) [V]."]
         - ["F1 salta", "Stacca il T-plug. Cerca il corto o il servo bloccato prima di cambiarlo; mai un fusibile più grande [S]."]
     avvisi:
       - {tipo: attenzione, testo: "Con il rail acceso le zampe possono scattare all'improvviso: mani, viso e cavi fuori dal giro delle zampe, nessuno vicino al robot."}
-      - {tipo: nota, testo: "Il pulsante è anche l'arresto d'emergenza: spegne la logica, GPIO42 resta flottante e il rail si spegne (software.md 2.6). Il T-plug resta il sezionamento dei servo (BOM, schema di alimentazione)."}
-    fonti: ["docs/software.md 2.6 'Sicurezza e macchina a stati'", "docs/BOM.md 'Schema di alimentazione', B9", docs/cablaggio.md 4 "T-plug", guida/problemi/accensione.yaml]
+      - {tipo: nota, testo: "Il pulsante è anche l'arresto d'emergenza: spegne la logica, GPIO42 resta flottante e il rail si spegne (software.md 2.6). Fino al carapace è il pulsante provvisorio sui pin A e B, perché il pulsantino della 2813 forse non si raggiunge (D-076, P-031). Il T-plug resta il sezionamento dei servo."}
+    fonti: [D-076, "docs/software.md 2.6 'Sicurezza e macchina a stati'", "docs/BOM.md 'Schema di alimentazione', B9", docs/cablaggio.md 4 "T-plug", guida/problemi/accensione.yaml]
 
   - id: "12.02"
     titolo: Robot sul cavalletto
@@ -119,25 +125,34 @@ passi:
     fonti: ["D-066, blocco C: cavalletto", cad/stl/README.md "attrezzi/Attrezzo_Cavalletto.stl", "docs/software.md 2.7 e 6.7 (B5, B6)"]
 
   - id: "12.03"
-    titolo: Controlli a batteria staccata
+    titolo: Pulsante provvisorio e controlli a batteria staccata
     formato: grande
-    immagine: false
+    vista: {direzione: [-0.55, -0.6, 0.6], su: [0, 0, 1]}
+    mostra: [corpo/Corpo_Base, corpo/Interruttore, corpo/SSC32, corpo/Corpo_Vassoio, corpo/Basetta, corpo/Tplug, corpo/Portafusibile_F1]
+    in_evidenza: [corpo/Interruttore]
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "guida_2813_*"}
+    etichette:
+      - {testo: "2813: pin A e B", chiave: corpo/Interruttore}
     testo:
       - "Controlla che il T-plug sia staccato e F1 vuoto."
-      - "Controlla che sulla SSC-32 i ponticelli VS1–VS2 e VS–VL siano tolti."
-      - "Controlla le spine dei servo: filo marrone sulla fila di massa, arancio sul segnale."
-      - "Misura la resistenza fra i due poli del T-plug del robot: nessun corto."
+      - "Salda due fili 26 AWG lunghi circa 30 cm ai contatti del secondo pulsante Ø12 (B3b); chiudi con il termorestringente [S]."
+      - "Salda gli altri capi sui pin A e B della 2813, insieme ai fili dei poli 15 e 16 (8.21) [C]."
+      - "Posa il pulsante fuori dal robot, dove lo raggiungi senza passare sopra le zampe."
     tabella:
       intestazione: [Punto, Atteso, Misurato]
       righe:
-        - ["Ponticelli VS1–VS2 e VS–VL", "tolti [V]", ""]
+        - ["Ponticelli VS1–VS2 e VS–VL della SSC-32", "tolti [V]", ""]
         - ["Spine dei servo", "marrone massa, rosso +, arancio segnale [V]", ""]
         - ["Fra i poli del T-plug del robot", "la lettura sale e non resta a 0 Ω [S]", ""]
     avvisi:
-      - {tipo: attenzione, testo: "Con un corto sul T-plug del robot non andare avanti: trova il corto prima di collegare la batteria."}
-      - {tipo: nota, testo: "La lettura sale perché i condensatori del rail si caricano dal multimetro [S]."}
-    attrezzi: [multimetro]
-    fonti: ["docs/BOM.md 'Schema di alimentazione' (ponticelli tolti), B7", "docs/dimensioni-componenti.md 'MG996R' (colori dei fili)", docs/cablaggio.md 2]
+      - {tipo: attenzione, testo: "Corto sul T-plug del robot: non andare avanti, trovalo prima di collegare la batteria."}
+      - {tipo: importante, testo: "Il pulsante provvisorio è l'arresto d'emergenza fino al carapace (D-076, P-031): niente batteria senza. Pin A e B irraggiungibili: salda sulla giunta dei poli 15 e 16 (4.15) [C]."}
+    attrezzi: [multimetro, saldatore, spelafili, termorestringente]
+    extra:
+      - {nome: "pulsante Ø12 B3b, il secondo: provvisorio fino al carapace", qta: 1, bom: B3b}
+      - {nome: "filo 26 AWG, circa 60 cm", qta: 1, bom: B17}
+    fonti: [D-076, "guida/problemi.md P-031", "docs/BOM.md B3b, B17, 'Schema di alimentazione' (ponticelli tolti), B7", "docs/dimensioni-componenti.md 'MG996R' (colori dei fili)", docs/cablaggio.md 2, "docs/cablaggio.md 3.1 'Pulsante'", "guida/passi/08-elettronica.yaml 8.21"]
 
   - id: "12.04"
     titolo: Cicalino di sottotensione
@@ -160,15 +175,15 @@ passi:
       - "Guarda sul cicalino quale pin è il polo −."
       - "Collega il cicalino alla prolunga di bilanciamento, nero sul polo −."
       - "Controlla che il display mostri le due celle come in 11.01."
-      - "Imposta la soglia d'allarme a 3,5 V per cella [C]."
+      - "Imposta la soglia d'allarme a 3,3 V per cella, come dice il foglio del cicalino [C]."
       - "Posa il cicalino in coda, sopra il T-plug, lontano da contatti scoperti."
     avvisi:
       - {tipo: importante, testo: "Il verso dei pin va guardato sul pezzo (BOM B9): al contrario il cicalino non legge o si rompe [S]."}
-      - {tipo: nota, testo: "È un livello indipendente dal firmware (decisioni ereditate, sottotensione su più livelli): il firmware spegne il rail sotto 3,5 V per cella per 5 s (software.md 2.6). Il cicalino si fissa al carapace nella sezione 13."}
+      - {tipo: nota, testo: "3,3 V per cella è l'ultimo livello, indipendente dal firmware, che spegne il rail sotto 3,5 V per cella per 5 s (software.md 2.6): a 3,5 V il cicalino suonerebbe a ogni passo sotto carico (D-076, P-066). Si fissa al carapace nella sezione 13."}
       - {tipo: attenzione, testo: "Il cicalino assorbe sempre: a fine uso staccalo dalla prolunga, o scarica il pacco (BOM B9)."}
     extra:
       - {nome: "cicalino di sottotensione BX100, usato sciolto fino alla sezione 13", qta: 1, bom: B9}
-    fonti: [docs/BOM.md B9 C7, "docs/BOM.md 'Schema di alimentazione'", "docs/software.md 2.6 'Batteria scarica'", "docs/decisioni.md 'Decisioni ereditate' (sottotensione su più livelli)", D-059]
+    fonti: [D-076, "guida/problemi.md P-066", docs/BOM.md B9 C7, "docs/BOM.md 'Schema di alimentazione'", "docs/software.md 2.6 'Batteria scarica'", "docs/decisioni.md 'Decisioni ereditate' (sottotensione su più livelli)", D-059]
 
   - id: "12.05"
     titolo: Fusibile F1 da 15 A
@@ -203,7 +218,7 @@ passi:
     formato: grande
     immagine: false
     testo:
-      - "Controlla che la 2813 sia spenta e che le mani siano lontane dalle zampe."
+      - "Controlla che la 2813 sia spenta, il pulsante provvisorio a portata e le mani lontane dalle zampe."
       - "Collega il T-plug del pacco a quello del robot, con un colpo deciso."
       - "Aspetta un minuto e controlla: niente odori, rumori o calore."
       - "Misura e annota le tensioni della tabella."
@@ -237,12 +252,12 @@ passi:
       - {chiave: corpo/ESP32, lav: "corpo:usb_c"}
     etichette:
       - {testo: "USB-C marcata TTL", punto: [16, 0, 20]}
-      - {testo: "2813: pulsantino", chiave: corpo/Interruttore}
+      - {testo: "2813: pulsante provvisorio", chiave: corpo/Interruttore}
       - {testo: "SSC-32", chiave: corpo/SSC32}
     testo:
-      - "Premi il pulsantino della 2813: l'ESP32 si accende."
-      - "Se il pin 5V con la sola USB ha dato 0 V (passo 4.05), collega al computer la USB-C marcata TTL (CH340) e apri la console [C]."
-      - "Altrimenti non collegare la USB: apri la console con l'adattatore USB-seriale CH340N [C]."
+      - "Premi il pulsante provvisorio: l'ESP32 si accende."
+      - "Se il pin 5V con la sola USB ha dato 0 V (4.05), apri la console dalla USB-C marcata TTL (CH340) [C]."
+      - "Altrimenti apri la console con l'adattatore USB-seriale CH340N, senza la USB [C]."
       - "Misura e annota le tensioni della tabella."
       - "Controlla con la console che la SSC-32 risponda (comando ssc) e la tensione della batteria (comando stato) [C]."
     tabella:
@@ -255,10 +270,9 @@ passi:
         - ["Fila VS1 e VS2", "0 V [V]", ""]
         - ["Batteria nella console", "come sul multimetro [C]", ""]
     avvisi:
-      - {tipo: nota, testo: "Il pulsante del carapace arriva nella sezione 13: è in parallelo al pulsantino della 2813 (BOM B3b)."}
-      - {tipo: nota, testo: "Il partitore è 100 kΩ e 47 kΩ: GPIO1 legge il pacco × 47/147 (BOM B10). Il ramo logica prende circa 0,5 A [S]."}
-      - {tipo: attenzione, testo: "Se il regolatore 5 V scalda o il 5 V è lontano da 5,0 V, spegni con il pulsantino e stacca il T-plug."}
-      - {tipo: attenzione, testo: "Finché non sai se la scheda ha un diodo sulla USB, mai USB e batteria insieme: la basetta e la USB si spingerebbero il 5 V una contro l'altra (S-07)."}
+      - {tipo: nota, testo: "Partitore 100 e 47 kΩ: GPIO1 legge il pacco × 47/147 (BOM B10). Ramo logica circa 0,5 A [S]."}
+      - {tipo: attenzione, testo: "Se il regolatore 5 V scalda o il 5 V non è 5,0 V, spegni e stacca il T-plug."}
+      - {tipo: attenzione, testo: "Finché non sai se la scheda ha un diodo sulla USB, mai USB e batteria insieme: i due 5 V si scontrano (S-07)."}
     attrezzi: [multimetro, computer_usb]
     fonti: ["docs/software.md 2.6 (accensione, punto 1), 2.9 (console), 6.7 (B0, B1, B3)", docs/BOM.md B2 B3 B3b B10 B11, "docs/piano-elettronica-software.md 3.3"]
 
@@ -283,8 +297,9 @@ passi:
     avvisi:
       - {tipo: attenzione, testo: "Se VS1 o VS2 sono lontani da 6,0 V, spegni il rail e stacca il T-plug: con una tensione sbagliata i servo si rompono (MG996R: 4,8–7,2 V)."}
       - {tipo: nota, testo: "Canali dei servo: lato sinistro 0–15, destro 16–31, zampa per zampa in cablaggio.md 3.2 [C]."}
+      - {tipo: nota, testo: "È la prima volta che il rail si accende: con la batteria nel robot e F1 da 15 A, senza alimentatore da banco (D-076, P-050)."}
     attrezzi: [multimetro, computer_usb]
-    fonti: ["docs/software.md 6.7 (B3: GPIO42 alto = 6,0 V e power-good)", "docs/BOM.md B1 (6,0 V), A1 (4,8–7,2 V)", docs/cablaggio.md 3.2, robot/robot.yaml tensione_rail]
+    fonti: [D-076, "docs/software.md 6.7 (B3: GPIO42 alto = 6,0 V e power-good)", "docs/BOM.md B1 (6,0 V), A1 (4,8–7,2 V)", docs/cablaggio.md 3.2, robot/robot.yaml tensione_rail]
 
   - id: "12.09"
     titolo: Lato sinistro, 9 servo
@@ -415,7 +430,7 @@ passi:
     testo:
       - "Salva la taratura dalla console o dalla web app [C]."
       - "Copia il file della taratura nella repo, in robot/calib/ [C]."
-      - "Spegni con il pulsantino e riaccendi: il rail si accende solo con la taratura valida."
+      - "Spegni con il pulsante provvisorio e riaccendi: il rail si accende solo con la taratura valida."
       - "Prova su una zampa: comanda la posa 1 e infila la dima, che deve entrare senza forzare [S]."
       - "Spegni il rail e stacca il T-plug."
     tabella:
@@ -462,12 +477,12 @@ passi:
       - "Controlla che le teste stiano a filo nell'intarsio nero."
     avvisi:
       - {tipo: importante, testo: "Stringi piano: la svasatura è nel PLA nero dell'intarsio, profondo 1,0 mm (D-070)."}
-      - {tipo: nota, testo: "Viti M2 × 5 al posto di × 6: 2,4 mm nell'inserto, bastano per una lama non strutturale (D-073). Per rifare la taratura si toglie la lama B: due viti (D-066)."}
+      - {tipo: nota, testo: "Viti M2 × 5 al posto di × 6: circa 2,5 mm nell'inserto [V], bastano per una lama non strutturale (D-073). Per rifare la taratura si toglie la lama B: due viti (D-066)."}
     fonti: ["D-065: lama B avvitata", D-070, "D-071: viti a X 81 e 89, Z 1,5", D-073, guida/catalogo/giunzioni.yaml lama_b, cad/stl/README.md "Cover_Femore_B.stl"]
 
   - id: "12.15"
     titolo: Fusibile F1 da 30 A
-    formato: mezzo
+    formato: grande
     vista: {direzione: [-0.55, 0.15, 0.82], su: [0, 0, 1]}
     mostra:
       - corpo/Corpo_Base
@@ -485,6 +500,7 @@ passi:
     avvisi:
       - {tipo: nota, testo: "30 A in uso: protegge il 14 AWG della linea principale (D-073, BOM B4)."}
       - {tipo: attenzione, testo: "A fine uso stacca sempre il T-plug e la presa di bilanciamento (BOM, schema di alimentazione)."}
+      - {tipo: importante, testo: "Lascia il pulsante provvisorio sui pin A e B: è l'arresto d'emergenza finché il pulsante del carapace non funziona (sezione 13) [C]."}
     extra:
       - {nome: "fusibile a lama ATO da 30 A", qta: 1, bom: B4}
     fonti: [docs/BOM.md B4, "docs/BOM.md 'Schema di alimentazione'", D-073, docs/piano-guida.md "Struttura della guida"]

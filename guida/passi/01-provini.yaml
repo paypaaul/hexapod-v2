@@ -1,7 +1,8 @@
 # Sezione 1, i provini (D-075, docs/piano-guida.md "Struttura della guida"). F3: bozza dell'estrattore.
 # Fonti: CLAUDE.md (aperti 3 e 4), cad/stl/README.md, cad/script/attrezzi.py, D-049, D-064, D-066, D-069, D-072, D-073.
-# Nessun pezzo della sezione e' nel manifest come "provino": i passi mostrano i pezzi veri con in_evidenza (la tibia, la
-# coxa e il ponte, il piedino, la lama A sono gli stessi STL dei pezzi veri) e usano testo e tabelle per il resto.
+# I provini che hanno un pezzo (blocco degli inserti, tasche della lama A, luce) si mostrano con in_evidenza; gli altri
+# usano i pezzi veri (la tibia, la coxa e il ponte, il piedino, la lama A sono gli stessi STL dei pezzi veri) e testo e
+# tabelle per il resto. Dalla 2.1.7: blocco degli inserti (P-057), tre piedini (P-016), bussola del perno (P-065).
 # Quello che le fonti non danno e' marcato [C] e sta in guida/problemi/provini.yaml.
 sezione:
   id: provini
@@ -20,7 +21,7 @@ sezione:
   tempo: "stampe in un giorno, prove al banco circa 3 ore [S]"
   stato_elettrico: "nessun rail dei servo: il servo di prova non è collegato. Il provino di luce usa 5 V da USB (meno di 110 mA [S])."
   attrezzi: [calibro, pennarello]
-  fonti: [D-075, D-072, D-069, D-065, D-049, "docs/piano-guida.md, sezione 1"]
+  fonti: [D-075, D-072, D-069, D-065, D-049, D-076, D-077, "docs/piano-guida.md, sezione 1"]
   controllo:
     - "Ogni provino ha il suo numero e le sue misure nel registro delle misure."
     - "Ogni riga della tabella del passo 1.18 ha un valore trovato, oppure «invariato»."
@@ -41,37 +42,49 @@ passi:
     tabella:
       intestazione: ["N°", "Provino", "File", "Cosa decide nel CAD"]
       righe:
-        - ["1", "Inserti del kit", "blocco di prova [C]", "ins_m3_d, ins_m3_l, ins_m2_d, ins_m2_l"]
+        - ["1", "Inserti del kit", "Attrezzo_Provino_Inserti.stl", "ins_m3_d, ins_m3_l, ins_m2_d, ins_m2_l"]
         - ["2", "Squadretta", "nessuno: si misura la D3", "sq_d, sq_sp, sq_h, sq_mozzo_d, sq_fori_pcd, sq_fori_d"]
         - ["3", "Culla della tibia", "Tibia.stl", "gio_servo, vite_m3_pilota, cus_sede_d, nervature delle culle"]
         - ["4", "Giunto della coxa", "Coxa.stl, Coxa_Ponte.stl", "perno_foro, cox_testa_vite_d, cox_disco_luce"]
         - ["5", "Tasche della lama A", "Attrezzo_Provino_Tasche_Base.stl e _Lama.stl", "cov_testa_d, oppure le costole"]
-        - ["6", "Piedino", "Piedino.stl, Tibia.stl", "stretta del piedino"]
+        - ["6", "Piedino", "Piedino_stretta_0.stl, _0.2.stl, _0.4.stl, Tibia.stl", "pied_stretta"]
         - ["7", "Luce", "Attrezzo_Provino_Luce_Nero.stl e _Bianco.stl", "luc_bianco, luc_dif_sp, luc_camera_h, colore del diffusore"]
     avvisi:
       - {tipo: nota, testo: "Il provino 1 viene prima degli altri: ins_m3_d muove anche le bugne delle culle e dei pezzi che si provano dopo."}
       - {tipo: nota, testo: "Tibia, coxa, ponte, piedino e lama A di prova sono gli STL veri: se il CAD non cambia, valgono come pezzi veri."}
       - {tipo: nota, testo: "Tappo a rombo del guscio, nervature dello sportellino e collare del cicalino non hanno un provino: si provano sui pezzi veri alla prima stampa [C]."}
-      - {tipo: nota, testo: "Gli STL stanno in cad/stl/ e in cad/stl/attrezzi/; orientamento e materiale di ognuno in cad/stl/README.md."}
-    fonti: ["CLAUDE.md, aperti 3 e 4", "cad/stl/README.md 'Attrezzi da banco' e 'Provino della culla'", D-072, D-069, "docs/piano-elettronica-software.md, fase P1"]
+      - {tipo: nota, testo: "Gli STL stanno in cad/stl/ e in cad/stl/attrezzi/ (i tre piedini e il blocco degli inserti sono lì); orientamento e materiale di ognuno in cad/stl/README.md."}
+    fonti: ["CLAUDE.md, aperti 3 e 4", "cad/stl/README.md 'Attrezzi da banco' e 'Provino della culla'", D-072, D-069, D-076, D-077, "docs/piano-elettronica-software.md, fase P1"]
 
   - id: "1.02"
     titolo: Inserti, blocco di prova
     formato: grande
-    immagine: false
+    in_evidenza: [attrezzo/Provino_Inserti]
+    mostra: []
+    vista: {direzione: [0.2, -0.55, 0.85], su: [0, 0, 1]}
+    etichette:
+      - {testo: "M3", punto: [-18.5, 4, 8.7]}
+      - {testo: "4,2 = CAD", punto: [13.5, 4, 8.7]}
+      - {testo: "M2", punto: [-18.5, -8, 8.7]}
+      - {testo: "3,4 = CAD", punto: [13.5, -8, 8.7]}
     testo:
-      - "Stampa il blocco di prova in PETG-CF nero, con i fori verso l'alto."
-      - "Controlla che i sei fori siano aperti e puliti."
+      - "Stampa Attrezzo_Provino_Inserti.stl in PETG-CF nero, con la faccia con le scritte in alto."
+      - "Controlla che gli otto fori siano aperti e puliti."
+      - "Leggi il diametro inciso sopra ogni foro."
       - "Misura e annota con il calibro il diametro vero di ogni foro."
     tabella:
       intestazione: ["Foro", "Ø nel blocco", "Profondità", "Misurato"]
       righe:
-        - ["M3", "3,9 / 4,0 / 4,1 [C]", "6,7 (ins_m3_l) [V]", ""]
-        - ["M2", "2,9 / 3,0 / 3,1 [C]", "4,0 (ins_m2_l) [V]", ""]
+        - ["M3", "3,9 / 4,0 / 4,1, più 4,2 di controllo [V]", "6,7 (ins_m3_l) [V]", ""]
+        - ["M2", "2,9 / 3,0 / 3,1, più 3,4 di controllo [V]", "4,0 (ins_m2_l) [V]", ""]
     avvisi:
-      - {tipo: importante, testo: "Il blocco non c'è ancora nel CAD: va disegnato prima di stampare [C]."}
-      - {tipo: nota, testo: "Il foro M3 di oggi è 4,2 (ins_m3_d), pensato per gli inserti CNC Kitchen Ø4,6. Quelli del kit sono Ø4,2 (BOM D4): per questo si provano fori più stretti [V]."}
-    fonti: ["CLAUDE.md, aperto 4 (fori M3 da 3,9 / 4,0 / 4,1 e M2 da 2,9 / 3,0 / 3,1)", D-065, D-073, "docs/BOM.md D4, D5 e domanda 8", "cad/script/rif_componenti.py ins_m3_d, ins_m3_l, ins_m2_d, ins_m2_l", "docs/dimensioni-componenti.md, inserti CNC Kitchen"]
+      - {tipo: nota, testo: "Gli inserti del kit hanno la zigrinatura Ø4,2 e l'invito liscio Ø4,0 (M3), Ø3,2 e Ø3,0 (M2) (D-076, Q-20) [V]: il foro non può essere grande come l'inserto, quindi si provano fori più stretti."}
+      - {tipo: nota, testo: "Il foro M3 di oggi è 4,2 (ins_m3_d) e il M2 è 3,4 (ins_m2_d): erano pensati per gli inserti CNC Kitchen Ø4,6 e Ø3,6. Restano nel blocco come controllo [V]."}
+      - {tipo: nota, testo: "Le scritte sono alte 4 mm e incise 0,6: guardale sul primo pezzo stampato [C]."}
+    extra:
+      - {nome: "Provino degli inserti, PETG-CF nero", qta: 1, bom: E1}
+    attrezzi: [calibro]
+    fonti: [D-065, D-073, D-076, D-077, "docs/BOM.md D4, D5 e domanda 8", "cad/stl/README.md 'Attrezzi da banco'", "cad/script/attrezzi.py fai_provino_inserti", "cad/script/rif_componenti.py ins_m3_d, ins_m3_l, ins_m2_d, ins_m2_l"]
 
   - id: "1.03"
     titolo: Inserti, posa e tenuta
@@ -79,11 +92,11 @@ passi:
     immagine: false
     testo:
       - "Scalda il saldatore con la punta per inserti."
-      - "Posa un inserto dritto sul foro: M3 × 5 nei fori M3, M2 × 3 nei fori M2."
-      - "Premi piano finché l'inserto è a filo del blocco."
-      - "Lascia raffreddare l'inserto dritto, senza toccarlo."
-      - "Avvita una vite nell'inserto e tira: non deve girare né uscire."
-      - "Misura e annota il foro che tiene meglio e la temperatura della punta."
+      - "Posa un inserto dritto su ogni foro: M3 × 5 nei quattro fori M3, M2 × 3 nei quattro fori M2."
+      - "Premi piano finché ogni inserto è a filo del blocco."
+      - "Lascia raffreddare gli inserti dritti, senza toccarli."
+      - "Avvita una vite in ogni inserto e tira: non deve girare né uscire."
+      - "Misura e annota il foro che tiene meglio, la temperatura della punta e il tempo di posa."
     tabella:
       intestazione: ["Cosa annotare", "Oggi nel CAD", "Parametro", "Annota"]
       righe:
@@ -91,14 +104,16 @@ passi:
         - ["Profondità del foro M3: l'inserto arriva a filo senza toccare il fondo", "6,7 [V]", "ins_m3_l", ""]
         - ["Ø del foro M2 che tiene", "3,4 [V]", "ins_m2_d", ""]
         - ["Profondità del foro M2", "4,0 [V]", "ins_m2_l", ""]
-        - ["Temperatura della punta", "—", "nessuno: serve alla sezione 3", ""]
+        - ["Temperatura e tempo di posa, PETG-CF", "—", "nessuno: serve alla sezione 3", ""]
+        - ["Temperatura e tempo di posa, PLA (solo M2)", "—", "nessuno: serve alla sezione 3", ""]
+        - ["M3 × 6 nel foro del ponte della coxa (1.09): regge il fondo di 0,55 mm?", "—", "divisione M3 × 5 e × 6, passo 3.01", ""]
     avvisi:
       - {tipo: attenzione, testo: "La punta e la plastica fusa scottano: appoggia il saldatore sul suo supporto."}
       - {tipo: importante, testo: "Mai inserti nei fori pilota Ø2,5 delle alette lato albero: lì la vite si fa il filetto da sola (D-049)."}
       - {tipo: nota, testo: "Il CAD ha fori M3 profondi 6,7, pensati per inserti da 5,7. Con gli M3 × 5 o × 6 del kit restano 1,7 o 0,7 mm di fondo [V]. I 90 inserti M3 chiedono due lunghezze: il kit ne ha 50 per misura [V]."}
-      - {tipo: nota, testo: "Nessuna fonte dà temperatura e tempo di posa per il PETG-CF: li trovi qui e li riusi nella sezione 3 [C]."}
+      - {tipo: nota, testo: "Nessuna fonte dà temperatura e tempo di posa: li trovi qui e li riusi nella sezione 3 [C]. Per il PLA (vassoio e carapace) ripeti la prova sui fori M2 di un secondo blocco in PLA: il PLA ammorbidisce prima, la punta va più fredda (D-065, D-076)."}
     attrezzi: [saldatore_inserti, brugola_2_5, croce_ph0, calibro]
-    fonti: [D-065, D-049, D-073, "docs/BOM.md D4, D5", "docs/dimensioni-componenti.md 'Regole per il CAD ereditate dalla prima versione'", "guida/problemi/provini.yaml"]
+    fonti: [D-065, D-049, D-073, D-076, "docs/BOM.md D4, D5", "docs/dimensioni-componenti.md 'Regole per il CAD ereditate dalla prima versione'", "guida/problemi/provini.yaml", "guida/problemi.md P-057, P-058"]
 
   - id: "1.04"
     titolo: Squadretta, misure
@@ -250,8 +265,9 @@ passi:
       - {chiave: zampa/Coxa_Ponte, lav: foro_centrale}
     testo:
       - "Stampa Coxa.stl con la faccia +Y sul piatto, senza supporti [V]."
-      - "Stampa Coxa_Ponte.stl con la faccia superiore sul piatto e la sede del disco in alto."
-      - "Controlla che il foro del perno nel braccio inferiore della coxa sia aperto e dritto."
+      - "Stampa Coxa_Ponte.stl con la faccia superiore sul piatto, sede del disco in alto."
+      - "Controlla che il foro del perno sia aperto e dritto."
+      - "Metti un inserto M3 × 6 in un foro del ponte e un × 5 nell'altro: il fondo non deve segnarsi."
       - "Misura e annota con il calibro le quote della tabella."
     tabella:
       intestazione: ["Quota", "CAD", "Parametro", "Misurato"]
@@ -261,8 +277,8 @@ passi:
         - ["Sede del disco nel ponte", "20,4 [V]", "sq_d + 2 gio_stampa", ""]
         - ["Foro centrale del ponte", "6,0 [V]", "sq_accesso_d", ""]
     avvisi:
-      - {tipo: nota, testo: "La sede del disco del ponte parte da sq_d = 20, ancora stimato [C]: se la squadretta misurata (1.04) è diversa, la differenza è proprio il valore da annotare."}
-      - {tipo: importante, testo: "Il ponte avvitato all'anima e le sue linguette non hanno una prova a parte: si vedono qui, con le viti M3 × 10 negli inserti di 1.03 [C]."}
+      - {tipo: nota, testo: "La sede del disco parte da sq_d = 20 [C]: se la squadretta misurata (1.04) è diversa, annota la differenza."}
+      - {tipo: importante, testo: "Ponte avvitato e linguette si vedono qui, con viti M3 × 10 negli inserti di 1.03 [C]."}
     extra:
       - {nome: "Coxa, PETG-CF nero", qta: 1, bom: E1}
       - {nome: "Ponte della coxa, PETG-CF nero", qta: 1, bom: E1}
@@ -294,21 +310,25 @@ passi:
     formato: grande
     in_evidenza: [zampa/Coxa, zampa/Perno_coxa]
     mostra: []
-    esploso: {pezzi: {"zampa/Perno_coxa": [0, 0, 30]}}
+    esploso: {pezzi: {"zampa/Perno_coxa": [0, 0, -30]}}
     vista: zampa_sotto
     evidenzia: [{chiave: zampa/Coxa, lav: foro_perno}]
     testo:
-      - "Premi un perno Ø5 × 12 dall'alto nel foro del braccio inferiore, fino a 1,4 mm sotto il braccio [V]."
+      - "Infila un perno Ø5 × 12 nel foro del braccio, dal basso, dal lato opposto al rialzo."
+      - "Posa la bussola del perno sul braccio: la tasca sul rialzo, il foro cieco sopra il perno."
+      - "Premi bussola e perno con la morsa finché il perno tocca il fondo del foro: sotto il braccio ne restano 1,4 mm [V]."
       - "Controlla che il perno non esca da solo e non sia storto."
       - "Misura e annota: bastato il pollice, o servita la morsa."
     extra:
       - {nome: "perno Ø5 × 12", qta: 1, bom: D2}
+      - {nome: "bussola del perno, PETG-CF nero", qta: 1, bom: E1}
     avvisi:
       - {tipo: attenzione, testo: "Solo morsa a ganasce morbide: niente martello."}
       - {tipo: prova, testo: "Atteso: forzato, tiene senza ritegno (D-049); entra con la morsa [C]. Parametro: perno_foro (5,0)."}
+      - {tipo: nota, testo: "La bussola è Attrezzo_Bussola_Perno.stl, in PETG-CF: stampala con i provini. Il suo foro cieco ferma il perno con la sporgenza giusta, senza misurarla (D-077, P-065). Se il perno entra duro, stampa anche l'estrattore (passi 2.31 e 2.32)."}
       - {tipo: nota, testo: "La sede del disco in Femore A e i perni in Femore B non hanno un provino a parte (stessi parametri): si provano sui pezzi veri, con Femore B come primo pezzo del lotto [C]."}
     attrezzi: [morsa_morbida, calibro]
-    fonti: [D-049, "cad/script/zampa.py perno_foro, perno_sporge", "manifest: Perno_coxa a Z -39,8"]
+    fonti: [D-049, D-077, "cad/script/zampa.py perno_foro, perno_sporge", "cad/script/attrezzi.py fai_bussola_perno", "manifest: Perno_coxa a Z -39,8"]
 
   - id: "1.12"
     titolo: Tasche della lama A, stampa
@@ -388,22 +408,22 @@ passi:
     etichette:
       - {testo: PIATTO, punto: [121.8, 0, -94.5]}
     testo:
-      - "Stampa Piedino.stl in TPU 95A arancio: bocca sul piatto, punta in alto."
-      - "Stampa le varianti con la stretta di −0,2 e −0,4 mm, se ci sono [C]."
+      - "Stampa i tre piedini in TPU 95A arancio: bocca sul piatto, punta in alto."
+      - "Segna sul piedino la stretta con il pennarello: 0, 0,2 o 0,4."
       - "Stampa la tibia di prova, se non l'hai già fatta (provino 3)."
-      - "Segna sul piedino la stretta usata."
     tabella:
       intestazione: ["Variante", "Stretta sullo stinco", "File"]
       righe:
-        - ["A", "0 mm (CAD di oggi) [V]", "Piedino.stl"]
-        - ["B", "−0,2 mm [C]", "da disegnare"]
-        - ["C", "−0,4 mm [C]", "da disegnare"]
+        - ["A", "0 mm (CAD di oggi) [V]", "Piedino_stretta_0.stl"]
+        - ["B", "0,2 mm [V]", "Piedino_stretta_0.2.stl"]
+        - ["C", "0,4 mm [V]", "Piedino_stretta_0.4.stl"]
     avvisi:
-      - {tipo: importante, testo: "Nel CAD la stretta è zero e non ha un parametro: le varianti B e C vanno ancora ricavate [C]."}
+      - {tipo: nota, testo: "La stretta è la parete del piedino spinta verso lo stinco: con 0,2 e 0,4 il piedino stringe lo stinco di quel tanto. È il parametro pied_stretta, oggi 0; Piedino.stl del modello è sempre quello del valore scelto (D-077, P-016)."}
       - {tipo: nota, testo: "Parete e suola da 1,6 mm, quattro perimetri (D-064). Dalla 2.1.0 la suola è piana, con il pistoncino per l'FSR e la tacca dei fili (D-066)."}
     extra:
-      - {nome: "Piedino, TPU 95A arancio", qta: 1, bom: E3}
-    fonti: [D-064, D-066, "cad/stl/README.md 'Piedino.stl'", "docs/predisposizioni.md X5"]
+      - {nome: "Piedino, TPU 95A arancio, tre varianti", qta: 3, bom: E3}
+    attrezzi: [pennarello]
+    fonti: [D-064, D-066, D-077, "cad/stl/README.md 'Piedino.stl'", "docs/predisposizioni.md X5", "guida/problemi.md P-016"]
 
   - id: "1.15"
     titolo: Piedino, prova con l'FSR
@@ -423,13 +443,13 @@ passi:
     testo:
       - "Salda in pochi secondi il doppino 28 AWG alle linguette dell'FSR, a bassa temperatura [C]."
       - "Posa l'FSR sulla punta della tibia di prova, piega la coda e posa le linguette nella tasca."
-      - "Cala il piedino sulla punta e premi fino in fondo."
-      - "Misura e annota presa, scorrimento e piega della coda."
+      - "Cala il piedino sulla punta e premi fino in fondo; ripeti con gli altri due."
+      - "Misura e annota presa, scorrimento e piega della coda per ogni stretta."
       - "Posa pesi noti sul piedino: misura e annota la resistenza."
     tabella:
       intestazione: ["Prova", "Atteso", "Cosa si annota"]
       righe:
-        - ["Presa del cappuccio", "tiene, si toglie a mano [C]", "stretta usata"]
+        - ["Presa del cappuccio", "tiene, si toglie a mano [C]", "la stretta che tiene (0, 0,2 o 0,4)"]
         - ["Coda e doppino", "interi, non schiacciati [C]", "sì o no"]
         - ["Resistenza", "> 1 MΩ a vuoto, pochi kΩ sotto peso [C]", "100 g, 500 g, 1,2 kg"]
         - ["Attrito del piedino", "uguale con e senza [C]", "la differenza"]
@@ -517,7 +537,7 @@ passi:
         - ["4", "perno_foro, cox_testa_vite_d", "5,0 / 5,6", ""]
         - ["4", "cox_disco_luce", "0,3", ""]
         - ["5", "cov_testa_d, oppure le costole", "5,6", ""]
-        - ["6", "stretta del piedino", "0", ""]
+        - ["6", "pied_stretta", "0", ""]
         - ["7", "luc_bianco, luc_dif_sp, luc_camera_h", "0,8 / 0,6 / 6", ""]
         - ["7", "colore del diffusore", "bianco", ""]
     avvisi:

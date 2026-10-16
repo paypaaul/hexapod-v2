@@ -200,3 +200,70 @@
     - "Ordinare il 470 uF con Ø 6,3 e altezza di al piu' 8 mm (S-18)."
   consiglio: "Prima opzione, quando si riscrive 4.06; la seconda se si ordina il condensatore."
 
+
+# Voci nuove dopo la 2.1.7 (D-076, D-077), scritte rifacendo i testi di 13.09-13.19 sul CAD nuovo.
+
+- titolo: Gli schemi della scheda del carapace (A.17, A.18, schemi.md 2) sono ancora quelli della scheda 20 x 30 con la testata dritta
+  gravita: importante
+  dove: "13.16, 13.17, 13.18; A.17, A.18; 4.22-4.25"
+  cosa: >-
+    La 2.1.7 ha la scheda 21,5 x 30 da x 29,5 a 51,0, con la testata Wurth 61201621721 a 90 gradi sul bordo di coda (la
+    spina IDC entra orizzontale verso il viso), quattro bugne alte 2,9 a x 41,5 e 48,0, |y| 12,5, e viti M2 x 4. Gli SVG
+    e schemi.md 2 disegnano ancora la griglia 7 x 11 con J2 dritta in D/E righe 2-9, i fori d'angolo A-1, G-1, A-11,
+    G-11 per le viti e la zona vietata della scatola sulle colonne C-F; i nomi dei fori (A-3, G-8, D-9...) della
+    vecchia tabella non valgono piu'. 13.16-13.18 sono riscritte per rete e per polo (le reti e le prove 1-9 restano come
+    in schemi.md 2.2 e 2.6) e dicono che gli schemi vanno ridisegnati; 13.16 non mostra piu' lo schema ma la scheda nel CAD.
+  prove:
+    - "docs/piano-v2.1.0.md, modifica 12 (voce 'Schemi': J2 si sposta sul bordo, reti e prove restano) e il suo esito"
+    - "guida/dati/fori.json: ins_sch_a...d a (41,5; 12,5), (48,0; 12,5), (41,5; -12,5), (48,0; -12,5), z 31,5-34,9, Ø 3,4"
+    - "guida/schemi/schemi.md 2 e guida/schemi/sorgenti/scheda_def.py: ancora J2 in colonna D/E"
+  opzioni:
+    - "Ridisegnare gli schemi con i generatori di guida/schemi/sorgenti (scheda_def.py): nuova griglia, J2 sul bordo di coda, fori delle viti alle quote del CAD, piazzole libere al posto della zona della scatola."
+    - "Lasciare le reti per polo e rifare la tabella delle piazzole a ridisegno finito."
+  consiglio: "Ridisegnare gli schemi con la scheda della 2.1.7; poi tornare a 13.16, 13.17, 13.18 e riportare i nomi dei fori."
+
+- titolo: I fori delle viti della scheda del carapace sono a 6,5 mm l'uno dall'altro, che non e' un multiplo del passo 2,54 della millefori
+  gravita: minore
+  dove: "13.17"
+  cosa: >-
+    Le bugne della scheda stanno a x 41,5 e 48,0 (12 e 18,5 mm dal bordo di coda, 6,5 mm fra loro) e |y| 12,5 (2,5 mm dai
+    lati corti, quelli da 21,5). 6,5 mm sono 2,56 passi: i quattro fori non possono cadere tutti su fori di fabbrica della millefori e
+    allargarli a Ø 2,6 non basta (vecchio schema: scarto di 0,23 mm). Vanno trapanati sulle quote del CAD, e un foro
+    nuovo puo' toccare una piazzola o una pista della doppia faccia. 13.17 dice di segnarli e trapanarli.
+  prove:
+    - "guida/dati/fori.json: ins_sch_a...d"
+    - "docs/piano-v2.1.0.md, modifica 12: viti di coda a x 41,5 (sch_vite_xp), anteriori a 48,0 (sch_vite_xa)"
+  opzioni:
+    - "Trapanare sulle quote del CAD, a mano, con una dima di carta o con la scheda posata sulle bugne (bozza)."
+    - "Cambiare nel CAD sch_vite_xp o sch_vite_xa per un interasse di 5,08 o 7,62 mm (2 o 3 passi)."
+  consiglio: "Bozza; con il PCB stampato il problema sparisce. Da guardare sul pezzo vero quando si taglia la scheda."
+
+- titolo: Le costole di ritegno dell'altoparlante e i due fori del ToF posteriore non hanno una zona da evidenziare nel catalogo
+  gravita: minore
+  dove: "13.09, 13.13"
+  cosa: >-
+    corpo.py crea ritegno_altoparlante_basso e _alto e foro_tof_posteriore_a e _b (D-077, modifica 15), ma
+    guida/catalogo/zone.yaml li elenca solo come "guida_altoparlante_*" (che include le prolunghe delle guide) e
+    piano_tof_posteriore. Nelle immagini le costole e i fori non sono gialli: li mostrano un'etichetta e il testo.
+  prove:
+    - "cad/script/corpo.py righe 1170-1192 (ritegno_altoparlante_*, foro_tof_posteriore_*)"
+    - "guida/catalogo/zone.yaml, riga di Corpo_Carapace; build/guida/cad/zone/indice.json"
+  opzioni:
+    - "Aggiungere ritegno_altoparlante_* e foro_tof_posteriore_* alla riga di Corpo_Carapace e rifare esporta_guida.py zone."
+  consiglio: "Aggiungerle: poi 13.09 e 13.13 le evidenziano."
+
+- titolo: Le "7 mm d'aria" fra T-plug e altoparlante di 13.23 sono del 2.1.2 e non tengono conto delle costole di ritegno
+  gravita: minore
+  dove: "13.23"
+  cosa: >-
+    Le costole di ritegno (2.1.7) stanno a |y| 20,2, 1,2 mm piu' dentro della faccia dell'altoparlante (|y| 21,4) a cui
+    si riferiva la misura di D-069; sul modello il corpo del T-plug del robot sta a |y| <= 15 (x da -80,4). La costola bassa
+    (z 3,5-6,0) tocca appena l'altezza del T-plug (z da 5,6): la distanza minima puo' scendere da 7 a circa 6 mm. La
+    prova di sfilamento del pacco (D-077) e' libera, ma l'aria per le dita con T-plug e meta' femmina non e' stata rimisurata.
+  prove:
+    - "guida/dati/manifest.json: corpo/Tplug, corpo/Altoparlante; build/guida/cad/mesh/Corpo_Carapace.ply (vertici a y = -20,2, x da -100,5 a -87,6, z 3,5-20,5)"
+    - "docs/cablaggio.md 4 'T-plug' (7 mm verso l'altoparlante, verifica della 2.1.2)"
+  opzioni:
+    - "Rimisurare con assieme.py l'aria attorno al T-plug accoppiato e riscrivere i numeri di 13.23 e di cablaggio.md 4."
+    - "Lasciare 7 mm e provare a mano sul primo carapace (13.23 e' gia' una prova)."
+  consiglio: "Rimisurare nel CAD alla prossima versione; intanto 13.23 resta una prova a mano."
