@@ -13,16 +13,25 @@ Le tre facce sono quasi radiali rispetto al loro asse: ruotando il giunto il pun
 della faccia (circa 0,4 mm per grado), quindi il dente ferma davvero il giunto. Si porta un giunto alla volta contro il
 suo dente con passi di 1 e 10 us dall'app (stato CALIBRAZIONE).
 
+Dima_Calettamento (P-015, 2.1.7): stessa dima nella posa del calettamento di robot/robot.yaml (imbardata 0, femore +20,
+ginocchio 100): si calettano le squadrette con il servo a meta' corsa e il giunto contro i denti.
+
 Cavalletto: culla sotto la chiglia (lontana da sportello della batteria e viti), colonna cava e base; le zampe restano
 libere su tutta l'escursione (piede piu' basso a z -159 con femore -49 e ginocchio 139, tavolo a z -170).
 
+Provino degli inserti (P-057, 2.1.7): blocchetto con otto fori ciechi e il diametro inciso accanto a ciascuno.
+Bussola del perno e estrattore (P-065, 2.1.7): la bussola ferma il perno premuto con la sporgenza giusta; l'asta passa
+nel foro dietro il cuscinetto e lo spinge fuori nel tubo d'appoggio (o spinge fuori un perno).
+
 Uso dal connettore, un passo per chiamata:
     runpy.run_path('/Users/paul/hexapod-v2/cad/script/attrezzi.py')['main'](['parametri', 'dime'])
-Passi: parametri, dime, cavalletto, verifica_dime (kw zampa='AS'), verifica_cavalletto.
+Passi: parametri, dime (kw solo=[...]), cavalletto, provino_luce, provino_tasche, provino_inserti, bussola,
+estrattore, verifica_dime (kw zampa='AS', solo=[...]), verifica_cavalletto, verifica_bussola, verifica_estrattore.
 """
 import json
 import math
 import os
+import re
 import runpy
 import traceback
 
@@ -34,6 +43,7 @@ L = runpy.run_path(os.path.join(QUI, 'lib_cad.py'))
 V = runpy.run_path(os.path.join(QUI, 'versione.py'))
 A = runpy.run_path(os.path.join(QUI, 'lib_assieme.py'))
 Parte, NUOVO, UNISCI, TAGLIA = L['Parte'], L['NUOVO'], L['UNISCI'], L['TAGLIA']
+P3, V3 = adsk.core.Point3D.create, adsk.core.Vector3D.create
 
 PARAMETRI = [
     ('att_sp', '3 mm', 'mm', 'Dime: spessore della piastra sui mozzi del femore'),
@@ -51,13 +61,56 @@ PARAMETRI = [
     ('cav_gio', '0.3 mm', 'mm', 'Cavalletto: gioco per lato della chiglia nella culla'),
     ('cav_labbro', '8 mm', 'mm', 'Cavalletto: altezza dei labbri sui fianchi della chiglia (sotto il ripiano delle baie a z -31,95)'),
     ('cav_parete', '4 mm', 'mm', 'Cavalletto: parete della culla e della colonna'),
+    # bussola del perno (P-065): il femore B appoggia la faccia interna del mozzo (zy_B_int) sulla bussola, il perno
+    # premuto da fuori si ferma sul fondo del foro cieco; il rialzo da 0,4 resta libero nella sua tasca, cosi' non lo
+    # schiaccia la morsa (fissa il gioco del cuscinetto). Fondo a perno_l - perno_sporge - fem_B_mozzo = 5,4 dalla
+    # faccia del mozzo, cioe' 5,0 dalla faccia del rialzo come in P-065.
+    ('att_bus_d', '5.5 mm', 'mm', 'Bussola del perno: foro cieco (perno 5, gioco 0,25 per lato, P-065)'),
+    ('att_bus_prof', 'perno_l - perno_sporge - fem_B_mozzo', 'mm', 'Bussola del perno: fondo del foro dalla faccia del mozzo (sporgenza perno_sporge fuori)'),
+    ('att_bus_D', '20 mm', 'mm', 'Bussola del perno: diametro (dentro la testa del femore, raggio fem_testa_r 13)'),
+    ('att_bus_fondo', '3 mm', 'mm', 'Bussola del perno: fondo sotto il foro'),
+    ('att_bus_gio', '0.3 mm', 'mm', 'Bussola del perno: gioco radiale e assiale della tasca del rialzo'),
+    # estrattore (P-065): asta che entra dalla sede del servo, passa nel foro cus_passo_d dietro il cuscinetto e spinge
+    # l'anello interno (spalla come il rialzo, cus_rialzo_d); la punta centra l'asta nel foro del cuscinetto e spinge
+    # fuori i perni forzati (piu' lunga dei 5,6 del foro). Il tubo appoggia attorno alla flangia e la raccoglie.
+    ('att_estr_pilota_gio', '0.2 mm', 'mm', 'Estrattore: gioco per lato della punta nel foro del cuscinetto (cus_d) e del perno (perno_foro)'),
+    ('att_estr_pilota_d', 'cus_d - 2 * att_estr_pilota_gio', 'mm', 'Estrattore: diametro della punta'),
+    ('att_estr_pilota_l', 'fem_B_mozzo + cus_rialzo_h + 0.4 mm', 'mm', 'Estrattore: lunghezza della punta (oltre il foro del perno da 5,6)'),
+    ('att_estr_d', 'cus_rialzo_d', 'mm', 'Estrattore: spalla che spinge solo l anello interno (come il rialzo; passa nel foro cus_passo_d)'),
+    ('att_estr_spalla_l', '10 mm', 'mm', 'Estrattore: lunghezza della spalla (attraversa i 1,2 dietro la sede e entra nella sede del servo)'),
+    ('att_estr_gambo_d', '8 mm', 'mm', 'Estrattore: gambo nella sede del servo (semilarghezza cul_sede_semi 10,45); si ferma sul fondo della culla'),
+    ('att_estr_gambo_l', 'zy_orlo - zy_fondo_int + 3 mm', 'mm', 'Estrattore: gambo; a fine corsa la testa resta 3 mm sopra l orlo della culla'),
+    ('att_estr_testa_d', '20 mm', 'mm', 'Estrattore: testa su cui si preme'),
+    ('att_estr_testa_h', '5 mm', 'mm', 'Estrattore: spessore della testa'),
+    ('att_tubo_gio', '0.4 mm', 'mm', 'Estrattore: gioco per lato fra tubo e flangia del cuscinetto (cus_flangia_d, generici fino a 11,7)'),
+    ('att_tubo_d', 'cus_flangia_d + 2 * att_tubo_gio', 'mm', 'Estrattore: diametro interno del tubo d appoggio'),
+    ('att_tubo_D', 'cul_mozzo_d', 'mm', 'Estrattore: diametro esterno del tubo (il mozzo piano attorno al cuscinetto nella culla)'),
+    ('att_tubo_h', 'perno_l + 3 mm', 'mm', 'Estrattore: altezza del tubo (dentro ci cade un perno intero)'),
 ]
 
-# (imbardata, femore, ginocchio) in gradi delle due pose (software.md 2.7)
-POSE = {'Dima_Posa_1': (0.0, 0.0, 90.0), 'Dima_Posa_2': (30.0, 45.0, 135.0)}
+ROBOT_YAML = os.path.join(os.path.dirname(os.path.dirname(QUI)), 'robot', 'robot.yaml')
+
+
+def calettamento():
+    """(imbardata, femore, ginocchio) del calettamento in robot/robot.yaml (servo -> calettamento): la dima lo segue.
+    Il Python di Fusion non ha yaml: si legge la riga con un'espressione regolare."""
+    with open(ROBOT_YAML, encoding='utf-8') as f:
+        testo = f.read()
+    m = re.search(r'calettamento:\s*\{imbardata:\s*([-\d.]+),\s*alpha:\s*([-\d.]+),\s*gamma:\s*([-\d.]+)\}', testo)
+    if not m:
+        raise RuntimeError('calettamento non trovato in %s: attesa la riga "calettamento: {imbardata: .., alpha: .., '
+                           'gamma: ..}"' % ROBOT_YAML)
+    return tuple(float(v) for v in m.groups())
+
+
+# (imbardata, femore, ginocchio) in gradi delle due pose (software.md 2.7) e del calettamento (P-015)
+POSE = {'Dima_Posa_1': (0.0, 0.0, 90.0), 'Dima_Posa_2': (30.0, 45.0, 135.0), 'Dima_Calettamento': calettamento()}
 LIBRERIA = {'Dima_Posa_1': (0, 850, 0), 'Dima_Posa_2': (100, 850, 0), 'Attrezzo_Cavalletto': (260, 850, 0),
             'Attrezzo_Provino_Luce_Nero': (420, 850, 0), 'Attrezzo_Provino_Luce_Bianco': (420, 850, 0),
-            'Attrezzo_Provino_Tasche_Base': (520, 850, 0), 'Attrezzo_Provino_Tasche_Lama': (520, 880, 0)}
+            'Attrezzo_Provino_Tasche_Base': (520, 850, 0), 'Attrezzo_Provino_Tasche_Lama': (520, 880, 0),
+            'Dima_Calettamento': (0, 1000, 0), 'Attrezzo_Provino_Inserti': (200, 1000, 0),
+            'Attrezzo_Bussola_Perno': (260, 1000, 0), 'Attrezzo_Estrattore_Asta': (300, 1000, 0),
+            'Attrezzo_Estrattore_Tubo': (340, 1000, 0)}
 # provino di luce (X10, D-069): profondita' delle camere sopra la striscia e spessori del bianco da provare
 PROV_CAMERE = (2.0, 4.0, 6.0)
 PROV_BIANCO = (0.4, 0.8, 1.2, 1.6)
@@ -66,6 +119,15 @@ PROV_BIANCO = (0.4, 0.8, 1.2, 1.6)
 PROV_TASCHE = (5.4, 5.5, 5.6, 5.7)
 PROV_COSTOLE = (5.3, 5.4)
 PROV_COSTOLA_D, PROV_FORO_COSTOLE, PROV_PASSO = 1.0, 6.0, 10.0
+# provino degli inserti (P-057, D-076): inserti del kit con zigrinatura 4,2 e invito 4,0 (M3), 3,2 e 3,0 (M2), quindi
+# fori attorno all'invito; l'ultimo di ogni riga e' il valore di oggi (ins_m3_d, ins_m2_d), di controllo
+PROV_INS_M3 = (3.9, 4.0, 4.1, 4.2)
+PROV_INS_M2 = (2.9, 3.0, 3.1, 3.4)
+# passo fra i fori 9: fra due fori da 4,2 restano 4,8 (piu' di due pareti cul_ins_parete da 1,6); il bordo del blocco
+# sta a cul_ins_parete dal foro piu' grande, come nelle bugne; fondo sotto i fori M3 da 2
+PROV_INS_PASSO, PROV_INS_FONDO = 9.0, 2.0
+# scritte: alte 4 in grassetto (tratto di circa 0,6, una passata dell'ugello da 0,4), incise 0,6 (tre strati da 0,2)
+PROV_INS_TESTO_H, PROV_INS_TESTO_P = 4.0, 0.6
 
 
 def _mm(des, expr):
@@ -278,6 +340,114 @@ def fai_provino_tasche(des, root):
     return base, pb, lama, pl
 
 
+def _incidi(p, nome, testo, x, y, z_expr):
+    """Scritta incisa sulla faccia z = z_expr, centrata in (x, y): testo in grassetto alto PROV_INS_TESTO_H, profondo
+    PROV_INS_TESTO_P, tagliato solo nei corpi della parte."""
+    piano = p.piano('z', z_expr, nome)
+    sk = p._schizzo(piano, nome)
+    z = p.val(z_expr)
+    h = PROV_INS_TESTO_H
+    a = sk.modelToSketchSpace(P3((x - PROV_INS_PASSO / 2) / 10, (y - h / 2 - 0.5) / 10, z / 10))
+    b = sk.modelToSketchSpace(P3((x + PROV_INS_PASSO / 2) / 10, (y + h / 2 + 0.5) / 10, z / 10))
+    ti = sk.sketchTexts.createInput2(testo, h / 10)
+    ti.setAsMultiLine(P3(min(a.x, b.x), min(a.y, b.y), 0), P3(max(a.x, b.x), max(a.y, b.y), 0),
+                      adsk.core.HorizontalAlignments.CenterHorizontalAlignment,
+                      adsk.core.VerticalAlignments.MiddleVerticalAlignment, 0)
+    ti.textStyle = adsk.fusion.TextStyles.TextStyleBold
+    t = sk.sketchTexts.add(ti)
+    # il riquadro della scritta e' un rettangolo libero di muoversi e ruotare (i lati restano perpendicolari: un secondo
+    # vincolo orizzontale o verticale lo rende ipervincolato): un lato orizzontale e due angoli quotati dall'origine
+    linee = adsk.fusion.MultiLineTextDefinition.cast(t.definition).rectangleLines
+    s_, e_ = linee[0].startSketchPoint.geometry, linee[0].endSketchPoint.geometry
+    if abs(s_.y - e_.y) < abs(s_.x - e_.x):
+        sk.geometricConstraints.addHorizontal(linee[0])
+    else:
+        sk.geometricConstraints.addVertical(linee[0])
+    for ln in (linee[0], linee[2]):
+        g = ln.startSketchPoint.geometry                     # coordinate dello schizzo (cm)
+        p._quota_da_origine(sk, ln.startSketchPoint, True, _f(g.x * 10))
+        p._quota_da_origine(sk, ln.startSketchPoint, False, _f(g.y * 10))
+    # con una scritta Fusion da' isFullyConstrained falso anche con riquadro, lati e punti tutti vincolati (provato il
+    # 16 ottobre 2026 sul provino degli inserti): si controllano i lati del riquadro
+    if not all(ln.isFullyConstrained for ln in linee):
+        p.non_vincolati.append(sk.name)
+    ext = p.c.features.extrudeFeatures
+    inp = ext.createInput(t, TAGLIA)
+    nrm = sk.xDirection.crossProduct(sk.yDirection)
+    inp.setOneSideExtent(adsk.fusion.DistanceExtentDefinition.create(adsk.core.ValueInput.createByString('%g mm' % PROV_INS_TESTO_P)),
+                         adsk.fusion.ExtentDirections.NegativeExtentDirection if nrm.z > 0
+                         else adsk.fusion.ExtentDirections.PositiveExtentDirection)
+    inp.participantBodies = [bd for bd in p.c.bRepBodies]
+    f = ext.add(inp)
+    f.name = nome
+    p.n += 1
+    return f
+
+
+def fai_provino_inserti(des, root):
+    """Provino degli inserti (P-057), PETG-CF, stampato con la faccia dei fori in alto. Riga dietro: fori M3 PROV_INS_M3
+    profondi ins_m3_l; riga davanti: fori M2 PROV_INS_M2 profondi ins_m2_l; sopra ogni foro il diametro inciso. Il
+    valore scelto va in ins_m3_d / ins_m2_d (CLAUDE.md, provini)."""
+    occ = _comp(root, 'Attrezzo_Provino_Inserti')
+    p = Parte(occ.component)
+    par = _mm(des, 'cul_ins_parete')
+    n = len(PROV_INS_M3)
+    xs = [(i - (n - 1) / 2) * PROV_INS_PASSO for i in range(n)]
+    y3, y2 = 4.0, -8.0                                 # centri delle due righe; le scritte stanno 5,5 sopra ciascuna
+    dm3, dm2 = max(PROV_INS_M3), max(PROV_INS_M2)
+    x1 = max(xs[-1] + dm3 / 2 + par, xs[-1] + PROV_INS_PASSO / 2 + 0.5)    # scritte larghe circa 7,4: 1,3 dal bordo
+    y0 = y2 - dm2 / 2 - par
+    y1 = y3 + 5.5 + PROV_INS_TESTO_H / 2 + 1.0
+    alto = 'ins_m3_l + %g mm' % PROV_INS_FONDO
+    p.blocco('z', '0 mm', 'blocco', _f(-x1), _f(y0), _f(x1), _f(y1), alto, 1, NUOVO)
+    for riga, y, diametri, prof in (('m3', y3, PROV_INS_M3, 'ins_m3_l'), ('m2', y2, PROV_INS_M2, 'ins_m2_l')):
+        for x, d in zip(xs, diametri):
+            k = ('%.1f' % d).replace('.', '_')
+            p.cilindro('z', alto, 'foro_%s_%s' % (riga, k), _f(x), _f(y), _f(d), prof, -1, TAGLIA)
+            _incidi(p, 'testo_%s_%s' % (riga, k), '%.1f' % d, x, y + 5.5, alto)
+    c = occ.component.bRepBodies
+    p.info = {'corpi': c.count, 'volume_cm3': round(sum(b.volume for b in c), 3),
+              'ingombro_mm': [round(2 * x1, 2), round(y1 - y0, 2), round(_mm(des, alto), 2)],
+              'fori': {'m3': list(PROV_INS_M3), 'm2': list(PROV_INS_M2)}}
+    return occ, p
+
+
+def fai_bussola_perno(des, root):
+    """Bussola di battuta del perno (P-065): cilindro con la faccia in alto contro il mozzo del femore B (o il braccio
+    della coxa, stesso spessore), la tasca del rialzo e il foro cieco att_bus_d profondo att_bus_prof."""
+    occ = _comp(root, 'Attrezzo_Bussola_Perno')
+    p = Parte(occ.component)
+    alto = 'att_bus_fondo + att_bus_prof'
+    p.cilindro('z', '0 mm', 'corpo', '0 mm', '0 mm', 'att_bus_D', alto, 1, NUOVO)
+    p.cilindro('z', alto, 'tasca_rialzo', '0 mm', '0 mm', 'cus_rialzo_d + 2 * att_bus_gio', 'cus_rialzo_h + att_bus_gio', -1, TAGLIA)
+    p.cilindro('z', alto, 'foro', '0 mm', '0 mm', 'att_bus_d', 'att_bus_prof', -1, TAGLIA)
+    c = occ.component.bRepBodies
+    p.info = {'corpi': c.count, 'volume_cm3': round(sum(b.volume for b in c), 3), 'alto_mm': round(_mm(des, alto), 3),
+              'prof_mm': round(_mm(des, 'att_bus_prof'), 3)}
+    return occ, p
+
+
+def fai_estrattore(des, root):
+    """Estrattore (P-065): asta (punta, spalla, gambo, testa; asse z, punta a z 0, si stampa in piedi sulla testa) e
+    tubo d'appoggio (asse z, da z 0 a att_tubo_h)."""
+    asta, tubo = _comp(root, 'Attrezzo_Estrattore_Asta'), _comp(root, 'Attrezzo_Estrattore_Tubo')
+    pa, pt = Parte(asta.component), Parte(tubo.component)
+    z1 = 'att_estr_pilota_l'
+    z2 = z1 + ' + att_estr_spalla_l'
+    z3 = z2 + ' + att_estr_gambo_l'
+    pa.cilindro('z', '0 mm', 'punta', '0 mm', '0 mm', 'att_estr_pilota_d', 'att_estr_pilota_l', 1, NUOVO)
+    pa.cilindro('z', z1, 'spalla', '0 mm', '0 mm', 'att_estr_d', 'att_estr_spalla_l', 1, UNISCI)
+    pa.cilindro('z', z2, 'gambo', '0 mm', '0 mm', 'att_estr_gambo_d', 'att_estr_gambo_l', 1, UNISCI)
+    pa.cilindro('z', z3, 'testa', '0 mm', '0 mm', 'att_estr_testa_d', 'att_estr_testa_h', 1, UNISCI)
+    pt.cilindro('z', '0 mm', 'tubo', '0 mm', '0 mm', 'att_tubo_D', 'att_tubo_h', 1, NUOVO)
+    pt.cilindro('z', '0 mm', 'vuoto', '0 mm', '0 mm', 'att_tubo_d', 'att_tubo_h', 1, TAGLIA)
+    for o, p in ((asta, pa), (tubo, pt)):
+        c = o.component.bRepBodies
+        p.info = {'corpi': c.count, 'volume_cm3': round(sum(b.volume for b in c), 3)}
+    pa.info['lungo_mm'] = round(_mm(des, z3 + ' + att_estr_testa_h'), 3)
+    return asta, pa, tubo, pt
+
+
 def _chiudi(des, t0, nome, p):
     L['raggruppa'](des, t0, nome)
     return dict({'lavorazioni': p.n, 'schizzi_non_vincolati': p.non_vincolati}, **getattr(p, 'info', {}))
@@ -291,17 +461,19 @@ def _copia(root, nome, m):
     return o
 
 
-def verifica_dime(des, root, zampa):
-    """Ogni dima su una zampa atteggiata nella sua posa: interferenze con zampa e corpo (attese: nessuna) e distanza
-    dei tre denti dalle loro facce (attesa: zero, contatto)."""
+def verifica_dime(des, root, zampa, solo=None):
+    """Ogni dima (o quelle in `solo`) su una zampa atteggiata nella sua posa: interferenze con zampa e corpo (attese:
+    nessuna) e distanza dei tre denti dalle loro facce (attesa: zero, contatto)."""
     AS = runpy.run_path(os.path.join(QUI, 'assieme.py'))
     out = {}
     zo = AS['mappa_zampe'](des, root)[zampa]
     corpo = AS['_corpo'](root)
     fb = [o for o in zo.component.occurrences if o.component.name == 'Femore_B'][0]
-    copie = {n: _copia(root, n, adsk.core.Matrix3D.create()) for n in POSE}
+    nomi = list(solo or POSE)
+    copie = {n: _copia(root, n, adsk.core.Matrix3D.create()) for n in nomi}
     try:
-        for nome, (yaw, alfa, gamma) in POSE.items():
+        for nome in nomi:
+            yaw, alfa, gamma = POSE[nome]
             AS['posa_zampa'](des, zo, yaw, alfa, gamma)
             # terna della dima = terna della zampa come costruita portata con il femore: nativa^-1, poi proxy
             m = fb.transform2.copy()
@@ -360,6 +532,232 @@ def verifica_cavalletto(des, root):
     return out
 
 
+# ---------------------------------------------------------------- verifiche di bussola ed estrattore (corpi temporanei)
+def _terna(proxy):
+    """Matrice dalla terna della zampa come costruita al mondo per la parte annidata `proxy` (nativa^-1, poi proxy)."""
+    m = proxy.nativeObject.transform2.copy()
+    m.invert()
+    m.transformBy(proxy.transform2)
+    return m
+
+
+def _assi(xc, y, verso_y):
+    """Terna dell'attrezzo nella zampa: asse z dell'attrezzo lungo Y della zampa (verso_y +1 o -1), x lungo X, origine
+    sull'asse del giunto (xc, y, 0) in mm."""
+    m = adsk.core.Matrix3D.create()
+    m.setWithCoordinateSystem(P3(xc / 10, y / 10, 0), V3(1, 0, 0), V3(0, 0, -verso_y), V3(0, verso_y, 0))
+    return m
+
+
+def _sposta(m, dx=0.0, dz=0.0):
+    """m preceduta da uno spostamento (mm) lungo x e z dell'attrezzo."""
+    s = adsk.core.Matrix3D.create()
+    s.translation = V3(dx / 10, 0, dz / 10)
+    s.transformBy(m)
+    return s
+
+
+def _corpi_attrezzo(root, nome, m):
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    comp = [o for o in root.occurrences if o.component.name == nome][0].component
+    out = []
+    for b in comp.bRepBodies:
+        t = tbm.copy(b)
+        tbm.transform(t, m)
+        out.append((nome, t))
+    return out
+
+
+def _corpi_spostati(corpi, v_mondo):
+    """Copie temporanee di corpi del modello [(nome, corpo)] traslate di v_mondo (cm)."""
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    s = adsk.core.Matrix3D.create()
+    s.translation = v_mondo
+    out = []
+    for n, b in corpi:
+        t = tbm.copy(b)
+        tbm.transform(t, s)
+        out.append((n, t))
+    return out
+
+
+def _vol(mobili, fissi):
+    """Volume (mm3) delle intersezioni fra corpi temporanei e corpi (del modello o temporanei)."""
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    v = 0.0
+    for _, a in mobili:
+        for _, b in fissi:
+            c = tbm.copy(a)
+            if tbm.booleanOperation(c, tbm.copy(b), adsk.fusion.BooleanTypes.IntersectionBooleanType):
+                v += c.volume * 1000
+    return round(v, 3)
+
+
+def _gioco(fab, fissi, hi=2.0, it=10):
+    """Gioco per bisezione: fab(g) da' i corpi spostati di g; contatto al primo g con intersezione (caso di controllo)."""
+    if _vol(fab(0.0), fissi) > 1e-4:
+        return 0.0
+    if _vol(fab(hi), fissi) <= 1e-4:
+        return '>%g' % hi
+    lo = 0.0
+    for _ in range(it):
+        mid = (lo + hi) / 2
+        if _vol(fab(mid), fissi) > 1e-4:
+            hi = mid
+        else:
+            lo = mid
+    return round(lo, 3)
+
+
+def _parti_zampa(des, root, zampa):
+    """Proxy delle parti della zampa: per nome del componente e, per perni e cuscinetti (stesso componente), con i nomi
+    di zampa.py (ISTANZE) riconosciuti dalla X nella terna della zampa come costruita."""
+    AS = runpy.run_path(os.path.join(QUI, 'assieme.py'))
+    zo = AS['mappa_zampe'](des, root)[zampa]
+    lc, lk = _mm(des, 'zam_Lc'), _mm(des, 'zam_Lc + zam_Lf')
+    ruoli = {'Rif_Perno_5': {0.0: 'Perno_Coxa', lc: 'Perno_Femore', lk: 'Perno_Ginocchio'},
+             'Rif_Cuscinetto_LF1050ZZ': {lc: 'Cuscinetto_Femore', lk: 'Cuscinetto_Ginocchio'}}
+    out = {}
+    for o in zo.childOccurrences:
+        n = o.component.name
+        if n in ruoli:
+            x = o.nativeObject.transform2.translation.x * 10
+            for xr, nome in ruoli[n].items():
+                if abs(x - xr) < 0.5:
+                    out[nome] = o
+        else:
+            out[n] = o
+    return out
+
+
+def verifica_bussola(des, root, zampa):
+    """Bussola sotto i due mozzi del femore B della zampa, con i perni dove li mette il modello (sporgenza perno_sporge).
+    Attesi: nessuna intersezione; la bussola tocca il mozzo (0,05 piu' in su interseca il femore B) e il perno tocca il
+    fondo (0,05 piu' in giu' interseca la bussola); rialzo libero nella tasca."""
+    po = _parti_zampa(des, root, zampa)
+    fb = po['Femore_B']
+    m_f = _terna(fb)
+    alto = _mm(des, 'att_bus_fondo + att_bus_prof')
+    yi = _mm(des, 'zy_B_int')
+    out = {}
+    for giunto, xc, perno in (('anca', _mm(des, 'zam_Lc'), 'Perno_Femore'), ('ginocchio', _mm(des, 'zam_Lc + zam_Lf'), 'Perno_Ginocchio')):
+        m0 = _assi(xc, yi + alto, -1)                     # z della bussola verso -Y: la faccia in alto sta a zy_B_int
+        def bus(dz=0.0):
+            return _corpi_attrezzo(root, 'Attrezzo_Bussola_Perno', _mondo(_sposta(m0, dz=dz), m_f))
+        fem = [('Femore_B', b) for b in fb.bRepBodies]
+        pe = [(perno, b) for b in po[perno].bRepBodies]
+        # direzione +Y della zampa nel mondo (verso il fondo del foro della bussola)
+        vy = _dir_mondo(m_f, 0, 1, 0)
+        r = {'bussola_femore_mm3': _vol(bus(), fem), 'bussola_perno_mm3': _vol(bus(), pe),
+             'controllo_bussola_su_0.05_mm3': _vol(bus(0.05), fem),
+             'controllo_perno_giu_0.05_mm3': _vol(_corpi_spostati(pe, _scala(vy, 0.005)), bus()),
+             'gioco_perno_fondo_mm': _gioco(lambda g: _corpi_spostati(pe, _scala(vy, g / 10)), bus(), hi=1.0),
+             'gioco_bussola_mozzo_mm': _gioco(lambda g: bus(g), fem, hi=1.0)}
+        # sporgenza del perno fuori dalla faccia esterna con il perno sul fondo: perno_sporge meno il gioco
+        g = r['gioco_perno_fondo_mm']
+        r['sporgenza_mm'] = round(_mm(des, 'perno_sporge') - (g if isinstance(g, float) else 99), 3)
+        # tasca del rialzo: la bussola alzata fino a toccare il rialzo (se non tocca prima il mozzo) non deve servire:
+        # il rialzo da solo dista dal fondo della tasca
+        rialzo = _tmp_cil_y(m_f, xc, yi, yi + _mm(des, 'cus_rialzo_h'), _mm(des, 'cus_rialzo_d'))
+        r['gioco_tasca_rialzo_mm'] = _gioco(lambda gg: _corpi_spostati(rialzo, _scala(vy, gg / 10)), bus(), hi=1.0)
+        out[giunto] = r
+    return out
+
+
+def _mondo(m_att, m_zampa):
+    m = m_att.copy()
+    m.transformBy(m_zampa)
+    return m
+
+
+def _dir_mondo(m, x, y, z):
+    v = V3(x, y, z)
+    v.transformBy(m)
+    v.normalize()
+    return v
+
+
+def _scala(v, k):
+    """Vettore v (unitario) per k cm."""
+    return V3(v.x * k, v.y * k, v.z * k)
+
+
+def _tmp_cil_y(m_zampa, xc, y0, y1, d):
+    """Cilindro temporaneo lungo Y della zampa (mm) portato nel mondo."""
+    tbm = adsk.fusion.TemporaryBRepManager.get()
+    c = tbm.createCylinderOrCone(P3(xc / 10, y0 / 10, 0), d / 20, P3(xc / 10, y1 / 10, 0), d / 20)
+    tbm.transform(c, m_zampa)
+    return [('rialzo', c)]
+
+
+def verifica_estrattore(des, root, zampa):
+    """Estrattore sulla culla della coxa (cuscinetto del femore) e della tibia (cuscinetto del ginocchio), e sul perno
+    del femore B. Attesi: asta e tubo senza intersezioni; l'asta tocca l'anello interno (0,05 piu' avanti interseca,
+    area di contatto = corona fra cus_d e att_estr_d); gioco della spalla nel foro cus_passo_d >= 0,2; tubo che tocca il
+    mozzo della culla e lontano dalla flangia; a fine corsa (gambo sul fondo della culla) il cuscinetto e' tutto fuori,
+    dentro il tubo. Per il perno: punta sul perno, a fine corsa (spalla sul rialzo) il perno e' fuori dal mozzo, nel tubo."""
+    po = _parti_zampa(des, root, zampa)
+    out = {}
+    yfe, sede = _mm(des, 'zy_fondo_est'), _mm(des, 'cus_sede_prof')
+    yb = yfe + sede                                       # faccia del cuscinetto verso la sede del servo
+    pl, sl = _mm(des, 'att_estr_pilota_l'), _mm(des, 'att_estr_spalla_l')
+    corsa = (yb + sl) - _mm(des, 'zy_fondo_int')         # il gambo si ferma sul fondo interno della culla
+    corona = math.pi / 4 * (_mm(des, 'att_estr_d') ** 2 - _mm(des, 'cus_d') ** 2)
+    for nome, parte, cus, xc in (('coxa', 'Coxa', 'Cuscinetto_Femore', _mm(des, 'zam_Lc')),
+                                 ('tibia', 'Tibia', 'Cuscinetto_Ginocchio', _mm(des, 'zam_Lc + zam_Lf'))):
+        m_p = _terna(po[parte])
+        culla = [(parte, b) for b in po[parte].bRepBodies]
+        cu = [(cus, b) for b in po[cus].bRepBodies]
+        ma = _assi(xc, yb - pl, 1)                        # asta: z verso +Y, la spalla sulla faccia del cuscinetto
+        mt = _assi(xc, yfe, -1)                           # tubo: z verso -Y, appoggiato sulla faccia esterna del fondo
+        def asta(dz=0.0, dx=0.0):
+            return _corpi_attrezzo(root, 'Attrezzo_Estrattore_Asta', _mondo(_sposta(ma, dx=dx, dz=dz), m_p))
+        def tubo(dz=0.0, dx=0.0):
+            return _corpi_attrezzo(root, 'Attrezzo_Estrattore_Tubo', _mondo(_sposta(mt, dx=dx, dz=dz), m_p))
+        vy = _dir_mondo(m_p, 0, 1, 0)
+        c_avanti = _vol(asta(-0.05), cu)
+        r = {'asta_culla_mm3': _vol(asta(), culla), 'asta_cuscinetto_mm3': _vol(asta(), cu),
+             'controllo_asta_avanti_0.05_mm3': c_avanti,
+             'area_contatto_mm2': round(c_avanti / 0.05, 2), 'corona_anello_interno_mm2': round(corona, 2),
+             'gioco_spalla_foro_mm': _gioco(lambda g: asta(dx=g), culla, hi=1.5),
+             'gioco_punta_cuscinetto_mm': _gioco(lambda g: asta(dx=g), cu, hi=1.5),
+             'tubo_culla_mm3': _vol(tubo(), culla), 'tubo_cuscinetto_mm3': _vol(tubo(), cu),
+             'controllo_tubo_su_0.05_mm3': _vol(tubo(-0.05), culla),
+             'gioco_tubo_flangia_mm': _gioco(lambda g: tubo(dx=g), cu, hi=1.5),
+             'corsa_mm': round(corsa, 3)}
+        fuori = _corpi_spostati(cu, _scala(vy, -corsa / 10))
+        r['fine_corsa'] = {'asta_culla_mm3': _vol(asta(-corsa), culla),
+                           'controllo_asta_oltre_0.05_mm3': _vol(asta(-corsa - 0.05), culla),
+                           'cuscinetto_culla_mm3': _vol(fuori, culla), 'cuscinetto_tubo_mm3': _vol(fuori, tubo()),
+                           'asta_tubo_mm3': _vol(asta(-corsa), tubo())}
+        out[nome] = r
+    # perno del femore B spinto fuori dal lato del rialzo verso il tubo appoggiato alla faccia esterna
+    fb = po['Femore_B']
+    m_f = _terna(fb)
+    fem = [('Femore_B', b) for b in fb.bRepBodies]
+    ype = _mm(des, 'zy_B_est - perno_sporge + perno_l')   # punta lunga del perno
+    corsa_p = (ype + pl) - _mm(des, 'zy_B_int + cus_rialzo_h')   # la spalla si ferma sul rialzo
+    vy = _dir_mondo(m_f, 0, 1, 0)
+    for giunto, xc, perno in (('perno_anca', _mm(des, 'zam_Lc'), 'Perno_Femore'),):
+        pe = [(perno, b) for b in po[perno].bRepBodies]
+        ma = _assi(xc, ype, 1)
+        mt = _assi(xc, _mm(des, 'zy_B_est'), -1)
+        def asta(dz=0.0):
+            return _corpi_attrezzo(root, 'Attrezzo_Estrattore_Asta', _mondo(_sposta(ma, dz=dz), m_f))
+        def tubo(dz=0.0):
+            return _corpi_attrezzo(root, 'Attrezzo_Estrattore_Tubo', _mondo(_sposta(mt, dz=dz), m_f))
+        fuori = _corpi_spostati(pe, _scala(vy, -corsa_p / 10))
+        out[giunto] = {'asta_perno_mm3': _vol(asta(), pe), 'controllo_asta_avanti_0.05_mm3': _vol(asta(-0.05), pe),
+                       'tubo_femore_mm3': _vol(tubo(), fem), 'controllo_tubo_su_0.05_mm3': _vol(tubo(-0.05), fem),
+                       'corsa_mm': round(corsa_p, 3),
+                       'fine_corsa': {'asta_femore_mm3': _vol(asta(-corsa_p), fem),
+                                      'controllo_asta_oltre_0.05_mm3': _vol(asta(-corsa_p - 0.05), fem),
+                                      'perno_femore_mm3': _vol(fuori, fem), 'perno_tubo_mm3': _vol(fuori, tubo()),
+                                      # perno e foro hanno lo stesso diametro: il gioco si calcola, non si misura
+                                      'perno_oltre_la_faccia_mm': round(_mm(des, 'zy_B_est') - (ype - corsa_p), 3)}}
+    return out
+
+
 def main(passi, **kw):
     out = {'passi': passi}
     try:
@@ -370,7 +768,8 @@ def main(passi, **kw):
         if 'parametri' in passi:
             out['parametri'] = L['aggiungi_parametri'](des, PARAMETRI)
         if 'dime' in passi:
-            for nome in POSE:
+            # solo=[...] rifa' solo quelle dime: rifarne una cancella e ricrea il componente (D-066)
+            for nome in kw.get('solo', list(POSE)):
                 t0 = des.timeline.count
                 occ, p = fai_dima(des, root, nome)
                 occ.isLightBulbOn = False
@@ -392,8 +791,29 @@ def main(passi, **kw):
             base.isLightBulbOn = lama.isLightBulbOn = False
             out['provino_tasche'] = {'base': dict(pb.info), 'lama': dict(pl.info)}
             L['raggruppa'](des, t0, 'Attrezzo_Provino_Tasche')
+        if 'provino_inserti' in passi:
+            t0 = des.timeline.count
+            occ, p = fai_provino_inserti(des, root)
+            occ.isLightBulbOn = False
+            out['provino_inserti'] = _chiudi(des, t0, 'Attrezzo_Provino_Inserti', p)
+        if 'bussola' in passi:
+            t0 = des.timeline.count
+            occ, p = fai_bussola_perno(des, root)
+            occ.isLightBulbOn = False
+            out['bussola'] = _chiudi(des, t0, 'Attrezzo_Bussola_Perno', p)
+        if 'estrattore' in passi:
+            t0 = des.timeline.count
+            asta, pa, tubo, pt = fai_estrattore(des, root)
+            asta.isLightBulbOn = tubo.isLightBulbOn = False
+            out['estrattore'] = {'asta': dict({'lavorazioni': pa.n, 'schizzi_non_vincolati': pa.non_vincolati}, **pa.info),
+                                 'tubo': dict({'lavorazioni': pt.n, 'schizzi_non_vincolati': pt.non_vincolati}, **pt.info)}
+            L['raggruppa'](des, t0, 'Attrezzo_Estrattore')
         if 'verifica_dime' in passi:
-            out['verifica_dime'] = verifica_dime(des, root, kw.get('zampa', 'AS'))
+            out['verifica_dime'] = verifica_dime(des, root, kw.get('zampa', 'AS'), kw.get('solo'))
+        if 'verifica_bussola' in passi:
+            out['verifica_bussola'] = verifica_bussola(des, root, kw.get('zampa', 'AS'))
+        if 'verifica_estrattore' in passi:
+            out['verifica_estrattore'] = verifica_estrattore(des, root, kw.get('zampa', 'AS'))
         if 'verifica_cavalletto' in passi:
             out['verifica_cavalletto'] = verifica_cavalletto(des, root)
     except Exception:

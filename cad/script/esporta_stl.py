@@ -21,7 +21,8 @@ PARTI = ('Coxa', 'Coxa_Ponte', 'Femore_A', 'Femore_B', 'Tibia', 'Cover_Femore_A'
          'Corpo_Piastrina_IMU', 'Corpo_Lunette_Microfoni')
 # attrezzi da banco (attrezzi.py): in cad/stl/attrezzi/
 ATTREZZI = ('Dima_Posa_1', 'Dima_Posa_2', 'Attrezzo_Cavalletto', 'Attrezzo_Provino_Luce_Nero', 'Attrezzo_Provino_Luce_Bianco',
-            'Attrezzo_Provino_Tasche_Base', 'Attrezzo_Provino_Tasche_Lama')
+            'Attrezzo_Provino_Tasche_Base', 'Attrezzo_Provino_Tasche_Lama', 'Dima_Calettamento', 'Attrezzo_Provino_Inserti',
+            'Attrezzo_Bussola_Perno', 'Attrezzo_Estrattore_Asta', 'Attrezzo_Estrattore_Tubo')
 # provino 6 (D-064, P-016): il piedino con tre strette, in cad/stl/attrezzi/Piedino_stretta_<mm>.stl; Piedino.stl resta
 # quello del valore del modello
 STRETTE_PIEDINO = ('0', '0.2', '0.4')

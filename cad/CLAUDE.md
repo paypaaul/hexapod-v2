@@ -172,3 +172,9 @@ Verificato l'8 ottobre 2026 sul design "Hexapod v2 - MG996R":
 - **Precisione dei volumi**: `BRepBody.volume` sbaglia di 1-2 mm³ su 12 cm³ (lamatura: 14,77 contro 13,06). Per le differenze piccole usare la differenza booleana fra il corpo prima e dopo (`markerPosition` indietro, `TemporaryBRepManager.copy`, `moveToEnd`) o `getPhysicalProperties(VeryHighCalculationAccuracy)`.
 - `measureManager.measureMinimumDistance` sulle facce di un componente annidato vuole i proxy (`createForAssemblyContext`), altrimenti "invalid argument geometryOne".
 - Uno spessore di compenetrazione si misura con una sonda 1 × 1 mm intersecata con l'intersezione dei due corpi: il volume in mm³ è lo spessore.
+
+## Lezioni del 16 ottobre 2026 (versione 2.1.7, blocco attrezzi)
+
+- **Scritte incise** (`attrezzi.py` → `_incidi`): `sketchTexts.createInput2` con `setAsMultiLine`, poi la scritta stessa come profilo di `extrudeFeatures.createInput`, con `participantBodies`. Il riquadro nasce libero ma rettangolo: basta un vincolo orizzontale su un lato (il secondo dà "schizzo ipervincolato") e due angoli quotati dall'origine. Anche così `sketch.isFullyConstrained` resta falso: si controllano i lati del riquadro (`rectangleLines`).
+- **Undo di uno script intero**: uno script che finisce (anche con l'errore preso in `main`) è una sola transazione; `fusion_mcp_update` → `undo` lo toglie tutto, parametri compresi, e il nome del componente non resta riservato. Rileggere la sentinella dopo.
+- **Verifiche di attrezzi su una zampa** (`verifica_bussola`, `verifica_estrattore`): i corpi dell'attrezzo si copiano dal componente di libreria e si portano nel mondo con terna dell'attrezzo → terna della zampa → `nativa⁻¹ · proxy` della parte (`_terna`). Perni e cuscinetti sono istanze dello stesso componente: si riconoscono dalla X nativa (`_parti_zampa`). Un perno nel suo foro dello stesso diametro non dà intersezione: quel gioco si calcola.
