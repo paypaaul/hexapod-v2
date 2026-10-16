@@ -74,3 +74,10 @@ Attrezzo_Provino_Tasche_Base:  {nome: "Provino delle tasche, base", bom: E1}
 Attrezzo_Provino_Tasche_Lama:  {nome: "Provino delle tasche, lama", bom: E2}
 Dima_Posa_1:                   {nome: Dima di posa 1, bom: E1}
 Dima_Posa_2:                   {nome: Dima di posa 2, bom: E1}
+# 2.1.7 (D-077): dima del calettamento (P-015), provino degli inserti (P-057), bussola ed estrattore (P-065)
+Dima_Calettamento:             {nome: Dima del calettamento, bom: E1}
+Attrezzo_Provino_Inserti:      {nome: Provino degli inserti, bom: E1}
+Attrezzo_Bussola_Perno:        {nome: Bussola del perno, bom: E1}
+Attrezzo_Estrattore_Asta:      {nome: "Estrattore, asta", bom: E1}
+Attrezzo_Estrattore_Tubo:      {nome: "Estrattore, tubo d'appoggio", bom: E1}
+# Ingombro_Teste_A non e' un pezzo: volume delle teste del lato A, solo per il controllo teste_a (fuori dalle scene)

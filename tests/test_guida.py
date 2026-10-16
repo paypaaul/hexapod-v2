@@ -152,3 +152,21 @@ def test_viti_spina_verso_il_ponte(dati):
     for v in F.piazza(dati, 'squadretta_coxa_spine', g, presenti, 'zampa'):
         assert v['asse'][2] < -0.99
         assert zp[0] <= v['testa'][2] <= zp[1]
+
+
+def test_viti_svasate_in_cima_al_cono(dati):
+    """Le viti svasate (ISO 10642, lunghezza totale) hanno l'origine sulla faccia alta della testa, come in rendi.py
+    mesh_vite: la testa sta in cima al cono, non sul suo fondo dove finisce il cilindro del foro.
+    Vassoio, a mano (fori.json): cilindro del foro del vassoio Ø2,4 da z 1,0 a 1,7 con il cono sopra; foro dell'inserto
+    della base da z 1,0 (ingresso) a -3,0 (fondo); M2 x 5 svasata con testa Ø4,0.
+    Cono a 90°: (4,0 - 2,4) / 2 = 0,8 mm, testa a z 1,7 + 0,8 = 2,5. Presa 5 - (2,5 - 1,0) = 3,5 mm; fondo libero
+    (2,5 - (-3,0)) - 5 = 0,5 mm. Prima della correzione: testa a 1,7, presa 4,3, fondo libero -0,3 (vite nel fondo)."""
+    from guida.lib import fori as F
+    presenti = C._presenti(dati, 'corpo')
+    viti = F.piazza(dati, 'vassoio', dati.giunzioni['corpo']['vassoio'], presenti, 'robot')
+    assert len(viti) == 4
+    for v in viti:
+        assert v['asse'][2] < -0.99
+        assert v['testa'][2] == pytest.approx(2.5, abs=0.01)
+        assert v['presa'] == pytest.approx(3.5, abs=0.01)
+        assert v['fondo_libero'] == pytest.approx(0.5, abs=0.01)

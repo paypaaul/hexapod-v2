@@ -1,7 +1,7 @@
 """Fori e viti: classificazione dei fori esportati dal CAD e piazzamento delle viti di una giunzione (D-075).
 
 Una vite sta sull'asse di un foro di presa (punta: inserto, pilota, filettato). La testa va sul foro coassiale piu'
-lontano dal fondo della punta fra i pezzi presenti (testa), oppure sulla faccia lontana di un pezzo comprato senza
+lontano dal fondo della punta fra i pezzi presenti (testa; per le viti svasate in cima al cono), oppure sulla faccia lontana di un pezzo comprato senza
 fori modellati (sopra), oppure resta sull'ingresso della punta (sulla_punta).
 """
 import fnmatch
@@ -111,7 +111,12 @@ def piazza(dati, nome_g, g, presenti, terna='zampa', istanza='AS'):
                 d0, d1 = geom.norma(geom.sub(p['p0'], c)), geom.norma(geom.sub(p['p1'], c))
                 fondo, ingresso = (p['p1'], p['p0']) if d0 < d1 else (p['p0'], p['p1'])
             asse = geom.unit(geom.sub(fondo, ingresso))
-            testa = min((vic['p0'], vic['p1']), key=lambda e: geom.dot(geom.sub(e, fondo), asse))
+            e_testa = min(('p0', 'p1'), key=lambda e: geom.dot(geom.sub(vic[e], fondo), asse))
+            testa = vic[e_testa]
+            if v['testa'] == 'svasata' and vic['e' + e_testa[1]] == 'svasato':
+                # il cilindro del foro finisce sul fondo del cono; la testa svasata (ISO 10642, 90°) ha l'origine sulla
+                # faccia alta, come in rendi.py mesh_vite: sta in cima al cono, (testa_d - d del foro) / 2 piu' su
+                testa = geom.add(testa, geom.scala(asse, -(v['testa_d'] - vic['d']) / 2))
             chiave_testa = vic['chiave']
             vicino = max((vic['p0'], vic['p1']), key=lambda e: geom.dot(geom.sub(e, fondo), asse))
         else:
