@@ -87,6 +87,7 @@ Numeri di oggi:
 | `cad/render/` | render schematici con matplotlib (`render.py`) e ritaglio dei render di Fusion |
 | `guida/` | guida di montaggio illustrata (D-075, piano in `docs/piano-guida.md`): passi in YAML, catalogo, immagini con Blender, PDF con Chrome; output in `build/guida/` |
 | `docs/decisioni.md` | registro delle decisioni (D-041 e successive) |
+| `docs/backlog.md` | lavori decisi o studiati ma non ancora in una versione |
 | `docs/versioni.md`, `docs/piano-v2.1.0.md` | storico delle versioni e piani dalla 2.1.0 alla 2.1.6 |
 | `docs/progetto-meccanico.md` | architettura, quote, verifiche, masse e render |
 | `docs/BOM.md` | distinta base con prezzi, carrelli, foto e domande aperte |
@@ -171,9 +172,4 @@ Numeri di oggi:
 6. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
 7. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 
-**Backlog**:
-- **Pettini dei cavi dei servo** (opzione 1 dell'utente): pezzi separati, a incastro o con una vite, sulla parete del tunnel sopra i Wago.
-  - Una fessura per cavo, il nome della zampa inciso, le anse del cavo in più fra un pettine e l'altro.
-  - Si disegnano dopo il montaggio di una zampa, con le lunghezze misurate; non vanno nella base.
-- **Ordini già fatti**: letti l'11 ottobre 2026 (Amazon, AliExpress, Temu), BOM aggiornato in D-073.
-- **Predisposizioni in backlog** (X15, X18, X21, X22, X25–X30, X32, X33): `docs/predisposizioni.md`.
+**Backlog**: `docs/backlog.md` (PCB al posto delle millefori, studio fatto il 16 ottobre 2026; pettini dei cavi dei servo; predisposizioni in attesa).
