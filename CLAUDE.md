@@ -169,9 +169,7 @@ Numeri di oggi:
    - inserti del kit Temu con `Attrezzo_Provino_Inserti` (M3 Ø3,9…4,2, M2 Ø2,9…3,4, in PETG-CF). Poi `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` in `rif_componenti.py` e verifica completa, perché `ins_m3_d` muove anche le bugne delle culle.
    - piedino con le tre strette (0 / 0,2 / 0,4): il valore scelto va in `pied_stretta`.
    - Dopo i provini: nervature di schiacciamento delle culle.
-5. **Guida di montaggio** (D-075): in corso secondo `docs/piano-guida.md`, con quattro arresti per l'utente.
-   Fatte F2 (arresto 1 approvato), F3, F3b (schemi, `guida/schemi/`), F3c, F5 con l'arresto 2 (registro `guida/problemi.md`, D-076) e il CAD della 2.1.7 (D-077).
-   Prossimi: i testi della guida dopo la 2.1.7 e le proposte della 2.1.8 (tre minori, P-139…P-141), elenco in `docs/piano-v2.1.0.md` ("Seguito: versione 2.1.8"); poi F4 e F8, da dimensionare con l'utente. Per ripartire: `docs/piano-guida.md`, "Stato e ripresa".
+5. **Guida di montaggio** (D-075): bozza avanzata allineata alla 2.1.7, aggiornata a ogni versione; la passata finale (immagini, verifica avversaria, release) a progetto stabile. Prossimi passi e decisione del 17 ottobre in `docs/piano-guida.md` (in fondo): ritocchi piccoli, poi il piano del PCB.
 6. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
 7. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 

@@ -241,3 +241,17 @@ immagini della guida allineati alla 2.1.7 (311 pagine, 25,7 MB, controlli verdi)
 5. F7: immagini finali, copertina, difetti dell'impaginatore aperti (sopra), foglio di miniature, arresto 3;
 6. F4 + F8 insieme sulla guida corretta: verifica avversaria (ordine e accessi, sicurezza, coerenza, conteggi, lettore principiante), correzioni, arresto 4;
 7. tag `guida-<versione>` e release su GitHub con il PDF.
+
+**17 ottobre 2026, decisione dell'utente** (sostituisce l'ordine qui sopra):
+- La guida resta una bozza avanzata: si aggiorna a ogni versione del CAD o quando cambia qualcosa di grosso. F7 (immagini finali), arresto 3, verifica avversaria (F4 + F8), arresto 4 e release si fanno solo a progetto stabile.
+- La scheda del carapace non si ridisegna su millefori: si aspetta il PCB.
+- Ordine:
+  1. ritocchi piccoli della guida (non fatti: l'agente e' stato fermato prima di toccare file):
+     - glossario: bussola ed estrattore, "dima di posa";
+     - attrezzi nuovi della 2.1.7 in `guida/catalogo/attrezzi.yaml`;
+     - zone del ritegno dell'altoparlante e dei fori del ToF posteriore (`zone.yaml`, esportazione `zone`, passi 13.11-13.13);
+     - 14.08 con la massa 3046,2 g;
+     - stato della voce S-19 della basetta in `guida/problemi/banco.yaml`;
+  2. piano del PCB, da preparare e far approvare prima di partire (studio in `docs/ricerca/pcb/`, voce in `docs/backlog.md`, schemi in `guida/schemi/`);
+  3. poi lo sviluppo del progetto (2.1.8 quando ci sono i dati, provini, S1).
+- Domanda ancora aperta: tester dei servo alimentato con pile AA o powerbank (passo 9.08).
