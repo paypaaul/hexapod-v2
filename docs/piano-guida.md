@@ -231,3 +231,13 @@ fatto: 138 voci da 207 problemi) e l'**arresto 2**; poi le correzioni (2.1.7, do
 - Passi con figura e tabella insieme: la colonna e' stretta.
 - Gli attrezzi non seguono la posa della zampa (dima 2 sul femore).
 - Le giunzioni M2 delle predisposizioni (ADC, INA260, scheda del carapace, ampli) non si possono disegnare finche' le schede nel CAD sono blocchi senza fori.
+
+**17 ottobre 2026, stato**: arresto 2 chiuso (D-076), versione 2.1.7 del CAD chiusa (D-077, tag `v2.1.7`), testi e
+immagini della guida allineati alla 2.1.7 (311 pagine, 25,7 MB, controlli verdi). Ordine dei prossimi passi:
+1. due risposte dell'utente: scheda del carapace (millefori 2.1.7 o attesa del PCB), alimentazione del tester dei servo (pile AA o powerbank);
+2. ritocchi piccoli: glossario (bussola, estrattore), attrezzi nuovi nel catalogo, zone del ritegno dell'altoparlante e dei fori del ToF posteriore, 14.08 con la massa nuova, zone S-19 nel disegno della basetta;
+3. disegno della scheda del carapace 2.1.7 (se si resta sulla millefori), con verifica elettrica;
+4. 2.1.8 (P-139, P-140, P-141) quando ci sono il portafusibile vero (Q-23) e il disegno delle prese (P-012);
+5. F7: immagini finali, copertina, difetti dell'impaginatore aperti (sopra), foglio di miniature, arresto 3;
+6. F4 + F8 insieme sulla guida corretta: verifica avversaria (ordine e accessi, sicurezza, coerenza, conteggi, lettore principiante), correzioni, arresto 4;
+7. tag `guida-<versione>` e release su GitHub con il PDF.
