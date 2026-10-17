@@ -25,7 +25,7 @@ Fatto e verificato sul Mac. I dettagli e le prove stanno in `firmware/README.md`
 - **CI su GitHub** (`ci.yml`, `sim.yml`): ruff e pytest, nucleo con gcc e clang e i sanitizer, firmware, file generati, simulazione, app.
 
 Aperti:
-- **Coppia agli assetti bassi.** A 70/70 il ciclo a tripode porta il femore al 75 % dello stallo: è sopra la soglia di rifiuto proposta (70 %), quindi la guardia lo rifiuta. In MuJoCo arriva all'81 %. Nel CAD l'assetto 70/70 è libero da urti, ma per andarci servono un'andatura con più piedi a terra (a coppie o a onda) o una soglia diversa: decide l'utente quando si sceglie l'assetto, a robot costruito.
+- **Coppia agli assetti bassi.** A 70/70 il ciclo a tripode porta il femore al 78 % dello stallo (75 % con 2945 g): è sopra la soglia di rifiuto proposta (70 %), quindi la guardia lo rifiuta. In MuJoCo arriva all'81 %. Nel CAD l'assetto 70/70 è libero da urti, ma per andarci servono un'andatura con più piedi a terra (a coppie o a onda) o una soglia diversa: decide l'utente quando si sceglie l'assetto, a robot costruito.
 - **Contatti in MuJoCo.** La rigidezza dei contatti (0,005 s) è una stima: con il valore standard il femore sale all'83 % e la prova non passa. Va tarata sui registri del robot (S4).
 - **Atterraggio del piede.** Con il volo di `pose_tripode` il piede tocca terra a 240 mm/s e striscia di 2–3 mm. Il generatore del firmware userà una curva che arriva a velocità zero.
 - **Nel CI** il job del firmware dipende dall'immagine Docker di Espressif: i primi giri sono falliti per i limiti di Docker Hub, non per la compilazione. Ora l'immagine si scarica con tre tentativi.
@@ -40,7 +40,7 @@ Legenda: **V** dato da fonte primaria indicata dai ricercatori (non riletta in q
 - **Firmware** in C++ su ESP-IDF. Ciclo fisso a 50 Hz sul core 1, uguale al periodo degli impulsi della SSC-32. Ogni comando, da qualunque sorgente, passa da **una guardia unica** che applica i limiti verificati nel CAD.
 - **Dall'esterno arrivano solo comandi che scadono** (velocità, assetto, andatura). Gli angoli dei giunti non viaggiano in Wi-Fi, salvo nel modo laboratorio.
 - **Una sola descrizione del robot** esportata dal CAD genera l'header del firmware, le costanti di `calc/` e i modelli URDF e MJCF. Oggi le stesse costanti stanno in quattro posti e già divergono.
-- **Locomozione**: oscillatori di fase con andatura **a coppie** di base (giunto più caricato al 41 % dello stallo a 100/45), tripode per andare veloci, a onda per gli assetti bassi. Poi una **politica appresa che modula l'andatura** (PMTG), addestrata in MuJoCo sul Mac ed **eseguita sull'ESP32**.
+- **Locomozione**: oscillatori di fase con andatura **a coppie** di base (giunto più caricato al 42 % dello stallo a 100/45), tripode per andare veloci, a onda per gli assetti bassi. Poi una **politica appresa che modula l'andatura** (PMTG), addestrata in MuJoCo sul Mac ed **eseguita sull'ESP32**.
 - **Visione**: a bordo persone, volti e AprilTag (persone a 3–5 fps con lo streaming, al massimo 6,8; da misurare); fuori bordo YOLO, profondità monoculare, localizzazione e Nav2; sopra, un agente LLM che usa il robot attraverso un server MCP con abilità limitate.
 - **Niente da comprare adesso.** Da predisporre nel CAD: dime di taratura, cavalletto da banco, sedi di IMU e ToF (quelle di `predisposizioni.md`), vano del computer di bordo (posto da trovare); la guida di luce del LED solo se non si fa la catena LED.
 - **Primo passo, senza hardware** (fase S0): descrizione unica del robot, nucleo C++ provato contro `calc/` e contro le pose del CAD, gemello nel browser e in MuJoCo, integrazione continua.
@@ -402,16 +402,16 @@ micro-ROS sull'ESP32 resta un'opzione futura: servirebbe comunque l'agente sul P
 - Assetti come preimpostazioni modificabili a caldo: 130/25, 110/40, 100/45, 80/60, 70/70 (altezza dell'asse dei femori / distanza del piede, in mm). L'assetto definitivo si sceglie a robot costruito (D-039).
 - Frequenza, ampiezza e sfasamenti sono parametri esposti: è lì che agirà la politica appresa.
 
-Coppia massima tra femore e ginocchio in % dello stallo, con 2945 g (*calcolo*: `calc/andature.py` riporta il massimo dei due giunti; femore e ginocchio separati, 100/45 e 80/60 rifatti oggi con le sue funzioni):
+Coppia massima tra femore e ginocchio in % dello stallo, con 3046,2 g, la massa attesa della 2.1.7 (*calcolo*: `calc/andature.py` riporta il massimo dei due giunti; femore e ginocchio separati con le sue funzioni, rifatti il 17 ottobre 2026; con 2945 g ogni valore era più basso di 1–3 punti):
 
 | Assetto | Tripode | A coppie | A onda | Giunto più caricato |
 |---|---|---|---|---|
-| 130/25 | 58 | 51 | 52 | ginocchio (femore 32 / 28 / 30) |
-| 110/40 | 51 | 44 | 45 | ginocchio (femore 47 / 37 / 40) |
-| 100/45 | 51 | **41** | 43 | femore (ginocchio 47 / 41 / 42) |
-| 90/55 | 61 | 48 | 50 | femore |
-| 80/60 | 66 | 52 | 54 | femore |
-| 70/70 | 75 | 59 | 62 | femore |
+| 130/25 | 60 | 53 | 53 | ginocchio (femore 33 / 29 / 31) |
+| 110/40 | 53 | 46 | 47 | ginocchio (femore 48 / 38 / 41) |
+| 100/45 | 53 | **42** | 45 | femore (ginocchio 49 / 42 / 43) |
+| 90/55 | 63 | 50 | 52 | femore |
+| 80/60 | 68 | 53 | 56 | femore |
+| 70/70 | 78 | 61 | 64 | femore |
 
 Quindi: **andatura a coppie di base**, al meglio a 100/45; tripode per andare veloci, a 100/45 e 110/40; a onda per gli assetti bassi e i terreni difficili. Il firmware passa da solo a un'andatura con più piedi a terra quando l'assetto si abbassa o la batteria cala.
 

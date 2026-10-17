@@ -290,9 +290,10 @@ def _sulla_faccia(fa, pt):
 
 
 def _lavorazioni_facce(comp):
-    """[(faccia, lavorazione, origine)] delle facce create da estrusioni e specchi. Una copia specchiata prende il nome
-    della lavorazione d'origine: un punto della copia, riflesso sul piano dello specchio, cade sulla faccia d'origine
-    (anche per gli specchi di specchi, nell'ordine in cui sono fatti). Se non la trova resta il nome dello specchio."""
+    """[(faccia, lavorazione, origine)] delle facce create da estrusioni, rivoluzioni (i fori inclinati di
+    `Parte.foro_obl`, 2.1.7) e specchi. Una copia specchiata prende il nome della lavorazione d'origine: un punto della
+    copia, riflesso sul piano dello specchio, cade sulla faccia d'origine (anche per gli specchi di specchi, nell'ordine
+    in cui sono fatti). Se non la trova resta il nome dello specchio."""
     out, fonti = [], []
     for f in comp.features.extrudeFeatures:
         if f.isSuppressed:
@@ -300,6 +301,12 @@ def _lavorazioni_facce(comp):
         for fa in f.faces:
             fonti.append((fa, f.name))
             out.append((fa, f.name, 'estrusione'))
+    for f in comp.features.revolveFeatures:
+        if f.isSuppressed:
+            continue
+        for fa in f.faces:
+            fonti.append((fa, f.name))
+            out.append((fa, f.name, 'rivoluzione'))
     for f in comp.features.mirrorFeatures:
         if f.isSuppressed:
             continue

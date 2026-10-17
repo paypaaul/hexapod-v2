@@ -13,7 +13,7 @@ Corpo_Base: ["pilota_*", "ins_coda_*", "finestra_ang", "finestra_med", "fessura_
 Corpo_Vassoio: [asola_bus, sede_tof, mensola, torretta]
 Corpo_Slitta_Regolatore: [piastra, "ins_*"]
 Corpo_Sportello: ["rebbio_*", linguetta]
-Corpo_Carapace: ["luce_lobo_*", "gancio_lobo_*", "labbro_lobo_*", "gancio_cavo_*", "collare_*", finestra_cicalino, "bugna_sch_*", "bugna_amp_*", "guida_altoparlante_*", fermo_altoparlante, piano_tof_posteriore, "mic_foro_*", "mic_anello_*", "mic_sede_*", battuta, tacca]
+Corpo_Carapace: ["luce_lobo_*", "gancio_lobo_*", "labbro_lobo_*", "gancio_cavo_*", "collare_*", finestra_cicalino, "bugna_sch_*", "bugna_amp_*", "guida_altoparlante_*", fermo_altoparlante, "ritegno_altoparlante_*", piano_tof_posteriore, "foro_tof_posteriore_*", "mic_foro_*", "mic_anello_*", "mic_sede_*", battuta, tacca]
 Corpo_Fascia: [camera_nera, camera_nera_tacca, "foro_pulsante*"]
 Corpo_Fondo_Anello: ["sede_pixel_*"]
 Rif_SSC32_V25: ["corpo:micro_usb", "corpo:morsettiera", "corpo:header_servo", "corpo:header_seriale", "corpo:zona_spine_servo", "corpo:zona_barre_retro"]

@@ -49,6 +49,9 @@ budget termico:
 bugna:
   definizione: "Rialzo o cilindro pieno del pezzo stampato, con il foro per un inserto in testa."
   fonte: "cad/script/corpo.py, cad/script/zampa.py (sezione inserti)"
+bussola del perno:
+  definizione: "Attrezzo stampato (2.30): cilindro Ø20 con un foro cieco Ø5,5 che si posa sul perno mentre lo premi con la morsa e lo ferma quando ne restano fuori 1,4 mm, senza misurare. La tasca attorno al foro lascia libero il rialzo del mozzo. Non è un inserto."
+  fonte: "D-077, P-065; cad/script/attrezzi.py fai_bussola_perno (sezioni provini, zampa, zampa_corpo)"
 calettamento:
   definizione: "Montaggio della squadretta sull'albero del servo in una posa nota della zampa: con il servo a metà corsa il femore sta a +20° e il ginocchio a 100°."
   fonte: "robot/robot.yaml; docs/software.md 2.7 (sezione zampa)"
@@ -79,9 +82,12 @@ costole di schiacciamento:
 culla:
   definizione: "Scatola stampata che tiene un servo: pareti, fondo e bugne con i fori per le viti delle alette. C'è nella coxa (servo del femore) e nella tibia (servo del ginocchio)."
   fonte: "docs/progetto-meccanico.md 'Architettura'; cad/script/zampa.py _culla"
+dima del calettamento:
+  definizione: "Dima stampata (vedi dima di posa) che tiene femore +20° e ginocchio 100° mentre si montano le squadrette, dal passo 6.16 al 6.19; il terzo dente, imbardata 0°, serve solo con la coxa sul corpo."
+  fonte: "D-077, P-015; robot/robot.yaml servo.calettamento (sezioni stampa e zampa)"
 dima di posa:
-  definizione: "Piastra stampata che si infila sui due perni del femore dal lato B e ferma coxa, femore e ginocchio in una posa nota per la taratura; ce ne sono due."
-  fonte: "D-066 (sezione accensione)"
+  definizione: "Piastra stampata che si infila sui due perni del femore dal lato B, con la lama B tolta, e con tre denti ferma coxa, femore e ginocchio in una posa nota. Le dime di posa 1 (0, 0, 90) e 2 (30, 45, 135) servono alla taratura (sezione 12), la dima del calettamento (0, 20, 100) al montaggio delle squadrette (sezione 6)."
+  fonte: "D-066, D-077 (sezioni stampa, zampa e accensione)"
 EN:
   definizione: "Pin di abilitazione del regolatore: porta l'uscita a 0 V o a 6,0 V; tirato a massa tiene il rail spento."
   fonte: "docs/BOM.md B1, B11 (sezione banco)"
@@ -94,6 +100,9 @@ flangia:
 flat:
   definizione: "Nastro piatto largo 6 mm e spesso 0,15 che porta il segnale dalla testa della camera al connettore FPC dell'ESP32."
   fonte: "docs/dimensioni-componenti.md (sezione elettronica)"
+estrattore:
+  definizione: "Attrezzo stampato in due pezzi (2.31, 2.32): l'asta entra dalla sede del servo, passa nel foro Ø7,2 dietro il cuscinetto e spinge solo l'anello interno o il perno; il tubo d'appoggio poggia sul mozzo dall'altro lato e riceve il pezzo che esce. Serve solo se un cuscinetto o un perno non esce a mano."
+  fonte: "D-077, P-065; cad/script/attrezzi.py fai_estrattore (sezioni stampa e smontaggio)"
 fori pilota consumati:
   definizione: "Nei fori pilota la vite si fa il filetto da sola nella plastica: a ogni rimontaggio il filetto si consuma un poco; se la vite non prende si ristampa il pezzo [S]."
   fonte: "D-049, S (sezione smontaggio)"
@@ -134,7 +143,7 @@ imbardata:
   definizione: "Rotazione della zampa attorno all'asse verticale della coxa."
   fonte: "robot.yaml (sezione prima)"
 inserto a caldo:
-  definizione: "Bussola di ottone filettata che si affonda nel foro di un pezzo stampato con la punta calda del saldatore: tiene le viti M3 e M2."
+  definizione: "Cilindretto di ottone filettato che si affonda nel foro di un pezzo stampato con la punta calda del saldatore: tiene le viti M3 e M2."
   fonte: "BOM D4, D5; D-065 (sezione prima)"
 intarsio:
   definizione: "Pezzo di PLA nero a filo della faccia bianca, stampato insieme (lame del femore 0,6 e 1,0 mm, fascia 0,6 mm)."

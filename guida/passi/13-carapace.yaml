@@ -297,6 +297,7 @@ passi:
     evidenzia:
       - {chiave: corpo/Corpo_Carapace, lav: "guida_altoparlante_*"}
       - {chiave: corpo/Corpo_Carapace, lav: fermo_altoparlante}
+      - {chiave: corpo/Corpo_Carapace, lav: "ritegno_altoparlante_*"}
     etichette:
       - {testo: "guide e costole", punto: [-94.0, -22.9, 4.0]}
     testo:
@@ -392,7 +393,9 @@ passi:
     esploso: {asse: [-0.82, 0, -0.57], distanza: 26}
     nascondi: *robot
     vista: {direzione: [-0.55, 0.6, -0.5], su: [0, 0, -1]}
-    evidenzia: [{chiave: corpo/Corpo_Carapace, lav: piano_tof_posteriore}]
+    evidenzia:
+      - {chiave: corpo/Corpo_Carapace, lav: piano_tof_posteriore}
+      - {chiave: corpo/Corpo_Carapace, lav: "foro_tof_posteriore_*"}
     etichette:
       - {testo: "2 fori Ø 1,7", punto: [-95.5, 22.2, 25.3]}
     testo:

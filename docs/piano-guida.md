@@ -255,3 +255,11 @@ immagini della guida allineati alla 2.1.7 (311 pagine, 25,7 MB, controlli verdi)
   2. piano del PCB, da preparare e far approvare prima di partire (studio in `docs/ricerca/pcb/`, voce in `docs/backlog.md`, schemi in `guida/schemi/`);
   3. poi lo sviluppo del progetto (2.1.8 quando ci sono i dati, provini, S1).
 - Domanda ancora aperta: tester dei servo alimentato con pile AA o powerbank (passo 9.08).
+
+**17 ottobre 2026, ritocchi piccoli fatti** (punto 1 dell'ordine qui sopra):
+- Glossario: voci nuove "bussola del perno", "estrattore", "dima del calettamento"; "dima di posa" con le tre dime; "inserto a caldo" non si chiama più bussola. 125 termini, sempre sei pagine (A.20-A.25).
+- Catalogo: `dima_calettamento`, `bussola_perno`, `estrattore` in `guida/catalogo/attrezzi.d/provini.yaml`. Dima e bussola sono attrezzi dei passi (1.11, 6.14, 6.16, 6.17, 6.19, 9.03) e non più `extra`, come le dime di posa e il cavalletto. In 6.14 e 9.03 la bussola prende il posto del calibro: la sporgenza non si misura. L'estrattore è nell'apertura della sezione 15, perché 15.10 e 15.11 sono pieni. Per non debordare: nomi corti e due righe di "Prima di cominciare" della sezione 6 più brevi.
+- Zone: `ritegno_altoparlante_*` (13.09) e `foro_tof_posteriore_*` (13.13). `esporta_guida.py` riconosce anche le rivoluzioni (i fori inclinati di `foro_obl`), quindi in `fori.json` i due fori del ToF hanno il nome.
+- 14.07, 14.08, 14.12 e `software.md` 4.2: coppie rifatte con 3046,2 g (`calc/andature.py`). A coppie a 100/45 il 42 %, il tripode a 70/70 il 78 % (con 2945 g erano il 41 % e il 75 %).
+- S-19: chiuso in `guida/problemi/schemi.yaml` e in `banco.yaml`. Gli schemi della millefori restano come sono fino al PCB.
+- Restano con il 75 % a 70/70 (calcolo con 2945 g): `firmware/README.md`, i commenti di `firmware/test_host/test_guardia.cpp`, `sim/README.md` e i registri storici dei problemi. Da allineare quando si tocca il firmware.

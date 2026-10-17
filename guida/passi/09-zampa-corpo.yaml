@@ -120,8 +120,7 @@ passi:
       - "Premi bussola e perno con la morsa finché il perno tocca il fondo: sotto il braccio ne sporgono 1,4 mm [V]."
     avvisi:
       - {tipo: attenzione, testo: "Premi con le ganasce sulla bussola e sul perno, non sulla nervatura del braccio. Forzamento dal provino (sezione 1) [C]."}
-    extra: [{nome: "bussola del perno, PETG-CF nero (2.30)", qta: 1, bom: E1}]
-    attrezzi: [morsa_morbida, calibro]
+    attrezzi: [morsa_morbida, bussola_perno]
     fonti: ["D-047: perni Ø5 × 12", "D-049 (perni forzati senza ritegno assiale)", D-077, "docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 1 (1,4 mm sporgenti)", "cad/script/zampa.py ISTANZE (Perno_Coxa) e fai_coxa (foro_perno)", "guida/dati/fori.json Coxa foro_perno da Z -38,35 a -32,75"]
 
   - id: "9.04"

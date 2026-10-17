@@ -25,10 +25,10 @@ sezione:
     Montare una zampa completa, senza il ponte della coxa: tibia, coxa, femore con le squadrette calettate, guscio, cavi
     e lama A. Sei volte uguale, una zampa alla volta; le differenze vanno nella scheda in fondo alla sezione.
   prima:
-    - "Provini fatti, valori nel CAD (sezione 1); pezzi stampati e controllati (sezione 2), con dima del calettamento e bussola del perno."
+    - "Provini fatti, valori nel CAD (sezione 1); pezzi e attrezzi stampati e controllati (sezione 2)."
     - "Inserti messi (sezione 3): tibia 3 M3, coxa 4 M3, femore B 4 M3 e 2 M2."
     - "Servo numerati, a metà corsa, con le alette nude; banco dei servo pronto (sezione 5)."
-    - "Deciso se montare FSR (X5) e luci (X31, opzionali): vanno nella tibia."
+    - "Deciso se montare FSR (X5) e luci (X31), opzionali della tibia."
   tempo: "circa 2 ore la prima volta; 15 minuti in più con FSR e luci [S]"
   stato_elettrico: "Banco dei servo (sezione 5) solo in 6.16, 6.20, 6.21 e 6.25, un servo alla volta."
   fonti: [D-075, D-076, D-077, docs/piano-guida.md "Struttura della guida"]
@@ -308,8 +308,7 @@ passi:
       - "Ripeti per l'altro perno."
     avvisi:
       - {tipo: attenzione, testo: "Premi con le ganasce sulla bussola e sul perno, mai sul blocco del femore [C]."}
-    extra: [{nome: "bussola del perno, PETG-CF nero (2.30)", qta: 1, bom: E1}]
-    attrezzi: [morsa_morbida, calibro]
+    attrezzi: [morsa_morbida, bussola_perno]
     fonti: ["D-047: perni Ø5 × 12", "D-049: perni forzati senza ritegno assiale", D-070, D-077, "cad/script/rif_componenti.py perno_l (5,2 nella piastra, 0,4 rialzo, 4 cuscinetto, 1 nel fondo, 1,4 sporgente)", "cad/script/attrezzi.py fai_bussola_perno", "cad/script/zampa.py perno_sporge", "docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 1"]
 
   - id: "6.15"
@@ -353,8 +352,7 @@ passi:
       - {tipo: importante, testo: "La dima dà i due angoli (D-077, P-015). Il terzo dente, imbardata 0°, qui non serve: la coxa non è ancora sul corpo."}
       - {tipo: nota, testo: "Resta lo scarto della squadretta: al più un dente su 25, ±7,2° [V]. Lo misura la taratura (sezione 12); dopo la taratura il firmware limita il ginocchio a γ max = min(177°, γ misurato + 80°), quindi perde al più 4,2° di distensione (D-077, software.md 2.5)."}
       - {tipo: nota, testo: "Nell'immagine il femore è fermo come nella dima: la coxa non è disegnata perché è girata di 20° rispetto al femore."}
-    extra: [{nome: "dima del calettamento, PLA o PETG (2.29)", qta: 1, bom: E1}]
-    attrezzi: [tester_servo]
+    attrezzi: [dima_calettamento, tester_servo]
     fonti: ["robot/robot.yaml servo.calettamento (alpha 20, gamma 100), corsa_servo 80", D-077, "guida/problemi.md P-015", docs/progetto-meccanico.md "Modello in Fusion (zampa v0)", "docs/software.md 2.5, 2.7 e 6.7 (B4)", "guida/problemi/zampa.yaml 'Calettamento senza riferimento'"]
 
   - id: "6.17"
@@ -373,6 +371,7 @@ passi:
       - {tipo: importante, testo: "Non girare l'albero mentre infili o stringi: un dente di scarto sposta il giunto di 14,4° [V]."}
       - {tipo: nota, testo: "Con 25 denti la linea dei fori resta entro ±7,2° da quella anca–ginocchio (software.md 2.7). La vite centrale si raggiunge anche dopo, dal foro Ø6 di Femore A."}
     extra: [{nome: "vite centrale in dotazione con la squadretta [C]", qta: 2, bom: D3}]
+    attrezzi: [dima_calettamento]
     fonti: ["docs/software.md 2.7 (25 denti, ±7,2°) e 6.7 (B4: dente più vicino all'angolo di progetto)", "docs/BOM.md D3", "docs/ricerca/zampa-architetture.json, proposta scalata, montaggio punto 5 e smontaggio", "guida/dati/fori.json: Femore_A foro_sq_* (due fori sull'asse X) e foro_centrale_*"]
 
   # ------------------------------------------------------------------------------- Femore_A con le rondelle di registro
@@ -408,6 +407,7 @@ passi:
       - "Togli la dima del calettamento."
     avvisi:
       - {tipo: nota, testo: "Le teste restano nelle sedi della piastra: la lama A ci si incastra sopra (D-070)."}
+    attrezzi: [dima_calettamento]
     fonti: [D-047, D-061, D-070, D-077, guida/catalogo/giunzioni.yaml femore_a_squadrette]
 
   # --------------------------------------------------------------------------------------- alette strette per ultime

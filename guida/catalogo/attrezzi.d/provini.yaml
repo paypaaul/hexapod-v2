@@ -6,3 +6,10 @@ pennarello:     {nome: "Pennarello indelebile", icona: matita, uso: "numeri dei 
 pesi_noti:      {nome: "Pesi noti da 100 g a 1,2 kg", icona: peso, uso: "provino del piedino con l'FSR (X5)"}
 # Morsa a ganasce morbide: forzamento di perni e cuscinetti, verbo "Premi" di guida/stile.md.
 morsa_morbida:  {nome: "Morsa a ganasce morbide", icona: morsa, uso: "forzamento dei perni (provino del giunto)"}
+# Attrezzi stampati della 2.1.7 (D-077), in libreria nel CAD e negli STL di cad/stl/attrezzi; si stampano nella sezione 2.
+# dima_calettamento: P-015, passo 2.29; tiene femore +20 gradi e ginocchio 100 gradi da 6.16 a 6.19 (robot.yaml calettamento).
+# bussola_perno: P-065, passo 2.30; foro cieco che ferma il perno con 1,4 mm fuori (1.11, 6.14, 9.03).
+# estrattore: P-065, passi 2.31 e 2.32; asta e tubo d'appoggio, solo se un cuscinetto o un perno non esce a mano (15.10, 15.11).
+dima_calettamento: {nome: "Dima del calettamento", icona: "", uso: "femore +20° e ginocchio 100° mentre si montano le squadrette (2.29, D-077)"}
+bussola_perno:     {nome: "Bussola del perno", icona: "", uso: "ferma il perno con 1,4 mm fuori quando lo premi con la morsa (2.30, D-077)"}
+estrattore:        {nome: "Estrattore, asta e tubo (solo se serve)", icona: "", uso: "cuscinetti e perni forzati che non escono a mano (2.31, 2.32, D-077)"}

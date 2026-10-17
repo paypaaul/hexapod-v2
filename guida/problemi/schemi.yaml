@@ -389,6 +389,10 @@
     Prima opzione, se il kit Temu di viti ha M3 a testa bassa (e' gia' fra le cose da guardare in CLAUDE.md); se no,
     la seconda nel CAD 2.1.7. Le zone vietate dello schema valgono con tutte e due.
   domanda: "Nel kit Temu da 918 viti ci sono M3 x 6 a testa bassa (DIN 7984) o bombata (ISO 7380)? Se no, preferisci comprarle o spostare le viti del vassoio nel CAD?"
+  esito: >-
+    chiuso dal CAD 2.1.7 (D-076 soluzione e, D-077 modifica 1, P-003): vassoio su quattro colonne della base con
+    inserti M2 e M2 x 5 svasate a filo, testa 3,4 mm sotto la basetta; T-2, D-12 e B-2 si saldano normalmente. Le zone
+    vietate delle teste M3 restano nei disegni fino al PCB (guida/problemi/banco.yaml, "Schemi della basetta").
 
 - id: S-20
   titolo: Partitore, diodo e pull-down dell'abilitazione fuori dalla basetta

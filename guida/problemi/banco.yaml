@@ -30,8 +30,9 @@
     e' approvato; il ramo logica e la SSC-32 si provano comunque con componenti sciolti.
   esito: >-
     superato dagli schemi F3b (guida/schemi/schemi.md e basetta*.svg, scheda_carapace*.svg, 12 ottobre 2026): nella F3c i
-    passi 4.06-4.25 seguono l'ordine di saldatura, le prove e i collegamenti degli schemi. Restano i bloccanti S-01, S-02
-    e S-19 di guida/problemi/schemi.yaml, con avviso e [C] nei passi.
+    passi 4.06-4.25 seguono l'ordine di saldatura, le prove e i collegamenti degli schemi. I bloccanti S-01, S-02 e S-19
+    di guida/problemi/schemi.yaml li ha chiusi il CAD 2.1.7 (D-077: P-002, P-005, P-003); per S-01 il disegno della
+    scheda del carapace non si rifa' sulla millefori, si aspetta il PCB (17 ottobre 2026, docs/piano-guida.md).
 
 - titolo: Il programma di prova del banco non esiste, e lo scheletro del firmware non e' mai girato sul chip
   gravita: importante
@@ -357,6 +358,10 @@
   consiglio: >-
     Prima opzione al prossimo giro degli schemi, se la millefori resta per piu' di un esemplare; altrimenti la seconda: i
     passi sono gia' corretti e lo schema elettrico non cambia.
+  esito: >-
+    seconda opzione (17 ottobre 2026, decisione dell'utente in docs/piano-guida.md): la basetta e la scheda del carapace
+    passeranno al PCB (docs/backlog.md), quindi schemi.md e i disegni della millefori restano come sono; i passi hanno
+    gia' l'avviso. S-19 e' chiuso dal CAD 2.1.7 (guida/problemi/schemi.yaml).
 
 - titolo: "Scheda del carapace: il disegno e' della 2.1.6, con la testata a 90 gradi della 2.1.7 va rifatto"
   gravita: importante

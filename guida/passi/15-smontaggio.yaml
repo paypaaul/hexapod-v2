@@ -81,7 +81,7 @@ sezione:
   stato_elettrico: "Spento: T-plug staccato. Il rail si accende solo per portare un giunto in posa (15.10)."
   note: "Lame, guscio e sportellino non sono strutturali: si tolgono per accedere alle viti. Frecce = rimontaggio: smonta al contrario."
   fonti: [D-049, D-054, D-056, D-061, D-065, D-070, D-072, D-075, "docs/cablaggio.md 4", "docs/predisposizioni.md 2.3", "docs/BOM.md", guida/problemi/smontaggio.yaml]
-  attrezzi: [cavalletto]
+  attrezzi: [cavalletto, estrattore]
   controllo:
     - "Per ogni parte tolta sai dove sono le viti e quante sono; nessuna vite persa."
     - "Il T-plug è rimasto staccato e il pacco fuori dal tunnel o scollegato fino al rimontaggio."

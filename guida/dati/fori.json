@@ -1713,8 +1713,8 @@ null
 "aperto",
 null
 ],
-"lav": "",
-"origine": "",
+"lav": "foro_tof_posteriore_a",
+"origine": "rivoluzione",
 "p0": [
 -95.504,
 22.21,
@@ -1737,8 +1737,8 @@ null
 "aperto",
 null
 ],
-"lav": "",
-"origine": "",
+"lav": "foro_tof_posteriore_b",
+"origine": "rivoluzione",
 "p0": [
 -88.219,
 22.21,
@@ -5390,6 +5390,6 @@ null
 ]
 }
 },
-"documento": "Hexapod v2.1.0 v15",
-"versione": "2.1.6"
+"documento": "Hexapod v2.1.0 v16",
+"versione": "2.1.7"
 }

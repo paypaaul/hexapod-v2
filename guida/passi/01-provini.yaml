@@ -321,13 +321,12 @@ passi:
       - "Misura e annota: bastato il pollice, o servita la morsa."
     extra:
       - {nome: "perno Ø5 × 12", qta: 1, bom: D2}
-      - {nome: "bussola del perno, PETG-CF nero", qta: 1, bom: E1}
     avvisi:
       - {tipo: attenzione, testo: "Solo morsa a ganasce morbide: niente martello."}
       - {tipo: prova, testo: "Atteso: forzato, tiene senza ritegno (D-049); entra con la morsa [C]. Parametro: perno_foro (5,0)."}
       - {tipo: nota, testo: "La bussola è Attrezzo_Bussola_Perno.stl, in PETG-CF: stampala con i provini. Il suo foro cieco ferma il perno con la sporgenza giusta, senza misurarla (D-077, P-065). Se il perno entra duro, stampa anche l'estrattore (passi 2.31 e 2.32)."}
       - {tipo: nota, testo: "La sede del disco in Femore A e i perni in Femore B non hanno un provino a parte (stessi parametri): si provano sui pezzi veri, con Femore B come primo pezzo del lotto [C]."}
-    attrezzi: [morsa_morbida, calibro]
+    attrezzi: [morsa_morbida, bussola_perno, calibro]
     fonti: [D-049, D-077, "cad/script/zampa.py perno_foro, perno_sporge", "cad/script/attrezzi.py fai_bussola_perno", "manifest: Perno_coxa a Z -39,8"]
 
   - id: "1.12"

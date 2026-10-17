@@ -297,7 +297,7 @@ passi:
     avvisi:
       - {tipo: attenzione, testo: "Se un servo non spinge o la zampa cede, spegni con il pulsante e tieni il corpo: a terra cade sulla chiglia."}
       - {tipo: nota, testo: "Il margine di stabilità a 100/45 è 59 mm [V, calcolo] (robot.yaml regressione_statica)."}
-      - {tipo: importante, testo: "Assetto basso di B6 = 100/45, il punto di progetto: femore al 53 % in tripode, 75 % a 70/70 (D-076, P-046)."}
+      - {tipo: importante, testo: "Assetto basso di B6 = 100/45, il punto di progetto: femore al 53 % in tripode, 78 % a 70/70 (D-076, P-046)."}
     attrezzi: [computer_usb]
     fonti: ["docs/software.md 2.6 (accensione, spegnimento), 6.7 (B6)", "robot/robot.yaml andatura e regressione_statica", "docs/studio-componenti.md 'Batteria' (fermo in piedi)", "D-074 e D-077: 53 % a 100/45", "D-076: assetto di partenza 100/45 (P-046)", "docs/software.md 'Stato di S0' (simulazione)", guida/problemi/collaudo.yaml]
 
@@ -321,7 +321,7 @@ passi:
     tabella:
       intestazione: [Prova, Atteso, Misurato]
       righe:
-        - ["Coppia, a coppie a 100/45", "41 % dello stallo con 2945 g [S, da rifare con 3046 g]", ""]
+        - ["Coppia, a coppie a 100/45", "42 % dello stallo con 3046 g [S]", ""]
         - ["Coppia, tripode a 100/45", "53 % con 3046 g [V]; avviso oltre il 55 %", ""]
         - ["Velocità in tripode", "circa 105–115 mm/s con il limite di 250°/s [S]", ""]
         - ["Corrente dei rail, marcia classica", "10–12 A a 6 V, cioè 60–72 W [S]", ""]
@@ -330,7 +330,7 @@ passi:
         - ["Urti con carapace o zampe", "nessuno [V, CAD]", ""]
     avvisi:
       - {tipo: nota, testo: "A coppie la coppia del femore è più bassa; il tripode serve per andare veloci (software.md 4.2). Ordine della prima camminata: D-076, P-046."}
-      - {tipo: importante, testo: "A 70/70 il tripode porta il femore al 75 % dello stallo, oltre il rifiuto al 70 %: serve un'andatura con più piedi a terra (software.md)."}
+      - {tipo: importante, testo: "A 70/70 il tripode porta il femore al 78 % dello stallo, oltre il rifiuto al 70 %: serve un'andatura con più piedi a terra (software.md)."}
     attrezzi: [computer_usb]
     fonti: ["D-076: prima camminata a coppie a 100/45, poi il tripode lento (P-046)", "docs/software.md 4.2 (tabella delle coppie, velocità) e 6.7", "docs/studio-componenti.md 'Batteria' (marcia classica)", "docs/software.md 'Stato di S0' (scivolamento 0,5 mm)", "robot/robot.yaml", "firmware/README.md (70/70)", guida/problemi/collaudo.yaml]
 
@@ -441,15 +441,15 @@ passi:
       - "Prova a terra gli assetti che il firmware accetta, uno alla volta (nell'immagine: 130/25)."
       - "Annota l'assetto scelto e il perché nel registro."
     tabella:
-      intestazione: ["Assetto (altezza/distanza, mm)", Tripode, A coppie, A onda, "Giunto più caricato (2945 g)"]
+      intestazione: ["Assetto (altezza/distanza, mm)", Tripode, A coppie, A onda, "Giunto più caricato (3046 g)"]
       righe:
-        - ["130/25", "58 %", "51 %", "52 %", "ginocchio"]
-        - ["110/40", "51 %", "44 %", "45 %", "ginocchio"]
-        - ["100/45", "51 %", "41 %", "43 %", "femore"]
-        - ["90/55", "61 %", "48 %", "50 %", "femore"]
-        - ["80/60", "66 %", "52 %", "54 %", "femore"]
-        - ["70/70", "75 %", "59 %", "62 %", "femore"]
+        - ["130/25", "60 %", "53 %", "53 %", "ginocchio"]
+        - ["110/40", "53 %", "46 %", "47 %", "ginocchio"]
+        - ["100/45", "53 %", "42 %", "45 %", "femore"]
+        - ["90/55", "63 %", "50 %", "52 %", "femore"]
+        - ["80/60", "68 %", "53 %", "56 %", "femore"]
+        - ["70/70", "78 %", "61 %", "64 %", "femore"]
     avvisi:
-      - {tipo: nota, testo: "Percentuali dello stallo, calcolate con 2945 g: con 3046 g salgono di circa due punti (a 100/45 il tripode è al 53 %) [S]."}
+      - {tipo: nota, testo: "Percentuali dello stallo calcolate con 3046 g, la massa attesa della 2.1.7 (calc/andature.py) [S]: ogni 57 g in più costano circa un punto al femore."}
       - {tipo: importante, testo: "L'utente accetta di superare il 50 % dello stallo; l'assetto si sceglie a robot costruito (CLAUDE.md, 'Cosa è deciso dall'utente'). Il firmware rifiuta oltre il 70 %."}
     fonti: ["docs/software.md 4.2 (tabella)", "robot/robot.yaml guardia", "CLAUDE.md 'Assetto'", "D-074 e D-077: 53 % a 100/45"]
