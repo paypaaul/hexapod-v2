@@ -324,4 +324,4 @@ Media 4,0.
 3. PTC (S-06): MF-R090 oppure MF-R075 con il tetto del firmware più basso?
 4. Produttore: un pannello JLCPCB (8–18 €, dogana) o Aisler (circa 30 €, nell'UE)?
 5. Ordinare dopo la 2.1.7 chiusa: d'accordo?
-6. Aggiornare KiCad dalla 9.0.6 alla 10.0.x prima del disegno (`produzione.md:206`)?
+6. Aggiornare KiCad dalla 9.0.6 alla 10.0.x prima del disegno (`produzione.md:206`)? Fatto il 18 ottobre 2026 (10.0.7).

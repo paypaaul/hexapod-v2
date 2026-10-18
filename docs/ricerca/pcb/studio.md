@@ -519,7 +519,7 @@ Ogni revisione è un commit; la R4 approvata è il tag e l'ordine.
 3. **Il banco S1 si fa sulla r1 o sulla millefori?**
    - Sulla r1: non saldi mai le millefori, ma aspetti le schede, 3–6 settimane dall'inizio del disegno.
    - Sulla millefori: parti subito, e la r1 arriva dopo.
-4. **Passi a KiCad 10.0.x prima del disegno?** È gratuito; un progetto aperto con la 10 non si riapre più con la 9.0.6 che hai.
+4. **Passi a KiCad 10.0.x prima del disegno?** Fatto: 10.0.7 dal 18 ottobre 2026.
 
 Il resto ha una proposta di default che si può cambiare durante il disegno: JLCPCB invece di Aisler, fili saldati invece di connettori nella r1, TCA9534 come modulo.
 

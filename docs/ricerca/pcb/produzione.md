@@ -199,7 +199,7 @@ Scelte larghe apposta, così lo stesso file si manda a JLCPCB, Aisler o Eurocirc
 | Dato | Valore | Fonte | Stato |
 |---|---|---|---|
 | Versione corrente | **KiCad 10.0.7** (7 ottobre 2026); la serie 10 è uscita il 20 marzo 2026 | [10.0.7](https://www.kicad.org/blog/2026/10/KiCad-10.0.7-Release/); [10.0.0](https://www.kicad.org/blog/2026/03/Version-10.0.0-Released/) | V |
-| Versione sul Mac dell'utente | **9.0.6** (`/Applications/KiCad/KiCad.app`) | letta oggi dal pacchetto | V |
+| Versione sul Mac dell'utente | **10.0.7** dal 18 ottobre 2026 (prima 9.0.6), `/Applications/KiCad/KiCad.app`. Provati sulla 10.0.7: `pcbnew` dal Python di KiCad (3.9), DRC con caso di controllo (piazzole non collegate trovate), Gerber, STEP e render | `kicad-cli version` | V |
 | Novità della 10 utili qui | librerie ufficiali con i soli modelli STEP (più precisi, 386 modelli nuovi); editor grafico delle regole del DRC, con correzioni suggerite; integrazione con git nel gestore del progetto (nuova, con difetti segnalati nella 10.0.2) | [10.0.0](https://www.kicad.org/blog/2026/03/Version-10.0.0-Released/); [forum KiCad](https://forum.kicad.info/t/git-integration-in-10-0-2-cannot-commit/69118) | V |
 | Riga di comando | `kicad-cli sch erc`, `kicad-cli pcb drc --exit-code-violations` (esce con 5 se ci sono violazioni), `pcb export gerbers`, `pcb export drill`, `pcb export pos`, `pcb export step`, `jobset run` | [kicad-cli 10.0](https://docs.kicad.org/10.0/en/cli/cli.html) | V |
 
@@ -288,4 +288,4 @@ Aree: basetta 56 × 35 = 19,6 cm²; scheda del carapace allungata, ipotesi 20 ×
 - Listino Aisler di oggi: la pagina pubblica è del 2023 e ne esistono due versioni (C).
 - Misura della scheda del carapace dopo la 2.1.7 (S-01).
 - Quote dei moduli da misurare sul pezzo prima di disegnare le impronte: S-02, S-03, S-04, S-26 (`guida/problemi/schemi.yaml`).
-- Aggiornare KiCad dalla 9.0.6 alla 10.0.x: da chiedere all'utente.
+- Aggiornare KiCad dalla 9.0.6 alla 10.0.x: fatto dall'utente il 18 ottobre 2026 (10.0.7).
