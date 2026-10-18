@@ -100,6 +100,7 @@ def scheda(cartella=QUI):
                               [(x + (d / 2 + 0.5) * math.cos(a * math.pi / 16), y + (d / 2 + 0.5) * math.sin(a * math.pi / 16))
                                for a in range(32)])
         s.area_senza_rame('bordo_apertura', ['F.Cu', 'In1.Cu', 'In2.Cu', 'B.Cu'], s.gonfia(g['aperture'][0], 0.5))
+    serigrafia(s)
     if os.path.exists(PISTE):
         d = s.piste_da_file(PISTE, kicad)
         if 'Freerouting' in d.get('origine', ''):
@@ -156,6 +157,30 @@ SOTTO = {
     'R1': (62.0, 3.0, 0),
     'R10': (58.0, 3.0, 0),
 }
+
+
+def serigrafia(s):
+    """Legenda essenziale (piano 5.4): sotto l'ESP32 c'e' poco posto, quindi niente riferimenti dei componenti (il
+    foglio di montaggio li da' con la stampa 1:1) ma i nomi delle piazzole dei fili, le polarita' e il nome della scheda.
+    Sui pezzi restano solo i segni che servono (fascia di D1, tacca di U3)."""
+    for rif in list(s.impronte):
+        s.togli_serigrafia(rif, riferimento=True)
+    def t(testo, x, y, angolo=0):
+        s.testo(testo, *kicad(x, y), altezza=0.8, angolo=angolo)
+    # file dei bordi: i nomi fra le due file, sopra le piste (serigrafia sulla maschera)
+    for x, nome in ((x_esp(2), 'GND'), (x_esp(7), 'SDA'), (x_esp(12), 'SCL'), (x_esp(17), '3V3')):
+        t(nome, x, 14.25)
+    for x, nome in ((x_esp(0), 'EN'), (x_esp(3), 'SNS'), (x_esp(4), 'OFF'), (x_esp(6), '1'), (x_esp(18), '13'),
+                    (x_esp(19), 'TIB')):
+        t(nome, x, -14.25)
+    # nel tratto dell'antenna non c'e' rame: nome, revisione, faccia e verso
+    t('HEX2 BASETTA r1   LATO COMPONENTI   testa ->', 77.3, 0.0, angolo=90)
+    vx, vy = VIN
+    t('VBAT', vx + PASSO, vy - 1.7)
+    t('GND', vx + PASSO, vy + PASSO + 1.7)
+    t('TX RX GND', 25.5, -7.9, angolo=90)
+    t('K', POSTI['D1'][0] - 2.1, POSTI['D1'][1])
+    t('1', POSTI['U3'][0], POSTI['U3'][1] + 1.3)
 
 
 # Ingombri dei corpi per la prova nel CAD (cad/script/assieme.py -> ingombri_pcb): scatole nella terna del robot.

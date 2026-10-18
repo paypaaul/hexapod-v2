@@ -174,7 +174,25 @@ def test_pcb_ripetibile(tmp_path, scheda):
               % (os.path.join(PCB, scheda), os.path.join(PCB, 'script'), str(d)))
     subprocess.run([KICAD_PY, '-c', script], check=True, capture_output=True)
     with open(os.path.join(PCB, scheda, scheda + '.kicad_pcb'), encoding='utf-8') as f:
-        assert (d / (scheda + '.kicad_pcb')).read_text() == f.read()
+        # i poligoni dei riempimenti li calcola KiCad e cambiano di 1e-6 mm fra Linux e Mac (CI del 18 ottobre): si
+        # confronta la scheda senza di loro; i riempimenti li controlla il DRC
+        assert _senza_riempimenti((d / (scheda + '.kicad_pcb')).read_text()) == _senza_riempimenti(f.read())
+
+
+def _senza_riempimenti(testo):
+    out, i = [], 0
+    while True:
+        k = testo.find('(filled_polygon', i)
+        if k < 0:
+            out.append(testo[i:])
+            return ''.join(out)
+        out.append(testo[i:k])
+        livello = 0
+        for j in range(k, len(testo)):
+            livello += {'(': 1, ')': -1}.get(testo[j], 0)
+            if livello == 0:
+                break
+        i = j + 1
 
 
 @con_kicad
