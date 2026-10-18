@@ -688,7 +688,7 @@ Dalla revisione indipendente (D-082). La 2.1.8 è chiusa con il tag `v2.1.8`; in
 | Voce | Cosa | Stato |
 |---|---|---|
 | Ali della scheda del carapace | `sch_ala_x` da 6 a 5,5: il bordo resta a 0,8 dal tubo dei pozzetti (bisezione; a 0,9 tocca) | fatta (Fusion salvato, guida riesportata) |
-| Scheda dei partitori più grande | La sagoma della PCB-P (27,8 × 7,5) non contiene i partitori: si allunga verso la testa fino a circa x 78 (foro di testa oltre i componenti, circa x 76) e si allarga ad almeno 8,6 (y 18,6…27,2). Prima un piazzamento di prova in KiCad, come per la PCB-C, per fissare la sagoma minima. Poi bugne, `Rif_Partitori`, verifiche con le coxe AS a ±35° e a 30,5° fra le vicine, gioco misurato per bisezione, a valle | da approvare |
+| Scheda dei partitori più grande | La sagoma della PCB-P (27,8 × 7,5) non contiene i partitori. **Piazzamento e sbroglio di prova fatti in KiCad (D-084)**: sagoma x 44,2…78 × y 18,6…27,2 con l'angolo di testa a +Y smussato di 1,5; fori in (46,2; 22,75) e (76,2; 22,75); pettine a due file. Da fare nel CAD: `par_l`, `par_w`, `cor_par_x`, `cor_par_y`, `cor_par_foro_b`, la bugna di testa e lo smusso, `Rif_Partitori` (pettine a due file); poi verifiche con le coxe AS a ±35° e a 30,5° fra le vicine, gioco misurato per bisezione, a valle; infine il controllo dei contorni rimesso nella CI | scelta delegata (D-084): si fa |
 | P-139 | reofori delle spie | aspetta il portafusibile (Q-23) |
 
 **Arresti**: approvazione di questa proposta; poi la sagoma della PCB-P, prima di toccare Fusion.

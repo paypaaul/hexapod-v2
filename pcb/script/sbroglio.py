@@ -179,6 +179,17 @@ class Instradatore:
             hv = VIA_D / 2
             mv = [self._mappa(rete, st, hv) for st in self.strati]
             mappe_via = bytearray(max(c) for c in zip(*mv))
+            # niente vie sulle piazzole a foro, nemmeno della stessa rete: fori a 0,5 mm (regola 'fori vicini')
+            for _, _, x, y, w2, h2, _, st_p, _ in self.piazzole:
+                if st_p != 'FB':
+                    continue
+                r = max(w2, h2) / 2 + 0.45 + MARGINE
+                i0, j0 = self.ij(x - r, y - r)
+                i1, j1 = self.ij(x + r, y + r)
+                for j in range(max(j0, 0), min(j1, self.ny - 1) + 1):
+                    for i in range(max(i0, 0), min(i1, self.nx - 1) + 1):
+                        if math.hypot(self.xy(i, j)[0] - x, self.xy(i, j)[1] - y) < r:
+                            mappe_via[j * self.nx + i] = 1
         costi = dict(costi or {})
         zone = costi.pop('zone', [])
         if zone:
@@ -331,12 +342,13 @@ class Instradatore:
                 self.rame.append((st, 's', (p, q, w), rete, None))
 
 
-def sbroglia(piazzole, vincoli, larghezze, finestra, ordine, fisse=(), giri=12, registro=print, costi=None):
+def sbroglia(piazzole, vincoli, larghezze, finestra, ordine, fisse=(), giri=12, registro=print, costi=None,
+             strati='FB'):
     """Instrada le reti nell'ordine dato; quelle che non riescono passano in testa (dopo le `fisse`, che restano prime)
     e si ricomincia, fino a `giri` volte. Restituisce l'instradatore dell'ultimo giro e le reti non riuscite."""
     ordine = list(ordine)
     for g in range(giri):
-        R = Instradatore(piazzole, vincoli, larghezze, *finestra)
+        R = Instradatore(piazzole, vincoli, larghezze, *finestra, strati=strati)
         mancate = [r for r in ordine if R.instrada(r, costi=(costi or {}).get(r))]
         registro('giro %d: %d reti non riuscite %s' % (g + 1, len(mancate), mancate))
         if not mancate:

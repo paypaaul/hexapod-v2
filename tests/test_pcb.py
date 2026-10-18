@@ -162,7 +162,7 @@ def test_drc_trova_pista_mancante_e_pista_stretta(tmp_path):
 
 
 @con_pcbnew
-@pytest.mark.parametrize('scheda', ['prova', 'carapace', 'basetta'])
+@pytest.mark.parametrize('scheda', ['prova', 'carapace', 'basetta', 'partitori'])
 def test_pcb_ripetibile(tmp_path, scheda):
     """Rigenerare il PCB dà lo stesso file che è nella repo."""
     d = tmp_path / scheda
@@ -196,7 +196,7 @@ def _senza_riempimenti(testo):
 
 
 @con_kicad
-@pytest.mark.parametrize('scheda', ['prova', 'basetta', 'carapace'])
+@pytest.mark.parametrize('scheda', ['prova', 'basetta', 'carapace', 'partitori'])
 def test_schema_ripetibile(tmp_path, scheda):
     """Rigenerare lo schema dà lo stesso file che è nella repo."""
     import runpy
@@ -211,7 +211,7 @@ def test_schema_ripetibile(tmp_path, scheda):
 
 
 @con_kicad
-@pytest.mark.parametrize('scheda', ['basetta', 'carapace'])
+@pytest.mark.parametrize('scheda', ['basetta', 'carapace', 'partitori'])
 def test_schemi_senza_rilievi_e_reti_come_la_guida(scheda):
     import controlla
     assert controlla.rilievi(os.path.join(PCB, scheda)) == []
@@ -241,6 +241,8 @@ def _netlist_attesa(scheda):
                 nodi[(rif, str(n))] = agg['rinominate'].get(fori[voce], fori[voce])
     reti = {}
     for (ref, pin), rete in nodi.items():
+        if rete is not None and not rete.startswith('+'):
+            rete = agg['rinominate'].get(rete, rete)      # i fili gia' rinominati sopra non cambiano piu'
         nome = ('unconnected-(%s-Pad%s)' % (ref, pin)) if rete is None else '/' + rete.lstrip('+')
         reti.setdefault(nome, []).append((ref, pin))
     return {'componenti': {ref: {} for ref, _ in nodi}, 'reti': reti}
@@ -363,7 +365,7 @@ def test_polo_1_di_j2_nella_terna_del_robot():
 
 @con_pcbnew
 @con_kicad
-@pytest.mark.parametrize('scheda', ['carapace', 'basetta'])
+@pytest.mark.parametrize('scheda', ['carapace', 'basetta', 'partitori'])
 def test_dima_aggiornata(tmp_path, scheda):
     """La dima di F5 nella repo è quella del PCB di oggi: se il PCB cambia, si rigenera con pcb/script/dima.py."""
     import re

@@ -1,0 +1,96 @@
+(version 1)
+# Regole del DRC delle schede HEX2: fonte unica. pcb/script/regole.py la copia in ogni progetto come
+# <nome>.kicad_dru (KiCad legge solo quel file) e la CI controlla che le copie siano uguali.
+# In KiCad, fra due regole che valgono per la stessa coppia vince quella scritta dopo.
+
+# --- produttore: valori larghi, buoni per JLCPCB, Aisler ed Eurocircuits (docs/ricerca/pcb/produzione.md 3.3)
+(rule "spazio minimo fra rami"
+	(constraint clearance (min 0.2mm)))
+(rule "pista minima"
+	(condition "A.Type == 'Track'")
+	(constraint track_width (min 0.2mm)))
+(rule "vie: foro 0,3, diametro 0,6"
+	(condition "A.Type == 'Via'")
+	(constraint hole_size (min 0.3mm))
+	(constraint via_diameter (min 0.6mm)))
+(rule "corona minima"
+	(constraint annular_width (min 0.15mm)))
+(rule "rame dal bordo"
+	(constraint edge_clearance (min 0.5mm)))
+(rule "fori vicini"
+	(constraint hole_to_hole (min 0.5mm)))
+# un raggio termico basta dove le piazzole sono fitte (fili saldati a mano: con due raggi il riempimento non entra)
+(rule "raggi termici"
+	(constraint min_resolved_spokes 1))
+
+# --- larghezze delle piste di potenza (docs/ricerca/pcb/studio.md 2.5; piano-pcb.md 4.1)
+(rule "VBAT da 1,5"
+	(condition "A.Type == 'Track' && A.NetName == '/VBAT'")
+	(constraint track_width (min 1.5mm)))
+(rule "5V_REG da 1,5"
+	(condition "A.Type == 'Track' && A.NetName == '/5V_REG'")
+	(constraint track_width (min 1.5mm)))
+(rule "5V_LED da 1,0"
+	(condition "A.Type == 'Track' && A.NetName == '/5V_LED'")
+	(constraint track_width (min 1.0mm)))
+(rule "5V_ESP da 0,6"
+	(condition "A.Type == 'Track' && A.NetName == '/5V_ESP'")
+	(constraint track_width (min 0.6mm)))
+# 3,3 V: al piu' 0,2 A in tutto (requisiti.md, 3V3S). IPC-2221, rame esterno da 1 oz, +10 °C: 0,3 mm portano circa
+# 0,9 A. Da 0,5 (studio.md 2.5) a 0,3 in F4: a 0,5 il 3,3 V non passa fra due pin della strip (0,84 di luce)
+(rule "3V3S da 0,3"
+	(condition "A.Type == 'Track' && A.NetName == '/3V3S'")
+	(constraint track_width (min 0.3mm)))
+(rule "3V3_ESP e 3V3_X3 da 0,3: portano tutto il 3V3S"
+	(condition "A.Type == 'Track' && (A.NetName == '/3V3_ESP' || A.NetName == '/3V3_X3')")
+	(constraint track_width (min 0.3mm)))
+# carapace: le stesse alimentazioni hanno i nomi della guida (5V = 5V_LED, 3V3 = 3V3S; verifica R1)
+# 0,8 A al piu' (catena LED e ampli): IPC-2221, rame esterno da 1 oz, +10 °C chiede circa 0,3 mm; 0,6 lascia margine
+# e passa fra le piazzole a passo 2,54 (revisione del 18 ottobre: a 1,0 il 5V della PCB-C non si sbrogliava)
+(rule "5V del carapace da 0,6"
+	(condition "A.Type == 'Track' && A.NetName == '/5V'")
+	(constraint track_width (min 0.6mm)))
+(rule "3V3 del carapace da 0,5"
+	(condition "A.Type == 'Track' && A.NetName == '/3V3'")
+	(constraint track_width (min 0.5mm)))
+
+# --- VBAT isolato: 1 mm da ogni altro rame (piano-pcb.md 4.1, R-09)
+(rule "VBAT a 1 mm"
+	(condition "A.NetName == '/VBAT' && B.NetName != '/VBAT'")
+	(constraint clearance (min 1.0mm)))
+# Eccezione scritta: piazzole di U2 (D24V22F5) a passo 2,54, VIN a 0,84 da EN e GND (pagina Pololu 2858); vale
+# anche per la pista del VBAT che esce dal VIN fra le piazzole vicine (revisione: da 1,5 mm non poteva uscire)
+(rule "VBAT accanto a U2"
+	(condition "A.NetName == '/VBAT' && B.memberOfFootprint('U2')")
+	(constraint clearance (min 0.5mm)))
+
+# EN di U2 ha 270 kΩ interni verso VIN (pagina Pololu 2858): si tratta come VBAT (piano 4.1, verifica R1)
+(rule "EN di U2 a 1 mm"
+	(condition "A.Type == 'Pad' && A.memberOfFootprint('U2') && A.Pad_Number == '2' && !B.memberOfFootprint('U2') && B.NetName != '/VBAT'")
+	(constraint clearance (min 1.0mm)))
+
+# --- pulsante del carapace: tensione dei pin A e B della 2813 ignota (S-10), al piu' quella della batteria (8,4 V).
+# IPC-2221 (B2, esterno senza rivestimento, 0-15 V) chiede 0,1 mm; 0,5 contro i ponti di stagno dei fili saldati
+(rule "pulsante a 0,5 mm"
+	(condition "(A.NetName == '/BTN_A' || A.NetName == '/BTN_B') && B.NetName != '/BTN_A' && B.NetName != '/BTN_B'")
+	(constraint clearance (min 0.5mm)))
+(rule "pulsante dentro J2"
+	(condition "(A.NetName == '/BTN_A' || A.NetName == '/BTN_B') && A.memberOfFootprint('J2') && B.memberOfFootprint('J2')")
+	(constraint clearance (min 0.2mm)))
+
+# Le regole sui pin dell'ESP32 (nessun 5 V a meno di 1 mm, varchi delle file, antenna) entrano con l'impronta di U1 (F4).
+
+# --- basetta (F4): corpi accanto alle file dell'ESP32 e fra loro, provati con le quote vere dei corpi (pcb/basetta/
+# genera_pcb.py); i cortili standard (0,25-0,5 oltre il corpo) li segnerebbero come sovrapposti. Giochi veri:
+# resistenze in piedi (Ø2,5 a y 10, passo 2,9) dalla strip 0,18 e fra loro 0,4; D1 dal modulo U2 0,2 e dalla strip 0,33;
+# U3 da PTC1 1,6 (corpi) e dalle resistenze in piedi 2,5; R11 dai punti di prova 0,6
+(rule "basetta: cortili provati sui corpi"
+	(severity ignore)
+	(condition "(A.Reference == 'JP1' || A.Reference == 'U1' || A.Reference == 'U2' || A.Reference == 'U3' || A.Reference == 'R2' || A.Reference == 'R4' || A.Reference == 'R5' || A.Reference == 'R7' || A.Reference == 'R9' || A.Reference == 'R11') && (B.Reference == 'U1' || B.Reference == 'U2' || B.Reference == 'U3' || B.Reference == 'R2' || B.Reference == 'R4' || B.Reference == 'R5' || B.Reference == 'R7' || B.Reference == 'R9' || B.Reference == 'R11' || B.Reference == 'R13' || B.Reference == 'D1' || B.Reference == 'JP1' || B.Reference == 'PTC1' || B.Reference == 'TP12' || B.Reference == 'TP13')")
+	(constraint courtyard_clearance (min 0mm)))
+
+# VBAT accanto alla sua massa: P1 porta i due fili della 2813 (VBAT e GND) a passo 2,54. Un ponte fra i due fa
+# scattare F2, non tocca l'ESP32: basta la distanza minima del produttore
+(rule "VBAT accanto alla sua massa (P1 della basetta)"
+	(condition "A.NetName == '/VBAT' && B.memberOfFootprint('P1') && B.NetName == '/GND'")
+	(constraint clearance (min 0.5mm)))

@@ -320,11 +320,11 @@ Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, co
   - Sbroglio: `pcb/basetta/sbroglia.py` (instradatore del progetto, poi Freerouting 2.5.0 in `~/tools/freerouting` con OpenJDK di Homebrew, poi rifinitura).
 - **Prossimo dell'agente**:
   - serigrafia della PCB-B: fatta (DRC a zero anche sulla serigrafia, stato "sbroglio");
-  - la PCB-P per la 2.1.9: la prova dello spazio nel CAD (19 ottobre) dice che a passo 2,54 non ci sta; strade in fondo a `piano-v2.1.0.md`, da scegliere con l'utente;
+  - PCB-P: schema, piazzamento e sbroglio a quattro strati fatti (D-084), con la sagoma di prova; ora la 2.1.9 nel CAD;
   - poi l'arresto **R2**.
 - **Aspetta l'utente**:
   - stampa e prova delle due dime (R2);
-  - taglia del kit B8 (ora serve anche per CS1 e CS2 sulla basetta);
+  - approvazione dei 100 nF 0805 (PCB2, D-084: il kit B8 è a reoforo);
   - 5,1 kΩ nel kit Elegoo; portafusibile Neuftech (Q-23); tensione della TX della SSC-32.
 
 **Acquisti (DU-4)**: in F0 preparo l'elenco voce per voce dal BOM, con prezzo, negozio e stato (B e C già approvate, X da approvare, piccole voci nuove), e il totale dell'ordine DigiKey rispetto ai 75 €. L'utente approva e ordina. Le voci che escono (C1 con DU-1 = sì; le 6 + 3 resistenze e i 6 condensatori a reoforo di X5 e X14, salvo scorte) si tolgono dai carrelli prima dell'ordine.

@@ -932,3 +932,22 @@ L'utente ha chiesto di proseguire con tutto il lavoro aperto. Fatte la dima dell
 **Freerouting ha la telemetria attiva di serie.** L'ho spenta (`freerouting.json` e riga di comando) dopo le prime prove, che possono aver mandato dati d'uso del programma.
 
 **Cosa resta**: serigrafia della PCB-B (72 avvisi, F6); quote del retro della RE1.3 e altezza delle resistenze in piedi da provare sulla dima (S); arresto **R2** con le due dime stampate.
+
+## D-084 — Scheda dei partitori (PCB-P) per la 2.1.9: pettine a due file e quattro strati; i 100 nF del kit B8 sono a reoforo (2026-10-19)
+
+L'utente ha lasciato a me la scelta della strada per la PCB-P (la sagoma di D-080 non contiene i componenti, D-082) e ha detto che il kit B8 **non è SMD**: i ceramici hanno i piedini a filo. La lettura dell'ordine Temu di D-073 ("kit di 600 ceramici SMD") era sbagliata.
+
+**Spazio nel CAD** (19 ottobre, scatole provvisorie): la sagoma utile è x 44,2…78 × y 18,6…27,2. Fuori ci sono la base (in coda e oltre x 78), il tunnel (y > 27,2) e l'ADC (y < 18,6). Verso x 75,5 per y > 24,5 c'è uno spigolo della base: l'angolo si smussa.
+
+**Scelte**:
+- **Pettine a due file** (segnale a y 20,21, massa a 25,29, colonne da x 50,25 come oggi): il piede porta 2 poli su 3 (`cablaggio.md`), e l'FSR è una resistenza, quindi anche una spina girata funziona. Fra le due file restano 3,4 mm:
+  - sotto ci vanno i 100 nF dei canali 0–5, ognuno fra il suo pin del segnale e il suo pin di massa;
+  - sopra quattro dei 10 kΩ sdraiati, sotto le spine, che appoggiano sulle plastiche delle strip a 2,5 mm.
+- **Verso la testa**: gli altri quattro 10 kΩ, i 100 nF delle NTC e quattro piazzole a due fili (NTC sinistra con A6, 3V3S, NTC destra con A7, massa dell'ADC). I fili verso l'ADC dei canali 0–5 e le masse delle NTC si saldano **sulle code dei pin del pettine**, sotto la scheda, come sulla millefori: per altre 10 piazzole non c'è posto.
+- **Fori**: in coda (46,2; 22,75) come oggi; in testa (76,2; 22,75), al posto di (69,6). Le bugne vanno nel CAD con la 2.1.9.
+- **Quattro strati**: a due strati resta sempre una rete aperta, qualunque sia l'ordine. La PCB-P si ordina sullo stesso pannello della basetta, anche lei a quattro strati; il costo in più è quasi nullo, perché le due schede insieme stanno in 100 × 100 (S, da rivedere nel preventivo di F7).
+- Il 3,3 V dei partitori si chiama 3V3S come sulla basetta (`aggiunte.yaml`, `rinominate`).
+
+**Esito**: schema con ERC a zero e reti come `partitori_def.py`; piazzamento e sbroglio da script (`pcb/partitori/sbroglia.py`, instradatore del progetto sui quattro strati) con **DRC a zero e nessuna connessione aperta**; dima `Dima_PCB_Partitori.stl` e stampe. La sagoma è ancora quella di prova scritta in `genera_pcb.py`: il controllo dei contorni contro il CAD è sospeso nella CI fino alla 2.1.9.
+
+**Da comprare (da approvare)**: 100 nF X7R 0805 per CS1 e CS2 della basetta e C1–C8 della PCB-P, 10 servono, 20 con le scorte, pochi centesimi l'uno, nell'ordine DigiKey in sospeso. In alternativa sulla basetta si potrebbero usare i ceramici a reoforo del kit, ma non ci sono più i posti; sulla PCB-P non ci stanno comunque.

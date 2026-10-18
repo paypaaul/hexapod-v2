@@ -213,16 +213,33 @@ def impronta_fili(colonne, righe, d=1.5, foro=0.9):
                     el, rif_y=-2, val_y=(righe - 1) * PASSO + 2)
 
 
+def impronta_pettine():
+    """Pettine delle prese dei piedi sulla PCB-P: sei spine JR a 3 poli, ma solo i due esterni (segnale e massa,
+    cablaggio.md: il piede porta 2 poli su 3), quindi due file da 6 a 5,08 una dall'altra. Pad 1-6 la fila del segnale,
+    7-12 quella della massa; pin a passo 2,54 da strip standard. Fra le due file restano 3,4 mm per gli 0805."""
+    el = []
+    for r, y in enumerate((0.0, 2 * PASSO)):
+        for c in range(6):
+            n = r * 6 + c + 1
+            el.append(_pad_tht(n, c * PASSO, y, 1.7, 1.0, quadrato=(n == 1)))
+    for y in (0.0, 2 * PASSO):
+        el.append(_rett(-1.27, y - 1.25, 5 * PASSO + 1.27, y + 1.25, 'F.SilkS', 0.12))
+        el.append(_rett(-1.37, y - 1.35, 5 * PASSO + 1.37, y + 1.35, 'F.CrtYd', 0.05))
+    return impronta('Pettine_JR_2x06_P2.54_File5.08',
+                    'Due strip maschio 1x6 a passo 2,54, file a 5,08 (poli esterni delle spine JR)', el,
+                    rif_y=-2.5, val_y=2 * PASSO + 2.5)
+
+
 def impronte():
     out = dict([impronta_testata()])
     for c, r in ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 2)):
         fp = impronta_fili(c, r)
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
     # due fili per foro (come la millefori della guida): Ø1,7, foro 1,0
-    for c, r in ((1, 2), (1, 6), (1, 8), (1, 13)):
+    for c, r in ((1, 2), (1, 6), (1, 8), (1, 13), (2, 2)):
         fp = impronta_fili(c, r, 1.7, 1.0)
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
-    for f in (impronta_esp, impronta_d24, impronta_ptc, impronta_ce):
+    for f in (impronta_esp, impronta_d24, impronta_ptc, impronta_ce, impronta_pettine):
         fp = f()
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
     return out
