@@ -361,3 +361,23 @@ def test_dima_aggiornata(tmp_path, scheda):
                        for m in re.finditer(r'vertex\s+(\S+)\s+(\S+)\s+(\S+)', testo)})
     with open(nella_repo, encoding='utf-8') as f:
         assert vertici(out.read_text()) == vertici(f.read())
+
+
+def test_sbroglio_collega_e_rispetta_le_distanze():
+    """script/sbroglio.py: due piazzole si collegano girando attorno a un ostacolo; chiuse da un muro non si collegano."""
+    import sbroglio as S
+    pz = [('A', '1', 2.0, 5.0, 1.5, 1.5, 'c', 'FB', 'X'), ('B', '1', 18.0, 5.0, 1.5, 1.5, 'c', 'FB', 'X'),
+          ('O', '1', 10.0, 5.0, 3.0, 3.0, 'r', 'FB', 'Y')]
+    V = S.Vincoli([(0, 0), (20, 0), (20, 10), (0, 10)])
+    R = S.Instradatore(pz, V, {}, 0, 0, 20, 10)
+    assert R.instrada('X') == []
+    for _, st, w, xy in R.piste:
+        for a, b in zip(xy, xy[1:]):
+            # ogni tratto resta a 0,2 dall'ostacolo (rettangolo 3 x 3 in (10; 5)) e a 0,5 dal bordo
+            for k in range(21):
+                x, y = a[0] + (b[0] - a[0]) * k / 20, a[1] + (b[1] - a[1]) * k / 20
+                assert S._d_rett(x, y, 10, 5, 1.5, 1.5) - w / 2 >= 0.2 - 1e-6
+                assert min(x, y, 20 - x, 10 - y) - w / 2 >= 0.5 - 1e-6
+    muro = [('M', '1', 10.0, 5.0, 2.0, 10.0, 'r', 'FB', 'Y')]
+    R2 = S.Instradatore(pz[:2] + muro, V, {}, 0, 0, 20, 10)
+    assert R2.instrada('X') == ['X B.1']

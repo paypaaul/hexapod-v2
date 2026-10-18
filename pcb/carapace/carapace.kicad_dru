@@ -36,12 +36,14 @@
 (rule "5V_ESP da 0,6"
 	(condition "A.Type == 'Track' && A.NetName == '/5V_ESP'")
 	(constraint track_width (min 0.6mm)))
-(rule "3V3S da 0,5"
+# 3,3 V: al piu' 0,2 A in tutto (requisiti.md, 3V3S). IPC-2221, rame esterno da 1 oz, +10 °C: 0,3 mm portano circa
+# 0,9 A. Da 0,5 (studio.md 2.5) a 0,3 in F4: a 0,5 il 3,3 V non passa fra due pin della strip (0,84 di luce)
+(rule "3V3S da 0,3"
 	(condition "A.Type == 'Track' && A.NetName == '/3V3S'")
-	(constraint track_width (min 0.5mm)))
-(rule "3V3_ESP e 3V3_X3 da 0,5: portano tutto il 3V3S"
+	(constraint track_width (min 0.3mm)))
+(rule "3V3_ESP e 3V3_X3 da 0,3: portano tutto il 3V3S"
 	(condition "A.Type == 'Track' && (A.NetName == '/3V3_ESP' || A.NetName == '/3V3_X3')")
-	(constraint track_width (min 0.5mm)))
+	(constraint track_width (min 0.3mm)))
 # carapace: le stesse alimentazioni hanno i nomi della guida (5V = 5V_LED, 3V3 = 3V3S; verifica R1)
 # 0,8 A al piu' (catena LED e ampli): IPC-2221, rame esterno da 1 oz, +10 °C chiede circa 0,3 mm; 0,6 lascia margine
 # e passa fra le piazzole a passo 2,54 (revisione del 18 ottobre: a 1,0 il 5V della PCB-C non si sbrogliava)

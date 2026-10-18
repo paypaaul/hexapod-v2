@@ -37,9 +37,10 @@ PIAZZOLE = [
     # luci delle tibie: 5 V e massa nelle piazzole dei poli 2 e 9 del cavo piatto (due fili per foro, come la millefori),
     # il dato su una piazzola sua: sulla fila del bordo -Y non ci sono posti per tre (F4)
     ('P9', 'dato delle luci delle tibie', ['DATA_TIBIE']),
-    # cavo piatto: poli 1-14 come cablaggio.md 3.5 (polo 14 di riserva, senza rete su questa scheda)
+    # cavo piatto: poli 1-13 come cablaggio.md 3.5. Il polo 14 (riserva, senza rete su questa scheda) si taglia sulla
+    # basetta come sulla millefori: il suo posto in testa alla fila -Y va al dato delle tibie (F4)
     ('P10', 'cavo piatto', ['5V_LED', '5V_LED', 'GND', 'DATA', 'GND', 'SCL', '3V3S', 'SDA', 'GND',
-                            'BCLK', 'WS', 'MIC', 'AMP', None]),
+                            'BCLK', 'WS', 'MIC', 'AMP']),
     ('P11', 'uscita di X3', ['3V3_X3']),          # la massa di X3 va su una piazzola di massa qualunque (F4)
 ]
 # Misura RMT al banco (JP-RMT, partitore 680 / 1k): tolta dalla scheda in F4 per far posto sotto l'ESP32. Al banco il

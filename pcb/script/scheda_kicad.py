@@ -32,8 +32,28 @@ def punto(x, y):
     return pcbnew.VECTOR2I(mm(x), mm(y))
 
 
+def classi_di_rete(pro, classi):
+    """Classi di rete nel .kicad_pro, prima di NewBoard: {nome: (larghezza, distanza, [reti])}. Le usano il DRC e
+    l'esportazione Specctra per Freerouting (che non legge il .kicad_dru); Default resta quella del modello."""
+    with open(pro, encoding='utf-8') as f:
+        d = json.load(f)
+    ns = d.setdefault('net_settings', {})
+    base = next(c for c in ns.get('classes', []) if c['name'] == 'Default')
+    base.update(track_width=0.25, clearance=0.2, via_diameter=0.6, via_drill=0.3)
+    nuove = [base]
+    for nome, (w, dist, reti) in classi.items():
+        c = dict(base, name=nome, track_width=w, clearance=dist, priority=len(nuove))
+        nuove.append(c)
+    ns['classes'] = nuove
+    ns['netclass_patterns'] = [{'netclass': nome, 'pattern': '/' + r if not r.startswith('unconnected') else r}
+                               for nome, (_, _, reti) in classi.items() for r in reti]
+    with open(pro, 'w', encoding='utf-8') as f:
+        json.dump(d, f, indent=2)
+        f.write('\n')
+
+
 class Scheda:
-    def __init__(self, net, percorso):
+    def __init__(self, net, percorso, strati=2):
         """`net` è la netlist di `netlist()`; None per una scheda senza componenti (prove dei contorni)."""
         net = net or {'componenti': {}, 'reti': {}}
         # NewBoard apre il progetto accanto (.kicad_pro, con regole e classi di rete) e lo completa con i default
@@ -41,7 +61,7 @@ class Scheda:
         # identificativi ripetibili: rigenerare la stessa scheda dà lo stesso file, e il diff mostra solo le modifiche
         pcbnew.KIID.SeedGenerator(zlib.crc32(os.path.basename(percorso).encode()))
         self.board = pcbnew.NewBoard(percorso)
-        self.board.SetCopperLayerCount(2)
+        self.board.SetCopperLayerCount(strati)
         self.net = net
         self.reti = {}
         for nome in sorted(net['reti']):
@@ -141,7 +161,9 @@ class Scheda:
         self.board.Add(s)
 
     def area_senza_rame(self, nome, strati, punti, cosa='tutto'):
-        """Area vietata a piste, vie, piazzole e riempimenti sugli strati dati; con cosa='piazzole' solo alle piazzole."""
+        """Area vietata a piste, vie, piazzole e riempimenti sugli strati dati; con cosa='piazzole' solo alle piazzole,
+        con cosa='piste' a piste, vie e riempimenti ma non alle piazzole (sotto un modulo appoggiato sulla scheda), con
+        cosa='riempimento' solo ai riempimenti (sotto un componente che scalda)."""
         z = pcbnew.ZONE(self.board)
         z.SetIsRuleArea(True)
         z.SetZoneName(nome)
@@ -150,9 +172,9 @@ class Scheda:
             ls.AddLayer(_strato(st))
         z.SetLayerSet(ls)
         z.SetDoNotAllowZoneFills(True)
-        z.SetDoNotAllowTracks(cosa == 'tutto')
-        z.SetDoNotAllowVias(cosa == 'tutto')
-        z.SetDoNotAllowPads(True)
+        z.SetDoNotAllowTracks(cosa in ('tutto', 'piste'))
+        z.SetDoNotAllowVias(cosa in ('tutto', 'piste'))
+        z.SetDoNotAllowPads(cosa not in ('piste', 'riempimento'))
         z.SetDoNotAllowFootprints(False)
         contorno = z.Outline()
         contorno.NewOutline()
@@ -172,6 +194,16 @@ class Scheda:
         for nome_a, strati, punti, cosa in g['senza_rame']:
             self.area_senza_rame(nome_a, strati, punti, cosa)
         return g
+
+    def gonfia(self, punti, d):
+        """Poligono (punti di KiCad in mm) allargato di d mm, angoli smussati."""
+        poli = pcbnew.SHAPE_POLY_SET()
+        poli.NewOutline()
+        for x, y in punti:
+            poli.Append(mm(x), mm(y))
+        poli.Inflate(mm(d), pcbnew.CORNER_STRATEGY_CHAMFER_ALL_CORNERS, mm(0.01))
+        linea = poli.Outline(0)
+        return [(pcbnew.ToMM(linea.CPoint(i).x), pcbnew.ToMM(linea.CPoint(i).y)) for i in range(linea.PointCount())]
 
     def contorno_rientrato(self, rientro):
         """Punti del contorno (Edge.Cuts senza i fori) rientrati di `rientro` mm: sagoma dei riempimenti."""
@@ -221,6 +253,16 @@ class Scheda:
         if strato.startswith('B.'):
             t.SetMirrored(True)
         self.board.Add(t)
+
+    def piste_da_file(self, percorso, kicad):
+        """Piste e vie salvate da script/freerouting.py (terna del robot): lo sbroglio si rigenera senza Freerouting."""
+        with open(percorso, encoding='utf-8') as f:
+            d = json.load(f)
+        for rete, strato, w, (x0, y0), (x1, y1) in d['piste']:
+            self.pista(rete, [kicad(x0, y0), kicad(x1, y1)], w, strato)
+        for rete, x, y, dv, fv in d['vie']:
+            self.via(rete, *kicad(x, y), dv, fv)
+        return d
 
     def salva(self):
         filler = pcbnew.ZONE_FILLER(self.board)

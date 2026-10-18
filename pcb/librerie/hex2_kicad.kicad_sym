@@ -2784,7 +2784,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "Conn_01x14"
+	(symbol "Conn_01x13"
 		(pin_names
 			(offset 1.016)
 			(hide yes)
@@ -2804,8 +2804,8 @@
 				)
 			)
 		)
-		(property "Value" "Conn_01x14"
-			(at 0 -20.32 0)
+		(property "Value" "Conn_01x13"
+			(at 0 -17.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2836,7 +2836,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x14, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" "Generic connector, single row, 01x13, script generated (kicad-library-utils/schlib/autogen/connector/)"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2869,10 +2869,10 @@
 				)
 			)
 		)
-		(symbol "Conn_01x14_1_1"
+		(symbol "Conn_01x13_1_1"
 			(rectangle
 				(start -1.27 16.51)
-				(end 1.27 -19.05)
+				(end 1.27 -16.51)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -3016,17 +3016,6 @@
 			(rectangle
 				(start -1.27 -15.113)
 				(end 0 -15.367)
-				(stroke
-					(width 0.1524)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(rectangle
-				(start -1.27 -17.653)
-				(end 0 -17.907)
 				(stroke
 					(width 0.1524)
 					(type default)
@@ -3262,24 +3251,6 @@
 					)
 				)
 				(number "13"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin passive line
-				(at -5.08 -17.78 0)
-				(length 3.81)
-				(name "Pin_14"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "14"
 					(effects
 						(font
 							(size 1.27 1.27)

@@ -38,7 +38,7 @@ basetta:
     P7: [Q1, R1, S1, T1, rete:SDA]
     P8: [G1, H1, I1, J1, rete:SCL]
     P9: [rete:DATA_TIBIE]                 # dato delle luci delle tibie dopo R9; 5 V e massa nei poli 2 e 9 (F4)
-    P10: [A13, B13, E13, F13, G13, H13, I13, J13, K13, L13, M13, N13, O13, null]
+    P10: [A13, B13, E13, F13, G13, H13, I13, J13, K13, L13, M13, N13, O13]   # polo 14 tagliato (F4)
     P11: [rete:3V3_X3]
 
 carapace:

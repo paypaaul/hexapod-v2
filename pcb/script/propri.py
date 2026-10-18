@@ -24,9 +24,9 @@ sys.path.insert(0, os.path.normpath(os.path.join(QUI, '..', '..', 'guida', 'sche
 
 PASSO = 2.54
 # Posti delle strip senza foro, dove le piste a 5 V attraversano la fila -Y lontano da ogni pin (piano-pcb.md 4.1, F4):
-# 23 (GPIO20, dato delle tibie), 27 e 28 (GPIO45 e GPIO0, 5 V dei LED), 30 (GPIO36, dato dell'anello). Il VBAT non
+# 27 e 28 (GPIO45 e GPIO0, 5 V dei LED), 30 (GPIO36, dato dell'anello), 40 (GPIO43, dato delle tibie). Il VBAT non
 # attraversa piu' la fila +Y: il filo arriva da sotto accanto al VIN di U2
-VARCHI_ESP = (23, 27, 28, 30)
+VARCHI_ESP = (27, 28, 30, 40)
 
 
 # --- simboli
@@ -147,7 +147,7 @@ def impronta_esp():
     el.append(_rett(testa, -8, testa + 4.8, 8, 'F.Fab', 0.1))
     el.append(_linea((x0 - 2.2, -14.2), (x0 - 2.2, -11.2), 'F.SilkS'))  # segno del pin 1
     return impronta('ESP32_S3_CAM_RE13_Strip',
-                    'UICPAL ESP32-S3-CAM N16R8 RE1.3 su due strip femmina 1x20, file a 25,4; posti 23, 27, 28 e 30 '
+                    'UICPAL ESP32-S3-CAM N16R8 RE1.3 su due strip femmina 1x20, file a 25,4; posti 27, 28, 30 e 40 '
                     'senza foro (varchi del 5 V). Origine al centro delle file', el, rif_y=-16, val_y=16)
 
 
@@ -219,7 +219,7 @@ def impronte():
         fp = impronta_fili(c, r)
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
     # due fili per foro (come la millefori della guida): Ø1,7, foro 1,0
-    for c, r in ((1, 2), (1, 6), (1, 8), (1, 14)):
+    for c, r in ((1, 2), (1, 6), (1, 8), (1, 13)):
         fp = impronta_fili(c, r, 1.7, 1.0)
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
     for f in (impronta_esp, impronta_d24, impronta_ptc, impronta_ce):

@@ -50,7 +50,7 @@ Scelte che faccio io e annoto nel disegno (le cambio se l'utente vuole):
 
 ## 4. Le tre schede (dati riletti sulla 2.1.7)
 
-Quote in mm nella terna del robot: X avanti, Y a sinistra, Z in alto. Due strati, 1,6 mm, rame da 1 oz, HASL senza piombo.
+Quote in mm nella terna del robot: X avanti, Y a sinistra, Z in alto. Due strati, 1,6 mm, rame da 1 oz, HASL senza piombo; **la PCB-B a quattro strati** (D-083: a due non si sbroglia).
 
 ### 4.1 PCB-B, basetta dell'ESP32
 
@@ -64,7 +64,7 @@ Quote in mm nella terna del robot: X avanti, Y a sinistra, Z in alto. Due strati
 | File dell'ESP32 | due strip femmina 1 × 20 a y ±12,7 (25,4), da x 22,5 a 73,3 | S fino alla prova a secco (P-005) |
 | Vicinanze | morsettiera della SSC-32 a 3,1 dal bordo di coda; asola del bus della 2.1.7 a 0,5 oltre il bordo +Y (x 26,5…33,5); colonnina del carapace a 1,3 dal bordo ±Y | V; `rif_componenti.py:483-490`, `corpo.py:51`; `corpo.py:187-191`; `corpo.py:108-110`, `:392-393` |
 
-**Componenti**: U1 ESP32 su strip; U2 D24V22F5; U3 SN74AHCT125N in DIP-14; D1 1N5819; PTC1; R1, R2, R4, R5, R7 come oggi; CS1 e CS2 da 100 nF **a reoforo** (oggi sono SMD del kit B8).
+**Componenti**: U1 ESP32 su strip; U2 D24V22F5; U3 SN74AHCT125N in DIP-14; D1 1N5819; PTC1; R1, R2, R4, R5, R7 come oggi; CS1 e CS2 da 100 nF. **Dopo F4 (D-083)**: CS1, CS2, R1, R10 e R16 in 0805 sotto la scheda, sei resistenze in piedi, PTC1 MF-R090-0-9, niente JP-RMT, 6 punti di prova, VBAT da sotto accanto a U2, varchi ai pin 27, 28, 30 e 40. Il testo di questa sezione resta quello del piano approvato; dove D-083 lo cambia vale D-083.
 Con DU-1 = sì si aggiungono:
 - R10, pull-up da 10 kΩ all'ingresso del canale 3, **verso il 3V3 dell'ESP32** (lato ESP32 di JP-3V3), mai verso il 5 V. GPIO21 non ha pull al reset e resta libero finché il firmware non avvia la UART (scheda Espressif, letta dalla verifica: si riconferma in F0);
 - R-TX da 330 Ω in serie su 3Y;
@@ -83,7 +83,7 @@ Con DU-1 = no resta U4 KAmod. R9 da 330 Ω entra sulla scheda in tutti e due i c
 - **5 V e pin dell'ESP32**: nessuna pista **o piazzola** a 5 V a meno di 1 mm da un pin dell'ESP32 senza massa in mezzo (R-09). TX5, DATA, DATA2, il 5 V delle luci e il 5V_REG verso il suo punto di prova attraversano le file solo nei varchi dei posti non usati: fila +Y C…H e J…R; fila −Y B-C, G-H, I-J-K e S-T (`schemi.md:93`). Il partitore della RX sta fuori dalle file.
 - **Eccezioni scritte nel file delle regole**: le piazzole di U2 (VIN a 2,54 da EN e GND, e EN si tratta come VBAT perché ha 270 kΩ interni verso VIN, pagina Pololu 2858) e la coppia pin 5V / GPIO14 (0,84 mm, controllata dalla prova 5 della guida). Il pin 5V esce verso l'interno: verso il bordo restano 0,9 mm.
 - **Bordo −Y**: le piazzole a 5 V (poli 1-2, polo 4, luci delle tibie) devono stare a 1 mm dalla strip a y −12,7. Con piazzole Ø1,7 e 0,5 mm dal bordo il centro sta solo fra \|y\| 15,4 e 16,15: **una fila sola**, circa 19 posti a passo 2,54. Il cavo piatto va in quella fila: niente "due file sfalsate". I posti si contano prima del piazzamento, insieme a P-140 (strisce del cavo piatto più basse di 1 mm, 2.1.8) e alla verifica `cavo_piatto`.
-- **Larghezze**: 5V_REG 1,5; 5V_LED 1,0; 5V_ESP 0,6; 3V3S 0,5; segnali 0,25 (`studio.md` 2.5).
+- **Larghezze**: 5V_REG 1,5; 5V_LED 1,0; 5V_ESP 0,6; 3V3S 0,3 (era 0,5: D-083, IPC-2221); segnali 0,25 (`studio.md` 2.5).
 - **PTC1**: il più lontano possibile dal retro dell'ESP32, meglio fuori dalla sua ombra, sdraiato, senza riempimento di rame sotto (R-10: a PTC scattato la superficie passa i 100 °C, S).
 - **Punti di prova** fuori dall'ombra dell'ESP32, a gruppi per tensione con una massa in mezzo: VBAT e 5 V (5V_REG, 5V_LED) da una parte; 3V3S, SDA, SCL, RX3, LED_IN, SENSE, ENA, OFF dall'altra; TX5, DATA e DATA2 con le uscite di U3. Il 5V_ESP si misura nella presa del pin 5V, come oggi.
 - **Piazzole dei fili**, con il nome: 2813 (VBAT, GND, SENSE, OFF), abilitazione, seriale (TX5, RX5, e la massa vuota finché S-22 non è misurato), bus a 4 rami più uno di riserva, luci delle tibie (3), cavo piatto. Due fori Ø1,5 per le fascette accanto ai fasci.
@@ -165,6 +165,167 @@ Ogni fase finisce con **commit, push su `main` e CI `ci` e `sim` verdi**, e lasc
 | Portafusibile Neuftech (Q-23) | P-139 della 2.1.8 | utente | se manca, P-139 passa alla 2.1.9 (5.3) |
 
 I dati dell'agente si leggono su fonte primaria e si marcano V. Quelli che mancano diventano C e hanno un ripiego scritto.
+
+**Acquisti (DU-4)**: in F0 preparo l'elenco voce per voce dal BOM, con prezzo, negozio e stato (B e C già approvate, X da approvare, piccole voci nuove), e il totale dell'ordine DigiKey rispetto ai 75 €. L'utente approva e ordina. Le voci che escono (C1 con DU-1 = sì; le 6 + 3 resistenze e i 6 condensatori a reoforo di X5 e X14, salvo scorte) si tolgono dai carrelli prima dell'ordine.
+
+**All'approvazione di questo piano**, in un commit: decisione D-078 con le scelte del 18 ottobre e le risposte DU-n; `CLAUDE.md` (stato, mappa, prossimi passi); voce PCB di `docs/backlog.md`.
+
+### 5.2 F1: progetto KiCad e prova del metodo
+
+```
+pcb/
+  README.md                 versione di KiCad, revisioni, errata, comandi, foglio di montaggio della r1
+  librerie/hex2.kicad_sym   simboli dei moduli
+  librerie/hex2.pretty/     impronte: ESP32 a 25,4 con i varchi, D24V22F5, KAmod (se resta), Würth a 90°, PTC,
+                            più una copia di quelle standard usate (strip, DIP-14, DO-41, 0805, ponticelli, punti di prova)
+  regole/hex2.kicad_dru     fonte unica delle regole, copiata in ogni progetto da uno script
+  script/genera_contorni.py contorni, fori e zone senza rame dalle quote del CAD; modo --controlla
+  script/verifica_reti.py   netlist di KiCad contro guida/schemi/sorgenti/*_def.py
+  aggiunte.yaml             componenti e reti volute che i *_def.py non hanno
+  basetta/  carapace/  partitori/   un progetto per scheda, ciascuno con il suo <nome>.kicad_dru
+  ordini/r1/                Gerber, fori e distinta effettivamente inviati
+```
+
+**Prova del metodo** (prima di tutto il resto; esito scritto in `pcb/README.md`). L'agente non ha un modo provato per usare l'interfaccia grafica di KiCad, e `kicad-cli` esporta la netlist ma non la importa nel PCB. La prova del 18 ottobre ha generato solo uno schema vuoto. Su una scheda di prova piccola:
+1. schema generato da script, con simboli, etichette di rete e fili, che passa l'ERC;
+2. PCB con le impronte e le reti assegnate alle piazzole da `pcbnew`;
+3. una pista e un riempimento di massa tracciati da script;
+4. DRC con `--schematic-parity` a zero, e un caso di controllo che fallisce.
+
+Se riesce, schema, piazzamento e sbroglio li fa l'agente da script, e l'utente rivede nell'editor e nei render. Se non riesce, si prova l'agente con l'automazione dell'interfaccia (strumenti `cmux-cua`). Altrimenti schema e sbroglio nell'editor li fa l'utente, con l'agente che prepara contorni, impronte, piazzamento iniziale, regole e controlli. La colonna "Chi" e le durate si correggono di conseguenza.
+
+**Il resto di F1**:
+- KiCad 10.0.7 sul Mac (V). `kicad-cli` fa ERC, DRC, Gerber, fori, posizioni, STEP, render, SVG e PDF (V, provati il 18 ottobre). I messaggi escono in italiano: nella CI si usa `--format json`. I comandi provati vanno in `pcb/README.md` e in `produzione.md` 4.1.
+- Niente autorouter: Freerouting sarebbe una dipendenza nuova.
+- **Quote del CAD**:
+  - `rif_componenti.py` importa le librerie di Fusion e non si carica fuori da Fusion. Quindi `genera_contorni.py` legge le liste `PARAMETRI` di `rif_componenti.py` e `corpo.py` con `ast`, senza importarle, e ne valuta le espressioni.
+  - Le pose (basetta con centro in x 50, scheda del carapace) vengono da `guida/dati/manifest.json`, i fori da `fori.json` (`bas_col_*_ins`, `ins_sch_a…d`, V).
+  - Lo script genera una volta. Poi `--controlla` legge il `.kicad_pcb` senza riscriverlo e fallisce se contorno o fori si sono staccati dal CAD.
+  - Gira in pytest senza KiCad, leggendo il testo del file, quindi anche con DU-3 = no.
+- **Regole**: KiCad legge solo `<progetto>.kicad_dru`, accanto al `.kicad_pro`. Uno script copia la fonte unica nei tre progetti e la CI controlla che le copie siano uguali. Un caso di controllo per scheda: una violazione voluta deve far fallire il DRC.
+- **`verifica_reti.py`**:
+  - per ogni rete dei `*_def.py`, tutti i pin stanno nella stessa rete di KiCad, e nessuna rete di KiCad unisce due reti dei `*_def.py`;
+  - una tabella dà il nome del pin → numero (U1, U3, U4, diodi) e gli alias (3V3_ESP / 3V3S con JP-3V3);
+  - `pcb/aggiunte.yaml` elenca le differenze volute: canale 3 sulla seriale e R10, R-TX, R11, R12 (DU-1); R9 sulla scheda; JP-RMT, RMT_IN e il suo partitore; polo 14; piazzole del Qwiic; SOIC-16 e R-MIC vuote; punti di prova; spine JR con P2;
+  - tutto quello che non è né nei `*_def.py` né in `aggiunte.yaml` è un errore;
+  - un caso di controllo: una rete scambiata apposta deve fallire.
+- `scheda_def.py` descrive la scheda del carapace della 2.1.6. Per il confronto contano solo le reti, che non sono cambiate. Va scritto nel controllo, non corretto.
+- `.gitignore`: `*-backups/`, `.history/`, `*.kicad_prl`, `fp-info-cache`, `*.lck`, uscite di produzione fuori da `ordini/`.
+- **STEP**: si esportano con `--user-origin` sull'origine del CAD. Nello STEP di KiCad l'asse Y è rovesciato (V, provato il 18 ottobre). La procedura si prova su un punto noto e si scrive in `cad/CLAUDE.md`.
+- **CI** (se DU-3 = sì): job `pcb` con KiCad dal PPA, controllo della versione, ERC, DRC con parità, `verifica_reti.py`, `genera_contorni.py --controlla`. Gli script Python passano anche da `ruff`. I test che chiedono `pcbnew` si saltano se il modulo manca.
+
+### 5.3 F2: versione 2.1.8 del CAD
+
+La 2.1.8 ha già tre voci in attesa (`piano-v2.1.0.md`, "Seguito: versione 2.1.8"):
+- P-139, i reofori delle spie: aspetta il portafusibile (Q-23);
+- P-140, le strisce del cavo piatto: toccano le piazzole della PCB-B;
+- P-141, le prese dei piedi: sono proprio la variante P2.
+
+Proposta: la 2.1.8 contiene P-140, P-141 e la PCB-P. P-139 entra solo se Q-23 arriva in tempo, altrimenti passa alla 2.1.9. Il piano della versione si scrive in `piano-v2.1.0.md` prima di partire, come le altre, e si aspetta il via.
+
+- **Prima di partire**: copia di ripristino "Hexapod v2.1.0 - ripristino 2.1.7 (prima della 2.1.8)", da aggiungere in `CLAUDE.md` fra i file da non toccare. Il tag `v2.1.7` c'è già.
+- **Prova delle varianti**: P1 e P2 si provano come scatole provvisorie con `urti_scatole`, come `spine_prese` e `qwiic_adc`, ognuna con il suo caso di controllo. `assieme.py → varianti` lavora solo con `Rif_*` già in libreria e serve dopo.
+  - P1: la PCB-P e i due passaggi dei fili dei piedi (sotto l'ADC, fra ADC e colonna).
+  - P2: la PCB contro il bordo dell'ADC (y 18,45) e contro il servo di coxa AS a tutta l'escursione; le spine più alte di 3,5 mm contro vassoio e cavi.
+- **Variante scelta (DU-5)**: bugne con inserti M2, `Rif_Partitori` in `LIBRERIA` e nel passo `ingombri`, `fori.json` e `manifest.json` rigenerati.
+- **A valle**, come ogni versione (`cad/CLAUDE.md`, blocco a valle), così `test_guida` e la CI restano verdi:
+  - viteria e inserti nel BOM;
+  - catalogo della guida (giunzioni, viteria);
+  - `esporta_guida`, poi `guida.costruisci controlla`;
+  - passi 7.10, 8.09 e 8.10 alla 2.1.8.
+- La basetta e la scheda del carapace **non cambiano** nel CAD.
+- **Verifiche di fine versione** come sempre: controllo dell'assieme, sentinella sui volumi, CI verde, decisione D-0xx, `versioni.md`, salvataggio in Fusion, tag `v2.1.8`.
+
+### 5.4 R3: lista di controllo dopo lo sbroglio
+
+- DRC ed ERC a zero, con la parità dello schema; `verifica_reti.py` verde; `genera_contorni.py --controlla` verde.
+- Antenna: niente rame per x ≥ 74 sulla PCB-B.
+- VBAT isolato, da 1,5 mm, nei due posti senza foro; piazzola e punto di prova a 5 mm dal 3,3 V e dai GPIO.
+- Nessun 5 V, pista o piazzola, a meno di 1 mm da un pin dell'ESP32, salvo le eccezioni scritte.
+- R10 verso il 3V3 dell'ESP32; partitore della RX montato di serie, con la serigrafia del ripiego.
+- Faccia dei componenti: "LATO COMPONENTI" e freccia verso la testa in serigrafia. Controllo nel 3D di KiCad e con lo STEP (PCB-C con i componenti in basso, PCB-B in alto).
+- Polarità e pin 1 in serigrafia: D1, CE1, U3, J2 e la sua chiave, PTC1.
+- Nome, revisione e data: "HEX2 BASETTA r1", "HEX2 CARAPACE r1", "HEX2 PARTITORI r1".
+- Punti di prova raggiungibili con l'ESP32 inserito; nomi delle piazzole uguali a quelli della guida.
+- Code dei pin della PCB-C sotto i 2 mm; niente sotto la PCB-B oltre i 3,3 mm.
+
+### 5.5 F8 e F9: montaggio, documenti e guida
+
+- **Foglio di montaggio e collaudo della r1** (in `pcb/README.md`, fatto in F7): ordine dei componenti, punti di prova, valori attesi, prima accensione senza ESP32. Prove in più rispetto alle millefori:
+  - portata del Wi-Fi con l'ESP32 sulla basetta (antenna sopra il rame fino a x 74);
+  - GPIO21 all'avvio;
+  - break atteso sulla RX a SSC-32 staccata;
+  - temperatura di U2, che si misura in P4.
+- **Decisioni**: D-078 all'approvazione del piano; poi una voce a ogni revisione approvata.
+- **BOM**:
+  - entrano: PCB, 0805 da 10 kΩ, eventuale MF-R090, strip delle spine con P2, resistenze che mancano in B10, 2 condensatori da 100 nF a reoforo per CS1 e CS2;
+  - escono: C1 con DU-1 = sì, i 6 + 3 × 10 kΩ e i 6 × 100 nF a reoforo di X5 e X14 (salvo scorte).
+- **Guida**:
+  - Sezione 13: passa alla PCB-C dopo F8, perché per il carapace non c'è alternativa.
+  - Sezioni 4 e 8: passano alla strada A dopo F9. Le millefori restano la strada B per la basetta e, con P1, per i partitori.
+  - Cambiano anche le appendici A.15–A.19 (`architettura-una-per-una.md` 7.2). Spariscono 4.11–4.14 e 4.24.
+  - Le stampe di KiCad prendono il posto dei disegni delle millefori. I `*_def.py` restano la fonte delle reti.
+- **Altri documenti**: `cablaggio.md`, `predisposizioni.md`, `schemi.md` (nota sulla strada A), `piano-elettronica-software.md` 2.4 (indirizzo del TCA9534), `CLAUDE.md` a ogni arresto.
+
+### 5.6 F7: pannello e ordine
+
+- **Pannello o tre disegni separati**: si confrontano due preventivi veri.
+  - Il pannello si fa a mano in KiCad (un quarto progetto `pcb/pannello/`). KiKit sarebbe una dipendenza nuova.
+  - Niente linguette sui bordi con gioco sotto 1,5 mm: il fronte della PCB-C (0,85 dall'amplificatore) e i bordi ±Y della PCB-B (1,3 dalle colonnine del carapace).
+  - Il pannello passa DRC e Gerber come le schede.
+- Gerber aperti in GerbView e nell'anteprima di JLCPCB.
+- Preventivo vero sotto i 170 $: oltre, IVA e dazio passano al corriere con la sua commissione. Si controllano anche dazio, voci doganali e cambio (`produzione.md` 6.3).
+- Tag `pcb-r1` e file inviati in `pcb/ordini/r1/`.
+
+## 6. Rischi
+
+| Rischio | Come si riduce |
+|---|---|
+| Schema e sbroglio da script non riescono | prova del metodo in F1, prima di tutto; ripieghi scritti (5.2) |
+| Impronta sbagliata (ESP32, D24V22F5, testata, PTC, spine) | dati di F0 su fonte primaria; dima prima dello sbroglio (F5) |
+| Rete sbagliata | `verifica_reti.py` con `aggiunte.yaml`; ponticelli e 0805 per correggere con un filo; 4 schede di scorta |
+| 5 V su un GPIO | varchi nelle file, VBAT lontano dal bus, punti di prova a gruppi; ripiego della RX solo dopo la misura; prima accensione senza ESP32 |
+| Bus con pull-up troppo forti | ponticello di X20 tagliato; R4 e R5 sostituibili; misura al passo 8.28 |
+| PCB-P senza posto | due varianti provate in F2 prima dello schema della PCB-P |
+| PCB-C troppo piena (7,4 × 19 mm utili) | piazzata per prima; TCA9534 già tolto (R1); ali davanti dalla 2.1.8 |
+| Specchiature | serigrafia, 3D di KiCad, STEP con l'asse Y controllato |
+| Antenna sopra il rame | niente rame da x 74; prova di portata del Wi-Fi in F8 |
+| Calore di U2 e del PTC sotto l'ESP32 | piano di massa; PTC lontano, senza rame sotto; misura in P4; tetto del firmware fino ad allora: LED 600 mA senza audio, 400 mA con l'audio (D-082) |
+| Moduli non arrivati in tempo per la dima | acquisti in F0; se tardano, la dima si fa con le misure dei disegni e il rischio si dichiara in R2 |
+| La 2.1.8 aspetta Q-23 | P-139 passa alla 2.1.9 (5.3) |
+| Dogana e prezzi | un solo ordine, sotto i 170 $; Aisler se le regole cambiano |
+
+## 7. Uso di agenti e di token
+
+Il disegno lo faccio io nel flusso principale. Ai punti d'arresto, prima di portare il lavoro all'utente, può servire una verifica con pochi agenti (al più tre, effort alto, Sonnet dove basta), sui risultati scritti su file:
+- dopo F3 (R1): reti e sicurezza elettrica;
+- dopo F6 (R3): regole di 4.1 e lista 5.4;
+- dopo F7 (R4): Gerber, pannello e preventivo.
+
+**Ogni verifica si chiede prima all'utente**, con il numero di agenti e i token stimati, e parte solo con il suo via.
+
+Riferimenti di oggi: la raccolta per questo piano ha usato 4 agenti e circa 0,9 milioni di token, la verifica 3 agenti e circa 0,65 milioni. Una verifica costa quindi circa 0,7–1 milione di token. Il flusso principale si aggiunge a parte: circa una finestra d'uso per sessione di disegno (S).
+
+## 8. Per ripartire
+
+Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, cosa aspetta l'utente.
+
+**Stato al 18 ottobre 2026, notte tardi** (per ripartire):
+- Piano **approvato** (D-078); F1 e F3 fatte; R1 approvato (D-079); 2.1.8 chiusa (D-081); revisione D-082.
+- **F5 della PCB-C**: dima `cad/stl/attrezzi/Dima_PCB_Carapace.stl`, render e stampa 1:1 (D-083). Le prove da fare sono in `pcb/README.md`, "Dime".
+- **F4 della PCB-B fatta, con lo sbroglio di prova chiuso** (D-083):
+  - piazzamento, apertura sotto U2, ingombri nel CAD senza urti (7 casi di controllo);
+  - **quattro strati** (scelta dell'utente), DRC a zero, nessuna connessione aperta;
+  - dima `Dima_PCB_Basetta.stl`, render e stampa 1:1.
+  - Sbroglio: `pcb/basetta/sbroglia.py` (instradatore del progetto, poi Freerouting 2.5.0 in `~/tools/freerouting` con OpenJDK di Homebrew, poi rifinitura).
+- **Prossimo dell'agente**:
+  - serigrafia della PCB-B (72 avvisi);
+  - la PCB-P per la 2.1.9 (sagoma da approvare prima di toccare Fusion);
+  - poi l'arresto **R2**.
+- **Aspetta l'utente**:
+  - stampa e prova delle due dime (R2);
+  - taglia del kit B8 (ora serve anche per CS1 e CS2 sulla basetta);
+  - 5,1 kΩ nel kit Elegoo; portafusibile Neuftech (Q-23); tensione della TX della SSC-32.
 
 **Acquisti (DU-4)**: in F0 preparo l'elenco voce per voce dal BOM, con prezzo, negozio e stato (B e C già approvate, X da approvare, piccole voci nuove), e il totale dell'ordine DigiKey rispetto ai 75 €. L'utente approva e ordina. Le voci che escono (C1 con DU-1 = sì; le 6 + 3 resistenze e i 6 condensatori a reoforo di X5 e X14, salvo scorte) si tolgono dai carrelli prima dell'ordine.
 

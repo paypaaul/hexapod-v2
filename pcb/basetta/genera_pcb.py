@@ -14,6 +14,7 @@ Vincoli che decidono la disposizione (quote lette dal CAD, 2.1.8):
 """
 
 import json
+import math
 import os
 import sys
 
@@ -21,7 +22,7 @@ QUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(QUI, '..', 'script'))
 
 from genera_contorni import kicad  # noqa: E402
-from scheda_kicad import Scheda, netlist  # noqa: E402
+from scheda_kicad import Scheda, classi_di_rete, netlist  # noqa: E402
 
 PASSO = 2.54
 X_ESP0 = 23.77                      # primo pin delle file dell'ESP32 (coda), V: Rif_ESP32_S3_CAM, pin_header
@@ -47,9 +48,24 @@ def apertura_u2():
     return [u2(0.94, 2.62), u2(15.99, 2.62), u2(15.99, 15.94), u2(2.62, 15.94), u2(2.62, 9.5), u2(0.94, 9.5)]
 
 
+# classi di rete per il DRC e per Freerouting: larghezze del .kicad_dru; VBAT e l'EN di U2 a 1 mm da tutto
+CLASSI = {
+    'VBAT': (1.5, 1.0, ['VBAT', 'unconnected-(U2-EN-Pad2)']),
+    '5V_REG': (1.5, 0.2, ['5V_REG']),
+    '5V_LED': (1.0, 0.2, ['5V_LED']),
+    '5V_ESP': (0.6, 0.2, ['5V_ESP']),
+    '3V3': (0.3, 0.2, ['3V3S', '3V3_ESP', '3V3_X3']),
+}
+PISTE = os.path.join(QUI, 'piste.json')
+# quattro strati (scelta dell'utente del 18 ottobre, F4): a due la basetta non si sbroglia con le regole del piano
+# (9 connessioni di segnale aperte e 8 isole di massa, con script/sbroglio.py e con Freerouting)
+STRATI = 4
+
+
 def scheda(cartella=QUI):
+    classi_di_rete(os.path.join(cartella, 'basetta.kicad_pro'), CLASSI)
     s = Scheda(netlist(os.path.join(QUI, 'basetta.kicad_sch'), os.path.join(cartella, 'basetta.net')),
-               os.path.join(cartella, 'basetta.kicad_pcb'))
+               os.path.join(cartella, 'basetta.kicad_pcb'), strati=STRATI)
     g = s.contorni_dal_cad('basetta')
     # l'apertura e' scritta in genera_contorni (che controlla il PCB): deve seguire U2
     attesa = [kicad(*p) for p in apertura_u2()]
@@ -67,17 +83,39 @@ def scheda(cartella=QUI):
         piazza(rif, x, y, a)
     for rif, (x, y, a) in SOTTO.items():
         s.piazza(rif, *kicad(x, y), angolo=a, retro=True)
+    # sotto il modulo U2, che appoggia sulla scheda, niente piste ne' vie sopra; sotto il disco di PTC1 niente
+    # riempimento (a PTC scattato la superficie passa i 100 °C, R-10)
+    s.area_senza_rame('sotto_U2', ['F.Cu'], [kicad(x, y) for x, y in
+                      [(U2_X, U2_YB), (U2_X + U2_LATO, U2_YB), (U2_X + U2_LATO, U2_YB + U2_LATO), (U2_X, U2_YB + U2_LATO)]],
+                      'piste')
+    px, py = POSTI['PTC1'][:2]
+    s.area_senza_rame('sotto_PTC1', ['F.Cu', 'B.Cu'], [kicad(x, y) for x, y in
+                      [(px - 13.7, py - 1.2), (px - 1.5, py - 1.2), (px - 1.5, py + 6.3), (px - 13.7, py + 6.3)]],
+                      'riempimento')
+    if STRATI == 4:
+        # strati interni: il rame dal bordo (0,5) anche attorno ai fori e all'apertura, come aree vietate, perche'
+        # Freerouting le veda (ai fori sulle facce esterne pensano gia' gli anelli di genera_contorni)
+        for _, x, y, d in g['fori']:
+            s.area_senza_rame('foro_%.1f_%.1f' % (x, y), ['In1.Cu', 'In2.Cu'],
+                              [(x + (d / 2 + 0.5) * math.cos(a * math.pi / 16), y + (d / 2 + 0.5) * math.sin(a * math.pi / 16))
+                               for a in range(32)])
+        s.area_senza_rame('bordo_apertura', ['F.Cu', 'In1.Cu', 'In2.Cu', 'B.Cu'], s.gonfia(g['aperture'][0], 0.5))
+    if os.path.exists(PISTE):
+        d = s.piste_da_file(PISTE, kicad)
+        if 'Freerouting' in d.get('origine', ''):
+            for strato in ('B.Cu', 'F.Cu') + (('In1.Cu',) if STRATI == 4 else ()):
+                s.riempimento('GND', s.contorno_rientrato(0.5), strato, 0.3)
     return s
 
 
-# fila del bordo -Y (y -15,8), posti alle x dei pin. In coda GPIO42 e i fili della 2813, il dato delle tibie sul varco
-# del pin 23; poi il cavo piatto, poli 1-14, con i poli 1-2 (5V_LED) e 4 (DATA) sui varchi dei pin 27, 28 e 30
+# fila del bordo -Y (y -15,8), posti alle x dei pin. In coda GPIO42 e i fili della 2813; poi il cavo piatto, poli 1-13,
+# con i poli 1-2 (5V_LED) e 4 (DATA) sui varchi dei pin 27, 28 e 30; in testa il dato delle tibie sul varco del pin 40
 # fila del bordo +Y (y +15,8): bus a 5 rami, GND, SDA, SCL, 3V3S
 VIN = u2(6.35, 1.27)
 X_PIEDI = [54.2 + 2.9 * k for k in range(6)]    # resistenze in piedi nella fascia +Y della testa (8,5 mm liberi)
 POSTI = {
     'P3': (x_esp(0), -Y_FILA, 0),
-    'P9': (x_esp(2), -Y_FILA, 0),
+    'P9': (x_esp(19), -Y_FILA, 0),
     'P2': (x_esp(3), -Y_FILA, 90),
     'P10': (x_esp(6), -Y_FILA, 90),
     'P5': (x_esp(0), Y_FILA, 90),

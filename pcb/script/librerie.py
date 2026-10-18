@@ -33,7 +33,7 @@ SIMBOLI = [
     'Connector_Generic:Conn_01x05',
     'Connector_Generic:Conn_01x06',
     'Connector_Generic:Conn_01x08',
-    'Connector_Generic:Conn_01x14',
+    'Connector_Generic:Conn_01x13',
     'Connector_Generic:Conn_02x08_Odd_Even',
     'Connector:TestPoint',
     'Jumper:SolderJumper_2_Open',

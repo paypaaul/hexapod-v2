@@ -894,3 +894,41 @@ L'utente ha chiesto, a fine lavoro, una revisione indipendente con agenti, sopra
 - **La scheda dei partitori P2 (D-080) è troppo piccola**: 27,8 × 7,5 non contiene 8 R, 8 C, le piazzole verso l'ADC e le NTC, e le file esterne del pettine sono a 0,36 dal bordo. Serve una sagoma più grande nel CAD: proposta nella 2.1.9 (`piano-v2.1.0.md`), da approvare.
 - **Documenti con dati vecchi**: cablaggio.md 3.5 e 4, predisposizioni.md (prese dei piedi), progetto-meccanico.md, schemi.md. Si aggiornano con la guida, a progetto stabile.
 - **Controlli che mancano**: i valori dei componenti non sono confrontati con la guida; i giochi della PCB-P sono provati solo come "non vuoti". R16 entra nel foglio di montaggio della r1 (F7).
+
+## D-083 — Dima della PCB-C (F5) e piazzamento e sbroglio di prova della PCB-B a quattro strati (F4) (2026-10-18)
+
+L'utente ha chiesto di proseguire con tutto il lavoro aperto. Fatte la dima della scheda del carapace e la basetta fino allo sbroglio, per provare che il piazzamento si chiude (la lezione di D-082: un piazzamento che non si sbroglia rende inutile la dima).
+
+**Dima della PCB-C** (F5): `cad/stl/attrezzi/Dima_PCB_Carapace.stl`, la sola scheda con i fori, da `pcb/script/dima.py`; i fori dei pin sono allargati di 0,4 (`gio_stampa` per lato), quelli delle viti no. Render e stampa 1:1 in `docs/immagini/pcb/` (`pcb/script/stampe.py`). Le prove da fare (polo 1 di J2, S-26; CE1; viti nel carapace) sono in `pcb/README.md`, "Dime".
+
+**PCB-B, piazzamento** (`pcb/basetta/genera_pcb.py`). Il piano 4.1 non conteneva tutto: con 13 resistenze sdraiate, U3, il fusibile e le piazzole servivano circa 840 mm² contro circa 690 liberi sotto l'ESP32, e il retro della RE1.3 (2.1.8) toglie altezza. Scelte, tutte delegate:
+- **U2** in x 34…51,78, la sola fascia dove entra (passivi del retro, 7,9 mm liberi), con la fila dei pin verso la testa e l'**apertura** sotto i suoi componenti inferiori (STEP Pololu: 14,1 × 12,4, più 0,5 per lato, con una tacca attorno al secondo GND). Cima a z 14,62 contro 15,4.
+- **VBAT**: la piazzola P1 sta accanto al VIN di U2 e il filo arriva da sotto, come sulla millefori. Il varco sulla fila +Y non serve più. P1 porta VBAT e la sua massa a passo 2,54: eccezione scritta a 0,5 mm (un ponte fa scattare F2, non tocca l'ESP32).
+- **Varchi** sulla fila −Y, ai pin 27, 28, 30 e 40 (GPIO45, GPIO0, GPIO36, GPIO43, non usati). Ci passano 5V_LED, DATA e il dato delle tibie. Nel simbolo dell'ESP32 quei pin non ci sono più, perché nella strip non c'è il contatto.
+- **Fila −Y**: GPIO42 e i fili della 2813 in coda; poi il cavo piatto, poli 1-13; in testa il dato delle tibie. Il **polo 14** (riserva senza rete) si taglia sulla basetta, come sulla millefori. Le **luci delle tibie** prendono 5 V e massa dalle piazzole dei poli 2 e 9 (due fili per foro, piazzole Ø1,7 foro 1,0). Fila +Y: il bus di prima, 20 piazzole.
+- **Resistenze**:
+  - sei in piedi nella fascia +Y della testa, dove ci sono 8,5 mm liberi (altezza 7,5, S);
+  - R11 sdraiata sopra e R12 sotto, in coda;
+  - R1, R10 e R16 in 0805 sotto la scheda: sono tre 10 kΩ, stessa voce PCB1 della PCB-P, da 10 a 15 pezzi;
+  - CS1 e CS2 in 0805 sotto: 100 nF del kit B8, già in casa.
+  - Gli SMD sulla basetta erano esclusi da una mia scelta delegata, non dall'utente, che aveva scelto "reoforo e 0805".
+- **PTC1: MF-R090-0-9** al posto dell'MF-R090, che non entra (scheda Bourns, V): stessa tenuta e stesso scatto (0,90 / 1,80 A, 0,73 A a 40 °C), resistenza più bassa, disco 7,4 × 12,2 × 3,0 contro 11,7 × 16,7. Le piazzole sono scambiate nello schema (il PTC è simmetrico; `aggiunte.yaml`). DigiKey lo dava esaurito, in una pagina di cache: va controllato all'ordine, e la riserva è un 0,9 A con lo stesso disco a passo 5,1.
+- **Tolti** JP2, R14, R15 e P12 (misura RMT al banco): al banco il cavo piatto non è ancora saldato, e l'impulso entra con un partitore volante da 680 Ω / 1 kΩ nella piazzola del polo 10 (GPIO38). **Punti di prova da 17 a 6** (5V_REG, RX3, LED_IN, OFF e due masse): le altre reti si misurano sulle loro piazzole per fili. P11 (uscita di X3) ha una piazzola sola.
+- **Larghezza del 3,3 V da 0,5 a 0,3**: in tutto passano al più 0,2 A, e 0,3 mm di rame esterno da 1 oz ne portano circa 0,9 con +10 °C (IPC-2221). A 0,5 non passava fra due pin della strip.
+
+**PCB-B, quattro strati** (scelta dell'utente del 18 ottobre, a una domanda). A due strati lo sbroglio non si chiude con le regole del piano: 9 connessioni di segnale aperte e 8 isole di massa, sia con l'instradatore del progetto sia con Freerouting. A quattro strati, con lo stesso piazzamento, si chiude: **DRC a zero e nessuna connessione aperta**, massa compresa. Il costo stimato è di circa 8–10 $ per 5 schede contro circa 2 $ (S, dato del 2024): il preventivo vero si fa in F7. La basetta si ordina a parte, fuori dal pannello delle altre due, che restano a due strati.
+
+**Sbroglio**, rifatto da `pcb/basetta/sbroglia.py`; le piste stanno in `pcb/basetta/piste.json` e la CI le rigenera senza strumenti esterni:
+1. potenza e segnali a 5 V con `pcb/script/sbroglio.py`, un instradatore a griglia scritto per il progetto (A* su due strati, larghezze per rete, VBAT a 1 mm, 5 V a 1 mm dai pin dell'ESP32, tratti a 45°), bloccate;
+2. il resto con **Freerouting 2.5.0** (jar e OpenJDK di Homebrew, installati con il via dell'utente; `pcb/script/freerouting.py`). Le regole a coppie del `.kicad_dru` Freerouting non le conosce: per questo le reti speciali le traccia prima l'instradatore del progetto;
+3. le reti che Freerouting lascia aperte o storte (SDA, un tratto del 3,3 V) di nuovo con `sbroglio.py` sui quattro strati.
+
+**Verifiche**:
+- ERC e reti come la guida; DRC a zero, con le eccezioni dei cortili sui corpi provati con le quote vere (regola del `.kicad_dru`, giochi 0,18–0,6 scritti accanto);
+- contorni come il CAD, apertura compresa;
+- **ingombri nel CAD** (`assieme.py` → `basetta_pcb`, scatole di U2, U3, PTC1, D1, resistenze e code dei reofori, contro il retro dell'ESP32, le strip, il vassoio e il corpo): nessun urto. Sette casi di controllo che urtano: U2 senza apertura, U2 sotto la microSD, una resistenza in piedi più alta di 1 mm, la stessa 0,4 mm verso la strip, U3 più alto di 1,6 mm, code dei reofori più lunghe di 2 mm, R12 0,4 mm verso la colonnina;
+- test della CI, dima rigenerata.
+
+**Freerouting ha la telemetria attiva di serie.** L'ho spenta (`freerouting.json` e riga di comando) dopo le prime prove, che possono aver mandato dati d'uso del programma.
+
+**Cosa resta**: serigrafia della PCB-B (72 avvisi, F6); quote del retro della RE1.3 e altezza delle resistenze in piedi da provare sulla dima (S); arresto **R2** con le due dime stampate.

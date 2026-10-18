@@ -46,7 +46,7 @@ Librerie: `librerie/hex2_kicad.kicad_sym` (simboli copiati da KiCad 10, appiatti
 | Cartella | Scheda | Stato |
 |---|---|---|
 | `prova/` | scheda di prova del metodo, caso di riferimento della CI | schema e PCB |
-| `basetta/` | PCB-B, basetta dell'ESP32 (piano 4.1) | schema approvato all'arresto R1 (D-079) |
+| `basetta/` | PCB-B, basetta dell'ESP32 (piano 4.1), **quattro strati** | schema (R1, D-079, ritocchi di F4 in D-083); piazzamento e sbroglio da script con DRC a zero (D-083); dima e stampe per R2; serigrafia da fare |
 | `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema (R1, D-079), piazzamento e sbroglio da script con DRC a zero (D-082); dima, render e stampa 1:1 per R2 (F5) |
 | `partitori/` | PCB-P | dopo DU-5 (F2) |
 
@@ -70,15 +70,30 @@ Cose imparate nella prova, che il codice già tiene in conto:
 - ogni unità di un simbolo a più unità elenca tutti i pin del simbolo, altrimenti KiCad dà ai mancanti un uuid a caso;
 - con `--exit-code-violations` il DRC esce con 5 solo per gli errori: i rilievi di parità sono avvisi. Per questo `controlla.py` legge il JSON.
 
+## Sbroglio
+
+Lo sbroglio della basetta si rifà con `$KP pcb/basetta/sbroglia.py` (circa 3 minuti) e scrive `basetta/piste.json`, che `genera_pcb.py` rimette nel PCB: la CI non ha bisogno di strumenti esterni. Passi:
+1. `script/sbroglio.py`, instradatore a griglia del progetto (Python puro, A*, 0,1 mm, tratti a 45°), per le reti con le regole a coppie del `.kicad_dru`: potenza, VBAT a 1 mm, segnali a 5 V a 1 mm dai pin dell'ESP32;
+2. `script/freerouting.py` con **Freerouting 2.5.0** (`~/tools/freerouting/freerouting-2.5.0.jar`, da github.com/freerouting/freerouting) e **OpenJDK di Homebrew** (`brew install openjdk`, Java 25 o successivo) per le altre reti. Telemetria spenta da riga di comando e in `~/Library/Application Support/freerouting/freerouting.json`; niente piste ristrette ai pin. La versione nativa `freerouting-cli` si blocca allo sbroglio (errore di serializzazione di GraalVM): non si usa;
+3. di nuovo `sbroglio.py`, sui quattro strati, per le reti che Freerouting lascia aperte o con un errore.
+
+Dopo `ImportSpecctraSES` gli oggetti di `pcbnew` di quel processo non si leggono più dal Python: la lettura e la rifinitura girano in un processo nuovo. Le classi di rete (larghezze, VBAT a 1 mm) stanno nel `.kicad_pro`, scritte da `genera_pcb.py`, perché Freerouting non legge il `.kicad_dru`.
+
 ## Dime (F5)
 
-Prima dello sbroglio, o prima di ordinare, ogni scheda si prova con una **dima stampata 1:1**: la sola scheda, senza rame, con la sagoma e i fori del PCB, nella terna del robot (`cad/stl/attrezzi/Dima_PCB_<Scheda>.stl`, da `script/dima.py`, Python di KiCad). I fori dei pin sono allargati di 0,4 mm (`gio_stampa` per lato), quelli Ø2,4 delle viti no: se la M2 passa e centra l'inserto nella dima, passa anche nella scheda. La dima è spessa 1,5 (la scheda 1,6). Con la dima ci sono i render e la stampa 1:1 (`script/stampe.py`, in `docs/immagini/pcb/`): la stampa va fatta al 100 % e controllata col righello sulla sagoma (PCB-C: 21,5 mm da coda a testa, 48 fra le punte delle ali).
+Prima di ordinare, ogni scheda si prova con una **dima stampata 1:1**: la sola scheda, senza rame, con la sagoma e i fori del PCB, nella terna del robot (`cad/stl/attrezzi/Dima_PCB_<Scheda>.stl`, da `script/dima.py`, Python di KiCad). I fori dei pin sono allargati di 0,4 mm (`gio_stampa` per lato), quelli Ø2,4 delle viti no: se la M2 passa e centra l'inserto nella dima, passa anche nella scheda. La dima è spessa 1,5 (la scheda 1,6). Con la dima ci sono i render e la stampa 1:1 (`script/stampe.py`, in `docs/immagini/pcb/`): la stampa va fatta al 100 % e controllata col righello sulla sagoma (PCB-C: 21,5 mm da coda a testa, 48 fra le punte delle ali).
 
 **PCB-C** (`Dima_PCB_Carapace.stl`), cosa provare e cosa riportare:
 1. **J2 Würth** infilata dal lato dei componenti (sotto, come nel robot): i 16 pin entrano senza forzare e la scatola arriva a filo del bordo di coda.
 2. **Polo 1 di J2 (S-26)**: si innesta la spina IDC del cavo piatto (la chiave la fa entrare in un verso solo). Il polo 1 dell'impronta è il foro quadrato, sulla fila lontana dalla scatola, verso +Y. Col multimetro in continuità fra il filo rosso del cavo (polo 1) e i pin che escono dalla dima: il filo rosso deve dare continuità con il pin del foro quadrato. Se la dà con il pin accanto, sulla fila vicina alla scatola, l'impronta va rovesciata prima dell'ordine.
 3. **CE1** (470 µF) in piedi sotto l'ala +Y, con il + sulla piazzola quadrata, e i due fili del pulsante nelle piazzole dell'ala −Y.
 4. **Nel carapace** (quando è stampato, con gli inserti M2): quattro M2 × 4 sugli inserti; le viti centrano gli inserti, le ali non toccano, J2 sta nella sua sede, CE1 non tocca il dorso.
+
+**PCB-B** (`Dima_PCB_Basetta.stl`):
+1. **strip femmina** dell'ESP32 a 25,4 (P-005), con i contatti dei pin 27, 28, 30 e 40 sfilati (varchi, D-083); l'ESP32 RE1.3 innestato: si misurano i 8,5 mm e si guarda che U2, U3, il fusibile, D1 e le sei resistenze in piedi passino sotto il suo retro;
+2. **D24V22F5** appoggiato sulla dima con i pin senza il distanziale: i componenti di sotto entrano nell'apertura e il modulo sta piano;
+3. **U3** (DIP-14), PTC1 sdraiato, D1, le resistenze in piedi (alte non più di 7,5 dalla scheda) e R11, R12;
+4. sul vassoio: quattro M2 × 5 nelle colonne, la dima appoggia piana e le code dei reofori non toccano.
 
 Esito: una riga per prova (va / non va, con la misura se non va) in fondo a `docs/piano-pcb.md`.
 
@@ -90,6 +105,7 @@ python3 pcb/script/librerie.py
 python3 pcb/prova/genera_schema.py
 $KP pcb/prova/genera_pcb.py
 python3 pcb/script/controlla.py pcb/prova
+$KP pcb/basetta/sbroglia.py
 $KP pcb/script/dima.py carapace
 python3 pcb/script/stampe.py carapace
 python3 pcb/script/regole.py --controlla
