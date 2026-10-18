@@ -319,8 +319,8 @@ Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, co
   - dima `Dima_PCB_Basetta.stl`, render e stampa 1:1.
   - Sbroglio: `pcb/basetta/sbroglia.py` (instradatore del progetto, poi Freerouting 2.5.0 in `~/tools/freerouting` con OpenJDK di Homebrew, poi rifinitura).
 - **Prossimo dell'agente**:
-  - serigrafia della PCB-B (72 avvisi);
-  - la PCB-P per la 2.1.9 (sagoma da approvare prima di toccare Fusion);
+  - serigrafia della PCB-B: fatta (DRC a zero anche sulla serigrafia, stato "sbroglio");
+  - la PCB-P per la 2.1.9: la prova dello spazio nel CAD (19 ottobre) dice che a passo 2,54 non ci sta; strade in fondo a `piano-v2.1.0.md`, da scegliere con l'utente;
   - poi l'arresto **R2**.
 - **Aspetta l'utente**:
   - stampa e prova delle due dime (R2);

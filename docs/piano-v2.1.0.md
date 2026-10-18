@@ -692,3 +692,18 @@ Dalla revisione indipendente (D-082). La 2.1.8 è chiusa con il tag `v2.1.8`; in
 | P-139 | reofori delle spie | aspetta il portafusibile (Q-23) |
 
 **Arresti**: approvazione di questa proposta; poi la sagoma della PCB-P, prima di toccare Fusion.
+
+**Prova dello spazio (19 ottobre 2026, notte, scatole provvisorie contro il corpo, z −5,9…−3,3)**:
+- x 72…78 a y 18,6…27,2: tocca appena la base (0,45 mm³);
+- x 78…84: urta la base (43,7 mm³);
+- x 38…44,2 (coda): urta la base (93 mm³);
+- y 27,2…29: urta la base;
+- y 17…18,6: urta l'ADC.
+
+La sagoma utile è circa **x 44,2…77 × y 18,6…27,2** (circa 33 × 8,6), e il pettine 6 × 3 ne prende circa 14,4 × 8,6. Fuori dal pettine restano circa 130 mm² per faccia (coda con il foro, testa con il foro). Servono 8 R e 8 C in 0805 e 14 piazzole per i fili (10 verso l'ADC, 4 delle NTC). Con gli 0805 su tutte e due le facce le piazzole a foro da sole prendono circa 90 mm²: **a passo 2,54 non ci stanno**.
+
+Strade possibili, da scegliere con l'utente (S):
+- piazzole per i fili a saldare in superficie (una faccia sola) a passo 2,0;
+- 100 nF delle NTC (C7, C8) fuori dalla scheda;
+- la striscia di millefori della strada B, tagliata sulla sagoma di oggi;
+- reti di resistenze e di condensatori al posto degli 0805: voci nuove, e passo fine per il montaggio a mano.
