@@ -89,6 +89,7 @@ Numeri di oggi:
 | `guida/` | guida di montaggio illustrata (D-075, piano in `docs/piano-guida.md`): passi in YAML, catalogo, immagini con Blender, PDF con Chrome; output in `build/guida/` |
 | `docs/decisioni.md` | registro delle decisioni (D-041 e successive) |
 | `docs/backlog.md` | lavori decisi o studiati ma non ancora in una versione |
+| `docs/piano-pcb.md`, `docs/ricerca/pcb/` | piano dei circuiti stampati (prima serie r1) e studio da cui parte |
 | `docs/versioni.md`, `docs/piano-v2.1.0.md` | storico delle versioni e piani dalla 2.1.0 alla 2.1.7 |
 | `docs/progetto-meccanico.md` | architettura, quote, verifiche, masse e render |
 | `docs/BOM.md` | distinta base con prezzi, carrelli, foto e domande aperte |
@@ -169,8 +170,9 @@ Numeri di oggi:
    - inserti del kit Temu con `Attrezzo_Provino_Inserti` (M3 Ø3,9…4,2, M2 Ø2,9…3,4, in PETG-CF). Poi `ins_m3_d`, `ins_m3_l`, `ins_m2_d`, `ins_m2_l` in `rif_componenti.py` e verifica completa, perché `ins_m3_d` muove anche le bugne delle culle.
    - piedino con le tre strette (0 / 0,2 / 0,4): il valore scelto va in `pied_stretta`.
    - Dopo i provini: nervature di schiacciamento delle culle.
-5. **Guida di montaggio** (D-075): bozza avanzata allineata alla 2.1.7, aggiornata a ogni versione; la passata finale (immagini, verifica avversaria, release) a progetto stabile. Prossimi passi e decisione del 17 ottobre in `docs/piano-guida.md` (in fondo): ritocchi piccoli, poi il piano del PCB.
-6. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
-7. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
+5. **Guida di montaggio** (D-075): bozza avanzata allineata alla 2.1.7, aggiornata a ogni versione; la passata finale (immagini, verifica avversaria, release) a progetto stabile. Prossimi passi e decisione del 17 ottobre in `docs/piano-guida.md` (in fondo).
+6. **PCB** (scelte dell'utente del 18 ottobre: una per una, a mano, JLCPCB, banco S1 sulla r1): piano in `docs/piano-pcb.md`, verificato, **da approvare** con le decisioni DU-1…DU-4.
+7. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
+8. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 
 **Backlog**: `docs/backlog.md` (PCB al posto delle millefori, studio fatto il 16 ottobre 2026; pettini dei cavi dei servo; predisposizioni in attesa).

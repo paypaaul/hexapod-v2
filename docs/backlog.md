@@ -5,7 +5,7 @@ piano (`docs/piano-v2.1.0.md` o successivi) e si toglie da qui.
 
 ## PCB al posto delle millefori
 
-- **Stato**: studio preliminare fatto il 16 ottobre 2026 (`docs/ricerca/pcb/studio.md`; requisiti, produzione, tre architetture e verifica nella stessa cartella). L'utente vuole disegnarle insieme in una versione dopo la 2.1.7; fino ad allora la guida resta sulle millefori, e poi la millefori resta come alternativa.
+- **Stato**: piano in `docs/piano-pcb.md` (18 ottobre 2026, da approvare: una per una, a mano, JLCPCB, S1 sulla r1). Studio preliminare fatto il 16 ottobre 2026 (`docs/ricerca/pcb/studio.md`; requisiti, produzione, tre architetture e verifica nella stessa cartella). L'utente vuole disegnarle insieme in una versione dopo la 2.1.7; fino ad allora la guida resta sulle millefori, e poi la millefori resta come alternativa.
 - **Proposta dello studio**: due schede.
   - Scheda madre sul vassoio, al posto della basetta, con orecchie e ali: assorbe la striscia dei partitori, il traslatore KAmod e l'ADC (come chip) e regge le prese.
   - Scheda del carapace nell'ingombro della 2.1.7.
