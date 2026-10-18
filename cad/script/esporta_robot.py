@@ -55,7 +55,7 @@ COMPRATE = {'Rif_Servo_MG996R': 55.0, 'Rif_Squadretta_25T': 4.0, 'Rif_Cuscinetto
             'Rif_Batteria_2S5200': 260.0, 'Rif_SSC32_V25': 30.0, 'Rif_ESP32_S3_CAM': 12.0, 'Rif_Camera_OV3660_75': 4.0,
             'Rif_Reg_Servo_D42V110F6': 17.0, 'Rif_Pulsante_12': 8.0, 'Rif_Cicalino_BX100': 10.0,
             # predisposizioni 2.1.0 (D-066), dalle pagine dei produttori (S): si contano quando si montano
-            'Rif_Interruttore_Pololu_2813': 3.0, 'Rif_IMU': 1.0, 'Rif_ADC_ADS7830': 2.0, 'Rif_Prese_Piedi': 3.0, 'Rif_ToF_8x8': 0.5,
+            'Rif_Interruttore_Pololu_2813': 3.0, 'Rif_IMU': 1.0, 'Rif_ADC_ADS7830': 2.0, 'Rif_Prese_Piedi': 3.0, 'Rif_Partitori': 5.0, 'Rif_ToF_8x8': 0.5,
             'Rif_ToF_1': 0.5, 'Rif_INA260': 3.0, 'Rif_Altoparlante': 1.5, 'Rif_Ampli_MAX98357A': 1.2, 'Rif_Scheda_Carapace': 5.0,
             'Rif_Microfono_I2S': 0.4, 'Rif_FSR_400': 0.3,
             # moduli in casa montati dalla 2.1.6 (D-074), stimati (S)

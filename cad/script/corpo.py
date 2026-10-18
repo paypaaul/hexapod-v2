@@ -183,6 +183,11 @@ PARAMETRI = [
     ('cor_ads_x', '54.25 mm', 'mm', 'ADC ADS7830 (X6): X del centro, accanto all IMU'),
     ('cor_ads_y', '9.6 mm', 'mm', 'ADC: Y del centro (0,5 dalla colonnina del carapace a x 40)'),
     ('cor_pre_x', '56 mm', 'mm', 'Prese dei piedi (X5): X del centro della fila, fuori dal vassoio (si raggiungono a carapace tolto)'),
+    ('cor_par_x', '58.1 mm', 'mm', 'Scheda dei partitori (PCB-P, variante P2, D-080): X del centro, x 44,2...72 (da x 44 la colonnina del carapace e libera)'),
+    ('cor_par_y', '22.75 mm', 'mm', 'Scheda dei partitori: Y del centro, y 19...26,5; fila centrale del pettine qui, spine JR a y >= 18,75 (P-141)'),
+    ('cor_par_pet_x', '56.6 mm', 'mm', 'Scheda dei partitori: X del centro del pettine 6 x 3 (saldature della prima colonna a 0,45 dalla bugna di coda)'),
+    ('cor_par_foro_a', '46.2 mm', 'mm', 'Scheda dei partitori: X del foro M2 verso la coda (testa Ø3,8 fra il bordo e il pettine)'),
+    ('cor_par_foro_b', '69.6 mm', 'mm', 'Scheda dei partitori: X del foro M2 verso la testa (oltre i partitori 0805)'),
     ('cor_pre_y', '23.4 mm', 'mm', 'Prese dei piedi: Y del centro della fila, verso il fianco del tunnel; a -Y le prese delle luci delle tibie (D-069)'),
     ('cor_vas_asola_x', '30 mm', 'mm', 'Vassoio: centro dell asola dei fili del bus dei sensori, dietro la colonnina del carapace (40; 22,5) e fuori dalla fila delle prese dei piedi (da x 48,25); la spina Qwiic va nella presa di coda dell ADC (x 39), quella di testa e chiusa dalla colonna (75; 12,5)'),
     ('cor_vas_asola_y0', '18 mm', 'mm', 'Vassoio: inizio dell asola del bus, fuori dalla basetta (bordo a y 17,5; P-019)'),
@@ -1017,6 +1022,40 @@ def _lamature_spie(p):
         p.cilindro('x', '-(cor_tun_x0) + 1.4 mm', 'lamatura_spia_' + lato, yc, '0 mm', 'luc_spia_col_d', 'luc_spia_col_h', -1, TAGLIA)
 
 
+def _bugne_partitori(p, zt):
+    """Due bugne con inserti M2 per la scheda dei partitori (P2, D-080), alte come quelle di IMU e ADC."""
+    zb = zt + ' + cor_sen_bugna_h'
+    for nome, x in (('par_a', 'cor_par_foro_a'), ('par_b', 'cor_par_foro_b')):
+        p.cilindro('z', zt, 'bugna_' + nome, x, 'cor_par_y', 'cor_sen_bugna_d', 'cor_sen_bugna_h')
+        p.cilindro('z', zb, 'ins_' + nome, x, 'cor_par_y', 'ins_m2_d', 'ins_m2_l', -1, TAGLIA)
+
+
+def fai_partitori_218(corpo):
+    """Solo per la base della 2.1.7, una volta (2.1.8, D-080): toglie la sede delle prese dei piedi (le spine vanno sul
+    pettine della scheda dei partitori, e le code dei suoi pin la toccherebbero) e aggiunge le bugne della scheda.
+    fai_base_predisposizioni fa gia' lo stesso."""
+    occ = L['trova_occ'](corpo.component, 'Corpo_Base')[0]
+    des = corpo.component.parentDesign
+    tolte = []
+    # le lavorazioni stanno dentro il gruppo Corpo_Base_predisposizioni: si cercano nel componente, non nella timeline
+    for nome in ('scanalatura_prese', 'sede_prese'):
+        f = occ.component.features.extrudeFeatures.itemByName(nome)
+        if f is None:
+            continue
+        sk = f.profile.parentSketch
+        f.deleteMe()
+        if sk.isValid:
+            sk.deleteMe()
+        tolte.append(nome)
+    T0['Corpo_Base_partitori'] = des.timeline.count
+    p = Parte(occ.component)
+    p.gruppo = 'Corpo_Base_partitori'
+    _bugne_partitori(p, '-(cor_tetto)')
+    p.info = {'tolte': tolte, 'corpi': occ.component.bRepBodies.count,
+              'volume_cm3': round(sum(b.volume for b in occ.component.bRepBodies), 3)}
+    return occ, p
+
+
 def fai_lamature_spie(corpo):
     """Solo per la base della 2.1.7, una volta: aggiunge le lamature delle spie, che fai_base_predisposizioni fa gia'."""
     occ = L['trova_occ'](corpo.component, 'Corpo_Base')[0]
@@ -1065,9 +1104,9 @@ def fai_base_predisposizioni(corpo):
     p.blocco('z', zt, 'freccia_asta', 'cor_imu_x - 8 mm', yf + ' - 0.5 mm', 'cor_imu_x + 3 mm', yf + ' + 0.5 mm', '0.6 mm')
     p.blocco_obl('z', zt, 'freccia_punta', ('cor_imu_x + 4 mm', yf), ('cor_imu_x + 4 mm + 10 mm * cos(45 deg)', yf + ' + 10 mm * sin(45 deg)'),
                  '-(1.6 mm)', '1.6 mm', '-(1.6 mm)', '1.6 mm', '0.6 mm')
-    # prese dei piedi: fila di spine piegate in piedi in una scanalatura, raggiungibile dall'alto a carapace tolto
-    _prese(p, zt, 'cor_pre_y', '')
-    _prese(p, zt, '-(cor_pre_y)', '_luci')                            # luci delle tibie (X31, D-069): fila speculare
+    # prese dei piedi: dalla 2.1.8 sono il pettine della scheda dei partitori (D-080), su due bugne (_bugne_partitori)
+    _bugne_partitori(p, zt)
+    _prese(p, zt, '-(cor_pre_y)', '_luci')                            # luci delle tibie (X31, D-069)
     # spie dei rail: linguette sul tetto dietro il portafusibile, LED da 3 rivolti verso la porta di coda; fino a |y| 20, fuori
     # dalle fessure dei cavi aperte verso la coda (da |y| 20,5, P-001): a |y| 16-22 fermavano i cavi del pacco che si sfila
     for lato, (y0, y1, yc) in (('s', ('14 mm', '20 mm', '17 mm')), ('d', ('-(20 mm)', '-(14 mm)', '-(17 mm)'))):
@@ -1343,6 +1382,7 @@ def main(passi, **kw):
                         ('visiera', fai_visiera), ('gonne', fai_gonne), ('tappo_tof', fai_tappo_tof),
                         ('supporto_ina_s', lambda c: fai_supporto_ina(c, 1)), ('supporto_ina_d', lambda c: fai_supporto_ina(c, -1)),
                         ('sportellino_zaino', fai_sportellino_zaino), ('fondo_anello', fai_fondo_anello), ('prese_luci', fai_prese_luci), ('lamature_spie', fai_lamature_spie),
+                        ('partitori_218', fai_partitori_218),
                         ('base_predisposizioni', fai_base_predisposizioni),
                         ('carapace_predisposizioni', fai_carapace_predisposizioni),
                         ('piastrina_imu', fai_piastrina_imu), ('lunette_microfoni', fai_lunette_microfoni)):

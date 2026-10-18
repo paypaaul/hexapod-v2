@@ -196,6 +196,12 @@ PARAMETRI = [
     ('sch_spina_sp', '6 mm', 'mm', 'Spina IDC: spessore del corpo, 7 con la chiave larga 3,7 (disegno Wurth) V'),
     ('sch_spina_fuori', '10 mm', 'mm', 'Spina IDC: sporgenza dalla testata verso la coda, corpo con fermacavo 11,4 meno l innesto, piu il cavo piegato S'),
     ('sch_spina_z', '4.5 mm', 'mm', 'Spina IDC: asse sotto la scheda (meta della testata; file dei pin a circa 3,2 e 5,8, lette sul disegno Wurth) S'),
+    ('par_l', '27.8 mm', 'mm', 'Scheda dei partitori (PCB-P, P2, D-080): lunghezza lungo X S'),
+    ('par_w', '7.5 mm', 'mm', 'Scheda dei partitori: larghezza lungo Y S'),
+    ('par_pet_l', '15.24 mm', 'mm', 'Pettine 6 x 3 a passo 2,54 delle spine dei piedi: lunghezza lungo X (sei spine affiancate) V'),
+    ('par_pet_w', '7.62 mm', 'mm', 'Pettine: larghezza lungo Y (tre poli per spina) V'),
+    ('par_pet_h', '2.5 mm', 'mm', 'Pettine: plastica sopra la scheda (strip standard) S'),
+    ('par_pin_h', '6 mm', 'mm', 'Pettine: pin sopra la plastica (strip standard da 11,5) S'),
     ('pre_l', '15.5 mm', 'mm', 'Prese dei piedi: sei spine JR a 3 poli piegate, passo 2,54 S'),
     ('pre_w', '2.6 mm', 'mm', 'Prese dei piedi: spessore della fila S'),
     ('pre_h', '8.5 mm', 'mm', 'Prese dei piedi: altezza del circuito con le spine S'),
@@ -244,6 +250,7 @@ LIBRERIA = {
     'Rif_FSR_400': (80, 710, 0),
     'Rif_Scheda_Carapace': (120, 710, 0),
     'Rif_Prese_Piedi': (170, 710, 0),
+    'Rif_Partitori': (220, 710, 0),
     'Rif_Computer_Zaino': (0, 780, 0),
     'Rif_IMU_MPU6500': (90, 780, 0),
     'Rif_Microfono_MS3625': (130, 780, 0),
@@ -580,6 +587,12 @@ def fai_ingombri(des, root, rigenera, solo=None):
         ('spina', box(0, sw / 2 + sf / 2, zs_ - sps / 2, p('sch_spina_l'), sf, sps)),
         ('chiave_spina', box(0, sw / 2 + sf / 2, zs_ - sps / 2 - 1.0, 3.7, sf, 1.0))]))
     fatti.append(componente(root, 'Rif_Prese_Piedi', [('prese', box(0, 0, 0, p('pre_l'), p('pre_w'), p('pre_h')))]))
+    # scheda dei partitori (P2, D-080): origine al centro della faccia inferiore, pettine centrato in cor_par_pet_x
+    dxp = p('cor_par_pet_x') - p('cor_par_x')
+    fatti.append(componente(root, 'Rif_Partitori', [
+        ('scheda', box(0, 0, 0, p('par_l'), p('par_w'), 1.6)),
+        ('pettine', box(dxp, 0, 1.6, p('par_pet_l'), p('par_pet_w'), p('par_pet_h'))),
+        ('pin', box(dxp, 0, 1.6 + p('par_pet_h'), p('par_pet_l') - 1.8, p('par_pet_w') - 1.8, p('par_pin_h')))]))
     fatti.append(componente(root, 'Rif_Computer_Zaino', [('scheda', box(0, 0, 0, p('zai_l'), p('zai_w'), p('zai_sp')))]))
     # versione 2.1.6 (D-074): moduli in casa dell'utente, montati al posto di Pololu e Adafruit (che restano predisposti)
     fatti.append(componente(root, 'Rif_IMU_MPU6500', [('scheda', box(0, 0, 0, p('sen_mpu_l'), p('sen_mpu_w'), p('sen_mpu_sp')))]))

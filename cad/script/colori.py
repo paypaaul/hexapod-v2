@@ -55,7 +55,7 @@ PARTI = {
     'Rif_IMU': 'Esa scheda blu', 'Rif_ADC_ADS7830': 'Esa scheda blu', 'Rif_INA260': 'Esa scheda blu', 'Rif_ToF_8x8': 'Esa scheda verde',
     'Rif_ToF_1': 'Esa scheda verde', 'Rif_Ampli_MAX98357A': 'Esa scheda blu', 'Rif_Altoparlante': 'Esa plastica nera',
     'Rif_Microfono_I2S': 'Esa scheda blu', 'Rif_FSR_400': 'Esa grigio chiaro', 'Rif_Scheda_Carapace': 'Esa scheda verde',
-    'Rif_Prese_Piedi': 'Esa plastica nera', 'Rif_Computer_Zaino': 'Esa scheda verde',
+    'Rif_Prese_Piedi': 'Esa plastica nera', 'Rif_Partitori': 'Esa scheda verde', 'Rif_Computer_Zaino': 'Esa scheda verde',
     'Rif_IMU_MPU6500': 'Esa scheda blu', 'Rif_Microfono_MS3625': 'Esa plastica nera', 'Rif_Ampli_Generico': 'Esa scheda blu',
     'Rif_Altoparlante_Tondo': 'Esa plastica nera',
     # comprati (ingombri generati)

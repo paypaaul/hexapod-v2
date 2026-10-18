@@ -840,3 +840,16 @@ L'utente ha approvato gli schemi r1 della basetta (PCB-B) e della scheda del car
 **Lezione**: se una sola regola del `.kicad_dru` è scritta male, KiCad ignora tutto il file senza avvisi (DRC a zero anche con piste strette, provato). La copre il test che restringe il 5V_REG della scheda di prova con la copia vera delle regole.
 
 **Cosa resta**: polo 1 di J2 sul pezzo (F5); prove sui pezzi di dima; regole nuove provate con i loro casi di controllo quando ci sono i PCB (F4, F6).
+
+## D-080 — Scheda dei partitori sotto le prese dei piedi (DU-5 = P2) (2026-10-18)
+
+L'utente ha lasciato la scelta all'agente, con un criterio: "l'interno il più ordinato possibile e facile per il montaggio e la manutenzione". Le due varianti del piano del PCB (4.3) sono state provate nel CAD come scatole provvisorie, con i casi di controllo (`assieme.py` → `partitori_varianti`): libere tutte e due.
+
+**Scelta: P2.** La scheda dei partitori (PCB-P) sta sotto le prese dei piedi, a x 44,2…72 e y 19…26,5, su due bugne da 4 con inserti M2 come IMU e ADC. Porta il pettine 6 × 3 delle spine dei piedi (centro a x 56,6, `cor_par_pet_x`): le spine JR (8 × 3 × 14, misurate dall'utente) si innestano dall'alto a carapace tolto. Perché:
+- un pezzo solo chiude le prese dei piedi (P-012, oggi una fila sciolta in una scanalatura), il vincolo P-141 (spine a y ≥ 18,75) e il posto dei partitori (S-28, S-29);
+- i fili dei piedi non attraversano il corpo: dalla presa al partitore c'è la scheda, e dal partitore all'ADC, che sta accanto, pochi centimetri;
+- per smontare una zampa si sfila la spina dall'alto, come prima.
+
+**Nel CAD (2.1.8, blocco C)**: `Rif_Partitori` (scheda 27,8 × 7,5 con pettine e pin); bugne `bugna_par_a/b` sul tetto; tolta la sede delle prese dei piedi (le code dei pin l'avrebbero toccata); le prese delle luci restano dov'erano, su fili. Saldature della prima colonna a 0,45 dalla bugna di coda; caso di controllo 0,5 più in là tocca. Nessuna interferenza nell'assieme.
+
+**Cosa resta**: la NTC sinistra non ha una spina (piazzola o spina nuova, da decidere con lo schema della PCB-P); partitori 0805 anche sul lato sotto (4 mm d'aria fino al tetto); la strada B con la millefori tagliata sulla stessa sagoma.

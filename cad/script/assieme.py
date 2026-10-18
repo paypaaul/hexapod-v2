@@ -93,7 +93,8 @@ def pose_corpo(des):
     # IMU montata: GY-6500 sulla sua piastrina (D-074); la Pololu sulle bugne e' in alternative()
     out['IMU'] = ('Rif_IMU_MPU6500', _rz(_mm(des, 'cor_imu_x'), _mm(des, 'cor_mpu_y'), zb + _mm(des, 'cor_pimu_sp'), 0.0))
     out['ADC'] = ('Rif_ADC_ADS7830', _rz(_mm(des, 'cor_ads_x'), _mm(des, 'cor_ads_y'), zb, 0.0))
-    out['Prese_piedi'] = ('Rif_Prese_Piedi', _rz(_mm(des, 'cor_pre_x'), _mm(des, 'cor_pre_y'), zt + 0.5, 0.0))
+    # dalla 2.1.8 (D-080) le prese dei piedi sono il pettine della scheda dei partitori, su bugne come IMU e ADC
+    out['Partitori'] = ('Rif_Partitori', _rz(_mm(des, 'cor_par_x'), _mm(des, 'cor_par_y'), zb, 0.0))
     out['Prese_luci'] = ('Rif_Prese_Piedi', _rz(_mm(des, 'cor_pre_x'), -_mm(des, 'cor_pre_y'), zt + 0.5, 0.0))
     a = des.unitsManager.evaluateExpression('cor_tof_ang', 'rad')
     out['ToF_frontale'] = ('Rif_ToF_8x8', A['matrice']((_mm(des, 'cor_tof_x'), 0, _mm(des, 'cor_tof_z')),
@@ -758,11 +759,11 @@ def partitori_varianti(des, root):
     bugne; le prese restano dove sono. P2: scheda sotto le prese dei piedi su bugne da 4 (z -5,4...-3,8), con il
     pettine 6 x 3 e le spine JR innestate dall'alto (8 x 3 x 14, misurate dall'utente il 18 ottobre; fila al centro
     y 22,6, spine a y >= 18,6 per P-141). Le prese di oggi (Rif_Prese_Piedi) si saltano: P2 le sostituisce."""
-    salta = ('Rif_Prese_Piedi',)
+    salta = ('Rif_Prese_Piedi', 'Rif_Partitori')
 
-    def p2(x0=44.2, x1=72.0, yc=22.6):
+    def p2(x0=44.2, x1=72.0, yc=22.75, xs=56.6):
         return [('pcbp_p2', x0, 19.0, -5.4, x1, 26.5, -3.8), ('sopra_p2', x0, 19.0, -3.8, x1, 26.5, -1.3),
-                ('spine_p2', 48.2, yc - 4.0, -1.3, 63.8, yc + 4.0, 12.7)]
+                ('spine_p2', xs - 7.8, yc - 4.0, -1.3, xs + 7.8, yc + 4.0, 12.7)]
 
     def p1(w=10.0, xf0=57.0, xf1=61.0):
         xc = 65.9
