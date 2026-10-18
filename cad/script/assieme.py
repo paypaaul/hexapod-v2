@@ -753,6 +753,35 @@ def cavo_piatto(des, root, dz=0.0, dy=0.0):
             'urti': urti_scatole(des, root, sc)}
 
 
+def ingombri_pcb(des, root, scheda='basetta', piu=None):
+    """Corpi di una PCB come scatole (pcb/<scheda>/ingombri.json, da genera_pcb.py) contro i corpi del corpo, senza la
+    scatola provvisoria della scheda (F4 del PCB). Le file dell'ESP32 nel CAD sono una scatola unica fra le strip
+    ('pin_header'): si salta e le due strip vere (corpo 2,54 a y +-12,7, da x 22,5 a 73,3, alte 8,5) entrano come corpi
+    fissi temporanei. piu = {nome: (dx, dy, dz, alza)} sposta o alza una scatola (casi di controllo)."""
+    with open(os.path.join(QUI, '..', '..', 'pcb', scheda, 'ingombri.json'), encoding='utf-8') as f:
+        scatole = json.load(f)['scatole']
+    piu = piu or {}
+    mob = []
+    for n, x0, y0, z0, x1, y1, z1 in scatole:
+        dx, dy, dz, alza = piu.get(n, piu.get(n.split('.')[0], (0.0, 0.0, 0.0, 0.0)))
+        mob.append((n, _box_mm(x0 + dx, y0 + dy, z0 + dz, x1 + dx, y1 + dy, z1 + dz + alza)))
+    fissi = _corpi_mondo([_corpo(root)], salta_comp=('Rif_Basetta_50x70', 'Rif_Scheda_Carapace'),
+                         salta_corpi=('flat', 'linguetta', 'uscita_cavi', 'pin_header'))
+    fissi += [('strip', _box_mm(22.5, y - 1.27, 7.5, 73.3, y + 1.27, 16.0)) for y in (-12.7, 12.7)]
+    return _urti_temporanei(mob, fissi) or 'nessuno'
+
+
+def basetta_pcb(des, root):
+    """F4 della PCB-B: ingombri della scheda nel CAD e casi di controllo (ognuno deve urtare)."""
+    return {'basetta': ingombri_pcb(des, root),
+            'controllo_U2_senza_apertura': ingombri_pcb(des, root, piu={'U2': (0.0, 0.0, 1.1, 0.0)}),
+            'controllo_U2_sotto_la_microSD': ingombri_pcb(des, root, piu={'U2': (5.5, 0.0, 0.0, 0.0)}),
+            'controllo_R5_alta_1': ingombri_pcb(des, root, piu={'R5': (0.0, 0.0, 0.0, 1.0)}),
+            'controllo_R7_verso_la_strip': ingombri_pcb(des, root, piu={'R7': (0.0, 0.4, 0.0, 0.0)}),
+            'controllo_U3_alto_1_6': ingombri_pcb(des, root, piu={'U3': (0.0, 0.0, 0.0, 1.6)}),
+            'controllo_code_lunghe_2': ingombri_pcb(des, root, piu={'code_U3': (0.0, 0.0, -2.0, 0.0)})}
+
+
 def partitori_varianti(des, root):
     """Posto della scheda dei partitori (PCB-P, DU-5, 2.1.8 blocco B) come scatole provvisorie, con i casi di controllo.
     P1: scheda 10 x 20 nella tasca accanto all'IMU (0,4 per lato), fascio dei fili dei piedi sotto l'ADC fra le sue
@@ -855,6 +884,8 @@ def main(passi, **kw):
         if 'sfilamento_pacco' in passi:
             out['sfilamento_pacco'] = sfilamento_pacco(des, root, kw.get('corse', (0.0, 10.0, 20.0)), kw.get('lato_spina', -1),
                                                        kw.get('cavo_d', 4.0), kw.get('piu_alta', 0.0))
+        if 'basetta_pcb' in passi:
+            out['basetta_pcb'] = basetta_pcb(des, root)
         if 'stato' in passi:
             out['stato'] = stato(des, root)
     except Exception:

@@ -165,6 +165,8 @@ class Scheda:
         """Contorno, fori Ø2,4 non metallizzati e zone senza rame della scheda, da genera_contorni."""
         g = genera_contorni.geometria(nome)
         self.contorno(g['contorno'])
+        for a in g['aperture']:
+            self.contorno(a)
         for _, x, y, d in g['fori']:
             self.foro(x, y, d)
         for nome_a, strati, punti, cosa in g['senza_rame']:

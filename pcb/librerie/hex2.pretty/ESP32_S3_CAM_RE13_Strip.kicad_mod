@@ -2,7 +2,7 @@
 	(version 20260206)
 	(generator "hex2_propri")
 	(layer "F.Cu")
-	(descr "UICPAL ESP32-S3-CAM N16R8 RE1.3 su due strip femmina 1x20, file a 25,4; posti 15 e 16 senza foro (varco del VBAT). Origine al centro delle file")
+	(descr "UICPAL ESP32-S3-CAM N16R8 RE1.3 su due strip femmina 1x20, file a 25,4; posti 23, 27, 28 e 30 senza foro (varchi del 5 V). Origine al centro delle file")
 	(property "Reference" "REF**"
 		(at 0 -16 0)
 		(layer "F.SilkS")
@@ -59,13 +59,6 @@
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 	)
-	(pad "23" thru_hole circle
-		(at -19.05 12.7)
-		(size 1.7 1.7)
-		(drill 1)
-		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
-	)
 	(pad "4" thru_hole circle
 		(at -16.51 -12.7)
 		(size 1.7 1.7)
@@ -115,22 +108,8 @@
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 	)
-	(pad "27" thru_hole circle
-		(at -8.89 12.7)
-		(size 1.7 1.7)
-		(drill 1)
-		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
-	)
 	(pad "8" thru_hole circle
 		(at -6.35 -12.7)
-		(size 1.7 1.7)
-		(drill 1)
-		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
-	)
-	(pad "28" thru_hole circle
-		(at -6.35 12.7)
 		(size 1.7 1.7)
 		(drill 1)
 		(layers "*.Cu" "*.Mask")
@@ -152,13 +131,6 @@
 	)
 	(pad "10" thru_hole circle
 		(at -1.27 -12.7)
-		(size 1.7 1.7)
-		(drill 1)
-		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
-	)
-	(pad "30" thru_hole circle
-		(at -1.27 12.7)
 		(size 1.7 1.7)
 		(drill 1)
 		(layers "*.Cu" "*.Mask")
@@ -220,8 +192,22 @@
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 	)
+	(pad "15" thru_hole circle
+		(at 11.43 -12.7)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+	)
 	(pad "35" thru_hole circle
 		(at 11.43 12.7)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+	)
+	(pad "16" thru_hole circle
+		(at 13.97 -12.7)
 		(size 1.7 1.7)
 		(drill 1)
 		(layers "*.Cu" "*.Mask")
@@ -301,8 +287,8 @@
 		(layer "F.SilkS")
 	)
 	(fp_rect
-		(start -25.65 -14.22)
-		(end 25.65 -11.18)
+		(start -25.5 -14.07)
+		(end 25.5 -11.33)
 		(stroke
 			(width 0.05)
 			(type solid)
@@ -321,8 +307,8 @@
 		(layer "F.SilkS")
 	)
 	(fp_rect
-		(start -25.65 11.18)
-		(end 25.65 14.22)
+		(start -25.5 11.33)
+		(end 25.5 14.07)
 		(stroke
 			(width 0.05)
 			(type solid)

@@ -10,11 +10,18 @@ import sys
 QUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(QUI, '..', 'script'))
 
+from propri import VARCHI_ESP  # noqa: E402
 from schema_kicad import Schema, scrivi_progetto  # noqa: E402
 
 LIBRERIE = os.path.join(QUI, '..', 'librerie')
 
 R_AX = 'hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal'
+# F4: sotto l'ESP32 non c'e' posto per 13 resistenze sdraiate. In piedi quelle accanto alle file (8,5 mm liberi), in
+# 0805 sotto la scheda i tre 10 kΩ (stessa voce del 10 kΩ 0805 della PCB-P) e i due 100 nF (kit B8, gia' in casa)
+R_PIEDI = 'hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical'
+R_0805 = 'hex2:R_0805_2012Metric'
+C_0805 = 'hex2:C_0805_2012Metric'
+IMPRONTA_R = {'R1': R_0805, 'R10': R_0805, 'R16': R_0805, 'R11': R_AX, 'R12': R_AX}
 TP = 'hex2:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm'
 
 # piazzole dei fili: (riferimento, gruppo, reti dal pin 1); una rete None è un pin senza filo
@@ -27,19 +34,24 @@ PIAZZOLE = [
     ('P6', 'bus 3V3', ['3V3S'] * 5),
     ('P7', 'bus SDA', ['SDA'] * 5),
     ('P8', 'bus SCL', ['SCL'] * 5),
-    ('P9', 'luci delle tibie', ['5V_LED', 'DATA_TIBIE', 'GND']),
+    # luci delle tibie: 5 V e massa nelle piazzole dei poli 2 e 9 del cavo piatto (due fili per foro, come la millefori),
+    # il dato su una piazzola sua: sulla fila del bordo -Y non ci sono posti per tre (F4)
+    ('P9', 'dato delle luci delle tibie', ['DATA_TIBIE']),
     # cavo piatto: poli 1-14 come cablaggio.md 3.5 (polo 14 di riserva, senza rete su questa scheda)
     ('P10', 'cavo piatto', ['5V_LED', '5V_LED', 'GND', 'DATA', 'GND', 'SCL', '3V3S', 'SDA', 'GND',
                             'BCLK', 'WS', 'MIC', 'AMP', None]),
-    ('P11', 'uscita di X3', ['3V3_X3', 'GND']),
-    ('P12', 'impulso RMT dalla SSC-32', ['RMT_IN', 'GND']),
+    ('P11', 'uscita di X3', ['3V3_X3']),          # la massa di X3 va su una piazzola di massa qualunque (F4)
 ]
+# Misura RMT al banco (JP-RMT, partitore 680 / 1k): tolta dalla scheda in F4 per far posto sotto l'ESP32. Al banco il
+# cavo piatto non e' ancora saldato: l'impulso della SSC-32 entra con un partitore volante nella piazzola del polo 10
+# (BCLK, GPIO38), la stessa rete.
 
-# punti di prova a gruppi (piano 4.1): potenza; 3,3 V e segnali dell'ESP32; uscite del buffer
-PROVE = [('TP1', 'VBAT'), ('TP2', '5V_REG'), ('TP3', '5V_LED'), ('TP4', 'GND'),
-         ('TP5', '3V3S'), ('TP6', 'SDA'), ('TP7', 'SCL'), ('TP8', 'RX3'), ('TP9', 'LED_IN'), ('TP10', 'SENSE'),
-         ('TP11', 'GPIO42'), ('TP12', 'OFF'), ('TP13', 'GND'),
-         ('TP14', 'TX5'), ('TP15', 'DATA'), ('TP16', 'DATA_TIBIE'), ('TP17', 'GND')]
+# piazzole dei fili senza cortile (impronte Fili di propri.py); Ø1,7 foro 1,0 dove entrano due fili o un 26 AWG
+FILI_D = {'P1': '1.7', 'P10': '1.7'}
+
+# punti di prova (piano 4.1): solo le reti che non hanno gia' una piazzola per filo, con una massa accanto. Le altre si
+# misurano sulla loro piazzola (bus, cavo piatto, 2813, luci, seriale): sotto l'ESP32 non c'e' posto per 17 punti (F4)
+PROVE = [('TP2', '5V_REG'), ('TP4', 'GND'), ('TP8', 'RX3'), ('TP9', 'LED_IN'), ('TP12', 'OFF'), ('TP13', 'GND')]
 
 # resistenze: (rif, valore, rete del pin 1, rete del pin 2)
 RESISTENZE = [
@@ -53,10 +65,6 @@ RESISTENZE = [
     ('R11', '20k', 'RX5', 'RX3'),          # partitore della RX: 3,11 V con 5,0 V
     ('R12', '33k', 'RX3', 'GND'),
     ('R13', '330', 'TX5_3Y', 'TX5'),       # R-TX
-    # partitore di JP-RMT basso: GPIO38 ha il pull-up da circa 10 kΩ della microSD (S-21), con 20k/33k il livello
-    # basso restava a 1,8 V (revisione del 18 ottobre). Con 680/1k: basso 0,13 V, alto circa 3,0 V, 3 mA dalla SSC-32
-    ('R14', '680', 'RMT_IN', 'RMT'),
-    ('R15', '1k', 'RMT', 'GND'),
     ('R16', '10k', 'OFF', 'OFF_2813'),     # in serie verso la 2813: un corto a 8,4 V sul filo non arriva al GPIO41
 ]
 
@@ -68,22 +76,21 @@ def schema():
     for u, (x, y) in enumerate([(190.5, 101.6), (190.5, 127), (190.5, 152.4), (190.5, 177.8), (241.3, 101.6)], 1):
         s.simbolo('hex2_kicad:74AHCT125', 'U3', 'SN74AHCT125N', 'hex2:DIP-14_W7.62mm', x, y, unita=u)
     s.simbolo('hex2_kicad:D_Schottky', 'D1', '1N5819', 'hex2:D_DO-41_SOD81_P10.16mm_Horizontal', 241.3, 50.8)
-    s.simbolo('hex2_kicad:Polyfuse', 'PTC1', 'MF-R090', 'hex2:Fuse_Bourns_MF-R090_Sdraiato', 279.4, 50.8)
-    s.simbolo('hex2_kicad:C', 'CS1', '100n', 'hex2:C_Rect_L7.0mm_W3.5mm_P2.50mm_P5.00mm', 279.4, 88.9)
-    s.simbolo('hex2_kicad:C', 'CS2', '100n', 'hex2:C_Rect_L7.0mm_W3.5mm_P2.50mm_P5.00mm', 304.8, 88.9)
+    s.simbolo('hex2_kicad:Polyfuse', 'PTC1', 'MF-R090-0-9', 'hex2:Fuse_Bourns_MF-R090-0-9_Sdraiato', 279.4, 50.8)
+    s.simbolo('hex2_kicad:C', 'CS1', '100n', C_0805, 279.4, 88.9)
+    s.simbolo('hex2_kicad:C', 'CS2', '100n', C_0805, 304.8, 88.9)
     s.simbolo('hex2_kicad:SolderJumper_3_Bridged12', 'JP1', 'JP-3V3',
               'hex2:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm', 304.8, 50.8)
-    s.simbolo('hex2_kicad:SolderJumper_2_Open', 'JP2', 'JP-RMT',
-              'hex2:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm', 340.36, 50.8)
     for i, (rif, val, _, _) in enumerate(RESISTENZE):
-        s.simbolo('hex2_kicad:R', rif, val, R_AX, 279.4 + 20.32 * (i % 7), 111.76 + 30.48 * (i // 7))
+        s.simbolo('hex2_kicad:R', rif, val, IMPRONTA_R.get(rif, R_PIEDI), 279.4 + 20.32 * (i % 7), 111.76 + 30.48 * (i // 7))
     posti = {'P1': (279.4, 167.64), 'P2': (312.42, 167.64), 'P3': (345.44, 167.64), 'P4': (378.46, 167.64),
              'P5': (279.4, 195.58), 'P6': (312.42, 195.58), 'P7': (345.44, 195.58), 'P8': (378.46, 195.58),
-             'P9': (279.4, 228.6), 'P11': (312.42, 228.6), 'P12': (345.44, 228.6), 'P10': (241.3, 210.82)}
+             'P9': (279.4, 228.6), 'P11': (312.42, 228.6), 'P10': (241.3, 210.82)}
     for rif, gruppo, reti in PIAZZOLE:
         n = len(reti)
         x, y = posti[rif]
-        s.simbolo('hex2_kicad:Conn_01x%02d' % n, rif, gruppo, 'hex2:PinHeader_1x%02d_P2.54mm_Vertical' % n, x, y)
+        s.simbolo('hex2_kicad:Conn_01x%02d' % n, rif, gruppo, 'hex2:Fili_1x%02d_P2.54mm_D%s' % (n, FILI_D.get(rif, '1.5')),
+                  x, y)
     for i, (rif, rete) in enumerate(PROVE):
         s.simbolo('hex2_kicad:TestPoint', rif, rete, TP, 30.48 + 17.78 * (i % 6), 190.5 + 22.86 * (i // 6))
     for i, rete in enumerate(['VBAT', 'GND', '5V_ESP']):
@@ -96,7 +103,7 @@ def schema():
                        'GPIO1': 'SENSE'}.items():
         s.collega_nome('U1', nome, rete)
     for n in range(1, 41):
-        if str(n) not in s.collegamenti['U1']:
+        if str(n) not in s.collegamenti['U1'] and n not in VARCHI_ESP:
             s.libero('U1', n)
     # regolatore: EN e PG liberi (EN ha 270 kΩ interni verso VIN)
     for nome, rete in {'VIN': 'VBAT', 'VOUT': '5V_REG'}.items():
@@ -112,8 +119,9 @@ def schema():
     s.libero('U3', 11)
     s.collega('D1', 1, '5V_ESP')   # catodo
     s.collega('D1', 2, '5V_REG')   # anodo
-    s.collega('PTC1', 1, '5V_REG')
-    s.collega('PTC1', 2, '5V_LED')
+    # PTC1 e' simmetrico: piazzole scambiate rispetto alla guida (aggiunte.yaml), cosi' il 5V_REG e' accanto a VCC di U3
+    s.collega('PTC1', 1, '5V_LED')
+    s.collega('PTC1', 2, '5V_REG')
     s.collega('CS1', 1, 'SENSE')
     s.collega('CS1', 2, 'GND')
     s.collega('CS2', 1, '5V_REG')
@@ -121,8 +129,6 @@ def schema():
     s.collega('JP1', 1, '3V3_ESP')  # lato chiuso: 3V3 dell'ESP32
     s.collega('JP1', 2, '3V3S')
     s.collega('JP1', 3, '3V3_X3')   # lato aperto: uscita di X3 (D-076: mai J1 e X3 insieme)
-    s.collega('JP2', 1, 'BCLK')     # GPIO38
-    s.collega('JP2', 2, 'RMT')
     for rif, _, a, b in RESISTENZE:
         s.collega(rif, 1, a)
         s.collega(rif, 2, b)

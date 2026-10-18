@@ -16,11 +16,8 @@ basetta:
     - R11         # partitore della RX, 20 kΩ
     - R12         # partitore della RX, 33 kΩ
     - R13         # R-TX, 330 Ω su 3Y
-    - R14         # partitore di JP-RMT, 20 kΩ
-    - R15         # partitore di JP-RMT, 33 kΩ
     - R16         # 10 kΩ in serie fra GPIO41 e la piazzola OFF della 2813 (verifica R1)
     - JP1         # JP-3V3, tre piazzole
-    - JP2         # JP-RMT
     - TP*         # punti di prova
     - P*          # piazzole dei fili
     - H*          # fori delle fascette
@@ -29,6 +26,8 @@ basetta:
     U3.9: TX3         # 3A: TX dell'ESP32 sul canale 3 del buffer (DU-1)
     U3.8: +TX5_3Y     # 3Y verso R13 (R-TX); dopo R13 la rete TX5 va alla piazzola del filo
     U3.11: null       # 4Y libero; 4A e 4OE restano a massa (SN74AHCT125: ingressi non usati a VCC o GND)
+    PTC1.1: 5V_LED    # PTC simmetrico, piazzole scambiate per il piazzamento (F4)
+    PTC1.2: 5V_REG
   fili:
     P1: [rete:VBAT, S13]                  # VBAT sulla millefori era saldato su U2 (P-4)
     P2: [R13, rete:OFF_2813]              # OFF dopo R16
@@ -38,10 +37,9 @@ basetta:
     P6: [K1, L1, M1, N1, rete:3V3S]
     P7: [Q1, R1, S1, T1, rete:SDA]
     P8: [G1, H1, I1, J1, rete:SCL]
-    P9: [B13, rete:DATA_TIBIE, K13]       # luci delle tibie: 5 V e massa come i poli 2 e 9, dato dopo R9
+    P9: [rete:DATA_TIBIE]                 # dato delle luci delle tibie dopo R9; 5 V e massa nei poli 2 e 9 (F4)
     P10: [A13, B13, E13, F13, G13, H13, I13, J13, K13, L13, M13, N13, O13, null]
-    P11: [rete:3V3_X3, rete:GND]
-    P12: [rete:RMT_IN, rete:GND]
+    P11: [rete:3V3_X3]
 
 carapace:
   aggiunti:

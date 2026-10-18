@@ -6,7 +6,8 @@ Fonti delle quote:
   modulo da 2,6 oltre il primo pin di testa a 11,6 oltre l'ultimo di coda, largo 28,3 (S, inserzione);
 - Pololu D24V22F5: STEP di Pololu in cad/modelli/pololu-d24v22fx (fori Ø1,016 della fila a passo 2,54, primo a 1,27
   dai bordi; secondo GND a (1,27; 11,938); scheda 17,78 × 17,78), ordine PG, EN, VIN, GND, VOUT (S+, piano 5.1);
-- Bourns MF-R090: reofori Ø0,51 a passo 5,1 ± 0,7, disco al più 11,7 × 16,7 × 3,1 (V, scheda Bourns);
+- Bourns MF-R090-0-9: reofori Ø0,51 a passo 5,1 ± 0,7, disco al più 7,4 × 12,2 × 3,0 (V, scheda Bourns MF-R: stessa
+  tenuta e stesso scatto dell'MF-R090, 0,90 / 1,80 A, che è 11,7 × 16,7 e non entra sotto l'ESP32, F4 della PCB-B);
 - 470 µF 10 V in Ø6,3 × 11 sdraiato, passo 2,5 (S, guida/problemi S-18).
 
 Uso: python3 propri.py (rigenera) o python3 propri.py --controlla.
@@ -22,6 +23,10 @@ LIB = os.path.normpath(os.path.join(QUI, '..', 'librerie'))
 sys.path.insert(0, os.path.normpath(os.path.join(QUI, '..', '..', 'guida', 'schemi', 'sorgenti')))
 
 PASSO = 2.54
+# Posti delle strip senza foro, dove le piste a 5 V attraversano la fila -Y lontano da ogni pin (piano-pcb.md 4.1, F4):
+# 23 (GPIO20, dato delle tibie), 27 e 28 (GPIO45 e GPIO0, 5 V dei LED), 30 (GPIO36, dato dell'anello). Il VBAT non
+# attraversa piu' la fila +Y: il filo arriva da sotto accanto al VIN di U2
+VARCHI_ESP = (23, 27, 28, 30)
 
 
 # --- simboli
@@ -77,8 +82,9 @@ def simboli():
         'ESP32_S3_CAM_RE13', 'U', 'ESP32-S3-CAM RE1.3',
         'UICPAL ESP32-S3-CAM N16R8 RE1.3 su due strip femmina 1 x 20 a 25,4 mm. Pin 1-20 fila ESP_L dalla coda, '
         '21-40 fila ESP_R dalla coda (pcb/README.md)',
-        [(i + 1, _nome_gpio(n), _tipo_esp(n)) for i, n in enumerate(B.ESP_L)],
-        [(i + 21, _nome_gpio(n), _tipo_esp(n)) for i, n in enumerate(B.ESP_R)],
+        # i posti dei varchi non hanno il contatto nella strip (sfilato): il simbolo non ha quei pin
+        [(i + 1, _nome_gpio(n), _tipo_esp(n)) for i, n in enumerate(B.ESP_L) if i + 1 not in VARCHI_ESP],
+        [(i + 21, _nome_gpio(n), _tipo_esp(n)) for i, n in enumerate(B.ESP_R) if i + 21 not in VARCHI_ESP],
         larghezza=20.32, impronta='hex2:ESP32_S3_CAM_RE13_Strip')
     reg = simbolo(
         'D24V22F5', 'U', 'D24V22F5', 'Pololu D24V22F5, regolatore 5 V 2,5 A (pagina Pololu 2858)',
@@ -119,8 +125,6 @@ def impronta(nome, descrizione, elementi, rif_y=-2, val_y=2):
         [S('embedded_fonts', Sym('no'))]
 
 
-# Posti delle strip senza foro: O-2 e P-2 (pin 15 e 16, GPIO7 e GPIO6), varco del VBAT (piano-pcb.md 4.1)
-VARCHI_ESP = (15, 16)
 
 
 def impronta_esp():
@@ -130,19 +134,21 @@ def impronta_esp():
         x = round(x0 + i * PASSO, 4)
         if i + 1 not in VARCHI_ESP:
             el.append(_pad_tht(i + 1, x, -12.7, quadrato=(i == 0)))
-        el.append(_pad_tht(i + 21, x, 12.7))
+        if i + 21 not in VARCHI_ESP:
+            el.append(_pad_tht(i + 21, x, 12.7))
     # strip femmina: corpo 2,54 × 50,8 (sagoma e cortile solo sulle strip, i componenti stanno sotto il modulo)
     for y in (-12.7, 12.7):
         el.append(_rett(x0 - 1.27, y - 1.27, -x0 + 1.27, y + 1.27, 'F.SilkS', 0.12))
-        el.append(_rett(x0 - 1.52, y - 1.52, -x0 + 1.52, y + 1.52, 'F.CrtYd', 0.05))
+        # cortile 0,1 oltre il corpo della strip: accanto alle file stanno corpi a 0,2-0,3 (F4, basetta)
+        el.append(_rett(x0 - 1.37, y - 1.37, -x0 + 1.37, y + 1.37, 'F.CrtYd', 0.05))
     # PCB del modulo e antenna sullo strato Fab
     coda, testa = x0 - 11.6, -x0 + 2.6
     el.append(_rett(coda, -14.15, testa, 14.15, 'F.Fab', 0.1))
     el.append(_rett(testa, -8, testa + 4.8, 8, 'F.Fab', 0.1))
     el.append(_linea((x0 - 2.2, -14.2), (x0 - 2.2, -11.2), 'F.SilkS'))  # segno del pin 1
     return impronta('ESP32_S3_CAM_RE13_Strip',
-                    'UICPAL ESP32-S3-CAM N16R8 RE1.3 su due strip femmina 1x20, file a 25,4; posti 15 e 16 senza '
-                    'foro (varco del VBAT). Origine al centro delle file', el, rif_y=-16, val_y=16)
+                    'UICPAL ESP32-S3-CAM N16R8 RE1.3 su due strip femmina 1x20, file a 25,4; posti 23, 27, 28 e 30 '
+                    'senza foro (varchi del 5 V). Origine al centro delle file', el, rif_y=-16, val_y=16)
 
 
 def impronta_d24():
@@ -158,13 +164,13 @@ def impronta_d24():
 
 def impronta_ptc():
     el = [_pad_tht(1, 0, 0, 1.6, 0.8, quadrato=True), _pad_tht(2, 5.08, 0, 1.6, 0.8)]
-    # disco sdraiato oltre le piazzole (-Y): 11,7 × 16,7, reofori piegati di 1,5
-    el.append(_rett(2.54 - 5.85, -1.5, 2.54 + 5.85, -18.2, 'F.Fab', 0.1))
-    el.append(_rett(2.54 - 5.97, -1.38, 2.54 + 5.97, -18.32, 'F.SilkS', 0.12))
-    el.append(_rett(2.54 - 6.1, 1.1, 2.54 + 6.1, -18.45, 'F.CrtYd', 0.05))
-    return impronta('Fuse_Bourns_MF-R090_Sdraiato',
-                    'Bourns MF-R075 / MF-R090 sdraiato, reofori a passo 5,08 (5,1 ± 0,7), disco 11,7 x 16,7',
-                    el, rif_y=2.2, val_y=-10)
+    # disco sdraiato oltre le piazzole (-Y): 7,4 × 12,2, reofori piegati di 1,5
+    el.append(_rett(2.54 - 3.7, -1.5, 2.54 + 3.7, -13.7, 'F.Fab', 0.1))
+    el.append(_rett(2.54 - 3.82, -1.38, 2.54 + 3.82, -13.82, 'F.SilkS', 0.12))
+    el.append(_rett(2.54 - 3.95, 1.1, 2.54 + 3.95, -13.95, 'F.CrtYd', 0.05))
+    return impronta('Fuse_Bourns_MF-R090-0-9_Sdraiato',
+                    'Bourns MF-R090-0-9 sdraiato, reofori a passo 5,08 (5,1 ± 0,7), disco 7,4 x 12,2 x 3,0',
+                    el, rif_y=2.2, val_y=-7.6)
 
 
 def impronta_ce():
@@ -213,7 +219,7 @@ def impronte():
         fp = impronta_fili(c, r)
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
     # due fili per foro (come la millefori della guida): Ø1,7, foro 1,0
-    for c, r in ((1, 2), (1, 6), (1, 8)):
+    for c, r in ((1, 2), (1, 6), (1, 8), (1, 14)):
         fp = impronta_fili(c, r, 1.7, 1.0)
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
     for f in (impronta_esp, impronta_d24, impronta_ptc, impronta_ce):

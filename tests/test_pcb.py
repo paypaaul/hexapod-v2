@@ -52,9 +52,9 @@ def test_contorni_come_il_piano():
 def _pcb_finto(g):
     """Testo di un .kicad_pcb con contorno, fori e zone senza rame come li scrive KiCad 10."""
     righe = ['(kicad_pcb (version 20260206)']
-    pts = g['contorno']
-    for a, b in zip(pts, pts[1:] + pts[:1]):
-        righe.append('(gr_line (start %s %s) (end %s %s) (layer "Edge.Cuts"))' % (a + b))
+    for pts in [g['contorno']] + g.get('aperture', []):
+        for a, b in zip(pts, pts[1:] + pts[:1]):
+            righe.append('(gr_line (start %s %s) (end %s %s) (layer "Edge.Cuts"))' % (tuple(a) + tuple(b)))
     for _, x, y, d in g['fori']:
         righe.append('(gr_circle (center %s %s) (end %s %s) (layer "Edge.Cuts"))' % (x, y, x + d / 2, y))
     for nome, strati, punti, cosa in g['senza_rame']:
@@ -71,6 +71,10 @@ def test_controllo_contorni_e_casi_di_controllo(tmp_path, nome):
     f = tmp_path / (nome + '.kicad_pcb')
     f.write_text(_pcb_finto(g))
     assert GC.controlla(nome, str(f)) == []
+    if g['aperture']:
+        # apertura sotto U2 dimenticata (basetta): mancano i suoi lati
+        f.write_text(_pcb_finto(dict(g, aperture=[])))
+        assert any('lato del contorno' in e for e in GC.controlla(nome, str(f)))
     # foro spostato di 0,1
     lav, x, y, d = g['fori'][0]
     spostato = dict(g, fori=[(lav, x + 0.1, y, d)] + g['fori'][1:])
@@ -158,7 +162,7 @@ def test_drc_trova_pista_mancante_e_pista_stretta(tmp_path):
 
 
 @con_pcbnew
-@pytest.mark.parametrize('scheda', ['prova', 'carapace'])
+@pytest.mark.parametrize('scheda', ['prova', 'carapace', 'basetta'])
 def test_pcb_ripetibile(tmp_path, scheda):
     """Rigenerare il PCB dà lo stesso file che è nella repo."""
     d = tmp_path / scheda
@@ -341,7 +345,7 @@ def test_polo_1_di_j2_nella_terna_del_robot():
 
 @con_pcbnew
 @con_kicad
-@pytest.mark.parametrize('scheda', ['carapace'])
+@pytest.mark.parametrize('scheda', ['carapace', 'basetta'])
 def test_dima_aggiornata(tmp_path, scheda):
     """La dima di F5 nella repo è quella del PCB di oggi: se il PCB cambia, si rigenera con pcb/script/dima.py."""
     import re

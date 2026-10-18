@@ -39,6 +39,9 @@ SCHEDE = {
         'anelli': {'F.Cu': '4 mm + 2 mm', 'B.Cu': 'cor_bas_col_d + 1 mm'},
         # antenna dell'ESP32: niente rame da x 74 al bordo di testa, sulle due facce (studio.md 2.1, R-15; S)
         'rettangoli': [(('F.Cu', 'B.Cu'), 'antenna', '74 mm', None)],
+        # apertura sotto i componenti inferiori di U2 (D24V22F5), nella terna del robot: non viene dal CAD ma dal
+        # piazzamento di U2 e dallo STEP Pololu (pcb/basetta/genera_pcb.py, apertura_u2, che la controlla)
+        'aperture': [[(49.16, -8.64), (49.16, 6.41), (35.84, 6.41), (35.84, -6.96), (42.28, -6.96), (42.28, -8.64)]],
     },
     'carapace': {
         'istanza': 'corpo/Scheda_carapace',
@@ -167,7 +170,8 @@ def geometria(nome, par=None):
         rx1 = par.valuta(x1) if x1 else max(xs)
         senza.append((nome_r, tuple(strati), [kicad(rx0, max(ys)), kicad(rx1, max(ys)),
                                               kicad(rx1, min(ys)), kicad(rx0, min(ys))], 'tutto'))
-    return {'contorno': contorno, 'fori': fori, 'senza_rame': senza}
+    aperture = [[kicad(x, y) for x, y in a] for a in s.get('aperture', [])]
+    return {'contorno': contorno, 'fori': fori, 'senza_rame': senza, 'aperture': aperture}
 
 
 # --- controllo di un .kicad_pcb (lettura del testo, senza KiCad)
@@ -213,6 +217,8 @@ def controlla(nome, percorso, par=None):
     segmenti, cerchi, aree = leggi_pcb(percorso)
     errori = []
     attesi = list(zip(g['contorno'], g['contorno'][1:] + g['contorno'][:1]))
+    for a in g['aperture']:
+        attesi += list(zip(a, a[1:] + a[:1]))
     for a, b in attesi:
         if not any((_vicini(a, s) and _vicini(b, e)) or (_vicini(a, e) and _vicini(b, s)) for s, e in segmenti):
             errori.append('lato del contorno %s-%s mancante' % (a, b))

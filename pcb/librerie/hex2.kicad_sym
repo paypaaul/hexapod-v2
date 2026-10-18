@@ -465,24 +465,6 @@
 			(pin bidirectional line
 				(at 12.7 19.05 180)
 				(length 2.54)
-				(name "GPIO20"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "23"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin bidirectional line
-				(at 12.7 16.51 180)
-				(length 2.54)
 				(name "GPIO21"
 					(effects
 						(font
@@ -499,7 +481,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 13.97 180)
+				(at 12.7 16.51 180)
 				(length 2.54)
 				(name "GPIO47"
 					(effects
@@ -517,7 +499,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 11.43 180)
+				(at 12.7 13.97 180)
 				(length 2.54)
 				(name "GPIO48"
 					(effects
@@ -535,43 +517,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 8.89 180)
-				(length 2.54)
-				(name "GPIO45"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "27"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin bidirectional line
-				(at 12.7 6.35 180)
-				(length 2.54)
-				(name "GPIO0"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "28"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin bidirectional line
-				(at 12.7 3.81 180)
+				(at 12.7 11.43 180)
 				(length 2.54)
 				(name "GPIO35"
 					(effects
@@ -589,25 +535,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 1.27 180)
-				(length 2.54)
-				(name "GPIO36"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "30"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin bidirectional line
-				(at 12.7 -1.27 180)
+				(at 12.7 8.89 180)
 				(length 2.54)
 				(name "GPIO37"
 					(effects
@@ -625,7 +553,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 -3.81 180)
+				(at 12.7 6.35 180)
 				(length 2.54)
 				(name "GPIO38"
 					(effects
@@ -643,7 +571,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 -6.35 180)
+				(at 12.7 3.81 180)
 				(length 2.54)
 				(name "GPIO39"
 					(effects
@@ -661,7 +589,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 -8.89 180)
+				(at 12.7 1.27 180)
 				(length 2.54)
 				(name "GPIO40"
 					(effects
@@ -679,7 +607,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 -11.43 180)
+				(at 12.7 -1.27 180)
 				(length 2.54)
 				(name "GPIO41"
 					(effects
@@ -697,7 +625,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 -13.97 180)
+				(at 12.7 -3.81 180)
 				(length 2.54)
 				(name "GPIO42"
 					(effects
@@ -715,7 +643,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 -16.51 180)
+				(at 12.7 -6.35 180)
 				(length 2.54)
 				(name "GPIO2"
 					(effects
@@ -733,7 +661,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 -19.05 180)
+				(at 12.7 -8.89 180)
 				(length 2.54)
 				(name "GPIO1"
 					(effects
@@ -751,7 +679,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 -21.59 180)
+				(at 12.7 -11.43 180)
 				(length 2.54)
 				(name "GPIO44"
 					(effects
@@ -769,7 +697,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 12.7 -24.13 180)
+				(at 12.7 -13.97 180)
 				(length 2.54)
 				(name "GPIO43"
 					(effects

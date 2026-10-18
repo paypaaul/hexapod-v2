@@ -77,3 +77,18 @@
 	(constraint clearance (min 0.2mm)))
 
 # Le regole sui pin dell'ESP32 (nessun 5 V a meno di 1 mm, varchi delle file, antenna) entrano con l'impronta di U1 (F4).
+
+# --- basetta (F4): corpi accanto alle file dell'ESP32 e fra loro, provati con le quote vere dei corpi (pcb/basetta/
+# genera_pcb.py); i cortili standard (0,25-0,5 oltre il corpo) li segnerebbero come sovrapposti. Giochi veri:
+# resistenze in piedi (Ø2,5 a y 10, passo 2,9) dalla strip 0,18 e fra loro 0,4; D1 dal modulo U2 0,2 e dalla strip 0,33;
+# U3 da PTC1 1,6 (corpi) e dalle resistenze in piedi 2,5; R11 dai punti di prova 0,6
+(rule "basetta: cortili provati sui corpi"
+	(severity ignore)
+	(condition "(A.Reference == 'JP1' || A.Reference == 'U1' || A.Reference == 'U2' || A.Reference == 'U3' || A.Reference == 'R2' || A.Reference == 'R4' || A.Reference == 'R5' || A.Reference == 'R7' || A.Reference == 'R9' || A.Reference == 'R11') && (B.Reference == 'U1' || B.Reference == 'U2' || B.Reference == 'U3' || B.Reference == 'R2' || B.Reference == 'R4' || B.Reference == 'R5' || B.Reference == 'R7' || B.Reference == 'R9' || B.Reference == 'R11' || B.Reference == 'R13' || B.Reference == 'D1' || B.Reference == 'JP1' || B.Reference == 'PTC1' || B.Reference == 'TP12' || B.Reference == 'TP13')")
+	(constraint courtyard_clearance (min 0mm)))
+
+# VBAT accanto alla sua massa: P1 porta i due fili della 2813 (VBAT e GND) a passo 2,54. Un ponte fra i due fa
+# scattare F2, non tocca l'ESP32: basta la distanza minima del produttore
+(rule "VBAT accanto alla sua massa (P1 della basetta)"
+	(condition "A.NetName == '/VBAT' && B.memberOfFootprint('P1') && B.NetName == '/GND'")
+	(constraint clearance (min 0.5mm)))
