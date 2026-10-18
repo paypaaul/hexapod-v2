@@ -149,8 +149,8 @@ Ogni fase finisce con **commit, push su `main` e CI `ci` e `sim` verdi**, e lasc
 
 | Dato | Serve per | Chi | Come, ripiego |
 |---|---|---|---|
-| Quale delle 4 schede è la RE1.3 (Q-18) | U1 | utente | sigla stampata sulla scheda |
-| Piedinatura dell'ESP32 vista dal lato giusto (S-15) e altezze dei componenti sul retro (S-08) | U1, altezze sotto la scheda | utente | foto del retro e della serigrafia |
+| Quale delle 4 schede è la RE1.3 (Q-18) | U1 | utente | **fatto** (18 ottobre): 2 RE1.3 e 2 schede corte da 57 mm, che non si usano |
+| Piedinatura dell'ESP32 vista dal lato giusto (S-15) e altezze dei componenti sul retro (S-08) | U1, altezze sotto la scheda | utente | piedinatura **fatta** (V); altezze e posizioni del retro **rimandate**: la RE1.3 non è sottomano, si lavora con le quote dell'inserzione (S) e si misura prima di F4 (`CLAUDE.md`, cose da guardare) |
 | Strip con i contatti di O-2 e P-2 sfilati, e prova a secco a 25,4 (P-005, dubbio 11 dello studio) | varchi del VBAT e del 5 V | utente | se lo sfilamento non riesce: strip tagliata a pezzi, impronta per i pezzi |
 | Ordine dei pin del D24V22F5 (S-03) | U2 | agente | pagina Pololu 2858 e STEP in `cad/modelli/` |
 | Polo 1 della testata Würth rispetto alla chiave (S-26) | J2 | agente | disegno del produttore |
