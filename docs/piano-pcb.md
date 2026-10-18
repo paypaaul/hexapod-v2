@@ -158,7 +158,7 @@ Ogni fase finisce con **commit, push su `main` e CI `ci` e `sim` verdi**, e lasc
 | Pull-up e indirizzo del modulo SparkFun X20: 4,7 kΩ inseriti e 0x27 di fabbrica (V, guida SparkFun) | bus, firmware | agente, poi utente sul pezzo | taglio del ponticello I2C; scelta dell'indirizzo (2) |
 | Passo e piedinatura del KAmod (S-04), solo se DU-1 = no | U4 | agente, poi utente sul pezzo | pagina Kamami |
 | Tensione a riposo della TX della SSC-32 e massa VL− (S-22, Q-19) | ripiego della RX, massa della seriale | utente, multimetro, con la SSC-32 alimentata | se manca, si monta il partitore di serie |
-| Misura della spina JR, maschio e femmina: passo, ingombro, altezza (P-012, Q-04) | variante P2, `spine_prese` | utente | calibro; se manca, P2 si scarta e si fa P1 |
+| Misura della spina JR, maschio e femmina: passo, ingombro, altezza (P-012, Q-04) | variante P2, `spine_prese` | utente | **fatto** (18 ottobre): femmina 8 × 3 × 14, come il disegno Pololu (7,90 × 2,75 × 14,0, `dimensioni-componenti.md`); il maschio è la strip a passo 2,54 |
 | Taglia degli SMD del kit B8 (S-30) | impronte 0805 | utente | calibro |
 | Valori nel set di resistenze B10 | R4, R5, R10, R11, R12, R-TX, ripiego | agente | **fatto**: 41 valori, niente 4,7 kΩ, 15 kΩ, 22 kΩ (esiti di F0) |
 | Posizione dei pin A0…A7 del modulo ADC (S-31) | PCB-P, fili verso l'ADC | agente su Adafruit, poi utente | `docs/ricerca/dati-moduli.md` |
@@ -323,7 +323,6 @@ Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, co
 - **Aspetta l'utente**:
   - via al piano della 2.1.8;
   - misure della RE1.3 col calibro e prova a secco delle strip;
-  - spina JR di un servo (DU-5);
   - taglia del kit B8, 5,1 kΩ nel kit Elegoo, portafusibile Neuftech (Q-23), tensione della TX della SSC-32.
 
 **Acquisti (DU-4)**: approvati il 18 ottobre 10 kΩ 0805 (PCB1), X1 e X6; PTC di X9 passato a MF-R090; ordine DigiKey **in sospeso**, da unire ad altre voci per superare i 75 €. Non si comprano, perché l'utente li ha: i 100 nF a reoforo (kit dell'utente) e i pull-up da 4,7 kΩ (kit Elegoo: 5,1 kΩ se c'è, altrimenti 10 kΩ dal set B10). Il 330 Ω e l'1 kΩ sono nel set B10, il 15 kΩ non serve. La presa JST SH è stata tolta (DU-2 = no). C1 e i partitori a reoforo di X5 e X14 sono usciti dal BOM (2.4).

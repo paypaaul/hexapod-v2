@@ -175,7 +175,7 @@ Modello 3D: non trovato. Ingombro semplificato con altezza della testa e diametr
 | Inserto a caldo M2 (CNC Kitchen) | Ø3,6 × 3,0; foro 3,2; parete minima 1,3 | produttore / rivenditore | V / S |
 | Inserti a caldo M2 e M3 del kit Temu dell'utente | M3: zigrinatura Ø4,2, invito liscio Ø4,0; M2: zigrinatura Ø3,2, invito Ø3,0 (Q-20); il foro nel PETG-CF non può essere 4,2 / 3,2: valori da tarare sul provino degli inserti (M3 Ø3,9 / 4,0 / 4,1 / 4,2, M2 Ø2,9 / 3,0 / 3,1 / 3,4, `attrezzi.py` → `fai_provino_inserti`) | risposta dell'utente, foto del kit | M / C |
 | Inserto a caldo M3 (CNC Kitchen) | Ø4,6 × 5,7; foro 4,0; parete minima 1,6 | idem | V / S |
-| Spina servo JR femmina | 7,90 × 2,75 × 14,0; passo 2,54 | disegno Pololu 0J9699 | V |
+| Spina servo JR femmina | 7,90 × 2,75 × 14,0; passo 2,54 | disegno Pololu 0J9699; misurata dall'utente sulla spina dei suoi MG996R il 18 ottobre 2026: 8 × 3 × 14 | V |
 | Collare maschio della prolunga | 10,30 × 4,00 × 18,0 | disegno Pololu 0J9700 | V |
 | Cuscinetto flangiato NMB LF-1050ZZ (= MF105ZZ) | 5 × 10 × 4; flangia Ø11,6 × 0,8; carico dinamico 714 N, statico 276 N | [scheda MinebeaMitsumi](https://product.minebeamitsumi.com/en/product/category/bearing/miniature_small/parts/LF1050ZZ.html) | V; i MF105ZZ generici hanno flange da 11,2 a 11,7: la sede della flangia è un parametro |
 | Squadretta metallica a disco, 25 denti | Ø circa 20; fori M3 | varia da prodotto a prodotto | C: si quota sul prodotto scelto |
