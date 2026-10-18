@@ -1944,25 +1944,23 @@
 		(dnp no)
 		(uuid "07a250ac-e78c-5f08-a18b-df94c810c9d9")
 		(property "Reference" "#FLG02"
-			(at 78.74 137.16 0)
+			(at 76.2 137.795 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 78.74 139.7 0)
+			(at 76.2 135.89 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2022,7 +2020,7 @@
 		(dnp no)
 		(uuid "2d1fe01c-b9a4-59b3-8e40-b055339a32ea")
 		(property "Reference" "C1"
-			(at 193.04 60.96 0)
+			(at 191.135 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2033,7 +2031,7 @@
 			)
 		)
 		(property "Value" "100n"
-			(at 193.04 63.5 0)
+			(at 191.135 66.04 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2103,25 +2101,23 @@
 		(dnp no)
 		(uuid "2e69aadb-0d30-55d7-93aa-899f84b730a0")
 		(property "Reference" "#FLG01"
-			(at 53.34 137.16 0)
+			(at 50.8 137.795 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 53.34 139.7 0)
+			(at 50.8 135.89 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2181,25 +2177,23 @@
 		(dnp no)
 		(uuid "30e530c2-eef5-56ec-a8c4-24081ba5fdcd")
 		(property "Reference" "R1"
-			(at 154.94 99.06 0)
+			(at 154.432 101.6 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "330"
-			(at 154.94 101.6 0)
+			(at 152.4 101.6 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
@@ -2262,25 +2256,23 @@
 		(dnp no)
 		(uuid "3a059023-8227-55cc-9778-c4ba5b49dda9")
 		(property "Reference" "JP1"
-			(at 53.34 99.06 0)
+			(at 48.26 104.14 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "OE"
-			(at 53.34 101.6 0)
+			(at 50.8 98.806 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "hex2:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm"
@@ -2346,25 +2338,23 @@
 		(dnp no)
 		(uuid "68b458ce-9271-5cad-a130-d4b891471bfc")
 		(property "Reference" "U3"
-			(at 104.14 48.26 0)
+			(at 101.6 49.53 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "SN74AHCT125N"
-			(at 104.14 50.8 0)
+			(at 101.6 52.07 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "hex2:DIP-14_W7.62mm"
@@ -2463,25 +2453,23 @@
 		(dnp no)
 		(uuid "6975e9c5-7d69-5fc2-93d6-8116c1630648")
 		(property "Reference" "U3"
-			(at 104.14 73.66 0)
+			(at 101.6 74.93 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "SN74AHCT125N"
-			(at 104.14 76.2 0)
+			(at 101.6 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "hex2:DIP-14_W7.62mm"
@@ -2580,25 +2568,23 @@
 		(dnp no)
 		(uuid "7152df61-0a8f-5a79-8733-107c0e0e5b77")
 		(property "Reference" "TP1"
-			(at 193.04 99.06 0)
+			(at 190.5 94.742 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "OUT"
-			(at 193.04 101.6 0)
+			(at 190.5 96.52 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "hex2:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
@@ -2658,25 +2644,23 @@
 		(dnp no)
 		(uuid "bc6d0ad6-1c4e-5b70-aa57-40f336124ab3")
 		(property "Reference" "U3"
-			(at 154.94 60.96 0)
+			(at 152.4 62.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "SN74AHCT125N"
-			(at 154.94 63.5 0)
+			(at 152.4 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "hex2:DIP-14_W7.62mm"
@@ -2775,25 +2759,23 @@
 		(dnp no)
 		(uuid "cbb676ed-ba0b-5931-9b10-e7fff97974b7")
 		(property "Reference" "J1"
-			(at 53.34 48.26 0)
+			(at 50.8 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "Conn_01x04"
-			(at 53.34 50.8 0)
+			(at 50.8 58.42 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "hex2:PinHeader_1x04_P2.54mm_Vertical"
@@ -2862,25 +2844,23 @@
 		(dnp no)
 		(uuid "ce1ec194-8bde-5ae7-bbcd-8dcefa124bb8")
 		(property "Reference" "U3"
-			(at 104.14 99.06 0)
+			(at 101.6 100.33 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "SN74AHCT125N"
-			(at 104.14 101.6 0)
+			(at 101.6 102.87 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "hex2:DIP-14_W7.62mm"
@@ -2979,25 +2959,23 @@
 		(dnp no)
 		(uuid "f57913f6-3220-5ea3-bfc6-2c3b2c1cc2c7")
 		(property "Reference" "U3"
-			(at 104.14 124.46 0)
+			(at 101.6 125.73 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "SN74AHCT125N"
-			(at 104.14 127 0)
+			(at 101.6 128.27 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "hex2:DIP-14_W7.62mm"

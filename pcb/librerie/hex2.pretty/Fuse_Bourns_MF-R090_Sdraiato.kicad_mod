@@ -1,0 +1,72 @@
+(footprint "Fuse_Bourns_MF-R090_Sdraiato"
+	(version 20260206)
+	(generator "hex2_propri")
+	(layer "F.Cu")
+	(descr "Bourns MF-R075 / MF-R090 sdraiato, reofori a passo 5,08 (5,1 ± 0,7), disco 11,7 x 16,7")
+	(property "Reference" "REF**"
+		(at 0 2.2 0)
+		(layer "F.SilkS")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Fuse_Bourns_MF-R090_Sdraiato"
+		(at 0 -10 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(pad "1" thru_hole rect
+		(at 0 0)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+	)
+	(pad "2" thru_hole circle
+		(at 5.08 0)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+	)
+	(fp_rect
+		(start -3.31 -1.5)
+		(end 8.39 -18.2)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+	)
+	(fp_rect
+		(start -3.43 -1.38)
+		(end 8.51 -18.32)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+	)
+	(fp_rect
+		(start -3.56 1.1)
+		(end 8.64 -18.45)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+	)
+	(embedded_fonts no)
+)

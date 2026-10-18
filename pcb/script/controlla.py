@@ -1,4 +1,6 @@
-"""ERC e DRC (con la parità dello schema) di un progetto KiCad; fallisce su qualunque rilievo, anche gli avvisi.
+"""ERC, DRC con la parità dello schema e reti contro la guida di un progetto KiCad; fallisce su qualunque rilievo.
+
+Senza .kicad_pcb (schema fatto, PCB non ancora) il DRC si salta e lo si scrive.
 
 Uso: python3 controlla.py pcb/prova [pcb/basetta ...]
 Il progetto è la cartella con <nome>.kicad_sch e <nome>.kicad_pcb, dove <nome> è il nome della cartella.
@@ -9,6 +11,8 @@ import json
 import os
 import subprocess
 import sys
+
+import verifica_reti
 
 KICAD_CLI = os.environ.get('KICAD_CLI', '/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli')
 RADICE = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -29,13 +33,23 @@ def rilievi(cartella, uscite=None):
     drc = os.path.join(uscite, nome + '-drc.json')
     _kicad(['sch', 'erc', '--severity-all', '--format', 'json', '-o', erc,
             os.path.join(cartella, nome + '.kicad_sch')])
-    _kicad(['pcb', 'drc', '--schematic-parity', '--severity-all', '--format', 'json', '-o', drc,
-            os.path.join(cartella, nome + '.kicad_pcb')])
     out = []
+    pcb = os.path.join(cartella, nome + '.kicad_pcb')
+    if os.path.exists(pcb):
+        _kicad(['pcb', 'drc', '--schematic-parity', '--severity-all', '--format', 'json', '-o', drc, pcb])
+    # reti contro la guida, per le schede che hanno un *_def.py
+    if nome in verifica_reti.DEF:
+        net = os.path.join(uscite, nome + '.net')
+        _kicad(['sch', 'export', 'netlist', '--format', 'kicadsexpr', '-o', net,
+                os.path.join(cartella, nome + '.kicad_sch')])
+        for e in verifica_reti.verifica(nome, verifica_reti.leggi_netlist(net)):
+            out.append(('reti', 'error', 'verifica_reti', e, []))
     with open(erc, encoding='utf-8') as f:
         for foglio in json.load(f)['sheets']:
             for v in foglio['violations']:
                 out.append(('ERC', v['severity'], v['type'], v['description'], [i['description'] for i in v['items']]))
+    if not os.path.exists(pcb):
+        return out
     with open(drc, encoding='utf-8') as f:
         d = json.load(f)
     for chiave in ('violations', 'unconnected_items', 'schematic_parity'):
@@ -49,7 +63,9 @@ def principale(cartelle):
     errori = 0
     for c in cartelle:
         r = rilievi(c)
-        print('%s: %d rilievi' % (c, len(r)))
+        nome = os.path.basename(os.path.abspath(c))
+        senza = '' if os.path.exists(os.path.join(c, nome + '.kicad_pcb')) else ' (PCB non ancora: solo ERC e reti)'
+        print('%s: %d rilievi%s' % (c, len(r), senza))
         for controllo, grav, tipo, descr, elementi in r:
             print('  %s %s %s: %s %s' % (controllo, grav, tipo, descr, elementi))
         errori += len(r)

@@ -13,10 +13,11 @@ Schema e PCB **si generano da script**, e i file di KiCad sono il risultato. Una
 
 | Passo | Script | Python |
 |---|---|---|
-| copie dei simboli e delle impronte standard in `librerie/` | `script/librerie.py` (`--controlla` per la CI) | qualunque |
+| copie dei simboli e delle impronte standard in `librerie/` | `script/librerie.py` (`--controlla`; vuole le librerie di KiCad installate) | qualunque |
+| simboli e impronte disegnati per il robot (ESP32 RE1.3, D24V22F5, PTC e 470 µF sdraiati) in `librerie/hex2.*` | `script/propri.py` (`--controlla`) | qualunque |
 | schema: simboli, fili, etichette, segni di non collegato | `<scheda>/genera_schema.py`, con `script/schema_kicad.py` | qualunque, con `kicad-cli` |
 | PCB: impronte con le reti della netlist, contorno, piste, vie, riempimenti | `<scheda>/genera_pcb.py`, con `script/scheda_kicad.py` | di KiCad (`pcbnew`) |
-| ERC e DRC con la parità dello schema | `script/controlla.py <cartella>` | qualunque, con `kicad-cli` |
+| ERC, DRC con la parità dello schema (se c'è già il PCB) e reti contro la guida | `script/controlla.py <cartella>` | qualunque, con `kicad-cli` |
 | regole del DRC: fonte unica `regole/hex2.kicad_dru`, copiata in ogni progetto come `<nome>.kicad_dru` | `script/regole.py` (`--controlla`) | qualunque |
 | contorno, fori Ø2,4 e zone senza rame dalle quote del CAD | `script/genera_contorni.py` (`--controlla <file>.kicad_pcb`); nel PCB `Scheda.contorni_dal_cad` | qualunque |
 | reti di KiCad contro `guida/schemi/sorgenti/*_def.py`, con le differenze volute in `aggiunte.yaml` | `script/verifica_reti.py <scheda> <file>.net` | qualunque, con PyYAML |
@@ -33,6 +34,15 @@ Terna: x = X del robot + 100, y = 100 − Y del robot (KiCad ha la Y verso il ba
 Numeri dei pin per `verifica_reti.py`: ESP32 (U1) da 1 a 20 la fila `ESP_L` dalla coda alla testa, da 21 a 40 la fila `ESP_R` nello stesso verso; D24V22F5 (U2) PG 1, EN 2, VIN 3, GND 4, VOUT 5; condensatori con il + sul pin 1; resistenze e diodi a due fori con il primo foro dei `*_def.py` sul pin 1 (per i diodi il catodo). Le impronte di U1 e U2 si fanno con questa numerazione.
 
 Librerie: `librerie/hex2_kicad.kicad_sym` (simboli copiati da KiCad 10, appiattiti) e `librerie/hex2.pretty` (impronte copiate e, più avanti, quelle disegnate per il robot). Le tabelle `sym-lib-table` e `fp-lib-table` di ogni progetto puntano solo lì.
+
+## Schede
+
+| Cartella | Scheda | Stato |
+|---|---|---|
+| `prova/` | scheda di prova del metodo, caso di riferimento della CI | schema e PCB |
+| `basetta/` | PCB-B, basetta dell'ESP32 (piano 4.1) | schema (F3), ERC a zero, reti come la guida |
+| `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema (F3), ERC a zero, reti come la guida |
+| `partitori/` | PCB-P | dopo DU-5 (F2) |
 
 ## Prova del metodo (F1, 18 ottobre 2026)
 

@@ -1,0 +1,5 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "hex2_kicad") (type "KiCad") (uri "${KIPRJMOD}/../librerie/hex2_kicad.kicad_sym") (options "") (descr "copie dalle librerie di KiCad 10"))
+	(lib (name "hex2") (type "KiCad") (uri "${KIPRJMOD}/../librerie/hex2.kicad_sym") (options "") (descr "simboli disegnati per il robot"))
+)

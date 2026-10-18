@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "hex2") (type "KiCad") (uri "${KIPRJMOD}/../librerie/hex2.pretty") (options "") (descr "impronte del progetto e copie"))
+)

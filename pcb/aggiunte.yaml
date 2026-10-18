@@ -1,5 +1,4 @@
 # Differenze volute fra le PCB e le reti della guida (guida/schemi/sorgenti/*_def.py), lette da script/verifica_reti.py.
-# Bozza di F1: si completa con gli schemi (F3), quando i riferimenti dei componenti nuovi sono fissati.
 #   tolti:      componenti dei *_def.py che sulla PCB non ci sono
 #   aggiunti:   componenti solo della PCB (si possono usare * e ?)
 #   pin:        RIF.PIN: rete voluta al posto di quella dei *_def.py; +NOME è una rete solo della PCB, null un pin libero
@@ -9,6 +8,7 @@ basetta:
   tolti:
     - U4          # traslatore KAmod (DU-1 = sì)
   aggiunti:
+    - CS2         # 100 nF su VCC di U3: nei *_def.py è nell'elenco SMD ma non ha fori (lato saldature)
     - R9          # 330 Ω su DATA2, prima nella guaina (piano 2)
     - R10         # pull-up di 3A verso il 3V3 dell'ESP32 (piano 4.1)
     - R11         # partitore della RX, 20 kΩ
@@ -22,6 +22,7 @@ basetta:
     - P*          # piazzole dei fili
     - H*          # fori delle fascette
   pin:
+    U2.6: GND         # secondo GND del D24V22F5, fuori fila (STEP Pololu): sulla millefori non c'era
     U3.9: TX3         # 3A: TX dell'ESP32 sul canale 3 del buffer (DU-1)
     U3.8: +TX5_3Y     # 3Y verso R13 (R-TX); dopo R13 la rete TX5 va alla piazzola del filo
     U3.11: null       # 4Y libero; 4A e 4OE restano a massa (SN74AHCT125: ingressi non usati a VCC o GND)
@@ -29,7 +30,7 @@ basetta:
 carapace:
   aggiunti:
     - R1          # R-MIC, vuota (S-21)
-    - U1          # impronta SOIC-16 vuota del TCA9534 (indirizzo 0x20)
+    - U6          # impronta SOIC-16 vuota del TCA9534 (indirizzo 0x20, A0-A2 a massa)
     - TP*
     - P*
     - H*

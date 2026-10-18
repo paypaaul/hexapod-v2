@@ -101,6 +101,17 @@ class Schema:
         campi.update({'Reference': ref, 'Value': valore, 'Footprint': impronta})
         self.istanze.append((lib_id, ref, unita, x, y, campi))
 
+    def collega_nome(self, ref, nome_pin, rete):
+        """Come collega, con il nome del pin del simbolo (GPIO14, VIN...) al posto del numero."""
+        lib_id = next(i[0] for i in self.istanze if i[1] == ref)
+        sim = self.lib[lib_id]
+        numeri = [n for (_, n) in pin_del_simbolo(sim)
+                  for p in figli(sim, 'symbol') for q in figli(p, 'pin')
+                  if figlio(q, 'number')[1] == n and figlio(q, 'name')[1] == nome_pin]
+        if len(set(numeri)) != 1:
+            raise KeyError('%s: pin %s non trovato o ripetuto (%s)' % (ref, nome_pin, sorted(set(numeri))))
+        self.collega(ref, numeri[0], rete)
+
     def collega(self, ref, numero, rete):
         self.collegamenti.setdefault(ref, {})[str(numero)] = rete
 
@@ -160,21 +171,24 @@ class Schema:
         nodo = [Sym('symbol'), S('lib_id', lib_id), S('at', x, y, 0), S('unit', unita),
                 S('exclude_from_sim', Sym('no')), S('in_bom', Sym('yes')), S('on_board', Sym('yes')),
                 S('dnp', Sym('yes' if campi.pop('DNP', False) else 'no')), S('uuid', u)]
-        dy = 0
         for p in figli(sim, 'property'):
             nome = p[1]
             if nome.startswith('ki_'):  # parole chiave e filtri restano nella libreria, come negli schemi di KiCad
                 continue
             valore = campi.pop(nome, p[2])
             nascosto = nome not in ('Reference', 'Value')
-            at = S('at', x + 2.54, y - 2.54 - dy, 0) if not nascosto else S('at', x, y, 0)
-            if not nascosto:
-                dy -= 2.54
+            # posizione del testo come la dà la libreria (Y verso l'alto nella libreria, verso il basso nello schema)
+            pa = figlio(p, 'at')
+            ang = float(pa[3]) if len(pa) > 3 else 0
+            at = S('at', round(x + float(pa[1]), 4), round(y - float(pa[2]), 4), ang) if not nascosto else S('at', x, y, 0)
             eff = _font()
             if nascosto:
                 eff.append(S('hide', Sym('yes')))
             else:
-                eff.append(S('justify', Sym('left')))
+                lib_eff = figlio(p, 'effects')
+                giust = figlio(lib_eff, 'justify') if lib_eff else None
+                if giust:
+                    eff.append(giust)
             nodo.append(S('property', nome, valore, at, eff))
         for nome, valore in campi.items():
             nodo.append(S('property', nome, valore, S('at', x, y, 0), _font() + [S('hide', Sym('yes'))]))
@@ -205,6 +219,8 @@ class Schema:
 
     def salva(self, cartella):
         percorso = os.path.join(cartella, self.progetto + '.kicad_sch')
+        # senza il .kicad_pro accanto KiCad scrive le istanze con il progetto "" (provato il 18 ottobre)
+        scrivi_progetto(cartella, self.progetto)
         with open(percorso, 'w', encoding='utf-8') as f:
             f.write(self.testo())
         # KiCad riscrive il file nel suo formato: così una modifica fatta poi nell'editor dà un diff piccolo
@@ -231,7 +247,8 @@ def scrivi_progetto(cartella, nome):
             f.write(testo.replace('"filename": "kicad.kicad_pro"', '"filename": "%s.kicad_pro"' % nome))
     with open(os.path.join(cartella, 'sym-lib-table'), 'w', encoding='utf-8') as f:
         f.write(_TABELLA % ('sym_lib_table',
-                            _RIGA % ('hex2_kicad', 'hex2_kicad.kicad_sym', 'copie dalle librerie di KiCad 10')))
+                            _RIGA % ('hex2_kicad', 'hex2_kicad.kicad_sym', 'copie dalle librerie di KiCad 10') +
+                            _RIGA % ('hex2', 'hex2.kicad_sym', 'simboli disegnati per il robot')))
     with open(os.path.join(cartella, 'fp-lib-table'), 'w', encoding='utf-8') as f:
         f.write(_TABELLA % ('fp_lib_table', _RIGA % ('hex2', 'hex2.pretty', 'impronte del progetto e copie')))
 

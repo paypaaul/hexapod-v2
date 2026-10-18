@@ -160,14 +160,28 @@ def test_pcb_ripetibile(tmp_path):
 
 
 @con_kicad
-def test_schema_ripetibile(tmp_path):
-    """Rigenerare lo schema della prova dà lo stesso file che è nella repo."""
-    sys.path.insert(0, os.path.join(PCB, 'prova'))
-    import genera_schema
-    d = _copia_prova(tmp_path)
-    genera_schema.schema().salva(str(d))
-    with open(os.path.join(PCB, 'prova', 'prova.kicad_sch'), encoding='utf-8') as f:
-        assert (d / 'prova.kicad_sch').read_text() == f.read()
+@pytest.mark.parametrize('scheda', ['prova', 'basetta', 'carapace'])
+def test_schema_ripetibile(tmp_path, scheda):
+    """Rigenerare lo schema dà lo stesso file che è nella repo."""
+    import runpy
+    mod = runpy.run_path(os.path.join(PCB, scheda, 'genera_schema.py'))
+    d = tmp_path / scheda
+    d.mkdir()
+    mod['schema']().salva(str(d))
+    with open(os.path.join(PCB, scheda, scheda + '.kicad_sch'), encoding='utf-8') as f:
+        assert (d / (scheda + '.kicad_sch')).read_text() == f.read()
+
+
+@con_kicad
+@pytest.mark.parametrize('scheda', ['basetta', 'carapace'])
+def test_schemi_senza_rilievi_e_reti_come_la_guida(scheda):
+    import controlla
+    assert controlla.rilievi(os.path.join(PCB, scheda)) == []
+
+
+def test_simboli_e_impronte_proprie_aggiornati():
+    import propri
+    assert propri.principale(controlla=True) == 0
 
 
 # --- reti di KiCad contro i *_def.py della guida
