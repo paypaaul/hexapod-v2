@@ -9,7 +9,7 @@ Stato dei dati come nel resto del progetto: **V** verificato (fonte primaria o m
 | Domanda | Scelta | Cosa vuol dire |
 |---|---|---|
 | Architettura | **una per una** | Tre PCB al posto delle tre millefori, con le stesse reti: **PCB-B** (basetta dell'ESP32 sul vassoio), **PCB-C** (scheda del carapace), **PCB-P** (partitori dei piedi e delle NTC). Stessi moduli, stessi fili verso il resto del robot |
-| Montaggio | **a mano** | Componenti a reoforo e SMD 0805, come sulle millefori. Schede nude dal produttore, niente chip a passo fine |
+| Montaggio | **a mano** | Schede nude dal produttore, niente chip a passo fine. Basetta e carapace solo con componenti a reoforo; SMD 0805 solo sulla scheda dei partitori, dove lo spazio li impone (scelta delegata all'agente il 18 ottobre, sezione 2) |
 | Produttore | **JLCPCB** | Un solo ordine, e un pannello se il preventivo vero lo conviene (5.6) |
 | Banco S1 | **sulla r1** | Le millefori non si saldano mai. Le prove di S1 che non hanno bisogno delle schede (IDF, camera, SSC-32 da USB, un servo) si fanno prima, con i moduli sciolti |
 
@@ -21,7 +21,7 @@ Le chiedo in F0, prima di F1. Le sigle sono DU-n, per non confonderle con i comp
 
 | N. | Domanda | Proposta | Perché |
 |---|---|---|---|
-| DU-1 | **Togliere il traslatore KAmod** (ritocco b)? La TX verso la SSC-32 esce dal canale 3 del buffer U3, che è già sulla scheda. La RX passa da un partitore 10 kΩ / 15 kΩ | **deciso il 18 ottobre: sì** | Un modulo e una voce in meno (C1, 2,51 €) e 12 giunti in meno. Costa 4 resistenze in 0805 o a reoforo (4.1). Il partitore si monta sempre: con la TX a 5 V dà 3,0 V, sopra la soglia alta di 2,48 V. Se la TX fosse a 3,3 V la seriale non funziona ma non si rompe niente; il ripiego si monta solo dopo averla misurata (4.1) |
+| DU-1 | **Togliere il traslatore KAmod** (ritocco b)? La TX verso la SSC-32 esce dal canale 3 del buffer U3, che è già sulla scheda. La RX passa da un partitore 10 kΩ / 15 kΩ | **deciso il 18 ottobre: sì** | Un modulo e una voce in meno (C1, 2,51 €) e 12 giunti in meno. Costa 4 resistenze a reoforo dal set B10 (4.1). Il partitore si monta sempre: con la TX a 5 V dà 3,0 V, sopra la soglia alta di 2,48 V. Se la TX fosse a 3,3 V la seriale non funziona ma non si rompe niente; il ripiego si monta solo dopo averla misurata (4.1) |
 | DU-2 | **Presa Qwiic vera sulla PCB-C** (JST SH SM04B-SRSS-TB, ritocco c) al posto del cavo Qwiic tagliato? | **deciso il 18 ottobre: no** | L'utente ha scelto le piazzole: 4 piazzole con il nome (GND, 3V3, SDA, SCL), dove si salda il cavo Qwiic tagliato verso l'espansore TCA9534, come sulla millefori. La presa sarebbe servita solo a innestare l'espansore e moduli futuri senza saldare, e dalla 2.1.7 si raggiunge solo a carapace tolto (la scheda sta a x 29,5…51, l'ottagono finisce a x 28): non vale un componente in più sulla scheda più piena |
 | DU-3 | **ERC e DRC di KiCad nella CI**? | **deciso il 18 ottobre: sì**, con KiCad dal PPA e non da Docker Hub | La CI resta verde solo con schemi e PCB puliti. È una dipendenza nuova della CI: un paio di minuti d'installazione, poi la cache (S). Docker Hub è già fallito il 9 ottobre (`ci.yml:58-60`). La CI controlla anche che la versione di KiCad sia quella scritta in `pcb/README.md`: il PPA può dare un'altra 10.0.x |
 | DU-4 | **Acquisti di F0**: moduli e piccole parti che servono alla dima e al banco S1, in un ordine Kamami e **un solo** ordine DigiKey | **sì, voce per voce con il prezzo** (5.1) | Le voci B e C (B2 D24V22F5, B3, B6, B10, C3; C1 solo se DU-1 = no) sono già approvate: cambia solo il momento. **Le voci X vanno approvate per l'acquisto** (BOM, sezione X): X1, X6 e il resto di X9 servono al banco; di X2 e X9 sono approvati solo testata, 470 µF, buffer e resistenze. Le piccole voci nuove (10 kΩ 0805, eventuale MF-R090) si approvano qui e non in R1, così DigiKey è un ordine solo: sotto i 75 € la spedizione costa 25 € (`BOM.md`, sezione X) |
@@ -35,6 +35,7 @@ Scelte che faccio io e annoto nel disegno (le cambio se l'utente vuole):
 - **Restano fuori dalle schede**: R3, R6 e la 100 kΩ di OFF (R-12: un filo staccato lascia tutto spento o al sicuro), D2 per scelta, come oggi; R8 perché sta sul microfono.
 - **Masse**: un piano intero sul retro, senza piste "a stella". Con il piano la caduta dei ritorni dei LED (0,86 A) è di pochi mV su 1 oz (S). Le piste dedicate non si possono fare: KiCad collega ogni piazzola GND al piano, e U2 sta fra le due file (dubbio 2 di `studio.md`).
 - **Polo 14 del cavo piatto**: piazzola di riserva sulla PCB-C (XSHUT del ToF del mento, X25) e piazzola libera sulla PCB-B. Costo zero.
+- **Componenti a reoforo su basetta e carapace** (l'utente ha chiesto di poter saldare come sulla millefori e ha lasciato a me la scelta, 18 ottobre): CS1 e CS2 da 100 nF a reoforo; R-TX, R10, R11, R12, il partitore di JP-RMT e il ripiego da 1 kΩ a reoforo dal set B10; R-MIC a reoforo. Gli unici SMD sono gli 8 + 8 0805 della PCB-P: in 0,4 mm per lato (P1) o in 7 mm di larghezza (P2) quelli a reoforo non ci stanno. Si saldano a mano con pinzetta, punta fine e flussante (B19); i componenti segnati "non montare" restano vuoti.
 - **Strip dell'ESP32**: saldati tutti i pin, salvo quelli dei varchi (4.1). Nei varchi i contatti si sfilano dalla strip femmina; il ripiego è la strip tagliata a pezzi, con l'impronta fatta per i pezzi.
 - **Fori delle viti**: Ø2,4 non metallizzati, come i passanti M2 del CAD (`rif_componenti.py:133`): la tolleranza viene dalla posizione degli inserti nei pezzi stampati. Sulla dima si prova solo che le viti centrano gli inserti.
 
@@ -63,7 +64,7 @@ Quote in mm nella terna del robot: X avanti, Y a sinistra, Z in alto. Due strati
 | File dell'ESP32 | due strip femmina 1 × 20 a y ±12,7 (25,4), da x 22,5 a 73,3 | S fino alla prova a secco (P-005) |
 | Vicinanze | morsettiera della SSC-32 a 3,1 dal bordo di coda; asola del bus della 2.1.7 a 0,5 oltre il bordo +Y (x 26,5…33,5); colonnina del carapace a 1,3 dal bordo ±Y | V; `rif_componenti.py:483-490`, `corpo.py:51`; `corpo.py:187-191`; `corpo.py:108-110`, `:392-393` |
 
-**Componenti**: U1 ESP32 su strip; U2 D24V22F5; U3 SN74AHCT125N in DIP-14; D1 1N5819; PTC1; R1, R2, R4, R5, R7 come oggi; CS1 e CS2 in 0805.
+**Componenti**: U1 ESP32 su strip; U2 D24V22F5; U3 SN74AHCT125N in DIP-14; D1 1N5819; PTC1; R1, R2, R4, R5, R7 come oggi; CS1 e CS2 da 100 nF **a reoforo** (oggi sono SMD del kit B8).
 Con DU-1 = sì si aggiungono:
 - R10, pull-up da 10 kΩ all'ingresso del canale 3, **verso il 3V3 dell'ESP32** (lato ESP32 di JP-3V3), mai verso il 5 V. GPIO21 non ha pull al reset e resta libero finché il firmware non avvia la UART (scheda Espressif, letta dalla verifica: si riconferma in F0);
 - R-TX da 330 Ω in serie su 3Y;
@@ -99,7 +100,7 @@ Con DU-1 = no resta U4 KAmod. R9 da 330 Ω entra sulla scheda in tutti e due i c
 
 **Il posto è stretto.** Le file dei pin di J2 arrivano a x 42,7, e le teste delle viti prendono gli angoli. Per CE1, la presa, le piazzole e i punti di prova restano circa **7,4 × 19 mm** al centro (x 43,6…51) (S, conto della verifica). Sopra la scheda ci sono 2,9 mm d'aria fino al dorso, quindi le code dei pin a reoforo si tagliano a meno di 2 mm.
 
-**Componenti**: J2; CE1 470 µF 10 V sdraiato; 4 piazzole per il cavo Qwiic tagliato verso l'espansore (DU-2 = no); l'impronta SOIC-16 vuota del TCA9534, che è la prima a uscire se manca posto; R-MIC in 0805, vuota (S-21); punti di prova (5V, 3V3, GND, SDA, SCL, DATA).
+**Componenti**: J2; CE1 470 µF 10 V sdraiato; 4 piazzole per il cavo Qwiic tagliato verso l'espansore (DU-2 = no); l'impronta SOIC-16 vuota del TCA9534, che è la prima a uscire se manca posto; R-MIC a reoforo, vuota (S-21); punti di prova (5V, 3V3, GND, SDA, SCL, DATA).
 
 **Piazzole**: una per filo, raggruppate per modulo: catena LED (3), microfoni (5), amplificatore (5), ToF posteriore (5), pulsante (2), riserva del polo 14. Il pulsante va su piste isolate e lontane dalle altre (S-10). Il gruppo I2S è separato dal bus con una pista di massa.
 
@@ -159,7 +160,7 @@ Ogni fase finisce con **commit, push su `main` e CI `ci` e `sim` verdi**, e lasc
 | Tensione a riposo della TX della SSC-32 e massa VL− (S-22, Q-19) | ripiego della RX, massa della seriale | utente, multimetro, con la SSC-32 alimentata | se manca, si monta il partitore di serie |
 | Misura della spina JR, maschio e femmina: passo, ingombro, altezza (P-012, Q-04) | variante P2, `spine_prese` | utente | calibro; se manca, P2 si scarta e si fa P1 |
 | Taglia degli SMD del kit B8 (S-30) | impronte 0805 | utente | calibro |
-| Valori nel set di resistenze B10 (15 kΩ, 330 Ω, 1 kΩ) | R11, R12, R-TX, ripiego | utente, alla consegna | se mancano, 0805 nell'ordine DigiKey |
+| Valori nel set di resistenze B10 (15 kΩ, 330 Ω, 1 kΩ) | R11, R12, R-TX, ripiego | utente, alla consegna | se mancano, a reoforo nell'ordine DigiKey |
 | Posizione dei pin A0…A7 del modulo ADC (S-31) | PCB-P, fili verso l'ADC | agente su Adafruit, poi utente | `docs/ricerca/dati-moduli.md` |
 | Portafusibile Neuftech (Q-23) | P-139 della 2.1.8 | utente | se manca, P-139 passa alla 2.1.9 (5.3) |
 
@@ -257,7 +258,7 @@ Proposta: la 2.1.8 contiene P-140, P-141 e la PCB-P. P-139 entra solo se Q-23 ar
   - temperatura di U2, che si misura in P4.
 - **Decisioni**: D-078 all'approvazione del piano; poi una voce a ogni revisione approvata.
 - **BOM**:
-  - entrano: PCB, 0805 da 10 kΩ, eventuale MF-R090, strip delle spine con P2, resistenze che mancano in B10;
+  - entrano: PCB, 0805 da 10 kΩ, eventuale MF-R090, strip delle spine con P2, resistenze che mancano in B10, 2 condensatori da 100 nF a reoforo per CS1 e CS2;
   - escono: C1 con DU-1 = sì, i 6 + 3 × 10 kΩ e i 6 × 100 nF a reoforo di X5 e X14 (salvo scorte).
 - **Guida**:
   - Sezione 13: passa alla PCB-C dopo F8, perché per il carapace non c'è alternativa.
@@ -311,7 +312,7 @@ Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, co
 
 **Stato al 18 ottobre 2026**: piano scritto, verificato e corretto. Aspetta l'approvazione dell'utente (decise il 18 ottobre: DU-1 = sì, KAmod tolto; DU-2 = no, piazzole al posto della presa Qwiic; DU-3 = sì, KiCad nella CI). Nessun file KiCad nella repo.
 
-**Acquisti (DU-4, in parte)**: il 18 ottobre, prima di approvare il piano, l'utente ha approvato i pezzi nuovi delle schede: 10 kΩ 0805, 15 kΩ / 330 Ω / 1 kΩ in 0805 se mancano in B10 (voci PCB1 e PCB3 del BOM), e X1. La presa JST SH (PCB2) è stata approvata e poi tolta lo stesso giorno, con DU-2 = no. L'ordine DigiKey è **in sospeso**, da unire ad altre voci per superare i 75 €. Le voci che il piano toglierebbe (C1, reoforo di X5 e X14) restano nel BOM finché il piano non è approvato. Restano da approvare per l'acquisto X6 (ADC) e il resto delle voci X del banco.
+**Acquisti (DU-4, in parte)**: il 18 ottobre, prima di approvare il piano, l'utente ha approvato i pezzi nuovi delle schede: 10 kΩ 0805, 15 kΩ / 330 Ω / 1 kΩ se mancano in B10 (voci PCB1 e PCB3 del BOM; dopo la scelta di basetta a reoforo, PCB3 si compra a reoforo), e X1. Da approvare in F0 con il resto: 2 condensatori da 100 nF a reoforo per CS1 e CS2. La presa JST SH (PCB2) è stata approvata e poi tolta lo stesso giorno, con DU-2 = no. L'ordine DigiKey è **in sospeso**, da unire ad altre voci per superare i 75 €. Le voci che il piano toglierebbe (C1, reoforo di X5 e X14) restano nel BOM finché il piano non è approvato. Restano da approvare per l'acquisto X6 (ADC) e il resto delle voci X del banco.
 
 ## 9. Verifica del piano (18 ottobre 2026)
 

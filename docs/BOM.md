@@ -218,7 +218,7 @@ Approvate dall'utente il 18 ottobre 2026, prima dell'approvazione del piano. Van
 | Voce | Prodotto | Q.tà | Uso | Costo | Stato |
 |---|---|---|---|---|---|
 | PCB1 | resistenza 10 kΩ 1 % 0805 | 10 | partitori sulla PCB-P | meno di 1 € (S) | approvata, ordine in sospeso |
-| PCB3 | resistenze 0805: 15 kΩ, 330 Ω, 1 kΩ | 2 per valore | partitore della RX, resistenza in serie sulla TX, ripiego; solo se mancano nel set B10 | pochi centesimi (S) | approvata, ordine in sospeso |
+| PCB3 | resistenze a reoforo 1 %: 15 kΩ, 330 Ω, 1 kΩ (la basetta è tutta a reoforo, scelta del 18 ottobre) | 2 per valore | partitore della RX, resistenza in serie sulla TX, ripiego; solo se mancano nel set B10 | pochi centesimi (S) | approvata, ordine in sospeso |
 
 Nella stessa occasione l'utente ha approvato l'acquisto di **X1** (cavi Qwiic 4210 e 4397, 6,07 €), con l'ordine DigiKey in sospeso.
 
