@@ -167,6 +167,8 @@ def test_schema_ripetibile(tmp_path, scheda):
     mod = runpy.run_path(os.path.join(PCB, scheda, 'genera_schema.py'))
     d = tmp_path / scheda
     d.mkdir()
+    # il progetto della repo: il modello di KiCad sta in un posto diverso su Linux
+    shutil.copy(os.path.join(PCB, scheda, scheda + '.kicad_pro'), d)
     mod['schema']().salva(str(d))
     with open(os.path.join(PCB, scheda, scheda + '.kicad_sch'), encoding='utf-8') as f:
         assert (d / (scheda + '.kicad_sch')).read_text() == f.read()
