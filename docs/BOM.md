@@ -160,8 +160,8 @@ Prezzi delle voci X (10 ottobre 2026, IVA inclusa). Quali si predispongono e qua
 
 | Foto | Scelta (D-069) | Voce | Prodotto | Negozio | Costo |
 |---|---|---|---|---|---|
-| <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | approvata | X1 | cavi Qwiic Adafruit 4210 100 mm, 5 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4210/10230021) | 5,06 € (V) |
-| <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | approvata | X1 | cavo Qwiic con prese femmina Adafruit 4397 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4397/10824270) | 1,01 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | approvata; **acquisto approvato il 18 ottobre 2026** (ordine DigiKey in sospeso) | X1 | cavi Qwiic Adafruit 4210 100 mm, 5 pz | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4210/10230021) | 5,06 € (V) |
+| <img src="https://cdn-shop.adafruit.com/480x360/4210-00.jpg" width="48" alt="X1"> | approvata; **acquisto approvato il 18 ottobre 2026** (ordine DigiKey in sospeso) | X1 | cavo Qwiic con prese femmina Adafruit 4397 | [DigiKey.it](https://www.digikey.it/en/products/detail/adafruit-industries-llc/4397/10824270) | 1,01 € (V) |
 | <img src="https://kamami.pl/105748-large_default/dc-dc-step-down-converter-module-33v-d24v5f3.jpg" width="48" alt="X3"> | **tolta il 15 ottobre 2026** (D-076, P-085): non si compra finché la prova del 3,3 V non lo chiede; negli schemi resta J1 | X3 | Pololu D24V5F3 #2842 | [Kamami](https://kamami.pl/en/step-down/558118-pololu-2842-pololu-33v-500ma-step-down-voltage-regulator-d24v5f3.html) | ~~7,76 €~~ (non nel totale) |
 | — | approvata, **in possesso** (D-074) | X4 | GY-6500 (MPU-6500) dell'utente, su `Corpo_Piastrina_IMU`; la Pololu LSM6DSO #2798 resta predisposta sulle stesse bugne | — | 0 € |
 | <img src="https://www.tinytronics.nl/image/cache/catalog/products_2024/interlink-electronics-fsr-400-membrane-pressure-sensor-7.2mm-round-short-soldertabs-600x315w.jpg" width="48" alt="X5"> | approvata; **2 pz approvati per il provino 6 (15 ottobre 2026, Q-05)** | X5 | Interlink FSR 400 Short 34-00004, 7 pz (2 per il provino; gli altri 5 con l'approvazione del resto) | [Tinytronics](https://www.tinytronics.nl/en/sensors/weight-pressure-force/membrane/interlink-electronics-fsr-400-short-tail-membrane-pressure-sensor-7.6mm-round-soldertabs) | 35,00 € (V) |
@@ -210,6 +210,18 @@ Prezzi delle voci X (10 ottobre 2026, IVA inclusa). Quali si predispongono e qua
   - il regolatore 5 V del computer di bordo: Botland dice di vendere solo a clienti B2B.
 
 Viteria in più se si montano tutte, da contare a robot deciso: inserti M2 (D5) per IMU 2, ADC 2, INA260 4, scheda del carapace 4, amplificatore 2, zaino 4; viti M2 corte per le stesse; con i supporti degli INA260 le 2 viti delle slitte sono M3 × 10 invece di M3 × 8 (il totale diventa M3 × 8: 104, M3 × 10: 20; la riga "Totale viti" conta le slitte senza X7); le viti M2 dei supporti (2 a supporto) e dell'amplificatore (2) sono M2 × 5 [C] fino alla prova sui pezzi veri; quelle della scheda del carapace (4) sono **M2 × 4** [C] (dalla verifica della 2.1.7 la scheda sta su bugne da 2,9 e il foro dell'inserto è profondo 3,4: con la M2 × 5 la punta arriverebbe sul fondo; se il kit non ha le M2 × 4, M2 × 5 con una rondella M2 sotto la testa). Con la GY-6500 (D-074): due M2 × 5 svasate per la piastrina (dalle 50 di D8b) e due M2 × 6 a croce per la scheda (dal kit degli inserti). Con il ToF posteriore (X19, D-076, P-008): due **M2 × 5** a croce dal kit, avvitate nei fori pilota Ø1,7 della guancia (senza inserti).
+
+## PCB. Voci nuove delle schede stampate (`docs/piano-pcb.md`)
+
+Approvate dall'utente il 18 ottobre 2026, prima dell'approvazione del piano. Vanno nell'ordine DigiKey, che è **in sospeso**: da solo resta sotto i 75 € e pagherebbe 25 € di spedizione. Si fa insieme ad altre voci DigiKey. Le voci che il piano toglierebbe (C1, le resistenze e i condensatori a reoforo di X5 e X14) **restano nel BOM** finché il piano non è approvato. Prezzi S: si leggono quando si prepara il carrello.
+
+| Voce | Prodotto | Q.tà | Uso | Costo | Stato |
+|---|---|---|---|---|---|
+| PCB1 | resistenza 10 kΩ 1 % 0805 | 10 | partitori sulla PCB-P | meno di 1 € (S) | approvata, ordine in sospeso |
+| PCB2 | presa JST SH 4 poli orizzontale SM04B-SRSS-TB | 2 | presa Qwiic sulla PCB-C (DU-2) | circa 1 € (S) | approvata, ordine in sospeso |
+| PCB3 | resistenze 0805: 15 kΩ, 330 Ω, 1 kΩ | 2 per valore | partitore della RX, resistenza in serie sulla TX, ripiego; solo se mancano nel set B10 | pochi centesimi (S) | approvata, ordine in sospeso |
+
+Nella stessa occasione l'utente ha approvato l'acquisto di **X1** (cavi Qwiic 4210 e 4397, 6,07 €), con l'ordine DigiKey in sospeso.
 
 ## Ordine degli acquisti consigliato
 

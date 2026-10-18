@@ -309,7 +309,9 @@ Riferimenti di oggi: la raccolta per questo piano ha usato 4 agenti e circa 0,9 
 
 Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, cosa aspetta l'utente.
 
-**Stato al 18 ottobre 2026**: piano scritto, verificato e corretto. Aspetta l'approvazione dell'utente e le risposte DU-1…DU-4. Nessun file KiCad nella repo.
+**Stato al 18 ottobre 2026**: piano scritto, verificato e corretto. Aspetta l'approvazione dell'utente e le risposte DU-1…DU-3. Nessun file KiCad nella repo.
+
+**Acquisti (DU-4, in parte)**: il 18 ottobre, prima di approvare il piano, l'utente ha approvato i pezzi nuovi delle schede: 10 kΩ 0805, presa JST SH, 15 kΩ / 330 Ω / 1 kΩ in 0805 se mancano in B10 (voci PCB1-PCB3 del BOM), e X1. L'ordine DigiKey è **in sospeso**, da unire ad altre voci per superare i 75 €. Le voci che il piano toglierebbe (C1, reoforo di X5 e X14) restano nel BOM finché il piano non è approvato. Restano da approvare per l'acquisto X6 (ADC) e il resto delle voci X del banco.
 
 ## 9. Verifica del piano (18 ottobre 2026)
 
