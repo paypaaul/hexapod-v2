@@ -98,6 +98,8 @@ PARAMETRI = [
     ('esp_w', '28.3 mm', 'mm', 'ESP32: larghezza del PCB (inserzione) S'),
     ('esp_sp', '1.6 mm', 'mm', 'ESP32: spessore del PCB C'),
     ('esp_antenna', '4.8 mm', 'mm', 'ESP32: sporgenza del modulo con l antenna oltre il PCB (4,7-4,9) S'),
+    ('esp_pin_testa', '2.6 mm', 'mm', 'ESP32 RE1.3: dal centro del pin di testa al bordo di testa del PCB (disegno dell inserzione in scala; il pin di coda e a 11,6 dal bordo delle USB) S'),
+    ('esp_retro_h', '2.1 mm', 'mm', 'ESP32 RE1.3: componenti piu alti del retro, AMS1117 (SOT-223, 1,8 max) e tantalio (caso B, 2,1 max) dai datasheet; microSD 2,0 S'),
     ('esp_file', '25.4 mm', 'mm', 'ESP32: interasse delle due file di pin, 10 passi da 2,54 (Keyestudio MB0200, Freenove); il 24,7 del disegno e fra le facce interne dei pin (P-005, D-076) S'),
     # --- camera OV3660-75MM. Origine sull'asse ottico al retro della testa, asse ottico +Z, flat verso -X.
     ('cam_testa', '8.5 mm', 'mm', 'Camera: lato della testa (disegno del venditore) S'),
@@ -507,13 +509,21 @@ def fai_ingombri(des, root, rigenera, solo=None):
     L, W, sp = p('esp_l'), p('esp_w'), p('esp_sp')
     ant = p('esp_antenna')
     fr = p('esp_file') / 2
+    # 2.1.8 (voce 4): le file dei pin restano a x 22,5...73,3 nel robot (centro 2,9 nella terna propria), il PCB della RE1.3
+    # sta 2,6 oltre il pin di testa: si sposta di dx verso la coda con tutto quello che porta. Retro dalle immagini
+    # dell'inserzione (docs/immagini/scheda2): microSD verso l'antenna, AMS1117, tantalio e due SOT-23 verso le USB
+    hc = 2.9
+    dx = hc + 9.5 * 2.54 + p('esp_pin_testa') - L / 2
+    rh = p('esp_retro_h')
     fatti.append(componente(root, 'Rif_ESP32_S3_CAM', [
-        ('pcb', box(0, 0, 0, L, W, sp)),
-        ('modulo_antenna', box(L / 2 + ant - 25.5 / 2, 0, sp, 25.5, 18.0, 3.2)),
-        ('usb_c', unisci(box(-L / 2 + 2.7, 6.6, sp, 7.35, 8.94, 3.26), box(-L / 2 + 2.7, -6.6, sp, 7.35, 8.94, 3.26))),
-        ('connettore_fpc', box(-2.0, 0, sp, 4.5, 14.5, 2.0)),
-        ('pin_header', unisci(box(2.9, fr, -8.5, 50.8, 2.54, 8.5), box(2.9, -fr, -8.5, 50.8, 2.54, 8.5))),
-        ('slot_tf', box(-15.0, 0, -1.9, 15.0, 14.0, 1.9))]))
+        ('pcb', box(dx, 0, 0, L, W, sp)),
+        ('modulo_antenna', box(dx + L / 2 + ant - 25.5 / 2, 0, sp, 25.5, 18.0, 3.2)),
+        ('usb_c', unisci(box(dx - L / 2 + 2.7, 6.6, sp, 7.35, 8.94, 3.26), box(dx - L / 2 + 2.7, -6.6, sp, 7.35, 8.94, 3.26))),
+        ('connettore_fpc', box(dx - 2.0, 0, sp, 4.5, 14.5, 2.0)),
+        ('pin_header', unisci(box(hc, fr, -8.5, 50.8, 2.54, 8.5), box(hc, -fr, -8.5, 50.8, 2.54, 8.5))),
+        ('slot_tf', box(dx + L / 2 - 9.6, 0, -2.0, 16.0, 14.0, 2.0)),
+        ('componenti_retro', box(dx - L / 2 + 14.5, 0, -rh, 13.0, 18.0, rh)),
+        ('passivi_retro', box(dx + (21.0 - 17.6) / 2, 0, -0.6, L - 21.0 - 17.6, 18.0, 0.6))]))
 
     # Camera OV3660-75MM
     t, h, ld = p('cam_testa'), p('cam_alt'), p('cam_lente_d')

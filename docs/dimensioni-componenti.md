@@ -204,7 +204,7 @@ Tutti i componenti stanno nella zona libreria, a y ≥ 250 mm. Terna propria di 
 | `Rif_Reg_Servo_D42V110F6` | STEP Pololu | origine in un angolo; X = lato da 43,2; Y = 31,8 con le piazzole di potenza a y = 2,54; Z = spessore | 43,18 × 31,75; z −1,8…9,57 |
 | `Rif_Reg_5V_D24V22F5` | STEP Pololu | come sopra | 17,78 × 17,78; z −1,1…7,12 |
 | `Rif_SSC32_V25` | ingombro | origine al centro; lato inferiore del PCB a z = 0; lato lungo lungo X; morsettiera a +X | PCB 72 × 55; zona spine 25 mm sopra i lati lunghi; zona barre 6 mm sotto |
-| `Rif_ESP32_S3_CAM` | ingombro | origine al centro del PCB; antenna a +X; USB a −X | 68,4 × 28,3; pin fino a −8,5 |
+| `Rif_ESP32_S3_CAM` | ingombro | origine al centro delle file dei pin meno 2,9 (le file stanno a x 22,5…73,3 nel robot); PCB 1,67 verso −X; antenna a +X; USB a −X. Dalla 2.1.8 (RE1.3): retro con microSD verso l'antenna (alta 2,0), AMS1117, tantalio e due SOT-23 verso le USB (2,1), passivi in mezzo (0,6); altezze S dai datasheet | 68,4 × 28,3; pin fino a −8,5 |
 | `Rif_Camera_OV3660_75` | ingombro | origine sull'asse ottico al retro della testa; asse ottico +Z; flat verso −X | testa 8,5 × 8,5 × 6; flat fino a x = −70,75 |
 | `Rif_Batteria_2S5200` | ingombro | origine al centro del fondo; cavi verso +X | 139,65 (misurato) × 47,3 × 25,4 più 25 mm per i cavi e la schiuma EVA da 2,25 (3 compressi di 0,75) sulla faccia opposta ai cavi (dalla verifica della 2.1.7, `bat_l`, `bat_schiuma`) |
 | `Rif_Squadretta_25T` | ingombro (valori tipici, C) | origine sull'asse alla faccia superiore del disco; mozzo verso −Z | Ø20; z −5,5…0 |
