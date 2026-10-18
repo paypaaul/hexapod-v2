@@ -3,7 +3,7 @@
 Gli script che modificano o esportano il modello si rifiutano di girare su un altro documento: le versioni precedenti
 restano congelate nei loro file Fusion e non si toccano per errore.
 """
-VERSIONE = '2.1.8'
+VERSIONE = '2.1.9'
 # le correzioni piccole (2.1.1 ... 2.1.7) restano sul design della 2.1.0, senza copia del file
 NOME_DESIGN = 'Hexapod v2.1.0'
 PROGETTO = 'Hexabot v2'

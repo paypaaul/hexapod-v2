@@ -708,7 +708,7 @@ Strade possibili, da scegliere con l'utente (S):
 - la striscia di millefori della strada B, tagliata sulla sagoma di oggi;
 - reti di resistenze e di condensatori al posto degli 0805: voci nuove, e passo fine per il montaggio a mano.
 
-### Piano della 2.1.9 (19 ottobre 2026; strada della scheda dei partitori delegata all'agente, D-084)
+### Piano della 2.1.9 (19 ottobre 2026; strada della scheda dei partitori delegata all'agente, D-084; **fatta**, D-085, tag `v2.1.9`)
 
 Contiene le ali da 5,5 della scheda del carapace (già fatte, versione 21 del file) e la scheda dei partitori nuova. P-139 (reofori delle spie) aspetta ancora il portafusibile (Q-23) e passa alla versione dopo.
 

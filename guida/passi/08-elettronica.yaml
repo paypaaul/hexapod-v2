@@ -333,9 +333,9 @@ passi:
       - {testo: "pettine dei piedi", chiave: corpo/Partitori}
       - {testo: "ADC", chiave: corpo/ADC}
     testo:
-      - "Prendi la scheda dei partitori già montata al banco: pettine 6 × 3 delle spine dei piedi, una resistenza da 10 kΩ 1 % fra ogni ingresso e il 3,3 V, un condensatore da 100 nF fra ogni ingresso e la massa [C: schema della PCB-P da fare]."
+      - "Prendi la scheda dei partitori già montata al banco: pettine di due strip 1 × 6 delle spine dei piedi (fila del segnale verso l'ADC, fila della massa verso il fianco), una resistenza da 10 kΩ 1 % fra ogni ingresso e il 3,3 V, un condensatore da 100 nF fra ogni ingresso e la massa (D-084)."
       - "Posala sulle due bugne a sinistra dell'ADC, pettine in alto, e avvitala con due viti M2 × 5 negli inserti."
-      - "Salda subito i fili corti verso l'ADC, prima del vassoio (8.11), che dopo copre l'ADC: ogni uscita al suo ingresso (A0…A5 i piedi, A6 e A7 le NTC), il 3,3 V al VIN e la massa al GND [C: posizione dei pin dell'ADC, S-31]."
+      - "Salda subito i fili corti verso l'ADC, prima del vassoio (8.11), che dopo copre l'ADC. I canali 0…5 (A0…A5) si saldano sulle code dei pin della fila del segnale, sotto la scheda; A6 e A7 sulle piazzole delle NTC, il VIN sulla piazzola del 3,3 V e il GND sulla piazzola di massa [C: posizione dei pin dell'ADC, S-31]."
       - "Controlla in continuità ogni ingresso: nessun corto con il 3,3 V o con la massa."
     tabella:
       intestazione: [Canale ADS7830, Collegamento, Dove arriva il sensore]
@@ -344,13 +344,14 @@ passi:
         - ["6, 7", "10 kΩ al 3,3 V; la NTC va fra l'ingresso e la massa [S]", "NTC dei regolatori sinistro e destro (8.24)"]
     avvisi:
       - {tipo: opzionale, x: X5, quando: meglio_ora, testo: "Senza FSR (X5) e senza NTC (X14) salta questo passo."}
-      - {tipo: nota, testo: "Dalla 2.1.8 (D-080) le prese dei piedi sono il pettine di questa scheda: le spine JR si innestano dall'alto a carapace tolto. La scheda è la PCB-P della prima serie; in alternativa una millefori tagliata sulla stessa sagoma, 27,8 × 7,5 mm."}
+      - {tipo: nota, testo: "Dalla 2.1.8 (D-080) le prese dei piedi sono il pettine di questa scheda: le spine JR si innestano dall'alto a carapace tolto. Il pettine ha solo i due poli esterni (segnale e massa): l'FSR è una resistenza, e anche una spina girata funziona. Dalla 2.1.9 la scheda è 33,8 × 8,6 mm, a quattro strati (D-084)."}
     attrezzi: [croce_ph0, multimetro]
     fonti:
       - "D-080 (scheda dei partitori sotto le prese dei piedi)"
       - "docs/predisposizioni.md X5 (partitori: 10 kΩ 1 % verso il 3,3 V e 100 nF a massa) e X6"
       - "docs/cablaggio.md 3.3 (Sensore di forza) e 3.4 (NTC dei regolatori, canali 6 e 7)"
       - "docs/piano-pcb.md 4.3 (PCB-P, variante P2)"
+      - "D-084 (pettine a due file, fili verso l'ADC sulle code dei pin)"
       - "guida/catalogo/giunzioni.yaml, partitori"
 
   # ------------------------------------------------------------------------------------------------ vassoio e basetta
@@ -763,7 +764,7 @@ passi:
     testo:
       - "Controlla le NTC incollate sulle bobine e i loro fili, dal passo 4.30."
       - "Porta i fili dalle baie alla scheda dei partitori, a sinistra sul tetto, fuori dal camino d'aria dei regolatori: la NTC destra attraversa il corpo [C: percorso]."
-      - "Saldale sulle piazzole dei canali 6 (sinistra) e 7 (destra) della scheda dei partitori [C: schema della PCB-P]."
+      - "Salda il filo caldo di ogni NTC sulla piazzola del suo canale della scheda dei partitori, 6 la sinistra e 7 la destra, insieme al filo verso l'ADC; il filo di massa sulla coda di un pin della fila della massa del pettine, sotto la scheda (D-084)."
     avvisi:
       - {tipo: opzionale, x: X14, quando: meglio_ora, testo: "Senza NTC salta questo passo."}
       - {tipo: importante, testo: "Non coprire le feritoie né il camino d'aria delle baie anteriori (D-052): sotto il carapace il PLA rammollisce verso 55–60 °C."}

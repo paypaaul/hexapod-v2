@@ -1,8 +1,7 @@
-"""PCB-P, scheda dei partitori: piazzamento (2.1.9, piano-v2.1.0.md) con la sagoma di prova.
+"""PCB-P, scheda dei partitori: contorno dal CAD (2.1.9), piazzamento e sbroglio da script (D-084).
 
-Gira con il Python di KiCad. Terna del robot. La sagoma non viene ancora dal CAD: e' quella della prova dello spazio
-del 19 ottobre (x 44,2…78, y 18,6…27,2, piano-v2.1.0.md), da portare nel CAD con la 2.1.9; poi il contorno torna a
-genera_contorni ('partitori') come per le altre schede.
+Gira con il Python di KiCad. Terna del robot. Contorno, fori e anelli senza rame vengono da genera_contorni
+('partitori'): x 44,2…78, y 18,6…27,2, angolo di testa a +Y smussato per uno spigolo della base, fori a x 46,2 e 76,2.
 
 Disposizione:
 - pettine J1 a due file (massa a y 25,29, segnale a 20,21; colonne da x 50,25 come cor_par_pet_x 56,6 del CAD);
@@ -25,9 +24,6 @@ PASSO = 2.54
 # quattro strati, come la basetta: a due resta sempre una rete aperta (prova del 19 ottobre); le due schede si ordinano
 # insieme sullo stesso pannello (F7)
 STRATI = 4
-# sagoma di prova (robot): angolo di testa a +Y smussato per lo spigolo della base a x 75...76, y > 24,5
-SAGOMA = [(44.2, 18.6), (78.0, 18.6), (78.0, 25.7), (76.5, 27.2), (44.2, 27.2)]
-FORI = [(46.2, 22.75), (76.2, 22.75)]
 X_J1, Y_MASSA, Y_SEGNALE = 50.25, 25.29, 20.21
 
 POSTI = {
@@ -43,15 +39,12 @@ SOTTO = {**{'C%d' % (c + 1): (X_J1 + c * PASSO, 22.75, 90) for c in range(6)},
 def scheda(cartella=QUI):
     s = Scheda(netlist(os.path.join(QUI, 'partitori.kicad_sch'), os.path.join(cartella, 'partitori.net')),
                os.path.join(cartella, 'partitori.kicad_pcb'), strati=STRATI)
-    s.contorno([kicad(*p) for p in SAGOMA])
-    for x, y in FORI:
-        kx, ky = kicad(x, y)
-        s.foro(kx, ky, 2.4)
-        # sopra la testa M2 (Ø4) piu' 0,5 per lato; sotto la bugna Ø5,5 piu' 0,5 per lato (come genera_contorni)
-        for strato, d in (('F.Cu', 5.0), ('B.Cu', 6.5), ('In1.Cu', 3.4), ('In2.Cu', 3.4)):
-            s.area_senza_rame('foro_%s_%s' % (x, strato), [strato],
-                              [kicad(x + d / 2 * math.cos(a * math.pi / 16), y + d / 2 * math.sin(a * math.pi / 16))
-                               for a in range(32)])
+    g = s.contorni_dal_cad('partitori')
+    # strati interni: il rame dal bordo (0,5) anche attorno ai fori, come aree vietate (Freerouting e sbroglio.py)
+    for _, x, y, d in g['fori']:
+        s.area_senza_rame('foro_%.1f_%.1f_interni' % (x, y), ['In1.Cu', 'In2.Cu'],
+                          [(x + (d / 2 + 0.5) * math.cos(a * math.pi / 16), y + (d / 2 + 0.5) * math.sin(a * math.pi / 16))
+                           for a in range(32)])
     for rif, (x, y, a) in POSTI.items():
         s.piazza(rif, *kicad(x, y), angolo=a)
     for rif, (x, y, a) in SOTTO.items():

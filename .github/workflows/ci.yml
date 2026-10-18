@@ -145,9 +145,7 @@ jobs:
           done
       - name: contorni come il CAD
         run: |
-          # la PCB-P ha ancora la sagoma di prova della 2.1.9 (pcb/partitori/genera_pcb.py): torna qui quando il CAD
-          # ha la sagoma nuova
-          set -- $(ls pcb/basetta/basetta.kicad_pcb pcb/carapace/carapace.kicad_pcb 2>/dev/null)
+          set -- $(ls pcb/basetta/basetta.kicad_pcb pcb/carapace/carapace.kicad_pcb pcb/partitori/partitori.kicad_pcb 2>/dev/null)
           if [ $# -gt 0 ]; then python3 pcb/script/genera_contorni.py --controlla "$@"; else echo "nessuna scheda ancora"; fi
       - name: test dei circuiti stampati, con KiCad
         env:

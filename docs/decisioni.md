@@ -951,3 +951,37 @@ L'utente ha lasciato a me la scelta della strada per la PCB-P (la sagoma di D-08
 **Esito**: schema con ERC a zero e reti come `partitori_def.py`; piazzamento e sbroglio da script (`pcb/partitori/sbroglia.py`, instradatore del progetto sui quattro strati) con **DRC a zero e nessuna connessione aperta**; dima `Dima_PCB_Partitori.stl` e stampe. La sagoma è ancora quella di prova scritta in `genera_pcb.py`: il controllo dei contorni contro il CAD è sospeso nella CI fino alla 2.1.9.
 
 **Da comprare** (PCB2, approvata dall'utente il 19 ottobre): 100 nF X7R 0805 per CS1 e CS2 della basetta e C1–C8 della PCB-P, 10 servono, 20 con le scorte, pochi centesimi l'uno, nell'ordine DigiKey in sospeso. In alternativa sulla basetta si potrebbero usare i ceramici a reoforo del kit, ma non ci sono più i posti; sulla PCB-P non ci stanno comunque.
+
+## D-085 — Versione 2.1.9: scheda dei partitori nuova nel CAD (2026-10-19)
+
+Chiude la 2.1.9 (piano in `piano-v2.1.0.md`), con le ali da 5,5 della scheda del carapace (D-082) e la scheda dei partitori di D-084. File Fusion versione 23; copia di ripristino nella "Hexapod v2.1.0 - ripristino 2.1.8 (prima della 2.1.9)", che è la versione 21.
+
+**Cosa cambia nel CAD**:
+- `par_l` 33,8 e `par_w` 8,6;
+- `par_dy` 0,15: la scheda sta 0,15 più verso +Y della fila dei fori e del pettine;
+- `par_smusso` 3,2: un angolo a 45° da (74,8; 27,2) a (78; 24,0);
+- `par_pet_file` 5,08;
+- `cor_par_x` 61,1 e `cor_par_foro_b` 76,2 (era 69,6).
+
+La bugna e l'inserto di testa seguono i parametri. `Rif_Partitori` è rifatto con:
+- il pettine in due strip;
+- gli 0805 sotto (0,7 mm, S);
+- le code dei pin tagliate a 2 mm (S).
+
+L'istanza nel corpo è stata ricreata alla posa nuova: le pose non seguono i parametri.
+
+**Lo smusso** viene dalla prova: la scheda intera urtava la base per 0,08 mm³ in x 75,3…75,8, y 27,0…27,2. Lo smusso che avevo messo in KiCad (da x 76,5) non copriva quel punto; quello nuovo gli lascia 0,3 mm.
+
+**Verifiche**:
+- controllo dell'assieme e interferenze: nessuno;
+- `partitori_varianti` (scheda, spazio sopra, spine innestate): libera. I quattro casi di controllo urtano: scheda da x 43, scheda fino a x 79, scheda senza smusso, spine a y 21;
+- coxe AS e MS a ±35°: libere;
+- ingombri della basetta: liberi. Le zampe vicine non si rifanno: zampe ed escursioni non sono cambiate.
+
+**A valle**:
+- colori, STL, mesh, descrizione del robot e generati, esportazione della guida;
+- `genera_contorni` con il centro spostato e lo smusso, e la PCB-P che prende il contorno dal CAD: sbroglio rifatto, DRC a zero, controllo dei contorni di nuovo nella CI;
+- passi 8.10 e 8.24 della guida;
+- test, firmware sul computer e app verdi.
+
+**Resta**: P-139 (reofori delle spie) aspetta il portafusibile (Q-23).

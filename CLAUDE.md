@@ -13,7 +13,7 @@ Robot esapode a 18 gradi di libertà (6 zampe × 3 servo MG996R), stampato in 3D
 | 1. Studio | fatta (8 ottobre 2026): `docs/studio-componenti.md`, `docs/dimensionamento.md`, `docs/dimensioni-componenti.md` |
 | 2. BOM | v2.0 approvata; v2.1 con prezzi, link e foto (D-068) in `docs/BOM.md` |
 | 3. Modelli 3D | fatta: parametri, STEP e ingombri in libreria (`cad/script/rif_componenti.py`, D-046) |
-| 4. CAD | **versione 2.1.8** (18 ottobre 2026, D-081, file Fusion versione 20): fase F2 del PCB (cavo piatto, ali della scheda del carapace, scheda dei partitori D-080, ESP32 RE1.3). Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
+| 4. CAD | **versione 2.1.9** (19 ottobre 2026, D-085, file Fusion versione 23): scheda dei partitori nuova (D-084), ali della scheda del carapace da 5,5. Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
 | 5. BOM finale | v2.4: circa 365 € consegnati per le voci approvate, tolto quello che l'utente ha già in casa (D-073, D-076, D-078); predisposizioni X a parte (D-068) |
 | 6. Verifica del movimento | da fare |
 
@@ -115,7 +115,7 @@ Numeri di oggi:
   - `Hexapod v2.1.0 - ripristino 2.1.7 (prima della 2.1.8)`, lineage `lqTyF-0xTpm2y77ASTO6Tg`.
   - `Hexapod v2.1.0 - ripristino 2.1.8 (prima della 2.1.9)`, lineage `Apmswd3aTvaSp-kx9JGvNg` (versione 21: la 2.1.8 con le ali da 5,5).
   - I lineage hanno tutti il prefisso `urn:adsk.wipprod:dm.lineage:`.
-- **Design di lavoro**: "Hexapod v2.1.0", lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Ha le versioni dalla 2.1.0 alla 2.1.8 (versione 20 del file); la 21 è la 2.1.9 in corso (ali da 5,5).
+- **Design di lavoro**: "Hexapod v2.1.0", lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Ha le versioni dalla 2.1.0 alla 2.1.9 (versione 23 del file).
   - Struttura (D-046): un solo file; la zampa è un componente istanziato sei volte; le parti comprate `Rif_*` stanno in libreria (y ≥ 250 mm).
   - Gli attrezzi stanno anche loro in libreria e sono nascosti.
 
@@ -174,7 +174,7 @@ Numeri di oggi:
    - piedino con le tre strette (0 / 0,2 / 0,4): il valore scelto va in `pied_stretta`.
    - Dopo i provini: nervature di schiacciamento delle culle.
 5. **Guida di montaggio** (D-075): bozza avanzata allineata alla 2.1.7, aggiornata a ogni versione; la passata finale (immagini, verifica avversaria, release) a progetto stabile. Prossimi passi e decisione del 17 ottobre in `docs/piano-guida.md` (in fondo).
-6. **PCB** (D-078): piano `docs/piano-pcb.md`; F1 e F3 fatte, R1 approvato (D-079), 2.1.8 chiusa (D-081), revisione D-082. D-083: dima della PCB-C; PCB-B piazzata e sbrogliata a **quattro strati** (scelta dell'utente), DRC a zero, ingombri provati nel CAD, dima. Sbroglio con `pcb/basetta/sbroglia.py` (instradatore del progetto e Freerouting 2.5.0, `pcb/README.md`). Serigrafia della PCB-B fatta. D-084: PCB-P a quattro strati sbrogliata con la sagoma di prova (pettine a due file); il kit B8 è a reoforo, 100 nF 0805 da approvare (PCB2). Prossimi: 2.1.9 nel CAD (sagoma della PCB-P), arresto R2 con le dime stampate. Stato in fondo al piano.
+6. **PCB** (D-078): piano `docs/piano-pcb.md`; F1 e F3 fatte, R1 approvato (D-079), 2.1.8 chiusa (D-081), revisione D-082. D-083: dima della PCB-C; PCB-B piazzata e sbrogliata a **quattro strati** (scelta dell'utente), DRC a zero, ingombri provati nel CAD, dima. Sbroglio con `pcb/basetta/sbroglia.py` (instradatore del progetto e Freerouting 2.5.0, `pcb/README.md`). Serigrafia della PCB-B fatta. D-084: PCB-P a quattro strati sbrogliata con la sagoma di prova (pettine a due file); il kit B8 è a reoforo, 100 nF 0805 da approvare (PCB2). 2.1.9 chiusa (D-085): la PCB-P prende il contorno dal CAD. Prossimo: arresto R2 con le tre dime stampate. Stato in fondo al piano.
 7. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
 8. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 

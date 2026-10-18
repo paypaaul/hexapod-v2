@@ -11,9 +11,9 @@
 #   ginocchio (180 = distesa). Cinematica: calc/statica_tripode.py -> ik_piano (soluzione a ginocchio alto).
 # Stato dei dati: V verificato, S stimato, C da confermare (come nei documenti).
 
-versione: 2.1.8
+versione: 2.1.9
 cad: cad.json
-cad_sha256: b8a8e0a7c49fefc20f9f57da9e9957e5c862586bb644c9a734d7e82141152558  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
+cad_sha256: fab942a43896383f2a4587b9bcdc0af8abb263d519245ed9823bae9ba9497e6a  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
 
 zampe: [AS, MS, PS, AD, MD, PD]          # A anteriore, M media, P posteriore; S sinistra, D destra
 tripodi: [[AS, PS, MD], [AD, PD, MS]]    # calc/statica_tripode.py -> TRIPODI

@@ -1,7 +1,7 @@
 {
- "versione": "2.1.8",
- "documento": "Hexapod v2.1.0 v20",
- "esportato": "2026-10-18T19:59:34",
+ "versione": "2.1.9",
+ "documento": "Hexapod v2.1.0 v23",
+ "esportato": "2026-10-19T01:03:57",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -1403,25 +1403,25 @@
   "Corpo_Base": {
    "massa_g": 200.3,
    "baricentro_mm": [
-    1.108,
+    1.11,
     -0.005,
     -16.432
    ],
    "inerzia_gmm2": [
     [
      434601.1,
-     40.5,
-     925.0
+     29.0,
+     920.4
     ],
     [
-     40.5,
-     817947.2,
+     29.0,
+     818019.5,
      5.7
     ],
     [
-     925.0,
+     920.4,
      5.7,
-     1196459.1
+     1196531.5
     ]
    ],
    "materiale": "PETG-CF",
@@ -1484,25 +1484,25 @@
   "Rif_Scheda_Carapace": {
    "massa_g": 5.0,
    "baricentro_mm": [
-    32.813,
-    0.0,
-    26.659
+    32.777,
+    -0.0,
+    26.647
    ],
    "inerzia_gmm2": [
     [
-     416.5,
-     0.0,
-     -56.0
+     411.9,
+     -0.0,
+     -55.4
     ],
     [
-     0.0,
-     321.7,
-     0.0
+     -0.0,
+     320.1,
+     -0.0
     ],
     [
-     -56.0,
-     0.0,
-     645.2
+     -55.4,
+     -0.0,
+     639.2
     ]
    ],
    "materiale": "comprato",
@@ -1535,33 +1535,6 @@
    "materiale": "PLA",
    "segmento": "corpo"
   },
-  "Rif_Partitori": {
-   "massa_g": 5.0,
-   "baricentro_mm": [
-    57.046,
-    22.75,
-    -1.307
-   ],
-   "inerzia_gmm2": [
-    [
-     65.2,
-     0.0,
-     7.3
-    ],
-    [
-     0.0,
-     196.9,
-     -0.0
-    ],
-    [
-     7.3,
-     -0.0,
-     171.4
-    ]
-   ],
-   "materiale": "comprato",
-   "segmento": "corpo"
-  },
   "Rif_Prese_Piedi": {
    "massa_g": 3.0,
    "baricentro_mm": [
@@ -1584,6 +1557,33 @@
      0.0,
      0.0,
      61.8
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Partitori": {
+   "massa_g": 5.0,
+   "baricentro_mm": [
+    58.243,
+    22.792,
+    -2.417
+   ],
+   "inerzia_gmm2": [
+    [
+     80.6,
+     1.0,
+     19.7
+    ],
+    [
+     1.0,
+     282.9,
+     0.5
+    ],
+    [
+     19.7,
+     0.5,
+     249.3
     ]
    ],
    "materiale": "comprato",
@@ -7983,16 +7983,16 @@
    "commento": "Scheda del carapace: ali davanti fino a |y| 24 (2.1.8, blocco F: la PCB-C non contiene CE1, piazzole e punti di prova in 21,5 x 30; libere fino a 28, assieme.py urti_scatole) S"
   },
   "sch_ala_x": {
-   "valore": 6.0,
+   "valore": 5.5,
    "unita": "mm",
-   "espressione": "6 mm",
-   "commento": "Scheda del carapace: profondita delle ali dal bordo anteriore (le colonnine del coperchio arrivano a x 44,7) S"
+   "espressione": "5.5 mm",
+   "commento": "Scheda del carapace: profondita delle ali dal bordo anteriore; il tubo dei pozzetti del carapace arriva a x 44,7: con 5,5 il bordo resta a 0,8 (revisione del 18 ottobre, prima 6) S"
   },
   "cor_par_x": {
-   "valore": 58.1,
+   "valore": 61.1,
    "unita": "mm",
-   "espressione": "58.1 mm",
-   "commento": "Scheda dei partitori (PCB-P, variante P2, D-080): X del centro, x 44,2...72 (da x 44 la colonnina del carapace e libera)"
+   "espressione": "61.1 mm",
+   "commento": "Scheda dei partitori (PCB-P, variante P2, D-080; 2.1.9, D-084): X del centro, x 44,2...78 (da x 44 la colonnina del carapace e libera)"
   },
   "cor_par_y": {
    "valore": 22.75,
@@ -8007,22 +8007,22 @@
    "commento": "Scheda dei partitori: X del foro M2 verso la coda (testa Ø3,8 fra il bordo e il pettine)"
   },
   "cor_par_foro_b": {
-   "valore": 69.6,
+   "valore": 76.2,
    "unita": "mm",
-   "espressione": "69.6 mm",
-   "commento": "Scheda dei partitori: X del foro M2 verso la testa (oltre i partitori 0805)"
+   "espressione": "76.2 mm",
+   "commento": "Scheda dei partitori: X del foro M2 verso la testa, oltre le piazzole (2.1.9, D-084; era 69,6)"
   },
   "par_l": {
-   "valore": 27.8,
+   "valore": 33.8,
    "unita": "mm",
-   "espressione": "27.8 mm",
-   "commento": "Scheda dei partitori (PCB-P, P2, D-080): lunghezza lungo X S"
+   "espressione": "33.8 mm",
+   "commento": "Scheda dei partitori (PCB-P, P2, D-080; 2.1.9, D-084): lunghezza lungo X, x 44,2...78 V (KiCad)"
   },
   "par_w": {
-   "valore": 7.5,
+   "valore": 8.6,
    "unita": "mm",
-   "espressione": "7.5 mm",
-   "commento": "Scheda dei partitori: larghezza lungo Y S"
+   "espressione": "8.6 mm",
+   "commento": "Scheda dei partitori: larghezza lungo Y, y 18,6...27,2 V (KiCad, D-084)"
   },
   "par_pet_l": {
    "valore": 15.24,
@@ -8065,6 +8065,24 @@
    "unita": "mm",
    "espressione": "2.1 mm",
    "commento": "ESP32 RE1.3: componenti piu alti del retro, AMS1117 (SOT-223, 1,8 max) e tantalio (caso B, 2,1 max) dai datasheet; microSD 2,0 S"
+  },
+  "par_dy": {
+   "valore": 0.15,
+   "unita": "mm",
+   "espressione": "0.15 mm",
+   "commento": "Scheda dei partitori: centro della scheda verso +Y rispetto alla fila dei fori e del pettine (D-084)"
+  },
+  "par_pet_file": {
+   "valore": 5.08,
+   "unita": "mm",
+   "espressione": "5.08 mm",
+   "commento": "Pettine a due file (segnale e massa, poli esterni delle spine JR): distanza fra le file V (D-084)"
+  },
+  "par_smusso": {
+   "valore": 3.2,
+   "unita": "mm",
+   "espressione": "3.2 mm",
+   "commento": "Scheda dei partitori: smusso a 45 gradi dell angolo di testa verso +Y (x 74,8...78): 0,3 da uno spigolo della base a x 75,3...75,8, y 27 (2.1.9, prova del 19 ottobre)"
   }
  }
 }

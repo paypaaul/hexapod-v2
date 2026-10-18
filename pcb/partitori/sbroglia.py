@@ -15,7 +15,7 @@ QUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(QUI, '..', 'script'))
 sys.path.insert(0, QUI)
 
-import genera_pcb  # noqa: E402
+import genera_contorni  # noqa: E402
 import sbroglio  # noqa: E402
 
 RETI = ['N6', '3V3S', 'N7'] + ['N%d' % c for c in range(5, -1, -1)] + ['GND']
@@ -47,7 +47,8 @@ def _vincoli(board):
             for st in z.GetLayerSet().Seq():
                 if st in lettera:
                     viet[lettera[st]].append(pts)
-    return sbroglio.Vincoli(genera_pcb.SAGOMA, [], viet)
+    contorno = [(x - 100, 100 - y) for x, y in genera_contorni.geometria('partitori')['contorno']]
+    return sbroglio.Vincoli(contorno, [], viet)
 
 
 def principale():

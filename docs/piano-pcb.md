@@ -320,7 +320,7 @@ Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, co
   - Sbroglio: `pcb/basetta/sbroglia.py` (instradatore del progetto, poi Freerouting 2.5.0 in `~/tools/freerouting` con OpenJDK di Homebrew, poi rifinitura).
 - **Prossimo dell'agente**:
   - serigrafia della PCB-B: fatta (DRC a zero anche sulla serigrafia, stato "sbroglio");
-  - PCB-P: schema, piazzamento e sbroglio a quattro strati fatti (D-084), con la sagoma di prova; ora la 2.1.9 nel CAD;
+  - PCB-P: schema, piazzamento e sbroglio a quattro strati (D-084), contorno dal CAD dalla 2.1.9 (D-085);
   - poi l'arresto **R2**.
 - **Aspetta l'utente**:
   - stampa e prova delle due dime (R2);
