@@ -722,8 +722,8 @@ def cavo_piatto(des, root, dz=0.0, dy=0.0):
     testata, sotto le USB-C, dietro le spine dei servo; una piega a 45 gradi larga 20,3 non sta fra la spina e la
     testata): dopo il fermacavo si divide in due strisce da 8 conduttori (10,16; quali poli dipende dal verso del polo 1). Il nastro sale sul dorso della spina e
     piega in avanti sopra la spina; ogni striscia gira a 45 gradi verso -Y davanti alla testata; la destra (y < 0) scende
-    di fianco all'ESP32 (y -15,7...-14,4), la sinistra passa sopra la piega della destra, sotto la battuta dell'ottagono
-    (z 32,8), e scende dietro di lei (y -17,0...-15,7). In basso i conduttori corrono sulla basetta fino ai fori della
+    di fianco all'ESP32 (y -16,7...-15,4, dalla 2.1.8), la sinistra passa sopra la piega della destra, sotto la battuta
+    dell'ottagono (z 32,8), e scende dietro di lei (y -18,0...-16,7). Caso di controllo: 1 mm piu' fuori tocca la base. In basso i conduttori corrono sulla basetta fino ai fori della
     riga 13 (x 23,8...59,3). dz e dy spostano tutto (casi di controllo)."""
     corpo = _corpo(root)
     sch = _istanze_corpo(corpo)['Scheda_carapace']
@@ -734,7 +734,7 @@ def cavo_piatto(des, root, dz=0.0, dy=0.0):
     zb = _mm(des, 'cor_vas_z') + _mm(des, 'cor_vas_sp') + _mm(des, 'cor_bas_luce') + _mm(des, 'bas_sp') + 0.1
     zr = zp + 0.1                                       # strisce sopra la spina
     zl = zr + 2 * t + 0.1                               # tratto verso -Y della sinistra, sopra la piega della destra
-    yr0, yr1, yl0 = -15.7, -14.4, -17.0
+    yr0, yr1, yl0 = -16.7, -15.4, -18.0                 # 2.1.8 (P-140): 1 mm piu' fuori, 1,25 dal PCB dell'ESP32
     sc = [('dorso_spina', xb - t, -w, zp - 3.0, xb, w, zr + t),
           ('destra_sopra', xb - t, -w, zr, xt, 0.0, zr + t),
           ('destra_piega', xt - w, -w, zr, xt, 0.0, zr + 2 * t),

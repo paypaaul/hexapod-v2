@@ -1293,7 +1293,7 @@ Anche i 5 candidati problema della stessa sezione sono nel registro: vite d'alet
 - **Cosa**: il percorso libero del cavo piatto della 2.1.7 (nastro diviso in due strisce da 8 dopo il fermacavo) ha 0,25 mm dal PCB dell'ESP32 e 0,3 dalla battuta dell'ottagono: pochi per pieghe fatte a mano. I testi della guida non dicono ancora della divisione in due strisce né della crimpatura della spina IDC.
 - **Opzioni**: far scendere le strisce 1,0 mm più verso l'esterno (−Y); lasciare il percorso e provarlo sul pezzo; soluzione B di P-002 (riserva, da far scegliere all'utente).
 - **Consiglio**: strisce 1,0 mm più verso l'esterno, con la verifica `cavo_piatto` e i suoi casi di controllo; nei testi di 4.15 e 13.19 la divisione in due strisce e la crimpatura.
-- **Stato**: in parte nei testi della guida dopo la 2.1.7 (16 ottobre 2026: 4.15, 13.19; resta la modifica del CAD nella 2.1.8). Prima: aperto, per la 2.1.8.
+- **Stato**: fatto nella 2.1.8 (18 ottobre 2026): strisce 1 mm più verso −Y, 1,25 dal PCB dell'ESP32, `cavo_piatto` senza urti; casi di controllo: 2 mm più fuori tocca la base, 1 mm più in basso tocca la spina. Resta 0,3 dalla battuta dell'ottagono (abbassare non si può). Testi di 4.15 e 13.19 fatti il 16 ottobre.
 
 ### P-141 Prese dei piedi: l'ingombro delle spine JR deve restare a y ≥ 17,6
 - **Gravità e tema**: minore · CAD (2.1.8)

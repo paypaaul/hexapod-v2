@@ -133,7 +133,7 @@ Tutto quello che sta sul carapace passa dalla **scheda del carapace** (X2): una 
 1. dopo il fermacavo il nastro sale sul dorso della spina (x 18,2…19,5) e piega in avanti sopra la spina (z 28,5…29,8);
 2. subito dopo il fermacavo si divide in **due strisce da 8 conduttori** (10,16), tagliando fra i conduttori 8 e 9;
 3. ogni striscia gira a 45 gradi verso destra (−Y) davanti alla testata (x 19,2…29,4). La striscia destra resta sotto, la sinistra passa sopra la piega della destra (z 31,2…32,5, a 0,3 sotto la battuta dell'ottagono, z 32,8);
-4. le due strisce scendono una dietro l'altra di fianco all'ESP32 (y −14,4…−17,0; il PCB finisce a y −14,15) fino alla basetta;
+4. le due strisce scendono una dietro l'altra di fianco all'ESP32 (y −15,4…−18,0 dalla 2.1.8, P-140: 1,25 dal PCB dell'ESP32, che finisce a y −14,15; 1 mm più fuori toccano la base) fino alla basetta;
 5. in basso i conduttori si aprono a ventaglio verso i fori della riga 13 (x 23,8…59,3).
 Nessun urto con il modello; casi di controllo: tutto 0,4 più in alto tocca la battuta dell'ottagono, 0,3 verso il centro tocca il PCB dell'ESP32. Le pieghe, lo spessore del fermacavo e il raggio di curva vanno provati sul pezzo (C).
 

@@ -587,7 +587,7 @@ passi:
     avvisi:
       - {tipo: attenzione, testo: "Il cicalino assorbe sempre: a fine uso staccalo dalla prolunga (BOM B9)."}
       - {tipo: attenzione, testo: "Spina IDC al contrario: il +5 V arriva sui pin A e B della 2813. La chiave della testata lo impedisce: se la spina non entra, non forzare (S-26)."}
-      - {tipo: importante, testo: "Il cavo piatto non passa intero: dopo il fermacavo è in due strisce da 8 conduttori, fra l'8 e il 9 (4.15). Il percorso lascia 0,25 mm dal PCB dell'ESP32 e 0,3 dalla battuta dell'ottagono [S]. Se non passa: soluzione B di P-002, a scelta di chi progetta (P-140)."}
+      - {tipo: importante, testo: "Il cavo piatto non passa intero: dopo il fermacavo è in due strisce da 8 conduttori, fra l'8 e il 9 (4.15). Il percorso lascia 1,25 mm dal PCB dell'ESP32 (2.1.8) e 0,3 dalla battuta dell'ottagono [S]. Se non passa: soluzione B di P-002, a scelta di chi progetta (P-140)."}
       - {tipo: nota, testo: "Cavo di circa 15 cm: il carapace si solleva di circa 10 cm. La spina si sfila dall'ottagono [S]."}
     fonti: ["docs/cablaggio.md 3.5, 3.5bis e 4 'Carapace'", "docs/predisposizioni.md 2.3 'Come si toglie il carapace'", "docs/BOM.md B9, C7", "D-076: testata a 90° (P-002)", "D-077: cavo piatto in due strisce (P-140)", "guida/passi/12-accensione.yaml 12.04"]
 
