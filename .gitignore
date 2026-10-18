@@ -18,3 +18,11 @@ build/
 docs/immagini/**/*.heic
 docs/immagini/**/*.avif
 docs/immagini/**/*.webp
+# KiCad (piano-pcb.md 5.2): stato dell'interfaccia, copie, blocchi, rapporti e netlist rigenerati dagli script
+pcb/**/*-backups/
+pcb/**/.history/
+pcb/**/*.kicad_prl
+pcb/**/fp-info-cache
+pcb/**/*.lck
+pcb/**/*.rpt
+pcb/**/*.net
