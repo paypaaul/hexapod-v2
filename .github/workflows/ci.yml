@@ -111,3 +111,49 @@ jobs:
           python3 tools/genera_vettori.py
       - name: i file generati coincidono con quelli nel commit
         run: git diff --exit-code
+
+  # Circuiti stampati (docs/piano-pcb.md 5.2, DU-3): KiCad dal PPA e non da Docker Hub (vedi il job firmware).
+  # Le librerie di KiCad non servono: i progetti usano le copie in pcb/librerie.
+  pcb:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -r tests/requirements.txt
+      - name: KiCad dal PPA
+        run: |
+          sudo add-apt-repository -y ppa:kicad/kicad-10.0-releases
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends kicad
+      - name: versione di KiCad come in pcb/README.md
+        # il PPA tiene solo l'ultima 10.0.x: se cambia, si prova la nuova sul Mac e si aggiorna il README
+        run: |
+          attesa=$(grep -o -m1 'KiCad 10\.0\.[0-9]*' pcb/README.md | cut -d' ' -f2)
+          trovata=$(kicad-cli version)
+          echo "attesa $attesa, trovata $trovata"
+          test "$attesa" = "$trovata"
+      - name: regole copiate in ogni progetto
+        run: python3 pcb/script/regole.py --controlla
+      - name: ERC e DRC con la parità dello schema
+        env:
+          KICAD_CLI: /usr/bin/kicad-cli
+        run: |
+          for d in pcb/*/; do
+            if ls "$d"*.kicad_pro >/dev/null 2>&1; then python3 pcb/script/controlla.py "$d"; fi
+          done
+      - name: contorni come il CAD
+        run: |
+          set -- $(ls pcb/basetta/basetta.kicad_pcb pcb/carapace/carapace.kicad_pcb pcb/partitori/partitori.kicad_pcb 2>/dev/null)
+          if [ $# -gt 0 ]; then python3 pcb/script/genera_contorni.py --controlla "$@"; else echo "nessuna scheda ancora"; fi
+      - name: test dei circuiti stampati, con KiCad
+        env:
+          KICAD_CLI: /usr/bin/kicad-cli
+          KICAD_PYTHON: /usr/bin/python3
+        run: python -m pytest tests/test_pcb.py -q -rs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: pcb-rapporti
+          path: build/pcb/
