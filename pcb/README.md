@@ -47,7 +47,7 @@ Librerie: `librerie/hex2_kicad.kicad_sym` (simboli copiati da KiCad 10, appiatti
 |---|---|---|
 | `prova/` | scheda di prova del metodo, caso di riferimento della CI | schema e PCB |
 | `basetta/` | PCB-B, basetta dell'ESP32 (piano 4.1) | schema approvato all'arresto R1 (D-079) |
-| `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema (R1, D-079), piazzamento e sbroglio da script con DRC a zero (D-082) |
+| `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema (R1, D-079), piazzamento e sbroglio da script con DRC a zero (D-082); dima, render e stampa 1:1 per R2 (F5) |
 | `partitori/` | PCB-P | dopo DU-5 (F2) |
 
 ## Prova del metodo (F1, 18 ottobre 2026)
@@ -70,6 +70,18 @@ Cose imparate nella prova, che il codice già tiene in conto:
 - ogni unità di un simbolo a più unità elenca tutti i pin del simbolo, altrimenti KiCad dà ai mancanti un uuid a caso;
 - con `--exit-code-violations` il DRC esce con 5 solo per gli errori: i rilievi di parità sono avvisi. Per questo `controlla.py` legge il JSON.
 
+## Dime (F5)
+
+Prima dello sbroglio, o prima di ordinare, ogni scheda si prova con una **dima stampata 1:1**: la sola scheda, senza rame, con la sagoma e i fori del PCB, nella terna del robot (`cad/stl/attrezzi/Dima_PCB_<Scheda>.stl`, da `script/dima.py`, Python di KiCad). I fori dei pin sono allargati di 0,4 mm (`gio_stampa` per lato), quelli Ø2,4 delle viti no: se la M2 passa e centra l'inserto nella dima, passa anche nella scheda. La dima è spessa 1,5 (la scheda 1,6). Con la dima ci sono i render e la stampa 1:1 (`script/stampe.py`, in `docs/immagini/pcb/`): la stampa va fatta al 100 % e controllata col righello sulla sagoma (PCB-C: 21,5 mm da coda a testa, 48 fra le punte delle ali).
+
+**PCB-C** (`Dima_PCB_Carapace.stl`), cosa provare e cosa riportare:
+1. **J2 Würth** infilata dal lato dei componenti (sotto, come nel robot): i 16 pin entrano senza forzare e la scatola arriva a filo del bordo di coda.
+2. **Polo 1 di J2 (S-26)**: si innesta la spina IDC del cavo piatto (la chiave la fa entrare in un verso solo). Il polo 1 dell'impronta è il foro quadrato, sulla fila lontana dalla scatola, verso +Y. Col multimetro in continuità fra il filo rosso del cavo (polo 1) e i pin che escono dalla dima: il filo rosso deve dare continuità con il pin del foro quadrato. Se la dà con il pin accanto, sulla fila vicina alla scatola, l'impronta va rovesciata prima dell'ordine.
+3. **CE1** (470 µF) in piedi sotto l'ala +Y, con il + sulla piazzola quadrata, e i due fili del pulsante nelle piazzole dell'ala −Y.
+4. **Nel carapace** (quando è stampato, con gli inserti M2): quattro M2 × 4 sugli inserti; le viti centrano gli inserti, le ali non toccano, J2 sta nella sua sede, CE1 non tocca il dorso.
+
+Esito: una riga per prova (va / non va, con la misura se non va) in fondo a `docs/piano-pcb.md`.
+
 ## Comandi
 
 ```
@@ -78,6 +90,8 @@ python3 pcb/script/librerie.py
 python3 pcb/prova/genera_schema.py
 $KP pcb/prova/genera_pcb.py
 python3 pcb/script/controlla.py pcb/prova
+$KP pcb/script/dima.py carapace
+python3 pcb/script/stampe.py carapace
 python3 pcb/script/regole.py --controlla
 .venv/bin/python -m pytest tests/test_pcb.py -q
 ```

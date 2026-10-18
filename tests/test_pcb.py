@@ -337,3 +337,23 @@ def test_polo_1_di_j2_nella_terna_del_robot():
     pad = json.loads(r.stdout.strip().splitlines()[-1])
     assert pad['1'] == [42.73, 8.89] and pad['2'] == [40.19, 8.89] and pad['3'] == [42.73, 6.35]
     assert pad['15'] == [42.73, -8.89]
+
+
+@con_pcbnew
+@con_kicad
+@pytest.mark.parametrize('scheda', ['carapace'])
+def test_dima_aggiornata(tmp_path, scheda):
+    """La dima di F5 nella repo è quella del PCB di oggi: se il PCB cambia, si rigenera con pcb/script/dima.py."""
+    import re
+    nome = {'carapace': 'Carapace', 'basetta': 'Basetta', 'partitori': 'Partitori'}[scheda]
+    out = tmp_path / 'dima.stl'
+    script = ('import sys; sys.path.insert(0, %r)\nimport dima\ndima.dima(%r, %r)\n'
+              % (os.path.join(PCB, 'script'), scheda, str(out)))
+    subprocess.run([KICAD_PY, '-c', script], check=True, capture_output=True)
+    nella_repo = os.path.join(REPO, 'cad', 'stl', 'attrezzi', 'Dima_PCB_%s.stl' % nome)
+
+    def vertici(testo):
+        return sorted({tuple(round(float(c), 3) for c in m.groups())
+                       for m in re.finditer(r'vertex\s+(\S+)\s+(\S+)\s+(\S+)', testo)})
+    with open(nella_repo, encoding='utf-8') as f:
+        assert vertici(out.read_text()) == vertici(f.read())
