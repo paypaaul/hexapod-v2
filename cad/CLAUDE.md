@@ -55,6 +55,12 @@ Si carica quando si lavora in `cad/`. Il `CLAUDE.md` della radice rimanda qui: v
   - `cad/render/ritaglia.py` per i render di giorno.
   - Di notte (D-072): viste `notte_ant` e `notte_alto`, `avvia(file, notte=True)`, circa 9 minuti. `ripristina` toglie luci, pixel provvisori e traslucenza.
 
+## STEP delle PCB (provato il 18 ottobre 2026, piano-pcb.md 5.2)
+
+- Le schede in KiCad stanno nella terna del robot con x = X + 100 e y = 100 − Y (`pcb/script/genera_contorni.py`).
+- `kicad-cli pcb export step --user-origin 100x100mm` dà uno STEP con **X e Y del robot** (provato con un foro solo a Y +10: nello STEP è a +10, niente specchiatura). La Y "rovesciata" vista il 18 ottobre era la Y di KiCad verso il basso, che la terna sopra già compensa.
+- In Z lo STEP parte da 0 sulla faccia bassa (senza rame il corpo della scheda è alto 1,51, non 1,6): in Fusion si sposta solo in Z, sulla faccia bassa della scheda (basetta z 5,9, componenti in alto; carapace z 29,9, componenti in basso, già sul retro in KiCad).
+
 ## Convenzioni CAD
 
 - Unità mm. Nell'API Fusion le lunghezze interne sono in **cm**: moltiplicare per 10 in lettura, dividere in scrittura, oppure usare `ValueInput.createByString('12 mm')`.

@@ -217,3 +217,25 @@ def test_basetta_senza_kamod_e_canale_3_sulla_seriale():
     tx3 = set(net['reti']['/TX3'])
     assert tx3 == {('U1', '24'), ('U3', '9')}
     assert 'U4' not in net['componenti']
+
+
+@con_pcbnew
+@con_kicad
+def test_step_nella_terna_del_robot(tmp_path):
+    """Un foro solo a (40; +10) del robot finisce a (40; +10) nello STEP con --user-origin 100x100mm (cad/CLAUDE.md)."""
+    import re
+    pcb = tmp_path / 'basetta.kicad_pcb'
+    script = ('import sys; sys.path.insert(0, %r)\nfrom scheda_kicad import Scheda\nfrom genera_contorni import kicad\n'
+              's = Scheda(None, %r)\ns.contorni_dal_cad("basetta")\ns.foro(*kicad(40, 10), 3.0)\ns.salva()\n'
+              % (os.path.join(PCB, 'script'), str(pcb)))
+    subprocess.run([KICAD_PY, '-c', script], check=True, capture_output=True)
+    step = tmp_path / 'b.step'
+    subprocess.run([KICAD_CLI, 'pcb', 'export', 'step', '--board-only', '--user-origin', '100x100mm',
+                    '-o', str(step), str(pcb)], check=True, capture_output=True)
+    pts = [tuple(map(float, m.groups())) for m in re.finditer(
+        r"CARTESIAN_POINT\('[^']*',\(\s*([-\d.E+]+),\s*([-\d.E+]+),\s*([-\d.E+]+)\)\)", step.read_text())]
+
+    def sul_foro(cx, cy):
+        return sum(1 for x, y, _ in pts if abs(((x - cx) ** 2 + (y - cy) ** 2) ** 0.5 - 1.5) < 1e-3)
+    assert sul_foro(40, 10) > 0
+    assert sul_foro(40, -10) == 0
