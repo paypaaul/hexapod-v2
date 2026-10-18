@@ -12,6 +12,7 @@ import zlib
 
 import pcbnew
 
+import genera_contorni
 from sexpr import figli, figlio, leggi
 
 KICAD_CLI = os.environ.get('KICAD_CLI', '/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli')
@@ -62,6 +63,8 @@ def netlist(sch, uscita):
 
 class Scheda:
     def __init__(self, net, percorso):
+        """`net` è la netlist di `netlist()`; None per una scheda senza componenti (prove dei contorni)."""
+        net = net or {'componenti': {}, 'reti': {}}
         # NewBoard apre il progetto accanto (.kicad_pro, con regole e classi di rete) e lo completa con i default
         self.percorso = percorso
         # identificativi ripetibili: rigenerare la stessa scheda dà lo stesso file, e il diff mostra solo le modifiche
@@ -158,6 +161,37 @@ class Scheda:
         s.SetLayer(pcbnew.Edge_Cuts)
         s.SetWidth(mm(0.1))
         self.board.Add(s)
+
+    def area_senza_rame(self, nome, strati, punti):
+        """Area vietata a piste, vie, piazzole e riempimenti sugli strati dati."""
+        z = pcbnew.ZONE(self.board)
+        z.SetIsRuleArea(True)
+        z.SetZoneName(nome)
+        ls = pcbnew.LSET()
+        for st in strati:
+            ls.AddLayer(_strato(st))
+        z.SetLayerSet(ls)
+        z.SetDoNotAllowZoneFills(True)
+        z.SetDoNotAllowTracks(True)
+        z.SetDoNotAllowVias(True)
+        z.SetDoNotAllowPads(True)
+        z.SetDoNotAllowFootprints(False)
+        contorno = z.Outline()
+        contorno.NewOutline()
+        for x, y in punti:
+            contorno.Append(mm(x), mm(y))
+        self.board.Add(z)
+        return z
+
+    def contorni_dal_cad(self, nome):
+        """Contorno, fori Ø2,4 non metallizzati e zone senza rame della scheda, da genera_contorni."""
+        g = genera_contorni.geometria(nome)
+        self.contorno(g['contorno'])
+        for _, x, y, d in g['fori']:
+            self.foro(x, y, d)
+        for nome_a, strati, punti in g['senza_rame']:
+            self.area_senza_rame(nome_a, strati, punti)
+        return g
 
     def riempimento(self, rete, punti, strato='B.Cu', distanza=0.3):
         z = pcbnew.ZONE(self.board)
