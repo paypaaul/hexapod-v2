@@ -660,7 +660,7 @@ D-077 (risultati e verifiche; le scelte di P-001, P-002, P-003, P-005 e le rispo
 
 **Testi della guida dopo la 2.1.7**: fatti il 16 ottobre 2026 (esito nella sezione 2.1.7; restano le parti "in parte" di P-002, P-026, P-041, P-140). Era: tutto l'elenco della sezione 2.1.7 ("Testi della guida dopo la 2.1.7": P-003, P-005, P-002, P-001, P-007, P-008, P-031, P-050, P-088, P-078, P-072, P-066, P-046, P-085, P-077, P-111, P-010, P-058, P-117 e i dubbi della revisione dell'arresto 2), con le immagini rifatte sulla 2.1.7. Nella 2.1.7 sono cambiati solo i dati che seguono il CAD (catalogo, totali, 8.07, 8.09, 8.11, 11.03, 15.10, 15.11). In più la convenzione della guida per le viti svasate (testa sul fondo del cono: avviso del vassoio, `piastrina_imu`, `lama_b`), da correggere nella pipeline con i testi.
 
-### Piano della 2.1.8 (18 ottobre 2026, da approvare)
+### Piano della 2.1.8 (18 ottobre 2026, approvato dall'utente la sera stessa)
 
 Contiene le voci 2, 3 e 4 qui sopra e la PCB-P (`piano-pcb.md` 5.3, fase F2). La voce 1 (P-139) entra solo se arriva la forma del portafusibile Neuftech (Q-23), altrimenti passa alla 2.1.9. La basetta e la scheda del carapace **non cambiano** nel CAD: le PCB si provano con scatole provvisorie in F4.
 
@@ -672,9 +672,10 @@ Contiene le voci 2, 3 e 4 qui sopra e la PCB-P (`piano-pcb.md` 5.3, fase F2). La
 | B | PCB-P, P-141 | due varianti come scatole provvisorie con `urti_scatole`, ognuna con il caso di controllo: **P1** tasca accanto all'IMU (PCB circa 20 × 10, due M2; passaggi dei fili sotto l'ADC e fra ADC e colonna); **P2** sotto le prese dei piedi (y circa 19…25,5, bugne da 4, spine 3,5 mm più alte contro vassoio, cavi e servo di coxa AS a tutta l'escursione) | misura della spina JR (Q-04): senza, P2 si scarta e si fa P1 | esito delle due prove; **arresto DU-5**: l'utente sceglie |
 | C | PCB-P | variante scelta: bugne con inserti M2, `Rif_Partitori` in `LIBRERIA` e nel passo `ingombri`, `fori.json` e `manifest.json` rigenerati; con P2 le prese dei piedi su `spine_prese` | — | `genera_contorni.py` con la scheda `partitori` |
 | D | voce 4 | `Rif_ESP32_S3_CAM` con il retro della RE1.3: microSD verso l'antenna, AMS1117 e tantalio verso le USB, file dei pin 1,6 mm più verso la testa; poi spina del carapace sulle USB-C, cavo piatto e posto del regolatore sotto l'ESP32 (S-08) | **misure col calibro della RE1.3** (cose da guardare in `CLAUDE.md`) | quote del retro V; posto di U2 sulla PCB-B deciso |
+| F | PCB-C | la scheda del carapace non contiene CE1, 24 piazzole, 6 punti di prova e R-MIC in 7,4 × 19 mm utili (F4 del PCB). Due strade provate come scatole provvisorie, con il caso di controllo: **ali** nel tratto davanti (x 45…51) fino a circa \|y\| 24, dove le mesh del CAD sono libere (le colonnine del coperchio occupano x 35…45, \|y\| 17,5…27,5); oppure scheda com'è, due fili per foro e CE1 sui fili della catena LED. Scelta delegata all'agente (18 ottobre) | — | sagoma della PCB-C; se cambia, `Rif_Scheda_Carapace` e `genera_contorni.py` |
 | E | a valle | viteria e inserti nel BOM; catalogo della guida; `esporta_guida`, `guida.costruisci controlla`; passi 7.10, 8.09, 8.10 | — | CI verde |
 
-**Ordine e arresti**: A subito; B appena c'è la misura della spina JR, poi l'arresto DU-5; C dopo la scelta; D quando arrivano le misure della RE1.3 (se tardano, la 2.1.8 si chiude senza D e la voce passa alla 2.1.9, ma il piazzamento della PCB-B aspetta D); E e la chiusura alla fine. Ogni blocco lascia Fusion salvato e la repo committata.
+**Ordine e arresti**: A e F subito; B (la spina JR è misurata: 8 × 3 × 14), poi l'arresto DU-5; C dopo la scelta; D quando arrivano le misure della RE1.3 (se tardano, la 2.1.8 si chiude senza D e la voce passa alla 2.1.9, ma il piazzamento della PCB-B aspetta D); E e la chiusura alla fine. Ogni blocco lascia Fusion salvato e la repo committata.
 
 **Verifiche di fine versione**: controllo dell'assieme e sentinella sui volumi, interferenze sulla posa di riferimento, `cavo_piatto`, `spine_prese`, `urti_scatole` delle schede; CI verde; decisione D-0xx; `versioni.md`; salvataggio in Fusion; tag `v2.1.8`.
 
