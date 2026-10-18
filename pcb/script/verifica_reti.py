@@ -77,6 +77,17 @@ def carica_def(scheda):
     return nodi
 
 
+def carica_fori(scheda):
+    """{foro: rete} di tutti i fori dei *_def.py (anche ponti e fili), per le piazzole dei fili."""
+    sys.path.insert(0, SORGENTI)
+    try:
+        mod = runpy.run_path(os.path.join(SORGENTI, DEF[scheda] + '_def.py'))
+    finally:
+        sys.path.remove(SORGENTI)
+    sch = next(v for v in mod.values() if type(v).__name__ == 'Scheda')
+    return {f: r for f, (_, _, r) in sch.pin.items()}
+
+
 def carica_aggiunte(scheda, percorso=AGGIUNTE):
     with open(percorso, encoding='utf-8') as f:
         tutte = yaml.safe_load(f) or {}
@@ -86,6 +97,7 @@ def carica_aggiunte(scheda, percorso=AGGIUNTE):
         'aggiunti': set(a.get('aggiunti') or []),
         'pin': {tuple(k.split('.', 1)): v for k, v in (a.get('pin') or {}).items()},
         'rinominate': dict(a.get('rinominate') or {}),
+        'fili': {k: [None if v is None else str(v) for v in vv] for k, vv in (a.get('fili') or {}).items()},
     }
 
 
@@ -148,6 +160,31 @@ def verifica(scheda, net, nodi_def=None, aggiunte=None):
     for k, rr in sorted(unite.items()):
         if len(rr) > 1:
             errori.append('la rete %s di KiCad unisce le reti %s' % (k, ', '.join(sorted(rr))))
+    # piazzole dei fili: ogni pad ha la rete del foro della guida da cui viene il filo (o quella scritta con 'rete:')
+    if agg['fili']:
+        fori = carica_fori(scheda)
+        for rif, attese_p in sorted(agg['fili'].items()):
+            if rif not in net['componenti']:
+                errori.append('piazzole %s di aggiunte.yaml mancano nello schema di KiCad' % rif)
+                continue
+            pins = sorted((p for (r, p) in rete_kicad if r == rif), key=lambda x: int(x) if x.isdigit() else 0)
+            if len(pins) != len(attese_p):
+                errori.append('%s ha %d piazzole in KiCad e %d in aggiunte.yaml' % (rif, len(pins), len(attese_p)))
+            for n, voce in enumerate(attese_p, 1):
+                k = rete_kicad.get((rif, str(n)))
+                if voce is None:
+                    if k is not None and not k.startswith('unconnected-'):
+                        errori.append('%s.%d dovrebbe essere libera, in KiCad e\' sulla rete %s' % (rif, n, k))
+                    continue
+                if voce.startswith('rete:'):
+                    attesa = voce[5:]
+                else:
+                    if voce not in fori or fori[voce] is None:
+                        errori.append('%s.%d: il foro %s non ha una rete nei *_def.py' % (rif, n, voce))
+                        continue
+                    attesa = agg['rinominate'].get(fori[voce], fori[voce])
+                if k != attesa:
+                    errori.append('%s.%d e\' sulla rete %s, il filo %s vuole %s' % (rif, n, k, voce, attesa))
     # pin dei componenti dei *_def.py collegati in KiCad ma assenti dai *_def.py
     for (ref, pin), k in sorted(rete_kicad.items()):
         if ref in componenti_def and (ref, pin) not in attese and (ref, pin) not in libero:

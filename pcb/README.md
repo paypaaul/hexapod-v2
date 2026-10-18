@@ -47,7 +47,7 @@ Librerie: `librerie/hex2_kicad.kicad_sym` (simboli copiati da KiCad 10, appiatti
 |---|---|---|
 | `prova/` | scheda di prova del metodo, caso di riferimento della CI | schema e PCB |
 | `basetta/` | PCB-B, basetta dell'ESP32 (piano 4.1) | schema approvato all'arresto R1 (D-079) |
-| `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema approvato all'arresto R1 (D-079); piazzamento (F4) |
+| `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema (R1, D-079), piazzamento e sbroglio da script con DRC a zero (D-082) |
 | `partitori/` | PCB-P | dopo DU-5 (F2) |
 
 ## Prova del metodo (F1, 18 ottobre 2026)

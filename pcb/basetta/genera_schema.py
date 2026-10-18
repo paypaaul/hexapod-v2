@@ -53,8 +53,10 @@ RESISTENZE = [
     ('R11', '20k', 'RX5', 'RX3'),          # partitore della RX: 3,11 V con 5,0 V
     ('R12', '33k', 'RX3', 'GND'),
     ('R13', '330', 'TX5_3Y', 'TX5'),       # R-TX
-    ('R14', '20k', 'RMT_IN', 'RMT'),       # partitore di JP-RMT, come la RX
-    ('R15', '33k', 'RMT', 'GND'),
+    # partitore di JP-RMT basso: GPIO38 ha il pull-up da circa 10 kΩ della microSD (S-21), con 20k/33k il livello
+    # basso restava a 1,8 V (revisione del 18 ottobre). Con 680/1k: basso 0,13 V, alto circa 3,0 V, 3 mA dalla SSC-32
+    ('R14', '680', 'RMT_IN', 'RMT'),
+    ('R15', '1k', 'RMT', 'GND'),
     ('R16', '10k', 'OFF', 'OFF_2813'),     # in serie verso la 2813: un corto a 8,4 V sul filo non arriva al GPIO41
 ]
 

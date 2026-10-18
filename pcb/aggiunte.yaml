@@ -3,6 +3,8 @@
 #   aggiunti:   componenti solo della PCB (si possono usare * e ?)
 #   pin:        RIF.PIN: rete voluta al posto di quella dei *_def.py; +NOME è una rete solo della PCB, null un pin libero
 #   rinominate: rete dei *_def.py: nome della stessa rete in KiCad
+#   fili:       piazzole dei fili, pad per pad: il foro dei *_def.py da cui viene il filo (la rete attesa e' la sua),
+#               oppure rete:NOME per le reti nuove della PCB, null per un pad libero
 
 basetta:
   tolti:
@@ -27,15 +29,30 @@ basetta:
     U3.9: TX3         # 3A: TX dell'ESP32 sul canale 3 del buffer (DU-1)
     U3.8: +TX5_3Y     # 3Y verso R13 (R-TX); dopo R13 la rete TX5 va alla piazzola del filo
     U3.11: null       # 4Y libero; 4A e 4OE restano a massa (SN74AHCT125: ingressi non usati a VCC o GND)
+  fili:
+    P1: [rete:VBAT, S13]                  # VBAT sulla millefori era saldato su U2 (P-4)
+    P2: [R13, rete:OFF_2813]              # OFF dopo R16
+    P3: [P13]
+    P4: [F3, H3, E3]                      # TX5 dopo R13, RX5 prima del partitore, massa della seriale
+    P5: [A1, B1, E1, F1, rete:GND]        # bus: quattro rami piu' uno di riserva
+    P6: [K1, L1, M1, N1, rete:3V3S]
+    P7: [Q1, R1, S1, T1, rete:SDA]
+    P8: [G1, H1, I1, J1, rete:SCL]
+    P9: [B13, rete:DATA_TIBIE, K13]       # luci delle tibie: 5 V e massa come i poli 2 e 9, dato dopo R9
+    P10: [A13, B13, E13, F13, G13, H13, I13, J13, K13, L13, M13, N13, O13, null]
+    P11: [rete:3V3_X3, rete:GND]
+    P12: [rete:RMT_IN, rete:GND]
 
 carapace:
   aggiunti:
-    - R1          # R-MIC, vuota (S-21)
     - TP*
     - P*
     - H*
-  pin:
-    J2.14: +RISERVA14 # polo 14: piazzola di riserva (XSHUT del ToF del mento, X25)
+  fili:
+    # una piazzola per rete, due fili per foro (D-082): i fori della millefori della guida (scheda_def.py, mod)
+    P1: [G3, A3, B9, B3, G4, G8, G9, G5]
+    P2: [A9, rete:DATA, B4, A4, G6, G7]
+    P3: [rete:BTN_A, rete:BTN_B]
 
 partitori:
   aggiunti:

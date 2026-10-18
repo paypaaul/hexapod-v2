@@ -1,4 +1,4 @@
 # Fase di ogni scheda per script/controlla.py. Con "piazzamento" le connessioni non ancora sbrogliate e gli avvisi di
 # serigrafia (si sistema con lo sbroglio) si contano ma non fanno fallire il controllo; tutte le altre regole valgono.
 # Senza voce la scheda e' "sbroglio".
-carapace: piazzamento
+carapace: sbroglio

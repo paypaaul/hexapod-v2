@@ -98,7 +98,7 @@ Con 0,8 A sui due poli da 5 V la caduta nel cavo piatto è circa 13 mV all'andat
 
 - **Audio**: un solo controller I2S in full-duplex, con BCLK e WS condivisi fra amplificatore e microfoni (V, ESP-IDF). Due microfoni I2S sulla stessa linea dati, uno a sinistra e uno a destra (pin SEL). Quattro GPIO in tutto: 38 BCLK, 39 WS, 40 dati dei microfoni, 2 dati verso l'amplificatore. Sulla linea dati dei microfoni un pull-down da 100 kΩ: nessuno dei due la pilota negli intervalli fra i canali (datasheet ADMP441/INMP441; D-074). Campionamento a 48 kHz, ricampionato a 16 kHz per il riconoscimento vocale (S). Sull'S3 la camera usa la periferica LCD_CAM, non l'I2S (S).
 - **Luci**: una catena di LED indirizzabili sul GPIO48, in parallelo al WS2812 della scheda (che ripete il primo pixel). Un buffer a 5 V sulla basetta. Ordine della catena: pixel del corpo (fari, se si fanno), poi il connettore, poi anello del pulsante, lobi, occhio, linee della fascia.
-- **Tetto di corrente dei LED**: 600 mA, nel driver del firmware e non nelle animazioni. Da solo non basta:
+- **Tetto di corrente dei LED**: 600 mA senza audio, 400 mA con l'amplificatore acceso (D-082: l'ampli sta sullo stesso 5 V dopo il PTC), nel driver del firmware e non nelle animazioni. Da solo non basta:
   - durante il reset e l'avvio GPIO48 non è pilotato (S): se l'ingresso del buffer fluttua, alla catena arrivano dati a caso;
   - i pixel tengono l'ultimo colore anche se l'ESP32 si riavvia;
   - con le voci alte e medie i pixel sono fino a 58: tutto bianco chiede circa 2,1 A (36 mA a pixel, S). Con l'ESP32 si superano i 2,5 A del D24V22F5, il 5 V cala, l'ESP32 si riavvia e i LED restano accesi.

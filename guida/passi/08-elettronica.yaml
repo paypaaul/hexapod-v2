@@ -335,6 +335,7 @@ passi:
     testo:
       - "Prendi la scheda dei partitori già montata al banco: pettine 6 × 3 delle spine dei piedi, una resistenza da 10 kΩ 1 % fra ogni ingresso e il 3,3 V, un condensatore da 100 nF fra ogni ingresso e la massa [C: schema della PCB-P da fare]."
       - "Posala sulle due bugne a sinistra dell'ADC, pettine in alto, e avvitala con due viti M2 × 5 negli inserti."
+      - "Salda subito i fili corti verso l'ADC, prima del vassoio (8.11), che dopo copre l'ADC: ogni uscita al suo ingresso (A0…A5 i piedi, A6 e A7 le NTC), il 3,3 V al VIN e la massa al GND [C: posizione dei pin dell'ADC, S-31]."
       - "Controlla in continuità ogni ingresso: nessun corto con il 3,3 V o con la massa."
     tabella:
       intestazione: [Canale ADS7830, Collegamento, Dove arriva il sensore]
@@ -691,7 +692,7 @@ passi:
 
   # ------------------------------------------------------------------------------------------------ prese e sensori
   - id: "8.22"
-    titolo: Scheda dei partitori verso l'ADC
+    titolo: Prese dei piedi e canali dell'ADC
     formato: grande
     mostra: [corpo/Partitori, corpo/ADC, corpo/IMU, corpo/Corpo_Piastrina_IMU, corpo/Corpo_Vassoio, corpo/SSC32]
     vista: {direzione: [0.3, 0.85, 0.45], su: [0, 0, 1]}
@@ -699,9 +700,7 @@ passi:
       - {testo: "scheda dei partitori", chiave: corpo/Partitori}
       - {testo: "ADC", chiave: corpo/ADC}
     testo:
-      - "Salda un filo corto da ogni uscita della scheda dei partitori al suo ingresso dell'ADC (A0…A5 i piedi, A6 e A7 le NTC)."
-      - "Salda il 3,3 V e la massa della scheda al VIN e al GND dell'ADC."
-      - "I fili restano sul tetto: l'ADC è accanto alla scheda."
+      - "I fili verso l'ADC sono già saldati (8.10): qui si annota solo quale presa del pettine va a quale zampa."
       - "Annota nella tabella quale presa va a quale canale."
     tabella:
       intestazione: [Presa, "Zampa [C]", Canale ADS7830, Polarità]
@@ -763,14 +762,15 @@ passi:
       - {testo: "NTC D", chiave: corpo/Regolatore_D}
     testo:
       - "Controlla le NTC incollate sulle bobine e i loro fili, dal passo 4.30."
-      - "Porta i fili dalle baie al vano sotto il vassoio, fuori dal camino d'aria dei regolatori."
-      - "Collega la NTC sinistra al canale 6 e la destra al canale 7 della striscia dei partitori."
+      - "Porta i fili dalle baie alla scheda dei partitori, a sinistra sul tetto, fuori dal camino d'aria dei regolatori: la NTC destra attraversa il corpo [C: percorso]."
+      - "Saldale sulle piazzole dei canali 6 (sinistra) e 7 (destra) della scheda dei partitori [C: schema della PCB-P]."
     avvisi:
       - {tipo: opzionale, x: X14, quando: meglio_ora, testo: "Senza NTC salta questo passo."}
       - {tipo: importante, testo: "Non coprire le feritoie né il camino d'aria delle baie anteriori (D-052): sotto il carapace il PLA rammollisce verso 55–60 °C."}
     attrezzi: [saldatore, spelafili]
     fonti:
       - "docs/cablaggio.md 3.4 (NTC dei regolatori: ADS7830 canali 6 e 7, fuori dal camino)"
+      - "D-080 (scheda dei partitori a sinistra sul tetto)"
       - "docs/piano-elettronica-software.md P4 (temperatura, regolatori)"
       - "D-052 (ventilazione dei regolatori)"
       - "docs/BOM.md X14"

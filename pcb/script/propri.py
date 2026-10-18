@@ -212,6 +212,10 @@ def impronte():
     for c, r in ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 2)):
         fp = impronta_fili(c, r)
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
+    # due fili per foro (come la millefori della guida): Ø1,7, foro 1,0
+    for c, r in ((1, 2), (1, 6), (1, 8)):
+        fp = impronta_fili(c, r, 1.7, 1.0)
+        out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
     for f in (impronta_esp, impronta_d24, impronta_ptc, impronta_ce):
         fp = f()
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'

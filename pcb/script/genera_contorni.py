@@ -49,7 +49,8 @@ SCHEDE = {
         # componenti sotto: testa M2 Ø3,8 (corpo.py, sch_vite_xp) più 0,5 per lato; sopra, la bugna Ø5,5 (corpo.py,
         # cilindro 'bugna_sch_*', non parametrica) senza margine: la plastica puo' toccare il rame, ma nessuna piazzola
         # le sta sotto (con 0,5 di margine coprivano i pin 1, 2, 15 e 16 della testata, F4)
-        'anelli': {'B.Cu': '3.8 mm + 1 mm', 'F.Cu': '5.5 mm'},
+        # sopra vieta solo le piazzole: sotto la plastica una pista con la sua maschera ci puo' stare (revisione)
+        'anelli': {'B.Cu': '3.8 mm + 1 mm', 'F.Cu': ('5.5 mm', 'piazzole')},
         'rettangoli': [],
     },
     'partitori': {
@@ -135,7 +136,8 @@ def _cerchio(cx, cy, d):
 
 
 def geometria(nome, par=None):
-    """{'contorno': [(x, y)], 'fori': [(nome, x, y, d)], 'senza_rame': [(nome, (strati), [(x, y)])]} in mm di KiCad."""
+    """{'contorno': [(x, y)], 'fori': [(nome, x, y, d)], 'senza_rame': [(nome, (strati), [(x, y)], cosa)]} in mm di
+    KiCad; cosa = 'tutto' (niente rame) o 'piazzole' (niente piazzole, le piste si')."""
     par = parametri() if par is None else par
     s = SCHEDE[nome]
     (a, b, tx), (c, d, ty) = _posa(s['istanza'])
@@ -158,12 +160,13 @@ def geometria(nome, par=None):
         kx, ky = kicad(x, y)
         fori.append((lav, kx, ky, d_vite))
         for strato, espr in sorted(s['anelli'].items()):
-            senza.append(('%s_%s' % (lav, strato), (strato,), _cerchio(kx, ky, par.valuta(espr))))
+            espr, cosa = espr if isinstance(espr, tuple) else (espr, 'tutto')
+            senza.append(('%s_%s' % (lav, strato), (strato,), _cerchio(kx, ky, par.valuta(espr)), cosa))
     for strati, nome_r, x0, x1 in s['rettangoli']:
         rx0 = par.valuta(x0) if x0 else min(xs)
         rx1 = par.valuta(x1) if x1 else max(xs)
         senza.append((nome_r, tuple(strati), [kicad(rx0, max(ys)), kicad(rx1, max(ys)),
-                                              kicad(rx1, min(ys)), kicad(rx0, min(ys))]))
+                                              kicad(rx1, min(ys)), kicad(rx0, min(ys))], 'tutto'))
     return {'contorno': contorno, 'fori': fori, 'senza_rame': senza}
 
 
@@ -185,13 +188,18 @@ def leggi_pcb(percorso):
         if figlio(g, 'layer')[1] == 'Edge.Cuts':
             c, e = _xy(figlio(g, 'center')), _xy(figlio(g, 'end'))
             cerchi.append((c[0], c[1], 2 * math.hypot(e[0] - c[0], e[1] - c[1])))
+    altre = [g[0] for tipo in ('gr_rect', 'gr_arc', 'gr_poly', 'gr_curve')
+             for g in figli(pcb, tipo) if figlio(g, 'layer')[1] == 'Edge.Cuts']
+    segmenti.extend(('altra forma', 'altra forma') for _ in altre)
     for z in figli(pcb, 'zone'):
         if figlio(z, 'keepout') is None:
             continue
         nome = (figlio(z, 'name') or [None, ''])[1]
         strati = figlio(z, 'layers') or figlio(z, 'layer')
         punti = [_xy(p) for p in figli(figlio(figlio(z, 'polygon'), 'pts'), 'xy')]
-        aree[nome] = (tuple(sorted(str(x) for x in strati[1:])), punti)
+        piste = figlio(figlio(z, 'keepout'), 'tracks')
+        cosa = 'piazzole' if piste is not None and piste[1] == 'allowed' else 'tutto'
+        aree[nome] = (tuple(sorted(str(x) for x in strati[1:])), punti, cosa)
     return segmenti, cerchi, aree
 
 
@@ -215,11 +223,13 @@ def controlla(nome, percorso, par=None):
             errori.append('foro %s (%.3f; %.3f) Ø%.2f mancante' % (lav, x, y, d))
     if len(cerchi) != len(g['fori']):
         errori.append('%d fori sul contorno, il CAD ne ha %d' % (len(cerchi), len(g['fori'])))
-    for nome_a, strati, punti in g['senza_rame']:
+    for nome_a, strati, punti, cosa in g['senza_rame']:
         if nome_a not in aree:
             errori.append('zona senza rame %s mancante' % nome_a)
             continue
-        s_pcb, p_pcb = aree[nome_a]
+        s_pcb, p_pcb, c_pcb = aree[nome_a]
+        if c_pcb != cosa:
+            errori.append('zona senza rame %s vieta "%s" invece di "%s"' % (nome_a, c_pcb, cosa))
         if s_pcb != tuple(sorted(strati)):
             errori.append('zona senza rame %s sugli strati %s invece di %s' % (nome_a, s_pcb, strati))
         if len(p_pcb) != len(punti) or not all(any(_vicini(p, q) for q in p_pcb) for p in punti):

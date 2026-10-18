@@ -6,13 +6,15 @@ schema, carica le impronte da pcb/librerie/hex2.pretty, dà a ogni impronta il p
 riempimenti e contorno si aggiungono con le funzioni qui sotto, in mm.
 """
 
+import json
 import os
+import subprocess
 import zlib
 
 import pcbnew
 
 import genera_contorni
-from schema_kicad import netlist  # noqa: F401 (la usano i generatori delle schede)
+from schema_kicad import KICAD_CLI, netlist  # noqa: F401 (netlist la usano i generatori delle schede)
 
 IMPRONTE = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'librerie', 'hex2.pretty'))
 
@@ -138,8 +140,8 @@ class Scheda:
         s.SetWidth(mm(0.1))
         self.board.Add(s)
 
-    def area_senza_rame(self, nome, strati, punti):
-        """Area vietata a piste, vie, piazzole e riempimenti sugli strati dati."""
+    def area_senza_rame(self, nome, strati, punti, cosa='tutto'):
+        """Area vietata a piste, vie, piazzole e riempimenti sugli strati dati; con cosa='piazzole' solo alle piazzole."""
         z = pcbnew.ZONE(self.board)
         z.SetIsRuleArea(True)
         z.SetZoneName(nome)
@@ -148,8 +150,8 @@ class Scheda:
             ls.AddLayer(_strato(st))
         z.SetLayerSet(ls)
         z.SetDoNotAllowZoneFills(True)
-        z.SetDoNotAllowTracks(True)
-        z.SetDoNotAllowVias(True)
+        z.SetDoNotAllowTracks(cosa == 'tutto')
+        z.SetDoNotAllowVias(cosa == 'tutto')
         z.SetDoNotAllowPads(True)
         z.SetDoNotAllowFootprints(False)
         contorno = z.Outline()
@@ -165,9 +167,17 @@ class Scheda:
         self.contorno(g['contorno'])
         for _, x, y, d in g['fori']:
             self.foro(x, y, d)
-        for nome_a, strati, punti in g['senza_rame']:
-            self.area_senza_rame(nome_a, strati, punti)
+        for nome_a, strati, punti, cosa in g['senza_rame']:
+            self.area_senza_rame(nome_a, strati, punti, cosa)
         return g
+
+    def contorno_rientrato(self, rientro):
+        """Punti del contorno (Edge.Cuts senza i fori) rientrati di `rientro` mm: sagoma dei riempimenti."""
+        poli = pcbnew.SHAPE_POLY_SET()
+        self.board.GetBoardPolygonOutlines(poli, False)
+        poli.Inflate(-mm(rientro), pcbnew.CORNER_STRATEGY_CHAMFER_ALL_CORNERS, mm(0.01))
+        linea = poli.Outline(0)
+        return [(pcbnew.ToMM(linea.CPoint(i).x), pcbnew.ToMM(linea.CPoint(i).y)) for i in range(linea.PointCount())]
 
     def riempimento(self, rete, punti, strato='B.Cu', distanza=0.3):
         z = pcbnew.ZONE(self.board)
@@ -175,6 +185,7 @@ class Scheda:
         z.SetNet(self.rete(rete))
         z.SetLocalClearance(mm(distanza))
         z.SetPadConnection(pcbnew.ZONE_CONNECTION_THERMAL)
+        z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS)
         contorno = z.Outline()
         contorno.NewOutline()
         for x, y in punti:
@@ -182,13 +193,29 @@ class Scheda:
         self.board.Add(z)
         return z
 
-    def testo(self, testo, x, y, strato='F.SilkS', altezza=1.0):
+    def togli_serigrafia(self, ref, riferimento=True):
+        """Porta i disegni dell'impronta dalla serigrafia allo strato Fab e nasconde il riferimento: per i contorni che
+        escono dal bordo o coprono altro; i segni che servono si rimettono come testo."""
+        fp = self.impronte[ref]
+        if riferimento:
+            fp.Reference().SetVisible(False)
+        for g in fp.GraphicalItems():
+            if g.GetLayer() == pcbnew.F_SilkS:
+                g.SetLayer(pcbnew.F_Fab)
+            elif g.GetLayer() == pcbnew.B_SilkS:
+                g.SetLayer(pcbnew.B_Fab)
+
+    def testo(self, testo, x, y, strato='F.SilkS', altezza=1.0, angolo=0, a_sinistra=False):
         t = pcbnew.PCB_TEXT(self.board)
         t.SetText(testo)
         t.SetPosition(punto(x, y))
         t.SetLayer(_strato(strato))
         t.SetTextSize(pcbnew.VECTOR2I(mm(altezza), mm(altezza)))
         t.SetTextThickness(mm(altezza * 0.15))
+        if angolo:
+            t.SetTextAngleDegrees(angolo)
+        if a_sinistra:
+            t.SetHorizJustify(pcbnew.GR_TEXT_H_ALIGN_LEFT)
         if strato.startswith('B.'):
             t.SetMirrored(True)
         self.board.Add(t)
@@ -197,4 +224,20 @@ class Scheda:
         filler = pcbnew.ZONE_FILLER(self.board)
         filler.Fill(self.board.Zones())
         self.board.Save(self.percorso)
+        # le impronte con la serigrafia spostata su Fab (togli_serigrafia) differiscono apposta dalla libreria; le copie
+        # della libreria le controlla librerie.py --controlla
+        pro = os.path.splitext(self.percorso)[0] + '.kicad_pro'
+        with open(pro, encoding='utf-8') as f:
+            d = json.load(f)
+        sev = d.setdefault('board', {}).setdefault('design_settings', {}).setdefault('rule_severities', {})
+        if sev.get('lib_footprint_mismatch') != 'ignore':
+            sev['lib_footprint_mismatch'] = 'ignore'
+            with open(pro, 'w', encoding='utf-8') as f:
+                json.dump(d, f, indent=2)
+                f.write('\n')
+        if any(not z.GetIsRuleArea() for z in self.board.Zones()):
+            # il riempitore del Python non legge le regole del .kicad_dru (bordo, fori, pulsante): li riempie kicad-cli
+            subprocess.run([KICAD_CLI, 'pcb', 'drc', '--refill-zones', '--save-board', '--format', 'json',
+                            '-o', self.percorso + '.drc.json', self.percorso], check=False, capture_output=True)
+            os.remove(self.percorso + '.drc.json')
         return self.percorso

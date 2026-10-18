@@ -680,3 +680,15 @@ Contiene le voci 2, 3 e 4 qui sopra e la PCB-P (`piano-pcb.md` 5.3, fase F2). La
 **Verifiche di fine versione**: controllo dell'assieme e sentinella sui volumi, interferenze sulla posa di riferimento, `cavo_piatto`, `spine_prese`, `urti_scatole` delle schede; CI verde; decisione D-0xx; `versioni.md`; salvataggio in Fusion; tag `v2.1.8`.
 
 **Durata** (S): 2–3 blocchi di lavoro in Fusion, più l'attesa delle misure.
+
+### Proposta della 2.1.9 (18 ottobre 2026, da approvare)
+
+Dalla revisione indipendente (D-082). La 2.1.8 è chiusa con il tag `v2.1.8`; in Fusion la 2.1.9 è già cominciata con una correzione piccola.
+
+| Voce | Cosa | Stato |
+|---|---|---|
+| Ali della scheda del carapace | `sch_ala_x` da 6 a 5,5: il bordo resta a 0,8 dal tubo dei pozzetti (bisezione; a 0,9 tocca) | fatta (Fusion salvato, guida riesportata) |
+| Scheda dei partitori più grande | La sagoma della PCB-P (27,8 × 7,5) non contiene i partitori: si allunga verso la testa fino a circa x 78 (foro di testa oltre i componenti, circa x 76) e si allarga ad almeno 8,6 (y 18,6…27,2). Prima un piazzamento di prova in KiCad, come per la PCB-C, per fissare la sagoma minima. Poi bugne, `Rif_Partitori`, verifiche con le coxe AS a ±35° e a 30,5° fra le vicine, gioco misurato per bisezione, a valle | da approvare |
+| P-139 | reofori delle spie | aspetta il portafusibile (Q-23) |
+
+**Arresti**: approvazione di questa proposta; poi la sagoma della PCB-P, prima di toccare Fusion.

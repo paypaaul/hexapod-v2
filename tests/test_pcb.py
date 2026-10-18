@@ -22,9 +22,12 @@ from schema_kicad import Schema  # noqa: E402
 KICAD_CLI = os.environ.get('KICAD_CLI', '/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli')
 KICAD_PY = os.environ.get('KICAD_PYTHON',
                           '/Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3')
-con_kicad = pytest.mark.skipif(not os.path.exists(KICAD_CLI), reason='kicad-cli non installato')
+# nella CI (job pcb) RICHIEDI_KICAD=1: se KiCad manca i test falliscono invece di saltarsi (revisione del 18 ottobre)
+RICHIEDI = os.environ.get('RICHIEDI_KICAD') == '1'
+con_kicad = pytest.mark.skipif(not RICHIEDI and not os.path.exists(KICAD_CLI), reason='kicad-cli non installato')
 con_pcbnew = pytest.mark.skipif(
-    not os.path.exists(KICAD_PY) or subprocess.run([KICAD_PY, '-c', 'import pcbnew'], capture_output=True).returncode,
+    not RICHIEDI and (not os.path.exists(KICAD_PY) or
+                      subprocess.run([KICAD_PY, '-c', 'import pcbnew'], capture_output=True).returncode),
     reason='Python di KiCad con pcbnew non disponibile')
 
 
@@ -37,8 +40,8 @@ def test_contorni_come_il_piano():
     assert sorted((x, y) for _, x, y, _ in b['fori']) == [(129.0, 93.2), (129.0, 106.8), (175.5, 93.5), (175.5, 106.5)]
     c = GC.geometria('carapace')
     # con le ali davanti della 2.1.8 (x 45…51 fino a |y| 24)
-    assert sorted(c['contorno']) == [(129.5, 85.0), (129.5, 115.0), (145.0, 76.0), (145.0, 85.0), (145.0, 115.0),
-                                     (145.0, 124.0), (151.0, 76.0), (151.0, 124.0)]
+    assert sorted(c["contorno"]) == [(129.5, 85.0), (129.5, 115.0), (145.5, 76.0), (145.5, 85.0), (145.5, 115.0),
+                                     (145.5, 124.0), (151.0, 76.0), (151.0, 124.0)]
     assert sorted((x, y) for _, x, y, _ in c['fori']) == [(141.5, 87.5), (141.5, 112.5), (148.0, 87.5), (148.0, 112.5)]
     p = GC.geometria('partitori')
     assert sorted(p['contorno']) == [(144.2, 73.5), (144.2, 81.0), (172.0, 73.5), (172.0, 81.0)]
@@ -54,10 +57,11 @@ def _pcb_finto(g):
         righe.append('(gr_line (start %s %s) (end %s %s) (layer "Edge.Cuts"))' % (a + b))
     for _, x, y, d in g['fori']:
         righe.append('(gr_circle (center %s %s) (end %s %s) (layer "Edge.Cuts"))' % (x, y, x + d / 2, y))
-    for nome, strati, punti in g['senza_rame']:
+    for nome, strati, punti, cosa in g['senza_rame']:
         st = ('(layer "%s")' % strati[0]) if len(strati) == 1 else '(layers %s)' % ' '.join('"%s"' % s for s in strati)
         xy = ' '.join('(xy %s %s)' % p for p in punti)
-        righe.append('(zone %s (name "%s") (keepout (tracks not_allowed)) (polygon (pts %s)))' % (st, nome, xy))
+        piste = 'allowed' if cosa == 'piazzole' else 'not_allowed'
+        righe.append('(zone %s (name "%s") (keepout (tracks %s)) (polygon (pts %s)))' % (st, nome, piste, xy))
     return '\n'.join(righe) + ')\n'
 
 
@@ -159,7 +163,9 @@ def test_pcb_ripetibile(tmp_path, scheda):
     """Rigenerare il PCB dà lo stesso file che è nella repo."""
     d = tmp_path / scheda
     d.mkdir()
-    shutil.copy(os.path.join(PCB, scheda, scheda + '.kicad_pro'), d)
+    # progetto e regole: il riempimento della massa lo rifa' kicad-cli con le regole del .kicad_dru
+    for est in ('.kicad_pro', '.kicad_dru'):
+        shutil.copy(os.path.join(PCB, scheda, scheda + est), d)
     script = ('import sys; sys.path[:0] = [%r, %r]\nimport genera_pcb\ngenera_pcb.scheda(cartella=%r).salva()\n'
               % (os.path.join(PCB, scheda), os.path.join(PCB, 'script'), str(d)))
     subprocess.run([KICAD_PY, '-c', script], check=True, capture_output=True)
@@ -202,6 +208,15 @@ def _netlist_attesa(scheda):
     agg = VR.carica_aggiunte(scheda)
     nodi = {k: r for k, r in VR.carica_def(scheda).items() if k[0] not in agg['tolti']}
     nodi.update(agg['pin'])
+    fori = VR.carica_fori(scheda) if agg['fili'] else {}
+    for rif, voci in agg['fili'].items():
+        for n, voce in enumerate(voci, 1):
+            if voce is None:
+                nodi[(rif, str(n))] = None
+            elif voce.startswith('rete:'):
+                nodi[(rif, str(n))] = voce[5:]
+            else:
+                nodi[(rif, str(n))] = agg['rinominate'].get(fori[voce], fori[voce])
     reti = {}
     for (ref, pin), rete in nodi.items():
         nome = ('unconnected-(%s-Pad%s)' % (ref, pin)) if rete is None else '/' + rete.lstrip('+')
@@ -268,7 +283,7 @@ def test_step_nella_terna_del_robot(tmp_path):
 @con_pcbnew
 @con_kicad
 def test_regole_del_carapace_casi_di_controllo(tmp_path):
-    """Pulsante a meno di 1 mm da un'altra rete e pista del 5V da 0,5: il DRC li deve trovare (regole di D-079)."""
+    """Pulsante a meno di 0,5 mm da un'altra rete e pista del 5V da 0,5: il DRC li deve trovare (regole di D-079, D-082)."""
     import controlla
     d = tmp_path / 'carapace'
     d.mkdir()
@@ -282,11 +297,43 @@ def test_regole_del_carapace_casi_di_controllo(tmp_path):
         'import genera_pcb, pcbnew\n'
         'from scheda_kicad import punto\n'
         's = genera_pcb.scheda(cartella=%r)\n'
-        'fp = s.impronte["P6"]\n'
-        'fp.SetPosition(pcbnew.VECTOR2I(fp.GetPosition().x + pcbnew.FromMM(0.3), fp.GetPosition().y))\n'
-        's.pista("5V", [("P4", 1), ("P2", 3)], 0.5, "B.Cu")\n'
+        's.pista("BTN_A", [genera_pcb.kicad(49.9, -10.5), genera_pcb.kicad(49.0, -6.4)])\n'
+        's.pista("5V", [("J2", 1), ("J2", 2)], 0.5, "B.Cu")\n'
         's.salva()\n') % (os.path.join(PCB, 'carapace'), os.path.join(PCB, 'script'), str(d))
     subprocess.run([KICAD_PY, '-c', script], check=True, capture_output=True)
     r = controlla.rilievi(str(d), str(tmp_path))
-    assert any("pulsante a 1 mm" in x[3] for x in r)
+    assert any("pulsante a 0,5 mm" in x[3] for x in r)
     assert any(x[2] == 'track_width' and '5V del carapace' in x[3] for x in r)
+
+
+@con_kicad
+def test_verifica_reti_vede_le_piazzole_scambiate(tmp_path):
+    """Revisione del 18 ottobre: uno scambio fra due piazzole dei fili (poli 4 e 6 del cavo piatto) deve uscire."""
+    import verifica_reti as VR
+    from schema_kicad import netlist
+    net = netlist(os.path.join(PCB, 'basetta', 'basetta.kicad_sch'), str(tmp_path / 'b.net'))
+    assert VR.verifica('basetta', net) == []
+    for nodi in net['reti'].values():
+        for i, n in enumerate(nodi):
+            if n == ('P10', '4'):
+                nodi[i] = ('P10', '6')
+            elif n == ('P10', '6'):
+                nodi[i] = ('P10', '4')
+    errori = VR.verifica('basetta', net)
+    assert any('P10.4' in e for e in errori) and any('P10.6' in e for e in errori)
+
+
+@con_pcbnew
+def test_polo_1_di_j2_nella_terna_del_robot():
+    """J2 della PCB-C: polo 1 a (42,73; 8,89), fila dei pari a x 40,19, file che scendono verso -Y (S-26, D-082)."""
+    script = ('import pcbnew, json\n'
+              'b = pcbnew.LoadBoard(%r)\n'
+              'fp = b.FindFootprintByReference("J2")\n'
+              'print(json.dumps({p.GetNumber(): [round(pcbnew.ToMM(p.GetPosition().x) - 100, 2), '
+              'round(100 - pcbnew.ToMM(p.GetPosition().y), 2)] for p in fp.Pads()}))\n'
+              % os.path.join(PCB, 'carapace', 'carapace.kicad_pcb'))
+    r = subprocess.run([KICAD_PY, '-c', script], check=True, capture_output=True, text=True)
+    import json
+    pad = json.loads(r.stdout.strip().splitlines()[-1])
+    assert pad['1'] == [42.73, 8.89] and pad['2'] == [40.19, 8.89] and pad['3'] == [42.73, 6.35]
+    assert pad['15'] == [42.73, -8.89]

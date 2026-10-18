@@ -19,6 +19,9 @@
 	(constraint edge_clearance (min 0.5mm)))
 (rule "fori vicini"
 	(constraint hole_to_hole (min 0.5mm)))
+# un raggio termico basta dove le piazzole sono fitte (fili saldati a mano: con due raggi il riempimento non entra)
+(rule "raggi termici"
+	(constraint min_resolved_spokes 1))
 
 # --- larghezze delle piste di potenza (docs/ricerca/pcb/studio.md 2.5; piano-pcb.md 4.1)
 (rule "VBAT da 1,5"
@@ -40,9 +43,11 @@
 	(condition "A.Type == 'Track' && (A.NetName == '/3V3_ESP' || A.NetName == '/3V3_X3')")
 	(constraint track_width (min 0.5mm)))
 # carapace: le stesse alimentazioni hanno i nomi della guida (5V = 5V_LED, 3V3 = 3V3S; verifica R1)
-(rule "5V del carapace da 1,0"
+# 0,8 A al piu' (catena LED e ampli): IPC-2221, rame esterno da 1 oz, +10 °C chiede circa 0,3 mm; 0,6 lascia margine
+# e passa fra le piazzole a passo 2,54 (revisione del 18 ottobre: a 1,0 il 5V della PCB-C non si sbrogliava)
+(rule "5V del carapace da 0,6"
 	(condition "A.Type == 'Track' && A.NetName == '/5V'")
-	(constraint track_width (min 1.0mm)))
+	(constraint track_width (min 0.6mm)))
 (rule "3V3 del carapace da 0,5"
 	(condition "A.Type == 'Track' && A.NetName == '/3V3'")
 	(constraint track_width (min 0.5mm)))
@@ -51,22 +56,24 @@
 (rule "VBAT a 1 mm"
 	(condition "A.NetName == '/VBAT' && B.NetName != '/VBAT'")
 	(constraint clearance (min 1.0mm)))
-# Eccezione scritta: piazzole di U2 (D24V22F5) a passo 2,54, VIN a 0,84 da EN e GND (pagina Pololu 2858)
-(rule "VBAT dentro U2"
-	(condition "A.NetName == '/VBAT' && A.memberOfFootprint('U2') && B.memberOfFootprint('U2')")
+# Eccezione scritta: piazzole di U2 (D24V22F5) a passo 2,54, VIN a 0,84 da EN e GND (pagina Pololu 2858); vale
+# anche per la pista del VBAT che esce dal VIN fra le piazzole vicine (revisione: da 1,5 mm non poteva uscire)
+(rule "VBAT accanto a U2"
+	(condition "A.NetName == '/VBAT' && B.memberOfFootprint('U2')")
 	(constraint clearance (min 0.5mm)))
 
 # EN di U2 ha 270 kΩ interni verso VIN (pagina Pololu 2858): si tratta come VBAT (piano 4.1, verifica R1)
 (rule "EN di U2 a 1 mm"
-	(condition "A.Type == 'Pad' && A.memberOfFootprint('U2') && A.Pad_Number == '2' && !B.memberOfFootprint('U2')")
+	(condition "A.Type == 'Pad' && A.memberOfFootprint('U2') && A.Pad_Number == '2' && !B.memberOfFootprint('U2') && B.NetName != '/VBAT'")
 	(constraint clearance (min 1.0mm)))
 
-# --- pulsante del carapace: tensione dei pin A e B della 2813 ignota (S-10), piste isolate (piano 4.2)
-(rule "pulsante a 1 mm"
+# --- pulsante del carapace: tensione dei pin A e B della 2813 ignota (S-10), al piu' quella della batteria (8,4 V).
+# IPC-2221 (B2, esterno senza rivestimento, 0-15 V) chiede 0,1 mm; 0,5 contro i ponti di stagno dei fili saldati
+(rule "pulsante a 0,5 mm"
 	(condition "(A.NetName == '/BTN_A' || A.NetName == '/BTN_B') && B.NetName != '/BTN_A' && B.NetName != '/BTN_B'")
-	(constraint clearance (min 1.0mm)))
+	(constraint clearance (min 0.5mm)))
 (rule "pulsante dentro J2"
 	(condition "(A.NetName == '/BTN_A' || A.NetName == '/BTN_B') && A.memberOfFootprint('J2') && B.memberOfFootprint('J2')")
-	(constraint clearance (min 0.5mm)))
+	(constraint clearance (min 0.2mm)))
 
 # Le regole sui pin dell'ESP32 (nessun 5 V a meno di 1 mm, varchi delle file, antenna) entrano con l'impronta di U1 (F4).

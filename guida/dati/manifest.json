@@ -116,7 +116,7 @@
  "componenti": {
   "Attrezzo_Bussola_Perno": {
    "tipo": "stampato",
-   "revisione": "75d32ca2-be39-4dad-96c0-e7aebf1632b0",
+   "revisione": "c8ec8234-501d-42b4-9ea4-2f9a5ba39e5f",
    "mesh": "Attrezzo_Bussola_Perno.ply",
    "aspetti": [
     [
@@ -144,7 +144,7 @@
   },
   "Attrezzo_Cavalletto": {
    "tipo": "stampato",
-   "revisione": "a6011591-b5a2-4cdb-9ed2-651baf92c4ea",
+   "revisione": "9df4c4ed-6803-47df-a2fc-a3b8087530b8",
    "mesh": "Attrezzo_Cavalletto.ply",
    "aspetti": [
     [
@@ -172,7 +172,7 @@
   },
   "Attrezzo_Estrattore_Asta": {
    "tipo": "stampato",
-   "revisione": "6330969e-5889-45bc-961b-d2726598b17b",
+   "revisione": "eaf02526-2d90-4522-b892-4c3642c5f6a1",
    "mesh": "Attrezzo_Estrattore_Asta.ply",
    "aspetti": [
     [
@@ -200,7 +200,7 @@
   },
   "Attrezzo_Estrattore_Tubo": {
    "tipo": "stampato",
-   "revisione": "f1ef07d0-56ef-4194-befb-d053b889a149",
+   "revisione": "64734e0c-814f-4251-83db-efb1425391ce",
    "mesh": "Attrezzo_Estrattore_Tubo.ply",
    "aspetti": [
     [
@@ -228,7 +228,7 @@
   },
   "Attrezzo_Provino_Inserti": {
    "tipo": "stampato",
-   "revisione": "87ac995b-40b2-45b0-b0e7-5c333e149b16",
+   "revisione": "275e4eba-da63-4c77-9cde-e416a28fccc4",
    "mesh": "Attrezzo_Provino_Inserti.ply",
    "aspetti": [
     [
@@ -256,7 +256,7 @@
   },
   "Attrezzo_Provino_Luce_Bianco": {
    "tipo": "stampato",
-   "revisione": "cf330476-ecc9-4619-b147-3698c952e9db",
+   "revisione": "b4a1a754-a6f6-40a5-8ea4-57ab35a890f8",
    "mesh": "Attrezzo_Provino_Luce_Bianco.ply",
    "aspetti": [
     [
@@ -284,7 +284,7 @@
   },
   "Attrezzo_Provino_Luce_Nero": {
    "tipo": "stampato",
-   "revisione": "e6e85e5a-f288-4658-880e-c3c50660191d",
+   "revisione": "7065aa2b-fa6c-43e8-bb80-a6477bc4045f",
    "mesh": "Attrezzo_Provino_Luce_Nero.ply",
    "aspetti": [
     [
@@ -312,7 +312,7 @@
   },
   "Attrezzo_Provino_Tasche_Base": {
    "tipo": "stampato",
-   "revisione": "a792cb1f-e93e-4df3-90ac-89653fda27b6",
+   "revisione": "eb86d559-bc50-440b-b23f-3317a49e8028",
    "mesh": "Attrezzo_Provino_Tasche_Base.ply",
    "aspetti": [
     [
@@ -340,7 +340,7 @@
   },
   "Attrezzo_Provino_Tasche_Lama": {
    "tipo": "stampato",
-   "revisione": "4751bd53-0f23-42c0-8571-130a00a526a5",
+   "revisione": "579d09ec-9a1f-4adf-9ef2-ce302ecf2d94",
    "mesh": "Attrezzo_Provino_Tasche_Lama.ply",
    "aspetti": [
     [
@@ -368,7 +368,7 @@
   },
   "Corpo_Base": {
    "tipo": "stampato",
-   "revisione": "2a43c0e1-594e-455a-bf14-26a4dc91021c",
+   "revisione": "d1c1c0e1-b548-4e31-8a0e-949e33cd1362",
    "mesh": "Corpo_Base.ply",
    "aspetti": [
     [
@@ -396,7 +396,7 @@
   },
   "Corpo_Carapace": {
    "tipo": "stampato",
-   "revisione": "ac96b5ec-8c22-4ed2-b725-99e958570dec",
+   "revisione": "729412e1-d000-4038-916b-22f89fcc4ddc",
    "mesh": "Corpo_Carapace.ply",
    "aspetti": [
     [
@@ -452,7 +452,7 @@
   },
   "Corpo_Fascia": {
    "tipo": "stampato",
-   "revisione": "3464ad3b-bb62-442b-858b-192ad1ff1f41",
+   "revisione": "f85784c0-2ffc-493b-8e60-05aed331f7bb",
    "mesh": "Corpo_Fascia.ply",
    "aspetti": [
     [
@@ -480,7 +480,7 @@
   },
   "Corpo_Fondo_Anello": {
    "tipo": "stampato",
-   "revisione": "3bfebb82-af6a-4f45-8005-716893dc4d43",
+   "revisione": "c508057e-4ab7-4c82-a1e5-87e2307aa355",
    "mesh": "Corpo_Fondo_Anello.ply",
    "aspetti": [
     [
@@ -536,7 +536,7 @@
   },
   "Corpo_Lunette_Microfoni": {
    "tipo": "stampato",
-   "revisione": "879994ad-26f3-4475-9b6a-d8544e1049aa",
+   "revisione": "4149ea9d-ff1f-4f26-a9fb-ec41cc32d903",
    "mesh": "Corpo_Lunette_Microfoni.ply",
    "aspetti": [
     [
@@ -564,7 +564,7 @@
   },
   "Corpo_Piastrina_IMU": {
    "tipo": "stampato",
-   "revisione": "c68adcf2-0715-45dc-ada6-ca732a974fc9",
+   "revisione": "3a78527e-a556-491b-aa3e-d67535b6e10a",
    "mesh": "Corpo_Piastrina_IMU.ply",
    "aspetti": [
     [
@@ -620,7 +620,7 @@
   },
   "Corpo_Sportello": {
    "tipo": "stampato",
-   "revisione": "f38d125c-5d19-48a5-82c2-91aed36108f5",
+   "revisione": "e2b19201-391c-4ed6-8f18-8946260d8c70",
    "mesh": "Corpo_Sportello.ply",
    "aspetti": [
     [
@@ -676,7 +676,7 @@
   },
   "Corpo_Sportello_Servizio_Zaino": {
    "tipo": "stampato",
-   "revisione": "b3e43ed3-c21d-47b8-943f-ebf60a4544b9",
+   "revisione": "a590545a-3c9d-4000-831b-ae628e6973f6",
    "mesh": "Corpo_Sportello_Servizio_Zaino.ply",
    "aspetti": [
     [
@@ -704,7 +704,7 @@
   },
   "Corpo_Supporto_INA260_D": {
    "tipo": "stampato",
-   "revisione": "c9f305d7-b015-4c0a-88cc-e14f635afb19",
+   "revisione": "43ce2af5-1661-4a34-948b-c5da8fb5a5bc",
    "mesh": "Corpo_Supporto_INA260_D.ply",
    "aspetti": [
     [
@@ -732,7 +732,7 @@
   },
   "Corpo_Supporto_INA260_S": {
    "tipo": "stampato",
-   "revisione": "0e0f7d98-b13f-43fc-a3c1-9237f124e67f",
+   "revisione": "bef9f789-5d3f-4831-b53e-e7118c551a79",
    "mesh": "Corpo_Supporto_INA260_S.ply",
    "aspetti": [
     [
@@ -760,7 +760,7 @@
   },
   "Corpo_Tappo_ToF": {
    "tipo": "stampato",
-   "revisione": "c2ec1957-3a55-4334-9990-1c9496047ab7",
+   "revisione": "6dca7469-9d07-4136-8391-f4184cb983c9",
    "mesh": "Corpo_Tappo_ToF.ply",
    "aspetti": [
     [
@@ -788,7 +788,7 @@
   },
   "Corpo_Vassoio": {
    "tipo": "stampato",
-   "revisione": "be4b21ff-b35d-4e55-a7cd-91dc1bd03352",
+   "revisione": "e0f6f6a0-59b1-43c0-8f31-f2cb317eb43c",
    "mesh": "Corpo_Vassoio.ply",
    "aspetti": [
     [
@@ -816,7 +816,7 @@
   },
   "Corpo_Visiera": {
    "tipo": "stampato",
-   "revisione": "ffce4677-7d24-4821-8d76-906d356b2ef2",
+   "revisione": "de9c993e-036f-4722-a0e1-2494a43f1d43",
    "mesh": "Corpo_Visiera.ply",
    "aspetti": [
     [
@@ -844,7 +844,7 @@
   },
   "Cover_Femore_A": {
    "tipo": "stampato",
-   "revisione": "11880f0c-f95e-41b5-b4a6-a3b01e6277a2",
+   "revisione": "f8470e89-ae36-4586-9093-c2aefccd4834",
    "mesh": "Cover_Femore_A.ply",
    "aspetti": [
     [
@@ -872,7 +872,7 @@
   },
   "Cover_Femore_A_Feritoia": {
    "tipo": "stampato",
-   "revisione": "5700bfaa-48b6-4ce4-b353-8f61edd0abaf",
+   "revisione": "07a98bec-e2b8-435b-9177-8d9e2c8fe724",
    "mesh": "Cover_Femore_A_Feritoia.ply",
    "aspetti": [
     [
@@ -900,7 +900,7 @@
   },
   "Cover_Femore_B": {
    "tipo": "stampato",
-   "revisione": "456c63a6-c189-42e5-bcf6-132121059e79",
+   "revisione": "27a1df2e-8c5d-4a95-96db-6a8946c5199b",
    "mesh": "Cover_Femore_B.ply",
    "aspetti": [
     [
@@ -928,7 +928,7 @@
   },
   "Cover_Femore_B_Feritoia": {
    "tipo": "stampato",
-   "revisione": "58f04fb0-6da8-4723-a2de-656204425019",
+   "revisione": "5d2bc26c-663f-48ae-9dea-2f0f469e0a12",
    "mesh": "Cover_Femore_B_Feritoia.ply",
    "aspetti": [
     [
@@ -956,7 +956,7 @@
   },
   "Cover_Tibia": {
    "tipo": "stampato",
-   "revisione": "87b0c34e-931a-4578-8592-04301ccb6542",
+   "revisione": "50b6e3fd-730e-48db-a475-4376ff8491fa",
    "mesh": "Cover_Tibia.ply",
    "aspetti": [
     [
@@ -1068,7 +1068,7 @@
   },
   "Dima_Calettamento": {
    "tipo": "stampato",
-   "revisione": "ebf3bc61-37bd-4be7-8b33-a662883fb22f",
+   "revisione": "b872b31c-754d-4122-ac5d-6b29d404952c",
    "mesh": "Dima_Calettamento.ply",
    "aspetti": [
     [
@@ -1096,7 +1096,7 @@
   },
   "Dima_Posa_1": {
    "tipo": "stampato",
-   "revisione": "515e1c70-bd49-491d-b6ea-b50d9d799c1e",
+   "revisione": "a50b51a3-861d-4de2-b225-e5564e1b1503",
    "mesh": "Dima_Posa_1.ply",
    "aspetti": [
     [
@@ -1124,7 +1124,7 @@
   },
   "Dima_Posa_2": {
    "tipo": "stampato",
-   "revisione": "32b05196-6d24-465e-9957-a6526fc0e981",
+   "revisione": "ed911f32-032b-401b-bd44-b8ad1229f1f6",
    "mesh": "Dima_Posa_2.ply",
    "aspetti": [
     [
@@ -1292,7 +1292,7 @@
   },
   "Rif_Altoparlante_Tondo": {
    "tipo": "comprato",
-   "revisione": "f1f47d66-a2c4-47ac-aa3d-b1ead32796e7",
+   "revisione": "f3f3efc0-a851-43a8-b076-38d566e8e408",
    "mesh": "Rif_Altoparlante_Tondo.ply",
    "aspetti": [
     [
@@ -1320,7 +1320,7 @@
   },
   "Rif_Ampli_Generico": {
    "tipo": "comprato",
-   "revisione": "02c16375-d5c1-4569-8a9b-54a558ab664f",
+   "revisione": "88ca61a0-9ba5-408c-abce-9a8bfb8d7265",
    "mesh": "Rif_Ampli_Generico.ply",
    "aspetti": [
     [
@@ -1572,7 +1572,7 @@
   },
   "Rif_IMU_MPU6500": {
    "tipo": "comprato",
-   "revisione": "087a7d85-678d-40ea-bffd-0b5a4dc69d17",
+   "revisione": "4b4998f3-cefe-4e57-af2c-d97450dba601",
    "mesh": "Rif_IMU_MPU6500.ply",
    "aspetti": [
     [
@@ -1600,7 +1600,7 @@
   },
   "Rif_INA260": {
    "tipo": "comprato",
-   "revisione": "e6c31e91-e295-4b87-ba59-5966dbc088c6",
+   "revisione": "6395a442-8390-443c-8f55-a5f23f031b59",
    "mesh": "Rif_INA260.ply",
    "aspetti": [
     [
@@ -1628,7 +1628,7 @@
   },
   "Rif_Interruttore_Pololu_2813": {
    "tipo": "comprato",
-   "revisione": "682e5b70-2d25-4052-b0b0-5722d5953d6a",
+   "revisione": "e39c7b0e-3f5f-4dbf-a22c-d9e6e2a4533d",
    "mesh": "Rif_Interruttore_Pololu_2813.ply",
    "aspetti": [
     [
@@ -1684,7 +1684,7 @@
   },
   "Rif_Microfono_MS3625": {
    "tipo": "comprato",
-   "revisione": "c8d02f8d-1b26-4a73-b3fa-d14684706724",
+   "revisione": "d0557782-75c6-478a-8c01-ad7a9538a96d",
    "mesh": "Rif_Microfono_MS3625.ply",
    "aspetti": [
     [
@@ -1712,7 +1712,7 @@
   },
   "Rif_Partitori": {
    "tipo": "comprato",
-   "revisione": "7839f6a0-43b5-45f7-a355-20b6e2bcb210",
+   "revisione": "770b338e-b9eb-4189-ad67-4424d9338324",
    "mesh": "Rif_Partitori.ply",
    "aspetti": [
     [
@@ -1796,7 +1796,7 @@
   },
   "Rif_Prese_Piedi": {
    "tipo": "comprato",
-   "revisione": "a4cd8eef-656f-470b-9ea4-3d49b8e03bc8",
+   "revisione": "95ada04e-eb5b-4ca1-9838-37f4ec3f8b1c",
    "mesh": "Rif_Prese_Piedi.ply",
    "aspetti": [
     [
@@ -1908,7 +1908,7 @@
   },
   "Rif_Scheda_Carapace": {
    "tipo": "comprato",
-   "revisione": "2abf1e92-ab48-41dd-bf11-3e06bd4b4d47",
+   "revisione": "a22dd0d1-b48f-4c2b-9645-a4cddd851537",
    "mesh": "Rif_Scheda_Carapace.ply",
    "aspetti": [
     [
@@ -2104,7 +2104,7 @@
   },
   "Tibia": {
    "tipo": "stampato",
-   "revisione": "01b7d8d7-4a81-4b26-8ae4-24a33d6b9c45",
+   "revisione": "2c20b714-3cdf-405d-85e6-26573c71929f",
    "mesh": "Tibia.ply",
    "aspetti": [
     [

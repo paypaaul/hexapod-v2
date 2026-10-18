@@ -189,7 +189,7 @@ PARAMETRI = [
     ('sch_w', '21.5 mm', 'mm', 'Scheda del carapace: larghezza lungo X, dal bordo della testata (P-002) a 0,85 dall amplificatore S'),
     ('sch_pcb', '1.6 mm', 'mm', 'Scheda del carapace: spessore della millefori S'),
     ('sch_ala_y', '24 mm', 'mm', 'Scheda del carapace: ali davanti fino a |y| 24 (2.1.8, blocco F: la PCB-C non contiene CE1, piazzole e punti di prova in 21,5 x 30; libere fino a 28, assieme.py urti_scatole) S'),
-    ('sch_ala_x', '6 mm', 'mm', 'Scheda del carapace: profondita delle ali dal bordo anteriore (le colonnine del coperchio arrivano a x 44,7) S'),
+    ('sch_ala_x', '5.5 mm', 'mm', 'Scheda del carapace: profondita delle ali dal bordo anteriore; il tubo dei pozzetti del carapace arriva a x 44,7: con 5,5 il bordo resta a 0,8 (revisione del 18 ottobre, prima 6) S'),
     ('sch_test_l', '27.98 mm', 'mm', 'Testata 2 x 8 a 90 gradi Wurth 61201621721 (WR-BHD): lunghezza (disegno Wurth) V'),
     ('sch_test_p', '8.85 mm', 'mm', 'Testata a 90 gradi: profondita della scatola dal bordo della scheda (disegno Wurth) V'),
     ('sch_test_h', '9 mm', 'mm', 'Testata a 90 gradi: altezza sotto la scheda (disegno Wurth) V'),

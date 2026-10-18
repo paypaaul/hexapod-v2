@@ -869,3 +869,28 @@ Piano approvato dall'utente il 18 ottobre (`docs/piano-v2.1.0.md`, "Piano della 
 **Lezione**: un'istanza creata con copia e incolla da un'altra dipende dalla sua voce della timeline: cancellando l'istanza d'origine resta una voce in errore, e togliendola sparisce anche la copia (le prese delle luci, ricreate subito con `istanze_nuove`). Dopo `pulisci_istanze` si rilegge `controllo` prima di toccare la timeline.
 
 **Resta**: P-139 (reofori delle spie) passa alla 2.1.9, aspetta il portafusibile (Q-23). Altezze del retro della RE1.3 da confermare sulla dima (F5).
+
+## D-082 — Revisione indipendente del lavoro sui PCB e della 2.1.8: correzioni (2026-10-18)
+
+L'utente ha chiesto, a fine lavoro, una revisione indipendente con agenti, soprattutto sul disegno delle PCB. Quattro revisori con effort alto (PCB-C, strumenti e controlli, CAD della 2.1.8, elettrica), e uno scettico per ogni rilievo bloccante o importante: 17 agenti, circa 1,86 milioni di token. 13 rilievi verificati, tutti confermati, alcuni con la gravità abbassata, più 14 minori.
+
+**Corretto**
+- **PCB-C rifatta, perché il piazzamento di F4 non si sbrogliava**: nell'ala +Y entrava una pista sola per quattro reti, il 5V da 1 mm non arrivava alle piazzole, il pulsante faceva da muro, e c'erano 0,27 mm fra 5V e 3V3 accanto a J2. Nuova disposizione:
+  - una piazzola per rete, due fili per foro, come la millefori della guida: P1 accanto ai poli dispari (piste dritte), P2 accanto ai pari (piste fra i poli dispari);
+  - pulsante nell'ala −Y, CE1 nell'ala +Y;
+  - R-MIC tolta: resta R8 al microfono. La riserva del polo 14 si salda sul pin di J2;
+  - **sbrogliata da script**: DRC a zero con la parità, niente connessioni aperte, serigrafia con una legenda sul lato dei fili.
+- **Regole del DRC**: pulsante a 0,5 mm (fino a 8,4 V; IPC-2221 chiede 0,1, il resto è margine contro i ponti di stagno); 5V del carapace da 0,6 (0,8 A); VBAT ed EN di U2 non più in contraddizione; un solo raggio termico ammesso. Sopra le bugne della PCB-C sono vietate solo le piazzole: una pista con la sua maschera può stare sotto la plastica.
+- **Una regola scritta male faceva ignorare tutto il file in silenzio**: la sintassi dei raggi termici. Il test che restringe il 5V_REG l'ha preso. Il DRC "a zero" della PCB-C prima della correzione non valeva.
+- **`verifica_reti.py`** controlla anche le piazzole dei fili: in `aggiunte.yaml`, `fili:` lega ogni piazzola al foro della guida da cui prende la rete. Caso di controllo: due poli del cavo piatto scambiati.
+- **Ali della scheda del carapace da 5,5** (prima 6): il bordo resta a 0,8 dal tubo dei pozzetti, misurato per bisezione (a 0,9 tocca). CE1 ha 0,9 di gioco radiale.
+- **Partitore di JP-RMT a 680 Ω / 1 kΩ** (prima 20 kΩ / 33 kΩ): GPIO38 ha il pull-up da circa 10 kΩ della microSD, e il livello basso restava a 1,8 V.
+- **Tetto dei LED**: il conto di D-079 era sbagliato. Ora il ramo dopo PTC1 resta sotto 0,7 A: LED fino a 600 mA senza audio, fino a 400 mA con l'audio. L'MF-R090 a 40 °C tiene 0,73 A.
+- **Guida**: i fili fra la scheda dei partitori e l'ADC si saldano al passo 8.10, prima del vassoio che copre l'ADC. 8.22 resta la tabella delle prese, 8.24 porta le NTC alla scheda dei partitori.
+- **CI**: con `RICHIEDI_KICAD=1` i test con KiCad falliscono invece di saltarsi. Il controllo dei contorni vede anche archi e poligoni. Un test fissa il polo 1 di J2 nella terna del robot.
+- **Piano**: il retro della RE1.3 e l'apertura sotto U2. Con il retro della 2.1.8 il margine è negativo, quindi l'apertura serve sempre.
+
+**Non ancora corretto**
+- **La scheda dei partitori P2 (D-080) è troppo piccola**: 27,8 × 7,5 non contiene 8 R, 8 C, le piazzole verso l'ADC e le NTC, e le file esterne del pettine sono a 0,36 dal bordo. Serve una sagoma più grande nel CAD: proposta nella 2.1.9 (`piano-v2.1.0.md`), da approvare.
+- **Documenti con dati vecchi**: cablaggio.md 3.5 e 4, predisposizioni.md (prese dei piedi), progetto-meccanico.md, schemi.md. Si aggiornano con la guida, a progetto stabile.
+- **Controlli che mancano**: i valori dei componenti non sono confrontati con la guida; i giochi della PCB-P sono provati solo come "non vuoti". R16 entra nel foglio di montaggio della r1 (F7).
