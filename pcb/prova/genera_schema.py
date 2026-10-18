@@ -20,7 +20,7 @@ def schema():
     s.simbolo('hex2_kicad:Conn_01x04', 'J1', 'Conn_01x04',
               'hex2:PinHeader_1x04_P2.54mm_Vertical', 50.8, 50.8)
     for u, (x, y) in enumerate([(101.6, 50.8), (101.6, 76.2), (101.6, 101.6), (101.6, 127), (152.4, 63.5)], 1):
-        s.simbolo('hex2_kicad:74AHCT125', 'U1', 'SN74AHCT125N', 'hex2:DIP-14_W7.62mm', x, y, unita=u)
+        s.simbolo('hex2_kicad:74AHCT125', 'U3', 'SN74AHCT125N', 'hex2:DIP-14_W7.62mm', x, y, unita=u)
     s.simbolo('hex2_kicad:R', 'R1', '330', 'hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal', 152.4, 101.6)
     s.simbolo('hex2_kicad:C', 'C1', '100n', 'hex2:C_0805_2012Metric', 190.5, 63.5)
     s.simbolo('hex2_kicad:SolderJumper_3_Bridged12', 'JP1', 'OE',
@@ -29,22 +29,22 @@ def schema():
     s.simbolo('hex2_kicad:PWR_FLAG', '#FLG01', 'PWR_FLAG', '', 50.8, 139.7)
     s.simbolo('hex2_kicad:PWR_FLAG', '#FLG02', 'PWR_FLAG', '', 76.2, 139.7)
 
-    for n, rete in {1: '5V', 2: 'GND', 3: 'IN', 4: 'OUT'}.items():
+    for n, rete in {1: '5V_REG', 2: 'GND', 3: 'IN', 4: 'OUT'}.items():
         s.collega('J1', n, rete)
-    for n, rete in {1: 'OE1', 2: 'IN', 3: 'Y1', 14: '5V', 7: 'GND',
+    for n, rete in {1: 'OE1', 2: 'IN', 3: 'Y1', 14: '5V_REG', 7: 'GND',
                     4: 'GND', 5: 'GND', 9: 'GND', 10: 'GND', 12: 'GND', 13: 'GND'}.items():
-        s.collega('U1', n, rete)
+        s.collega('U3', n, rete)
     for n in (6, 8, 11):
-        s.libero('U1', n)
+        s.libero('U3', n)
     s.collega('R1', 1, 'Y1')
     s.collega('R1', 2, 'OUT')
-    s.collega('C1', 1, '5V')
+    s.collega('C1', 1, '5V_REG')
     s.collega('C1', 2, 'GND')
     s.collega('JP1', 1, 'GND')
     s.collega('JP1', 2, 'OE1')
-    s.collega('JP1', 3, '5V')
+    s.collega('JP1', 3, '5V_REG')
     s.collega('TP1', 1, 'OUT')
-    s.collega('#FLG01', 1, '5V')
+    s.collega('#FLG01', 1, '5V_REG')
     s.collega('#FLG02', 1, 'GND')
     return s
 

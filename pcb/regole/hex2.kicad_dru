@@ -1,0 +1,49 @@
+(version 1)
+# Regole del DRC delle schede HEX2: fonte unica. pcb/script/regole.py la copia in ogni progetto come
+# <nome>.kicad_dru (KiCad legge solo quel file) e la CI controlla che le copie siano uguali.
+# In KiCad, fra due regole che valgono per la stessa coppia vince quella scritta dopo.
+
+# --- produttore: valori larghi, buoni per JLCPCB, Aisler ed Eurocircuits (docs/ricerca/pcb/produzione.md 3.3)
+(rule "spazio minimo fra rami"
+	(constraint clearance (min 0.2mm)))
+(rule "pista minima"
+	(condition "A.Type == 'Track'")
+	(constraint track_width (min 0.2mm)))
+(rule "vie: foro 0,3, diametro 0,6"
+	(condition "A.Type == 'Via'")
+	(constraint hole_size (min 0.3mm))
+	(constraint via_diameter (min 0.6mm)))
+(rule "corona minima"
+	(constraint annular_width (min 0.15mm)))
+(rule "rame dal bordo"
+	(constraint edge_clearance (min 0.5mm)))
+(rule "fori vicini"
+	(constraint hole_to_hole (min 0.5mm)))
+
+# --- larghezze delle piste di potenza (docs/ricerca/pcb/studio.md 2.5; piano-pcb.md 4.1)
+(rule "VBAT da 1,5"
+	(condition "A.Type == 'Track' && A.NetName == '/VBAT'")
+	(constraint track_width (min 1.5mm)))
+(rule "5V_REG da 1,5"
+	(condition "A.Type == 'Track' && A.NetName == '/5V_REG'")
+	(constraint track_width (min 1.5mm)))
+(rule "5V_LED da 1,0"
+	(condition "A.Type == 'Track' && A.NetName == '/5V_LED'")
+	(constraint track_width (min 1.0mm)))
+(rule "5V_ESP da 0,6"
+	(condition "A.Type == 'Track' && A.NetName == '/5V_ESP'")
+	(constraint track_width (min 0.6mm)))
+(rule "3V3S da 0,5"
+	(condition "A.Type == 'Track' && A.NetName == '/3V3S'")
+	(constraint track_width (min 0.5mm)))
+
+# --- VBAT isolato: 1 mm da ogni altro rame (piano-pcb.md 4.1, R-09)
+(rule "VBAT a 1 mm"
+	(condition "A.NetName == '/VBAT' && B.NetName != '/VBAT'")
+	(constraint clearance (min 1.0mm)))
+# Eccezione scritta: piazzole di U2 (D24V22F5) a passo 2,54, VIN a 0,84 da EN e GND (pagina Pololu 2858)
+(rule "VBAT dentro U2"
+	(condition "A.NetName == '/VBAT' && A.memberOfFootprint('U2') && B.memberOfFootprint('U2')")
+	(constraint clearance (min 0.5mm)))
+
+# Le regole sui pin dell'ESP32 (nessun 5 V a meno di 1 mm, varchi delle file, antenna) entrano con l'impronta di U1 (F4).

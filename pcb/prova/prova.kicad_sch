@@ -1421,16 +1421,16 @@
 		)
 	)
 	(no_connect
-		(at 109.22 76.2)
-		(uuid "7fe5fc6e-ae00-53b3-b6a6-10329aa9fcf3")
+		(at 109.22 101.6)
+		(uuid "197ecca8-1d1b-5217-80ea-39ebe78851b0")
 	)
 	(no_connect
 		(at 109.22 127)
-		(uuid "99b546d5-b6de-5b17-ad9e-6b0a1e791513")
+		(uuid "72778935-46f6-5605-ae17-716aefb54ef8")
 	)
 	(no_connect
-		(at 109.22 101.6)
-		(uuid "eb99c0c7-e6f6-5883-9300-2ffba4f3378d")
+		(at 109.22 76.2)
+		(uuid "e6de681a-1d29-5c28-a545-aac0105d6a80")
 	)
 	(wire
 		(pts
@@ -1454,13 +1454,43 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 50.8) (xy 152.4 48.26)
+			(xy 93.98 50.8) (xy 91.44 50.8)
 		)
 		(stroke
 			(width 0)
 			(type solid)
 		)
-		(uuid "140072cc-1ffd-5c24-8f48-9a5713dceb55")
+		(uuid "1ee9d935-8ec4-513f-9a0f-25423402f55a")
+	)
+	(wire
+		(pts
+			(xy 93.98 127) (xy 91.44 127)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "205ba41a-d5f5-5b7a-89e6-454021c0d018")
+	)
+	(wire
+		(pts
+			(xy 101.6 82.55) (xy 101.6 85.09)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "2b46fff0-cdae-5785-9894-5a5b8ffbff0a")
+	)
+	(wire
+		(pts
+			(xy 101.6 57.15) (xy 101.6 59.69)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "2e24e7d2-e067-5f34-83ed-9756705ca924")
 	)
 	(wire
 		(pts
@@ -1490,7 +1520,7 @@
 			(width 0)
 			(type solid)
 		)
-		(uuid "3b8a4d9e-597b-521b-b5f6-2b4bd684fe30")
+		(uuid "3b6bddc0-35c2-5bd2-a7b8-9730113b1343")
 	)
 	(wire
 		(pts
@@ -1500,7 +1530,17 @@
 			(width 0)
 			(type solid)
 		)
-		(uuid "439577bd-c195-5da6-9273-2452924ebf91")
+		(uuid "3eda86c8-d2f7-5f60-8006-87b459c46468")
+	)
+	(wire
+		(pts
+			(xy 101.6 107.95) (xy 101.6 110.49)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "3f95b0ad-8b2d-5219-8ef3-e10169782817")
 	)
 	(wire
 		(pts
@@ -1514,23 +1554,13 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 82.55) (xy 101.6 85.09)
+			(xy 93.98 76.2) (xy 91.44 76.2)
 		)
 		(stroke
 			(width 0)
 			(type solid)
 		)
-		(uuid "50462490-e3c1-5136-939e-33c749513d36")
-	)
-	(wire
-		(pts
-			(xy 93.98 50.8) (xy 91.44 50.8)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "55757c1d-31e1-546b-b9af-6b5b82723e95")
+		(uuid "5627e860-44ce-574e-ad05-370ebbcb3f5e")
 	)
 	(wire
 		(pts
@@ -1541,26 +1571,6 @@
 			(type solid)
 		)
 		(uuid "5f6d854d-57d1-5adb-ab9f-dd6164df43b5")
-	)
-	(wire
-		(pts
-			(xy 101.6 107.95) (xy 101.6 110.49)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "5fbb445e-81de-5f98-b200-8be8a4b09ac0")
-	)
-	(wire
-		(pts
-			(xy 93.98 76.2) (xy 91.44 76.2)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "663b9ccf-ec6c-5aea-8395-fdd10a4492ad")
 	)
 	(wire
 		(pts
@@ -1594,6 +1604,16 @@
 	)
 	(wire
 		(pts
+			(xy 152.4 50.8) (xy 152.4 48.26)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "bb5fd321-d61e-5c78-8b21-2779d361ba5a")
+	)
+	(wire
+		(pts
 			(xy 50.8 139.7) (xy 50.8 142.24)
 		)
 		(stroke
@@ -1601,16 +1621,6 @@
 			(type solid)
 		)
 		(uuid "cf601de5-e181-5cad-984b-8e3ff47ba4ef")
-	)
-	(wire
-		(pts
-			(xy 152.4 76.2) (xy 152.4 78.74)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "d5ae1cad-928e-5038-9278-1c0b8d68c78f")
 	)
 	(wire
 		(pts
@@ -1634,23 +1644,13 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 127) (xy 91.44 127)
+			(xy 152.4 76.2) (xy 152.4 78.74)
 		)
 		(stroke
 			(width 0)
 			(type solid)
 		)
-		(uuid "ef49e9e6-ea07-5da7-aba4-338da93aee8b")
-	)
-	(wire
-		(pts
-			(xy 101.6 57.15) (xy 101.6 59.69)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "f0394b61-e0df-5181-9532-db48cd3cccf6")
+		(uuid "f37ea8ac-2019-52f7-b7e3-d051c13e63e5")
 	)
 	(wire
 		(pts
@@ -1680,17 +1680,7 @@
 			(width 0)
 			(type solid)
 		)
-		(uuid "f93cfbef-d114-5796-a510-8e84c7a0c1c1")
-	)
-	(label "GND"
-		(at 91.44 76.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "04e9c671-36f3-51ba-a7ce-657b861eee07")
+		(uuid "f6805cf6-17fd-5660-869e-acd685378050")
 	)
 	(label "GND"
 		(at 76.2 142.24 270)
@@ -1703,6 +1693,16 @@
 		(uuid "05535f7c-2fbb-5605-8816-bc093657e6ff")
 	)
 	(label "GND"
+		(at 101.6 85.09 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0d22784b-526b-5f34-a690-9d9272889ecf")
+	)
+	(label "GND"
 		(at 91.44 127 180)
 		(effects
 			(font
@@ -1710,7 +1710,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "1aa9b229-b567-5fc2-b8d1-a9182ed3ee29")
+		(uuid "1b6a0e91-a5fe-535f-979a-6b87f89f47c3")
 	)
 	(label "OE1"
 		(at 101.6 59.69 270)
@@ -1720,19 +1720,9 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "29f54a8b-221b-52d5-ac2e-2fed57a1a3cd")
+		(uuid "4297a9c3-b146-5e70-a616-7b6e89c4d26e")
 	)
-	(label "Y1"
-		(at 111.76 50.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3393252a-164e-5169-948b-3ecce4f5ec11")
-	)
-	(label "5V"
+	(label "5V_REG"
 		(at 50.8 142.24 270)
 		(effects
 			(font
@@ -1741,6 +1731,26 @@
 			(justify right bottom)
 		)
 		(uuid "48d1bbed-b805-5626-9d52-3b7e954c2c11")
+	)
+	(label "GND"
+		(at 91.44 101.6 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4aa04baf-039b-513b-89c7-f842e7281eb8")
+	)
+	(label "GND"
+		(at 101.6 110.49 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4fbc7a59-7505-5ba5-a72f-7be07e82cf39")
 	)
 	(label "Y1"
 		(at 152.4 95.25 90)
@@ -1752,7 +1762,17 @@
 		)
 		(uuid "54117201-9d4a-54b9-ac51-7cc1ae6bcba8")
 	)
-	(label "5V"
+	(label "Y1"
+		(at 111.76 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5c6dfe38-a402-504f-b4f6-62ce179068c3")
+	)
+	(label "5V_REG"
 		(at 190.5 57.15 90)
 		(effects
 			(font
@@ -1772,27 +1792,7 @@
 		)
 		(uuid "6982dc82-46bc-55f1-a051-1b9ed4b0d426")
 	)
-	(label "GND"
-		(at 101.6 85.09 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "6fd42e90-fb0e-5a8a-bcc3-56b3b399ccfa")
-	)
-	(label "GND"
-		(at 152.4 78.74 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "799d1b7d-9daf-55d9-96ed-f458d6c7f8b4")
-	)
-	(label "5V"
+	(label "5V_REG"
 		(at 152.4 48.26 90)
 		(effects
 			(font
@@ -1800,7 +1800,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8271d9a2-7991-596e-b1c2-2003f9ace33b")
+		(uuid "7757fee6-d9a2-5b3e-a01d-58682812c5b5")
 	)
 	(label "GND"
 		(at 101.6 135.89 270)
@@ -1810,7 +1810,17 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "8a850500-f565-5e7a-aea6-8f7f2a9fd402")
+		(uuid "9ede28c6-95fb-522f-b9b8-cd390632a859")
+	)
+	(label "GND"
+		(at 91.44 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9ffe656b-6faf-5f75-85ba-b887a927cd92")
 	)
 	(label "OUT"
 		(at 190.5 104.14 270)
@@ -1833,16 +1843,6 @@
 		(uuid "a6bd0d1a-9d86-5317-927a-ed84dc25ef25")
 	)
 	(label "GND"
-		(at 91.44 101.6 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a837da54-002b-5ad5-8a98-51436f69a01f")
-	)
-	(label "GND"
 		(at 43.18 101.6 180)
 		(effects
 			(font
@@ -1851,16 +1851,6 @@
 			(justify right bottom)
 		)
 		(uuid "bbce147d-b9a2-53aa-b00e-87037c038041")
-	)
-	(label "IN"
-		(at 91.44 50.8 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "be71af1a-0cdc-5090-9ada-10505edd722f")
 	)
 	(label "OE1"
 		(at 50.8 107.95 270)
@@ -1882,6 +1872,26 @@
 		)
 		(uuid "c7aef66c-e98b-5110-9b17-719bfd3e72a9")
 	)
+	(label "IN"
+		(at 91.44 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c98346e3-b94d-5714-b122-75de6e3067c5")
+	)
+	(label "GND"
+		(at 152.4 78.74 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "cbb3ff9b-1363-5cb4-aec7-516285d205db")
+	)
 	(label "OUT"
 		(at 43.18 55.88 180)
 		(effects
@@ -1892,7 +1902,7 @@
 		)
 		(uuid "cecbc9ad-4e92-5eca-87d3-d566a423d76a")
 	)
-	(label "5V"
+	(label "5V_REG"
 		(at 58.42 101.6 0)
 		(effects
 			(font
@@ -1902,17 +1912,7 @@
 		)
 		(uuid "cf2eea1f-54d7-558a-a45c-7bc44371d4d5")
 	)
-	(label "GND"
-		(at 101.6 110.49 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "dc6fe390-4acd-5574-91b9-de450dfeb613")
-	)
-	(label "5V"
+	(label "5V_REG"
 		(at 43.18 48.26 180)
 		(effects
 			(font
@@ -1931,123 +1931,6 @@
 			(justify right bottom)
 		)
 		(uuid "f181fae5-7a56-5d66-98be-9ceebe8ec0c5")
-	)
-	(symbol
-		(lib_id "hex2_kicad:74AHCT125")
-		(at 101.6 127 0)
-		(unit 4)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "00af8c4d-9191-58c6-b820-858f45d01a71")
-		(property "Reference" "U1"
-			(at 104.14 124.46 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SN74AHCT125N"
-			(at 104.14 127 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "hex2:DIP-14_W7.62mm"
-			(at 101.6 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf"
-			(at 101.6 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Quadruple Bus Buffer Gates With 3-State Outputs"
-			(at 101.6 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "aa8ad9c6-933a-529a-8321-5f6a37232952")
-		)
-		(pin "2"
-			(uuid "328e6990-640c-5d42-a333-5c74486f813f")
-		)
-		(pin "3"
-			(uuid "3be63c92-4840-5f08-9434-6b9ae5fa03c4")
-		)
-		(pin "4"
-			(uuid "7ad008f6-7703-5a6f-ae11-29db12d0ba35")
-		)
-		(pin "5"
-			(uuid "301110f8-81ee-57f7-a308-14d03f8aee73")
-		)
-		(pin "6"
-			(uuid "efbd97af-f4c5-5358-b198-a137d1467eba")
-		)
-		(pin "7"
-			(uuid "8c223c53-f2a2-5488-80f4-2e0cbcae91cb")
-		)
-		(pin "8"
-			(uuid "08ca3b37-fee3-57a8-b570-b8b39e799b1d")
-		)
-		(pin "9"
-			(uuid "bf463cb9-0c5f-5cb5-bee7-1f0cfd60db3e")
-		)
-		(pin "10"
-			(uuid "65d1dbe3-0fb1-525a-85c7-98506552b2d7")
-		)
-		(pin "11"
-			(uuid "e7899496-3b92-53d8-85b6-c51153187d0f")
-		)
-		(pin "12"
-			(uuid "0ec7e399-e5df-5342-b74b-da0f73b918e6")
-		)
-		(pin "13"
-			(uuid "79223a50-fbe9-5835-955c-fa913ce376c7")
-		)
-		(pin "14"
-			(uuid "d3873b56-2495-5933-aa51-a3c1c6000c88")
-		)
-		(instances
-			(project ""
-				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
-					(reference "U1")
-					(unit 4)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "hex2_kicad:PWR_FLAG")
@@ -2119,127 +2002,10 @@
 			(uuid "f7790227-c857-54e4-8c68-1b8a3d5fd787")
 		)
 		(instances
-			(project ""
+			(project "prova"
 				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
 					(reference "#FLG02")
 					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "hex2_kicad:74AHCT125")
-		(at 101.6 101.6 0)
-		(unit 3)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "1d4e52c5-68ce-55b5-95e9-2a064ec09780")
-		(property "Reference" "U1"
-			(at 104.14 99.06 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SN74AHCT125N"
-			(at 104.14 101.6 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "hex2:DIP-14_W7.62mm"
-			(at 101.6 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf"
-			(at 101.6 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Quadruple Bus Buffer Gates With 3-State Outputs"
-			(at 101.6 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "8cea011a-1e96-546b-850c-eb61e8261933")
-		)
-		(pin "2"
-			(uuid "63447f30-c572-5ecb-aa97-412b6b17db74")
-		)
-		(pin "3"
-			(uuid "16955652-29bf-5ddd-809a-64dcef1bd47f")
-		)
-		(pin "4"
-			(uuid "f7040fe0-eacf-5376-85cc-101e70fcb062")
-		)
-		(pin "5"
-			(uuid "c04157a4-725f-56bc-8aee-a7ce8c6d37c4")
-		)
-		(pin "6"
-			(uuid "b37310cc-0fcf-59a9-981d-5d9361670763")
-		)
-		(pin "7"
-			(uuid "fedb3602-0681-5280-a64e-2754d615e670")
-		)
-		(pin "8"
-			(uuid "fd9aadb1-d635-55fa-b6ab-c978f1fd70e1")
-		)
-		(pin "9"
-			(uuid "6281688a-b6c1-5fb8-b273-370af8d761a5")
-		)
-		(pin "10"
-			(uuid "2ee7f265-6ec2-5640-bcf3-9d69fa300288")
-		)
-		(pin "11"
-			(uuid "886c3caa-a523-5dcb-82b3-f2c8a0fd5a7b")
-		)
-		(pin "12"
-			(uuid "d3bd04bc-8d86-5d4c-b107-872bc57d2a5b")
-		)
-		(pin "13"
-			(uuid "3425d296-1f05-5805-95c7-e4121a6e1b08")
-		)
-		(pin "14"
-			(uuid "801b3667-8d01-5a58-9cd8-91fc80fb52db")
-		)
-		(instances
-			(project ""
-				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
-					(reference "U1")
-					(unit 3)
 				)
 			)
 		)
@@ -2317,7 +2083,7 @@
 			(uuid "44dc2a23-9803-5a59-a4af-cdd135e8e56c")
 		)
 		(instances
-			(project ""
+			(project "prova"
 				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
 					(reference "C1")
 					(unit 1)
@@ -2395,7 +2161,7 @@
 			(uuid "a74ccf0f-7217-57c7-b4d3-31d9d3a77d7c")
 		)
 		(instances
-			(project ""
+			(project "prova"
 				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
 					(reference "#FLG01")
 					(unit 1)
@@ -2476,7 +2242,7 @@
 			(uuid "bca3cab3-74dd-5c66-b81b-36ce059ffb6b")
 		)
 		(instances
-			(project ""
+			(project "prova"
 				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
 					(reference "R1")
 					(unit 1)
@@ -2560,7 +2326,7 @@
 			(uuid "334db2d5-ddaa-53a0-b7f4-fa6f5b908cef")
 		)
 		(instances
-			(project ""
+			(project "prova"
 				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
 					(reference "JP1")
 					(unit 1)
@@ -2578,8 +2344,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "4ed207ff-9c68-5358-abbd-4608e1686774")
-		(property "Reference" "U1"
+		(uuid "68b458ce-9271-5cad-a130-d4b891471bfc")
+		(property "Reference" "U3"
 			(at 104.14 48.26 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2635,52 +2401,169 @@
 			)
 		)
 		(pin "1"
-			(uuid "4261c72a-8c3f-575c-9ad4-d0bff951f664")
+			(uuid "3cecc8f5-644c-5a02-b8f4-58ae5723edd0")
 		)
 		(pin "2"
-			(uuid "c1889d4b-761d-5905-a941-e9f26427b0d7")
+			(uuid "ffb056a0-6ae3-515c-bffd-af4114be68a9")
 		)
 		(pin "3"
-			(uuid "7e59d931-e655-5db3-9862-3d83523beeee")
+			(uuid "a87eb984-7769-52b5-b38f-a12ee0130a13")
 		)
 		(pin "4"
-			(uuid "a0a36b41-3f46-5851-89fb-951d04a46a61")
+			(uuid "d1867ffe-7157-564c-96ac-7c2a1ded5da6")
 		)
 		(pin "5"
-			(uuid "7ccfe9c5-ffa3-5f5a-8d04-9dd84460913e")
+			(uuid "78182547-3d20-5d1a-ab40-ad82c9a9df32")
 		)
 		(pin "6"
-			(uuid "d0ba03c6-9f92-5c6a-ac46-5eaeba2fb1fb")
+			(uuid "63c11908-02b9-5af3-a243-91ea47f7a4a5")
 		)
 		(pin "7"
-			(uuid "e0e10365-700e-5aaa-bfb0-869896b7226d")
+			(uuid "b1a26594-dacf-5857-952a-e2f6bf43d703")
 		)
 		(pin "8"
-			(uuid "8d38dbce-dd28-55f5-83be-63b5ce2bd9ba")
+			(uuid "643ef198-831e-5c31-959d-6faebf7a04f9")
 		)
 		(pin "9"
-			(uuid "c2ef3ccc-f2e0-51c7-97cd-e6c753463948")
+			(uuid "4915b7d4-c96b-5cdd-b4fc-eaaae5154e36")
 		)
 		(pin "10"
-			(uuid "8720aea9-4dcd-5fdb-9a53-1e1f07a22922")
+			(uuid "783dc193-7b6f-5030-9ad9-500b4de6a3d8")
 		)
 		(pin "11"
-			(uuid "1c6daafe-1e09-58f9-98ab-64a6dd3ce43f")
+			(uuid "e15b4904-c3f9-5535-b1db-a83aa3d667d1")
 		)
 		(pin "12"
-			(uuid "20c28728-4239-5fad-b07e-f2f3c8c1f940")
+			(uuid "62346417-1096-5b11-ab82-7161209c2e92")
 		)
 		(pin "13"
-			(uuid "26952159-f647-5e73-869b-6a55cafc2c4f")
+			(uuid "fcc3d9f8-35dd-50cf-8e85-b888c1bd907c")
 		)
 		(pin "14"
-			(uuid "2d8829c2-e2ef-52b0-a810-4cc64872a884")
+			(uuid "f2367768-2f23-5f28-bdea-943e360615d5")
 		)
 		(instances
-			(project ""
+			(project "prova"
 				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
-					(reference "U1")
+					(reference "U3")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "hex2_kicad:74AHCT125")
+		(at 101.6 76.2 0)
+		(unit 2)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6975e9c5-7d69-5fc2-93d6-8116c1630648")
+		(property "Reference" "U3"
+			(at 104.14 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SN74AHCT125N"
+			(at 104.14 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "hex2:DIP-14_W7.62mm"
+			(at 101.6 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf"
+			(at 101.6 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Quadruple Bus Buffer Gates With 3-State Outputs"
+			(at 101.6 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "cfbc4eba-fc89-5f2c-a996-e9c6b3c29a7b")
+		)
+		(pin "2"
+			(uuid "ffe2f851-f749-512d-8ed6-90acd43462e2")
+		)
+		(pin "3"
+			(uuid "d799ea9c-d562-5ab1-9aee-c3f732f77816")
+		)
+		(pin "4"
+			(uuid "36a6dd52-5390-5690-be4f-bf3cf7fee573")
+		)
+		(pin "5"
+			(uuid "e3552e29-c257-5536-95f8-9444f0245e7a")
+		)
+		(pin "6"
+			(uuid "a069b331-b044-581e-949c-8affaee610ba")
+		)
+		(pin "7"
+			(uuid "096be9f7-de33-5cdc-ad8b-8b7a8691862d")
+		)
+		(pin "8"
+			(uuid "35b31b68-453a-5469-878a-738276c1ac33")
+		)
+		(pin "9"
+			(uuid "ef25116f-34ba-50bd-ac88-d1c54d4f0a8a")
+		)
+		(pin "10"
+			(uuid "3728ddec-6cc6-5ce6-a929-f4519bbbcc24")
+		)
+		(pin "11"
+			(uuid "9036d00b-6822-5779-83dd-e1dda427c534")
+		)
+		(pin "12"
+			(uuid "95c9774f-bb59-503d-9887-032e874b63f1")
+		)
+		(pin "13"
+			(uuid "844681f0-b081-55fc-a293-b15ec0ade72a")
+		)
+		(pin "14"
+			(uuid "f6003b55-81b0-5b25-a4bd-09dfc91ca274")
+		)
+		(instances
+			(project "prova"
+				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
+					(reference "U3")
+					(unit 2)
 				)
 			)
 		)
@@ -2755,127 +2638,10 @@
 			(uuid "42314c6d-b73b-5de9-a94f-81886f23e593")
 		)
 		(instances
-			(project ""
+			(project "prova"
 				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
 					(reference "TP1")
 					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "hex2_kicad:74AHCT125")
-		(at 101.6 76.2 0)
-		(unit 2)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "76276393-6ad4-52ce-a4de-2d9a6e084467")
-		(property "Reference" "U1"
-			(at 104.14 73.66 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SN74AHCT125N"
-			(at 104.14 76.2 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "hex2:DIP-14_W7.62mm"
-			(at 101.6 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf"
-			(at 101.6 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Quadruple Bus Buffer Gates With 3-State Outputs"
-			(at 101.6 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7e744cae-6fc1-5e45-98af-70db06781d16")
-		)
-		(pin "2"
-			(uuid "ed953114-2944-59ae-8c1f-f64a74a0e385")
-		)
-		(pin "3"
-			(uuid "a5cca0cf-6517-52ea-9e64-ff5d8087f7e1")
-		)
-		(pin "4"
-			(uuid "46249f0d-efcf-5ee3-a475-2e3ee196aaba")
-		)
-		(pin "5"
-			(uuid "ae7caa6e-6dfd-5da0-a824-f591a81a5d47")
-		)
-		(pin "6"
-			(uuid "442f041b-8666-5c0e-af9d-98aec08f5a44")
-		)
-		(pin "7"
-			(uuid "e0b7902c-70c1-58a0-a22a-6712f012c362")
-		)
-		(pin "8"
-			(uuid "c89229de-2dc0-5042-9be9-860f309a6d2c")
-		)
-		(pin "9"
-			(uuid "97e6cbec-c987-5eca-aef4-8f7461c37158")
-		)
-		(pin "10"
-			(uuid "2f6f64a9-665b-594d-b2eb-5738d4527d09")
-		)
-		(pin "11"
-			(uuid "55b0fd31-7c37-5767-953e-595fd482a32c")
-		)
-		(pin "12"
-			(uuid "acbb0c1d-6fc0-5596-9c0e-bee463f1a230")
-		)
-		(pin "13"
-			(uuid "a7eca1d0-3d0e-573c-9a98-52d75dc9a4db")
-		)
-		(pin "14"
-			(uuid "70fdea87-6362-5364-843b-04735f43a2e5")
-		)
-		(instances
-			(project ""
-				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
-					(reference "U1")
-					(unit 2)
 				)
 			)
 		)
@@ -2890,8 +2656,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "b1983aeb-b7e5-594f-b2e0-a8d90ec6f333")
-		(property "Reference" "U1"
+		(uuid "bc6d0ad6-1c4e-5b70-aa57-40f336124ab3")
+		(property "Reference" "U3"
 			(at 154.94 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2947,51 +2713,51 @@
 			)
 		)
 		(pin "1"
-			(uuid "bab22868-d44c-564a-82d3-a784c592d88f")
+			(uuid "a69f5055-6ae5-511f-8abc-44043094cbf7")
 		)
 		(pin "2"
-			(uuid "7efa4337-34da-5d4b-9d65-c454449f3acb")
+			(uuid "6b030b33-e36d-57f4-a023-f7ba4d5612d4")
 		)
 		(pin "3"
-			(uuid "3b43074a-3f3c-521e-8683-9ec55cdb8714")
+			(uuid "b1514304-f86b-517b-a0e9-e6e61a9bd4b2")
 		)
 		(pin "4"
-			(uuid "ea8ce505-6f67-526f-92d3-8ada3dc45728")
+			(uuid "5d9155a9-af6e-5053-a039-9d86d39ff664")
 		)
 		(pin "5"
-			(uuid "91e82ff5-4b91-59c0-9edd-e86f535e7dd0")
+			(uuid "206c92dd-66af-5760-95e5-4235f612dece")
 		)
 		(pin "6"
-			(uuid "0353ea1e-1add-543f-a3ca-99b18145c441")
+			(uuid "3c60c26a-4b67-508b-905c-54a0172d2654")
 		)
 		(pin "7"
-			(uuid "bbc9bc4b-fcc3-5a7c-9714-10ed7100bf07")
+			(uuid "615e1592-4e8e-564e-83b2-5d4ff5b27d80")
 		)
 		(pin "8"
-			(uuid "90b5edd3-0359-5cf7-909f-698001dd126f")
+			(uuid "ccb69aeb-5ae1-529d-8f61-f07437dea221")
 		)
 		(pin "9"
-			(uuid "e5da978a-5450-5898-919c-0bf32c891775")
+			(uuid "0eb7a7c1-29db-5d44-8268-f0b53c95461f")
 		)
 		(pin "10"
-			(uuid "2ddf1691-4fd7-5875-9ff9-5d8c9cb27a07")
+			(uuid "49fe0431-fde9-5208-b704-fcf057d25bee")
 		)
 		(pin "11"
-			(uuid "a73c2353-72dd-5b4a-bfc0-8e146554c885")
+			(uuid "77fa1ba0-dd0d-5953-8c1a-cb94e2767f1c")
 		)
 		(pin "12"
-			(uuid "57c323ac-6cd3-532a-93a4-f91c2da248c9")
+			(uuid "b93b65a3-ea76-5c4a-85a4-70066fc76123")
 		)
 		(pin "13"
-			(uuid "37f30643-870b-5dda-a3c1-368fe673a161")
+			(uuid "b42b7464-0f45-5893-a444-a6b373132453")
 		)
 		(pin "14"
-			(uuid "ea3b9ff4-5e67-5a8a-be0d-4b1f6032e7fd")
+			(uuid "91e8abaf-ae05-586b-8a30-68572fc4a815")
 		)
 		(instances
-			(project ""
+			(project "prova"
 				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
-					(reference "U1")
+					(reference "U3")
 					(unit 5)
 				)
 			)
@@ -3076,10 +2842,244 @@
 			(uuid "b2eb0353-79c7-5e53-bdcc-2887db3a9b63")
 		)
 		(instances
-			(project ""
+			(project "prova"
 				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
 					(reference "J1")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "hex2_kicad:74AHCT125")
+		(at 101.6 101.6 0)
+		(unit 3)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ce1ec194-8bde-5ae7-bbcd-8dcefa124bb8")
+		(property "Reference" "U3"
+			(at 104.14 99.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SN74AHCT125N"
+			(at 104.14 101.6 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "hex2:DIP-14_W7.62mm"
+			(at 101.6 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf"
+			(at 101.6 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Quadruple Bus Buffer Gates With 3-State Outputs"
+			(at 101.6 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c60e45c7-d73b-5e12-84a8-40b5336fb45d")
+		)
+		(pin "2"
+			(uuid "594d66dd-9508-5166-8967-483e182a77e9")
+		)
+		(pin "3"
+			(uuid "04324f17-e3c8-5114-b7a3-57c4269e58ee")
+		)
+		(pin "4"
+			(uuid "61e238a6-2820-5f4d-bc68-2fe0ca2657ee")
+		)
+		(pin "5"
+			(uuid "32721232-e54b-52ba-9e63-50c5eda60308")
+		)
+		(pin "6"
+			(uuid "9b9305aa-1012-503b-baf5-c049021e56a0")
+		)
+		(pin "7"
+			(uuid "325a01d3-eb55-50ff-97e1-36d90408141e")
+		)
+		(pin "8"
+			(uuid "0034db55-fdb7-511b-abc5-9bad008c696b")
+		)
+		(pin "9"
+			(uuid "1c6eaa8d-18d3-50ce-b6ef-d1e36e5fa318")
+		)
+		(pin "10"
+			(uuid "1cd17933-4845-5cbc-bdc0-d1fea1e6bb35")
+		)
+		(pin "11"
+			(uuid "2dbefb28-a0aa-533f-abd8-4f609b9a817b")
+		)
+		(pin "12"
+			(uuid "fbb82146-c81c-5132-84a8-62befd838ee2")
+		)
+		(pin "13"
+			(uuid "6301d6e1-2e7d-501f-b93a-afe3ec5bd579")
+		)
+		(pin "14"
+			(uuid "72de3e0d-e17d-5f26-8651-e604a56bf306")
+		)
+		(instances
+			(project "prova"
+				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
+					(reference "U3")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "hex2_kicad:74AHCT125")
+		(at 101.6 127 0)
+		(unit 4)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "f57913f6-3220-5ea3-bfc6-2c3b2c1cc2c7")
+		(property "Reference" "U3"
+			(at 104.14 124.46 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SN74AHCT125N"
+			(at 104.14 127 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "hex2:DIP-14_W7.62mm"
+			(at 101.6 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf"
+			(at 101.6 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Quadruple Bus Buffer Gates With 3-State Outputs"
+			(at 101.6 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "86cc4271-69d3-5b82-a0c2-2881f10a5c6f")
+		)
+		(pin "2"
+			(uuid "5377e0b4-a4a4-57ee-907e-6787db36e984")
+		)
+		(pin "3"
+			(uuid "472dab37-368f-5160-90d1-ea01918c60fd")
+		)
+		(pin "4"
+			(uuid "e6e13559-5fb3-5260-99d0-bc2ba6c394d0")
+		)
+		(pin "5"
+			(uuid "6d8e8eef-be12-554c-b9b9-109306846f56")
+		)
+		(pin "6"
+			(uuid "e701c47e-f11e-53e0-a5d9-947e52d1fccf")
+		)
+		(pin "7"
+			(uuid "b012cbaf-d465-5e3d-8fc4-34903963ba04")
+		)
+		(pin "8"
+			(uuid "3f818168-fb1c-5dd6-bdf9-3ae5cca789ee")
+		)
+		(pin "9"
+			(uuid "b89ad241-8bbc-5e1e-bd6e-f8f3df4ecab0")
+		)
+		(pin "10"
+			(uuid "c3d38627-9ee3-5db2-8aaf-11a8f1ad4a2d")
+		)
+		(pin "11"
+			(uuid "86d5f6d1-3b7b-5072-ba3a-214e0ccac2e5")
+		)
+		(pin "12"
+			(uuid "c35437ab-76b7-54e8-bdca-b8e97615e3dd")
+		)
+		(pin "13"
+			(uuid "5ff8457a-cc80-50c4-bc45-76c1176dfaca")
+		)
+		(pin "14"
+			(uuid "e90f6cc9-d7e3-5006-a21b-df734df4a252")
+		)
+		(instances
+			(project "prova"
+				(path "/d0eb49be-cd0b-58c4-9a07-74ffb350fa97"
+					(reference "U3")
+					(unit 4)
 				)
 			)
 		)
