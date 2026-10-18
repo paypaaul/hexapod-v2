@@ -112,6 +112,7 @@ Numeri di oggi:
   - `Hexapod v2 - MG996R - ripristino tibia asimmetrica (v22)`, lineage `2kd8UmqPSSqdH-nUiwVWhw`;
   - `Hexapod v2 - MG996R` (versione 2.0.0, congelata, tag `v2.0.0`), lineage `AVxbp0QWS5m_QEugpeB99A`.
   - `Hexapod v2.1.0 - ripristino 2.1.6 (prima della 2.1.7)`, lineage `o79LLOHlSzmXdBn2HiYE1A`.
+  - `Hexapod v2.1.0 - ripristino 2.1.7 (prima della 2.1.8)`, lineage `lqTyF-0xTpm2y77ASTO6Tg`.
   - I lineage hanno tutti il prefisso `urn:adsk.wipprod:dm.lineage:`.
 - **Design di lavoro**: "Hexapod v2.1.0", lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Ha le versioni dalla 2.1.0 alla 2.1.7 (versione 16 del file).
   - Struttura (D-046): un solo file; la zampa è un componente istanziato sei volte; le parti comprate `Rif_*` stanno in libreria (y ≥ 250 mm).
