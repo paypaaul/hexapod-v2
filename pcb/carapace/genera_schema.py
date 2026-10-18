@@ -1,5 +1,8 @@
 """PCB-C, scheda del carapace: schema generato da script (piano-pcb.md 4.2; piedinatura di cablaggio.md 3.5).
 
+Il TCA9534 sulla scheda è stato tolto alla verifica R1: esiste solo in SOIC largo o TSSOP, che non stanno nei
+7,4 × 19 mm utili; l'espansore è il modulo X20. Pad n di J2 = polo n del cavo; poli dispari sulla fila lato chiave.
+
 Le reti si scrivono qui a mano e `verifica_reti.py` le confronta con scheda_def.py. Componenti sotto la scheda.
 """
 
@@ -24,7 +27,7 @@ PIAZZOLE = [
     ('P2', 'catena LED', ['5V', 'DATA', 'GND']),
     ('P3', 'microfoni', ['3V3', 'GND', 'BCLK', 'WS', 'MIC']),           # R8 da 100 kΩ resta al microfono
     ('P4', 'amplificatore', ['5V', 'GND', 'BCLK', 'WS', 'AMP']),
-    ('P5', 'ToF posteriore', ['3V3', 'GND', 'SDA', 'SCL', 'XSHUT_POST']),  # XSHUT dal TCA9534 (X20 o U6)
+    ('P5', 'ToF posteriore', ['3V3', 'GND', 'SDA', 'SCL']),  # l'XSHUT va diretto a X20 (schemi.md 2.4)
     ('P6', 'pulsante', ['BTN_A', 'BTN_B']),                             # piste isolate e lontane (S-10)
     ('P7', 'riserva polo 14', ['RISERVA14']),                           # XSHUT del ToF del mento (X25)
 ]
@@ -34,12 +37,10 @@ PROVE = [('TP1', '5V'), ('TP2', '3V3'), ('TP3', 'GND'), ('TP4', 'SDA'), ('TP5', 
 def schema():
     s = Schema('carapace', 'HEX2 CARAPACE r1', cartella_simboli=LIBRERIE)
     s.simbolo('hex2_kicad:Conn_02x08_Odd_Even', 'J2', 'Würth 61201621721',
-              'hex2:IDC-Header_2x08_P2.54mm_Horizontal', 76.2, 76.2)
+              'hex2:IDC-Header_2x08_P2.54mm_Horizontal_Foro1.1', 76.2, 76.2)
     s.simbolo('hex2_kicad:C_Polarized', 'CE1', '470µ 10V', 'hex2:CP_Radial_D6.3mm_P2.50mm_Sdraiato', 139.7, 63.5)
     s.simbolo('hex2_kicad:R', 'R1', 'R-MIC', 'hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal',
               165.1, 63.5, campi={'DNP': True})   # pull-down dei microfoni, valore al banco (S-21)
-    s.simbolo('hex2_kicad:TCA9534', 'U6', 'TCA9534 (0x20)', 'hex2:SOIC-16_3.9x9.9mm_P1.27mm',
-              215.9, 76.2, campi={'DNP': True})   # si monta solo se X20 non trova posto (S-17)
     for i, (rif, gruppo, reti) in enumerate(PIAZZOLE):
         n = len(reti)
         s.simbolo('hex2_kicad:Conn_01x%02d' % n, rif, gruppo, 'hex2:PinHeader_1x%02d_P2.54mm_Vertical' % n,
@@ -55,11 +56,6 @@ def schema():
     s.collega('CE1', 2, 'GND')
     s.collega('R1', 1, 'MIC')
     s.collega('R1', 2, 'GND')
-    for n, rete in {1: 'GND', 2: 'GND', 3: 'GND', 4: 'XSHUT_POST', 8: 'GND', 14: 'SCL', 15: 'SDA',
-                    16: '3V3'}.items():
-        s.collega('U6', n, rete)
-    for n in (5, 6, 7, 9, 10, 11, 12, 13):
-        s.libero('U6', n)
     for rif, _, reti in PIAZZOLE:
         for k, rete in enumerate(reti, 1):
             s.collega(rif, k, rete)

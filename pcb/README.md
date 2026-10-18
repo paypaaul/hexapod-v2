@@ -33,6 +33,10 @@ Terna: x = X del robot + 100, y = 100 − Y del robot (KiCad ha la Y verso il ba
 
 Numeri dei pin per `verifica_reti.py`: ESP32 (U1) da 1 a 20 la fila `ESP_L` dalla coda alla testa, da 21 a 40 la fila `ESP_R` nello stesso verso; D24V22F5 (U2) PG 1, EN 2, VIN 3, GND 4, VOUT 5; condensatori con il + sul pin 1; resistenze e diodi a due fori con il primo foro dei `*_def.py` sul pin 1 (per i diodi il catodo). Le impronte di U1 e U2 si fanno con questa numerazione.
 
+Testata J2 del carapace: pad n = polo n del cavo piatto; poli dispari sulla fila lato chiave, a 4,38 dalla scatola (S-26). Da provare sulla dima con la spina (F5).
+
+**Regole del DRC**: se una sola regola di `regole/hex2.kicad_dru` è scritta male, KiCad ignora tutto il file senza avvisi e il DRC esce a zero. Ogni modifica alle regole passa da `tests/test_pcb.py` (il caso della pista stretta usa la copia vera delle regole) e una regola nuova ha il suo caso di controllo.
+
 Librerie: `librerie/hex2_kicad.kicad_sym` (simboli copiati da KiCad 10, appiattiti) e `librerie/hex2.pretty` (impronte copiate e, più avanti, quelle disegnate per il robot). Le tabelle `sym-lib-table` e `fp-lib-table` di ogni progetto puntano solo lì.
 
 ## Schede
@@ -40,8 +44,8 @@ Librerie: `librerie/hex2_kicad.kicad_sym` (simboli copiati da KiCad 10, appiatti
 | Cartella | Scheda | Stato |
 |---|---|---|
 | `prova/` | scheda di prova del metodo, caso di riferimento della CI | schema e PCB |
-| `basetta/` | PCB-B, basetta dell'ESP32 (piano 4.1) | schema (F3), ERC a zero, reti come la guida |
-| `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema (F3), ERC a zero, reti come la guida |
+| `basetta/` | PCB-B, basetta dell'ESP32 (piano 4.1) | schema approvato all'arresto R1 (D-079) |
+| `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema approvato all'arresto R1 (D-079) |
 | `partitori/` | PCB-P | dopo DU-5 (F2) |
 
 ## Prova del metodo (F1, 18 ottobre 2026)

@@ -28,7 +28,7 @@ Le chiedo in F0, prima di F1. Le sigle sono DU-n, per non confonderle con i comp
 | DU-5 | **Posto della PCB-P**: tasca accanto all'IMU (P1) o sotto le prese dei piedi (P2)? Si decide in F2, dopo le prove nel CAD | **da vedere sulle prove** | 4.3: P2 chiuderebbe insieme S-28, S-29 e P-012, come chiede D-076, ma costa la strada B dei partitori e chiede la misura della spina JR |
 
 Scelte che faccio io e annoto nel disegno (le cambio se l'utente vuole):
-- **PTC1**: impronta per MF-R075 e MF-R090 (passo 5,1 ± 0,7, V Bourns). Si monta l'**MF-R090** (F0: a 40 °C tiene 0,73 A, l'MF-R075 0,61; scatta a 1,8 A a 23 °C, sotto i 2,5 A del regolatore). La misura di P4 conferma (S-06). Fino ad allora il firmware limita i LED sotto i 600 mA (R-10, alternativa): va scritto nel piano di S1.
+- **PTC1**: impronta per MF-R075 e MF-R090 (passo 5,1 ± 0,7, V Bourns). Si monta l'**MF-R090** (F0: a 40 °C tiene 0,73 A, l'MF-R075 0,61; scatta a 1,8 A a 23 °C, sotto i 2,5 A del regolatore). La misura di P4 conferma (S-06). Fino ad allora il firmware tiene il ramo dopo PTC1 sotto circa 0,6 A, cioè **LED sotto 450 mA quando l'audio è acceso** (S-06: sullo stesso ramo ci sono l'amplificatore, fino a circa 200 mA, e i pixel spenti, 38–94 mA; verifica R1). Va scritto nel piano di S1.
 - **Pull-up del bus**: R4 e R5 da 4,7 kΩ, impronte che si possono lasciare vuote. Il set B10 non ha il 4,7 kΩ (F0): si usa il 5,1 kΩ del kit Elegoo dell'utente se c'è (bus a circa 1,25 kΩ), altrimenti il 10 kΩ del set (circa 1,4 kΩ, al limite alto della finestra). Con tutti i moduli della r1 il conto dà circa 0,97 kΩ, sul minimo di 0,97, perché il modulo SparkFun X20 ha 4,7 kΩ inseriti di fabbrica (V, guida SparkFun). **Si taglia il ponticello I2C di X20**: si torna a circa 1,2 kΩ. Valore atteso al passo 8.28: 1,2–1,6 kΩ, mai sotto 0,97 (S-13; stato S finché non sono letti i pull-up di GY-6500 e dei ToF Pololu).
 - **TCA9534**: il modulo X20 esce a **0x27** (V, guida SparkFun), il progetto dice 0x20. Propongo 0x27 nel firmware, così non si tocca il modulo, e l'aggiornamento di `piano-elettronica-software.md` 2.4. L'impronta SOIC-16 vuota sulla PCB-C, se ci sta, va su un indirizzo diverso (0x20).
 - **Resistenze in serie sulle uscite di U3**: 330 Ω su 3Y (TX5) e **R9 da 330 Ω sulla scheda**, accanto a 2Y (DATA2). R9 stava nella guaina solo perché sulla millefori non c'era posto (`schemi.md:232`). Senza le 4,7 kΩ del KAmod, un Dupont sul pin sbagliato o una SSC-32 spenta caricherebbero direttamente il buffer, che porta anche le due catene LED. A 115200 baud la resistenza non cambia niente (S).
@@ -72,7 +72,7 @@ Con DU-1 = sì si aggiungono:
 
 Con DU-1 = no resta U4 KAmod. R9 da 330 Ω entra sulla scheda in tutti e due i casi.
 
-**Ripiego della RX**: R11 da 1 kΩ al posto della 10 kΩ e R12 non montata, **solo dopo una misura scritta della TX della SSC-32 a non più di 3,6 V**. Con 1 kΩ, se la TX fosse comunque a 5 V, la corrente nel diodo di protezione resta sotto circa 1,5 mA (S). Serigrafia accanto a R11 e R12: "partitore di serie; ripiego solo con TX ≤ 3,6 V misurata". A SSC-32 staccata il partitore tiene GPIO14 bassa: il firmware vede un break, ed è atteso (nota per S1).
+**Ripiego della RX**: R11 da 1 kΩ al posto della 20 kΩ e R12 non montata, **solo dopo una misura scritta della TX della SSC-32 a non più di 3,6 V**. Con 1 kΩ, se la TX fosse comunque a 5 V, la corrente nel diodo di protezione resta sotto circa 1,5 mA (S). Serigrafia accanto a R11 e R12: "partitore di serie; ripiego solo con TX ≤ 3,6 V misurata". A SSC-32 staccata il partitore tiene GPIO14 bassa: il firmware vede un break, ed è atteso (nota per S1).
 
 **Ponticelli a saldare**:
 - **JP-3V3 a tre piazzole**: al centro il 3V3S, da un lato il 3V3 dell'ESP32 (chiuso), dall'altro l'uscita di X3 (aperto). Serigrafia "un lato solo" e prova al multimetro fra le piazzole esterne (D-076: mai J1 e X3 insieme).
@@ -100,7 +100,7 @@ Con DU-1 = no resta U4 KAmod. R9 da 330 Ω entra sulla scheda in tutti e due i c
 
 **Il posto è stretto.** Le file dei pin di J2 arrivano a x 42,7, e le teste delle viti prendono gli angoli. Per CE1, la presa, le piazzole e i punti di prova restano circa **7,4 × 19 mm** al centro (x 43,6…51) (S, conto della verifica). Sopra la scheda ci sono 2,9 mm d'aria fino al dorso, quindi le code dei pin a reoforo si tagliano a meno di 2 mm.
 
-**Componenti**: J2; CE1 470 µF 10 V sdraiato; 4 piazzole per il cavo Qwiic tagliato verso l'espansore (DU-2 = no); l'impronta SOIC-16 vuota del TCA9534, che è la prima a uscire se manca posto; R-MIC a reoforo, vuota (S-21); punti di prova (5V, 3V3, GND, SDA, SCL, DATA).
+**Componenti**: J2; CE1 470 µF 10 V sdraiato; 4 piazzole per il cavo Qwiic tagliato verso l'espansore (DU-2 = no); niente TCA9534 sulla scheda (tolto alla verifica R1: esiste solo in SOIC largo o TSSOP, che non stanno nei 7,4 × 19 mm; l'espansore è il modulo X20); R-MIC a reoforo, vuota (S-21); punti di prova (5V, 3V3, GND, SDA, SCL, DATA).
 
 **Piazzole**: una per filo, raggruppate per modulo: catena LED (3), microfoni (5), amplificatore (5), ToF posteriore (5), pulsante (2), riserva del polo 14. Il pulsante va su piste isolate e lontane dalle altre (S-10). Il gruppo I2S è separato dal bus con una pista di massa.
 
@@ -287,10 +287,10 @@ Proposta: la 2.1.8 contiene P-140, P-141 e la PCB-P. P-139 entra solo se Q-23 ar
 | 5 V su un GPIO | varchi nelle file, VBAT lontano dal bus, punti di prova a gruppi; ripiego della RX solo dopo la misura; prima accensione senza ESP32 |
 | Bus con pull-up troppo forti | ponticello di X20 tagliato; R4 e R5 sostituibili; misura al passo 8.28 |
 | PCB-P senza posto | due varianti provate in F2 prima dello schema della PCB-P |
-| PCB-C troppo piena (7,4 × 19 mm utili) | piazzata per prima; l'impronta del TCA9534 esce per prima |
+| PCB-C troppo piena (7,4 × 19 mm utili) | piazzata per prima; TCA9534 già tolto (R1) |
 | Specchiature | serigrafia, 3D di KiCad, STEP con l'asse Y controllato |
 | Antenna sopra il rame | niente rame da x 74; prova di portata del Wi-Fi in F8 |
-| Calore di U2 e del PTC sotto l'ESP32 | piano di massa; PTC lontano, senza rame sotto; misura in P4; tetto del firmware sotto 600 mA fino ad allora |
+| Calore di U2 e del PTC sotto l'ESP32 | piano di massa; PTC lontano, senza rame sotto; misura in P4; tetto del firmware fino ad allora: LED sotto 450 mA con l'audio acceso (S-06) |
 | Moduli non arrivati in tempo per la dima | acquisti in F0; se tardano, la dima si fa con le misure dei disegni e il rischio si dichiara in R2 |
 | La 2.1.8 aspetta Q-23 | P-139 passa alla 2.1.9 (5.3) |
 | Dogana e prezzi | un solo ordine, sotto i 170 $; Aisler se le regole cambiano |
@@ -317,15 +317,14 @@ Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, co
   - **prova del metodo riuscita**: schema da script con ERC a zero, PCB da `pcbnew` con le reti, piste e riempimento da script, DRC con la parità a zero; ogni controllo ha un caso che fallisce. Schema, piazzamento e sbroglio li fa l'agente da script; l'utente rivede nell'editor e nei render;
   - librerie del progetto (`pcb/librerie`), regole del DRC in una fonte unica (`pcb/regole/hex2.kicad_dru`), `genera_contorni.py` (sagome, fori e zone senza rame dal CAD), `verifica_reti.py` con la bozza di `pcb/aggiunte.yaml`, procedura STEP (`cad/CLAUDE.md`), job `pcb` nella CI, `tests/test_pcb.py`;
   - scheda di prova in `pcb/prova`: resta come caso di riferimento della CI.
-- **F3 per PCB-B e PCB-C fatta, ferma all'arresto R1** (commit 679ae9a): schemi in `pcb/basetta` e `pcb/carapace`, generati da script, ERC a zero, reti uguali ai `*_def.py` della guida salvo le differenze scritte in `pcb/aggiunte.yaml`. Simboli e impronte proprie in `pcb/script/propri.py`. Nessuna voce nuova nel BOM.
-- **Piano della 2.1.8 (F2)** scritto in `piano-v2.1.0.md`, in fondo: da approvare.
+- **F3 per PCB-B e PCB-C fatta; R1 approvato dall'utente** dopo la verifica con due agenti (D-079): schemi in `pcb/basetta` e `pcb/carapace`, generati da script, ERC a zero, reti uguali ai `*_def.py` della guida salvo `pcb/aggiunte.yaml`. Correzioni della verifica: TCA9534 tolto, R16 in serie su OFF, regole del DRC per le reti che mancavano, testata con fori da 1,1, CS1 e CS2 su due passi, tetto dei LED a 450 mA con l'audio.
+- **Piano della 2.1.8 (F2)** scritto in `piano-v2.1.0.md`, in fondo: **da approvare**.
+- **Prossimo dell'agente: F4 della PCB-C** (piazzamento, poi le scatole provvisorie nel CAD). La PCB-B aspetta P-140 e le misure della RE1.3 (blocchi A e D della 2.1.8).
 - **Aspetta l'utente**:
-  - revisione R1 (schemi in `pcb/*/` e PDF da `kicad-cli sch export pdf`) e via al piano della 2.1.8;
-  - se vuole, la verifica R1 con agenti (sezione 7): va chiesta prima;
-  - misure della RE1.3 col calibro e prova a secco delle strip (blocco D della 2.1.8, prima del piazzamento della PCB-B);
-  - spina JR di un servo (blocco B della 2.1.8, DU-5);
+  - via al piano della 2.1.8;
+  - misure della RE1.3 col calibro e prova a secco delle strip;
+  - spina JR di un servo (DU-5);
   - taglia del kit B8, 5,1 kΩ nel kit Elegoo, portafusibile Neuftech (Q-23), tensione della TX della SSC-32.
-- **Dopo R1**: F4 per la PCB-C (piazzamento, con le scatole provvisorie nel CAD); blocco A della 2.1.8.
 
 **Acquisti (DU-4)**: approvati il 18 ottobre 10 kΩ 0805 (PCB1), X1 e X6; PTC di X9 passato a MF-R090; ordine DigiKey **in sospeso**, da unire ad altre voci per superare i 75 €. Non si comprano, perché l'utente li ha: i 100 nF a reoforo (kit dell'utente) e i pull-up da 4,7 kΩ (kit Elegoo: 5,1 kΩ se c'è, altrimenti 10 kΩ dal set B10). Il 330 Ω e l'1 kΩ sono nel set B10, il 15 kΩ non serve. La presa JST SH è stata tolta (DU-2 = no). C1 e i partitori a reoforo di X5 e X14 sono usciti dal BOM (2.4).
 
@@ -341,7 +340,7 @@ Dati letti su fonte primaria da un agente (circa 0,16 milioni di token) e ricont
 | ESP32-S3 (Series Datasheet v2.2) | GPIO21 senza pull né IE, al reset e dopo: R10 serve. GPIO14 solo IE dopo il reset. VIH da 0,75 × VDD a VDD + 0,3 | V, tabelle 2-1 e 5-4 |
 | Bourns MF-R | MF-R075: 0,75 / 1,50 A a 23 °C, **0,61 A a 40 °C**, 0,54 a 50 °C. MF-R090: 0,90 / 1,80 A, **0,73 A a 40 °C**, 0,65 a 50 °C. Passo dei reofori 5,1 ± 0,7, reofori Ø0,51; disco al più 10,4 × 16,0 × 3,1 (R075) e 11,7 × 16,7 × 3,1 (R090) | V, scheda Bourns (revisione non indicata) |
 | Pololu D24V22F5 (disegno del 12 novembre 2015) | vista dall'alto con la fila in basso, da sinistra: **PG, EN, VIN, GND, VOUT**, passo 2,54, primo pin a 1,27 dal bordo, fila a 1,27 dal bordo; secondo GND fuori fila sul lato di PG; fori di fissaggio Ø2,18 a 13,2 di interasse; alto 8 mm | V quote; S+ l'ordine (letto sulla serigrafia del disegno isometrico): si conferma sul pezzo |
-| Würth 61201621721 | foro consigliato Ø1,10; scatola 27,98, pin da un capo all'altro 17,78; chiave larga 4,5 al centro; pin 1 sulla fila vicina alla scheda (S, dal disegno) | catalogo WR-BHD 09/08 su DigiKey: il sito Würth non si lascia leggere. **C** il pin 1: si controlla sul modello 3D di DigiKey o sul pezzo |
+| Würth 61201621721 | foro consigliato Ø1,10; scatola 27,98, pin da un capo all'altro 17,78; chiave larga 4,5 al centro; pin 1 sulla fila vicina alla scheda (S, dal disegno; **contraddice S-26**, che mette polo 1 e chiave sulla stessa fila, lontana dalla scheda: l'impronta segue S-26 e si prova sulla dima con la spina, F5) | catalogo WR-BHD 09/08 su DigiKey: il sito Würth non si lascia leggere. **C** il pin 1: si controlla sul modello 3D di DigiKey o sul pezzo |
 | Prezzi DigiKey (senza IVA) | 10 kΩ 0805 Yageo RC0805FR-0710KL 0,03 €; 100 nF a reoforo Vishay K104K15X7RF5TL2 (passo 2,5) 0,27 €; MF-R090 0,41 €; Yageo MFR-25FRF52 15 kΩ / 330 Ω / 1 kΩ circa 0,09–0,10 € | V listino del 18 ottobre |
 
 **Le schede ESP32 dell'utente** (18 ottobre; immagini in `docs/immagini/scheda1/` e `scheda2/`). L'utente ne ha due tipi, 2 + 2:

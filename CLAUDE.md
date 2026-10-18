@@ -172,7 +172,7 @@ Numeri di oggi:
    - piedino con le tre strette (0 / 0,2 / 0,4): il valore scelto va in `pied_stretta`.
    - Dopo i provini: nervature di schiacciamento delle culle.
 5. **Guida di montaggio** (D-075): bozza avanzata allineata alla 2.1.7, aggiornata a ogni versione; la passata finale (immagini, verifica avversaria, release) a progetto stabile. Prossimi passi e decisione del 17 ottobre in `docs/piano-guida.md` (in fondo).
-6. **PCB** (D-078): piano `docs/piano-pcb.md` approvato il 18 ottobre; F1 fatta (metodo da script, strumenti e CI in `pcb/`); F3 di basetta e carapace fatta, **ferma all'arresto R1**; piano della 2.1.8 (F2) in fondo a `piano-v2.1.0.md`, da approvare. Stato in fondo al piano.
+6. **PCB** (D-078): piano `docs/piano-pcb.md` approvato il 18 ottobre; F1 fatta (metodo da script, strumenti e CI in `pcb/`); schemi di basetta e carapace approvati all'arresto R1 (D-079); prossimo F4 della PCB-C; piano della 2.1.8 (F2) in fondo a `piano-v2.1.0.md`, da approvare. Stato in fondo al piano.
 7. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
 8. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 

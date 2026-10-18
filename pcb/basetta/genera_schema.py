@@ -20,7 +20,7 @@ TP = 'hex2:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm'
 # piazzole dei fili: (riferimento, gruppo, reti dal pin 1); una rete None è un pin senza filo
 PIAZZOLE = [
     ('P1', 'batteria (2813)', ['VBAT', 'GND']),
-    ('P2', '2813', ['SENSE', 'OFF']),
+    ('P2', '2813', ['SENSE', 'OFF_2813']),
     ('P3', 'abilitazione (D2 in linea)', ['GPIO42']),
     ('P4', 'seriale SSC-32', ['TX5', 'RX5', 'GND']),  # massa vuota finché S-22 non è misurato
     ('P5', 'bus GND', ['GND'] * 5),                   # quattro rami più uno di riserva, come la guida
@@ -55,6 +55,7 @@ RESISTENZE = [
     ('R13', '330', 'TX5_3Y', 'TX5'),       # R-TX
     ('R14', '20k', 'RMT_IN', 'RMT'),       # partitore di JP-RMT, come la RX
     ('R15', '33k', 'RMT', 'GND'),
+    ('R16', '10k', 'OFF', 'OFF_2813'),     # in serie verso la 2813: un corto a 8,4 V sul filo non arriva al GPIO41
 ]
 
 
@@ -66,14 +67,14 @@ def schema():
         s.simbolo('hex2_kicad:74AHCT125', 'U3', 'SN74AHCT125N', 'hex2:DIP-14_W7.62mm', x, y, unita=u)
     s.simbolo('hex2_kicad:D_Schottky', 'D1', '1N5819', 'hex2:D_DO-41_SOD81_P10.16mm_Horizontal', 241.3, 50.8)
     s.simbolo('hex2_kicad:Polyfuse', 'PTC1', 'MF-R090', 'hex2:Fuse_Bourns_MF-R090_Sdraiato', 279.4, 50.8)
-    s.simbolo('hex2_kicad:C', 'CS1', '100n', 'hex2:C_Disc_D3.8mm_W2.6mm_P2.50mm', 279.4, 88.9)
-    s.simbolo('hex2_kicad:C', 'CS2', '100n', 'hex2:C_Disc_D3.8mm_W2.6mm_P2.50mm', 304.8, 88.9)
+    s.simbolo('hex2_kicad:C', 'CS1', '100n', 'hex2:C_Rect_L7.0mm_W3.5mm_P2.50mm_P5.00mm', 279.4, 88.9)
+    s.simbolo('hex2_kicad:C', 'CS2', '100n', 'hex2:C_Rect_L7.0mm_W3.5mm_P2.50mm_P5.00mm', 304.8, 88.9)
     s.simbolo('hex2_kicad:SolderJumper_3_Bridged12', 'JP1', 'JP-3V3',
               'hex2:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm', 304.8, 50.8)
     s.simbolo('hex2_kicad:SolderJumper_2_Open', 'JP2', 'JP-RMT',
               'hex2:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm', 340.36, 50.8)
     for i, (rif, val, _, _) in enumerate(RESISTENZE):
-        s.simbolo('hex2_kicad:R', rif, val, R_AX, 279.4 + 20.32 * (i % 6), 111.76 + 30.48 * (i // 6))
+        s.simbolo('hex2_kicad:R', rif, val, R_AX, 279.4 + 20.32 * (i % 7), 111.76 + 30.48 * (i // 7))
     posti = {'P1': (279.4, 167.64), 'P2': (312.42, 167.64), 'P3': (345.44, 167.64), 'P4': (378.46, 167.64),
              'P5': (279.4, 195.58), 'P6': (312.42, 195.58), 'P7': (345.44, 195.58), 'P8': (378.46, 195.58),
              'P9': (279.4, 228.6), 'P11': (312.42, 228.6), 'P12': (345.44, 228.6), 'P10': (241.3, 210.82)}

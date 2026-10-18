@@ -38,7 +38,6 @@ SIMBOLI = [
     'Jumper:SolderJumper_3_Bridged12',
     'power:PWR_FLAG',
     'power:GND',
-    'Interface_Expansion:TCA9534',
 ]
 
 IMPRONTE = [
@@ -56,8 +55,7 @@ IMPRONTE = [
     'Connector_PinHeader_2.54mm:PinHeader_1x14_P2.54mm_Vertical',
     'Connector_IDC:IDC-Header_2x08_P2.54mm_Horizontal',
     'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal',
-    'Capacitor_THT:C_Disc_D3.8mm_W2.6mm_P2.50mm',
-    'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm',
+    'Capacitor_THT:C_Rect_L7.0mm_W3.5mm_P2.50mm_P5.00mm',
     'TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm',
     'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm',
     'Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm',

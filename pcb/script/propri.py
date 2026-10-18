@@ -178,8 +178,19 @@ def impronta_ce():
                     'Elettrolitico Ø6,3 x 11 sdraiato, passo 2,5; + sul pin 1', el, rif_y=2.2, val_y=-7)
 
 
+def impronta_testata():
+    """Copia dell'impronta standard della testata 2x8 a 90° con fori da 1,1 e piazzole da 1,8 (Würth 61201621721)."""
+    with open(os.path.join(LIB, 'hex2.pretty', 'IDC-Header_2x08_P2.54mm_Horizontal.kicad_mod'), encoding='utf-8') as f:
+        testo = f.read()
+    nome = 'IDC-Header_2x08_P2.54mm_Horizontal_Foro1.1'
+    testo = testo.replace('(footprint "IDC-Header_2x08_P2.54mm_Horizontal"', '(footprint "%s"' % nome, 1)
+    testo = testo.replace('(drill 1)', '(drill 1.1)').replace('(size 1.7 1.7)', '(size 1.8 1.8)')
+    testo = testo.replace('(descr "', '(descr "Wurth 61201621721: fori 1,1 come il disegno Wurth, piazzole 1,8; ', 1)
+    return nome + '.kicad_mod', testo
+
+
 def impronte():
-    out = {}
+    out = dict([impronta_testata()])
     for f in (impronta_esp, impronta_d24, impronta_ptc, impronta_ce):
         fp = f()
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'

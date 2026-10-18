@@ -4042,7 +4042,7 @@
 	)
 	(wire
 		(pts
-			(xy 381 138.43) (xy 381 135.89)
+			(xy 360.68 138.43) (xy 360.68 135.89)
 		)
 		(stroke
 			(width 0)
@@ -4072,7 +4072,7 @@
 	)
 	(wire
 		(pts
-			(xy 340.36 138.43) (xy 340.36 135.89)
+			(xy 320.04 138.43) (xy 320.04 135.89)
 		)
 		(stroke
 			(width 0)
@@ -4119,6 +4119,16 @@
 			(type solid)
 		)
 		(uuid "09bcfb8f-d29f-57a1-908a-9a82605b7ecd")
+	)
+	(wire
+		(pts
+			(xy 381 146.05) (xy 381 148.59)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "0bcb29be-1870-56c8-8197-102e91caaafd")
 	)
 	(wire
 		(pts
@@ -4172,7 +4182,7 @@
 	)
 	(wire
 		(pts
-			(xy 279.4 138.43) (xy 279.4 135.89)
+			(xy 401.32 107.95) (xy 401.32 105.41)
 		)
 		(stroke
 			(width 0)
@@ -4232,7 +4242,7 @@
 	)
 	(wire
 		(pts
-			(xy 320.04 138.43) (xy 320.04 135.89)
+			(xy 299.72 138.43) (xy 299.72 135.89)
 		)
 		(stroke
 			(width 0)
@@ -4262,7 +4272,7 @@
 	)
 	(wire
 		(pts
-			(xy 360.68 146.05) (xy 360.68 148.59)
+			(xy 340.36 146.05) (xy 340.36 148.59)
 		)
 		(stroke
 			(width 0)
@@ -4602,7 +4612,7 @@
 	)
 	(wire
 		(pts
-			(xy 360.68 138.43) (xy 360.68 135.89)
+			(xy 340.36 138.43) (xy 340.36 135.89)
 		)
 		(stroke
 			(width 0)
@@ -4642,7 +4652,7 @@
 	)
 	(wire
 		(pts
-			(xy 279.4 146.05) (xy 279.4 148.59)
+			(xy 401.32 115.57) (xy 401.32 118.11)
 		)
 		(stroke
 			(width 0)
@@ -4659,6 +4669,16 @@
 			(type solid)
 		)
 		(uuid "77dddf67-88b9-5877-bebc-f2461c8c74c0")
+	)
+	(wire
+		(pts
+			(xy 381 138.43) (xy 381 135.89)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "78bea99b-8afb-5ab5-a6ab-067e2cedd8f0")
 	)
 	(wire
 		(pts
@@ -4982,7 +5002,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 146.05) (xy 299.72 148.59)
+			(xy 279.4 146.05) (xy 279.4 148.59)
 		)
 		(stroke
 			(width 0)
@@ -5042,7 +5062,7 @@
 	)
 	(wire
 		(pts
-			(xy 340.36 146.05) (xy 340.36 148.59)
+			(xy 320.04 146.05) (xy 320.04 148.59)
 		)
 		(stroke
 			(width 0)
@@ -5162,7 +5182,7 @@
 	)
 	(wire
 		(pts
-			(xy 320.04 146.05) (xy 320.04 148.59)
+			(xy 299.72 146.05) (xy 299.72 148.59)
 		)
 		(stroke
 			(width 0)
@@ -5212,7 +5232,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 138.43) (xy 299.72 135.89)
+			(xy 279.4 138.43) (xy 279.4 135.89)
 		)
 		(stroke
 			(width 0)
@@ -5402,7 +5422,7 @@
 	)
 	(wire
 		(pts
-			(xy 381 146.05) (xy 381 148.59)
+			(xy 360.68 146.05) (xy 360.68 148.59)
 		)
 		(stroke
 			(width 0)
@@ -5691,7 +5711,7 @@
 		(uuid "2b235a99-d8dd-5bd5-8d67-1bf2e0c53aba")
 	)
 	(label "GND"
-		(at 381 148.59 270)
+		(at 360.68 148.59 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5761,7 +5781,7 @@
 		(uuid "33970d4c-fe6c-5afc-ba10-4fc46b91dd6d")
 	)
 	(label "RX3"
-		(at 320.04 135.89 90)
+		(at 299.72 135.89 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5779,6 +5799,16 @@
 			(justify right bottom)
 		)
 		(uuid "396fd32e-e07a-56ca-bdd1-28a2ee1d4f10")
+	)
+	(label "OFF_2813"
+		(at 381 148.59 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3dfbfd62-6f46-512f-8de1-dd3b11fcf27c")
 	)
 	(label "SCL"
 		(at 370.84 200.66 180)
@@ -5921,7 +5951,7 @@
 		(uuid "50ea1040-fadd-533e-b2af-a5f08072e168")
 	)
 	(label "TX5"
-		(at 340.36 148.59 270)
+		(at 320.04 148.59 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5941,7 +5971,7 @@
 		(uuid "55055316-c597-5773-8b1a-a3febd8e63d3")
 	)
 	(label "RMT"
-		(at 360.68 148.59 270)
+		(at 340.36 148.59 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6001,7 +6031,7 @@
 		(uuid "61a0e338-81ac-5cfd-8c4d-1f9d3d19cefd")
 	)
 	(label "3V3_ESP"
-		(at 279.4 148.59 270)
+		(at 401.32 118.11 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6060,6 +6090,16 @@
 		)
 		(uuid "74e1ada2-b0ca-52ba-8c79-8ec3d629269b")
 	)
+	(label "OFF"
+		(at 381 135.89 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "76618207-8aa9-5f1e-ad4d-928d8c71165e")
+	)
 	(label "5V_ESP"
 		(at 86.36 77.47 180)
 		(effects
@@ -6101,7 +6141,7 @@
 		(uuid "7c97cdeb-1b79-5c86-8e55-ec2c83c95966")
 	)
 	(label "GND"
-		(at 320.04 148.59 270)
+		(at 299.72 148.59 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6131,7 +6171,7 @@
 		(uuid "7e7b908a-a2a2-566f-a81e-bbd2a1c3b196")
 	)
 	(label "RX3"
-		(at 299.72 148.59 270)
+		(at 279.4 148.59 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6181,7 +6221,7 @@
 		(uuid "875206ff-3f9c-548a-84ef-c850cdcc0620")
 	)
 	(label "RMT"
-		(at 381 135.89 90)
+		(at 360.68 135.89 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6191,7 +6231,7 @@
 		(uuid "87c9d991-78e8-5b7c-96aa-c871597e24b1")
 	)
 	(label "TX5_3Y"
-		(at 340.36 135.89 90)
+		(at 320.04 135.89 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6331,7 +6371,7 @@
 		(uuid "a892f089-4c7e-5497-810c-ee3e317797e6")
 	)
 	(label "TX3"
-		(at 279.4 135.89 90)
+		(at 401.32 105.41 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6341,7 +6381,7 @@
 		(uuid "aa6e951a-3906-545b-a7d6-e5b8c7c536d7")
 	)
 	(label "RMT_IN"
-		(at 360.68 135.89 90)
+		(at 340.36 135.89 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6631,7 +6671,7 @@
 		(uuid "db821a0e-a72d-5f45-873c-2987d7648fc9")
 	)
 	(label "RX5"
-		(at 299.72 135.89 90)
+		(at 279.4 135.89 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6760,7 +6800,7 @@
 		)
 		(uuid "fc4fe0c3-478f-5c46-b06e-a78cc732b90d")
 	)
-	(label "OFF"
+	(label "OFF_2813"
 		(at 304.8 170.18 180)
 		(effects
 			(font
@@ -8349,7 +8389,7 @@
 	)
 	(symbol
 		(lib_id "hex2_kicad:R")
-		(at 360.68 142.24 0)
+		(at 381 142.24 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8357,9 +8397,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "5bb8ed7d-cb44-578e-bfa7-ce69ea700126")
-		(property "Reference" "R14"
-			(at 362.712 142.24 90)
+		(uuid "5b863e57-2eb5-5fa2-bb82-e8652199617b")
+		(property "Reference" "R16"
+			(at 383.032 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8368,8 +8408,8 @@
 				)
 			)
 		)
-		(property "Value" "20k"
-			(at 360.68 142.24 90)
+		(property "Value" "10k"
+			(at 381 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8379,7 +8419,7 @@
 			)
 		)
 		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 360.68 142.24 0)
+			(at 381 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8390,7 +8430,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 360.68 142.24 0)
+			(at 381 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8401,7 +8441,86 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 360.68 142.24 0)
+			(at 381 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c28ac9eb-7f89-512e-8361-fb3c1f827137")
+		)
+		(pin "2"
+			(uuid "63a08c38-7271-5c8f-b119-adf4f5b2c943")
+		)
+		(instances
+			(project "basetta"
+				(path "/97d552a1-737f-58f4-8bde-6f200b210908"
+					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "hex2_kicad:R")
+		(at 340.36 142.24 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "5bb8ed7d-cb44-578e-bfa7-ce69ea700126")
+		(property "Reference" "R14"
+			(at 342.392 142.24 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "20k"
+			(at 340.36 142.24 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
+			(at 340.36 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 340.36 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 340.36 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8872,7 +8991,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "hex2:C_Disc_D3.8mm_W2.6mm_P2.50mm"
+		(property "Footprint" "hex2:C_Rect_L7.0mm_W3.5mm_P2.50mm_P5.00mm"
 			(at 304.8 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -9344,7 +9463,7 @@
 	)
 	(symbol
 		(lib_id "hex2_kicad:R")
-		(at 299.72 142.24 0)
+		(at 279.4 142.24 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9354,7 +9473,7 @@
 		(dnp no)
 		(uuid "987ca28b-3aa8-57b7-b92a-ef1d5ba127d2")
 		(property "Reference" "R11"
-			(at 301.752 142.24 90)
+			(at 281.432 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9364,7 +9483,7 @@
 			)
 		)
 		(property "Value" "20k"
-			(at 299.72 142.24 90)
+			(at 279.4 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9374,7 +9493,7 @@
 			)
 		)
 		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 299.72 142.24 0)
+			(at 279.4 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9385,7 +9504,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 299.72 142.24 0)
+			(at 279.4 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9396,7 +9515,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 299.72 142.24 0)
+			(at 279.4 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9454,7 +9573,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "hex2:C_Disc_D3.8mm_W2.6mm_P2.50mm"
+		(property "Footprint" "hex2:C_Rect_L7.0mm_W3.5mm_P2.50mm_P5.00mm"
 			(at 279.4 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -9586,7 +9705,7 @@
 	)
 	(symbol
 		(lib_id "hex2_kicad:R")
-		(at 279.4 142.24 0)
+		(at 401.32 111.76 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9596,7 +9715,7 @@
 		(dnp no)
 		(uuid "a5d485ec-ddae-5734-ac63-ee4a9613446d")
 		(property "Reference" "R10"
-			(at 281.432 142.24 90)
+			(at 403.352 111.76 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9606,7 +9725,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 279.4 142.24 90)
+			(at 401.32 111.76 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9616,7 +9735,7 @@
 			)
 		)
 		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 279.4 142.24 0)
+			(at 401.32 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9627,7 +9746,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 279.4 142.24 0)
+			(at 401.32 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9638,7 +9757,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 279.4 142.24 0)
+			(at 401.32 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10336,7 +10455,7 @@
 	)
 	(symbol
 		(lib_id "hex2_kicad:R")
-		(at 320.04 142.24 0)
+		(at 299.72 142.24 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10346,7 +10465,7 @@
 		(dnp no)
 		(uuid "c9367571-d4df-5d05-be19-d5174738b612")
 		(property "Reference" "R12"
-			(at 322.072 142.24 90)
+			(at 301.752 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10356,7 +10475,7 @@
 			)
 		)
 		(property "Value" "33k"
-			(at 320.04 142.24 90)
+			(at 299.72 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10366,7 +10485,7 @@
 			)
 		)
 		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 320.04 142.24 0)
+			(at 299.72 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10377,7 +10496,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 320.04 142.24 0)
+			(at 299.72 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10388,7 +10507,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 320.04 142.24 0)
+			(at 299.72 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10415,7 +10534,7 @@
 	)
 	(symbol
 		(lib_id "hex2_kicad:R")
-		(at 381 142.24 0)
+		(at 360.68 142.24 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10425,7 +10544,7 @@
 		(dnp no)
 		(uuid "d0e2bbc6-0cbd-5a29-93bf-32ea0588abc9")
 		(property "Reference" "R15"
-			(at 383.032 142.24 90)
+			(at 362.712 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10435,7 +10554,7 @@
 			)
 		)
 		(property "Value" "33k"
-			(at 381 142.24 90)
+			(at 360.68 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10445,7 +10564,7 @@
 			)
 		)
 		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 381 142.24 0)
+			(at 360.68 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10456,7 +10575,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 381 142.24 0)
+			(at 360.68 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10467,7 +10586,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 381 142.24 0)
+			(at 360.68 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10646,7 +10765,7 @@
 	)
 	(symbol
 		(lib_id "hex2_kicad:R")
-		(at 340.36 142.24 0)
+		(at 320.04 142.24 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10656,7 +10775,7 @@
 		(dnp no)
 		(uuid "e5bcab94-0b85-5131-a5c2-5fff001ab0b6")
 		(property "Reference" "R13"
-			(at 342.392 142.24 90)
+			(at 322.072 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10666,7 +10785,7 @@
 			)
 		)
 		(property "Value" "330"
-			(at 340.36 142.24 90)
+			(at 320.04 142.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10676,7 +10795,7 @@
 			)
 		)
 		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 340.36 142.24 0)
+			(at 320.04 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10687,7 +10806,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 340.36 142.24 0)
+			(at 320.04 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10698,7 +10817,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 340.36 142.24 0)
+			(at 320.04 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

@@ -16,6 +16,7 @@ basetta:
     - R13         # R-TX, 330 Ω su 3Y
     - R14         # partitore di JP-RMT, 20 kΩ
     - R15         # partitore di JP-RMT, 33 kΩ
+    - R16         # 10 kΩ in serie fra GPIO41 e la piazzola OFF della 2813 (verifica R1)
     - JP1         # JP-3V3, tre piazzole
     - JP2         # JP-RMT
     - TP*         # punti di prova
@@ -30,7 +31,6 @@ basetta:
 carapace:
   aggiunti:
     - R1          # R-MIC, vuota (S-21)
-    - U6          # impronta SOIC-16 vuota del TCA9534 (indirizzo 0x20, A0-A2 a massa)
     - TP*
     - P*
     - H*

@@ -826,3 +826,17 @@ L'utente ha scelto il 18 ottobre 2026, sullo studio di `docs/ricerca/pcb/`, e ha
 **Scheda ESP32** (18 ottobre, dopo le foto): l'utente ha 2 UICPAL RE1.3 e 2 schede "corte" da 57 mm (`dimensioni-componenti.md`). Resta la **RE1.3**, confermata dall'utente: oltre al CAD già fatto, sotto ha un tratto di circa 23 mm con soli componenti bassi dove sta il regolatore 5 V, ha la presa IPEX per un'antenna esterna (il corpo in PETG-CF può attenuare il Wi-Fi), lo schema pubblicato e due fori. Le schede corte restano per il banco. Nel CAD la microSD della RE1.3 è dal lato sbagliato: voce 4 della 2.1.8.
 
 **Cosa resta**: DU-5, il posto della PCB-P (tasca accanto all'IMU o sotto le prese dei piedi), si decide nella 2.1.8 dopo le prove nel CAD. Fasi, arresti e rischi nel piano.
+
+## D-079 — PCB, arresto R1: schemi di basetta e carapace approvati, con le correzioni della verifica (2026-10-18)
+
+L'utente ha approvato gli schemi r1 della basetta (PCB-B) e della scheda del carapace (PCB-C), generati da script in `pcb/basetta` e `pcb/carapace` (F3 di `docs/piano-pcb.md`), e ha chiesto la verifica con agenti. Due revisori indipendenti (reti e pin; sicurezza elettrica), circa 0,38 milioni di token, 10 rilievi: nessuno bloccante. Li ho ricontrollati sulle fonti e corretti così:
+- **TCA9534 tolto dalla scheda del carapace**: TI lo vende solo in SOIC largo (DW, 10,3 × 10,3) e TSSOP (PW, passo 0,65) (ti.com, letto il 18 ottobre), non nel SOIC stretto dell'impronta; un DW non sta nei 7,4 × 19 mm utili e il TSSOP va contro "niente chip a passo fine". L'espansore resta il modulo X20; la piazzola XSHUT del ToF posteriore esce (il filo va diretto a X20, `schemi.md` 2.4).
+- **R16 da 10 kΩ in serie fra GPIO41 e la piazzola OFF della 2813**, dal set B10: un corto a 8,4 V sul filo o sulla 2813 non arriva al GPIO.
+- **Regole del DRC** per le reti che mancavano: 5V e 3V3 del carapace, 3V3_ESP e 3V3_X3, 1 mm attorno a EN di U2 (come il VBAT) e al pulsante (BTN_A, BTN_B, S-10), con l'eccezione dentro J2.
+- **Testata J2 con fori da 1,1** e piazzole da 1,8, come il disegno Würth; pad n = polo n del cavo, poli dispari sulla fila lato chiave (S-26). La riga di F0 che diceva il contrario è segnata: si prova sulla dima con la spina (F5).
+- **CS1 e CS2 su un'impronta a due passi** (2,5 e 5,0): il passo dei 100 nF del kit dell'utente non è noto.
+- **Tetto dei LED**: il ramo dopo PTC1 porta anche l'amplificatore e i pixel spenti; fino alla misura di P4 il firmware tiene i LED sotto 450 mA con l'audio acceso (S-06), non sotto 600 mA. Corretti anche il ripiego della RX (al posto della 20 kΩ) e le righe del piano.
+
+**Lezione**: se una sola regola del `.kicad_dru` è scritta male, KiCad ignora tutto il file senza avvisi (DRC a zero anche con piste strette, provato). La copre il test che restringe il 5V_REG della scheda di prova con la copia vera delle regole.
+
+**Cosa resta**: polo 1 di J2 sul pezzo (F5); prove sui pezzi di dima; regole nuove provate con i loro casi di controllo quando ci sono i PCB (F4, F6).
