@@ -73,7 +73,7 @@ Oggi il carapace si toglie staccando lo spinotto di bilanciamento e il Dupont a 
   Restano una fessura larga 3,5 mm (\|y\| 16–19,5, sotto z 29,4) e 4,2 mm d'altezza a \|y\| ≥ 19,5. Non ci stanno la testata con la spina IDC (circa 9 + 9 mm, S), il 470 µF (Ø6,3–8, S) e l'adattatore del TCA9534. Lo stesso vale per l'amplificatore (X17) sul lato −Y. Da guardare per primo, non verificato: davanti all'ottagono sopra l'ESP32 (x 29…50, \|y\| ≤ 16), fuori dal flat della camera e dall'antenna (da x 55,6); oppure i canali di X22 interrotti sopra le schede.
 - **Cavo**: piatto a 16 vie con spina IDC, saldato sulla basetta, lungo circa 15 cm.
 - **Come si toglie il carapace**: si toglie lo sportellino, si sfila la spina dall'ottagono, si svitano le 4 viti, si stacca lo spinotto di bilanciamento, si solleva.
-- **Presa di espansione**: la presa Qwiic (JST SH a 4 poli, GND, 3V3, SDA, SCL) sulla scheda del carapace si raggiunge dall'ottagono. Qualunque modulo STEMMA QT o Qwiic si collega lì senza saldare.
+- **Espansione del bus**: sulla scheda del carapace quattro piazzole (GND, 3V3, SDA, SCL) per un cavo Qwiic tagliato, che porta l'espansore TCA9534 e, attraverso lui, altri moduli STEMMA QT o Qwiic. Dalla 2.1.7 la scheda sta a x 29,5…51 e l'ottagono finisce a x 28: si raggiunge solo a carapace tolto. Una presa JST SH vera è stata scartata il 18 ottobre 2026 (`piano-pcb.md`, DU-2).
 
 | Polo | Segnale | Polo | Segnale |
 |---|---|---|---|

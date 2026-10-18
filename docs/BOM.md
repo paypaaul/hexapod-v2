@@ -213,12 +213,11 @@ Viteria in più se si montano tutte, da contare a robot deciso: inserti M2 (D5) 
 
 ## PCB. Voci nuove delle schede stampate (`docs/piano-pcb.md`)
 
-Approvate dall'utente il 18 ottobre 2026, prima dell'approvazione del piano. Vanno nell'ordine DigiKey, che è **in sospeso**: da solo resta sotto i 75 € e pagherebbe 25 € di spedizione. Si fa insieme ad altre voci DigiKey. Le voci che il piano toglierebbe (C1, le resistenze e i condensatori a reoforo di X5 e X14) **restano nel BOM** finché il piano non è approvato. Prezzi S: si leggono quando si prepara il carrello.
+Approvate dall'utente il 18 ottobre 2026, prima dell'approvazione del piano. Vanno nell'ordine DigiKey, che è **in sospeso**: da solo resta sotto i 75 € e pagherebbe 25 € di spedizione. Si fa insieme ad altre voci DigiKey. Le voci che il piano toglierebbe (C1, le resistenze e i condensatori a reoforo di X5 e X14) **restano nel BOM** finché il piano non è approvato. Prezzi S: si leggono quando si prepara il carrello. La presa JST SH per la PCB-C (era PCB2) è stata tolta lo stesso giorno: l'utente preferisce le piazzole (DU-2 = no).
 
 | Voce | Prodotto | Q.tà | Uso | Costo | Stato |
 |---|---|---|---|---|---|
 | PCB1 | resistenza 10 kΩ 1 % 0805 | 10 | partitori sulla PCB-P | meno di 1 € (S) | approvata, ordine in sospeso |
-| PCB2 | presa JST SH 4 poli orizzontale SM04B-SRSS-TB | 2 | presa Qwiic sulla PCB-C (DU-2) | circa 1 € (S) | approvata, ordine in sospeso |
 | PCB3 | resistenze 0805: 15 kΩ, 330 Ω, 1 kΩ | 2 per valore | partitore della RX, resistenza in serie sulla TX, ripiego; solo se mancano nel set B10 | pochi centesimi (S) | approvata, ordine in sospeso |
 
 Nella stessa occasione l'utente ha approvato l'acquisto di **X1** (cavi Qwiic 4210 e 4397, 6,07 €), con l'ordine DigiKey in sospeso.

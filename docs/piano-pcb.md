@@ -22,9 +22,9 @@ Le chiedo in F0, prima di F1. Le sigle sono DU-n, per non confonderle con i comp
 | N. | Domanda | Proposta | Perché |
 |---|---|---|---|
 | DU-1 | **Togliere il traslatore KAmod** (ritocco b)? La TX verso la SSC-32 esce dal canale 3 del buffer U3, che è già sulla scheda. La RX passa da un partitore 10 kΩ / 15 kΩ | **sì** | Un modulo e una voce in meno (C1, 2,51 €) e 12 giunti in meno. Costa 4 resistenze in 0805 o a reoforo (4.1). Il partitore si monta sempre: con la TX a 5 V dà 3,0 V, sopra la soglia alta di 2,48 V. Se la TX fosse a 3,3 V la seriale non funziona ma non si rompe niente; il ripiego si monta solo dopo averla misurata (4.1) |
-| DU-2 | **Presa Qwiic vera sulla PCB-C** (JST SH SM04B-SRSS-TB, ritocco c) al posto del cavo Qwiic tagliato? | **sì, se c'è posto** (F4) | Voce nuova sotto 1 € (S). Il cavo resta intero per il TCA9534. Si salda a mano con il flussante, passo 1,0. **Si innesta solo a carapace tolto**: la scheda sta a x 29,5…51, l'ottagono finisce a x 28 (V, `requisiti.md:195`) |
+| DU-2 | **Presa Qwiic vera sulla PCB-C** (JST SH SM04B-SRSS-TB, ritocco c) al posto del cavo Qwiic tagliato? | **deciso il 18 ottobre: no** | L'utente ha scelto le piazzole: 4 piazzole con il nome (GND, 3V3, SDA, SCL), dove si salda il cavo Qwiic tagliato verso l'espansore TCA9534, come sulla millefori. La presa sarebbe servita solo a innestare l'espansore e moduli futuri senza saldare, e dalla 2.1.7 si raggiunge solo a carapace tolto (la scheda sta a x 29,5…51, l'ottagono finisce a x 28): non vale un componente in più sulla scheda più piena |
 | DU-3 | **ERC e DRC di KiCad nella CI**? | **sì, con KiCad dal PPA** e non da Docker Hub | La CI resta verde solo con schemi e PCB puliti. È una dipendenza nuova della CI: un paio di minuti d'installazione, poi la cache (S). Docker Hub è già fallito il 9 ottobre (`ci.yml:58-60`). La CI controlla anche che la versione di KiCad sia quella scritta in `pcb/README.md`: il PPA può dare un'altra 10.0.x |
-| DU-4 | **Acquisti di F0**: moduli e piccole parti che servono alla dima e al banco S1, in un ordine Kamami e **un solo** ordine DigiKey | **sì, voce per voce con il prezzo** (5.1) | Le voci B e C (B2 D24V22F5, B3, B6, B10, C3; C1 solo se DU-1 = no) sono già approvate: cambia solo il momento. **Le voci X vanno approvate per l'acquisto** (BOM, sezione X): X1, X6 e il resto di X9 servono al banco; di X2 e X9 sono approvati solo testata, 470 µF, buffer e resistenze. Le piccole voci nuove (10 kΩ 0805, presa JST SH, eventuale MF-R090) si approvano qui e non in R1, così DigiKey è un ordine solo: sotto i 75 € la spedizione costa 25 € (`BOM.md`, sezione X) |
+| DU-4 | **Acquisti di F0**: moduli e piccole parti che servono alla dima e al banco S1, in un ordine Kamami e **un solo** ordine DigiKey | **sì, voce per voce con il prezzo** (5.1) | Le voci B e C (B2 D24V22F5, B3, B6, B10, C3; C1 solo se DU-1 = no) sono già approvate: cambia solo il momento. **Le voci X vanno approvate per l'acquisto** (BOM, sezione X): X1, X6 e il resto di X9 servono al banco; di X2 e X9 sono approvati solo testata, 470 µF, buffer e resistenze. Le piccole voci nuove (10 kΩ 0805, eventuale MF-R090) si approvano qui e non in R1, così DigiKey è un ordine solo: sotto i 75 € la spedizione costa 25 € (`BOM.md`, sezione X) |
 | DU-5 | **Posto della PCB-P**: tasca accanto all'IMU (P1) o sotto le prese dei piedi (P2)? Si decide in F2, dopo le prove nel CAD | **da vedere sulle prove** | 4.3: P2 chiuderebbe insieme S-28, S-29 e P-012, come chiede D-076, ma costa la strada B dei partitori e chiede la misura della spina JR |
 
 Scelte che faccio io e annoto nel disegno (le cambio se l'utente vuole):
@@ -41,7 +41,7 @@ Scelte che faccio io e annoto nel disegno (le cambio se l'utente vuole):
 ## 3. Cosa non fa questo piano
 
 - **Non cambia reti né GPIO**: il firmware non se ne accorge (`studio.md` 6.3), salvo l'indirizzo del TCA9534 (2).
-- **Non porta connettori nuovi** verso il resto del robot, salvo la presa Qwiic della PCB-C (DU-2) e, con la variante P2, le spine delle prese dei piedi saldate sulla PCB-P. I fili restano saldati sulle piazzole, con il nome in serigrafia. La PCB-B non si toglie senza dissaldare: è il limite della una per una.
+- **Non porta connettori nuovi** verso il resto del robot, salvo, con la variante P2, le spine delle prese dei piedi saldate sulla PCB-P. I fili restano saldati sulle piazzole, con il nome in serigrafia. La PCB-B non si toglie senza dissaldare: è il limite della una per una.
 - **Non è la serie definitiva**: la r2 si decide dopo la prova della r1 sul robot.
 - **Non scrive il programma di banco S1**: oggi non esiste (`04-banco.yaml`, passo 4.05: "non c'è ancora"). È lavoro del software S1, da pianificare a parte. È la condizione per montare la r1 (F7).
 - **Non mette gli STEP delle PCB nel design di lavoro**: in F4 gli ingombri si provano con scatole provvisorie. La sostituzione delle scatole `Rif_Basetta_50x70` e `Rif_Scheda_Carapace` con gli STEP chiede codice nuovo in `rif_componenti.py` (oggi `fai_step` è fatto per il servo e i Pololu) ed è la voce di una versione del CAD successiva, con il suo piano.
@@ -99,7 +99,7 @@ Con DU-1 = no resta U4 KAmod. R9 da 330 Ω entra sulla scheda in tutti e due i c
 
 **Il posto è stretto.** Le file dei pin di J2 arrivano a x 42,7, e le teste delle viti prendono gli angoli. Per CE1, la presa, le piazzole e i punti di prova restano circa **7,4 × 19 mm** al centro (x 43,6…51) (S, conto della verifica). Sopra la scheda ci sono 2,9 mm d'aria fino al dorso, quindi le code dei pin a reoforo si tagliano a meno di 2 mm.
 
-**Componenti**: J2; CE1 470 µF 10 V sdraiato; la presa JST SH (se DU-2 = sì e ci sta); l'impronta SOIC-16 vuota del TCA9534, che è la prima a uscire se manca posto; R-MIC in 0805, vuota (S-21); punti di prova (5V, 3V3, GND, SDA, SCL, DATA).
+**Componenti**: J2; CE1 470 µF 10 V sdraiato; 4 piazzole per il cavo Qwiic tagliato verso l'espansore (DU-2 = no); l'impronta SOIC-16 vuota del TCA9534, che è la prima a uscire se manca posto; R-MIC in 0805, vuota (S-21); punti di prova (5V, 3V3, GND, SDA, SCL, DATA).
 
 **Piazzole**: una per filo, raggruppate per modulo: catena LED (3), microfoni (5), amplificatore (5), ToF posteriore (5), pulsante (2), riserva del polo 14. Il pulsante va su piste isolate e lontane dalle altre (S-10). Il gruppo I2S è separato dal bus con una pista di massa.
 
@@ -126,7 +126,7 @@ Ogni fase finisce con **commit, push su `main` e CI `ci` e `sim` verdi**, e lasc
 | **F1** | strumenti e **prova del metodo** (5.2) | agente | `pcb/` con librerie, regole, generatore, controllo delle reti; esito della prova scritto; CI se DU-3 = sì | se la prova fallisce: chi fa schema e sbroglio |
 | **F2** | versione 2.1.8 del CAD (5.3) | agente, Fusion | posto della PCB-P provato in due varianti | **DU-5** |
 | **F3** | schemi: PCB-B e PCB-C subito dopo F1 (anche mentre si fa F2), PCB-P dopo DU-5 | agente (o utente, secondo F1) | tre schemi, ERC a zero, `verifica_reti.py` verde | **R1**: reti, componenti, conferma delle voci del BOM |
-| **F4** | piazzamento, PCB-C per prima; PCB-B dopo P-140 | agente (o utente) | componenti al loro posto; ingombri provati nel CAD con scatole provvisorie (`urti_scatole`, ognuna con il caso di controllo): presa Qwiic, flat della camera sotto la PCB-C, spine | — |
+| **F4** | piazzamento, PCB-C per prima; PCB-B dopo P-140 | agente (o utente) | componenti al loro posto; ingombri provati nel CAD con scatole provvisorie (`urti_scatole`, ognuna con il caso di controllo): flat della camera sotto la PCB-C, spine | — |
 | **F5** | dima stampata 1:1 | agente (STEP `--board-only`), utente (stampa e prova) | ESP32 con la strip preparata, D24V22F5, buffer, testata, spine e viti provati sulla dima | **R2**: posti, render, dima. Lo sbroglio parte solo dopo |
 | **F6** | sbroglio | agente (o utente) | VBAT e potenza, poi masse, poi segnali; DRC a zero con parità dello schema; serigrafia | **R3**: lista 5.4 |
 | **F7** | uscite, pannello e ordine (5.6) | agente, poi utente | Gerber controllati, preventivo vero, foglio di montaggio e collaudo della r1, tag `pcb-r1` | **R4**: l'utente ordina e paga |
@@ -205,7 +205,7 @@ Se riesce, schema, piazzamento e sbroglio li fa l'agente da script, e l'utente r
 - **`verifica_reti.py`**:
   - per ogni rete dei `*_def.py`, tutti i pin stanno nella stessa rete di KiCad, e nessuna rete di KiCad unisce due reti dei `*_def.py`;
   - una tabella dà il nome del pin → numero (U1, U3, U4, diodi) e gli alias (3V3_ESP / 3V3S con JP-3V3);
-  - `pcb/aggiunte.yaml` elenca le differenze volute: canale 3 sulla seriale e R10, R-TX, R11, R12 (DU-1); R9 sulla scheda; JP-RMT, RMT_IN e il suo partitore; polo 14; presa Qwiic; SOIC-16 e R-MIC vuote; punti di prova; spine JR con P2;
+  - `pcb/aggiunte.yaml` elenca le differenze volute: canale 3 sulla seriale e R10, R-TX, R11, R12 (DU-1); R9 sulla scheda; JP-RMT, RMT_IN e il suo partitore; polo 14; piazzole del Qwiic; SOIC-16 e R-MIC vuote; punti di prova; spine JR con P2;
   - tutto quello che non è né nei `*_def.py` né in `aggiunte.yaml` è un errore;
   - un caso di controllo: una rete scambiata apposta deve fallire.
 - `scheda_def.py` descrive la scheda del carapace della 2.1.6. Per il confronto contano solo le reti, che non sono cambiate. Va scritto nel controllo, non corretto.
@@ -257,7 +257,7 @@ Proposta: la 2.1.8 contiene P-140, P-141 e la PCB-P. P-139 entra solo se Q-23 ar
   - temperatura di U2, che si misura in P4.
 - **Decisioni**: D-078 all'approvazione del piano; poi una voce a ogni revisione approvata.
 - **BOM**:
-  - entrano: PCB, 0805 da 10 kΩ, presa JST SH (DU-2), eventuale MF-R090, strip delle spine con P2, resistenze che mancano in B10;
+  - entrano: PCB, 0805 da 10 kΩ, eventuale MF-R090, strip delle spine con P2, resistenze che mancano in B10;
   - escono: C1 con DU-1 = sì, i 6 + 3 × 10 kΩ e i 6 × 100 nF a reoforo di X5 e X14 (salvo scorte).
 - **Guida**:
   - Sezione 13: passa alla PCB-C dopo F8, perché per il carapace non c'è alternativa.
@@ -286,7 +286,7 @@ Proposta: la 2.1.8 contiene P-140, P-141 e la PCB-P. P-139 entra solo se Q-23 ar
 | 5 V su un GPIO | varchi nelle file, VBAT lontano dal bus, punti di prova a gruppi; ripiego della RX solo dopo la misura; prima accensione senza ESP32 |
 | Bus con pull-up troppo forti | ponticello di X20 tagliato; R4 e R5 sostituibili; misura al passo 8.28 |
 | PCB-P senza posto | due varianti provate in F2 prima dello schema della PCB-P |
-| PCB-C troppo piena (7,4 × 19 mm utili) | piazzata per prima; l'impronta del TCA9534 esce per prima, poi la presa Qwiic |
+| PCB-C troppo piena (7,4 × 19 mm utili) | piazzata per prima; l'impronta del TCA9534 esce per prima |
 | Specchiature | serigrafia, 3D di KiCad, STEP con l'asse Y controllato |
 | Antenna sopra il rame | niente rame da x 74; prova di portata del Wi-Fi in F8 |
 | Calore di U2 e del PTC sotto l'ESP32 | piano di massa; PTC lontano, senza rame sotto; misura in P4; tetto del firmware sotto 600 mA fino ad allora |
@@ -309,9 +309,9 @@ Riferimenti di oggi: la raccolta per questo piano ha usato 4 agenti e circa 0,9 
 
 Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, cosa aspetta l'utente.
 
-**Stato al 18 ottobre 2026**: piano scritto, verificato e corretto. Aspetta l'approvazione dell'utente e le risposte DU-1…DU-3. Nessun file KiCad nella repo.
+**Stato al 18 ottobre 2026**: piano scritto, verificato e corretto. Aspetta l'approvazione dell'utente e le risposte DU-1 e DU-3 (DU-2 = no, 18 ottobre). Nessun file KiCad nella repo.
 
-**Acquisti (DU-4, in parte)**: il 18 ottobre, prima di approvare il piano, l'utente ha approvato i pezzi nuovi delle schede: 10 kΩ 0805, presa JST SH, 15 kΩ / 330 Ω / 1 kΩ in 0805 se mancano in B10 (voci PCB1-PCB3 del BOM), e X1. L'ordine DigiKey è **in sospeso**, da unire ad altre voci per superare i 75 €. Le voci che il piano toglierebbe (C1, reoforo di X5 e X14) restano nel BOM finché il piano non è approvato. Restano da approvare per l'acquisto X6 (ADC) e il resto delle voci X del banco.
+**Acquisti (DU-4, in parte)**: il 18 ottobre, prima di approvare il piano, l'utente ha approvato i pezzi nuovi delle schede: 10 kΩ 0805, 15 kΩ / 330 Ω / 1 kΩ in 0805 se mancano in B10 (voci PCB1 e PCB3 del BOM), e X1. La presa JST SH (PCB2) è stata approvata e poi tolta lo stesso giorno, con DU-2 = no. L'ordine DigiKey è **in sospeso**, da unire ad altre voci per superare i 75 €. Le voci che il piano toglierebbe (C1, reoforo di X5 e X14) restano nel BOM finché il piano non è approvato. Restano da approvare per l'acquisto X6 (ADC) e il resto delle voci X del banco.
 
 ## 9. Verifica del piano (18 ottobre 2026)
 

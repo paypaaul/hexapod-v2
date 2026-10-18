@@ -161,7 +161,7 @@ Piedinatura della testata 2 × 8, la stessa di `predisposizioni.md` 2.3:
 | Amplificatore (X17) | scheda → ampli generico (x 51…70, pin verso la scheda, D-074) | sotto il dorso | saldati | 5: 5 V, massa, BCLK, WS, dati | S |
 | Altoparlante | ampli → altoparlante tondo da 15 mm sulla guancia destra di coda | sotto il dorso, dalla testa alla coda, circa 17 cm | il cavetto dell'altoparlante si taglia (connettore da 1,25) e si allunga; nella morsettiera o saldato | 2 | S |
 | ToF posteriore (X19) | scheda → VL53L1X sulla guancia sinistra di coda, avvitato con due viti M2 × 5 in fori pilota Ø1,7 (dalla 2.1.7) | sotto il dorso, circa 20 cm [S]: dal CAD circa 126–129 mm in pianta più 12 di quota, con il cavo che gira fuori dall'ottagono; si taglia a misura sul primo carapace | saldati | 5: 3,3 V, massa, SDA, SCL, XSHUT (dal TCA9534) | S |
-| Espansione | presa Qwiic sulla scheda | si raggiunge dall'ottagono | JST SH 4 poli | 4 | V standard Qwiic |
+| Espansione | cavo Qwiic tagliato, saldato su quattro piazzole della scheda (niente presa, `piano-pcb.md` DU-2) | a carapace tolto: dalla 2.1.7 la scheda sta a x 29,5…51, l'ottagono finisce a x 28 | saldato | 4 | V standard Qwiic |
 
 ### 3.6 Comandi dei servo e camera
 
