@@ -198,10 +198,13 @@ PARAMETRI = [
     ('sch_spina_sp', '6 mm', 'mm', 'Spina IDC: spessore del corpo, 7 con la chiave larga 3,7 (disegno Wurth) V'),
     ('sch_spina_fuori', '10 mm', 'mm', 'Spina IDC: sporgenza dalla testata verso la coda, corpo con fermacavo 11,4 meno l innesto, piu il cavo piegato S'),
     ('sch_spina_z', '4.5 mm', 'mm', 'Spina IDC: asse sotto la scheda (meta della testata; file dei pin a circa 3,2 e 5,8, lette sul disegno Wurth) S'),
-    ('par_l', '27.8 mm', 'mm', 'Scheda dei partitori (PCB-P, P2, D-080): lunghezza lungo X S'),
-    ('par_w', '7.5 mm', 'mm', 'Scheda dei partitori: larghezza lungo Y S'),
+    ('par_l', '33.8 mm', 'mm', 'Scheda dei partitori (PCB-P, P2, D-080; 2.1.9, D-084): lunghezza lungo X, x 44,2...78 V (KiCad)'),
+    ('par_w', '8.6 mm', 'mm', 'Scheda dei partitori: larghezza lungo Y, y 18,6...27,2 V (KiCad, D-084)'),
+    ('par_dy', '0.15 mm', 'mm', 'Scheda dei partitori: centro della scheda verso +Y rispetto alla fila dei fori e del pettine (D-084)'),
+    ('par_smusso', '3.2 mm', 'mm', 'Scheda dei partitori: smusso a 45 gradi dell angolo di testa verso +Y (x 74,8...78): 0,3 da uno spigolo della base a x 75,3...75,8, y 27 (2.1.9, prova del 19 ottobre)'),
+    ('par_pet_file', '5.08 mm', 'mm', 'Pettine a due file (segnale e massa, poli esterni delle spine JR): distanza fra le file V (D-084)'),
     ('par_pet_l', '15.24 mm', 'mm', 'Pettine 6 x 3 a passo 2,54 delle spine dei piedi: lunghezza lungo X (sei spine affiancate) V'),
-    ('par_pet_w', '7.62 mm', 'mm', 'Pettine: larghezza lungo Y (tre poli per spina) V'),
+    ('par_pet_w', '7.62 mm', 'mm', 'Pettine: ingombro lungo Y delle spine (tre poli per spina) V'),
     ('par_pet_h', '2.5 mm', 'mm', 'Pettine: plastica sopra la scheda (strip standard) S'),
     ('par_pin_h', '6 mm', 'mm', 'Pettine: pin sopra la plastica (strip standard da 11,5) S'),
     ('pre_l', '15.5 mm', 'mm', 'Prese dei piedi: sei spine JR a 3 poli piegate, passo 2,54 S'),
@@ -294,6 +297,14 @@ def unisci(a, *altri):
     for b in altri:
         _tmp().booleanOperation(a, b, adsk.fusion.BooleanTypes.UnionBooleanType)
     return a
+
+
+def box_45(cx, cy, z0, lato, lz):
+    """Parallelepipedo a base quadrata di lato `lato`, girato di 45 gradi in pianta attorno al suo centro (cx, cy)."""
+    r = 0.5 ** 0.5
+    obb = adsk.core.OrientedBoundingBox3D.create(
+        P3(cx / 10, cy / 10, (z0 + lz / 2) / 10), V3(r, r, 0), V3(-r, r, 0), lato / 10, lato / 10, lz / 10)
+    return _tmp().createBox(obb)
 
 
 def sottrai(a, *altri):
@@ -598,13 +609,21 @@ def fai_ingombri(des, root, rigenera, solo=None):
         ('chiave_spina', box(0, sw / 2 + sf / 2, zs_ - sps / 2 - 1.0, 3.7, sf, 1.0))]))
     fatti.append(componente(root, 'Rif_Prese_Piedi', [('prese', box(0, 0, 0, p('pre_l'), p('pre_w'), p('pre_h')))]))
     # scheda dei partitori (P2, D-080): origine al centro della faccia inferiore, pettine centrato in cor_par_pet_x
-    dxp = p('cor_par_pet_x') - p('cor_par_x')
+    # 2.1.9 (D-084): scheda spostata di par_dy verso +Y rispetto alla fila dei fori; pettine a due strip 1 x 6 a
+    # par_pet_file; sotto gli 0805 (0,7 con le saldature, S) e le code dei pin del pettine tagliate a 2 (S)
+    dxp, dy, fy, sm = p('cor_par_pet_x') - p('cor_par_x'), p('par_dy'), p('par_pet_file') / 2, p('par_smusso')
     fatti.append(componente(root, 'Rif_Partitori', [
-        ('scheda', sottrai(box(0, 0, 0, p('par_l'), p('par_w'), 1.6),
+        ('scheda', sottrai(box(0, dy, 0, p('par_l'), p('par_w'), 1.6),
                            cyl(p('cor_par_foro_a') - p('cor_par_x'), 0, -1.0, p('vite_m2_pass'), 3.6),
-                           cyl(p('cor_par_foro_b') - p('cor_par_x'), 0, -1.0, p('vite_m2_pass'), 3.6))),
-        ('pettine', box(dxp, 0, 1.6, p('par_pet_l'), p('par_pet_w'), p('par_pet_h'))),
-        ('pin', box(dxp, 0, 1.6 + p('par_pet_h'), p('par_pet_l') - 1.8, p('par_pet_w') - 1.8, p('par_pin_h')))]))
+                           cyl(p('cor_par_foro_b') - p('cor_par_x'), 0, -1.0, p('vite_m2_pass'), 3.6),
+                           # smusso: il quadrato girato ha un lato sulla retta dello smusso, centro fuori dalla scheda
+                           box_45(p('par_l') / 2 - sm / 2 + 3.0 * 0.5 ** 0.5, dy + p('par_w') / 2 - sm / 2 + 3.0 * 0.5 ** 0.5,
+                                  -1.0, 6.0, 3.6))),
+        ('pettine_segnale', box(dxp, -fy, 1.6, p('par_pet_l'), 2.5, p('par_pet_h'))),
+        ('pettine_massa', box(dxp, fy, 1.6, p('par_pet_l'), 2.5, p('par_pet_h'))),
+        ('pin', box(dxp, 0, 1.6 + p('par_pet_h'), p('par_pet_l') - 1.8, p('par_pet_file') + 1.0, p('par_pin_h'))),
+        ('sotto', box(dxp + 3.9, dy, -0.7, p('par_pet_l') + 7.8, p('par_w') - 1.6, 0.7)),
+        ('code_pin', box(dxp, 0, -2.0, p('par_pet_l') - 1.8, p('par_pet_file') + 1.0, 2.0))]))
     fatti.append(componente(root, 'Rif_Computer_Zaino', [('scheda', box(0, 0, 0, p('zai_l'), p('zai_w'), p('zai_sp')))]))
     # versione 2.1.6 (D-074): moduli in casa dell'utente, montati al posto di Pololu e Adafruit (che restano predisposti)
     fatti.append(componente(root, 'Rif_IMU_MPU6500', [('scheda', box(0, 0, 0, p('sen_mpu_l'), p('sen_mpu_w'), p('sen_mpu_sp')))]))

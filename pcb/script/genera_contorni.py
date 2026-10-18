@@ -60,6 +60,10 @@ SCHEDE = {
         # variante P2 (D-080): sotto le prese dei piedi, su due bugne come IMU e ADC
         'istanza': 'corpo/Partitori',
         'sagoma': ('par_l', 'par_w'),
+        # 2.1.9 (D-084): centro della scheda spostato di par_dy rispetto alla posa (fila dei fori), angolo di testa a +Y
+        # smussato di par_smusso
+        'centro_y': 'par_dy',
+        'smusso': 'par_smusso',
         'fori': ['ins_par_a', 'ins_par_b'],
         # sopra la testa M2 × 5 (Ø4) più 0,5 per lato; sotto la bugna Ø5,5 più 0,5 per lato (S)
         'anelli': {'F.Cu': '4 mm + 1 mm', 'B.Cu': 'cor_sen_bugna_d + 1 mm'},
@@ -145,7 +149,11 @@ def geometria(nome, par=None):
     s = SCHEDE[nome]
     (a, b, tx), (c, d, ty) = _posa(s['istanza'])
     lx, ly = par[s['sagoma'][0]] / 2, par[s['sagoma'][1]] / 2
-    locale = [(-lx, -ly), (lx, -ly), (lx, ly), (-lx, ly)]
+    dy = par[s['centro_y']] if 'centro_y' in s else 0.0
+    locale = [(-lx, -ly + dy), (lx, -ly + dy), (lx, ly + dy), (-lx, ly + dy)]
+    if 'smusso' in s:
+        sm = par[s['smusso']]
+        locale = [(-lx, -ly + dy), (lx, -ly + dy), (lx, ly + dy - sm), (lx - sm, ly + dy), (-lx, ly + dy)]
     if 'ali' in s:
         ay, ax = par[s['ali'][0]], par[s['ali'][1]]
         ya = -ly + ax

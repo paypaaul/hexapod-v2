@@ -44,8 +44,9 @@ def test_contorni_come_il_piano():
                                      (145.5, 124.0), (151.0, 76.0), (151.0, 124.0)]
     assert sorted((x, y) for _, x, y, _ in c['fori']) == [(141.5, 87.5), (141.5, 112.5), (148.0, 87.5), (148.0, 112.5)]
     p = GC.geometria('partitori')
-    assert sorted(p['contorno']) == [(144.2, 73.5), (144.2, 81.0), (172.0, 73.5), (172.0, 81.0)]
-    assert sorted((x, y) for _, x, y, _ in p['fori']) == [(146.2, 77.25), (169.6, 77.25)]
+    # 2.1.9 (D-084): x 44,2…78, y 18,6…27,2, smusso a 45 gradi da (74,8; 27,2) a (78; 24,0)
+    assert sorted(p['contorno']) == [(144.2, 72.8), (144.2, 81.4), (174.8, 72.8), (178.0, 76.0), (178.0, 81.4)]
+    assert sorted((x, y) for _, x, y, _ in p['fori']) == [(146.2, 77.25), (176.2, 77.25)]
     assert all(d == 2.4 for g in (b, c, p) for _, _, _, d in g['fori'])
 
 
