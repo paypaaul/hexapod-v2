@@ -17,6 +17,9 @@ Schema e PCB **si generano da script**, e i file di KiCad sono il risultato. Una
 | schema: simboli, fili, etichette, segni di non collegato | `<scheda>/genera_schema.py`, con `script/schema_kicad.py` | qualunque, con `kicad-cli` |
 | PCB: impronte con le reti della netlist, contorno, piste, vie, riempimenti | `<scheda>/genera_pcb.py`, con `script/scheda_kicad.py` | di KiCad (`pcbnew`) |
 | ERC e DRC con la parità dello schema | `script/controlla.py <cartella>` | qualunque, con `kicad-cli` |
+| regole del DRC: fonte unica `regole/hex2.kicad_dru`, copiata in ogni progetto come `<nome>.kicad_dru` | `script/regole.py` (`--controlla`) | qualunque |
+| contorno, fori Ø2,4 e zone senza rame dalle quote del CAD | `script/genera_contorni.py` (`--controlla <file>.kicad_pcb`); nel PCB `Scheda.contorni_dal_cad` | qualunque |
+| reti di KiCad contro `guida/schemi/sorgenti/*_def.py`, con le differenze volute in `aggiunte.yaml` | `script/verifica_reti.py <scheda> <file>.net` | qualunque, con PyYAML |
 
 Regole degli script:
 - lo schema ha un tratto di filo e un'etichetta su ogni pin collegato, e il segno di non collegato sui pin liberi. Un pin senza né l'uno né l'altro, o una rete su un pin che non esiste, fermano il generatore prima di KiCad;
@@ -24,6 +27,10 @@ Regole degli script:
 - lo schema passa da `kicad-cli sch upgrade --force`, così è nel formato in cui lo salverebbe KiCad;
 - il PCB copia nelle impronte quello che copierebbe "Aggiorna PCB dallo schema": percorso del simbolo, foglio, campi, esclusione dalla distinta, non montare;
 - `controlla.py` fallisce su qualunque rilievo, anche sugli avvisi.
+
+Terna: x = X del robot + 100, y = 100 − Y del robot (KiCad ha la Y verso il basso). Le schede si guardano dall'alto del robot; i componenti della scheda del carapace stanno sul retro (B.Cu). Lo STEP con `--user-origin 100x100mm` torna nella terna del robot (`cad/CLAUDE.md`, STEP delle PCB).
+
+Numeri dei pin per `verifica_reti.py`: ESP32 (U1) da 1 a 20 la fila `ESP_L` dalla coda alla testa, da 21 a 40 la fila `ESP_R` nello stesso verso; D24V22F5 (U2) PG 1, EN 2, VIN 3, GND 4, VOUT 5; condensatori con il + sul pin 1; resistenze e diodi a due fori con il primo foro dei `*_def.py` sul pin 1 (per i diodi il catodo). Le impronte di U1 e U2 si fanno con questa numerazione.
 
 Librerie: `librerie/hex2_kicad.kicad_sym` (simboli copiati da KiCad 10, appiattiti) e `librerie/hex2.pretty` (impronte copiate e, più avanti, quelle disegnate per il robot). Le tabelle `sym-lib-table` e `fp-lib-table` di ogni progetto puntano solo lì.
 
@@ -55,4 +62,8 @@ python3 pcb/script/librerie.py
 python3 pcb/prova/genera_schema.py
 $KP pcb/prova/genera_pcb.py
 python3 pcb/script/controlla.py pcb/prova
+python3 pcb/script/regole.py --controlla
+.venv/bin/python -m pytest tests/test_pcb.py -q
 ```
+
+Nella CI il job `pcb` installa KiCad dal PPA (`ppa:kicad/kicad-10.0-releases`, senza le librerie), controlla che la versione sia quella scritta qui sopra e fa regole, ERC e DRC di ogni progetto, contorni e `tests/test_pcb.py`. I rapporti JSON restano fra gli artefatti (`pcb-rapporti`).

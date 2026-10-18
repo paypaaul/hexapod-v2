@@ -310,15 +310,20 @@ Riferimenti di oggi: la raccolta per questo piano ha usato 4 agenti e circa 0,9 
 
 Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, cosa aspetta l'utente.
 
-**Stato al 18 ottobre 2026, sera** (per ripartire):
+**Stato al 18 ottobre 2026, notte** (per ripartire):
 - Piano **approvato** (D-078). DU-1 = sì, DU-2 = no, DU-3 = sì; basetta e carapace a reoforo, SMD 0805 solo sui partitori.
-- **F0 quasi chiusa**: dati letti (esiti qui sotto), acquisti decisi, ESP32 riconosciuta. L'utente ha confermato la **RE1.3** (ne ha 2; le 2 schede corte da 57 mm restano per il banco). Ultimo commit di questa fase: vedi `git log`.
-- **Aspetta l'utente** (cose da guardare in `CLAUDE.md`), nessuna blocca F1:
+- **F0 quasi chiusa**: dati letti (esiti qui sotto), acquisti decisi, RE1.3 confermata dall'utente (ne ha 2; le 2 schede corte da 57 mm restano per il banco).
+- **F1 fatta** (`pcb/README.md`):
+  - **prova del metodo riuscita**: schema da script con ERC a zero, PCB da `pcbnew` con le reti, piste e riempimento da script, DRC con la parità a zero; ogni controllo ha un caso che fallisce. Schema, piazzamento e sbroglio li fa l'agente da script; l'utente rivede nell'editor e nei render;
+  - librerie del progetto (`pcb/librerie`), regole del DRC in una fonte unica (`pcb/regole/hex2.kicad_dru`), `genera_contorni.py` (sagome, fori e zone senza rame dal CAD), `verifica_reti.py` con la bozza di `pcb/aggiunte.yaml`, procedura STEP (`cad/CLAUDE.md`), job `pcb` nella CI, `tests/test_pcb.py`;
+  - scheda di prova in `pcb/prova`: resta come caso di riferimento della CI.
+- **Aspetta l'utente** (cose da guardare in `CLAUDE.md`), nessuna blocca F3:
   - misure della RE1.3 col calibro e prova a secco delle strip (servono prima di F4);
   - spina JR di un servo (serve per DU-5);
   - taglia del kit B8, 5,1 kΩ nel kit Elegoo, portafusibile Neuftech (Q-23), tensione della TX della SSC-32.
-- **Prossimo passo dell'agente: F1**, a partire dalla prova del metodo (5.2): schema generato da script con simboli e fili, PCB con le reti da `pcbnew`, una pista e un riempimento da script, DRC con la parità. Poi `pcb/`, regole, `genera_contorni.py`, `verifica_reti.py`, job `pcb` nella CI.
-- Nessun file KiCad nella repo.
+- **Prossimi passi dell'agente**:
+  - **F3** per PCB-B e PCB-C: simboli e impronte di ESP32 (numerazione dei pin in `pcb/README.md`), D24V22F5 e Würth a 90°; schemi generati da script, ERC a zero, `verifica_reti.py` verde, `aggiunte.yaml` completata. Finisce con l'arresto **R1**;
+  - **F2**: piano della versione 2.1.8 del CAD in `piano-v2.1.0.md`, da far approvare prima di toccare Fusion.
 
 **Acquisti (DU-4)**: approvati il 18 ottobre 10 kΩ 0805 (PCB1), X1 e X6; PTC di X9 passato a MF-R090; ordine DigiKey **in sospeso**, da unire ad altre voci per superare i 75 €. Non si comprano, perché l'utente li ha: i 100 nF a reoforo (kit dell'utente) e i pull-up da 4,7 kΩ (kit Elegoo: 5,1 kΩ se c'è, altrimenti 10 kΩ dal set B10). Il 330 Ω e l'1 kΩ sono nel set B10, il 15 kΩ non serve. La presa JST SH è stata tolta (DU-2 = no). C1 e i partitori a reoforo di X5 e X14 sono usciti dal BOM (2.4).
 
