@@ -189,8 +189,29 @@ def impronta_testata():
     return nome + '.kicad_mod', testo
 
 
+def impronta_fili(colonne, righe, d=1.5, foro=0.9):
+    """Piazzole per fili saldati (niente strip): passo 2,54, numerate per righe come le strip 2 x N (1, 2 nella prima
+    riga). Niente cortile (non c'e' un corpo: le distanze le tengono le regole del rame), un punto di serigrafia accanto
+    al pad 1. Foro 0,9 per fili da 26-30 AWG."""
+    el = []
+    n = 1
+    for r in range(righe):
+        for c in range(colonne):
+            el.append(_pad_tht(n, c * PASSO, r * PASSO, d, foro, quadrato=(n == 1)))
+            n += 1
+    el.append(_rett(-d / 2, -d / 2, (colonne - 1) * PASSO + d / 2, (righe - 1) * PASSO + d / 2, 'F.Fab', 0.1))
+    el.append(S('fp_circle', S('center', -d / 2 - 0.35, -d / 2 - 0.35), S('end', -d / 2 - 0.2, -d / 2 - 0.35),
+                S('stroke', S('width', 0.15), S('type', Sym('solid'))), S('fill', Sym('yes')), S('layer', 'F.SilkS')))
+    nome = 'Fili_%dx%02d_P2.54mm_D%.1f' % (colonne, righe, d)
+    return impronta(nome, 'Piazzole per fili saldati, %d x %d a passo 2,54, Ø%.1f foro %.1f' % (colonne, righe, d, foro),
+                    el, rif_y=-2, val_y=(righe - 1) * PASSO + 2)
+
+
 def impronte():
     out = dict([impronta_testata()])
+    for c, r in ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 2)):
+        fp = impronta_fili(c, r)
+        out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'
     for f in (impronta_esp, impronta_d24, impronta_ptc, impronta_ce):
         fp = f()
         out[fp[1] + '.kicad_mod'] = scrivi(fp) + '\n'

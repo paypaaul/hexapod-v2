@@ -13,8 +13,11 @@ import subprocess
 import sys
 
 import verifica_reti
+import yaml
 
 KICAD_CLI = os.environ.get('KICAD_CLI', '/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli')
+NON_SBROGLIATE = {}
+SERIGRAFIA = {}
 RADICE = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 
 
@@ -52,8 +55,17 @@ def rilievi(cartella, uscite=None):
         return out
     with open(drc, encoding='utf-8') as f:
         d = json.load(f)
+    # prima dello sbroglio (pcb/stato.yaml: piazzamento) le connessioni mancanti sono attese: si contano a parte
+    with open(os.path.join(RADICE, 'pcb', 'stato.yaml'), encoding='utf-8') as f:
+        fase = (yaml.safe_load(f) or {}).get(nome, 'sbroglio')
     for chiave in ('violations', 'unconnected_items', 'schematic_parity'):
+        if chiave == 'unconnected_items' and fase == 'piazzamento':
+            NON_SBROGLIATE[nome] = len(d.get(chiave, []))
+            continue
         for v in d.get(chiave, []):
+            if fase == 'piazzamento' and v['type'].startswith('silk_'):
+                SERIGRAFIA[nome] = SERIGRAFIA.get(nome, 0) + 1
+                continue
             out.append(('DRC ' + chiave, v['severity'], v['type'], v['description'],
                         [i['description'] for i in v['items']]))
     return out
@@ -65,6 +77,9 @@ def principale(cartelle):
         r = rilievi(c)
         nome = os.path.basename(os.path.abspath(c))
         senza = '' if os.path.exists(os.path.join(c, nome + '.kicad_pcb')) else ' (PCB non ancora: solo ERC e reti)'
+        if nome in NON_SBROGLIATE:
+            senza = (' (piazzamento: %d connessioni da sbrogliare e %d avvisi di serigrafia, non contati)'
+                     % (NON_SBROGLIATE[nome], SERIGRAFIA.get(nome, 0)))
         print('%s: %d rilievi%s' % (c, len(r), senza))
         for controllo, grav, tipo, descr, elementi in r:
             print('  %s %s %s: %s %s' % (controllo, grav, tipo, descr, elementi))

@@ -81,10 +81,12 @@ class Scheda:
         """Rete per nome; le etichette locali del foglio radice si chiamano '/NOME'."""
         return self.reti.get(nome) or self.reti['/' + nome]
 
-    def piazza(self, ref, x, y, angolo=0, retro=False):
+    def piazza(self, ref, x, y, angolo=0, retro=False, specchio='tb'):
+        """Impronta in (x, y) di KiCad; con retro=True va sul lato B, specchiata sopra-sotto ('tb') o destra-sinistra ('lr')."""
         fp = self.impronte[ref]
         if retro and not fp.IsFlipped():
-            fp.Flip(fp.GetPosition(), pcbnew.FLIP_DIRECTION_TOP_BOTTOM)
+            fp.Flip(fp.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT if specchio == 'lr' else
+                    pcbnew.FLIP_DIRECTION_TOP_BOTTOM)
         fp.SetPosition(punto(x, y))
         fp.SetOrientationDegrees(angolo)
 

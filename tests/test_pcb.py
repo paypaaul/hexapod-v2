@@ -154,14 +154,17 @@ def test_drc_trova_pista_mancante_e_pista_stretta(tmp_path):
 
 
 @con_pcbnew
-def test_pcb_ripetibile(tmp_path):
-    """Rigenerare la prova dà lo stesso file che è nella repo."""
-    d = _copia_prova(tmp_path)
+@pytest.mark.parametrize('scheda', ['prova', 'carapace'])
+def test_pcb_ripetibile(tmp_path, scheda):
+    """Rigenerare il PCB dà lo stesso file che è nella repo."""
+    d = tmp_path / scheda
+    d.mkdir()
+    shutil.copy(os.path.join(PCB, scheda, scheda + '.kicad_pro'), d)
     script = ('import sys; sys.path[:0] = [%r, %r]\nimport genera_pcb\ngenera_pcb.scheda(cartella=%r).salva()\n'
-              % (os.path.join(PCB, 'prova'), os.path.join(PCB, 'script'), str(d)))
+              % (os.path.join(PCB, scheda), os.path.join(PCB, 'script'), str(d)))
     subprocess.run([KICAD_PY, '-c', script], check=True, capture_output=True)
-    with open(os.path.join(PCB, 'prova', 'prova.kicad_pcb'), encoding='utf-8') as f:
-        assert (d / 'prova.kicad_pcb').read_text() == f.read()
+    with open(os.path.join(PCB, scheda, scheda + '.kicad_pcb'), encoding='utf-8') as f:
+        assert (d / (scheda + '.kicad_pcb')).read_text() == f.read()
 
 
 @con_kicad
@@ -260,3 +263,30 @@ def test_step_nella_terna_del_robot(tmp_path):
         return sum(1 for x, y, _ in pts if abs(((x - cx) ** 2 + (y - cy) ** 2) ** 0.5 - 1.5) < 1e-3)
     assert sul_foro(40, 10) > 0
     assert sul_foro(40, -10) == 0
+
+
+@con_pcbnew
+@con_kicad
+def test_regole_del_carapace_casi_di_controllo(tmp_path):
+    """Pulsante a meno di 1 mm da un'altra rete e pista del 5V da 0,5: il DRC li deve trovare (regole di D-079)."""
+    import controlla
+    d = tmp_path / 'carapace'
+    d.mkdir()
+    for f in ('carapace.kicad_pro', 'carapace.kicad_sch', 'carapace.kicad_dru'):
+        shutil.copy(os.path.join(PCB, 'carapace', f), d)
+    for t in ('sym-lib-table', 'fp-lib-table'):
+        testo = open(os.path.join(PCB, 'carapace', t), encoding='utf-8').read()
+        (d / t).write_text(testo.replace('${KIPRJMOD}/../librerie', os.path.join(PCB, 'librerie')))
+    script = (
+        'import sys; sys.path[:0] = [%r, %r]\n'
+        'import genera_pcb, pcbnew\n'
+        'from scheda_kicad import punto\n'
+        's = genera_pcb.scheda(cartella=%r)\n'
+        'fp = s.impronte["P6"]\n'
+        'fp.SetPosition(pcbnew.VECTOR2I(fp.GetPosition().x + pcbnew.FromMM(0.3), fp.GetPosition().y))\n'
+        's.pista("5V", [("P4", 1), ("P2", 3)], 0.5, "B.Cu")\n'
+        's.salva()\n') % (os.path.join(PCB, 'carapace'), os.path.join(PCB, 'script'), str(d))
+    subprocess.run([KICAD_PY, '-c', script], check=True, capture_output=True)
+    r = controlla.rilievi(str(d), str(tmp_path))
+    assert any("pulsante a 1 mm" in x[3] for x in r)
+    assert any(x[2] == 'track_width' and '5V del carapace' in x[3] for x in r)

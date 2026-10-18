@@ -63,7 +63,7 @@
 
 # --- pulsante del carapace: tensione dei pin A e B della 2813 ignota (S-10), piste isolate (piano 4.2)
 (rule "pulsante a 1 mm"
-	(condition "(A.NetName == '/BTN_A' || A.NetName == '/BTN_B') && A.NetName != B.NetName")
+	(condition "(A.NetName == '/BTN_A' || A.NetName == '/BTN_B') && B.NetName != '/BTN_A' && B.NetName != '/BTN_B'")
 	(constraint clearance (min 1.0mm)))
 (rule "pulsante dentro J2"
 	(condition "(A.NetName == '/BTN_A' || A.NetName == '/BTN_B') && A.memberOfFootprint('J2') && B.memberOfFootprint('J2')")

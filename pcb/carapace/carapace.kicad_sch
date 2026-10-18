@@ -1941,129 +1941,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "hex2_kicad:TestPoint"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.762)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "TP"
-				(at 0 6.858 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "TestPoint"
-				(at 0 5.08 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 5.08 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 5.08 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "test point"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "test point tp"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "Pin* Test*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "TestPoint_0_1"
-				(circle
-					(center 0 3.302)
-					(radius 0.762)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "TestPoint_1_1"
-				(pin passive line
-					(at 0 0 90)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 	)
 	(wire
 		(pts
@@ -2127,26 +2004,6 @@
 	)
 	(wire
 		(pts
-			(xy 251.46 127) (xy 251.46 129.54)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "1db08b65-7674-5e55-9340-e5a2a4bfdcf4")
-	)
-	(wire
-		(pts
-			(xy 233.68 149.86) (xy 233.68 152.4)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "22c016cf-96e4-5c0c-a226-e2eccb02c964")
-	)
-	(wire
-		(pts
 			(xy 121.92 132.08) (xy 119.38 132.08)
 		)
 		(stroke
@@ -2177,16 +2034,6 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 149.86) (xy 215.9 152.4)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "36cb2b89-21bf-580b-8aa2-fb7a4bb0e5a9")
-	)
-	(wire
-		(pts
 			(xy 83.82 132.08) (xy 81.28 132.08)
 		)
 		(stroke
@@ -2214,16 +2061,6 @@
 			(type solid)
 		)
 		(uuid "3b041668-51e3-51ba-9de7-df6e350a045a")
-	)
-	(wire
-		(pts
-			(xy 215.9 127) (xy 215.9 129.54)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "3b1cde63-1505-551c-9328-4b95ad10d30b")
 	)
 	(wire
 		(pts
@@ -2337,16 +2174,6 @@
 	)
 	(wire
 		(pts
-			(xy 251.46 149.86) (xy 251.46 152.4)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "7bb8f205-4d18-5bca-99c2-885ff161afac")
-	)
-	(wire
-		(pts
 			(xy 45.72 132.08) (xy 43.18 132.08)
 		)
 		(stroke
@@ -2444,16 +2271,6 @@
 			(type solid)
 		)
 		(uuid "adbfab8a-4326-5b3b-9c41-c020d60d2b44")
-	)
-	(wire
-		(pts
-			(xy 233.68 127) (xy 233.68 129.54)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "b445317d-6689-5353-8721-d8144087908f")
 	)
 	(wire
 		(pts
@@ -2645,16 +2462,6 @@
 		)
 		(uuid "38ff8b21-2f53-5502-bb54-c841a3712260")
 	)
-	(label "DATA"
-		(at 251.46 152.4 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "40e559da-684f-5e11-8478-4a151231783d")
-	)
 	(label "5V"
 		(at 139.7 57.15 90)
 		(effects
@@ -2705,16 +2512,6 @@
 		)
 		(uuid "51f597fb-f052-57c6-940a-784eca5177a2")
 	)
-	(label "SDA"
-		(at 215.9 152.4 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "5578f514-bd0a-58e3-96a1-d29932241123")
-	)
 	(label "WS"
 		(at 157.48 134.62 180)
 		(effects
@@ -2724,16 +2521,6 @@
 			(justify right bottom)
 		)
 		(uuid "5bfc5cc7-c980-5ca0-94d9-5ef186e2f150")
-	)
-	(label "GND"
-		(at 251.46 129.54 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "5fc220e1-d1bd-5a4f-b132-6a481faa077f")
 	)
 	(label "SCL"
 		(at 86.36 73.66 0)
@@ -2995,16 +2782,6 @@
 		)
 		(uuid "c2bfc695-5a7d-5870-8c4d-176ae02a7ff5")
 	)
-	(label "5V"
-		(at 215.9 129.54 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c3dd2cb4-c3d5-50f5-b75d-f3679e5d059a")
-	)
 	(label "WS"
 		(at 68.58 81.28 180)
 		(effects
@@ -3025,16 +2802,6 @@
 		)
 		(uuid "d269bc75-5dfd-57f3-98df-4221cf03e62e")
 	)
-	(label "SCL"
-		(at 233.68 152.4 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "e48d9a32-09d3-5368-9f3f-1d71a853eff0")
-	)
 	(label "BCLK"
 		(at 86.36 78.74 0)
 		(effects
@@ -3054,16 +2821,6 @@
 			(justify left bottom)
 		)
 		(uuid "e8dadec7-5feb-51ad-9657-e9021e0b6a59")
-	)
-	(label "3V3"
-		(at 233.68 129.54 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "e97213f1-a135-59bd-9b23-fef905df20e7")
 	)
 	(label "DATA"
 		(at 86.36 71.12 0)
@@ -3106,82 +2863,6 @@
 		(uuid "f62eca2b-c897-5728-9748-77a5f611a442")
 	)
 	(symbol
-		(lib_id "hex2_kicad:TestPoint")
-		(at 215.9 149.86 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "0bece01a-1cbf-56ef-a640-9f83a12c22b0")
-		(property "Reference" "TP4"
-			(at 215.9 143.002 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SDA"
-			(at 215.9 144.78 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "hex2:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 215.9 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 215.9 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 215.9 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d98f7147-6d4a-50df-b393-757d0ce94b11")
-		)
-		(instances
-			(project "carapace"
-				(path "/7bd8d3cf-0898-5803-a11f-8c7cefc946b8"
-					(reference "TP4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "hex2_kicad:Conn_01x05")
 		(at 127 132.08 0)
 		(unit 1)
@@ -3212,7 +2893,7 @@
 				)
 			)
 		)
-		(property "Footprint" "hex2:PinHeader_1x05_P2.54mm_Vertical"
+		(property "Footprint" "hex2:Fili_1x05_P2.54mm_D1.5"
 			(at 127 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -3270,82 +2951,6 @@
 		)
 	)
 	(symbol
-		(lib_id "hex2_kicad:TestPoint")
-		(at 215.9 127 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "212d702a-7f7b-57c0-81dd-f779c065653e")
-		(property "Reference" "TP1"
-			(at 215.9 120.142 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "5V"
-			(at 215.9 121.92 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "hex2:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 215.9 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 215.9 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 215.9 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "61b653f5-f3bf-5b0a-a785-2503daf0dada")
-		)
-		(instances
-			(project "carapace"
-				(path "/7bd8d3cf-0898-5803-a11f-8c7cefc946b8"
-					(reference "TP1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "hex2_kicad:Conn_01x03")
 		(at 88.9 132.08 0)
 		(unit 1)
@@ -3376,7 +2981,7 @@
 				)
 			)
 		)
-		(property "Footprint" "hex2:PinHeader_1x03_P2.54mm_Vertical"
+		(property "Footprint" "hex2:Fili_1x03_P2.54mm_D1.5"
 			(at 88.9 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -3458,7 +3063,7 @@
 				)
 			)
 		)
-		(property "Footprint" "hex2:PinHeader_1x01_P2.54mm_Vertical"
+		(property "Footprint" "hex2:Fili_1x01_P2.54mm_D1.5"
 			(at 127 162.56 0)
 			(hide yes)
 			(show_name no)
@@ -3610,7 +3215,7 @@
 				)
 			)
 		)
-		(property "Footprint" "hex2:PinHeader_1x04_P2.54mm_Vertical"
+		(property "Footprint" "hex2:Fili_1x04_P2.54mm_D1.5"
 			(at 50.8 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -3818,7 +3423,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "hex2:CP_Radial_D6.3mm_P2.50mm_Sdraiato"
+		(property "Footprint" "hex2:CP_Radial_D6.3mm_P2.50mm"
 			(at 139.7 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -3943,82 +3548,6 @@
 		)
 	)
 	(symbol
-		(lib_id "hex2_kicad:TestPoint")
-		(at 251.46 149.86 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "87cadaed-225f-5a76-bf1d-1e7b5f15dbbc")
-		(property "Reference" "TP6"
-			(at 251.46 143.002 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "DATA"
-			(at 251.46 144.78 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "hex2:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 251.46 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 251.46 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 251.46 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "bf28c629-74a7-525c-896d-54a3df90b409")
-		)
-		(instances
-			(project "carapace"
-				(path "/7bd8d3cf-0898-5803-a11f-8c7cefc946b8"
-					(reference "TP6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "hex2_kicad:Conn_01x04")
 		(at 50.8 162.56 0)
 		(unit 1)
@@ -4049,7 +3578,7 @@
 				)
 			)
 		)
-		(property "Footprint" "hex2:PinHeader_1x04_P2.54mm_Vertical"
+		(property "Footprint" "hex2:Fili_2x02_P2.54mm_D1.5"
 			(at 50.8 162.56 0)
 			(hide yes)
 			(show_name no)
@@ -4134,7 +3663,7 @@
 				)
 			)
 		)
-		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
+		(property "Footprint" "hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 165.1 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -4183,158 +3712,6 @@
 		)
 	)
 	(symbol
-		(lib_id "hex2_kicad:TestPoint")
-		(at 251.46 127 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a626564b-4ea2-5ee0-8f37-cfe851dc7d71")
-		(property "Reference" "TP3"
-			(at 251.46 120.142 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 251.46 121.92 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "hex2:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 251.46 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 251.46 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 251.46 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "8e68a769-1d5c-501f-8c35-e2d68585f130")
-		)
-		(instances
-			(project "carapace"
-				(path "/7bd8d3cf-0898-5803-a11f-8c7cefc946b8"
-					(reference "TP3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "hex2_kicad:TestPoint")
-		(at 233.68 127 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "afba3057-5f00-567b-b9ab-60506542c58f")
-		(property "Reference" "TP2"
-			(at 233.68 120.142 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "3V3"
-			(at 233.68 121.92 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "hex2:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 233.68 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 233.68 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 233.68 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "ab5652f1-941d-59df-b420-3d81796cd13d")
-		)
-		(instances
-			(project "carapace"
-				(path "/7bd8d3cf-0898-5803-a11f-8c7cefc946b8"
-					(reference "TP2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "hex2_kicad:Conn_01x05")
 		(at 165.1 132.08 0)
 		(unit 1)
@@ -4365,7 +3742,7 @@
 				)
 			)
 		)
-		(property "Footprint" "hex2:PinHeader_1x05_P2.54mm_Vertical"
+		(property "Footprint" "hex2:Fili_1x05_P2.54mm_D1.5"
 			(at 165.1 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -4423,82 +3800,6 @@
 		)
 	)
 	(symbol
-		(lib_id "hex2_kicad:TestPoint")
-		(at 233.68 149.86 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "b6275e3b-1080-5b40-9310-81d557e6ddc7")
-		(property "Reference" "TP5"
-			(at 233.68 143.002 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SCL"
-			(at 233.68 144.78 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "hex2:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 233.68 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 233.68 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 233.68 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d01794de-f3e9-512e-8eaf-a0bbdeaa78eb")
-		)
-		(instances
-			(project "carapace"
-				(path "/7bd8d3cf-0898-5803-a11f-8c7cefc946b8"
-					(reference "TP5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "hex2_kicad:Conn_01x02")
 		(at 88.9 162.56 0)
 		(unit 1)
@@ -4529,7 +3830,7 @@
 				)
 			)
 		)
-		(property "Footprint" "hex2:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "hex2:Fili_1x02_P2.54mm_D1.5"
 			(at 88.9 162.56 0)
 			(hide yes)
 			(show_name no)

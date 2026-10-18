@@ -1,6 +1,6 @@
 """PCB-C, scheda del carapace: schema generato da script (piano-pcb.md 4.2; piedinatura di cablaggio.md 3.5).
 
-Il TCA9534 sulla scheda è stato tolto alla verifica R1: esiste solo in SOIC largo o TSSOP, che non stanno nei
+CE1 in piedi sotto l'ala -Y (sotto c'e' posto per 14 mm, F4). Il TCA9534 sulla scheda è stato tolto alla verifica R1: esiste solo in SOIC largo o TSSOP, che non stanno nei
 7,4 × 19 mm utili; l'espansore è il modulo X20. Pad n di J2 = polo n del cavo; poli dispari sulla fila lato chiave.
 
 Le reti si scrivono qui a mano e `verifica_reti.py` le confronta con scheda_def.py. Componenti sotto la scheda.
@@ -31,20 +31,22 @@ PIAZZOLE = [
     ('P6', 'pulsante', ['BTN_A', 'BTN_B']),                             # piste isolate e lontane (S-10)
     ('P7', 'riserva polo 14', ['RISERVA14']),                           # XSHUT del ToF del mento (X25)
 ]
-PROVE = [('TP1', '5V'), ('TP2', '3V3'), ('TP3', 'GND'), ('TP4', 'SDA'), ('TP5', 'SCL'), ('TP6', 'DATA')]
+# niente punti di prova dedicati (F4, 18 ottobre): ogni rete ha gia' una piazzola con il nome, e il posto non c'e'
+PROVE = []
 
 
 def schema():
     s = Schema('carapace', 'HEX2 CARAPACE r1', cartella_simboli=LIBRERIE)
     s.simbolo('hex2_kicad:Conn_02x08_Odd_Even', 'J2', 'Würth 61201621721',
               'hex2:IDC-Header_2x08_P2.54mm_Horizontal_Foro1.1', 76.2, 76.2)
-    s.simbolo('hex2_kicad:C_Polarized', 'CE1', '470µ 10V', 'hex2:CP_Radial_D6.3mm_P2.50mm_Sdraiato', 139.7, 63.5)
-    s.simbolo('hex2_kicad:R', 'R1', 'R-MIC', 'hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal',
+    s.simbolo('hex2_kicad:C_Polarized', 'CE1', '470µ 10V', 'hex2:CP_Radial_D6.3mm_P2.50mm', 139.7, 63.5)
+    s.simbolo('hex2_kicad:R', 'R1', 'R-MIC', 'hex2:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical',
               165.1, 63.5, campi={'DNP': True})   # pull-down dei microfoni, valore al banco (S-21)
     for i, (rif, gruppo, reti) in enumerate(PIAZZOLE):
         n = len(reti)
-        s.simbolo('hex2_kicad:Conn_01x%02d' % n, rif, gruppo, 'hex2:PinHeader_1x%02d_P2.54mm_Vertical' % n,
-                  50.8 + 38.1 * (i % 4), 132.08 + 30.48 * (i // 4))
+        # il ToF posteriore sta nell'ala +Y, larga 6: piazzole 2 x 2
+        imp = 'hex2:Fili_2x02_P2.54mm_D1.5' if rif == 'P5' else 'hex2:Fili_1x%02d_P2.54mm_D1.5' % n
+        s.simbolo('hex2_kicad:Conn_01x%02d' % n, rif, gruppo, imp, 50.8 + 38.1 * (i % 4), 132.08 + 30.48 * (i // 4))
     for i, (rif, rete) in enumerate(PROVE):
         s.simbolo('hex2_kicad:TestPoint', rif, rete, TP, 215.9 + 17.78 * (i % 3), 127 + 22.86 * (i // 3))
     for i, rete in enumerate(['GND', '3V3']):

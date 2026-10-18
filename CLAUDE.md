@@ -154,7 +154,7 @@ Numeri di oggi:
    - T-plug da provare a mano sul primo carapace, con il ToF posteriore montato; spina vera nelle tacche aperte del tetto prima di stampare la base (guida 11.03);
    - cavo piatto del carapace in due strisce: pieghe da provare sul pezzo prima di saldare la basetta (`cablaggio.md` 3.5bis); la riserva è la soluzione B di P-002, da far scegliere all'utente.
 3. **Da guardare sui pezzi in casa** (D-073): chiederli all'utente quando servono, non sono misure dei servo.
-   - ESP32 RE1.3: nel CAD dalla 2.1.8 con le quote del disegno e le altezze dei datasheet (S); si confermano sulla dima (F5). Basta sapere l'altezza delle strip femmina che si useranno sulla basetta (standard 8,5).
+   - ESP32 RE1.3: nel CAD dalla 2.1.8 con le quote del disegno e le altezze dei datasheet (S); si confermano sulla dima (F5). Strip femmina della basetta standard da 8,5 (detto dall'utente il 18 ottobre: V).
    - Diametro e altezza dei condensatori da 2200 µF (B7). Previsti 12,5–13 × 20–22 mm.
    - Kit Temu da 918 viti M2–M5: tipo di testa e lunghezze delle M3. Se ci sono M3 × 6 e × 8 a testa cilindrica, D6 si riduce.
    - Lega dello stagno "a bassa temperatura": se non è al bismuto, B19 perde anche lo stagno.

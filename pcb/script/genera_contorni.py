@@ -46,9 +46,10 @@ SCHEDE = {
         # ali davanti (2.1.8, blocco F): lungo la X locale fino a ±sch_ala_y, profonde sch_ala_x dal bordo a -Y locale
         'ali': ('sch_ala_y', 'sch_ala_x'),
         'fori': ['ins_sch_a', 'ins_sch_b', 'ins_sch_c', 'ins_sch_d'],
-        # componenti sotto: testa M2 Ø3,8 (corpo.py, sch_vite_xp) più 0,5 per lato; sopra, bugna Ø5,5 (corpo.py,
-        # cilindro 'bugna_sch_*', non parametrica) più 0,5 per lato (S)
-        'anelli': {'B.Cu': '3.8 mm + 1 mm', 'F.Cu': '5.5 mm + 1 mm'},
+        # componenti sotto: testa M2 Ø3,8 (corpo.py, sch_vite_xp) più 0,5 per lato; sopra, la bugna Ø5,5 (corpo.py,
+        # cilindro 'bugna_sch_*', non parametrica) senza margine: la plastica puo' toccare il rame, ma nessuna piazzola
+        # le sta sotto (con 0,5 di margine coprivano i pin 1, 2, 15 e 16 della testata, F4)
+        'anelli': {'B.Cu': '3.8 mm + 1 mm', 'F.Cu': '5.5 mm'},
         'rettangoli': [],
     },
     'partitori': {

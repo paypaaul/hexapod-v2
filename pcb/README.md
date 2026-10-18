@@ -22,6 +22,8 @@ Schema e PCB **si generano da script**, e i file di KiCad sono il risultato. Una
 | contorno, fori Ø2,4 e zone senza rame dalle quote del CAD | `script/genera_contorni.py` (`--controlla <file>.kicad_pcb`); nel PCB `Scheda.contorni_dal_cad` | qualunque |
 | reti di KiCad contro `guida/schemi/sorgenti/*_def.py`, con le differenze volute in `aggiunte.yaml` | `script/verifica_reti.py <scheda> <file>.net` | qualunque, con PyYAML |
 
+Piazzamento sul lato B: KiCad ribalta l'impronta specchiando la Y; con 180 gradi in più la scheda si guarda dall'alto del robot (X specchiata). `pcb/stato.yaml` dice in che fase è ogni scheda: in "piazzamento" `controlla.py` conta a parte le connessioni da sbrogliare e gli avvisi di serigrafia.
+
 Regole degli script:
 - lo schema ha un tratto di filo e un'etichetta su ogni pin collegato, e il segno di non collegato sui pin liberi. Un pin senza né l'uno né l'altro, o una rete su un pin che non esiste, fermano il generatore prima di KiCad;
 - gli identificativi sono ripetibili (uuid derivati dai nomi nello schema, generatore con il seme nel PCB): rigenerare senza modifiche dà gli stessi file;
@@ -45,7 +47,7 @@ Librerie: `librerie/hex2_kicad.kicad_sym` (simboli copiati da KiCad 10, appiatti
 |---|---|---|
 | `prova/` | scheda di prova del metodo, caso di riferimento della CI | schema e PCB |
 | `basetta/` | PCB-B, basetta dell'ESP32 (piano 4.1) | schema approvato all'arresto R1 (D-079) |
-| `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema approvato all'arresto R1 (D-079) |
+| `carapace/` | PCB-C, scheda del carapace (piano 4.2) | schema approvato all'arresto R1 (D-079); piazzamento (F4) |
 | `partitori/` | PCB-P | dopo DU-5 (F2) |
 
 ## Prova del metodo (F1, 18 ottobre 2026)
