@@ -36,6 +36,7 @@ totali_bom:
 inserti_predisposizioni:
   - {chiave: corpo/Corpo_Base, lav: "ins_imu_*", x: X4}
   - {chiave: corpo/Corpo_Base, lav: "ins_ads_*", x: X6}
+  - {chiave: corpo/Corpo_Base, lav: "ins_par_*", x: X5}
   - {chiave: "corpo/Corpo_Supporto_INA260_*", lav: "ins_*", x: X7}
   - {chiave: corpo/Corpo_Carapace, lav: "ins_amp_*", x: X17}
   - {chiave: corpo/Corpo_Carapace, lav: "ins_sch_*", x: X2}

@@ -600,7 +600,9 @@ def fai_ingombri(des, root, rigenera, solo=None):
     # scheda dei partitori (P2, D-080): origine al centro della faccia inferiore, pettine centrato in cor_par_pet_x
     dxp = p('cor_par_pet_x') - p('cor_par_x')
     fatti.append(componente(root, 'Rif_Partitori', [
-        ('scheda', box(0, 0, 0, p('par_l'), p('par_w'), 1.6)),
+        ('scheda', sottrai(box(0, 0, 0, p('par_l'), p('par_w'), 1.6),
+                           cyl(p('cor_par_foro_a') - p('cor_par_x'), 0, -1.0, p('vite_m2_pass'), 3.6),
+                           cyl(p('cor_par_foro_b') - p('cor_par_x'), 0, -1.0, p('vite_m2_pass'), 3.6))),
         ('pettine', box(dxp, 0, 1.6, p('par_pet_l'), p('par_pet_w'), p('par_pet_h'))),
         ('pin', box(dxp, 0, 1.6 + p('par_pet_h'), p('par_pet_l') - 1.8, p('par_pet_w') - 1.8, p('par_pin_h')))]))
     fatti.append(componente(root, 'Rif_Computer_Zaino', [('scheda', box(0, 0, 0, p('zai_l'), p('zai_w'), p('zai_sp')))]))

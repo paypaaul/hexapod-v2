@@ -30,7 +30,7 @@ sezione:
     - "corpo/Corpo_Supporto_INA260_*"
     - "corpo/INA260_*"
     - corpo/Corpo_Vassoio
-    - corpo/Prese_piedi
+    - corpo/Partitori
     - corpo/Prese_luci
     - corpo/ToF_frontale
     - corpo/Interruttore
@@ -169,7 +169,7 @@ passi:
           - "corpo/Corpo_Supporto_INA260_*"
           - "corpo/INA260_*"
           - corpo/Corpo_Vassoio
-          - corpo/Prese_piedi
+          - corpo/Partitori
           - corpo/Prese_luci
           - corpo/ToF_frontale
           - corpo/Interruttore
@@ -333,7 +333,7 @@ passi:
     esploso: {pezzi: {"zampa/Coxa_Ponte@AS": [0, 0, 40], "zampa/*": [0, 0, -30]}}
     posa: {coxa: 40}
     mostra: ["corpo/*", "zampa/*@AS"]
-    in_evidenza: [zampa/Coxa_Ponte@AS, corpo/Prese_piedi, corpo/Prese_luci]
+    in_evidenza: [zampa/Coxa_Ponte@AS, corpo/Partitori, corpo/Prese_luci]
     evidenzia:
       - {chiave: corpo/SSC32, lav: "corpo:zona_spine_servo"}
     etichette:

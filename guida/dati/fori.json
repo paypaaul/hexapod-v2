@@ -1124,6 +1124,54 @@ null
 },
 {
 "corpo": "Corpo1",
+"d": 3.4,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "ins_par_a",
+"origine": "estrusione",
+"p0": [
+46.2,
+22.75,
+-5.4
+],
+"p1": [
+46.2,
+22.75,
+-9.4
+]
+},
+{
+"corpo": "Corpo1",
+"d": 3.4,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"fondo",
+null
+],
+"lav": "ins_par_b",
+"origine": "estrusione",
+"p0": [
+69.6,
+22.75,
+-5.4
+],
+"p1": [
+69.6,
+22.75,
+-9.4
+]
+},
+{
+"corpo": "Corpo1",
 "d": 4.2,
 "e0": [
 "aperto",
@@ -4673,6 +4721,58 @@ null
 }
 ]
 },
+"Rif_Partitori": {
+"fori": [
+{
+"corpo": "scheda",
+"d": 2.4,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "",
+"origine": "",
+"p0": [
+-11.9,
+0.0,
+0.0
+],
+"p1": [
+-11.9,
+0.0,
+1.6
+]
+},
+{
+"corpo": "scheda",
+"d": 2.4,
+"e0": [
+"aperto",
+null
+],
+"e1": [
+"aperto",
+null
+],
+"lav": "",
+"origine": "",
+"p0": [
+11.5,
+0.0,
+0.0
+],
+"p1": [
+11.5,
+0.0,
+1.6
+]
+}
+]
+},
 "Rif_Reg_Servo_D42V110F6": {
 "fori": [
 {
@@ -5390,6 +5490,6 @@ null
 ]
 }
 },
-"documento": "Hexapod v2.1.0 v16",
+"documento": "Hexapod v2.1.0 v19",
 "versione": "2.1.7"
 }

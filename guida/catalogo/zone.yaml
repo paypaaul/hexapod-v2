@@ -9,7 +9,7 @@ Coxa_Ponte: [sede_disco, "foro_testa_*", foro_centrale, "feritoia_fascetta_*", g
 Cover_Femore_A: ["tasca_testa_*", "tasca_squadretta_*"]
 Cover_Femore_B: ["tasca_perno_*"]
 Femore_B: ["ins_lama_*", "foro_perno_*", "feritoia_femore_*", tunnel_fascetta, "ins_blocco_*"]
-Corpo_Base: ["pilota_*", "ins_coda_*", "finestra_ang", "finestra_med", "fessura_ang", "fessura_med", "gola_ang", "gola_med", "sede_cuscinetto_*", "passaggio_perno_*", "linguetta_spia_*", "foro_spia_*", "costola_f1_*", "fessura_cavi_*", "wago_spalla_*", "guida_2813_*", "scanalatura_2813_*", sede_prese, scanalatura_prese, sede_prese_luci, scanalatura_prese_luci, interno_tunnel, "ins_ads_*", "ins_imu_*", "ssc_bugna_*", "vas_bugna_*", "chi_ins_*", "colonnina_*", slitta_ins]
+Corpo_Base: ["pilota_*", "ins_coda_*", "finestra_ang", "finestra_med", "fessura_ang", "fessura_med", "gola_ang", "gola_med", "sede_cuscinetto_*", "passaggio_perno_*", "linguetta_spia_*", "foro_spia_*", "costola_f1_*", "fessura_cavi_*", "wago_spalla_*", "guida_2813_*", "scanalatura_2813_*", "ins_par_*", sede_prese_luci, scanalatura_prese_luci, interno_tunnel, "ins_ads_*", "ins_imu_*", "ssc_bugna_*", "vas_bugna_*", "chi_ins_*", "colonnina_*", slitta_ins]
 Corpo_Vassoio: [asola_bus, sede_tof, mensola, torretta]
 Corpo_Slitta_Regolatore: [piastra, "ins_*"]
 Corpo_Sportello: ["rebbio_*", linguetta]

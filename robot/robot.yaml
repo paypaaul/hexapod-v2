@@ -13,7 +13,7 @@
 
 versione: 2.1.7
 cad: cad.json
-cad_sha256: a1b098452680752e78c4975c1d67ce6ad842632b510a9d541010c3480b84179e  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
+cad_sha256: e234c5ccdbecdf571ae7591ea5e3a33281ce304d34439d5156176a893e789bfa  # impronta di cad.json: python3 tools/descrizione.py --aggiorna-hash dopo ogni esportazione
 
 zampe: [AS, MS, PS, AD, MD, PD]          # A anteriore, M media, P posteriore; S sinistra, D destra
 tripodi: [[AS, PS, MD], [AD, PD, MS]]    # calc/statica_tripode.py -> TRIPODI
@@ -78,10 +78,10 @@ andatura:
   giro_max: 30.0                         # gradi a passo nella rotazione sul posto (verificato nel CAD)
 
 massa:
-  attesa_g: 3046.2                       # 2.1.7 con le correzioni della verifica (2.1.6: 3045,0, D-074): modellato + non modellato (cad.json); calc/statica_tripode.py -> CONFIG
+  attesa_g: 3048.2                       # 2.1.8 (scheda dei partitori, D-080; 2.1.7: 3046,2; 2.1.6: 3045,0, D-074): modellato + non modellato (cad.json); calc/statica_tripode.py -> CONFIG
   non_modellato_sul_corpo: true          # cavi e viteria (cad.json -> masse.non_modellato_g) aggiunti al corpo
 
 regressione_statica:                     # software.md 6.3, test 6
-  femore_frazione_stallo: [0.525, 0.545] # 53 % +- 1 a 100/45 con 3046,2 g (2.1.7; 3045 g D-074; 51 % con 2945 g)
+  femore_frazione_stallo: [0.525, 0.545] # 53 % +- 1 a 100/45 con 3048,2 g (2.1.8; 3046,2 g 2.1.7; 3045 g D-074; 51 % con 2945 g)
   femore_kgfcm: 5.85
   margine_stabilita_mm: 59.0

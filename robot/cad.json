@@ -1,7 +1,7 @@
 {
  "versione": "2.1.7",
- "documento": "Hexapod v2.1.0 v16",
- "esportato": "2026-10-16T15:59:08",
+ "documento": "Hexapod v2.1.0 v19",
+ "esportato": "2026-10-18T19:54:21",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -201,14 +201,14 @@
  },
  "masse": {
   "segmenti_g": {
-   "corpo": 1070.6,
+   "corpo": 1072.5,
    "coxa": 94.1,
    "femore": 63.3,
    "tibia": 111.9
   },
-  "modellato_g": 2686.2,
+  "modellato_g": 2688.2,
   "non_modellato_g": 360.0,
-  "atteso_g": 3046.2,
+  "atteso_g": 3048.2,
   "nota": "stampate con pareti 1,2 mm e riempimento 25 %, comprate con la massa dichiarata; il non modellato (cavi, viteria) va distribuito sul corpo"
  },
  "parti": {
@@ -674,25 +674,25 @@
   "Rif_ESP32_S3_CAM": {
    "massa_g": 12.0,
    "baricentro_mm": [
-    47.972,
+    47.414,
     0.0,
-    15.864
+    15.797
    ],
    "inerzia_gmm2": [
     [
-     1113.6,
+     1037.3,
      -0.0,
-     -82.3
+     -47.3
     ],
     [
      -0.0,
-     4440.2,
+     4356.5,
      -0.0
     ],
     [
-     -82.3,
+     -47.3,
      -0.0,
-     5303.8
+     5166.0
     ]
    ],
    "materiale": "comprato",
@@ -968,33 +968,6 @@
    "materiale": "PETG-CF",
    "segmento": "corpo"
   },
-  "Rif_Prese_Piedi": {
-   "massa_g": 3.0,
-   "baricentro_mm": [
-    56.0,
-    23.4,
-    -4.65
-   ],
-   "inerzia_gmm2": [
-    [
-     19.8,
-     0.0,
-     0.0
-    ],
-    [
-     0.0,
-     78.1,
-     0.0
-    ],
-    [
-     0.0,
-     0.0,
-     61.8
-    ]
-   ],
-   "materiale": "comprato",
-   "segmento": "corpo"
-  },
   "Rif_ToF_8x8": {
    "massa_g": 0.5,
    "baricentro_mm": [
@@ -1209,33 +1182,6 @@
     ]
    ],
    "materiale": "PLA",
-   "segmento": "corpo"
-  },
-  "Rif_Prese_Piedi_2": {
-   "massa_g": 3.0,
-   "baricentro_mm": [
-    56.0,
-    -23.4,
-    -4.65
-   ],
-   "inerzia_gmm2": [
-    [
-     19.8,
-     0.0,
-     0.0
-    ],
-    [
-     0.0,
-     78.1,
-     0.0
-    ],
-    [
-     0.0,
-     0.0,
-     61.8
-    ]
-   ],
-   "materiale": "comprato",
    "segmento": "corpo"
   },
   "Corpo_Piastrina_IMU": {
@@ -1455,27 +1401,27 @@
    "segmento": "corpo"
   },
   "Corpo_Base": {
-   "massa_g": 200.34,
+   "massa_g": 200.3,
    "baricentro_mm": [
-    1.118,
-    0.0,
-    -16.431
+    1.108,
+    -0.005,
+    -16.432
    ],
    "inerzia_gmm2": [
     [
-     434630.4,
-     -12.9,
-     914.0
+     434601.1,
+     40.5,
+     925.0
     ],
     [
-     -12.9,
-     818027.9,
-     -1.0
+     40.5,
+     817947.2,
+     5.7
     ],
     [
-     914.0,
-     -1.0,
-     1196567.0
+     925.0,
+     5.7,
+     1196459.1
     ]
    ],
    "materiale": "PETG-CF",
@@ -1538,25 +1484,25 @@
   "Rif_Scheda_Carapace": {
    "massa_g": 5.0,
    "baricentro_mm": [
-    32.266,
+    32.813,
     0.0,
-    26.513
+    26.659
    ],
    "inerzia_gmm2": [
     [
-     358.7,
-     -0.0,
-     -46.6
+     416.5,
+     0.0,
+     -56.0
     ],
     [
-     -0.0,
-     286.6,
-     -0.0
+     0.0,
+     321.7,
+     0.0
     ],
     [
-     -46.6,
-     -0.0,
-     555.2
+     -56.0,
+     0.0,
+     645.2
     ]
    ],
    "materiale": "comprato",
@@ -1587,6 +1533,60 @@
     ]
    ],
    "materiale": "PLA",
+   "segmento": "corpo"
+  },
+  "Rif_Partitori": {
+   "massa_g": 5.0,
+   "baricentro_mm": [
+    57.058,
+    22.75,
+    -1.351
+   ],
+   "inerzia_gmm2": [
+    [
+     65.1,
+     0.0,
+     7.4
+    ],
+    [
+     0.0,
+     204.1,
+     -0.0
+    ],
+    [
+     7.4,
+     -0.0,
+     178.3
+    ]
+   ],
+   "materiale": "comprato",
+   "segmento": "corpo"
+  },
+  "Rif_Prese_Piedi": {
+   "massa_g": 3.0,
+   "baricentro_mm": [
+    56.0,
+    -23.4,
+    -4.65
+   ],
+   "inerzia_gmm2": [
+    [
+     19.8,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     78.1,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     61.8
+    ]
+   ],
+   "materiale": "comprato",
    "segmento": "corpo"
   },
   "Rif_Servo_MG996R_7": {
@@ -7975,6 +7975,96 @@
    "unita": "mm",
    "espressione": "sch_bugna_h + car_sp - car_fascia_h - 0.5 mm",
    "commento": "Scheda del carapace: foro dell inserto M2 (3 + 0,4): sotto la fascia restano 0,5 di dorso come prima; vite M2 x 4 (2,4 nell inserto)"
+  },
+  "sch_ala_y": {
+   "valore": 24.0,
+   "unita": "mm",
+   "espressione": "24 mm",
+   "commento": "Scheda del carapace: ali davanti fino a |y| 24 (2.1.8, blocco F: la PCB-C non contiene CE1, piazzole e punti di prova in 21,5 x 30; libere fino a 28, assieme.py urti_scatole) S"
+  },
+  "sch_ala_x": {
+   "valore": 6.0,
+   "unita": "mm",
+   "espressione": "6 mm",
+   "commento": "Scheda del carapace: profondita delle ali dal bordo anteriore (le colonnine del coperchio arrivano a x 44,7) S"
+  },
+  "cor_par_x": {
+   "valore": 58.1,
+   "unita": "mm",
+   "espressione": "58.1 mm",
+   "commento": "Scheda dei partitori (PCB-P, variante P2, D-080): X del centro, x 44,2...72 (da x 44 la colonnina del carapace e libera)"
+  },
+  "cor_par_y": {
+   "valore": 22.75,
+   "unita": "mm",
+   "espressione": "22.75 mm",
+   "commento": "Scheda dei partitori: Y del centro, y 19...26,5; fila centrale del pettine qui, spine JR a y >= 18,75 (P-141)"
+  },
+  "cor_par_foro_a": {
+   "valore": 46.2,
+   "unita": "mm",
+   "espressione": "46.2 mm",
+   "commento": "Scheda dei partitori: X del foro M2 verso la coda (testa Ø3,8 fra il bordo e il pettine)"
+  },
+  "cor_par_foro_b": {
+   "valore": 69.6,
+   "unita": "mm",
+   "espressione": "69.6 mm",
+   "commento": "Scheda dei partitori: X del foro M2 verso la testa (oltre i partitori 0805)"
+  },
+  "par_l": {
+   "valore": 27.8,
+   "unita": "mm",
+   "espressione": "27.8 mm",
+   "commento": "Scheda dei partitori (PCB-P, P2, D-080): lunghezza lungo X S"
+  },
+  "par_w": {
+   "valore": 7.5,
+   "unita": "mm",
+   "espressione": "7.5 mm",
+   "commento": "Scheda dei partitori: larghezza lungo Y S"
+  },
+  "par_pet_l": {
+   "valore": 15.24,
+   "unita": "mm",
+   "espressione": "15.24 mm",
+   "commento": "Pettine 6 x 3 a passo 2,54 delle spine dei piedi: lunghezza lungo X (sei spine affiancate) V"
+  },
+  "par_pet_w": {
+   "valore": 7.62,
+   "unita": "mm",
+   "espressione": "7.62 mm",
+   "commento": "Pettine: larghezza lungo Y (tre poli per spina) V"
+  },
+  "par_pet_h": {
+   "valore": 2.5,
+   "unita": "mm",
+   "espressione": "2.5 mm",
+   "commento": "Pettine: plastica sopra la scheda (strip standard) S"
+  },
+  "par_pin_h": {
+   "valore": 6.0,
+   "unita": "mm",
+   "espressione": "6 mm",
+   "commento": "Pettine: pin sopra la plastica (strip standard da 11,5) S"
+  },
+  "cor_par_pet_x": {
+   "valore": 56.6,
+   "unita": "mm",
+   "espressione": "56.6 mm",
+   "commento": "Scheda dei partitori: X del centro del pettine 6 x 3 (saldature della prima colonna a 0,45 dalla bugna di coda)"
+  },
+  "esp_pin_testa": {
+   "valore": 2.6,
+   "unita": "mm",
+   "espressione": "2.6 mm",
+   "commento": "ESP32 RE1.3: dal centro del pin di testa al bordo di testa del PCB (disegno dell inserzione in scala; il pin di coda e a 11,6 dal bordo delle USB) S"
+  },
+  "esp_retro_h": {
+   "valore": 2.1,
+   "unita": "mm",
+   "espressione": "2.1 mm",
+   "commento": "ESP32 RE1.3: componenti piu alti del retro, AMS1117 (SOT-223, 1,8 max) e tantalio (caso B, 2,1 max) dai datasheet; microSD 2,0 S"
   }
  }
 }

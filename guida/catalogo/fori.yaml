@@ -10,6 +10,7 @@ regole:
   - {componente: "Rif_Squadretta_25T", d: 3.2, tipo: centro_squadretta}
   - {componente: "Rif_Reg_Servo_D42V110F6", tipo: foro_pcb}
   - {componente: "Rif_SSC32_V25", tipo: foro_pcb}
+  - {componente: "Rif_Partitori", d: 2.4, tipo: passante_m2}
   - {componente: "Rif_*", tipo: ignora}
   # lamatura del colletto dei LED delle spie (verifica della 2.1.7): ha il diametro dell'inserto M3 ma non lo e'
   - {lav: "lamatura_spia_*", tipo: foro_led}

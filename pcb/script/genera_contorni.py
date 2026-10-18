@@ -51,6 +51,15 @@ SCHEDE = {
         'anelli': {'B.Cu': '3.8 mm + 1 mm', 'F.Cu': '5.5 mm + 1 mm'},
         'rettangoli': [],
     },
+    'partitori': {
+        # variante P2 (D-080): sotto le prese dei piedi, su due bugne come IMU e ADC
+        'istanza': 'corpo/Partitori',
+        'sagoma': ('par_l', 'par_w'),
+        'fori': ['ins_par_a', 'ins_par_b'],
+        # sopra la testa M2 × 5 (Ø4) più 0,5 per lato; sotto la bugna Ø5,5 più 0,5 per lato (S)
+        'anelli': {'F.Cu': '4 mm + 1 mm', 'B.Cu': 'cor_sen_bugna_d + 1 mm'},
+        'rettangoli': [],
+    },
 }
 
 

@@ -53,7 +53,8 @@ Rif_Cuscinetto_LF1050ZZ: {nome: Cuscinetto LF-1050ZZ, bom: D1}
 Rif_Perno_5:             {nome: Perno da 5 mm, bom: D2}
 Rif_Squadretta_25T:      {nome: Squadretta 25T, bom: D3}
 Rif_FSR_400:             {nome: Sensore di pressione FSR 400, x: X5}
-Rif_Prese_Piedi:         {nome: Prese dei piedi, x: X5}
+Rif_Prese_Piedi:         {nome: Prese delle luci, x: X31}
+Rif_Partitori:           {nome: Scheda dei partitori, x: X5}
 Rif_IMU_MPU6500:         {nome: IMU GY-6500, x: X4}
 Rif_IMU:                 {nome: IMU Pololu 2798 (alternativa), x: X4}
 Rif_ADC_ADS7830:         {nome: ADC ADS7830, x: X6}

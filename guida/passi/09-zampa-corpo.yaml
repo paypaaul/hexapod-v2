@@ -31,7 +31,7 @@ sezione:
     - corpo/Tplug
     - "corpo/Wago_*"
     - corpo/Interruttore
-    - corpo/Prese_piedi
+    - corpo/Partitori
     - corpo/Prese_luci
     - corpo/ToF_frontale
     - corpo/IMU
@@ -251,12 +251,12 @@ passi:
   - id: "9.09"
     titolo: Fili di FSR e luci alle prese
     formato: grande
-    in_evidenza: [corpo/Prese_piedi, corpo/Prese_luci]
+    in_evidenza: [corpo/Partitori, corpo/Prese_luci]
     mostra: [corpo/Corpo_Base, corpo/SSC32, corpo/Corpo_Vassoio, corpo/Wago_*, corpo/Tplug, corpo/Portafusibile_F1, corpo/Interruttore,
              zampa/Coxa@AS, zampa/Coxa_Ponte@AS, zampa/Servo_femore@AS]
     evidenzia: [{chiave: zampa/Coxa_Ponte@AS, lav: "feritoia_fascetta_*"}]
     vista: {direzione: [0.25, 0.2, 0.95], su: [1, 0, 0]}
-    etichette: [{testo: piedi, chiave: corpo/Prese_piedi}, {testo: luci, chiave: corpo/Prese_luci}, {testo: AS, chiave: zampa/Coxa_Ponte@AS}]
+    etichette: [{testo: piedi, chiave: corpo/Partitori}, {testo: luci, chiave: corpo/Prese_luci}, {testo: AS, chiave: zampa/Coxa_Ponte@AS}]
     testo:
       - "Porta doppino e fili delle luci lungo il cavo del ginocchio fino alle prese sul tetto del tunnel."
       - "Taglia i fili lasciando l'ansa che basta con la coxa a ±30° [C]."

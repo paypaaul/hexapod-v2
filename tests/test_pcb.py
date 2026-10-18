@@ -40,7 +40,10 @@ def test_contorni_come_il_piano():
     assert sorted(c['contorno']) == [(129.5, 85.0), (129.5, 115.0), (145.0, 76.0), (145.0, 85.0), (145.0, 115.0),
                                      (145.0, 124.0), (151.0, 76.0), (151.0, 124.0)]
     assert sorted((x, y) for _, x, y, _ in c['fori']) == [(141.5, 87.5), (141.5, 112.5), (148.0, 87.5), (148.0, 112.5)]
-    assert all(d == 2.4 for g in (b, c) for _, _, _, d in g['fori'])
+    p = GC.geometria('partitori')
+    assert sorted(p['contorno']) == [(144.2, 73.5), (144.2, 81.0), (172.0, 73.5), (172.0, 81.0)]
+    assert sorted((x, y) for _, x, y, _ in p['fori']) == [(146.2, 77.25), (169.6, 77.25)]
+    assert all(d == 2.4 for g in (b, c, p) for _, _, _, d in g['fori'])
 
 
 def _pcb_finto(g):

@@ -33,7 +33,6 @@ sezione:
     - "corpo/Wago_*"
     - corpo/Interruttore
     - corpo/Portafusibile_F1
-    - corpo/Prese_piedi
     - corpo/Prese_luci
   obiettivo: >-
     Montare nel corpo l'elettronica preparata al banco, poi collegarla: potenza, logica, bus. I fili della basetta
@@ -93,7 +92,7 @@ passi:
     titolo: Fili d'ingresso dei regolatori nei Wago
     formato: grande
     vista: {direzione: [-0.35, 0.8, 0.75], su: [0, 0, 1]}
-    nascondi: [corpo/Corpo_Base, "corpo/Servo_Coxa_*", "corpo/Cuscinetto_Coxa_*", corpo/Prese_piedi, corpo/Prese_luci]
+    nascondi: [corpo/Corpo_Base, "corpo/Servo_Coxa_*", "corpo/Cuscinetto_Coxa_*", corpo/Prese_luci]
     evidenzia:
       - {chiave: corpo/Corpo_Base, lav: "wago_spalla_*"}
     etichette:
@@ -311,7 +310,7 @@ passi:
       - "Avvita la scheda con due viti M2 × 5 negli inserti [C], piano."
       - "Collega il cavetto dell'ADC, passato nell'asola, alla presa Qwiic verso la coda: quella verso la testa è chiusa dalla colonna del vassoio (verifica della 2.1.7)."
     avvisi:
-      - {tipo: opzionale, x: X6, quando: meglio_ora, testo: "Senza ADC salta questo passo e l'8.10."}
+      - {tipo: opzionale, x: X6, quando: meglio_ora, testo: "Senza ADC salta questo passo; l'8.10 serve comunque se ci sono gli FSR."}
       - {tipo: importante, testo: "Fori e viti dell'ADS7830 non sono nel CAD né nel BOM [C]: prova sul pezzo."}
     attrezzi: [croce_ph0]
     fonti:
@@ -321,29 +320,37 @@ passi:
       - "guida/problemi/elettronica.yaml, ADC senza viti"
 
   - id: "8.10"
-    titolo: Striscia dei partitori
+    titolo: Scheda dei partitori con le prese dei piedi
     formato: grande
-    immagine: false
+    nuovi: [corpo/Partitori]
+    giunzioni: [partitori]
+    mostra: [corpo/Corpo_Base, corpo/ADC, corpo/Corpo_Piastrina_IMU, corpo/IMU]
+    esploso: {asse: [0, 0, 1], distanza: 25}
+    vista: {direzione: [0.25, 0.85, 0.7], su: [0, 0, 1]}
+    evidenzia:
+      - {chiave: corpo/Corpo_Base, lav: "ins_par_*"}
+    etichette:
+      - {testo: "pettine dei piedi", chiave: corpo/Partitori}
+      - {testo: "ADC", chiave: corpo/ADC}
     testo:
-      - "Taglia dalla millefori avanzata una striscia di 9 colonne [C]: sei piedi, due NTC, la massa."
-      - "Salda su ogni canale 0–5 una resistenza da 10 kΩ 1 % (BOM X5) fra l'ingresso e il 3,3 V."
-      - "Salda su ogni canale 0–5 un condensatore ceramico da 100 nF (BOM B8) fra l'ingresso e la massa."
-      - "Salda sui canali 6 e 7 una resistenza da 10 kΩ 1 % fra l'ingresso e il 3,3 V."
+      - "Prendi la scheda dei partitori già montata al banco: pettine 6 × 3 delle spine dei piedi, una resistenza da 10 kΩ 1 % fra ogni ingresso e il 3,3 V, un condensatore da 100 nF fra ogni ingresso e la massa [C: schema della PCB-P da fare]."
+      - "Posala sulle due bugne a sinistra dell'ADC, pettine in alto, e avvitala con due viti M2 × 5 negli inserti."
       - "Controlla in continuità ogni ingresso: nessun corto con il 3,3 V o con la massa."
     tabella:
       intestazione: [Canale ADS7830, Collegamento, Dove arriva il sensore]
       righe:
-        - ["0, 1, 2, 3, 4, 5", "10 kΩ al 3,3 V, 100 nF a massa; l'FSR va fra l'ingresso e la massa [S]", "prese dei piedi: AS, MS, PS, AD, MD, PD [C]"]
+        - ["0, 1, 2, 3, 4, 5", "10 kΩ al 3,3 V, 100 nF a massa; l'FSR va fra l'ingresso e la massa [S]", "pettine dei piedi: AS, MS, PS, AD, MD, PD [C]"]
         - ["6, 7", "10 kΩ al 3,3 V; la NTC va fra l'ingresso e la massa [S]", "NTC dei regolatori sinistro e destro (8.24)"]
     avvisi:
-      - {tipo: opzionale, x: X6, quando: meglio_ora, testo: "Senza ADC salta questo passo. Con l'ADC ma senza FSR (X5) servono i canali 6 e 7 per le NTC (X14)."}
-      - {tipo: importante, testo: "Non fissare la striscia: nel CAD non ha un posto e il suo schema non è disegnato, gli schemi F3b coprono solo basetta e scheda del carapace (guida/problemi/elettronica.yaml). Tienila accanto all'ADC [C]."}
-    attrezzi: [saldatore, tronchesino, multimetro]
+      - {tipo: opzionale, x: X5, quando: meglio_ora, testo: "Senza FSR (X5) e senza NTC (X14) salta questo passo."}
+      - {tipo: nota, testo: "Dalla 2.1.8 (D-080) le prese dei piedi sono il pettine di questa scheda: le spine JR si innestano dall'alto a carapace tolto. La scheda è la PCB-P della prima serie; in alternativa una millefori tagliata sulla stessa sagoma, 27,8 × 7,5 mm."}
+    attrezzi: [croce_ph0, multimetro]
     fonti:
-      - "docs/predisposizioni.md X5 (partitori: 10 kΩ 1 % verso il 3,3 V e 100 nF a massa sulla striscia dei partitori; lettura invertita) e X6"
+      - "D-080 (scheda dei partitori sotto le prese dei piedi)"
+      - "docs/predisposizioni.md X5 (partitori: 10 kΩ 1 % verso il 3,3 V e 100 nF a massa) e X6"
       - "docs/cablaggio.md 3.3 (Sensore di forza) e 3.4 (NTC dei regolatori, canali 6 e 7)"
-      - "docs/BOM.md X5 (partitori), X14"
-      - "guida/problemi/elettronica.yaml, schemi mancanti"
+      - "docs/piano-pcb.md 4.3 (PCB-P, variante P2)"
+      - "guida/catalogo/giunzioni.yaml, partitori"
 
   # ------------------------------------------------------------------------------------------------ vassoio e basetta
   - id: "8.11"
@@ -684,19 +691,17 @@ passi:
 
   # ------------------------------------------------------------------------------------------------ prese e sensori
   - id: "8.22"
-    titolo: Prese dei piedi verso l'ADC
+    titolo: Scheda dei partitori verso l'ADC
     formato: grande
-    mostra: [corpo/Prese_piedi, corpo/ADC, corpo/IMU, corpo/Corpo_Piastrina_IMU, corpo/Corpo_Vassoio, corpo/SSC32]
+    mostra: [corpo/Partitori, corpo/ADC, corpo/IMU, corpo/Corpo_Piastrina_IMU, corpo/Corpo_Vassoio, corpo/SSC32]
     vista: {direzione: [0.3, 0.85, 0.45], su: [0, 0, 1]}
-    evidenzia:
-      - {chiave: corpo/Corpo_Base, lav: sede_prese}
     etichette:
-      - {testo: "prese dei piedi", chiave: corpo/Prese_piedi}
+      - {testo: "scheda dei partitori", chiave: corpo/Partitori}
       - {testo: "ADC", chiave: corpo/ADC}
     testo:
-      - "Salda un filo per ogni presa: dal polo del segnale al suo ingresso della striscia dei partitori."
-      - "Salda un filo di massa dal polo di massa di ogni presa alla massa della striscia."
-      - "Porta i fili sul tetto, fino all'ADC."
+      - "Salda un filo corto da ogni uscita della scheda dei partitori al suo ingresso dell'ADC (A0…A5 i piedi, A6 e A7 le NTC)."
+      - "Salda il 3,3 V e la massa della scheda al VIN e al GND dell'ADC."
+      - "I fili restano sul tetto: l'ADC è accanto alla scheda."
       - "Annota nella tabella quale presa va a quale canale."
     tabella:
       intestazione: [Presa, "Zampa [C]", Canale ADS7830, Polarità]
@@ -708,14 +713,14 @@ passi:
         - ["5", "MD", "4", "come sopra"]
         - ["6", "PD", "5", "come sopra"]
     avvisi:
-      - {tipo: opzionale, x: X5, quando: anche_dopo, testo: "Senza FSR salta questo passo. Le prese si raggiungono a carapace tolto, i fili sotto il vassoio no."}
+      - {tipo: opzionale, x: X5, quando: anche_dopo, testo: "Senza FSR salta questo passo. Il pettine si raggiunge a carapace tolto."}
       - {tipo: nota, testo: "Il polo del 3,3 V di ogni presa resta vuoto: lungo la zampa passano solo massa e segnale (predisposizioni.md 2.5). Canali: AS, MS, PS, AD, MD, PD = 0…5, proposta di robot.yaml [C]."}
     attrezzi: [saldatore, spelafili]
     fonti:
       - "docs/cablaggio.md 3.3 (Sensore di forza: prese dei piedi, ADS7830 canali 0–5; spina JR a 2 poli su 3)"
       - "docs/predisposizioni.md X5 e 2.5 (masse)"
       - "robot/robot.yaml"
-      - "guida/passi/07-corpo.yaml 7.11 (prese)"
+      - "D-080; guida/passi/08-elettronica.yaml 8.10"
 
   - id: "8.23"
     titolo: Prese delle luci

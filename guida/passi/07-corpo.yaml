@@ -1,5 +1,5 @@
 # Sezione 7, il corpo (D-075, docs/piano-guida.md "Struttura della guida", F3). Terna del robot, zampa di riferimento AS.
-# Pezzi: Corpo_Base, Corpo_Chiglia, 6 Cuscinetto_Coxa, 6 Servo_Coxa, 2 Wago, Portafusibile_F1, Interruttore, Prese_piedi
+# Pezzi: Corpo_Base, Corpo_Chiglia, 6 Cuscinetto_Coxa, 6 Servo_Coxa, 2 Wago, Portafusibile_F1, Interruttore, Prese_luci
 # e Prese_luci. Giunzioni: chiglia_ant, chiglia_post, alette_coxa_albero e alette_coxa_coda (accostate; si stringono
 # nella sezione 9, passo 9.08: guida/problemi/riconciliazione.yaml, prima allocazione).
 # Ordine: i cuscinetti si premono dal fondo delle gondole PRIMA della chiglia (la flangia sporge sotto il fondo e dopo la
@@ -331,33 +331,28 @@ passi:
       - "guida/problemi/corpo.yaml, Spie dei rail"
 
   - id: "7.10"
-    titolo: Prese dei piedi e delle luci
+    titolo: Prese delle luci
     formato: grande
-    nuovi: [corpo/Prese_piedi, corpo/Prese_luci]
+    nuovi: [corpo/Prese_luci]
     nascondi: ["corpo/Servo_Coxa_*"]
     esploso: {asse: [0, 0, 20], distanza: 20}
     vista: corpo_alto
     evidenzia:
-      - {chiave: corpo/Corpo_Base, lav: sede_prese}
-      - {chiave: corpo/Corpo_Base, lav: scanalatura_prese}
       - {chiave: corpo/Corpo_Base, lav: sede_prese_luci}
       - {chiave: corpo/Corpo_Base, lav: scanalatura_prese_luci}
     etichette:
-      - {testo: piedi, chiave: corpo/Prese_piedi}
       - {testo: luci, chiave: corpo/Prese_luci}
     testo:
-      - "Posa la fila di sei spine nella scanalatura del tetto, spine in alto."
-      - "Metti la fila dei piedi a sinistra e quella delle luci a destra, guardando avanti."
-      - "Non fissarle: come si tengono e come si collegano non è deciso [C]."
+      - "Posa la fila di sei spine delle luci nella scanalatura a destra del tetto, guardando avanti, spine in alto."
+      - "Non fissarla: come si tiene non è deciso [C]."
+      - "Le prese dei piedi non vanno qui: sono il pettine della scheda dei partitori (8.10), sulle due bugne a sinistra."
     avvisi:
-      - {tipo: opzionale, x: "X5 X31", quando: anche_dopo, testo: "Prese dei piedi a sinistra, delle luci a destra: si montano anche a carapace tolto. Senza FSR o senza luci salta la fila."}
+      - {tipo: opzionale, x: X31, quando: anche_dopo, testo: "Prese delle luci a destra: si montano anche a carapace tolto. Senza luci salta questo passo."}
     fonti:
-      - "D-066"
-      - "D-069"
+      - "D-069, D-080"
       - "docs/cablaggio.md 3.3 e 5, punto 1"
-      - "docs/predisposizioni.md, X5"
+      - "docs/predisposizioni.md, X31"
       - "cad/script/corpo.py _prese"
-      - "cad/script/rif_componenti.py, pre_l"
       - "guida/problemi/corpo.yaml, Prese dei piedi e delle luci"
 
   - id: "7.11"

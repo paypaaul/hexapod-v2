@@ -173,6 +173,14 @@ corpo:
     attesi: 2
     predisposizione: X4
     decisione: D-074
+  partitori:
+    descrizione: scheda dei partitori con il pettine dei piedi sulle bugne del tetto (D-080)
+    vite: M2x5
+    punta: {chiave: corpo/Corpo_Base, tipo: inserto_m2, lav: "ins_par_*"}
+    testa: {chiave: corpo/Partitori, tipo: passante_m2}
+    attesi: 2
+    predisposizione: X5
+    decisione: D-080
   imu:
     descrizione: GY-6500 sulla piastrina
     vite: M2x6
