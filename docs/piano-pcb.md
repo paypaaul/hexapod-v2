@@ -21,7 +21,7 @@ Le chiedo in F0, prima di F1. Le sigle sono DU-n, per non confonderle con i comp
 
 | N. | Domanda | Proposta | Perché |
 |---|---|---|---|
-| DU-1 | **Togliere il traslatore KAmod** (ritocco b)? La TX verso la SSC-32 esce dal canale 3 del buffer U3, che è già sulla scheda. La RX passa da un partitore 10 kΩ / 15 kΩ | **deciso il 18 ottobre: sì** | Un modulo e una voce in meno (C1, 2,51 €) e 12 giunti in meno. Costa 4 resistenze a reoforo dal set B10 (4.1). Il partitore si monta sempre: con la TX a 5 V dà 3,0 V, sopra la soglia alta di 2,48 V. Se la TX fosse a 3,3 V la seriale non funziona ma non si rompe niente; il ripiego si monta solo dopo averla misurata (4.1) |
+| DU-1 | **Togliere il traslatore KAmod** (ritocco b)? La TX verso la SSC-32 esce dal canale 3 del buffer U3, che è già sulla scheda. La RX passa da un partitore 20 kΩ / 33 kΩ (valori del set B10, F0) | **deciso il 18 ottobre: sì** | Un modulo e una voce in meno (C1, 2,51 €) e 12 giunti in meno. Costa 4 resistenze a reoforo, tutte nel set B10 (4.1). Il partitore si monta sempre: con la TX a 5 V dà 3,1 V, sopra la soglia alta di 2,48 V. Se la TX fosse a 3,3 V la seriale non funziona ma non si rompe niente; il ripiego si monta solo dopo averla misurata (4.1) |
 | DU-2 | **Presa Qwiic vera sulla PCB-C** (JST SH SM04B-SRSS-TB, ritocco c) al posto del cavo Qwiic tagliato? | **deciso il 18 ottobre: no** | L'utente ha scelto le piazzole: 4 piazzole con il nome (GND, 3V3, SDA, SCL), dove si salda il cavo Qwiic tagliato verso l'espansore TCA9534, come sulla millefori. La presa sarebbe servita solo a innestare l'espansore e moduli futuri senza saldare, e dalla 2.1.7 si raggiunge solo a carapace tolto (la scheda sta a x 29,5…51, l'ottagono finisce a x 28): non vale un componente in più sulla scheda più piena |
 | DU-3 | **ERC e DRC di KiCad nella CI**? | **deciso il 18 ottobre: sì**, con KiCad dal PPA e non da Docker Hub | La CI resta verde solo con schemi e PCB puliti. È una dipendenza nuova della CI: un paio di minuti d'installazione, poi la cache (S). Docker Hub è già fallito il 9 ottobre (`ci.yml:58-60`). La CI controlla anche che la versione di KiCad sia quella scritta in `pcb/README.md`: il PPA può dare un'altra 10.0.x |
 | DU-4 | **Acquisti di F0**: moduli e piccole parti che servono alla dima e al banco S1, in un ordine Kamami e **un solo** ordine DigiKey | **sì, voce per voce con il prezzo** (5.1) | Le voci B e C (B2 D24V22F5, B3, B6, B10, C3; C1 solo se DU-1 = no) sono già approvate: cambia solo il momento. **Le voci X vanno approvate per l'acquisto** (BOM, sezione X): X1, X6 e il resto di X9 servono al banco; di X2 e X9 sono approvati solo testata, 470 µF, buffer e resistenze. Le piccole voci nuove (10 kΩ 0805, eventuale MF-R090) si approvano qui e non in R1, così DigiKey è un ordine solo: sotto i 75 € la spedizione costa 25 € (`BOM.md`, sezione X) |
@@ -68,7 +68,7 @@ Quote in mm nella terna del robot: X avanti, Y a sinistra, Z in alto. Due strati
 Con DU-1 = sì si aggiungono:
 - R10, pull-up da 10 kΩ all'ingresso del canale 3, **verso il 3V3 dell'ESP32** (lato ESP32 di JP-3V3), mai verso il 5 V. GPIO21 non ha pull al reset e resta libero finché il firmware non avvia la UART (scheda Espressif, letta dalla verifica: si riconferma in F0);
 - R-TX da 330 Ω in serie su 3Y;
-- R11 e R12, partitore 10 kΩ / 15 kΩ della RX.
+- R11 e R12, partitore 20 kΩ / 33 kΩ della RX: 3,11 V con 5,0 V, 2,86 V con 4,6 V, 3,27 V con 5,25 V; sopra la soglia alta dell'ESP32 (0,75 × 3,3 = 2,48 V) e sotto il massimo (VDD + 0,3 = 3,6 V), V scheda Espressif v2.2, tabella 5-4. Il set B10 non ha il 15 kΩ (F0).
 
 Con DU-1 = no resta U4 KAmod. R9 da 330 Ω entra sulla scheda in tutti e due i casi.
 
@@ -76,7 +76,7 @@ Con DU-1 = no resta U4 KAmod. R9 da 330 Ω entra sulla scheda in tutti e due i c
 
 **Ponticelli a saldare**:
 - **JP-3V3 a tre piazzole**: al centro il 3V3S, da un lato il 3V3 dell'ESP32 (chiuso), dall'altro l'uscita di X3 (aperto). Serigrafia "un lato solo" e prova al multimetro fra le piazzole esterne (D-076: mai J1 e X3 insieme).
-- **JP-RMT** per la misura del jitter su GPIO38 al banco, aperto. Ha una piazzola RMT_IN per l'impulso della SSC-32, con una massa accanto e fuori dalle file, e un partitore 10 kΩ / 15 kΩ come la RX (gli impulsi sono a 5 V). Serigrafia "aprire JP-RMT prima del carapace".
+- **JP-RMT** per la misura del jitter su GPIO38 al banco, aperto. Ha una piazzola RMT_IN per l'impulso della SSC-32, con una massa accanto e fuori dalle file, e un partitore 20 kΩ / 33 kΩ come la RX (gli impulsi sono a 5 V). Serigrafia "aprire JP-RMT prima del carapace".
 
 **Regole** (`studio.md` 1.4 e 2.5, correzioni della verifica dello studio e di questo piano):
 - **VBAT**: pista da 1,5 mm, 1 mm da ogni altro rame. Entra dal bordo +Y e attraversa la fila +Y in un varco di **due posti senza foro**: O-2 e P-2, cioè GPIO7 e GPIO6, non usati (V, `schemi.md:93`). La piazzola d'ingresso ha accanto solo masse e sta **ad almeno 5 mm** dalle piazzole a 3,3 V e dei GPIO: oggi il posto O-1/P-1 è fra le piazzole del bus (`schemi.md:220`), quindi si sposta verso la coda. Niente punto di prova nudo del VBAT accanto ai GPIO: il punto ha solo una massa vicino.
@@ -160,7 +160,7 @@ Ogni fase finisce con **commit, push su `main` e CI `ci` e `sim` verdi**, e lasc
 | Tensione a riposo della TX della SSC-32 e massa VL− (S-22, Q-19) | ripiego della RX, massa della seriale | utente, multimetro, con la SSC-32 alimentata | se manca, si monta il partitore di serie |
 | Misura della spina JR, maschio e femmina: passo, ingombro, altezza (P-012, Q-04) | variante P2, `spine_prese` | utente | calibro; se manca, P2 si scarta e si fa P1 |
 | Taglia degli SMD del kit B8 (S-30) | impronte 0805 | utente | calibro |
-| Valori nel set di resistenze B10 (15 kΩ, 330 Ω, 1 kΩ) | R11, R12, R-TX, ripiego | utente, alla consegna | se mancano, a reoforo nell'ordine DigiKey |
+| Valori nel set di resistenze B10 | R4, R5, R10, R11, R12, R-TX, ripiego | agente | **fatto**: 41 valori, niente 4,7 kΩ, 15 kΩ, 22 kΩ (esiti di F0) |
 | Posizione dei pin A0…A7 del modulo ADC (S-31) | PCB-P, fili verso l'ADC | agente su Adafruit, poi utente | `docs/ricerca/dati-moduli.md` |
 | Portafusibile Neuftech (Q-23) | P-139 della 2.1.8 | utente | se manca, P-139 passa alla 2.1.9 (5.3) |
 
@@ -314,6 +314,23 @@ Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, co
 
 **Acquisti (DU-4, in parte)**: il 18 ottobre, prima di approvare il piano, l'utente ha approvato i pezzi nuovi delle schede: 10 kΩ 0805, 15 kΩ / 330 Ω / 1 kΩ se mancano in B10 (voci PCB1 e PCB3 del BOM; dopo la scelta di basetta a reoforo, PCB3 si compra a reoforo), e X1. Da approvare in F0 con il resto: 2 condensatori da 100 nF a reoforo per CS1 e CS2. La presa JST SH (PCB2) è stata approvata e poi tolta lo stesso giorno, con DU-2 = no. L'ordine DigiKey è **in sospeso**, da unire ad altre voci per superare i 75 €. Con l'approvazione C1 e i partitori a reoforo di X5 e X14 sono usciti dal BOM (2.4). Restano da approvare per l'acquisto X6 (ADC) e il resto delle voci X del banco.
 
+### Esiti di F0 (18 ottobre 2026)
+
+Dati letti su fonte primaria da un agente (circa 0,16 milioni di token) e ricontrollati da me sui file scaricati. I PDF stanno in `$CLAUDE_JOB_DIR/tmp/dl`, fuori dalla repo.
+
+| Dato | Esito | Stato, fonte |
+|---|---|---|
+| Set di resistenze B10 (Kamami 1199442) | 41 valori, 20 pezzi l'uno: 1–910 Ω (fra cui 330), 1, 10, 20, 33, 47, 51, 68, 75, 82, 91 kΩ, 100–910 kΩ, 1 MΩ. **Mancano 4,7 kΩ, 15 kΩ e 22 kΩ** | V, pagina Kamami (letta via r.jina.ai: la pagina diretta risponde 403) |
+| Conseguenze | partitori della RX e di JP-RMT a **20 kΩ / 33 kΩ** dal set; R4 e R5 da 4,7 kΩ da comprare (oppure 10 kΩ dal set, bus a circa 1,4 kΩ); risponde anche a **Q-27**: il 22 kΩ di R3 non è nel set (B11 lo dava già solo al 5 %) | S, conto |
+| SN74AHCT125 (TI SCLS264R, febbraio 2024) | VIH 2 V, VIL 0,8 V con VCC 4,5–5,5 V; ingressi fino a 7 V assoluti; VOH almeno 3,8 V a −8 mA; IO ±8 mA consigliati, ±25 mA assoluti. **Gli ingressi non usati vanno a VCC o GND**: 4A e 4OE a massa. Piedinatura D e N: 1OE 1, 1A 2, 1Y 3, 2OE 4, 2A 5, 2Y 6, GND 7, 3Y 8, 3A 9, 3OE 10, 4Y 11, 4A 12, 4OE 13, VCC 14 | V |
+| ESP32-S3 (Series Datasheet v2.2) | GPIO21 senza pull né IE, al reset e dopo: R10 serve. GPIO14 solo IE dopo il reset. VIH da 0,75 × VDD a VDD + 0,3 | V, tabelle 2-1 e 5-4 |
+| Bourns MF-R | MF-R075: 0,75 / 1,50 A a 23 °C, **0,61 A a 40 °C**, 0,54 a 50 °C. MF-R090: 0,90 / 1,80 A, **0,73 A a 40 °C**, 0,65 a 50 °C. Passo dei reofori 5,1 ± 0,7, reofori Ø0,51; disco al più 10,4 × 16,0 × 3,1 (R075) e 11,7 × 16,7 × 3,1 (R090) | V, scheda Bourns (revisione non indicata) |
+| Pololu D24V22F5 (disegno del 12 novembre 2015) | vista dall'alto con la fila in basso, da sinistra: **PG, EN, VIN, GND, VOUT**, passo 2,54, primo pin a 1,27 dal bordo, fila a 1,27 dal bordo; secondo GND fuori fila sul lato di PG; fori di fissaggio Ø2,18 a 13,2 di interasse; alto 8 mm | V quote; S+ l'ordine (letto sulla serigrafia del disegno isometrico): si conferma sul pezzo |
+| Würth 61201621721 | foro consigliato Ø1,10; scatola 27,98, pin da un capo all'altro 17,78; chiave larga 4,5 al centro; pin 1 sulla fila vicina alla scheda (S, dal disegno) | catalogo WR-BHD 09/08 su DigiKey: il sito Würth non si lascia leggere. **C** il pin 1: si controlla sul modello 3D di DigiKey o sul pezzo |
+| Prezzi DigiKey (senza IVA) | 10 kΩ 0805 Yageo RC0805FR-0710KL 0,03 €; 100 nF a reoforo Vishay K104K15X7RF5TL2 (passo 2,5) 0,27 €; MF-R090 0,41 €; Yageo MFR-25FRF52 15 kΩ / 330 Ω / 1 kΩ circa 0,09–0,10 € | V listino del 18 ottobre |
+
+**Scelte che ne seguono**: R11, R12 e il partitore di JP-RMT a 20 kΩ / 33 kΩ, dal set B10, senza comprare il 15 kΩ. Restano da decidere con l'utente l'acquisto dei 4,7 kΩ e l'MF-R090: a 40 °C, sotto l'ESP32, l'MF-R075 tiene 0,61 A, appena sopra il tetto di 600 mA del firmware.
+
 ## 9. Verifica del piano (18 ottobre 2026)
 
 Tre agenti indipendenti, effort alto, con tre lenti: fatti e fonti, elettrica e sicurezza, completezza ed eseguibilità. Hanno trovato 51 rilievi: 1 bloccante, 31 importanti, 19 minori. I dati chiave li ho ricontrollati sulle fonti:
@@ -359,5 +376,5 @@ Correzioni principali:
   - durate rifatte.
 
 Non applicato:
-- il pull-up da 100 kΩ sulla RX proposto da una verifica: con R12 da 15 kΩ a massa la linea resterebbe comunque bassa (0,43 V). Il break a SSC-32 staccata resta atteso e scritto.
+- il pull-up da 100 kΩ sulla RX proposto da una verifica: con R12 a massa (allora 15 kΩ, ora 33 kΩ) la linea resterebbe comunque bassa. Il break a SSC-32 staccata resta atteso e scritto.
 - I rapporti completi dei verificatori non sono nella repo: i rilievi sono riassunti qui e corretti nel testo.
