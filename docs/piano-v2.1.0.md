@@ -659,3 +659,23 @@ D-077 (risultati e verifiche; le scelte di P-001, P-002, P-003, P-005 e le rispo
 4. **ESP32 RE1.3 col retro giusto** (immagini dell'inserzione e foto dell'utente, 18 ottobre 2026, `docs/immagini/scheda2/`; dettagli in `piano-pcb.md`, esiti di F0): in `Rif_ESP32_S3_CAM` la sede della microSD va verso l'antenna (x ≈ 57…73 nel robot), non verso la coda; vanno aggiunti AMS1117 e tantalio verso le USB (x ≈ 20…28); le file dei pin vanno circa 1,6 mm più verso la testa rispetto al PCB (primo pin a circa 2,6 dal bordo di testa). Da ripetere le verifiche che lo toccano: spina della scheda del carapace sulle USB-C, cavo piatto, regolatore e PTC sotto l'ESP32 (S-08). **Prima**: misure col calibro sulla RE1.3 (lunghezze, distanza dei pin dai bordi, altezze del retro).
 
 **Testi della guida dopo la 2.1.7**: fatti il 16 ottobre 2026 (esito nella sezione 2.1.7; restano le parti "in parte" di P-002, P-026, P-041, P-140). Era: tutto l'elenco della sezione 2.1.7 ("Testi della guida dopo la 2.1.7": P-003, P-005, P-002, P-001, P-007, P-008, P-031, P-050, P-088, P-078, P-072, P-066, P-046, P-085, P-077, P-111, P-010, P-058, P-117 e i dubbi della revisione dell'arresto 2), con le immagini rifatte sulla 2.1.7. Nella 2.1.7 sono cambiati solo i dati che seguono il CAD (catalogo, totali, 8.07, 8.09, 8.11, 11.03, 15.10, 15.11). In più la convenzione della guida per le viti svasate (testa sul fondo del cono: avviso del vassoio, `piastrina_imu`, `lama_b`), da correggere nella pipeline con i testi.
+
+### Piano della 2.1.8 (18 ottobre 2026, da approvare)
+
+Contiene le voci 2, 3 e 4 qui sopra e la PCB-P (`piano-pcb.md` 5.3, fase F2). La voce 1 (P-139) entra solo se arriva la forma del portafusibile Neuftech (Q-23), altrimenti passa alla 2.1.9. La basetta e la scheda del carapace **non cambiano** nel CAD: le PCB si provano con scatole provvisorie in F4.
+
+**Prima di partire**: copia di ripristino "Hexapod v2.1.0 - ripristino 2.1.7 (prima della 2.1.8)" (`DataFile.copy`, rinominata subito: `cad/CLAUDE.md`), aggiunta in `CLAUDE.md` fra i file da non toccare. Il tag `v2.1.7` c'è già.
+
+| Blocco | Voce | Cosa | Dati dell'utente | Uscita |
+|---|---|---|---|---|
+| A | P-140 | strisce del cavo piatto 1,0 mm più verso l'esterno e più in basso, con `cavo_piatto` e i suoi casi di controllo | nessuno | gioco dal PCB dell'ESP32 e dalla battuta dell'ottagono sopra 1 mm |
+| B | PCB-P, P-141 | due varianti come scatole provvisorie con `urti_scatole`, ognuna con il caso di controllo: **P1** tasca accanto all'IMU (PCB circa 20 × 10, due M2; passaggi dei fili sotto l'ADC e fra ADC e colonna); **P2** sotto le prese dei piedi (y circa 19…25,5, bugne da 4, spine 3,5 mm più alte contro vassoio, cavi e servo di coxa AS a tutta l'escursione) | misura della spina JR (Q-04): senza, P2 si scarta e si fa P1 | esito delle due prove; **arresto DU-5**: l'utente sceglie |
+| C | PCB-P | variante scelta: bugne con inserti M2, `Rif_Partitori` in `LIBRERIA` e nel passo `ingombri`, `fori.json` e `manifest.json` rigenerati; con P2 le prese dei piedi su `spine_prese` | — | `genera_contorni.py` con la scheda `partitori` |
+| D | voce 4 | `Rif_ESP32_S3_CAM` con il retro della RE1.3: microSD verso l'antenna, AMS1117 e tantalio verso le USB, file dei pin 1,6 mm più verso la testa; poi spina del carapace sulle USB-C, cavo piatto e posto del regolatore sotto l'ESP32 (S-08) | **misure col calibro della RE1.3** (cose da guardare in `CLAUDE.md`) | quote del retro V; posto di U2 sulla PCB-B deciso |
+| E | a valle | viteria e inserti nel BOM; catalogo della guida; `esporta_guida`, `guida.costruisci controlla`; passi 7.10, 8.09, 8.10 | — | CI verde |
+
+**Ordine e arresti**: A subito; B appena c'è la misura della spina JR, poi l'arresto DU-5; C dopo la scelta; D quando arrivano le misure della RE1.3 (se tardano, la 2.1.8 si chiude senza D e la voce passa alla 2.1.9, ma il piazzamento della PCB-B aspetta D); E e la chiusura alla fine. Ogni blocco lascia Fusion salvato e la repo committata.
+
+**Verifiche di fine versione**: controllo dell'assieme e sentinella sui volumi, interferenze sulla posa di riferimento, `cavo_piatto`, `spine_prese`, `urti_scatole` delle schede; CI verde; decisione D-0xx; `versioni.md`; salvataggio in Fusion; tag `v2.1.8`.
+
+**Durata** (S): 2–3 blocchi di lavoro in Fusion, più l'attesa delle misure.
