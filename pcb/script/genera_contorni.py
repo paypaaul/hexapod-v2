@@ -43,6 +43,8 @@ SCHEDE = {
     'carapace': {
         'istanza': 'corpo/Scheda_carapace',
         'sagoma': ('sch_l', 'sch_w'),
+        # ali davanti (2.1.8, blocco F): lungo la X locale fino a ±sch_ala_y, profonde sch_ala_x dal bordo a -Y locale
+        'ali': ('sch_ala_y', 'sch_ala_x'),
         'fori': ['ins_sch_a', 'ins_sch_b', 'ins_sch_c', 'ins_sch_d'],
         # componenti sotto: testa M2 Ø3,8 (corpo.py, sch_vite_xp) più 0,5 per lato; sopra, bugna Ø5,5 (corpo.py,
         # cilindro 'bugna_sch_*', non parametrica) più 0,5 per lato (S)
@@ -128,7 +130,12 @@ def geometria(nome, par=None):
     s = SCHEDE[nome]
     (a, b, tx), (c, d, ty) = _posa(s['istanza'])
     lx, ly = par[s['sagoma'][0]] / 2, par[s['sagoma'][1]] / 2
-    robot = [(a * x + b * y + tx, c * x + d * y + ty) for x, y in ((-lx, -ly), (lx, -ly), (lx, ly), (-lx, ly))]
+    locale = [(-lx, -ly), (lx, -ly), (lx, ly), (-lx, ly)]
+    if 'ali' in s:
+        ay, ax = par[s['ali'][0]], par[s['ali'][1]]
+        ya = -ly + ax
+        locale = [(-ay, -ly), (ay, -ly), (ay, ya), (lx, ya), (lx, ly), (-lx, ly), (-lx, ya), (-ay, ya)]
+    robot = [(a * x + b * y + tx, c * x + d * y + ty) for x, y in locale]
     contorno = [kicad(x, y) for x, y in robot]
     xs, ys = [p[0] for p in robot], [p[1] for p in robot]
     fori_cad = _fori_cad()

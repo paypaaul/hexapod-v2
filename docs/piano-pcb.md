@@ -92,13 +92,13 @@ Con DU-1 = no resta U4 KAmod. R9 da 330 Ω entra sulla scheda in tutti e due i c
 
 | Dato | Valore | Stato, fonte |
 |---|---|---|
-| Sagoma | **21,5 × 30**, x 29,5…51,0, \|y\| ≤ 15 (lo studio dice ancora 23 × 30) | V; `rif_componenti.py:186-188`; D-077 |
+| Sagoma | **21,5 × 30**, x 29,5…51,0, \|y\| ≤ 15, **più due ali davanti** (dalla 2.1.8, blocco F): x 45…51 fino a \|y\| 24 (`sch_ala_y`, `sch_ala_x`). Libere nel CAD fino a \|y\| 28, con 8 mm di componenti sotto; caso di controllo: un'ala da x 40 urta colonnina e carapace | V; `rif_componenti.py`; D-077; `assieme.py` → `urti_scatole` |
 | Facce | faccia alta a z 31,5 sulle bugne; componenti sotto, faccia bassa a z 29,9; 2,9 d'aria fino al dorso | V; `assieme.py:115`; `corpo.py:240-241` |
 | Fori | (41,5; ±12,5) e (48,0; ±12,5), inserti M2, viti M2 × 4, teste Ø3,8 sulla faccia dei componenti | V; `fori.json` `ins_sch_*`; `corpo.py:238-239` |
 | Testata J2 | Würth 61201621721, 2 × 8 a 90°, lunga 27,98. Scatola x 29,5…38,35, alta 9 sotto la scheda. File dei pin a 1,84 e 4,38 dietro la scatola, cioè a x ≈ 40,2 e 42,7, per \|y\| ≤ 8,9. Chiave al centro, sul lato lontano dalla scheda. Spina IDC verso la coda | V (disegno Würth, `dimensioni-componenti.md:165`); C solo il polo 1 rispetto alla chiave (S-26) |
 | Vicinanze | amplificatore a 0,85 dal bordo anteriore; il flat della camera torna al suo connettore (x 40,75…45,25) passando sotto la parte anteriore della scheda, e le verifiche del CAD oggi lo saltano (`assieme.py:163`, `:353`, `:561`); 10,3 di altezza sotto la scheda sul connettore | V; D-077 |
 
-**Il posto è stretto.** Le file dei pin di J2 arrivano a x 42,7, e le teste delle viti prendono gli angoli. Per CE1, la presa, le piazzole e i punti di prova restano circa **7,4 × 19 mm** al centro (x 43,6…51) (S, conto della verifica). Sopra la scheda ci sono 2,9 mm d'aria fino al dorso, quindi le code dei pin a reoforo si tagliano a meno di 2 mm.
+**Il posto era stretto.** Le file dei pin di J2 arrivano a x 42,7, e le teste delle viti prendono gli angoli: per CE1, le piazzole e i punti di prova restavano circa **7,4 × 19 mm** al centro (x 43,6…51), dove a passo 2,54 entrano 21 fori senza CE1 (F4, 18 ottobre). Le ali della 2.1.8 aggiungono due tratti da 6 × 9 mm. Sopra la scheda ci sono 2,9 mm d'aria fino al dorso, quindi le code dei pin a reoforo si tagliano a meno di 2 mm.
 
 **Componenti**: J2; CE1 470 µF 10 V sdraiato; 4 piazzole per il cavo Qwiic tagliato verso l'espansore (DU-2 = no); niente TCA9534 sulla scheda (tolto alla verifica R1: esiste solo in SOIC largo o TSSOP, che non stanno nei 7,4 × 19 mm; l'espansore è il modulo X20); R-MIC a reoforo, vuota (S-21); punti di prova (5V, 3V3, GND, SDA, SCL, DATA).
 
@@ -287,7 +287,7 @@ Proposta: la 2.1.8 contiene P-140, P-141 e la PCB-P. P-139 entra solo se Q-23 ar
 | 5 V su un GPIO | varchi nelle file, VBAT lontano dal bus, punti di prova a gruppi; ripiego della RX solo dopo la misura; prima accensione senza ESP32 |
 | Bus con pull-up troppo forti | ponticello di X20 tagliato; R4 e R5 sostituibili; misura al passo 8.28 |
 | PCB-P senza posto | due varianti provate in F2 prima dello schema della PCB-P |
-| PCB-C troppo piena (7,4 × 19 mm utili) | piazzata per prima; TCA9534 già tolto (R1) |
+| PCB-C troppo piena (7,4 × 19 mm utili) | piazzata per prima; TCA9534 già tolto (R1); ali davanti dalla 2.1.8 |
 | Specchiature | serigrafia, 3D di KiCad, STEP con l'asse Y controllato |
 | Antenna sopra il rame | niente rame da x 74; prova di portata del Wi-Fi in F8 |
 | Calore di U2 e del PTC sotto l'ESP32 | piano di massa; PTC lontano, senza rame sotto; misura in P4; tetto del firmware fino ad allora: LED sotto 450 mA con l'audio acceso (S-06) |

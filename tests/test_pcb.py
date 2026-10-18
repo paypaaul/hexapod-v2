@@ -31,12 +31,14 @@ con_pcbnew = pytest.mark.skipif(
 # --- contorni dal CAD
 
 def test_contorni_come_il_piano():
-    """Quote della 2.1.7 scritte nel piano (4.1, 4.2), in terna di KiCad (x + 100, 100 − y)."""
+    """Quote scritte nel piano (4.1, 4.2), in terna di KiCad (x + 100, 100 − y)."""
     b = GC.geometria('basetta')
     assert sorted(b['contorno']) == [(122.0, 82.5), (122.0, 117.5), (178.0, 82.5), (178.0, 117.5)]
     assert sorted((x, y) for _, x, y, _ in b['fori']) == [(129.0, 93.2), (129.0, 106.8), (175.5, 93.5), (175.5, 106.5)]
     c = GC.geometria('carapace')
-    assert sorted(c['contorno']) == [(129.5, 85.0), (129.5, 115.0), (151.0, 85.0), (151.0, 115.0)]
+    # con le ali davanti della 2.1.8 (x 45…51 fino a |y| 24)
+    assert sorted(c['contorno']) == [(129.5, 85.0), (129.5, 115.0), (145.0, 76.0), (145.0, 85.0), (145.0, 115.0),
+                                     (145.0, 124.0), (151.0, 76.0), (151.0, 124.0)]
     assert sorted((x, y) for _, x, y, _ in c['fori']) == [(141.5, 87.5), (141.5, 112.5), (148.0, 87.5), (148.0, 112.5)]
     assert all(d == 2.4 for g in (b, c) for _, _, _, d in g['fori'])
 
