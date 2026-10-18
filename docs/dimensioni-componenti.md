@@ -52,6 +52,19 @@ Fonti primarie lette l'8 ottobre 2026 (us.ovonicshop.com e ampow.com, più inser
 
 Il vano si disegna sull'inviluppo massimo con battuta, schiuma e fermo; le quote definitive si prendono con il calibro sul pacco reale.
 
+## Scheda ESP32-S3 CAM "corta" (57,1 mm), quella fotografata il 18 ottobre 2026
+
+L'utente ne ha 2 (uno dei due ordini AliExpress di gennaio 2026). Inserzione AliExpress 1005006579157105, marchio "baishundianzi", variante "esp32-s3" (screenshot e disegno in `docs/immagini/esp32-s3-cam-57mm-*.png`). Foto della scheda vera con il calibro: `docs/immagini/esp32-s3-cam-fronte.jpeg`, `-retro.jpeg`; misure in `piano-pcb.md` (esiti di F0).
+
+| Quota / dato | Valore | Stato |
+|---|---|---|
+| Ingombro | **57,1 × 28,2 mm** antenna compresa (disegno dell'inserzione); dalla foto PCB circa 50,6 × 27,6 più circa 6,5 di antenna | V inserzione, S+ foto |
+| Pin | 2 × 20 a 2,54; interasse delle file circa 25,4 (foto: 10 passi) | S+ |
+| Piedinatura | uguale alla tabella della RE1.3 qui sotto (3V3…5V a sinistra con l'antenna in alto, TX…GND a destra) | V foto |
+| USB-C | due, a filo del lato corto opposto all'antenna (sporgono di circa 1 mm) | V disegno e foto |
+| Retro | microSD sotto il modulo, verso l'antenna; verso le USB un integrato QFN, un SOT-223, un tantalio, due SOT-23 | V foto; altezze C |
+| Sigla | "ESP32-S3 WROOM" sul fronte, "V1695" e "127294G_YH27_231016" sul retro; niente "RE1.3" | V foto |
+
 ## Scheda UICPAL ESP32-S3-CAM N16R8 RE1.3
 
 Fonte: immagini dell'inserzione AliExpress 1005008519401021 (venditore "Uncle Electronic Tech Store"), lette l'8 ottobre 2026. Fonte primaria del venditore, ma le quote di un'inserzione vanno confermate con il calibro sulla scheda reale.
