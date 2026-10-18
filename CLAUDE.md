@@ -160,7 +160,7 @@ Numeri di oggi:
    - Kit Temu da 918 viti M2–M5: tipo di testa e lunghezze delle M3. Se ci sono M3 × 6 e × 8 a testa cilindrica, D6 si riduce.
    - Lega dello stagno "a bassa temperatura": se non è al bismuto, B19 perde anche lo stagno.
    - Quanto resta della bobina FlashForge di PETG-CF nero: se è quasi intera, E1 scende a una bobina.
-   - Portafusibile Neuftech di F1 (Q-23): forma delle estremità, per i reofori delle spie (2.1.9).
+   - Portafusibile Neuftech di F1 (Q-23): forma delle estremità, per i reofori delle spie (P-139, versione dopo la 2.1.9).
    - Quote dei moduli della 2.1.6 (D-074), prese dalle foto dei venditori; prima di stampare base, piastrina e carapace:
      - GY-6500: 26 × 15,5, fori Ø3 a 20,6 di interasse e 2,3 dal bordo (`sen_mpu_*`);
      - MS3625: Ø13,5 con i lati piatti a 12,6 (`aud_ms_*`);
@@ -174,7 +174,7 @@ Numeri di oggi:
    - piedino con le tre strette (0 / 0,2 / 0,4): il valore scelto va in `pied_stretta`.
    - Dopo i provini: nervature di schiacciamento delle culle.
 5. **Guida di montaggio** (D-075): bozza avanzata allineata alla 2.1.7, aggiornata a ogni versione; la passata finale (immagini, verifica avversaria, release) a progetto stabile. Prossimi passi e decisione del 17 ottobre in `docs/piano-guida.md` (in fondo).
-6. **PCB** (D-078): piano `docs/piano-pcb.md`; F1 e F3 fatte, R1 approvato (D-079), 2.1.8 chiusa (D-081), revisione D-082. D-083: dima della PCB-C; PCB-B piazzata e sbrogliata a **quattro strati** (scelta dell'utente), DRC a zero, ingombri provati nel CAD, dima. Sbroglio con `pcb/basetta/sbroglia.py` (instradatore del progetto e Freerouting 2.5.0, `pcb/README.md`). Serigrafia della PCB-B fatta. D-084: PCB-P a quattro strati sbrogliata con la sagoma di prova (pettine a due file); il kit B8 è a reoforo, 100 nF 0805 da approvare (PCB2). 2.1.9 chiusa (D-085): la PCB-P prende il contorno dal CAD. Prossimo: arresto R2 con le tre dime stampate. Stato in fondo al piano.
+6. **PCB** (D-078): piano `docs/piano-pcb.md`; F1 e F3 fatte, R1 approvato (D-079), 2.1.8 chiusa (D-081), revisione D-082. D-083: dima della PCB-C; PCB-B piazzata e sbrogliata a **quattro strati** (scelta dell'utente), DRC a zero, ingombri provati nel CAD, dima. Sbroglio con `pcb/basetta/sbroglia.py` (instradatore del progetto e Freerouting 2.5.0, `pcb/README.md`). Serigrafia della PCB-B fatta. D-084: PCB-P a quattro strati sbrogliata con la sagoma di prova (pettine a due file); il kit B8 è a reoforo, 100 nF 0805 approvati (PCB2). 2.1.9 chiusa (D-085): la PCB-P prende il contorno dal CAD. Prossimo: arresto R2 con le tre dime stampate. Stato in fondo al piano.
 7. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
 8. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 
