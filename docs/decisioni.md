@@ -821,6 +821,6 @@ L'utente ha scelto il 18 ottobre 2026, sullo studio di `docs/ricerca/pcb/`, e ha
 
 **Dati letti** (V): il modulo SparkFun Qwiic GPIO X20 esce di fabbrica a **0x27** con i pull-up da 4,7 kΩ inseriti (guida SparkFun); il progetto diceva 0x20. Proposta da decidere con S1: 0x27 nel firmware.
 
-**Acquisti** (18 ottobre): approvati 10 kΩ 0805 (PCB1), 15 kΩ / 330 Ω / 1 kΩ a reoforo se mancano in B10 (PCB3), X1; ordine DigiKey in sospeso finché non supera i 75 €. BOM 2.4: escono C1 e i partitori a reoforo di X5 e X14, circa 364,63 €.
+**Acquisti** (18 ottobre): approvati 10 kΩ 0805 (PCB1), X1 e X6 (scelta lasciata all'agente); PTC di X9 passato a MF-R090 (a 40 °C tiene 0,73 A contro 0,61); ordine DigiKey in sospeso finché non supera i 75 €. Non si comprano: 100 nF a reoforo e pull-up (kit dell'utente: ceramici e resistenze Elegoo, 5,1 kΩ o 10 kΩ al posto del 4,7 kΩ che il set B10 non ha); 330 Ω e 1 kΩ dal set B10; partitori a 20 kΩ / 33 kΩ dal set. BOM 2.4: escono C1 e i partitori a reoforo di X5 e X14, circa 364,63 €.
 
 **Cosa resta**: DU-5, il posto della PCB-P (tasca accanto all'IMU o sotto le prese dei piedi), si decide nella 2.1.8 dopo le prove nel CAD. Fasi, arresti e rischi nel piano.
