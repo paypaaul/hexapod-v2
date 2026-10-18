@@ -752,6 +752,31 @@ def cavo_piatto(des, root, dz=0.0, dy=0.0):
             'urti': urti_scatole(des, root, sc)}
 
 
+def partitori_varianti(des, root):
+    """Posto della scheda dei partitori (PCB-P, DU-5, 2.1.8 blocco B) come scatole provvisorie, con i casi di controllo.
+    P1: scheda 10 x 20 nella tasca accanto all'IMU (0,4 per lato), fascio dei fili dei piedi sotto l'ADC fra le sue
+    bugne; le prese restano dove sono. P2: scheda sotto le prese dei piedi su bugne da 4 (z -5,4...-3,8), con il
+    pettine 6 x 3 e le spine JR innestate dall'alto (8 x 3 x 14, misurate dall'utente il 18 ottobre; fila al centro
+    y 22,6, spine a y >= 18,6 per P-141). Le prese di oggi (Rif_Prese_Piedi) si saltano: P2 le sostituisce."""
+    salta = ('Rif_Prese_Piedi',)
+
+    def p2(x0=44.2, x1=72.0, yc=22.6):
+        return [('pcbp_p2', x0, 19.0, -5.4, x1, 26.5, -3.8), ('sopra_p2', x0, 19.0, -3.8, x1, 26.5, -1.3),
+                ('spine_p2', 48.2, yc - 4.0, -1.3, 63.8, yc + 4.0, 12.7)]
+
+    def p1(w=10.0, xf0=57.0, xf1=61.0):
+        xc = 65.9
+        return [('pcbp_p1', xc - w / 2, -20.5, -5.4, xc + w / 2, -0.5, -3.8),
+                ('sopra_p1', xc - w / 2, -20.5, -3.8, xc + w / 2, -0.5, -2.8),
+                ('fili_sotto_adc', xf0, -0.5, -9.3, xf1, 20.8, -5.5)]
+    return {'P1': urti_scatole(des, root, p1(), salta),
+            'P1_controllo_larga_11_6': urti_scatole(des, root, p1(w=11.6), salta),
+            'P1_controllo_fili_sulla_bugna': urti_scatole(des, root, p1(xf0=64.0, xf1=68.0), salta),
+            'P2': urti_scatole(des, root, p2(), salta),
+            'P2_controllo_da_x43': urti_scatole(des, root, p2(x0=43.0), salta),
+            'P2_controllo_spine_y21': urti_scatole(des, root, p2(yc=21.0), salta)}
+
+
 def cavi_rebbi(des, root, dz=0.0):
     """Cavi del pacco (12 AWG Ø4 e bilanciamento Ø3, come scatole, S) piegati dall'uscita al centro alla fessura del tetto
     (|y| 22,75), sopra i rebbi dello sportello (P-007): sotto la linguetta dello sportello (|y| <= 8, fino a x -79,4)
