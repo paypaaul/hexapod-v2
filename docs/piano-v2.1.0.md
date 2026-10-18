@@ -707,3 +707,19 @@ Strade possibili, da scegliere con l'utente (S):
 - 100 nF delle NTC (C7, C8) fuori dalla scheda;
 - la striscia di millefori della strada B, tagliata sulla sagoma di oggi;
 - reti di resistenze e di condensatori al posto degli 0805: voci nuove, e passo fine per il montaggio a mano.
+
+### Piano della 2.1.9 (19 ottobre 2026; strada della scheda dei partitori delegata all'agente, D-084)
+
+Contiene le ali da 5,5 della scheda del carapace (già fatte, versione 21 del file) e la scheda dei partitori nuova. P-139 (reofori delle spie) aspetta ancora il portafusibile (Q-23) e passa alla versione dopo.
+
+| Blocco | Cosa | Uscita |
+|---|---|---|
+| A | KiCad: schema, piazzamento e sbroglio della PCB-P con la sagoma di prova (fatto, D-084) | sagoma x 44,2…78 × y 18,6…27,2, fori a x 46,2 e 76,2 su y 22,75, pettine a due file |
+| B | copia di ripristino "Hexapod v2.1.0 - ripristino 2.1.8 (prima della 2.1.9)" (`DataFile.copy`, rinominata subito; contiene la versione 21: la 2.1.8 con le ali da 5,5), aggiunta fra i file da non toccare | lineage in `CLAUDE.md` |
+| C | parametri: `par_l` 33,8, `par_w` 8,6, `par_dy` 0,15 (centro della scheda rispetto alla fila dei fori e del pettine), `cor_par_x` 61,1, `cor_par_foro_b` 76,2; `Rif_Partitori` con la scheda spostata di `par_dy` e il pettine a due file (`par_pet_file` 5,08); parametri in Fusion, `Rif_Partitori` rifatto | bugne e inserti della base seguono i parametri |
+| D | verifiche: controllo dell'assieme e sentinella sui volumi, interferenze, scatole della scheda e delle spine (`partitori_varianti` con la sagoma nuova e i casi di controllo), coxe a ±35° e vicine a 30,5°, ingombri della basetta (`basetta_pcb`); se l'angolo di testa tocca la base, smusso nel CAD e in KiCad | esiti nel piano |
+| E | `genera_contorni` con la sagoma del CAD (centro spostato, smusso se serve); `pcb/partitori/genera_pcb.py` passa a `contorni_dal_cad`, sbroglio rifatto se cambia qualcosa; controllo dei contorni rimesso nella CI | DRC a zero |
+| F | a valle: colori, STL, mesh, descrizione del robot e generati, guida (`esporta_guida`, `guida.costruisci controlla`), BOM | CI verde |
+| G | chiusura: decisione, `versioni.md`, `VERSIONE` 2.1.9, salvataggio in Fusion, tag `v2.1.9` | |
+
+Ogni blocco lascia Fusion salvato e la repo committata.
