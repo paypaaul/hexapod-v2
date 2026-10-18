@@ -1,0 +1,42 @@
+# Differenze volute fra le PCB e le reti della guida (guida/schemi/sorgenti/*_def.py), lette da script/verifica_reti.py.
+# Bozza di F1: si completa con gli schemi (F3), quando i riferimenti dei componenti nuovi sono fissati.
+#   tolti:      componenti dei *_def.py che sulla PCB non ci sono
+#   aggiunti:   componenti solo della PCB (si possono usare * e ?)
+#   pin:        RIF.PIN: rete voluta al posto di quella dei *_def.py; +NOME è una rete solo della PCB, null un pin libero
+#   rinominate: rete dei *_def.py: nome della stessa rete in KiCad
+
+basetta:
+  tolti:
+    - U4          # traslatore KAmod (DU-1 = sì)
+  aggiunti:
+    - R9          # 330 Ω su DATA2, prima nella guaina (piano 2)
+    - R10         # pull-up di 3A verso il 3V3 dell'ESP32 (piano 4.1)
+    - R11         # partitore della RX, 20 kΩ
+    - R12         # partitore della RX, 33 kΩ
+    - R13         # R-TX, 330 Ω su 3Y
+    - R14         # partitore di JP-RMT, 20 kΩ
+    - R15         # partitore di JP-RMT, 33 kΩ
+    - JP1         # JP-3V3, tre piazzole
+    - JP2         # JP-RMT
+    - TP*         # punti di prova
+    - P*          # piazzole dei fili
+    - H*          # fori delle fascette
+  pin:
+    U3.9: TX3         # 3A: TX dell'ESP32 sul canale 3 del buffer (DU-1)
+    U3.8: +TX5_3Y     # 3Y verso R13 (R-TX); dopo R13 la rete TX5 va alla piazzola del filo
+    U3.11: null       # 4Y libero; 4A e 4OE restano a massa (SN74AHCT125: ingressi non usati a VCC o GND)
+
+carapace:
+  aggiunti:
+    - R1          # R-MIC, vuota (S-21)
+    - U1          # impronta SOIC-16 vuota del TCA9534 (indirizzo 0x20)
+    - TP*
+    - P*
+    - H*
+  pin:
+    J2.14: +RISERVA14 # polo 14: piazzola di riserva (XSHUT del ToF del mento, X25)
+
+partitori:
+  aggiunti:
+    - P*
+    - H*

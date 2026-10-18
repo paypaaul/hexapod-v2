@@ -168,3 +168,52 @@ def test_schema_ripetibile(tmp_path):
     genera_schema.schema().salva(str(d))
     with open(os.path.join(PCB, 'prova', 'prova.kicad_sch'), encoding='utf-8') as f:
         assert (d / 'prova.kicad_sch').read_text() == f.read()
+
+
+# --- reti di KiCad contro i *_def.py della guida
+
+def _netlist_attesa(scheda):
+    """Netlist come la darebbe uno schema di KiCad fatto giusto: reti dei *_def.py con le modifiche di aggiunte.yaml."""
+    import verifica_reti as VR
+    agg = VR.carica_aggiunte(scheda)
+    nodi = {k: r for k, r in VR.carica_def(scheda).items() if k[0] not in agg['tolti']}
+    nodi.update(agg['pin'])
+    reti = {}
+    for (ref, pin), rete in nodi.items():
+        nome = ('unconnected-(%s-Pad%s)' % (ref, pin)) if rete is None else '/' + rete.lstrip('+')
+        reti.setdefault(nome, []).append((ref, pin))
+    return {'componenti': {ref: {} for ref, _ in nodi}, 'reti': reti}
+
+
+@pytest.mark.parametrize('scheda', ['basetta', 'carapace', 'partitori'])
+def test_verifica_reti_e_casi_di_controllo(scheda):
+    import copy
+
+    import verifica_reti as VR
+    net = _netlist_attesa(scheda)
+    assert VR.verifica(scheda, net) == []
+    # due pin scambiati fra reti diverse
+    guasta = copy.deepcopy(net)
+    a, b = [n for n in sorted(guasta['reti']) if not n.startswith('unconnected')][:2]
+    guasta['reti'][a][0], guasta['reti'][b][0] = guasta['reti'][b][0], guasta['reti'][a][0]
+    assert any('unisce' in e or 'divisa' in e or 'si chiama' in e for e in VR.verifica(scheda, guasta))
+    # due reti unite
+    guasta = copy.deepcopy(net)
+    guasta['reti'][a] += guasta['reti'].pop(b)
+    assert any('unisce' in e for e in VR.verifica(scheda, guasta))
+    # componente non previsto
+    guasta = copy.deepcopy(net)
+    guasta['componenti']['Q1'] = {}
+    assert any('Q1' in e for e in VR.verifica(scheda, guasta))
+    # pin mancante
+    guasta = copy.deepcopy(net)
+    guasta['reti'][a] = guasta['reti'][a][1:]
+    assert any('non esiste' in e for e in VR.verifica(scheda, guasta))
+
+
+def test_basetta_senza_kamod_e_canale_3_sulla_seriale():
+    """DU-1 = sì: TX3 entra in 3A (pin 9 di U3) e arriva all'ESP32 sul GPIO21 (pin 24 della strip)."""
+    net = _netlist_attesa('basetta')
+    tx3 = set(net['reti']['/TX3'])
+    assert tx3 == {('U1', '24'), ('U3', '9')}
+    assert 'U4' not in net['componenti']

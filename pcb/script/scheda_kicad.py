@@ -7,15 +7,13 @@ riempimenti e contorno si aggiungono con le funzioni qui sotto, in mm.
 """
 
 import os
-import subprocess
 import zlib
 
 import pcbnew
 
 import genera_contorni
-from sexpr import figli, figlio, leggi
+from schema_kicad import netlist  # noqa: F401 (la usano i generatori delle schede)
 
-KICAD_CLI = os.environ.get('KICAD_CLI', '/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli')
 IMPRONTE = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'librerie', 'hex2.pretty'))
 
 
@@ -30,35 +28,6 @@ def _strato(nome):
 
 def punto(x, y):
     return pcbnew.VECTOR2I(mm(x), mm(y))
-
-
-def netlist(sch, uscita):
-    """Netlist dello schema: {'componenti': {ref: {...}}, 'reti': {nome: [(ref, pin)]}}."""
-    subprocess.run([KICAD_CLI, 'sch', 'export', 'netlist', '--format', 'kicadsexpr', '-o', uscita, sch],
-                   check=True, capture_output=True)
-    with open(uscita, encoding='utf-8') as f:
-        n = leggi(f.read())
-    comp = {}
-    for c in figli(figlio(n, 'components'), 'comp'):
-        ref = figlio(c, 'ref')[1]
-        foglio = figlio(c, 'sheetpath')
-        prop = {figlio(p, 'name')[1]: (figlio(p, 'value') or [None, ''])[1] for p in figli(c, 'property')}
-        campi = {figlio(f, 'name')[1]: (f[2] if len(f) > 2 else '') for f in figli(figlio(c, 'fields'), 'field')}
-        comp[ref] = {
-            'valore': figlio(c, 'value')[1],
-            'impronta': figlio(c, 'footprint')[1],
-            # le unità di un simbolo a più unità hanno un tstamp l'una: KiCad usa il primo
-            'percorso': figlio(foglio, 'tstamps')[1] + figlio(c, 'tstamps')[1],
-            'foglio': prop.get('Sheetname', ''),
-            'file_foglio': prop.get('Sheetfile', ''),
-            'campi': campi,
-            'fuori_distinta': 'exclude_from_bom' in prop,
-            'non_montare': 'dnp' in prop,
-        }
-    reti = {}
-    for r in figli(figlio(n, 'nets'), 'net'):
-        reti[figlio(r, 'name')[1]] = [(figlio(x, 'ref')[1], figlio(x, 'pin')[1]) for x in figli(r, 'node')]
-    return {'componenti': comp, 'reti': reti}
 
 
 class Scheda:

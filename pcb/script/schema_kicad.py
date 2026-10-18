@@ -234,3 +234,37 @@ def scrivi_progetto(cartella, nome):
                             _RIGA % ('hex2_kicad', 'hex2_kicad.kicad_sym', 'copie dalle librerie di KiCad 10')))
     with open(os.path.join(cartella, 'fp-lib-table'), 'w', encoding='utf-8') as f:
         f.write(_TABELLA % ('fp_lib_table', _RIGA % ('hex2', 'hex2.pretty', 'impronte del progetto e copie')))
+
+
+def netlist(sch, uscita):
+    """Netlist dello schema: {'componenti': {ref: {...}}, 'reti': {nome: [(ref, pin)]}}."""
+    subprocess.run([KICAD_CLI, 'sch', 'export', 'netlist', '--format', 'kicadsexpr', '-o', uscita, sch],
+                   check=True, capture_output=True)
+    return leggi_netlist(uscita)
+
+
+def leggi_netlist(uscita):
+    """Netlist di KiCad (formato kicadsexpr) già esportata."""
+    with open(uscita, encoding='utf-8') as f:
+        n = leggi(f.read())
+    comp = {}
+    for c in figli(figlio(n, 'components'), 'comp'):
+        ref = figlio(c, 'ref')[1]
+        foglio = figlio(c, 'sheetpath')
+        prop = {figlio(p, 'name')[1]: (figlio(p, 'value') or [None, ''])[1] for p in figli(c, 'property')}
+        campi = {figlio(f, 'name')[1]: (f[2] if len(f) > 2 else '') for f in figli(figlio(c, 'fields'), 'field')}
+        comp[ref] = {
+            'valore': figlio(c, 'value')[1],
+            'impronta': figlio(c, 'footprint')[1],
+            # le unità di un simbolo a più unità hanno un tstamp l'una: KiCad usa il primo
+            'percorso': figlio(foglio, 'tstamps')[1] + figlio(c, 'tstamps')[1],
+            'foglio': prop.get('Sheetname', ''),
+            'file_foglio': prop.get('Sheetfile', ''),
+            'campi': campi,
+            'fuori_distinta': 'exclude_from_bom' in prop,
+            'non_montare': 'dnp' in prop,
+        }
+    reti = {}
+    for r in figli(figlio(n, 'nets'), 'net'):
+        reti[figlio(r, 'name')[1]] = [(figlio(x, 'ref')[1], figlio(x, 'pin')[1]) for x in figli(r, 'node')]
+    return {'componenti': comp, 'reti': reti}
