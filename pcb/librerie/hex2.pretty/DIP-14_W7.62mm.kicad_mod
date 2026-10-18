@@ -256,11 +256,6 @@
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 	)
-	(point
-		(at 3.81 7.62)
-		(size 1.27)
-		(layer "F.Fab")
-	)
 	(embedded_fonts no)
 	(model "${KICAD10_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-14_W7.62mm.step"
 		(offset

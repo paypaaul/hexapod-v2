@@ -53,6 +53,11 @@ class Scheda:
             fp = pcbnew.FootprintLoad(IMPRONTE, nome)
             if fp is None:
                 raise KeyError('impronta %s non trovata in %s' % (nome, IMPRONTE))
+            # FootprintLoad legge tutta la libreria e consuma identificativi: si riparte da un seme per impronta, così
+            # il file non cambia quando cambia il contenuto di hex2.pretty
+            pcbnew.KIID.SeedGenerator(zlib.crc32(('%s/%s' % (os.path.basename(percorso), ref)).encode()))
+            for el in [fp] + [x for g in (fp.Pads(), fp.GraphicalItems(), fp.GetFields(), fp.Zones(), fp.Groups()) for x in g]:
+                el.ResetUuid()
             fp.SetFPID(pcbnew.LIB_ID(lib, nome))
             fp.SetReference(ref)
             fp.SetValue(c['valore'])

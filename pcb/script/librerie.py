@@ -12,7 +12,7 @@ import os
 import sys
 
 from schema_kicad import LIBRERIE_SIMBOLI, simbolo_libreria
-from sexpr import S, Sym, scrivi
+from sexpr import S, Sym, leggi, scrivi
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 LIB = os.path.normpath(os.path.join(QUI, '..', 'librerie'))
@@ -77,7 +77,13 @@ def impronte():
     for lib_id in IMPRONTE:
         lib, nome = lib_id.split(':')
         with open(os.path.join(IMPRONTE_KICAD, lib + '.pretty', nome + '.kicad_mod'), encoding='utf-8') as f:
-            out[nome + '.kicad_mod'] = f.read()
+            testo = f.read()
+        if '\n\t(point' in testo:
+            # i punti d'ancoraggio della 10 (solo grafica) non hanno un tipo Python in pcbnew e non si possono rinumerare:
+            # senza di loro il PCB generato non dipende dal contenuto della libreria (scheda_kicad.py)
+            fp = leggi(testo)
+            testo = scrivi([x for x in fp if not (isinstance(x, list) and x and x[0] == 'point')]) + '\n'
+        out[nome + '.kicad_mod'] = testo
     return out
 
 
