@@ -106,6 +106,8 @@ python3 pcb/prova/genera_schema.py
 $KP pcb/prova/genera_pcb.py
 python3 pcb/script/controlla.py pcb/prova
 $KP pcb/basetta/sbroglia.py
+$KP pcb/partitori/sbroglia.py
+python3 pcb/script/gerber.py basetta partitori carapace   # zip in build/gerber/ per jlcpcb.com
 $KP pcb/script/dima.py carapace
 python3 pcb/script/stampe.py carapace
 python3 pcb/script/regole.py --controlla

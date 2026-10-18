@@ -218,7 +218,7 @@ Approvate dall'utente il 18 ottobre 2026, prima dell'approvazione del piano. Van
 | Voce | Prodotto | Q.tà | Uso | Costo | Stato |
 |---|---|---|---|---|---|
 | PCB1 | resistenza 10 kΩ 1 % 0805 | 15 | partitori sulla PCB-P (8) e R1, R10, R16 della basetta (D-083) | meno di 1 € (S) | approvata, ordine in sospeso; quantità da 10 a 15 il 18 ottobre (D-083), da confermare all'ordine |
-| PCB2 | condensatore 100 nF X7R 0805 | 20 | CS1, CS2 della basetta e C1–C8 della PCB-P (D-084: il kit B8 è a reoforo, non SMD) | meno di 1 € (S) | **da approvare**, nell'ordine DigiKey in sospeso |
+| PCB2 | condensatore 100 nF X7R 0805 | 20 | CS1, CS2 della basetta e C1–C8 della PCB-P (D-084: il kit B8 è a reoforo, non SMD) | meno di 1 € (S) | **approvata dall'utente il 19 ottobre 2026**, nell'ordine DigiKey in sospeso |
 
 **Basetta a quattro strati** (D-083, scelta dell'utente del 18 ottobre): circa 8–10 $ per 5 schede contro circa 2 $ del due strati (S, dato del 2024), ordinata a parte dalle altre due; il preventivo vero si fa in F7. I due 100 nF della basetta (CS1, CS2) sono 0805: il kit B8 dell'utente è a reoforo (D-084), quindi vengono dalla voce PCB2. La PCB-P va sullo stesso pannello a quattro strati (D-084).
 

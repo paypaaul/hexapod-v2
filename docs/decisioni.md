@@ -950,4 +950,4 @@ L'utente ha lasciato a me la scelta della strada per la PCB-P (la sagoma di D-08
 
 **Esito**: schema con ERC a zero e reti come `partitori_def.py`; piazzamento e sbroglio da script (`pcb/partitori/sbroglia.py`, instradatore del progetto sui quattro strati) con **DRC a zero e nessuna connessione aperta**; dima `Dima_PCB_Partitori.stl` e stampe. La sagoma è ancora quella di prova scritta in `genera_pcb.py`: il controllo dei contorni contro il CAD è sospeso nella CI fino alla 2.1.9.
 
-**Da comprare (da approvare)**: 100 nF X7R 0805 per CS1 e CS2 della basetta e C1–C8 della PCB-P, 10 servono, 20 con le scorte, pochi centesimi l'uno, nell'ordine DigiKey in sospeso. In alternativa sulla basetta si potrebbero usare i ceramici a reoforo del kit, ma non ci sono più i posti; sulla PCB-P non ci stanno comunque.
+**Da comprare** (PCB2, approvata dall'utente il 19 ottobre): 100 nF X7R 0805 per CS1 e CS2 della basetta e C1–C8 della PCB-P, 10 servono, 20 con le scorte, pochi centesimi l'uno, nell'ordine DigiKey in sospeso. In alternativa sulla basetta si potrebbero usare i ceramici a reoforo del kit, ma non ci sono più i posti; sulla PCB-P non ci stanno comunque.
