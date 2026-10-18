@@ -317,13 +317,15 @@ Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, co
   - **prova del metodo riuscita**: schema da script con ERC a zero, PCB da `pcbnew` con le reti, piste e riempimento da script, DRC con la parità a zero; ogni controllo ha un caso che fallisce. Schema, piazzamento e sbroglio li fa l'agente da script; l'utente rivede nell'editor e nei render;
   - librerie del progetto (`pcb/librerie`), regole del DRC in una fonte unica (`pcb/regole/hex2.kicad_dru`), `genera_contorni.py` (sagome, fori e zone senza rame dal CAD), `verifica_reti.py` con la bozza di `pcb/aggiunte.yaml`, procedura STEP (`cad/CLAUDE.md`), job `pcb` nella CI, `tests/test_pcb.py`;
   - scheda di prova in `pcb/prova`: resta come caso di riferimento della CI.
-- **Aspetta l'utente** (cose da guardare in `CLAUDE.md`), nessuna blocca F3:
-  - misure della RE1.3 col calibro e prova a secco delle strip (servono prima di F4);
-  - spina JR di un servo (serve per DU-5);
+- **F3 per PCB-B e PCB-C fatta, ferma all'arresto R1** (commit 679ae9a): schemi in `pcb/basetta` e `pcb/carapace`, generati da script, ERC a zero, reti uguali ai `*_def.py` della guida salvo le differenze scritte in `pcb/aggiunte.yaml`. Simboli e impronte proprie in `pcb/script/propri.py`. Nessuna voce nuova nel BOM.
+- **Piano della 2.1.8 (F2)** scritto in `piano-v2.1.0.md`, in fondo: da approvare.
+- **Aspetta l'utente**:
+  - revisione R1 (schemi in `pcb/*/` e PDF da `kicad-cli sch export pdf`) e via al piano della 2.1.8;
+  - se vuole, la verifica R1 con agenti (sezione 7): va chiesta prima;
+  - misure della RE1.3 col calibro e prova a secco delle strip (blocco D della 2.1.8, prima del piazzamento della PCB-B);
+  - spina JR di un servo (blocco B della 2.1.8, DU-5);
   - taglia del kit B8, 5,1 kΩ nel kit Elegoo, portafusibile Neuftech (Q-23), tensione della TX della SSC-32.
-- **Prossimi passi dell'agente**:
-  - **F3** per PCB-B e PCB-C: simboli e impronte di ESP32 (numerazione dei pin in `pcb/README.md`), D24V22F5 e Würth a 90°; schemi generati da script, ERC a zero, `verifica_reti.py` verde, `aggiunte.yaml` completata. Finisce con l'arresto **R1**;
-  - **F2**: piano della versione 2.1.8 del CAD in `piano-v2.1.0.md`, da far approvare prima di toccare Fusion.
+- **Dopo R1**: F4 per la PCB-C (piazzamento, con le scatole provvisorie nel CAD); blocco A della 2.1.8.
 
 **Acquisti (DU-4)**: approvati il 18 ottobre 10 kΩ 0805 (PCB1), X1 e X6; PTC di X9 passato a MF-R090; ordine DigiKey **in sospeso**, da unire ad altre voci per superare i 75 €. Non si comprano, perché l'utente li ha: i 100 nF a reoforo (kit dell'utente) e i pull-up da 4,7 kΩ (kit Elegoo: 5,1 kΩ se c'è, altrimenti 10 kΩ dal set B10). Il 330 Ω e l'1 kΩ sono nel set B10, il 15 kΩ non serve. La presa JST SH è stata tolta (DU-2 = no). C1 e i partitori a reoforo di X5 e X14 sono usciti dal BOM (2.4).
 
