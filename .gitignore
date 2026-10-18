@@ -14,3 +14,7 @@ cad/render/*.png
 .ruff_cache/
 .pytest_cache/
 build/
+# originali dell'utente (screenshot e immagini scaricate): nella repo si tengono le copie in PNG
+docs/immagini/**/*.heic
+docs/immagini/**/*.avif
+docs/immagini/**/*.webp

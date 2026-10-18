@@ -52,9 +52,9 @@ Fonti primarie lette l'8 ottobre 2026 (us.ovonicshop.com e ampow.com, più inser
 
 Il vano si disegna sull'inviluppo massimo con battuta, schiuma e fermo; le quote definitive si prendono con il calibro sul pacco reale.
 
-## Scheda ESP32-S3 CAM "corta" (57,1 mm), quella fotografata il 18 ottobre 2026
+## Scheda ESP32-S3 CAM "corta" (57,1 mm), quella fotografata il 18 ottobre 2026: non va nel robot
 
-L'utente ne ha 2 (uno dei due ordini AliExpress di gennaio 2026). Inserzione AliExpress 1005006579157105, marchio "baishundianzi", variante "esp32-s3" (screenshot e disegno in `docs/immagini/esp32-s3-cam-57mm-*.png`). Foto della scheda vera con il calibro: `docs/immagini/esp32-s3-cam-fronte.jpeg`, `-retro.jpeg`; misure in `piano-pcb.md` (esiti di F0).
+L'utente ne ha 2 (uno dei due ordini AliExpress di gennaio 2026). Non è la RE1.3: nel robot va la UICPAL qui sotto, che l'utente ha in 2 pezzi. Inserzione AliExpress 1005006579157105, marchio "baishundianzi", variante "esp32-s3" (screenshot e disegno in `docs/immagini/scheda1/esp32-s3-cam-57mm-*.png`). Foto della scheda vera con il calibro: `docs/immagini/scheda1/esp32-s3-cam-fronte.jpeg`, `-retro.jpeg`; misure in `piano-pcb.md` (esiti di F0).
 
 | Quota / dato | Valore | Stato |
 |---|---|---|
@@ -67,7 +67,7 @@ L'utente ne ha 2 (uno dei due ordini AliExpress di gennaio 2026). Inserzione Ali
 
 ## Scheda UICPAL ESP32-S3-CAM N16R8 RE1.3
 
-Fonte: immagini dell'inserzione AliExpress 1005008519401021 (venditore "Uncle Electronic Tech Store"), lette l'8 ottobre 2026. Fonte primaria del venditore, ma le quote di un'inserzione vanno confermate con il calibro sulla scheda reale.
+Fonte: immagini dell'inserzione AliExpress 1005008519401021 (venditore "Uncle Electronic Tech Store"), lette l'8 ottobre 2026. **L'utente ne ha 2** (riconosciute il 18 ottobre 2026, `docs/immagini/scheda2/`: immagini dell'inserzione con la sigla "N16R8 RE1.3" sulla serigrafia). Dal disegno e dal retro dell'inserzione (S, in pixel): primo pin a circa 2,6 mm dal bordo di testa e ultimo a circa 11,6 da quello di coda; sul retro la microSD sta verso l'antenna, l'AMS1117 (SOT-223) e il tantalio verso le USB. Fonte primaria del venditore, ma le quote di un'inserzione vanno confermate con il calibro sulla scheda reale.
 
 | Quota / dato | Valore | Stato |
 |---|---|---|

@@ -329,18 +329,17 @@ Dati letti su fonte primaria da un agente (circa 0,16 milioni di token) e ricont
 | Würth 61201621721 | foro consigliato Ø1,10; scatola 27,98, pin da un capo all'altro 17,78; chiave larga 4,5 al centro; pin 1 sulla fila vicina alla scheda (S, dal disegno) | catalogo WR-BHD 09/08 su DigiKey: il sito Würth non si lascia leggere. **C** il pin 1: si controlla sul modello 3D di DigiKey o sul pezzo |
 | Prezzi DigiKey (senza IVA) | 10 kΩ 0805 Yageo RC0805FR-0710KL 0,03 €; 100 nF a reoforo Vishay K104K15X7RF5TL2 (passo 2,5) 0,27 €; MF-R090 0,41 €; Yageo MFR-25FRF52 15 kΩ / 330 Ω / 1 kΩ circa 0,09–0,10 € | V listino del 18 ottobre |
 
-**ESP32 dalle foto dell'utente** (18 ottobre, `docs/immagini/esp32-s3-cam-fronte.jpeg` e `-retro.jpeg`, con il calibro accanto; misure in pixel con il passo dei pin come riferimento, quindi S+, circa ±0,5 mm):
-- **Sigla RE1.3**: non c'è su nessuna delle due facce. Sul fronte "ESP32-S3 WROOM", sul retro "V1695" e "127294G_YH27_231016". Va chiesto se è la scheda dell'inserzione RE1.3 o una delle altre.
-- **Piedinatura** (S-15): uguale a `schemi.md` riga per riga. Vista dal lato del modulo, con l'antenna in alto: a sinistra 3V3, EN, 4, 5, 6, 7, 15, 16, 17, 18, 8, 3, 46, 9, 10, 11, 12, 13, 14, 5V; a destra TX (43), RX (44), 1, 2, 42, 41, 40, 39, 38, 37, 36, 35, 0, 45, 48, 47, 21, 20, 19, GND. Il fronte guarda in alto, quindi la fila 3V3…5V sta a +Y (riga 2), come nel progetto: chiuso, V su questa scheda.
-- **Interasse delle file**: circa 10,1 passi (25,7 ± 0,5 mm). Non è 9 passi (22,86) né 11 (27,94): torna con **25,4**. La prova a secco resta la conferma.
-- **Lunghezza**: il PCB è lungo circa **51 mm** (20 pin a 2,54 più circa 1,3 per parte), largo circa 27,6; l'antenna sporge circa 6,5 mm. Il CAD ha 62,6 × 28,3 (dall'inserzione, S): **8,8 mm in più verso la coda**.
-- **USB-C**: a filo del bordo di coda, quindi nel robot a x ≈ 22,3…29,6. Il CAD le ha a 12,7…20,1.
-- **Retro** (S-08): la sede della microSD sta **sotto il modulo, verso l'antenna** (x ≈ 58…74 nel robot); verso la coda (x ≈ 28…45) ci sono un integrato QFN, un regolatore SOT-223, un condensatore al tantalio e due SOT-23; in mezzo (x ≈ 45…58) solo piste. Il CAD ha la microSD verso la coda. Le altezze non si leggono dalla foto.
-- **Conseguenza per la PCB-B**: il D24V22F5 è alto 8,1 mm sopra la basetta e sotto l'ESP32 ci sono 8,5 mm. Al posto previsto (x ≈ 54…72) finirebbe sotto la microSD (circa 1,9 mm: restano 6,6), quindi **non ci sta**. Il tratto libero in mezzo è lungo circa 13 mm, contro i 17,8 del regolatore. Strade, da scegliere con le altezze vere:
-  - un'apertura nella PCB-B sotto il regolatore, dove affondano i suoi componenti inferiori (1,1 mm), con il regolatore nel tratto libero;
-  - strip più alte (cambia la quota dell'ESP32 e della camera nel CAD);
-  - regolatore fuori dalla basetta.
-- **Conseguenza per il CAD**: `Rif_ESP32_S3_CAM` va rifatto sulle misure vere nella 2.1.8 (`piano-v2.1.0.md`, voce 4), con le verifiche che lo toccano.
+**Le schede ESP32 dell'utente** (18 ottobre; immagini in `docs/immagini/scheda1/` e `scheda2/`). L'utente ne ha due tipi, 2 + 2:
+- **Scheda 1, "corta"**: inserzione AliExpress 1005006579157105, 57,1 × 28,2 mm antenna compresa. È quella fotografata con il calibro. **Non è la RE1.3** e non va nel robot. Dalla foto:
+  - piedinatura uguale a `schemi.md` (S-15 chiuso anche per la RE1.3, che ha la stessa: immagine "Pin definitions" dell'inserzione);
+  - interasse delle file 10 passi, cioè 25,4.
+- **Scheda 2, UICPAL "ESP32-S3-CAM N16R8 RE1.3"**: inserzione 1005008519401021, quella del CAD. È la scheda scelta dall'utente (`CLAUDE.md`). Dal disegno e dalle foto dell'inserzione (S, misure in pixel):
+  - PCB 62,6 × 28,3 come nel CAD;
+  - primo pin a circa 2,6 mm dal bordo di testa, ultimo a circa 11,6 da quello di coda. Il CAD ha 4,3 e 10,1: PCB e antenna circa 1,6 mm più indietro nel robot (bordo di testa a x ≈ 74,6, antenna fino a ≈ 79,4; bordo di coda a ≈ 12,2);
+  - **retro**: la sede della microSD sta **verso l'antenna** (x ≈ 57…73 nel robot), il regolatore AMS1117 (SOT-223) e il condensatore al tantalio **verso le USB** (x ≈ 20…28), due SOT-23 a x ≈ 29…33; in mezzo (x ≈ 33…56) solo passivi piccoli. **Il CAD ha la microSD verso la coda** (`slot_tf` a x 22,5…37,5): è sbagliato;
+  - le altezze vere si misurano col calibro.
+- **Conseguenza per la PCB-B**: il D24V22F5 sta 8,1 mm sopra la basetta (1,1 di componenti sotto, 1,02 di PCB, 6,0 sopra), e sotto l'ESP32 ci sono 8,5 mm. Nel posto previsto (x ≈ 54…72) finisce sotto la microSD (circa 1,9 mm, restano 6,6): **non ci sta**. Il tratto x ≈ 33…56 ha solo componenti bassi, ed è lungo abbastanza (circa 23 mm contro 17,8). Il margine però è di pochi decimi: si prevede un'apertura nella PCB-B sotto il regolatore, dove affondano i suoi 1,1 mm di componenti inferiori, così la sua cima scende a circa 7,0 mm. Si decide in F4 con le altezze vere.
+- **Conseguenza per il CAD**: in `Rif_ESP32_S3_CAM` vanno spostati la sede della microSD e la posizione delle file rispetto al PCB, e vanno aggiunti AMS1117 e tantalio (2.1.8, `piano-v2.1.0.md`, voce 4).
 
 **Scelte che ne seguono**: R11, R12 e il partitore di JP-RMT a 20 kΩ / 33 kΩ, dal set B10, senza comprare il 15 kΩ. Restano da decidere con l'utente l'acquisto dei 4,7 kΩ e l'MF-R090: a 40 °C, sotto l'ESP32, l'MF-R075 tiene 0,61 A, appena sopra il tetto di 600 mA del firmware.
 
