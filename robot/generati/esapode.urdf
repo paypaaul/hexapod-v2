@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="esapode">
-  <!-- Generato da tools/genera_modelli.py (versione 2.1.7, Hexapod v2.1.0 v19): non modificare a mano. -->
+  <!-- Generato da tools/genera_modelli.py (versione 2.1.8, Hexapod v2.1.0 v20): non modificare a mano. -->
   <material name="scuro">
     <color rgba="0.18 0.18 0.2 1" />
   </material>
@@ -15,7 +15,7 @@
     <inertial>
       <origin xyz="0.00433 0.000035 -0.010628" rpy="0 0 0" />
       <mass value="1.43255" />
-      <inertia ixx="0.00275204" ixy="-5.47147e-06" ixz="1.19271e-05" iyy="0.00567712" iyz="-7.38277e-07" izz="0.00734283" />
+      <inertia ixx="0.00275204" ixy="-5.46965e-06" ixz="1.19123e-05" iyy="0.00567711" iyz="-7.44952e-07" izz="0.00734281" />
     </inertial>
     <collision name="chiglia">
       <origin xyz="0.00015 0 -0.036675" rpy="0 0 0" />

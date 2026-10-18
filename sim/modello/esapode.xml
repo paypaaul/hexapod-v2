@@ -1,5 +1,5 @@
 <mujoco model="esapode">
-  <!-- Generato da tools/genera_modelli.py (versione 2.1.7, Hexapod v2.1.0 v19): non modificare a mano. -->
+  <!-- Generato da tools/genera_modelli.py (versione 2.1.8, Hexapod v2.1.0 v20): non modificare a mano. -->
   <compiler angle="radian" meshdir="../../robot/mesh" autolimits="true" />
   <option timestep="0.002" integrator="implicitfast" />
   <visual>
@@ -44,7 +44,7 @@
     <geom name="pavimento" type="plane" size="0 0 0.05" material="pavimento" friction="0.8 0.005 0.0001" solref="0.005 1" />
     <body name="corpo" pos="0 0 0.11" childclass="esapode">
       <freejoint name="corpo" />
-      <inertial pos="0.00433 0.000035 -0.010628" mass="1.43255" fullinertia="0.00275204 0.00567712 0.00734283 -5.47147e-06 1.19271e-05 -7.38277e-07" />
+      <inertial pos="0.00433 0.000035 -0.010628" mass="1.43255" fullinertia="0.00275204 0.00567711 0.00734281 -5.46965e-06 1.19123e-05 -7.44952e-07" />
       <geom name="mesh_corpo" class="visivo" mesh="corpo" />
       <geom name="chiglia" class="urto" type="box" pos="0.00015 0 -0.036675" size="0.08755 0.0347 0.004725" />
       <geom name="scafo" class="urto" type="box" pos="0.00015 0 -0.012475" size="0.08755 0.048 0.019475" />

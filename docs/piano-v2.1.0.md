@@ -660,7 +660,7 @@ D-077 (risultati e verifiche; le scelte di P-001, P-002, P-003, P-005 e le rispo
 
 **Testi della guida dopo la 2.1.7**: fatti il 16 ottobre 2026 (esito nella sezione 2.1.7; restano le parti "in parte" di P-002, P-026, P-041, P-140). Era: tutto l'elenco della sezione 2.1.7 ("Testi della guida dopo la 2.1.7": P-003, P-005, P-002, P-001, P-007, P-008, P-031, P-050, P-088, P-078, P-072, P-066, P-046, P-085, P-077, P-111, P-010, P-058, P-117 e i dubbi della revisione dell'arresto 2), con le immagini rifatte sulla 2.1.7. Nella 2.1.7 sono cambiati solo i dati che seguono il CAD (catalogo, totali, 8.07, 8.09, 8.11, 11.03, 15.10, 15.11). In più la convenzione della guida per le viti svasate (testa sul fondo del cono: avviso del vassoio, `piastrina_imu`, `lama_b`), da correggere nella pipeline con i testi.
 
-### Piano della 2.1.8 (18 ottobre 2026, approvato dall'utente la sera stessa)
+### Piano della 2.1.8 (18 ottobre 2026, approvato dall'utente la sera stessa; **fatta**, D-081, tag `v2.1.8`)
 
 Contiene le voci 2, 3 e 4 qui sopra e la PCB-P (`piano-pcb.md` 5.3, fase F2). La voce 1 (P-139) entra solo se arriva la forma del portafusibile Neuftech (Q-23), altrimenti passa alla 2.1.9. La basetta e la scheda del carapace **non cambiano** nel CAD: le PCB si provano con scatole provvisorie in F4.
 

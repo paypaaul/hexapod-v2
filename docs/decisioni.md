@@ -853,3 +853,19 @@ L'utente ha lasciato la scelta all'agente, con un criterio: "l'interno il più o
 **Nel CAD (2.1.8, blocco C)**: `Rif_Partitori` (scheda 27,8 × 7,5 con pettine e pin); bugne `bugna_par_a/b` sul tetto; tolta la sede delle prese dei piedi (le code dei pin l'avrebbero toccata); le prese delle luci restano dov'erano, su fili. Saldature della prima colonna a 0,45 dalla bugna di coda; caso di controllo 0,5 più in là tocca. Nessuna interferenza nell'assieme.
 
 **Cosa resta**: la NTC sinistra non ha una spina (piazzola o spina nuova, da decidere con lo schema della PCB-P); partitori 0805 anche sul lato sotto (4 mm d'aria fino al tetto); la strada B con la millefori tagliata sulla stessa sagoma.
+
+## D-081 — Versione 2.1.8: fase F2 del PCB (2026-10-18)
+
+Piano approvato dall'utente il 18 ottobre (`docs/piano-v2.1.0.md`, "Piano della 2.1.8"). Copia di ripristino della 2.1.7 fatta prima di partire. File Fusion versione 20, tag `v2.1.8`.
+
+- **A, P-140**: le due strisce del cavo piatto scendono 1 mm più verso −Y, a 1,25 dal PCB dell'ESP32 (era 0,25). `cavo_piatto` senza urti; casi di controllo: 2 mm più fuori tocca la base, 1 mm più in basso tocca la spina. Resta 0,3 dalla battuta dell'ottagono.
+- **F, scheda del carapace**: due ali davanti (x 45…51 fino a \|y\| 24, `sch_ala_y`, `sch_ala_x`), perché in 21,5 × 30 non stavano CE1, le piazzole e i punti di prova (scelta delegata all'agente). Libere fino a \|y\| 28 con 8 mm di componenti sotto; un'ala da x 40 urta.
+- **B e C, scheda dei partitori**: D-080 (P2, sotto le prese dei piedi).
+- **D, ESP32 RE1.3**: ingombro con il retro vero, dalle quote del disegno dell'inserzione e dalle altezze massime dei datasheet (S). Le file dei pin restano dove sono; il PCB va 1,67 verso la coda. Spina della scheda del carapace sfilata e cavo piatto liberi; il controllo con la spina abbassata di 1,6 tocca le USB-C.
+- **A valle**: STL, mesh, descrizione del robot, guida (scheda dei partitori al passo 8.10, prese delle luci al 7.10), catalogo e BOM. Massa attesa 3048,2 g (scheda dei partitori 5 g al posto delle prese 3 g), femore al 53 % dello stallo come prima.
+
+**Verifiche**: controllo dell'assieme a zero scarti, sentinella (cambia solo `Corpo_Base`), nessuna interferenza, timeline senza problemi, carapace a ±110,44, `guida.costruisci controlla` verde, test Python, simulazione, nucleo e app verdi.
+
+**Lezione**: un'istanza creata con copia e incolla da un'altra dipende dalla sua voce della timeline: cancellando l'istanza d'origine resta una voce in errore, e togliendola sparisce anche la copia (le prese delle luci, ricreate subito con `istanze_nuove`). Dopo `pulisci_istanze` si rilegge `controllo` prima di toccare la timeline.
+
+**Resta**: P-139 (reofori delle spie) passa alla 2.1.9, aspetta il portafusibile (Q-23). Altezze del retro della RE1.3 da confermare sulla dima (F5).

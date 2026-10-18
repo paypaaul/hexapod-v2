@@ -318,10 +318,10 @@ Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, co
   - librerie del progetto (`pcb/librerie`), regole del DRC in una fonte unica (`pcb/regole/hex2.kicad_dru`), `genera_contorni.py` (sagome, fori e zone senza rame dal CAD), `verifica_reti.py` con la bozza di `pcb/aggiunte.yaml`, procedura STEP (`cad/CLAUDE.md`), job `pcb` nella CI, `tests/test_pcb.py`;
   - scheda di prova in `pcb/prova`: resta come caso di riferimento della CI.
 - **F3 per PCB-B e PCB-C fatta; R1 approvato dall'utente** dopo la verifica con due agenti (D-079): schemi in `pcb/basetta` e `pcb/carapace`, generati da script, ERC a zero, reti uguali ai `*_def.py` della guida salvo `pcb/aggiunte.yaml`. Correzioni della verifica: TCA9534 tolto, R16 in serie su OFF, regole del DRC per le reti che mancavano, testata con fori da 1,1, CS1 e CS2 su due passi, tetto dei LED a 450 mA con l'audio.
-- **Piano della 2.1.8 (F2) approvato** il 18 ottobre; in più il blocco F: la PCB-C non contiene tutto in 21,5 × 30, si provano nel CAD le ali davanti o la scheda com'è con CE1 sui fili (scelta delegata all'agente).
-- **Prossimo dell'agente: F4 della PCB-C** (piazzamento, poi le scatole provvisorie nel CAD). La PCB-B aspetta P-140 e le misure della RE1.3 (blocchi A e D della 2.1.8).
+- **F2 fatta: versione 2.1.8 chiusa** (D-081, tag `v2.1.8`): cavo piatto 1 mm più fuori; ali davanti della PCB-C fino a \|y\| 24 (la scheda non conteneva tutto in 21,5 × 30); **DU-5 = P2** (D-080): PCB-P sotto le prese dei piedi con il pettine delle spine, x 44,2…72, y 19…26,5; ESP32 RE1.3 col retro vero (altezze S).
+- **Prossimo dell'agente**: F4 della PCB-C (piazzamento con le ali), poi F4 della PCB-B (P-140 fatto, RE1.3 nel CAD) e F3 della PCB-P (schema, con la NTC sinistra da decidere).
 - **Aspetta l'utente**:
-  - misure della RE1.3 col calibro e prova a secco delle strip;
+  - altezza delle strip femmina che userà sulla basetta (standard 8,5); le altezze del retro della RE1.3 si confermano sulla dima;
   - taglia del kit B8, 5,1 kΩ nel kit Elegoo, portafusibile Neuftech (Q-23), tensione della TX della SSC-32.
 
 **Acquisti (DU-4)**: approvati il 18 ottobre 10 kΩ 0805 (PCB1), X1 e X6; PTC di X9 passato a MF-R090; ordine DigiKey **in sospeso**, da unire ad altre voci per superare i 75 €. Non si comprano, perché l'utente li ha: i 100 nF a reoforo (kit dell'utente) e i pull-up da 4,7 kΩ (kit Elegoo: 5,1 kΩ se c'è, altrimenti 10 kΩ dal set B10). Il 330 Ω e l'1 kΩ sono nel set B10, il 15 kΩ non serve. La presa JST SH è stata tolta (DU-2 = no). C1 e i partitori a reoforo di X5 e X14 sono usciti dal BOM (2.4).

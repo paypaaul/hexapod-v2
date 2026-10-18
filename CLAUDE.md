@@ -13,12 +13,12 @@ Robot esapode a 18 gradi di libertà (6 zampe × 3 servo MG996R), stampato in 3D
 | 1. Studio | fatta (8 ottobre 2026): `docs/studio-componenti.md`, `docs/dimensionamento.md`, `docs/dimensioni-componenti.md` |
 | 2. BOM | v2.0 approvata; v2.1 con prezzi, link e foto (D-068) in `docs/BOM.md` |
 | 3. Modelli 3D | fatta: parametri, STEP e ingombri in libreria (`cad/script/rif_componenti.py`, D-046) |
-| 4. CAD | **versione 2.1.7** (16 ottobre 2026, D-077, file Fusion versione 16): correzioni dalla guida di montaggio (arresto 2, D-076). Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
+| 4. CAD | **versione 2.1.8** (18 ottobre 2026, D-081, file Fusion versione 20): fase F2 del PCB (cavo piatto, ali della scheda del carapace, scheda dei partitori D-080, ESP32 RE1.3). Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
 | 5. BOM finale | v2.4: circa 365 € consegnati per le voci approvate, tolto quello che l'utente ha già in casa (D-073, D-076, D-078); predisposizioni X a parte (D-068) |
 | 6. Verifica del movimento | da fare |
 
 Numeri di oggi:
-- massa attesa 3046,2 g, con il femore al 53 % dello stallo a 100/45;
+- massa attesa 3048,2 g, con il femore al 53 % dello stallo a 100/45;
 - carapace a 3,96 mm dalle zampe medie a +35° e 4,76 a −35° (D-074: il 4,58 di D-071 non si ritrova), 7,1 dalle altre;
 - zampe vicine libere a 30,5° e a contatto a 31° su quattro coppie su quattro (D-077);
 - ginocchio calettato a γ 100; dopo la taratura `gamma_max` = min(177, γ misurato + 80) (P-015, D-077);
@@ -91,7 +91,7 @@ Numeri di oggi:
 | `docs/backlog.md` | lavori decisi o studiati ma non ancora in una versione |
 | `docs/piano-pcb.md`, `docs/ricerca/pcb/` | piano dei circuiti stampati (prima serie r1) e studio da cui parte |
 | `pcb/` | progetti KiCad generati da script, librerie, regole, controlli (`pcb/README.md`) |
-| `docs/versioni.md`, `docs/piano-v2.1.0.md` | storico delle versioni e piani dalla 2.1.0 alla 2.1.7 |
+| `docs/versioni.md`, `docs/piano-v2.1.0.md` | storico delle versioni e piani dalla 2.1.0 alla 2.1.8 |
 | `docs/progetto-meccanico.md` | architettura, quote, verifiche, masse e render |
 | `docs/BOM.md` | distinta base con prezzi, carrelli, foto e domande aperte |
 | `docs/cablaggio.md` | tutti i cavi, connettori, piedinature e punti aperti |
@@ -114,7 +114,7 @@ Numeri di oggi:
   - `Hexapod v2.1.0 - ripristino 2.1.6 (prima della 2.1.7)`, lineage `o79LLOHlSzmXdBn2HiYE1A`.
   - `Hexapod v2.1.0 - ripristino 2.1.7 (prima della 2.1.8)`, lineage `lqTyF-0xTpm2y77ASTO6Tg`.
   - I lineage hanno tutti il prefisso `urn:adsk.wipprod:dm.lineage:`.
-- **Design di lavoro**: "Hexapod v2.1.0", lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Ha le versioni dalla 2.1.0 alla 2.1.7 (versione 16 del file).
+- **Design di lavoro**: "Hexapod v2.1.0", lineage `urn:adsk.wipprod:dm.lineage:yQO8vfuxQ7uRcs6rnwK4_w`. Ha le versioni dalla 2.1.0 alla 2.1.8 (versione 20 del file).
   - Struttura (D-046): un solo file; la zampa è un componente istanziato sei volte; le parti comprate `Rif_*` stanno in libreria (y ≥ 250 mm).
   - Gli attrezzi stanno anche loro in libreria e sono nascosti.
 
@@ -159,7 +159,7 @@ Numeri di oggi:
    - Kit Temu da 918 viti M2–M5: tipo di testa e lunghezze delle M3. Se ci sono M3 × 6 e × 8 a testa cilindrica, D6 si riduce.
    - Lega dello stagno "a bassa temperatura": se non è al bismuto, B19 perde anche lo stagno.
    - Quanto resta della bobina FlashForge di PETG-CF nero: se è quasi intera, E1 scende a una bobina.
-   - Portafusibile Neuftech di F1 (Q-23): forma delle estremità, per i reofori delle spie (2.1.8).
+   - Portafusibile Neuftech di F1 (Q-23): forma delle estremità, per i reofori delle spie (2.1.9).
    - Quote dei moduli della 2.1.6 (D-074), prese dalle foto dei venditori; prima di stampare base, piastrina e carapace:
      - GY-6500: 26 × 15,5, fori Ø3 a 20,6 di interasse e 2,3 dal bordo (`sen_mpu_*`);
      - MS3625: Ø13,5 con i lati piatti a 12,6 (`aud_ms_*`);
@@ -173,7 +173,7 @@ Numeri di oggi:
    - piedino con le tre strette (0 / 0,2 / 0,4): il valore scelto va in `pied_stretta`.
    - Dopo i provini: nervature di schiacciamento delle culle.
 5. **Guida di montaggio** (D-075): bozza avanzata allineata alla 2.1.7, aggiornata a ogni versione; la passata finale (immagini, verifica avversaria, release) a progetto stabile. Prossimi passi e decisione del 17 ottobre in `docs/piano-guida.md` (in fondo).
-6. **PCB** (D-078): piano `docs/piano-pcb.md` approvato il 18 ottobre; F1 fatta (metodo da script, strumenti e CI in `pcb/`); schemi di basetta e carapace approvati all'arresto R1 (D-079); prossimo F4 della PCB-C; piano della 2.1.8 (F2) approvato, in corso (in fondo a `piano-v2.1.0.md`). Stato in fondo al piano.
+6. **PCB** (D-078): piano `docs/piano-pcb.md` approvato il 18 ottobre; F1 fatta (metodo da script, strumenti e CI in `pcb/`); schemi di basetta e carapace approvati all'arresto R1 (D-079); 2.1.8 (F2) chiusa (D-081); prossimo F4 (piazzamento) della PCB-C, poi PCB-B e schema della PCB-P. Stato in fondo al piano.
 7. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
 8. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 

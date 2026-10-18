@@ -1,7 +1,7 @@
 {
- "versione": "2.1.7",
- "documento": "Hexapod v2.1.0 v19",
- "esportato": "2026-10-18T19:54:21",
+ "versione": "2.1.8",
+ "documento": "Hexapod v2.1.0 v20",
+ "esportato": "2026-10-18T19:59:34",
  "unita": "mm, g, gradi; inerzie in g mm2 attorno al baricentro della parte, nella terna del segmento",
  "terne": {
   "robot": "X avanti, Y a sinistra, Z in alto; origine al centro del corpo, all'altezza degli assi dei femori",
@@ -1538,25 +1538,25 @@
   "Rif_Partitori": {
    "massa_g": 5.0,
    "baricentro_mm": [
-    57.058,
+    57.046,
     22.75,
-    -1.351
+    -1.307
    ],
    "inerzia_gmm2": [
     [
-     65.1,
+     65.2,
      0.0,
-     7.4
+     7.3
     ],
     [
      0.0,
-     204.1,
+     196.9,
      -0.0
     ],
     [
-     7.4,
+     7.3,
      -0.0,
-     178.3
+     171.4
     ]
    ],
    "materiale": "comprato",
