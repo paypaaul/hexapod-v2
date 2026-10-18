@@ -14,7 +14,7 @@ Robot esapode a 18 gradi di libertà (6 zampe × 3 servo MG996R), stampato in 3D
 | 2. BOM | v2.0 approvata; v2.1 con prezzi, link e foto (D-068) in `docs/BOM.md` |
 | 3. Modelli 3D | fatta: parametri, STEP e ingombri in libreria (`cad/script/rif_componenti.py`, D-046) |
 | 4. CAD | **versione 2.1.7** (16 ottobre 2026, D-077, file Fusion versione 16): correzioni dalla guida di montaggio (arresto 2, D-076). Cosa contiene ogni versione: `docs/versioni.md`. Meccanica, verifiche e masse: `docs/progetto-meccanico.md` |
-| 5. BOM finale | v2.3: circa 367 € consegnati per le voci approvate, tolto quello che l'utente ha già in casa (D-073, D-076); predisposizioni X a parte (D-068) |
+| 5. BOM finale | v2.4: circa 365 € consegnati per le voci approvate, tolto quello che l'utente ha già in casa (D-073, D-076, D-078); predisposizioni X a parte (D-068) |
 | 6. Verifica del movimento | da fare |
 
 Numeri di oggi:
@@ -171,7 +171,7 @@ Numeri di oggi:
    - piedino con le tre strette (0 / 0,2 / 0,4): il valore scelto va in `pied_stretta`.
    - Dopo i provini: nervature di schiacciamento delle culle.
 5. **Guida di montaggio** (D-075): bozza avanzata allineata alla 2.1.7, aggiornata a ogni versione; la passata finale (immagini, verifica avversaria, release) a progetto stabile. Prossimi passi e decisione del 17 ottobre in `docs/piano-guida.md` (in fondo).
-6. **PCB** (scelte dell'utente del 18 ottobre: una per una, a mano, JLCPCB, banco S1 sulla r1): piano in `docs/piano-pcb.md`, verificato, **da approvare** con le decisioni DU-1…DU-4.
+6. **PCB** (D-078): piano `docs/piano-pcb.md` approvato il 18 ottobre; in corso F0 (dati, acquisti, domande sui pezzi). Stato in fondo al piano.
 7. **Fase 5**: viteria dal modello, da aggiornare a ogni modifica. **Fase 6**: ciclo a tripode verificato in quattro assetti e rotazione sul posto; resta l'andatura con il corpo inclinato o spostato, se servirà.
 8. **Software**: prossimo S1, banco dell'elettronica (`docs/piano-elettronica-software.md`).
 

@@ -804,3 +804,23 @@ La 2.1.7 applica al CAD le scelte dell'arresto 2 della guida (D-076) e le decisi
 - **Reofori dei LED delle spie (X13) a 0,6 mm da F1**: con la lamatura il corpo del LED è fuori dall'ingombro di F1 (40 × 22 × 15, S), i reofori no. Proposta: spostare F1, la coppia di T-plug e le costole di +2,5 verso la testa (oggi ci sono 3,0 mm dal 2813), oppure prima leggere il portafusibile Neuftech vero. Il ripiego di `cablaggio.md` 5, punto 8 ("si piegano lungo la linguetta") non è fattibile.
 - **Cavo piatto in due strisce a 0,25 mm dal PCB dell'ESP32 e a 0,3 dalla battuta dell'ottagono**: proposta di far scendere le strisce 1,0 mm più verso l'esterno; nei testi della guida vanno la divisione in due strisce e la crimpatura.
 - **P-012, prese dei piedi**: quando si disegnano le prese, l'ingombro delle spine JR (circa 7,6 × 2,5) deve restare a y ≥ 17,6.
+
+## D-078 — Circuiti stampati al posto delle millefori: piano della prima serie (2026-10-18)
+
+L'utente ha scelto il 18 ottobre 2026, sullo studio di `docs/ricerca/pcb/`, e ha approvato il piano `docs/piano-pcb.md` (verificato da tre agenti, 51 rilievi corretti, sezione 9 del piano).
+
+**Scelte dell'utente**
+- **Architettura "una per una"**: tre PCB al posto delle tre millefori, con le stesse reti: basetta dell'ESP32 (PCB-B), scheda del carapace (PCB-C), partitori (PCB-P). Perché: è la strada più semplice, verificabile a mano col multimetro, e il CAD cambia solo per dare un posto ai partitori. La scheda madre consigliata dallo studio chiedeva colonne nuove e due varianti della base.
+- **Montaggio a mano**, schede nude; **JLCPCB**, un solo ordine; **banco S1 sulla prima serie** (r1): le millefori non si saldano mai.
+- **DU-1, KAmod tolto**: la TX verso la SSC-32 esce dal terzo canale del buffer SN74AHCT125 (già sulla basetta), con 330 Ω in serie e 10 kΩ di pull-up verso il 3,3 V dell'ESP32; la RX passa da un partitore 10 kΩ / 15 kΩ, montato sempre (ripiego da 1 kΩ solo dopo aver misurato la TX a non più di 3,6 V). Un modulo e un'impronta incerta (S-04) in meno.
+- **DU-2, niente presa Qwiic** sulla scheda del carapace: quattro piazzole per il cavo tagliato verso il TCA9534. Dalla 2.1.7 la scheda si raggiunge solo a carapace tolto, e sulla scheda più piena un componente in più non vale.
+- **DU-3, ERC e DRC di KiCad nella CI**, con KiCad dal PPA e il controllo della versione.
+- **Componenti** (scelta lasciata all'agente): basetta e carapace solo a reoforo, come sulla millefori; SMD 0805 solo sulla PCB-P (8 resistenze e 8 condensatori), dove lo spazio li impone.
+
+**Scelte dell'agente scritte nel piano** (sezione 2): PTC MF-R075 con impronta anche per MF-R090 e tetto dei LED sotto 600 mA fino a P4; pull-up del bus da 4,7 kΩ e ponticello I2C del modulo SparkFun X20 da tagliare; R9 sulla basetta; masse su un piano unico; fori Ø2,4.
+
+**Dati letti** (V): il modulo SparkFun Qwiic GPIO X20 esce di fabbrica a **0x27** con i pull-up da 4,7 kΩ inseriti (guida SparkFun); il progetto diceva 0x20. Proposta da decidere con S1: 0x27 nel firmware.
+
+**Acquisti** (18 ottobre): approvati 10 kΩ 0805 (PCB1), 15 kΩ / 330 Ω / 1 kΩ a reoforo se mancano in B10 (PCB3), X1; ordine DigiKey in sospeso finché non supera i 75 €. BOM 2.4: escono C1 e i partitori a reoforo di X5 e X14, circa 364,63 €.
+
+**Cosa resta**: DU-5, il posto della PCB-P (tasca accanto all'IMU o sotto le prese dei piedi), si decide nella 2.1.8 dopo le prove nel CAD. Fasi, arresti e rischi nel piano.

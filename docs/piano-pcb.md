@@ -310,9 +310,9 @@ Riferimenti di oggi: la raccolta per questo piano ha usato 4 agenti e circa 0,9 
 
 Lo stato sta qui sotto, aggiornato a ogni fase: fase corrente, ultimo commit, cosa aspetta l'utente.
 
-**Stato al 18 ottobre 2026**: piano scritto, verificato e corretto. Aspetta l'approvazione dell'utente (decise il 18 ottobre: DU-1 = sì, KAmod tolto; DU-2 = no, piazzole al posto della presa Qwiic; DU-3 = sì, KiCad nella CI). Nessun file KiCad nella repo.
+**Stato al 18 ottobre 2026**: piano **approvato** dall'utente (D-078). DU-1 = sì, DU-2 = no, DU-3 = sì; componenti a reoforo su basetta e carapace. **Fase corrente: F0.** Nessun file KiCad nella repo.
 
-**Acquisti (DU-4, in parte)**: il 18 ottobre, prima di approvare il piano, l'utente ha approvato i pezzi nuovi delle schede: 10 kΩ 0805, 15 kΩ / 330 Ω / 1 kΩ se mancano in B10 (voci PCB1 e PCB3 del BOM; dopo la scelta di basetta a reoforo, PCB3 si compra a reoforo), e X1. Da approvare in F0 con il resto: 2 condensatori da 100 nF a reoforo per CS1 e CS2. La presa JST SH (PCB2) è stata approvata e poi tolta lo stesso giorno, con DU-2 = no. L'ordine DigiKey è **in sospeso**, da unire ad altre voci per superare i 75 €. Le voci che il piano toglierebbe (C1, reoforo di X5 e X14) restano nel BOM finché il piano non è approvato. Restano da approvare per l'acquisto X6 (ADC) e il resto delle voci X del banco.
+**Acquisti (DU-4, in parte)**: il 18 ottobre, prima di approvare il piano, l'utente ha approvato i pezzi nuovi delle schede: 10 kΩ 0805, 15 kΩ / 330 Ω / 1 kΩ se mancano in B10 (voci PCB1 e PCB3 del BOM; dopo la scelta di basetta a reoforo, PCB3 si compra a reoforo), e X1. Da approvare in F0 con il resto: 2 condensatori da 100 nF a reoforo per CS1 e CS2. La presa JST SH (PCB2) è stata approvata e poi tolta lo stesso giorno, con DU-2 = no. L'ordine DigiKey è **in sospeso**, da unire ad altre voci per superare i 75 €. Con l'approvazione C1 e i partitori a reoforo di X5 e X14 sono usciti dal BOM (2.4). Restano da approvare per l'acquisto X6 (ADC) e il resto delle voci X del banco.
 
 ## 9. Verifica del piano (18 ottobre 2026)
 
