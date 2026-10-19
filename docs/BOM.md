@@ -226,6 +226,10 @@ Nella stessa occasione l'utente ha approvato l'acquisto di **X1** (cavi Qwiic 42
 
 In F0 (18 ottobre) non servono più, e sono tolte: le resistenze a reoforo da 15 kΩ, 330 Ω e 1 kΩ (era PCB3: il 330 e l'1 k sono nel set B10, il 15 k non serve con il partitore 20 k / 33 k) e i 100 nF a reoforo (era PCB4: l'utente li ha, ceramici, in un kit). I pull-up del bus da 4,7 kΩ, che il set B10 non ha, vengono dal kit di resistenze Elegoo dell'utente (5,1 kΩ se c'è, altrimenti 10 kΩ dal set B10): niente acquisto.
 
+## Primi ordini (19 ottobre 2026, D-086)
+
+Carrelli di Kamami, DigiKey e Amazon.it per l'elettronica, con link, codici, quantità e prezzi letti il 19 ottobre: `docs/ordini/2026-10-19-carrelli.md`. Rispetto alle tabelle sopra: acquisto approvato per X5 (7), X7, X13 e X14 su DigiKey; 1N5819 su DigiKey; C5 in confezione da 20 su Amazon; la 2813 (B3) è esaurita su Kamami e si compra più avanti; X20 è esaurito su DigiKey.
+
 ## Ordine degli acquisti consigliato
 
 1. **Una squadretta metallica di prova** (D3, approvata il 15 ottobre 2026: una AliExpress oppure una confezione diymore, alternative), qualche cuscinetto e perno (D1, D2), inserti e viti M3: servono per il provino stampato della culla e del giunto, che conferma le quote del servo prima di tutto il resto. Con queste, i due pulsanti (B3b), il tester dei servo (C9) e, per i provini 6 e 7, 2 FSR (X5) e un tratto di striscia con buffer (X9).

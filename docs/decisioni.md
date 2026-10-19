@@ -985,3 +985,22 @@ L'istanza nel corpo è stata ricreata alla posa nuova: le pose non seguono i par
 - test, firmware sul computer e app verdi.
 
 **Resta**: P-139 (reofori delle spie) aspetta il portafusibile (Q-23).
+
+## D-086 — Primi ordini: elettronica (2026-10-19)
+
+L'utente ha chiesto di partire dagli ordini dell'elettronica. Carrelli e link in `docs/ordini/2026-10-19-carrelli.md`, file per DigiKey in `docs/ordini/2026-10-19-digikey.csv`. Prezzi e magazzini letti il 19 ottobre da quattro agenti di ricerca (Sonnet) e da un verificatore, poi ricontrollati da me sulle voci critiche: D42V110F6 a 2 pezzi, 2813 in attesa, codici DigiKey di NTC e 1N5819.
+
+**Scelte dell'utente** (19 ottobre):
+- l'ordine DigiKey si completa con le predisposizioni approvate in D-069, comprate ora: 7 FSR (X5), 3 NTC (X14), 2 INA260 (X7), 2 LED (X13). Il carrello passa i 75 € e la spedizione è gratis; Tinytronics e Bürklin non servono più;
+- le piccole aggiunte le ha lasciate a me: spine IDC (3) e cavo piatto (3 piedi) di X2, una testata e un 470 µF di scorta, 1N5819 su DigiKey (esaurito su Kamami), 4 resistenze da 4,7 kΩ per R4 e R5, prolunghe dei servo in confezione da 20 su Amazon al posto di 4 su Kamami (le 16 avanzate sono le spine JR di piedi e luci, che non avevano una fonte).
+
+**Mie scelte**:
+- 10 kΩ e 100 nF 0805 da 50 pezzi invece di 15 e 20: costano circa un euro in più e coprono la saldatura a mano e un secondo giro di schede;
+- SN74AHCT125N da 3: uno per la basetta, uno per il provino 7, uno di scorta;
+- X20 fuori: su DigiKey ha magazzino 0 fino al 24 novembre;
+- 2813 fuori: su Kamami è in attesa per 4 settimane e serve solo al banco S1, che aspetta le PCB;
+- CE1: il 470 µF basso a reoforo non esiste a magazzino, si prende il Rubycon Ø6,3 × 11 e si prova nel CAD con una scatola da 12,5 prima di saldarlo.
+
+**Da decidere**: X8, X19 e CH340N nel pacco Kamami; quando comprare la 2813.
+
+I carrelli li riempie l'utente: dalla sessione macOS blocca gli eventi Apple verso Safari, e il controllo dei permessi non lascia modificare carrelli.
