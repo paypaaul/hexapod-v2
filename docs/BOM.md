@@ -228,7 +228,7 @@ In F0 (18 ottobre) non servono più, e sono tolte: le resistenze a reoforo da 15
 
 ## Primi ordini (19 ottobre 2026, D-086)
 
-Carrelli di Kamami, DigiKey e Amazon.it per l'elettronica, con link, codici, quantità e prezzi letti il 19 ottobre: `docs/ordini/2026-10-19-carrelli.md`. Rispetto alle tabelle sopra: acquisto approvato per X5 (7), X7, X13 e X14 su DigiKey; 1N5819 su DigiKey; C5 in confezione da 20 su Amazon; la 2813 (B3) è esaurita su Kamami e si compra più avanti; X20 è esaurito su DigiKey.
+Carrelli di Kamami, DigiKey e Amazon.it per l'elettronica, con link, codici, quantità e prezzi letti il 19 ottobre: `docs/ordini/2026-10-19-carrelli.md`. Rispetto alle tabelle sopra: acquisto approvato per X5 (7), X7, X13 e X14 su DigiKey e per X8 e il CH340N su Kamami (X19 più avanti); 1N5819 su DigiKey; C5 in confezione da 20 su Amazon; la 2813 (B3) è esaurita su Kamami e si compra più avanti; X20 è esaurito su DigiKey.
 
 ## Ordine degli acquisti consigliato
 

@@ -1001,6 +1001,6 @@ L'utente ha chiesto di partire dagli ordini dell'elettronica. Carrelli e link in
 - 2813 fuori: su Kamami è in attesa per 4 settimane e serve solo al banco S1, che aspetta le PCB;
 - CE1: il 470 µF basso a reoforo non esiste a magazzino, si prende il Rubycon Ø6,3 × 11 e si prova nel CAD con una scatola da 12,5 prima di saldarlo.
 
-**Da decidere**: X8, X19 e CH340N nel pacco Kamami; quando comprare la 2813.
+**Aggiunte dell'utente** (19 ottobre): X8 e CH340N nel pacco Kamami; X19 più avanti. **Da decidere**: quando comprare la 2813.
 
 I carrelli li riempie l'utente: dalla sessione macOS blocca gli eventi Apple verso Safari, e il controllo dei permessi non lascia modificare carrelli.
